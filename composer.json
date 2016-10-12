@@ -1,0 +1,26 @@
+{
+    "name": "Busy Bee",
+    "description": "Bee is all about schools, and their need for flexible management.",
+    "type": "project",
+    "license": "GNU General Public License V.3",
+	"homepage": "http://www.craigrayner.com/",
+    "authors": [
+        {
+            "name": "Craig Rayner",
+            "email": "craig@craigrayner.com",
+			"homepage": "http://www.craigrayner.com",
+			"role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+        }
+    },
+	"config": {
+    	"vendor-dir": "vendor"
+	},
+    "require": {
+	},
+    "require-dev": {
+    }
+}
