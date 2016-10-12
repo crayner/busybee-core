@@ -1,27 +1,68 @@
-Gibbon Core
-===========
-Gibbon is a flexible, open source school management platform designed to make like better for teachers, students, parents and schools.
+Symfony Standard Edition
+========================
 
-The Core repository represents the bulk of Gibbon, including all of its primary functionality. The core can be extended through the use of plugins and themes, which are provided separately.
+Welcome to the Symfony Standard Edition - a fully-functional Symfony
+application that you can use as the skeleton for your new applications.
 
-Gibbon is open source, and maintained for the benefit of teachers, students, parents and schools.
+For details on how to download and get started with Symfony, see the
+[Installation][1] chapter of the Symfony Documentation.
 
+What's inside?
+--------------
 
-Installation & Support
-======================
-For installation instructions, visit https://gibbonedu.org/support/administrators/installing-gibbon.
+The Symfony Standard Edition is configured with the following defaults:
 
-For support visit https://gibbonedu.org/support.
+  * An AppBundle you can use to start coding;
 
+  * Twig as the only configured template engine;
 
-Cutting Edge?
-==============
-If you want to run the latest version of Gibbon, prerelease, you can get the source from our GitHub repo (https://github.com/GibbonEdu/core).
+  * Doctrine ORM/DBAL;
 
-Remember, though, it is not stable, and you may lose data. This is not for the faint of heart.
+  * Swiftmailer;
 
-For installation instructions, visit https://gibbonedu.org/support/administrators/installing-gibbon, and make sure to follow the additional instructions for cutting edge code.
+  * Annotations enabled for everything.
 
-As of the latest commit on 26/03/2014 you no longer need to manually update database changes when running Cutting Edge code. Simply go to Admin > System Admin > System Settings and enable Cutting Edge Code. When you want to update, get the latest commit from GitHub, upload it to your server and go to Admin > System Admin > Update to run the new lines. 
+It comes pre-configured with the following bundles:
 
-For support visit https://gibbonedu.org/support.
+  * **FrameworkBundle** - The core Symfony framework bundle
+
+  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
+    template and routing annotation capability
+
+  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+
+  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+
+  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
+    component
+
+  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
+    sending emails
+
+  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
+
+  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
+    the web debug toolbar
+
+  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
+    configuring and working with Symfony distributions
+
+  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
+    capabilities
+
+  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
+    integration
+
+All libraries and bundles included in the Symfony Standard Edition are
+released under the MIT or BSD license.
+
+Enjoy!
+
+[1]:  https://symfony.com/doc/3.0/book/installation.html
+[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
+[7]:  https://symfony.com/doc/3.0/book/doctrine.html
+[8]:  https://symfony.com/doc/3.0/book/templating.html
+[9]:  https://symfony.com/doc/3.0/book/security.html
+[10]: https://symfony.com/doc/3.0/cookbook/email.html
+[11]: https://symfony.com/doc/3.0/cookbook/logging/monolog.html
+[13]: https://symfony.com/doc/3.0/bundles/SensioGeneratorBundle/index.html
