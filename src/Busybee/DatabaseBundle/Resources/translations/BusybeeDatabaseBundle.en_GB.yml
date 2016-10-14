@@ -101,12 +101,12 @@ database:
             yml: "The file %name% has been identified as a yml file."
             fail: "The file %name% has not been identified successfully. The file must be a zip or yml file."
         saved: 
-            enumerator: The enumerator %name%:%prompt% was successfully saved to the system database.
-            table: The table definition %name% was successfully saved to the system database.
-            field: The field definition %name% in table %table% was successfully saved to the system database.
-            nochange: The file %name% did not contain any changes to store in the current database structure.
-            change: The file %name% contained changes that were stored in the database.            
+            enumerator: 'The enumerator %name%:%prompt% was successfully saved to the system database.'
+            table: 'The table definition %name% was successfully saved to the system database.'
+            field: 'The field definition %name% in table %table% was successfully saved to the system database.'
+            nochange: 'The file %name% did not contain any changes to store in the current database structure.'
+            change: 'The file %name% contained changes that were stored in the database.'            
         process:
-            start: The file %name% processing was started. 
+            start: 'The file %name% processing was started.' 
         refresh:
-            on: Refresh is turned on.  Overwrite of existing records will occur if the the databse record differs from the defined structure in the file.
+            on: Refresh is turned on.  Overwrite of existing records will occur if the the databsse record differs from the defined structure in the file.

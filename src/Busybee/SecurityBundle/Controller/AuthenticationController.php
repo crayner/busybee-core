@@ -47,9 +47,8 @@ class AuthenticationController extends Controller
             $error = NULL;
         }
 
-        if (!$error instanceof AuthenticationException) {
+        if (!$error instanceof AuthenticationException) 
             $error = NULL; // The value does not come from the security component.
-        }
 
         // last username entered by the user
         $lastUsername = (NULL === $session) ? '' : $session->get($lastUsernameKey);
@@ -60,7 +59,7 @@ class AuthenticationController extends Controller
             'last_username' => $lastUsername,
             'error' => $error,
             'csrf_token' => $csrfToken,
-        ));
+        ), $request);
 	}
     /**
      * Renders the login template with the given parameters. Overwrite this function in
@@ -70,9 +69,12 @@ class AuthenticationController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function renderLogin(array $data)
+    protected function renderLogin( array $data, Request $request )
     {
         $data['ajaxOn'] = 'xxxyyyzzz';
+		$data['config'] = new \stdClass();
+		$data['config']->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+
 		return $this->render('BusybeeSecurityBundle:Security:login.html.twig', $data);
     }
  

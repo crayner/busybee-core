@@ -2,10 +2,12 @@
 
 namespace Busybee\SecurityBundle\Entity;
 
+use Busybee\SecurityBundle\Model\User as UserBase;
+use DateTime ;
 /**
  * User
  */
-class User
+class User extends UserBase 
 {
     /**
      * @var integer
@@ -291,9 +293,9 @@ class User
      *
      * @return User
      */
-    public function setLastLogin($lastLogin)
+    public function setLastLogin(DateTime $time = null)
     {
-        $this->lastLogin = $lastLogin;
+        $this->lastLogin = $time;
 
         return $this;
     }
@@ -411,7 +413,7 @@ class User
      *
      * @return User
      */
-    public function setPasswordRequestedAt($passwordRequestedAt)
+    public function setPasswordRequestedAt(DateTime $passwordRequestedAt = null)
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
 

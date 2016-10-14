@@ -2,21 +2,24 @@
 {% trans_default_domain 'BusybeeSecurityBundle' %}
 
 
-
-<div class="row marketing">
-	<div class="col-sm-12">
-		<form action="{{ path('busybee_security_user_reset_send_email') }}" method="POST" class="busybee_security_user_reset_request">
-		<div class="form-group well">
-			{% if invalid_username is defined %}
-				<p>{{ 'security.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
-			{% endif %}
-			<p><label for="username">{{ 'security.request.username'|trans }}</label>
-				<input type="text" id="username" name="username" required="required"{% if email is defined %} value="{{ email }}" {% endif %} /></p>
+<form action="{{ path("busybee_security_user_reset_send_email") }}" method="post"  class="busybee_security_user_reset_request">
+	<div id="form_body" class="container-fluid">
+		<div class="row marketing">
+			<div class="col-sm-12 form-group well">
+				{% if invalid_username is defined %}
+				<div class="alert alert-warning" role="alert">
+					<strong>{{ 'Warning'|trans }}!</strong> {{ 'security.request.invalid_username'|trans({'%username%': invalid_username}) }}
+				</div>
+				{% endif %}
+				<label for="username">{{ 'security.request.username'|trans }}</label>
+				<input type="text" id="username" name="username" required {% if email is defined %} value="{{ email }}" {% endif %} class="form-control" />
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+			</div>
 		</div>
-
-		<div class="form-group well text-center">
-			<input type="submit" value="{{ 'security.request.submit'|trans }}" class="btn btn-success" />
+		<div class="row marketing">
+			<div class="col-sm-12 form-group well text-right">
+				<input type="submit" value="{{ 'security.request.submit'|trans }}" class="btn btn-success" />	
+			</div>
 		</div>
-		</form>
 	</div>
-</div>
+</form>	

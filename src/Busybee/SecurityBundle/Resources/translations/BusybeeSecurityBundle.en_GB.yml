@@ -16,6 +16,7 @@ Non Teaching Staff: Non Teaching Staff
 Parent: Parent
 Student: Student
 Teaching Staff: Teaching Staff
+Warning: Warning
 user:
     label:
         username: User Name
@@ -61,6 +62,7 @@ security:
         description: Sends an email to the user to allow them to reset their own password.
         username: User Name or E-mail 
         submit: Request Password Reset 
+        invalid_username: "The username / email was not found for %username%." 
     resetting:
         title: Password Reset EMail
         email:
@@ -78,10 +80,10 @@ security:
         request: You are required to authenticate to continue to the selected page!
         not_valid: You are not authorised to use the selected page! 
         required: The page you have requested is protected. Please sign in to continue. 
-        no_table: The table '%name%' does not exist in the system. 
+        no_table: "The table '%name%' does not exist in the system." 
         blocked_ip: Your computer has been blocked from this site due to incorrect username/password combinations.  Try again soon. 
     authentication: 
-        failure: %name% at IP:%remoteIP% has failed to authenticate correctly.
+        failure: '%name% at IP:%remoteIP% has failed to authenticate correctly.'
     session:
         timeout: 'You have been logged out due to inactivity. You have not used the site for %lapseTime%.' 
 role:

@@ -32,7 +32,7 @@ class loginHandler implements AuthenticationSuccessHandlerInterface {
 
         if( ! $user_entity->getChangePassword() ) {
 
-            $route = $this->router->generate('busybee_home_page');
+            $route = $this->router->generate('home_page');
 
         } else {
 
@@ -54,7 +54,7 @@ class loginHandler implements AuthenticationSuccessHandlerInterface {
 
         } else {
 
-            $route = $this->router->generate('busybee_home_page');
+            $route = $this->router->generate('home_page');
 
         }
 	

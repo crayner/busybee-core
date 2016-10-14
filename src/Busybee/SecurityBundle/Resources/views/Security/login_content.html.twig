@@ -6,26 +6,20 @@
 <div class="form_error container"></div>
 
 <form action="{{ path("busybee_security_check") }}" method="post"  class="{{ ajaxOn }}">
-	<div id="form_body" class="container">
+	<div id="form_body" class="container-fluid">
 		<div class="row marketing">
-			<div class="col-lg-3"><input type="hidden" name="_csrf_token" value="{{ csrf_token }}" /></div>
-			<div class="col-lg-6">
-				<div class="form-group well">
-					<label for="username">{{ 'security.login.username'|trans }}</label>
-					<input type="text" id="username" name="_username" value="{{ last_username }}" required class="form-control" />
-				</div>
-	
+			<div class="well col-sm-6 form-group">
+				<label for="username">{{ 'security.login.username'|trans }}</label>
+				<input type="text" id="username" name="_username" value="{{ last_username }}" required class="form-control" />
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
-			
-				<div class="form-group well">
-					<label for="password">{{ 'security.login.password'|trans }}</label>
-					<input type="password" id="password" name="_password" required class="form-control" />
-				</div>
-				<div class="form-group well text-center">
-					<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-success" />
-					<button type="button" class="btn btn-info" onclick="location.href='{{ path("busybee_security_resetting_request") }}'">{{ 'security.login.forgot'|trans }}</button>
-				</div>
-	
+			</div>
+			<div class="well col-sm-6 form-group">
+				<label for="password">{{ 'security.login.password'|trans }}</label>
+				<input type="password" id="password" name="_password" required class="form-control" />
+			</div>
+			<div class="well col-sm-12 form-group text-right">
+				<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-success" />
+				<button type="button" class="btn btn-info" onclick="location.href='{{ path("busybee_security_resetting_request") }}'">{{ 'security.login.forgot'|trans }}</button>
 			</div>
 		</div>
 	</div>

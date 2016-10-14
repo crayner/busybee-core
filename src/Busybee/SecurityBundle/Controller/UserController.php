@@ -354,15 +354,19 @@ class UserController extends Controller
     /**
      * Request reset user password: show form
      */
-    public function requestAction()
+    public function requestAction(Request $request)
     {
         $user = $this->getUser();
 		$email = null;
 		if (!empty($user))
 			$email = trim($user->getEmail());
 		
+		$config = new \stdClass();
+		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+		
 		return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
 			'email' => $email,
+			'config' => $config,
 		));
     }
 
@@ -379,8 +383,12 @@ class UserController extends Controller
         $user = $this->get('busybee_security.user_manager')->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
+			$config = new \stdClass();
+			$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+		
             return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
-                'invalid_username' => $username
+                'invalid_username' => $username,
+				'config' => $config,
             ));
         }
 

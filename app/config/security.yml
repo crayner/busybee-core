@@ -58,7 +58,7 @@ security:
                 always_remember_me: true
             logout:
                 path:     busybee_security_logout
-                target:   busybee_home_page
+                target:   home_page
             anonymous:    true
             switch_user:  true
 

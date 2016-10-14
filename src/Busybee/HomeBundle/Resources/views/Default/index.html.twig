@@ -1,54 +1,65 @@
+{# src/Busybee/HomeBundle/Resources/views/Default/index.html.twig #}
+
+{% trans_default_domain "BusybeeHomeBundle" %}
+
 <!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Home Page</title>
+<title>{% block title %}Busybee {{ 'Home'|trans }}{% endblock title %}</title>
 
 {% block stylesheets %}
 	<link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
 	<link href="{{ asset('css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />
 	<link href="{{ asset('css/main.css') }}" type="text/css" rel="stylesheet" />
-{% endblock %}
+{% endblock stylesheets %}
 
 </head>
 
 <body>
 	
-	{{ include('BusybeeHomeBundle:Default:navbar.html.twig') }}
+	{{ include('BusybeeHomeBundle:Menu:main-menu.html.twig') }}
 
     <div class="container theme-showcase" role="main">
-
-	{{ include('BusybeeHomeBundle:Default:header.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:buttons.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:tables.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:thumbnails.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:labels.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:badges.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:dropdowns.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:navs.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:navBars.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:alerts.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:progressBars.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:listGroups.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:panels.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:wells.html.twig') }}
-
-	{{ include('BusybeeHomeBundle:Default:carousel.html.twig') }}
-
-
+	
+		<div class="jumbotron">
+			<img src="{{ asset('img/bee.png') }}" height="150" alt="Busybee" style="float: right;" />
+			<h1>{% block headerTitle %}Busybee{% endblock headerTitle %}</h1>
+			<p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
+		</div>
+	
+		{% block contentContainer %}
+		
+	
+		{{ include('BusybeeHomeBundle:Default:buttons.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:tables.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:thumbnails.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:labels.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:badges.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:dropdowns.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:navs.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:navBars.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:alerts.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:progressBars.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:listGroups.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:panels.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:wells.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:carousel.html.twig') }}
+	
+		{% endblock contentContainer %}
     </div> <!-- /container -->
 
 
@@ -63,6 +74,6 @@
 		'%kernel.root_dir%/../vendor/imsky/holder/holder.js' %}
 		<script src="{{ asset_url }}"></script>
 	{% endjavascripts %}
-{% endblock %}
+{% endblock javascripts %}
 </body>
 </html>

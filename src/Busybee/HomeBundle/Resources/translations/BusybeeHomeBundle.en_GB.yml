@@ -1,0 +1,66 @@
+# General Translations
+Sign Out: Sign Out
+Sign In: Sign In
+Admin: Admin
+'Username/Email': 'Username/Email'
+Password: Password
+Busybee School Administration Software: Busybee School Administration Software
+Address Label: Address Label
+You have been logged out due to inactivity.: You have been logged out due to inactivity!
+No users where found that you have permission to impersonate.: No users where found that you have permission to impersonate!
+Contact: Contact
+Load Database: Load Database
+Database Loaded: Database Loaded
+Home: Home
+form:
+    register: Register
+    cancel: Cancel
+    save: Save
+    update: Update
+    delete: Delete 
+    save_and_add: Save&Add 
+    student:
+        save:
+            success: The student record was saved.
+            failure: The student record did not save.  Check the tabs for details. 
+    family:
+        save:
+            success: The family record was successfully saved.
+            failure: The family record failed to save.
+    people:
+        not_found: The person was not found in the database. 
+        save:
+            success: The person record was successfully saved.
+            failure: The person record failed to save.
+        user:
+            removed: The person record has been disconnected from the user record. 
+            update: The user record was update to the new email address. 
+    configuration:
+        save:
+            success: School Configuration was saved successfully.
+            failure: School Configuration was failed to save. user:
+    reset:
+        success: The password for the user was successfully altered and saved.  You can know sign into the site using the new password. 
+    start_search: ""
+    next: ""
+    prev: ""
+    upload: "" 
+menu:
+    site:
+        manage: Configuration
+    family:
+        manage: Manage Family       
+    people:
+        manage: Manage Person
+ajax:
+    wait_message: saving data.. please wait.. 
+Security: Security
+Site: Site
+Validation: Validation
+List Validation Records: List Validation Records
+New Validation Record: New Validation Record
+Field Management: Field Management
+Database Management: Database Management
+Table Management: Table Management
+Form Management: Form Management
+Validation Management: Validation Management

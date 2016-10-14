@@ -47,7 +47,7 @@ class Authorisation extends AuthorizationChecker
 	{
 		$this->response = true;
 		$this->session->remove( $this->key );
-		$this->session->set('_url', $this->router->generate('busybee_home_page'));
+		$this->session->set('_url', $this->router->generate('home_page'));
 		$this->session->set('_authorised', true);
         if ($role === 'IS_AUTHENTICATED_FULLY' and in_array($this->route, array('homepage', 'home_page', 'busybee_home_page')))
 			return $this->response;
@@ -79,7 +79,7 @@ class Authorisation extends AuthorizationChecker
 			}
 			$this->session->set($this->key, $this->requestUri);
             $this->session->set('_authorised', false);
-			$url = $this->router->generate('busybee_home_page');
+			$url = $this->router->generate('home_page');
 			if (! parent::isGranted('ROLE_USER')){
 				$this->session->getFlashBag()->add(
 					'info',
