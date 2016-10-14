@@ -1,0 +1,85 @@
+Tables:
+    - table:
+        name: Subject
+        limits: ~
+        role: ROLE_REGISTRAR
+        parent: ~
+        fields:
+            - field:
+                name: Subject Flag
+                type: yesno
+                validator:
+                    NotBlank: ~ 
+                sortkey: 0
+                role: ~
+                help: Subject flag is used to differentiate between a unit of competency endorsed in a national training package and a nationally accredited module or training organisation module associated with a course.
+                parameters:
+                    default: M
+                    yes: 
+                        prompt: "C: Unit of Competency"
+                        key: C
+                    no: 
+                        key: M
+                        prompt: "M: Module"            
+            - field:
+                name: Subject Identifier
+                validator:
+                    NotBlank: ~
+                    Upper: ~
+                    Length: 12 
+                type: string
+                sortkey: 1
+                help: |
+                    If the Subject identifier represents a unit of competency in a nationally accredited training package, the Subject identifier must be as listed by the National Training Register &lt;www.training.gov.au&gt;.
+                    If the Subject identifier represents a module in a nationally accredited course, the Subject identifier must be the nationally accredited module code.
+                    If the Subject identifier represents a locally developed subject, the Subject identifier must be the training organisation’s subject code and not a national code.
+                    A Subject identifier for a locally developed subject such as a module must not match the code for any current or superseded units of competency listed on the National Training Register &lt;www.training.gov.au&gt;.
+            - field:
+                name: Subject Name
+                validator:
+                    NotBlank: ~
+                    Length: 100
+                type: string
+                sortkey: 2
+            - field:
+                name: Subject Field of Education
+                validator:
+                    NotBlank: ~
+                    Length: 
+                        min: 6
+                        max: 6
+                type: enum_foe_long
+                sortkey: 3 
+                help: |
+                    Subject field of education identifier must be a valid code.
+                    For modules belonging to nationally accredited courses, the Subject field of education identifier must be assigned by the course developer.
+                    For units of competency belonging to national training package qualifications, the Subject field of education identifier must be obtained from the National Training Register &lt;www.training.gov.au&gt;.
+                parameters:
+                    placeholder: Select a Field of Education 
+            - field:
+                name: Subject VET Flag
+                type: yesno
+                validator:
+                    NotBlank: ~
+                sortkey: 4
+                parameters:
+                    default: Y
+                    yes: 
+                        prompt: "Yes: The intention of the subject is vocational"
+                        key: Y
+                    no: 
+                        key: N
+                        prompt: "No: The intention of the subject is not vocational"
+                help: |
+                    VET flag must be ‘Y — Yes’ if the purpose of the program or subject is designed for vocational training.
+                    VET flag must be ‘Y — Yes’ if the program or subject is general and pre-vocational, designed as pre-requisites for other VET Programs.
+                    VET flag must be ‘N — No’ if the purpose of the program or subject is not designed for vocational training.
+            - field:
+                name: Subject Nominal Hours
+                type: integer
+                validator:
+                    NotBlank: ~
+                    range: 9999
+                sortkey: 5
+                help: The value of Nominal hours for a program or subject must be the value of supervised nominal hours as determined by its accreditation or endorsement body.
+

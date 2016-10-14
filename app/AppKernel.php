@@ -7,18 +7,25 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        $bundles = [
+        $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle(),
-        ];
+            new Busybee\DisplayBundle\BusybeeDisplayBundle(),
+            new Busybee\HomeBundle\BusybeeHomeBundle(),
+            new Busybee\SecurityBundle\BusybeeSecurityBundle(),
+            new Busybee\ImageBundle\BusybeeImageBundle(),
+            new Busybee\DatabaseBundle\BusybeeDatabaseBundle(),
+            new Busybee\PaginationBundle\BusybeePaginationBundle(),
+            new Busybee\RecordBundle\BusybeeRecordBundle(),
+        );
 
-        if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
+        if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();

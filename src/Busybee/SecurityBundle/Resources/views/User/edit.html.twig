@@ -1,0 +1,27 @@
+{# src/General/SecurityBundle/Resources/views/User/edit.html.twig #}
+{% extends "BusybeeSecurityBundle::layout.html.twig" %}
+
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+
+{% block title %}Busybee - {{ 'user.edit.title'|trans }}{% endblock title %}
+
+{% block titleBlock %}
+<div class="jumbotron">
+	<h1>{{ 'user.edit.title'|trans }}</h1>
+	<p class="lead">{{ 'user.edit.description'|trans }}</p>
+</div>
+{% endblock titleBlock %}
+
+{% block SecurityBundleContent %}
+<div class="form_error"></div>
+{{ form_start(form) }}
+<div id="form_body">
+	{% include "BusybeeSecurityBundle:User:edit_content.html.twig" %}
+</div>
+{{ form_end(form) }}
+{% endblock SecurityBundleContent %}
+
+{% block javascripts %}
+{{parent() }}
+{% include "BusybeeDisplayBundle:Form:initAjaxForm.html.twig" %}
+{% endblock javascripts %}

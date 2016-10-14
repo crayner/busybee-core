@@ -1,0 +1,3 @@
+busybee_pagination_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: BusybeePaginationBundle:Default:index }

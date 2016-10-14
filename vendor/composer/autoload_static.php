@@ -4,17 +4,18 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42
+class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
 {
     public static $files = array (
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
-        '32dcc8afd4335739640db7d200c1971d' => __DIR__ . '/..' . '/symfony/polyfill-apcu/bootstrap.php',
+        'f50f0dd4fb2aa587aeabf2e078885048' => __DIR__ . '/../..' . '/app/AppKernel.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -31,6 +32,7 @@ class ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42
             'Symfony\\Component\\' => 18,
             'Symfony\\Bundle\\SwiftmailerBundle\\' => 33,
             'Symfony\\Bundle\\MonologBundle\\' => 29,
+            'Symfony\\Bundle\\AsseticBundle\\' => 29,
             'Symfony\\Bundle\\' => 15,
             'Symfony\\Bridge\\Twig\\' => 20,
             'Symfony\\Bridge\\Swiftmailer\\' => 27,
@@ -60,6 +62,7 @@ class ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42
             'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\' => 16,
+            'Doctrine\\Bundle\\FixturesBundle\\' => 31,
             'Doctrine\\Bundle\\DoctrineCacheBundle\\' => 36,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
         ),
@@ -97,6 +100,10 @@ class ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42
         'Symfony\\Bundle\\MonologBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/monolog-bundle',
+        ),
+        'Symfony\\Bundle\\AsseticBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/assetic-bundle',
         ),
         'Symfony\\Bundle\\' => 
         array (
@@ -166,6 +173,10 @@ class ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
         ),
+        'Doctrine\\Bundle\\FixturesBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/doctrine-fixtures-bundle',
+        ),
         'Doctrine\\Bundle\\DoctrineCacheBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/doctrine-cache-bundle',
@@ -195,6 +206,17 @@ class ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42
                 0 => __DIR__ . '/..' . '/sensiolabs/security-checker',
             ),
         ),
+        'M' => 
+        array (
+            'Mopa\\Bundle\\BootstrapBundle\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/mopa/bootstrap-bundle',
+            ),
+            'Mopa\\Bridge\\Composer' => 
+            array (
+                0 => __DIR__ . '/..' . '/mopa/composer-bridge/src',
+            ),
+        ),
         'D' => 
         array (
             'Doctrine\\ORM\\' => 
@@ -213,6 +235,10 @@ class ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42
             array (
                 0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
             ),
+            'Doctrine\\Common\\DataFixtures' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/data-fixtures/lib',
+            ),
             'Doctrine\\Common\\Collections\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/collections/lib',
@@ -222,11 +248,23 @@ class ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42
                 0 => __DIR__ . '/..' . '/doctrine/annotations/lib',
             ),
         ),
+        'C' => 
+        array (
+            'ComponentInstaller' => 
+            array (
+                0 => __DIR__ . '/..' . '/robloach/component-installer/src',
+            ),
+        ),
+        'A' => 
+        array (
+            'Assetic' => 
+            array (
+                0 => __DIR__ . '/..' . '/kriswallsmith/assetic/src',
+            ),
+        ),
     );
 
     public static $classMap = array (
-        'AppCache' => __DIR__ . '/../..' . '/app/AppCache.php',
-        'AppKernel' => __DIR__ . '/../..' . '/app/AppKernel.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
         'Collator' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/Collator.php',
@@ -243,11 +281,11 @@ class ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit2566204c7bb6aa7d85e929d9ed833d42::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be::$classMap;
 
         }, null, ClassLoader::class);
     }

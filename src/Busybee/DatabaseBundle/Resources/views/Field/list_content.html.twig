@@ -1,0 +1,85 @@
+{# src/Busybee/DatabaseBundle/Resources/views/Field/list_content.html.twig #}
+
+{% trans_default_domain 'BusybeeDatabaseBundle' %}
+
+{% include "BusybeePaginationBundle:Default:index.html.twig" %}
+
+{% if form.redirect is not defined %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped" {% if form.current_sort.vars.value == 'a.sortkey' %}id="sortable" {% endif %}>
+					<thead>
+					  <tr>
+						<th width="3%">&nbsp;</th>
+						<th width="7%">&nbsp;</th>
+						<th width="30%">{{ 'field.list.name'|trans }}</th>
+						<th width="30%">{{ 'field.list.table'|trans }}</th>
+						<th width="30%">{{ 'field.list.type'|trans }}</th>
+					  </tr>
+					</thead>
+					<tbody>
+					{% set xx = form.offset.vars.value %}
+					{% for fdata in listdata %}
+						<tr id="field-{{fdata.id}}" class="ui-state-default sortable">
+							<td>{% if form.current_sort.vars.value == 'a.sortkey' %}<span class="ui-icon ui-icon-arrowthick-2-n-s"></span> {% endif %}</td>
+							<td><a href="{{ path('database_field_edit', {'field_id': fdata.id} ) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+							{% set xx = xx + 1 %}
+							<td> {{ fdata.getDisplayName| trans }}</td>
+							<td>
+							{% for tdata in fdata.table %}
+								{{ tdata.name| trans }}
+							{% endfor %}
+							</td>
+							<td>{{ fdata.getDisplayType(enum) | trans }}</td>
+						</tr>
+					{% endfor %}
+					<tr id="offset-{{form.offset.vars.value}}" class="sortable"></tr>
+	
+					</tbody>
+				  </table>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<a class="btn btn-primary" href="{{ path('database_field_new') }}" role="button">{{ 'field.list.create'|trans }}</a>
+			</div>
+		</div>
+	</div>
+	
+	{% if form.current_sort.vars.value == 'a.sortkey' %}
+	<script>
+	$('#sortable tbody').sortable({
+		axis: 'y',
+		update: function (event, ui) {
+			var stringDiv = "";
+			$("#sortable tbody").children().each(function(i) {
+				 var tr = $(this);
+				 stringDiv += " list["+tr.attr("id") + ']=' + i + '&';
+			});
+	
+			// POST to server using $.post or $.ajax
+			$.ajax({
+				data: stringDiv,
+				type: 'POST',
+				url: '{{ path('database_field_sortlist') }}',
+			  });
+		}
+	});
+	
+	</script>
+	{% endif %}
+
+{% else %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<a class="btn btn-warning" href="{{ form.redirect }}" role="button">{{ 'security.login.submit'|trans({}, 'BusybeeSecurityBundle') }}</a>
+			</div>
+		</div>
+	</div>
+{% endif %}

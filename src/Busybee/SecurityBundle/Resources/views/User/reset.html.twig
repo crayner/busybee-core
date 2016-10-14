@@ -1,0 +1,12 @@
+{% extends "BusybeeSecurityBundle::layout.html.twig" %}
+
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+{% block title %}{{ parent() }}{{ 'user.reset.title'|trans }}{% endblock title %}
+{% block titleBlock %}
+<div class="jumbotron">
+	<h1>{{ 'user.reset.title'|trans }}</h1>
+</div>
+{% endblock titleBlock %}
+{% block SecurityBundleContent %}
+{% include "BusybeeSecurityBundle:User:reset_content.html.twig" %}
+{% endblock SecurityBundleContent %}

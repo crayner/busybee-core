@@ -1,0 +1,32 @@
+{# src/Busybee/DatabaseBundle/Resources/views/Field/edit.html.twig #}
+{% extends "BusybeeDisplayBundle:Bootstrap:jumbotron.html.twig" %}
+
+{% trans_default_domain 'BusybeeDatabaseBundle' %}
+
+{% block title %}Busybee - {{ 'field.edit.title'|trans }}{% endblock title %}
+
+{% block header %}
+<div class="jumbotron">
+	<div class="container">
+		<h1 class="text-center">{{ 'field.edit.title'|trans }}</h1>
+	</div>
+</div>
+{% endblock header %}
+
+{% block container %}
+<!-- Field Edit Container -->
+{% include 'BusybeeDisplayBundle:Bootstrap:flashmessage.html.twig' %}
+<div class="form_error container"></div>
+{{ form_start(form) }}
+	<fieldset>
+		<div id="form_body">
+			{% include "BusybeeDatabaseBundle:Field:edit_content.html.twig" %}
+		</div>
+	</fieldset>
+{{ form_end(form) }}
+
+{% endblock container %}
+
+{% block javascripts %}
+{{parent() }}
+{% endblock javascripts %}

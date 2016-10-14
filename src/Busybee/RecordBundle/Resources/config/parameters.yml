@@ -1,0 +1,12 @@
+parameters:
+    record.list.pagination:
+        limit: 10
+        offset: 0
+        sortList: ~
+        sortBy: a.sortkey
+        sortOrder: ASC
+        total: 0 
+        search: "" 
+        searchList:
+            Name: a.name
+        searchIn: a.name

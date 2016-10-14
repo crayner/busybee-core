@@ -1,0 +1,53 @@
+{# BusybeeDisplayBundle:Bootstrap:jumbotron.html.twig #}
+{% extends 'BusybeeDisplayBundle:Bootstrap:base.html.twig' %}
+
+{% block title %}Busybee - {% endblock %}
+
+
+{% block stylesheets %}
+	
+	{{ parent() }}
+	
+    <!-- Custom styles for this template -->
+	{% stylesheets 'bundles/busybeedisplay/css/jumbotron.css' %}
+	<link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+	{% endstylesheets %}	
+	
+{% endblock stylesheets %}
+
+
+
+
+{% block header %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+	<div class="container">
+		<h1>Busybee Jumbotron Template</h1>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block container %}
+<!-- Jumbotron Main Container -->
+<div class="container">
+	{% include 'BusybeeDisplayBundle:Bootstrap:flashmessage.html.twig' %}
+	<!-- Example row of columns -->
+	<div class="row">
+		<div class="col-md-4">
+			<pStuff needed here</p>
+		
+		</div>
+		<div class="col-md-4">
+			<pStuff needed here</p>
+		
+		</div>
+		<div class="col-md-4">
+			<pStuff needed here</p>
+		
+		</div>
+	</div>
+</div> 
+{% endblock container %}
+
+

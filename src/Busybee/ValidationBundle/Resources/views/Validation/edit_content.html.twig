@@ -1,0 +1,34 @@
+{# src/General/ValidationBundle/Resources/views/Validation/edit_content.html.twig #}
+
+{% trans_default_domain 'GeneralValidationBundle' %}
+
+
+<div class="container">
+	<div class="row">
+		{{ form_tabs(form) }}
+		<div class="col-md-12 tab-content">
+			<div class="tab-pane active " id="{{ form.main_tab.vars.id}}">
+				{% include "GeneralValidationBundle:Validation:main_content.html.twig" with {'form': form.main_tab} %}
+			</div>
+			<div class="tab-pane " id="{{ form.message_tab.vars.id}}">
+				{% include "GeneralValidationBundle:Validation:message_content.html.twig" with {'form': form.message_tab} %} 
+			</div>
+			<div class="tab-pane " id="{{ form.enum_tab.vars.id}}">
+				{% include "GeneralValidationBundle:Validation:enum_content.html.twig" with {'form': form.enum_tab} %} 
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="form-actions well text-center col-sm-12">
+					{% if form.save is defined %}{{ form_widget(form.save) }}{% endif %}
+					{% if form.save_and_add is defined %}{{ form_widget(form.save_and_add) }}{% endif %}
+					{% if form.delete is defined %}{{ form_widget(form.delete) }}{% endif %}
+					{% if form.cancel is defined %}{{ form_widget(form.cancel) }}{% endif %}
+					{% if form._token is defined %}{{ form_widget(form._token) }}{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

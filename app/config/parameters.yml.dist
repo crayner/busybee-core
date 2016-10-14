@@ -2,18 +2,31 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
+    database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
     database_name:     symfony
-    database_user:     root
+    database_user:     symfony
     database_password: ~
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
+    database_prefix: ~
 
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
+    mailer_transport:  gmail
+    mailer_host:       smtp.gmail.com
     mailer_user:       ~
     mailer_password:   ~
+    mailer_sender_name:  ~
+    mailer_sender_address:  ~
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+    
+    locale: en_GB
+    session.name: busybee_session
+    session.remember_me.name: busybee_remember_session
+    session_max_idle_time: 900
+    country: ~
+    signin_count_minimum: 3
+    signin_timeout_period: 600
+    signin_ip_exceptions: ['127.0.0.1']

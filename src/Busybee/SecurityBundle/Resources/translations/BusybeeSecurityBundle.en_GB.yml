@@ -1,0 +1,114 @@
+"": ""
+(optional): (optional)
+ROLE_ADMIN: ROLE_ADMIN
+ROLE_ALLOWED_TO_SWITCH: ROLE_ALLOWED_TO_SWITCH
+ROLE_HEAD_TEACHER: ROLE_HEAD_TEACHER
+ROLE_PARENT: ROLE_PARENT
+ROLE_PRINCIPAL: ROLE_PRINCIPAL
+ROLE_REGISTRAR: ROLE_REGISTRAR
+ROLE_STAFF: ROLE_STAFF
+ROLE_STUDENT: ROLE_STUDENT
+ROLE_SYSTEM_ADMIN: ROLE_SYSTEM_ADMIN
+ROLE_TEACHER: ROLE_TEACHER
+ROLE_USER: ROLE_USER
+Contact: Contact
+Non Teaching Staff: Non Teaching Staff
+Parent: Parent
+Student: Student
+Teaching Staff: Teaching Staff
+user:
+    label:
+        username: User Name
+        email: E-mail
+        groups: Allocated Groups 
+        directroles: Allocated Roles 
+        password: Password
+        password_confirmation: Confirm Password 
+        enabled: Enabled 
+    help: 
+        username: You can leave the user name blank and the username will default to the email address. 
+        directroles: Direct Role allocation for a user should not be used unless the user needs a level of access not supplied by group selection.  Direct Roles are applied with the indirect roles inherited from the Groups to which the user belongs.
+        groups: Groups are created by you to match a user to groups that provide authority to use the various pages in the site.  Groups are also used by the site to lists groups such as classes and parents of classes.
+    edit:
+        title: Edit User
+        description: You are able to change your own details on this page.
+        success: The user record was saved successfully.
+        error: The user details were NOT saved.
+    registration:
+        title: Register User 
+        description: Register a new user. 
+    error:
+        registration: The user details were NOT saved.
+    success:
+        registration: The user details were successfully saved. 
+    reset:
+        title: Reset Password 
+        success: The password for the user was successfully altered and saved.  You can now sign into the site using the new password. 
+security:
+    login:
+        password: Password
+        username: Username
+        title: Authentication
+        description: The page you have requested requires authorisation to view.  Please sign in here to authenticate.
+        submit: Sign In
+        forgot: Help Me!
+        remember_me: Remember Me
+    impersonate:
+        title: User Impersonation
+        description: Allows you to impersonate the selected user for testing purposes or resetting passwords of the user.
+    request:
+        title: Password Reset Request
+        description: Sends an email to the user to allow them to reset their own password.
+        username: User Name or E-mail 
+        submit: Request Password Reset 
+    resetting:
+        title: Password Reset EMail
+        email:
+            subject: Reset Password
+            message: |
+                Hello %username%!
+
+                To reset your password - please visit %confirmationUrl%
+
+                Regards,
+                the Busybee Team.
+        password_already_requested: An email for password request has already been sent to this user in the last 24 hours.
+        check_email: An email has been sent to %email%. It contains a link you must click to reset your password.
+    authorisation:
+        request: You are required to authenticate to continue to the selected page!
+        not_valid: You are not authorised to use the selected page! 
+        required: The page you have requested is protected. Please sign in to continue. 
+        no_table: The table '%name%' does not exist in the system. 
+        blocked_ip: Your computer has been blocked from this site due to incorrect username/password combinations.  Try again soon. 
+    authentication: 
+        failure: %name% at IP:%remoteIP% has failed to authenticate correctly.
+    session:
+        timeout: 'You have been logged out due to inactivity. You have not used the site for %lapseTime%.' 
+role:
+    label:
+        name: Role Name
+        descendants: Access Applied
+        children: Assigned Roles 
+    list:
+        title: Role List
+        create: Create Role 
+    edit:
+        title: Edit Role 
+        success: The role was saved successfully
+        error: The role did not save correctly.  See errors on the form.
+group:
+    label:
+        name: Group Name 
+        roles:
+            assigned: Selected Roles
+            applied: Applied Roles
+    help:
+        roles:
+            assigned: The group named above will receive access to the selected role, and all of the roles applied within that role.  e.g. Principal has Head Teacher which has Teacher access. 
+    new:
+        title: Group Management 
+    edit:
+        title: Group Management 
+    list:
+        title: Group List
+        create: Create Group

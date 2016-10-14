@@ -1,0 +1,78 @@
+{# src/Busybee/RecordBundle/Resources/views/Display/list_content.html.twig #}
+
+{% trans_default_domain 'BusybeeRecordBundle' %}
+
+{% include "BusybeePaginationBundle:Default:index.html.twig" %}
+
+{% if form.redirect is not defined %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped" {% if form.current_sort.vars.value == 'a.sortkey' %}id="sortable" {% endif %}>
+					<thead>
+					  <tr>
+						<th width="3%">&nbsp;</th>
+						<th width="7%">&nbsp;</th>
+						<th width="30%">{{ 'field.list.name'|trans }}</th>
+						<th width="30%">{{ 'field.list.table'|trans }}</th>
+						<th width="30%">{{ 'field.list.type'|trans }}</th>
+					  </tr>
+					</thead>
+				<tbody>
+
+
+				{% for tdata in listdata %}
+
+				  <tr>
+						<td><a href="{{ path('database_table_edit', {'table_id': tdata.id} ) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+						<td></td>
+				  </tr>
+
+				{% endfor %}
+				</tbody>
+				  </table>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<a class="btn btn-primary" href="{{ path('database_field_new') }}" role="button">{{ 'field.list.create'|trans }}</a>
+			</div>
+		</div>
+	</div>
+	
+	{% if form.current_sort.vars.value == 'a.sortkey' %}
+	<script>
+	$('#sortable tbody').sortable({
+		axis: 'y',
+		update: function (event, ui) {
+			var stringDiv = "";
+			$("#sortable tbody").children().each(function(i) {
+				 var tr = $(this);
+				 stringDiv += " list["+tr.attr("id") + ']=' + i + '&';
+			});
+	
+			// POST to server using $.post or $.ajax
+			$.ajax({
+				data: stringDiv,
+				type: 'POST',
+				url: '{{ path('database_field_sortlist') }}',
+			  });
+		}
+	});
+	
+	</script>
+	{% endif %}
+
+{% else %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<a class="btn btn-warning" href="{{ form.redirect }}" role="button">{{ 'security.login.submit'|trans({}, 'BusybeeSecurityBundle') }}</a>
+			</div>
+		</div>
+	</div>
+{% endif %}

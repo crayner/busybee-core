@@ -1,0 +1,8 @@
+# Database
+field:
+    error:
+        name:
+            unique: The name of the field must be unique in a table record.
+validation:
+    error:
+        default: Validation Error:- No reason given for %value%.

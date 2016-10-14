@@ -1,0 +1,19 @@
+# src\    Busybee\DatabaseBundle\Resources\config\doctrine\Enumerator.orm.yml
+Busybee\DatabaseBundle\Entity\Enumerator:
+    type: entity
+    table: db_enumerator
+    repositoryClass: Busybee\DatabaseBundle\Entity\EnumeratorRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 64
+        value:
+            type: string
+            length: 64
+        prompt:
+            type: text

@@ -1,0 +1,20 @@
+parameters:
+    validation.list.pagination:
+        - {limit: 10, offset: 0, section: "", validator: "", total: 0 }
+
+services:
+    validation.repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - General\ValidationBundle\Entity\Validator
+    busybee.phone.constraint:
+        class: General\ValidationBundle\Validator\Constraints\Phone
+    busybee.phone.validator: 
+        class: General\ValidationBundle\Validator\Constraints\PhoneValidator
+        tags:
+            - { name: validator.constraint_validator, alias: phone.validator }
+        arguments: 
+            - @validation.repository
+ 

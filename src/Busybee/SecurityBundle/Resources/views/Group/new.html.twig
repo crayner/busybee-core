@@ -1,0 +1,17 @@
+{# src/General/SecurityBundle/Resources/views/Group/new.html.twig #}
+{% extends "BusybeeSecurityBundle::layout.html.twig" %}
+
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+
+{% block title %}Busybee - {{ 'group.new.title'|trans }}{% endblock title %}
+{% block titleBlock %}
+
+<div class="jumbotron">
+	<h1>{{ 'group.new.title'|trans }}</h1>
+</div>
+
+{% endblock titleBlock %}
+
+{% block SecurityBundleContent %}
+{% include "BusybeeSecurityBundle:Group:edit_content.html.twig" %}
+{% endblock SecurityBundleContent %}

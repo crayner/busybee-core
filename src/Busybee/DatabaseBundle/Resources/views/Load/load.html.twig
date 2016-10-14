@@ -1,0 +1,28 @@
+{# src/Busybee/DatabaseBundle/Resources/views/Load/load.html.twig #}
+{% extends "BusybeeDisplayBundle:Bootstrap:jumbotron.html.twig" %}
+
+{% trans_default_domain 'BusybeeDatabaseBundle' %}
+
+{% block title %}Busybee - {{ 'database.load.title'|trans }}{% endblock title %}
+
+{% block header %}
+<div class="jumbotron container">
+		<h1 class="text-center">{{ 'database.load.title'|trans }}</h1>
+</div>
+{% endblock header %}
+
+{% block container %}
+
+{% include 'BusybeeDisplayBundle:Bootstrap:flashmessage.html.twig' %}
+<div class="form_error container"></div>
+{{ form_start(form) }}
+	<fieldset>
+		<div id="form_body">
+			{% include "BusybeeDatabaseBundle:Load:load_content.html.twig" %}
+		</div>
+	</fieldset>
+{{ form_end(form) }}
+
+
+
+{% endblock container %}

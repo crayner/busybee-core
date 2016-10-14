@@ -1,0 +1,9 @@
+validation_list:
+    path:     /list
+    defaults: { _controller: GeneralValidationBundle:List:index }
+validation_new:
+    path:     /new
+    defaults: { _controller: GeneralValidationBundle:New:index }
+validation_edit:
+    path:     /{val_id}/edit
+    defaults: { _controller: GeneralValidationBundle:Edit:index }

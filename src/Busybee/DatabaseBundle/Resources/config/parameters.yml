@@ -1,0 +1,41 @@
+parameters:
+    field.list.pagination:
+        limit: 10
+        offset: 0
+        sortList:
+            Field Name: a.name
+            Table Name: t.name
+            Manual Sort: a.sortkey
+        sortBy: a.sortkey
+        sortOrder: ASC
+        total: 0 
+        search: "" 
+        searchList:
+            Name: a.name
+        searchIn: a.name
+    table.list.pagination:
+        limit: 10
+        offset: 0
+        sortList:
+           Table Name: a.name
+        sortBy: a.name
+        sortOrder: ASC
+        total: 0 
+        search: "" 
+        searchList:
+            a.name: Name
+        searchIn: a.name
+    enumerator.list.pagination:
+        limit: 10
+        offset: 0
+        sortList:
+            Enumerator Name: a.name
+            Enumerator Prompt: a.prompt           
+        sortBy: a.name
+        sortOrder: ASC
+        total: 0 
+        search: "" 
+        searchList:
+            Name: a.name
+            Prompt: a.prompt
+        searchIn: a.name

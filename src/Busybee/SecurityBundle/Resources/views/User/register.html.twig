@@ -1,0 +1,26 @@
+{# src/General/SecurityBundle/Resources/views/User/register.html.twig #}
+{% extends "BusybeeSecurityBundle::layout.html.twig" %}
+
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+{% block title %}{{ parent() }}{{ 'user.registration.title'|trans }}{% endblock title %}
+
+{% block titleBlock %}
+<div class="jumbotron">
+	<h1>{{ 'user.registration.title'|trans }}</h1>
+	<p class="lead">{{ 'user.registration.description'|trans }}</p>
+</div>
+{% endblock titleBlock %}
+
+{% block SecurityBundleContent %}
+<div class="form_error"></div>
+{{ form_start(form) }}
+<div id="form_body">
+	{% include "BusybeeSecurityBundle:User:register_content.html.twig" %}
+</div>
+{{ form_end(form) }}
+{% endblock SecurityBundleContent %}
+
+{% block javascripts %}
+{{parent() }}
+{% include "BusybeeDisplayBundle:Form:initAjaxForm.html.twig" %}
+{% endblock javascripts %}

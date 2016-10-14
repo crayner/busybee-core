@@ -1,0 +1,15 @@
+validator:
+    institute:
+        address_line_one:
+            blank: Address details are required 
+        name:
+            blank: The Institute name is required. 
+        phone:
+            blank: The phone number must be supplied.
+            invalid: The phone number is not valid. 
+        email: The e-mail needs to be a vaild e-mail. 
+        facsimile: The facsimile number is not valid.
+        locality:
+            blank: The addtress details are required. 
+        state:
+            blank: The state is required. 

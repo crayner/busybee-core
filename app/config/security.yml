@@ -3,18 +3,18 @@
 security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
-    providers:
-        in_memory:
-            memory: ~
+    #providers:
+    #    in_memory:
+    #        memory: ~
 
-    firewalls:
+    #firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+    #    dev:
+    #        pattern: ^/(_(profiler|wdt)|css|images|js)/
+    #        security: false
 
-        main:
-            anonymous: ~
+    #    main:
+    #        anonymous: ~
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -22,3 +22,48 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    encoders:
+        Busybee\SecurityBundle\Model\UserInterface:
+            algorithm: bcrypt
+            cost: 12
+
+    providers:
+        busybee_security_provider:
+            id: busybee_security.user_provider.username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+        default: 
+            pattern: ^/
+            form_login:
+                # login success redirecting options (read further below)
+                provider:              busybee_security_provider
+                always_use_default_target_path: false
+                target_path_parameter:          _target_path
+                use_referer:                    true
+                login_path:            busybee_security_login
+                check_path:            busybee_security_check
+                csrf_parameter:        _csrf_token
+                post_only:             true
+                success_handler:       busybee_security.authentication.login_handler
+                failure_handler:       busybee_security.authentication.failure_handler 
+            remember_me:
+                secret:   "%secret%"
+                lifetime: 86400 # one day in seconds 
+                name:     "%session.remember_me.name%"
+                secure:   true
+                domain: ~
+                always_remember_me: true
+            logout:
+                path:     busybee_security_logout
+                target:   busybee_home_page
+            anonymous:    true
+            switch_user:  true
+
+    access_control:
+        - { path: busybee_security_login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(_(profiler|wdt)|css|images|js)/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, role: ROLE_ADMIN }
+ 

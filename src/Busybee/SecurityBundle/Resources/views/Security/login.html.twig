@@ -1,0 +1,15 @@
+{# src/General/SecurityBundle/Resources/views/Security/login.html.twig #}
+{% extends "BusybeeSecurityBundle::layout.html.twig" %}
+
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+{% block title %}{{ parent() }}{{ 'security.login.title'|trans }}{% endblock title %}
+{% block titleBlock %}
+	<div class="jumbotron">
+		<h1>{{ 'security.login.title'|trans }}</h1>
+			<p class="lead">{{ 'security.login.description'|trans }}</p>
+	</div>
+
+{% endblock titleBlock %}
+{% block SecurityBundleContent %}
+{% include "BusybeeSecurityBundle:Security:login_content.html.twig" %}
+{% endblock SecurityBundleContent  %}

@@ -1,0 +1,45 @@
+{# src/Busybee/DatabaseBundle/Resources/views/Validator/list_content.html.twig #}
+
+{% trans_default_domain 'BusybeeDatabaseBundle' %}
+
+
+{% include "BusybeePaginationBundle:Default:index.html.twig" %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped">
+				<thead>
+				  <tr>
+					<th width="5%">&nbsp;</th>
+					<th width="35%">{{ 'enumerator.list.name'| trans }}</th>
+					<th width="30%">{{ 'enumerator.list.value'| trans }}</th>
+					<th width="30%">{{ 'enumerator.list.prompt'| trans }}</th>
+				  </tr>
+				</thead>
+				<tbody>
+
+
+				{% for edata in listdata %}
+
+				  <tr>
+					<td><a href="{{ path('database_enumerator_edit', {'enumerator_id': edata.id} ) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+					<td>{{ edata.name| trans }}</td>
+					<td>{{ edata.value }}</a></td>
+					<td>{{ edata.prompt }}</a></td>
+				  </tr>
+
+				{% endfor %}
+				</tbody>
+			  </table>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center">
+					<a class="btn btn-primary" href="{{ path('database_enumerator_new') }}" role="button">{{ 'enumerator.list.create'| trans }}</a>
+		</div>
+	</div>
+</div>

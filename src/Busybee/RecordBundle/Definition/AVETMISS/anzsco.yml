@@ -1,0 +1,1525 @@
+Enumerators:
+    - enumerator:
+        name: ANZSCO 
+        list: 
+            1  MANAGERS:                
+                11  Chief Executives, General Managers and Legislators:            
+                    111  Chief Executives, General Managers and Legislators:        
+                        1111  Chief Executives and Managing Directors:    
+                            111111  Chief Executive or Managing Director: '111111'
+                        1112  General Managers:    
+                            111211  Corporate General Manager: '111211'
+                            111212  Defence Force Senior Officer: '111212'
+                        1113  Legislators:    
+                            111311  Local Government Legislator: '111311'
+                            111312  Member of Parliament: '111312'
+                            111399  Legislators nec: '111399'
+                12  Farmers and Farm Managers:            
+                    121  Farmers and Farm Managers:        
+                        1211  Aquaculture Farmers:    
+                            121111  Aquaculture Farmer: '121111'
+                        1212  Crop Farmers:    
+                            121211  Cotton Grower: '121211'
+                            121212  Flower Grower: '121212'
+                            121213  Fruit or Nut Grower: '121213'
+                            121214  Grain, Oilseed or Pasture Grower: '121214'
+                            121215  Grape Grower: '121215'
+                            121216  Mixed Crop Farmer: '121216'
+                            121217  Sugar Cane Grower: '121217'
+                            121218  Turf Grower: '121218'
+                            121221  Vegetable Grower: '121221'
+                            121299  Crop Farmers nec: '121299'
+                        1213  Livestock Farmers:    
+                            121311  Apiarist: '121311'
+                            121312  Beef Cattle Farmer: '121312'
+                            121313  Dairy Cattle Farmer: '121313'
+                            121314  Deer Farmer: '121314'
+                            121315  Goat Farmer: '121315'
+                            121316  Horse Breeder: '121316'
+                            121317  Mixed Livestock Farmer: '121317'
+                            121318  Pig Farmer: '121318'
+                            121321  Poultry Farmer: '121321'
+                            121322  Sheep Farmer: '121322'
+                            121399  Livestock Farmers nec: '121399'
+                        1214  Mixed Crop and Livestock Farmers:    
+                            121411  Mixed Crop and Livestock Farmer: '121411'
+                13  Specialist Managers:            
+                    131  Advertising, Public relations and Sales Managers:        
+                        1311  Advertising, public relations and Sales Managers:    
+                            131113  Advertising Manager: '131113'
+                            131114  Public Relations Manager: '131114'
+                    132  Business Administration Managers:        
+                        1321  Corporate Services Managers:    
+                            132111  Corporate Services Manager: '132111'
+                        1322  Finance Managers:    
+                            132211  Finance Manager: '132211'
+                        1323  Human Resource Managers:    
+                            132311  Human Resource Manager: '132311'
+                        1324  Policy and Planning Managers:    
+                            132411  Policy and Planning Manager: '132411'
+                        1325  Research and Development Managers:    
+                            132511  Research and Development Manager: '132511'
+                    133  Construction, Distribution and Production Managers:        
+                        1331  Construction Managers:    
+                            133111  Construction Project Manager: '133111'
+                            133112  Project Builder: '133112'
+                        1332  Engineering Managers:    
+                            133211  Engineering Manager: '133211'
+                        1333  Importers, Exporters and Wholesalers:    
+                            133311  Importer or Exporter: '133311'
+                            133312  Wholesaler: '133312'
+                        1334  Manufacturers:    
+                            133411  Manufacturer: '133411'
+                        1335  Production Managers:    
+                            133511  Production Manager (Forestry): '133511'
+                            133512  Production Manager (Manufacturing): '133512'
+                            133513  Production Manager (Mining): '133513'
+                        1336  Supply Distribution and Procurement Managers:    
+                            133611  Supply and Distribution Manager: '133611'
+                            133612  Procurement Manager: '133612'
+                    134  Education, Health and Welfare Services Managers:        
+                        1341  Child Care Centre Managers:    
+                            134111  Child Care Centre Manager: '134111'
+                        1342  Health and Welfare Services Managers:    
+                            134211  Medical Administrator: '134211'
+                            134212  Nursing Clinical Director: '134212'
+                            134213  Primary Health Organisation Manager: '134213'
+                            134214  Welfare Centre Manager: '134214'
+                            134299  Health and Welfare Services Managers nec: '134299'
+                        1343  School Principals:    
+                            134311  School Principal: '134311'
+                        1344  Other Education Managers:    
+                            134411  Faculty Head: '134411'
+                            134412  Regional Education Manager: '134412'
+                            134499  Education Managers nec: '134499'
+                    135  ICT Managers:        
+                        1351  ICT Managers:    
+                            135111  Chief Information Officer: '135111'
+                            135112  ICT Project Manager: '135112'
+                            135199  ICT Managers nec: '135199'
+                    139  Miscellaneous Specialist Managers:        
+                        1391  Commissioned Officers (Management):    
+                            139111  Commissioned Defence Force Officer: '139111'
+                            139112  Commissioned Fire Officer: '139112'
+                            139113  Commissioned Police Officer: '139113'
+                        1392  Senior Non-commissioned Defence Force Members:    
+                            139211  Senior Non-commissioned Defence Force Member: '139211'
+                        1399  Other Specialist Managers:    
+                            139911  Arts Administrator or Manager: '139911'
+                            139912  Environmental Manager: '139912'
+                            139913  Laboratory Manager: '139913'
+                            139914  Quality Assurance Manager: '139914'
+                            139915  Sports Administrator: '139915'
+                            139999  Specialist Managers nec: '139999'
+                14  Hospitality, Retail and Service Managers:            
+                    141  Accommodation and Hospitality Managers:        
+                        1411  Cafe and Restaurant Managers:    
+                            141111  Cafe or Restaurant Manager: '141111'
+                        1412  Caravan Park and Camping Ground Managers:    
+                            141211  Caravan Park and Camping Ground Manager: '141211'
+                        1413  Hotel and Motel Managers:    
+                            141311  Hotel or Motel Manager: '141311'
+                        1414  Licensed Club Managers:    
+                            141411  Licensed Club Manager: '141411'
+                        1419  Other Accommodation and Hospitality Managers:    
+                            141911  Bed and Breakfast Operator: '141911'
+                            141912  Retirement Village Manager: '141912'
+                            141999  Accommodation and Hospitality Managers nec: '141999'
+                    142  Retail Managers:        
+                        1421  Retail Managers:    
+                            142111  Retail Manager (General): '142111'
+                            142112  Antique Dealer: '142112'
+                            142113  Betting Agency Manager: '142113'
+                            142114  Hair or Beauty Salon Manager: '142114'
+                            142115  Post Office Manager: '142115'
+                            142116  Travel Agency Manager: '142116'
+                    149  Miscellaneous Hospitality, Retail and Service Managers:        
+                        1491  Amusement, Fitness and Sports Centre Managers:    
+                            149111  Amusement Centre Manager: '149111'
+                            149112  Fitness Centre Manager: '149112'
+                            149113  Sports Centre Manager: '149113'
+                        1492  Call or Contact Centre and Customer Service Managers:    
+                            149211  Call or Contact Centre Manager: '149211'
+                            149212  Customer Service Manager: '149212'
+                        1493  Conference and Event Organisers:    
+                            149311  Conference and Event Organiser: '149311'
+                        1494  Transport Services Managers:    
+                            149411  Fleet Manager: '149411'
+                            149412  Railway Station Manager: '149412'
+                            149413  Transport Company Manager: '149413'
+                        1499  Other Hospitality, Retail and Service Managers:    
+                            149911  Boarding Kennel or Cattery Operator: '149911'
+                            149912  Cinema or Theatre Manager: '149912'
+                            149913  Facilities Manager: '149913'
+                            149914  Financial Institution Branch Manager: '149914'
+                            149915  Equipment Hire Manager: '149915'
+                            149999  Hospitality, Retail and Service Managers nec: '149999'
+            2  PROFESSIONALS:                
+                21  Arts and Media Professionals:            
+                    211  Arts Professionals:        
+                        2111  Actors, Dancers and Other Entertainers:    
+                            211111  Actor: '211111'
+                            211112  Dancer or Choreographer: '211112'
+                            211113  Entertainer or Variety Artist: '211113'
+                            211199  Actors, Dancers and Other Entertainers nec: '211199'
+                        2112  Music Professionals:    
+                            211211  Composer: '211211'
+                            211212  Music Director: '211212'
+                            211213  Musician (Instrumental): '211213'
+                            211214  Singer: '211214'
+                            211299  Music Professionals nec: '211299'
+                        2113  Photographers:    
+                            211311  Photographer: '211311'
+                        2114  Visual Arts and Crafts Professionals:    
+                            211411  Painter (Visual Arts): '211411'
+                            211412  Potter or Ceramic Artist: '211412'
+                            211413  Sculptor: '211413'
+                            211499  Visual Arts and Crafts Professionals nec: '211499'
+                    212  Media Professionals:        
+                        2121  Artistic Directors, and Media Producers and Presenters:    
+                            212111  Artistic Director: '212111'
+                            212112  Media Producer (excluding Video): '212112'
+                            212113  Radio Presenter: '212113'
+                            212114  Television Presenter: '212114'
+                        2122  Authors, and Book and Script Editors:    
+                            212211  Author: '212211'
+                            212212  Book or Script Editor: '212212'
+                        2123  Film, Television, Radio and Stage Directors:    
+                            212311  Art Director (Film, Television or Stage): '212311'
+                            212312  Director (Film, Television, Radio or Stage): '212312'
+                            212313  Director of Photography: '212313'
+                            212314  Film and Video Editor: '212314'
+                            212315  Program Director (Television or Radio): '212315'
+                            212316  Stage Manager: '212316'
+                            212317  Technical Director: '212317'
+                            212318  Video Producer: '212318'
+                            212399  Film, Television, Radio and Stage Directors nec: '212399'
+                        2124  Journalists and Other Writers:    
+                            212411  Copywriter: '212411'
+                            212412  Newspaper or Periodical Editor: '212412'
+                            212413  Print Journalist: '212413'
+                            212414  Radio Journalist: '212414'
+                            212415  Technical Writer: '212415'
+                            212416  Television Journalist: '212416'
+                            212499  Journalists and Other Writers nec: '212499'
+                22  Business, Human Resource and Marketing Professionals:            
+                    221  Accountants, Auditors and Company Secretaries:        
+                        2211  Accountants:    
+                            221111  Accountant (General): '221111'
+                            221112  Management Accountant: '221112'
+                            221113  Taxation Accountant: '221113'
+                        2212  Auditors, Company Secretaries and Corporate Treasurers:    
+                            221211  Company Secretary: '221211'
+                            221212  Corporate Treasurer: '221212'
+                            221213  External Auditor: '221213'
+                            221214  Internal Auditor: '221214'
+                    222  Financial Brokers and Dealers, and Investment Advisers:        
+                        2221  Financial Brokers:    
+                            222111  Commodities Trader: '222111'
+                            222112  Finance Broker: '222112'
+                            222113  Insurance Broker: '222113'
+                            222199  Financial Brokers nec: '222199'
+                        2222  Financial Dealers:    
+                            222211  Financial Market Dealer: '222211'
+                            222212  Futures Trader: '222212'
+                            222213  Stockbroking Dealer: '222213'
+                            222299  Financial Dealers nec: '222299'
+                        2223  Financial Investment Advisers and Managers:    
+                            222311  Financial Investment Adviser: '222311'
+                            222312  Financial Investment Manager: '222312'
+                    223  Human Resource and Training Professionals:        
+                        2231  Human Resource Professionals:    
+                            223111  Human Resource Adviser: '223111'
+                            223112  Recruitment Consultant: '223112'
+                            223113  Workplace Relations Adviser: '223113'
+                        2232  ICT Trainers:    
+                            223211  ICT Trainer: '223211'
+                        2233  Training and Development Professionals:    
+                            223311  Training and Development Professional: '223311'
+                    224  Information and Organisation Professionals:        
+                        2241  Actuaries, Mathematicians and Statisticians:    
+                            224111  Actuary: '224111'
+                            224112  Mathematician: '224112'
+                            224113  Statistician: '224113'
+                        2242  Archivists, Curators and Records Managers:    
+                            224211  Archivist: '224211'
+                            224212  Gallery or Museum Curator: '224212'
+                            224213  Health Information Manager: '224213'
+                            224214  Records Manager: '224214'
+                        2243  Economists:    
+                            224311  Economist: '224311'
+                        2244  Intelligence and Policy Analysts:    
+                            224411  Intelligence Officer: '224411'
+                            224412  Policy Analyst: '224412'
+                        2245  Land Economists and Valuers:    
+                            224511  Land Economist: '224511'
+                            224512  Valuer: '224512'
+                        2246  Librarians:    
+                            224611  Librarian: '224611'
+                        2247  Management and Organisation Analysts:    
+                            224711  Management Consultant: '224711'
+                            224712  Organisation and Methods Analyst: '224712'
+                        2249  Other Information and Organisation Professionals:    
+                            224911  Electorate Officer: '224911'
+                            224912  Liaison Officer: '224912'
+                            224913  Migration Agent: '224913'
+                            224914  Patents Examiner: '224914'
+                            224999  Information and Organisation Professionals nec: '224999'
+                    225  Sales, Marketing and Public Relations Professionals:        
+                        2251  Advertising and Marketing Professionals:    
+                            225111  Advertising Specialist: '225111'
+                            225112  Market Research Analyst: '225112'
+                            225113  Marketing Specialist: '225113'
+                        2252  ICT Sales Professionals:    
+                            225211  ICT Account Manager: '225211'
+                            225212  ICT Business Development Manager: '225212'
+                            225213  ICT Sales Representative: '225213'
+                        2253  Public Relations Professionals:    
+                            225311  Public Relations Professional: '225311'
+                        2254  Technical Sales Representatives:    
+                            225411  Sales Representative (Industrial Products): '225411'
+                            225412  Sales Representative (Medical and Pharmaceutical Products): '225412'
+                            225499  Technical Sales Representatives nec: '225499'
+                23  Design, Engineering, Science and Transport Professionals:            
+                    231  Air and Marine Transport Professionals:        
+                        2311  Air Transport Professionals:    
+                            231111  Aeroplane Pilot: '231111'
+                            231112  Air Traffic Controller: '231112'
+                            231113  Flying Instructor: '231113'
+                            231114  Helicopter Pilot: '231114'
+                            231199  Air Transport Professionals nec: '231199'
+                        2312  Marine Transport Professionals:    
+                            231211  Master Fisher: '231211'
+                            231212  Ship's Engineer: '231212'
+                            231213  Ship's Master: '231213'
+                            231214  Ship's Officer: '231214'
+                            231215  Marine Surveyor: '231215'
+                            231299  Marine Transport Professionals nec: '231299'
+                    232  Architects, Designers, Planners and Surveyors:        
+                        2321  Architects and Landscape Architects:    
+                            232111  Architect: '232111'
+                            232112  Landscape Architect: '232112'
+                        2322  Surveyors and spatial scientists:    
+                            232212  Surveyor: '232212'
+                            232213  Cartographer: '232213'
+                            232214  Other Spatial Scientist: '232214'
+                        2323  Fashion, Industrial and Jewellery Designers:    
+                            232311  Fashion Designer: '232311'
+                            232312  Industrial Designer: '232312'
+                            232313  Jewellery Designer: '232313'
+                        2324  Graphic and Web Designers, and Illustrators:    
+                            232411  Graphic Designer: '232411'
+                            232412  Illustrator: '232412'
+                            232413  Multimedia Designer: '232413'
+                            232414  Web Designer: '232414'
+                        2325  Interior Designers:    
+                            232511  Interior Designer: '232511'
+                        2326  Urban and Regional Planners:    
+                            232611  Urban and Regional Planner: '232611'
+                    233  Engineering Professionals:        
+                        2331  Chemical and Materials Engineers:    
+                            233111  Chemical Engineer: '233111'
+                            233112  Materials Engineer: '233112'
+                        2332  Civil Engineering Professionals:    
+                            233211  Civil Engineer: '233211'
+                            233212  Geotechnical Engineer: '233212'
+                            233213  Quantity Surveyor: '233213'
+                            233214  Structural Engineer: '233214'
+                            233215  Transport Engineer: '233215'
+                        2333  Electrical Engineers:    
+                            233311  Electrical Engineer: '233311'
+                        2334  Electronics Engineers:    
+                            233411  Electronics Engineer: '233411'
+                        2335  Industrial, Mechanical and Production Engineers:    
+                            233511  Industrial Engineer: '233511'
+                            233512  Mechanical Engineer: '233512'
+                            233513  Production or Plant Engineer: '233513'
+                        2336  Mining Engineers:    
+                            233611  Mining Engineer (excluding Petroleum): '233611'
+                            233612  Petroleum Engineer: '233612'
+                        2339  Other Engineering Professionals:    
+                            233911  Aeronautical Engineer: '233911'
+                            233912  Agricultural Engineer: '233912'
+                            233913  Biomedical Engineer: '233913'
+                            233914  Engineering Technologist: '233914'
+                            233915  Environmental Engineer: '233915'
+                            233916  Naval Architect: '233916'
+                            233999  Engineering Professionals nec: '233999'
+                    234  Natural and Physical Science Professionals:        
+                        2341  Agricultural and Forestry Scientists:    
+                            234111  Agricultural Consultant: '234111'
+                            234112  Agricultural Scientist: '234112'
+                            234113  Forester: '234113'
+                        2342  Chemists, and Food and Wine Scientists:    
+                            234211  Chemist: '234211'
+                            234212  Food Technologist: '234212'
+                            234213  Wine Maker: '234213'
+                        2343  Environmental Scientists:    
+                            234311  Conservation Officer: '234311'
+                            234312  Environmental Consultant: '234312'
+                            234313  Environmental Research Scientist: '234313'
+                            234314  Park Ranger: '234314'
+                            234399  Environmental Scientists nec: '234399'
+                        2344  Geologists, Geophysicists and hydrogeologists:    
+                            234411  Geologist: '234411'
+                            234412  Geophysicist: '234412'
+                            234413  Hydrogeologist: '234413'
+                        2345  Life Scientists:    
+                            234511  Life Scientist (General): '234511'
+                            234513  Biochemist: '234513'
+                            234514  Biotechnologist: '234514'
+                            234515  Botanist: '234515'
+                            234516  Marine Biologist: '234516'
+                            234517  Microbiologist: '234517'
+                            234518  Zoologist: '234518'
+                            234599  Life Scientists nec: '234599'
+                        2346  Medical Laboratory Scientists:    
+                            234611  Medical Laboratory Scientist: '234611'
+                        2347  Veterinarians:    
+                            234711  Veterinarian: '234711'
+                        2349  Other Natural and Physical Science Professionals:    
+                            234911  Conservator: '234911'
+                            234912  Metallurgist: '234912'
+                            234913  Meteorologist: '234913'
+                            234914  Physicist: '234914'
+                            234915  Exercise Physiologist: '234915'
+                            234999  Natural and Physical Science Professionals nec: '234999'
+                24  Education Professionals:            
+                    241  School Teachers:        
+                        2411  Early Childhood (Pre-primary School) Teachers:    
+                            241111  Early Childhood (Pre-primary School) Teacher: '241111'
+                        2412  Primary School Teachers:    
+                            241213  Primary School Teacher: '241213'
+                        2413  Middle School Teachers:    
+                            241311  Middle School Teacher: '241311'
+                        2414  Secondary School Teachers:    
+                            241411  Secondary School Teacher: '241411'
+                        2415  Special Education Teachers:    
+                            241511  Special Needs Teacher: '241511'
+                            241512  Teacher of the Hearing Impaired: '241512'
+                            241513  Teacher of the Sight Impaired: '241513'
+                            241599  Special Education Teachers nec: '241599'
+                    242  Tertiary Education Teachers:        
+                        2421  University Lecturers and Tutors:    
+                            242111  University Lecturer: '242111'
+                            242112  University Tutor: '242112'
+                        2422  Vocational Education Teachers:    
+                            242211  Vocational Education Teacher: '242211'
+                    249  Miscellaneous Education Professionals:        
+                        2491  Education Advisers and Reviewers:    
+                            249111  Education Adviser: '249111'
+                            249112  Education Reviewer: '249112'
+                        2492  Private Tutors and Teachers:    
+                            249211  Art Teacher (Private Tuition): '249211'
+                            249212  Dance Teacher (Private Tuition): '249212'
+                            249213  Drama Teacher (Private Tuition): '249213'
+                            249214  Music Teacher (Private Tuition): '249214'
+                            249299  Private Tutors and Teachers nec: '249299'
+                        2493  Teachers of English to Speakers of Other Languages:    
+                            249311  Teacher of English to Speakers of Other Languages: '249311'
+                25  Health Professionals:            
+                    251  Health Diagnostic and Promotion Professionals:        
+                        2511  Nutrition Professionals:    
+                            251111  Dietitian: '251111'
+                            251112  Nutritionist: '251112'
+                        2512  Medical Imaging Professionals:    
+                            251211  Medical Diagnostic Radiographer: '251211'
+                            251212  Medical Radiation Therapist: '251212'
+                            251213  Nuclear Medicine Technologist: '251213'
+                            251214  Sonographer: '251214'
+                        2513  Occupational and Environmental Health Professionals:    
+                            251311  Environmental Health Officer: '251311'
+                            251312  Occupational Health and Safety Adviser: '251312'
+                        2514  Optometrists and Orthoptists:    
+                            251411  Optometrist: '251411'
+                            251412  Orthoptist: '251412'
+                        2515  Pharmacists:    
+                            251511  Hospital Pharmacist: '251511'
+                            251512  Industrial Pharmacist: '251512'
+                            251513  Retail Pharmacist: '251513'
+                        2519  Other Health Diagnostic and Promotion Professionals:    
+                            251911  Health Promotion Officer: '251911'
+                            251912  Orthotist or Prosthetist: '251912'
+                            251999  Health Diagnostic and Promotion Professionals nec: '251999'
+                    252  Health Therapy Professionals:        
+                        2521  Chiropractors and Osteopaths:    
+                            252111  Chiropractor: '252111'
+                            252112  Osteopath: '252112'
+                        2522  Complementary Health Therapists:    
+                            252211  Acupuncturist: '252211'
+                            252212  Homoeopath: '252212'
+                            252213  Naturopath: '252213'
+                            252214  Traditional Chinese Medicine Practitioner: '252214'
+                            252299  Complementary Health Therapists nec: '252299'
+                        2523  Dental Practitioners:    
+                            252311  Dental Specialist: '252311'
+                            252312  Dentist: '252312'
+                        2524  Occupational Therapists:    
+                            252411  Occupational Therapist: '252411'
+                        2525  Physiotherapists:    
+                            252511  Physiotherapist: '252511'
+                        2526  Podiatrists:    
+                            252611  Podiatrist: '252611'
+                        2527  Audiologists and Speech Pathologists/Therapists:    
+                            252711  Audiologist: '252711'
+                            252712  Speech Pathologist: '252712'
+                    253  Medical Practitioners:        
+                        2531  Generalist Practitioners and resident medical Officers:    
+                            253111  General Practitioner: '253111'
+                            253112  Resident Medical Officer: '253112'
+                        2532  Anaesthetists:    
+                            253211  Anaesthetist: '253211'
+                        2533  Specialist physicians:    
+                            253311  Specialist Physician (General Medicine): '253311'
+                            253312  Cardiologist: '253312'
+                            253313  Clinical Haematologist: '253313'
+                            253314  Medical Oncologist: '253314'
+                            253315  Endocrinologist: '253315'
+                            253316  Gastroenterologist: '253316'
+                            253317  Intensive Care Specialist: '253317'
+                            253318  Neurologist: '253318'
+                            253321  Paediatrician: '253321'
+                            253322  Renal Medicine Specialist: '253322'
+                            253323  Rheumatologist: '253323'
+                            253324  Thoracic Medicine Specialist: '253324'
+                            253399  Specialist Physicians nec: '253399'
+                        2534  Psychiatrists:    
+                            253411  Psychiatrist: '253411'
+                        2535  Surgeons:    
+                            253511  Surgeon (General): '253511'
+                            253512  Cardiothoracic Surgeon: '253512'
+                            253513  Neurosurgeon: '253513'
+                            253514  Orthopaedic Surgeon: '253514'
+                            253515  Otorhinolaryngologist: '253515'
+                            253516  Paediatric Surgeon: '253516'
+                            253517  Plastic and Reconstructive Surgeon: '253517'
+                            253518  Urologist: '253518'
+                            253521  Vascular Surgeon: '253521'
+                        2539  Other Medical Practitioners:    
+                            253911  Dermatologist: '253911'
+                            253912  Emergency Medicine Specialist: '253912'
+                            253913  Obstetrician and Gynaecologist: '253913'
+                            253914  Ophthalmologist: '253914'
+                            253915  Pathologist: '253915'
+                            253917  Diagnostic and Interventional Radiologist: '253917'
+                            253918  Radiation Oncologist: '253918'
+                            253999  Medical Practitioners nec: '253999'
+                    254  Midwifery and Nursing Professionals:        
+                        2541  Midwives:    
+                            254111  Midwife: '254111'
+                        2542  Nurse Educators and Researchers:    
+                            254211  Nurse Educator: '254211'
+                            254212  Nurse Researcher: '254212'
+                        2543  Nurse Managers:    
+                            254311  Nurse Manager: '254311'
+                        2544  Registered Nurses:    
+                            254411  Nurse Practitioner: '254411'
+                            254412  Registered Nurse (Aged Care): '254412'
+                            254413  Registered Nurse (Child and Family Health): '254413'
+                            254414  Registered Nurse (Community Health): '254414'
+                            254415  Registered Nurse (Critical Care and Emergency): '254415'
+                            254416  Registered Nurse (Developmental Disability): '254416'
+                            254417  Registered Nurse (Disability and Rehabilitation): '254417'
+                            254418  Registered Nurse (Medical): '254418'
+                            254421  Registered Nurse (Medical Practice): '254421'
+                            254422  Registered Nurse (Mental Health): '254422'
+                            254423  Registered Nurse (Perioperative): '254423'
+                            254424  Registered Nurse (Surgical): '254424'
+                            254425  Registered Nurse (Paediatrics): '254425'
+                            254499  Registered Nurses nec: '254499'
+                26  ICT Professionals:            
+                    261  Business and Systems Analysts, and Programmers:        
+                        2611  ICT Business and Systems Analysts:    
+                            261111  ICT Business Analyst: '261111'
+                            261112  Systems Analyst: '261112'
+                        2612  Multimedia Specialists and Web Developers:    
+                            261211  Multimedia Specialist: '261211'
+                            261212  Web Developer: '261212'
+                        2613  Software and Applications Programmers:    
+                            261311  Analyst Programmer: '261311'
+                            261312  Developer Programmer: '261312'
+                            261313  Software Engineer: '261313'
+                            261314  Software Tester: '261314'
+                            261399  Software and Applications Programmers nec: '261399'
+                    262  Database and Systems Administrators, and ICT Security Specialists:        
+                        2621  Database and Systems Administrators, and ICT Security Specialists:    
+                            262111  Database Administrator: '262111'
+                            262112  ICT Security Specialist: '262112'
+                            262113  Systems Administrator: '262113'
+                    263  ICT Network and Support Professionals:        
+                        2631  Computer Network Professionals:    
+                            263111  Computer Network and Systems Engineer: '263111'
+                            263112  Network Administrator: '263112'
+                            263113  Network Analyst: '263113'
+                        2632  ICT Support and Test Engineers:    
+                            263211  ICT Quality Assurance Engineer: '263211'
+                            263212  ICT Support Engineer: '263212'
+                            263213  ICT Systems Test Engineer: '263213'
+                            263299  ICT Support and Test Engineers nec: '263299'
+                        2633  Telecommunications Engineering Professionals:    
+                            263311  Telecommunications Engineer: '263311'
+                            263312  Telecommunications Network Engineer: '263312'
+                27  Legal, Social and Welfare Professionals:            
+                    271  Legal Professionals:        
+                        2711  Barristers:    
+                            271111  Barrister: '271111'
+                        2712  Judicial and Other Legal Professionals:    
+                            271211  Judge: '271211'
+                            271212  Magistrate: '271212'
+                            271213  Tribunal Member: '271213'
+                            271214  Intellectual Property Lawyer: '271214'
+                            271299  Judicial and Other Legal Professionals nec: '271299'
+                        2713  Solicitors:    
+                            271311  Solicitor: '271311'
+                    272  Social and Welfare Professionals:        
+                        2721  Counsellors:    
+                            272111  Careers Counsellor: '272111'
+                            272112  Drug and Alcohol Counsellor: '272112'
+                            272113  Family and Marriage Counsellor: '272113'
+                            272114  Rehabilitation Counsellor: '272114'
+                            272115  Student Counsellor: '272115'
+                            272199  Counsellors nec: '272199'
+                        2722  Ministers of Religion:    
+                            272211  Minister of Religion: '272211'
+                        2723  Psychologists:    
+                            272311  Clinical Psychologist: '272311'
+                            272312  Educational Psychologist: '272312'
+                            272313  Organisational Psychologist: '272313'
+                            272314  Psychotherapist: '272314'
+                            272399  Psychologists nec: '272399'
+                        2724  Social Professionals:    
+                            272411  Historian: '272411'
+                            272412  Interpreter: '272412'
+                            272413  Translator: '272413'
+                            272414  Archaeologist: '272414'
+                            272499  Social Professionals nec: '272499'
+                        2725  Social Workers:    
+                            272511  Social Worker: '272511'
+                        2726  Welfare, Recreation and Community Arts Workers:    
+                            272611  Community Arts Worker: '272611'
+                            272612  Recreation Officer: '272612'
+                            272613  Welfare Worker: '272613'
+            3  TECHNICIANS AND TRADES WORKERS:                
+                31  Engineering, ICT and Science Technicians:            
+                    311  Agricultural, Medical and Science Technicians:        
+                        3111  Agricultural Technicians:    
+                            311111  Agricultural Technician: '311111'
+                        3112  Medical Technicians:    
+                            311211  Anaesthetic Technician: '311211'
+                            311212  Cardiac Technician: '311212'
+                            311213  Medical Laboratory Technician: '311213'
+                            311214  Operating Theatre Technician: '311214'
+                            311215  Pharmacy Technician: '311215'
+                            311216  Pathology Collector (Aus)/Phlebotomist (NZ): '311216'
+                            311299  Medical Technicians nec: '311299'
+                        3113  Primary Products Inspectors:    
+                            311311  Fisheries Officer: '311311'
+                            311312  Meat Inspector: '311312'
+                            311313  Quarantine Officer: '311313'
+                            311399  Primary Products Inspectors nec: '311399'
+                        3114  Science Technicians:    
+                            311411  Chemistry Technician: '311411'
+                            311412  Earth Science Technician: '311412'
+                            311413  Life Science Technician: '311413'
+                            311414  School Laboratory Technician: '311414'
+                            311415  Hydrographer: '311415'
+                            311499  Science Technicians nec: '311499'
+                    312  Building and Engineering Technicians:        
+                        3121  Architectural, Building and Surveying Technicians:    
+                            312111  Architectural Draftsperson: '312111'
+                            312112  Building Associate: '312112'
+                            312113  Building Inspector: '312113'
+                            312114  Construction Estimator: '312114'
+                            312115  Plumbing Inspector: '312115'
+                            312116  Surveying or Spatial Science Technician: '312116'
+                            312199  Architechtural, Building and Surveying Technicians nec: '312199'
+                        3122  Civil Engineering Draftspersons and Technicians:    
+                            312211  Civil Engineering Draftsperson: '312211'
+                            312212  Civil Engineering Technician: '312212'
+                        3123  Electrical Engineering Draftspersons and Technicians:    
+                            312311  Electrical Engineering Draftsperson: '312311'
+                            312312  Electrical Engineering Technician: '312312'
+                        3124  Electronic Engineering Draftspersons and Technicians:    
+                            312411  Electronic Engineering Draftsperson: '312411'
+                            312412  Electronic Engineering Technician: '312412'
+                        3125  Mechanical Engineering Draftspersons and Technicians:    
+                            312511  Mechanical Engineering Draftsperson: '312511'
+                            312512  Mechanical Engineering Technician: '312512'
+                        3126  Safety Inspectors:    
+                            312611  Safety Inspector: '312611'
+                        3129  Other Building and Engineering Technicians:    
+                            312911  Maintenance Planner: '312911'
+                            312912  Metallurgical or Materials Technician: '312912'
+                            312913  Mine Deputy: '312913'
+                            312999  Building and Engineering Technicians nec: '312999'
+                    313  ICT and Telecommunications Technicians:        
+                        3131  ICT Support Technicians:    
+                            313111  Hardware Technician: '313111'
+                            313112  ICT Customer Support Officer: '313112'
+                            313113  Web Administrator: '313113'
+                            313199  ICT Support Technicians nec: '313199'
+                        3132  Telecommunications Technical Specialists:    
+                            313211  Radiocommunications Technician: '313211'
+                            313212  Telecommunications Field Engineer: '313212'
+                            313213  Telecommunications Network Planner: '313213'
+                            313214  Telecommunications Technical Officer or Technologist: '313214'
+                32  Automotive and Engineering Trades Workers:            
+                    321  Automotive Electricians and Mechanics:        
+                        3211  Automotive Electricians:    
+                            321111  Automotive Electrician: '321111'
+                        3212  Motor Mechanics:    
+                            321211  Motor Mechanic (General): '321211'
+                            321212  Diesel Motor Mechanic: '321212'
+                            321213  Motorcycle Mechanic: '321213'
+                            321214  Small Engine Mechanic: '321214'
+                    322  Fabrication Engineering Trades Workers:        
+                        3221  Metal Casting, Forging and Finishing Trades Workers:    
+                            322111  Blacksmith: '322111'
+                            322112  Electroplater: '322112'
+                            322113  Farrier: '322113'
+                            322114  Metal Casting Trades Worker: '322114'
+                            322115  Metal Polisher: '322115'
+                        3222  Sheetmetal Trades Workers:    
+                            322211  Sheetmetal Trades Worker: '322211'
+                        3223  Structural Steel and Welding Trades Workers:    
+                            322311  Metal Fabricator: '322311'
+                            322312  Pressure Welder: '322312'
+                            322313  Welder (First Class): '322313'
+                    323  Mechanical Engineering Trades Workers:        
+                        3231  Aircraft Maintenance Engineers:    
+                            323111  Aircraft Maintenance Engineer (Avionics): '323111'
+                            323112  Aircraft Maintenance Engineer (Mechanical): '323112'
+                            323113  Aircraft Maintenance Engineer (Structures): '323113'
+                        3232  Metal Fitters and Machinists:    
+                            323211  Fitter (General): '323211'
+                            323212  Fitter and Turner: '323212'
+                            323213  Fitter-Welder: '323213'
+                            323214  Metal Machinist (First Class): '323214'
+                            323215  Textile, Clothing and Footwear Mechanic: '323215'
+                            323299  Metal Fitters and Machinists nec: '323299'
+                        3233  Precision Metal Trades Workers:    
+                            323311  Engraver: '323311'
+                            323312  Gunsmith: '323312'
+                            323313  Locksmith: '323313'
+                            323314  Precision Instrument Maker and Repairer: '323314'
+                            323315  Saw Doctor: '323315'
+                            323316  Watch and Clock Maker and Repairer: '323316'
+                        3234  Toolmakers and Engineering Patternmakers:    
+                            323411  Engineering Patternmaker: '323411'
+                            323412  Toolmaker: '323412'
+                    324  Panelbeaters, and Vehicle Body Builders, Trimmers and Painters:        
+                        3241  Panelbeaters:    
+                            324111  Panelbeater: '324111'
+                        3242  Vehicle Body Builders and Trimmers:    
+                            324211  Vehicle Body Builder: '324211'
+                            324212  Vehicle Trimmer: '324212'
+                        3243  Vehicle Painters:    
+                            324311  Vehicle Painter: '324311'
+                33  Construction Trades Workers:            
+                    331  Bricklayers, and Carpenters and Joiners:        
+                        3311  Bricklayers and Stonemasons:    
+                            331111  Bricklayer: '331111'
+                            331112  Stonemason: '331112'
+                        3312  Carpenters and Joiners:    
+                            331211  Carpenter and Joiner: '331211'
+                            331212  Carpenter: '331212'
+                            331213  Joiner: '331213'
+                    332  Floor Finishers and Painting Trades Workers:        
+                        3321  Floor Finishers:    
+                            332111  Floor Finisher: '332111'
+                        3322  Painting Trades Workers:    
+                            332211  Painting Trades Worker: '332211'
+                    333  Glaziers, Plasterers and Tilers:        
+                        3331  Glaziers:    
+                            333111  Glazier: '333111'
+                        3332  Plasterers:    
+                            333211  Fibrous Plasterer: '333211'
+                            333212  Solid Plasterer: '333212'
+                        3333  Roof Tilers:    
+                            333311  Roof Tiler: '333311'
+                        3334  Wall and Floor Tilers:    
+                            333411  Wall and Floor Tiler: '333411'
+                    334  Plumbers:        
+                        3341  Plumbers:    
+                            334111  Plumber (General): '334111'
+                            334112  Airconditioning and Mechanical Services Plumber: '334112'
+                            334113  Drainer: '334113'
+                            334114  Gasfitter: '334114'
+                            334115  Roof Plumber: '334115'
+                34  Electrotechnology and Telecommunications Trades Workers:            
+                    341  Electricians:        
+                        3411  Electricians:    
+                            341111  Electrician (General): '341111'
+                            341112  Electrician (Special Class): '341112'
+                            341113  Lift Mechanic: '341113'
+                    342  Electronics and Telecommunications Trades Workers:        
+                        3421  Airconditioning and Refrigeration Mechanics:    
+                            342111  Airconditioning and Refrigeration Mechanic: '342111'
+                        3422  Electrical Distribution Trades Workers:    
+                            342211  Electrical Linesworker: '342211'
+                            342212  Technical Cable Jointer: '342212'
+                        3423  Electronics Trades Workers:    
+                            342311  Business Machine Mechanic: '342311'
+                            342312  Communications Operator: '342312'
+                            342313  Electronic Equipment Trades Worker: '342313'
+                            342314  Electronic Instrument Trades Worker (General): '342314'
+                            342315  Electronic Instrument Trades Worker (Special Class): '342315'
+                        3424  Telecommunications Trades Workers:    
+                            342411  Cabler (Data and Telecommunications): '342411'
+                            342412  Telecommunications Cable Jointer: '342412'
+                            342413  Telecommunications Linesworker: '342413'
+                            342414  Telecommunications Technician: '342414'
+                35  Food Trades Workers:            
+                    351  Food Trades Workers:        
+                        3511  Bakers and Pastrycooks:    
+                            351111  Baker: '351111'
+                            351112  Pastrycook: '351112'
+                        3512  Butchers and Smallgoods Makers:    
+                            351211  Butcher or Smallgoods Maker: '351211'
+                        3513  Chefs:    
+                            351311  Chef: '351311'
+                        3514  Cooks:    
+                            351411  Cook: '351411'
+                36  Skilled Animal and Horticultural Workers:            
+                    361  Animal Attendants and Trainers, and Shearers:        
+                        3611  Animal Attendants and Trainers:    
+                            361111  Dog Handler or Trainer: '361111'
+                            361112  Horse Trainer: '361112'
+                            361113  Pet Groomer: '361113'
+                            361114  Zookeeper: '361114'
+                            361115  Kennel Hand: '361115'
+                            361199  Animal Attendants and Trainers nec: '361199'
+                        3612  Shearers:    
+                            361211  Shearer: '361211'
+                        3613  Veterinary Nurses:    
+                            361311  Veterinary Nurse: '361311'
+                    362  Horticultural Trades Workers:        
+                        3621  Florists:    
+                            362111  Florist: '362111'
+                        3622  Gardeners:    
+                            362211  Gardener (General): '362211'
+                            362212  Arborist: '362212'
+                            362213  Landscape Gardener: '362213'
+                        3623  Greenkeepers:    
+                            362311  Greenkeeper: '362311'
+                        3624  Nurserypersons:    
+                            362411  Nurseryperson: '362411'
+                39  Other Technicians and Trades Workers:            
+                    391  Hairdressers:        
+                        3911  Hairdressers:    
+                            391111  Hairdresser: '391111'
+                    392  Printing Trades Workers:        
+                        3921  print Finishers and Screen Printers:    
+                            392111  Print Finisher: '392111'
+                            392112  Screen Printer: '392112'
+                        3922  Graphic Pre-press Trades Workers:    
+                            392211  Graphic Pre-press Trades Worker: '392211'
+                        3923  Printers:    
+                            392311  Printing Machinist: '392311'
+                            392312  Small Offset Printer: '392312'
+                    393  Textile, Clothing and Footwear Trades Workers:        
+                        3931  Canvas and Leather Goods Makers:    
+                            393111  Canvas Goods Fabricator: '393111'
+                            393112  Leather Goods Maker: '393112'
+                            393113  Sail Maker: '393113'
+                            393114  Shoemaker: '393114'
+                        3932  Clothing Trades Workers:    
+                            393211  Apparel Cutter: '393211'
+                            393212  Clothing Patternmaker: '393212'
+                            393213  Dressmaker or Tailor: '393213'
+                            393299  Clothing Trades Workers nec: '393299'
+                        3933  Upholsterers:    
+                            393311  Upholsterer: '393311'
+                    394  Wood Trades Workers:        
+                        3941  Cabinetmakers:    
+                            394111  Cabinetmaker: '394111'
+                        3942  Wood Machinists and Other Wood Trades Workers:    
+                            394211  Furniture Finisher: '394211'
+                            394212  Picture Framer: '394212'
+                            394213  Wood Machinist: '394213'
+                            394214  Wood Turner: '394214'
+                            394299  Wood Machinists and Other Wood Trades Workers nec: '394299'
+                    399  Miscellaneous Technicians and Trades Workers:        
+                        3991  Boat Builders and Shipwrights:    
+                            399111  Boat Builder and Repairer: '399111'
+                            399112  Shipwright: '399112'
+                        3992  Chemical, Gas, Petroleum and Power Generation Plant Operators:    
+                            399211  Chemical Plant Operator: '399211'
+                            399212  Gas or Petroleum Operator: '399212'
+                            399213  Power Generation Plant Operator: '399213'
+                        3993  Gallery, Library and Museum Technicians:    
+                            399311  Gallery or Museum Technician: '399311'
+                            399312  Library Technician: '399312'
+                        3994  Jewellers:    
+                            399411  Jeweller: '399411'
+                        3995  Performing Arts Technicians:    
+                            399511  Broadcast Transmitter Operator: '399511'
+                            399512  Camera Operator (Film, Television or Video): '399512'
+                            399513  Light Technician: '399513'
+                            399514  Make Up Artist: '399514'
+                            399515  Musical Instrument Maker or Repairer: '399515'
+                            399516  Sound Technician: '399516'
+                            399517  Television Equipment Operator: '399517'
+                            399599  Performing Arts Technicians nec: '399599'
+                        3996  Signwriters:    
+                            399611  Signwriter: '399611'
+                        3999  Other Miscellaneous Technicians and Trades Workers:    
+                            399911  Diver: '399911'
+                            399912  Interior Decorator: '399912'
+                            399913  Optical Dispenser: '399913'
+                            399914  Optical Mechanic: '399914'
+                            399915  Photographer's Assistant: '399915'
+                            399916  Plastics Technician: '399916'
+                            399917  Wool Classer: '399917'
+                            399918  Fire Protection Equipment Technician: '399918'
+                            399999  Technicians and Trades Workers nec: '399999'
+            4  COMMUNITY AND PERSONAL SERVICE WORKERS:                
+                41  Health and Welfare Support Workers:            
+                    411  Health and Welfare Support Workers:        
+                        4111  Ambulance Officers and Paramedics:    
+                            411111  Ambulance Officer: '411111'
+                            411112  Intensive Care Ambulance Paramedic: '411112'
+                        4112  Dental Hygienists, Technicians and Therapists:    
+                            411211  Dental Hygienist: '411211'
+                            411212  Dental Prosthetist: '411212'
+                            411213  Dental Technician: '411213'
+                            411214  Dental Therapist: '411214'
+                        4113  Diversional Therapists:    
+                            411311  Diversional Therapist: '411311'
+                        4114  Enrolled and Mothercraft Nurses:    
+                            411411  Enrolled Nurse: '411411'
+                            411412  Mothercraft Nurse: '411412'
+                        4115  Indigenous Health Workers:    
+                            411511  Aboriginal and Torres Strait Islander Health Worker: '411511'
+                        4116  Massage Therapists:    
+                            411611  Massage Therapist: '411611'
+                        4117  Welfare Support Workers:    
+                            411711  Community Worker: '411711'
+                            411712  Disabilities Services Officer: '411712'
+                            411713  Family Support Worker: '411713'
+                            411714  Parole or Probation Officer: '411714'
+                            411715  Residential Care Officer: '411715'
+                            411716  Youth Worker: '411716'
+                42  Carers and Aides:            
+                    421  Child Carers:        
+                        4211  Child Carers:    
+                            421111  Child Care Worker: '421111'
+                            421112  Family Day Care Worker: '421112'
+                            421113  Nanny: '421113'
+                            421114  Out of School Hours Care Worker: '421114'
+                    422  Education Aides:        
+                        4221  Education Aides:    
+                            422111  Aboriginal and Torres Strait Islander Education Worker: '422111'
+                            422112  Integration Aide: '422112'
+                            422115  Preschool Aide: '422115'
+                            422116  Teachers' Aide: '422116'
+                    423  Personal Carers and Assistants:        
+                        4231  Aged and Disabled Carers:    
+                            423111  Aged or Disabled Carer: '423111'
+                        4232  Dental Assistants:    
+                            423211  Dental Assistant: '423211'
+                        4233  Nursing Support and Personal Care Workers:    
+                            423311  Hospital Orderly: '423311'
+                            423312  Nursing Support Worker: '423312'
+                            423313  Personal Care Assistant: '423313'
+                            423314  Therapy Aide: '423314'
+                        4234  Special Care Workers:    
+                            423411  Child or Youth Residential Care Assistant: '423411'
+                            423412  Hostel Parent: '423412'
+                            423413  Refuge Worker: '423413'
+                43  Hospitality Workers:            
+                    431  Hospitality Workers:        
+                        4311  Bar Attendants and Baristas:    
+                            431111  Bar Attendant: '431111'
+                            431112  Barista: '431112'
+                        4312  Cafe Workers:    
+                            431211  Cafe Worker: '431211'
+                        4313  Gaming Workers:    
+                            431311  Gaming Worker: '431311'
+                        4314  Hotel Service Managers:    
+                            431411  Hotel Service Manager: '431411'
+                        4315  Waiters:    
+                            431511  Waiter: '431511'
+                        4319  Other Hospitality Workers:    
+                            431911  Bar Useful or Busser: '431911'
+                            431912  Doorperson or Luggage Porter: '431912'
+                            431999  Hospitality Workers nec: '431999'
+                44  Protective Service Workers:            
+                    441  Defence Force Members, Fire Fighters and Police:        
+                        4411  Defence Force Members - Other Ranks:    
+                            441111  Defence Force Member - Other Ranks: '441111'
+                        4412  Fire and Emergency Workers:    
+                            441211  Emergency Service Worker: '441211'
+                            441212  Fire Fighter: '441212'
+                        4413  Police:    
+                            441311  Detective: '441311'
+                            441312  Police Officer: '441312'
+                    442  Prison and Security Officers:        
+                        4421  Prison Officers:    
+                            442111  Prison Officer: '442111'
+                        4422  Security Officers and Guards:    
+                            442211  Alarm, Security or Surveillance Monitor: '442211'
+                            442212  Armoured Car Escort: '442212'
+                            442213  Crowd Controller: '442213'
+                            442214  Private Investigator: '442214'
+                            442215  Retail Loss Prevention Officer: '442215'
+                            442216  Security Consultant: '442216'
+                            442217  Security Officer: '442217'
+                            442299  Security Officers and Guards nec: '442299'
+                45  Sports and Personal Service Workers:            
+                    451  Personal Service and Travel Workers:        
+                        4511  Beauty Therapists:    
+                            451111  Beauty Therapist: '451111'
+                        4512  Driving Instructors:    
+                            451211  Driving Instructor: '451211'
+                        4513  Funeral Workers:    
+                            451311  Funeral Director: '451311'
+                            451399  Funeral Workers nec: '451399'
+                        4514  Gallery, Museum and Tour Guides:    
+                            451411  Gallery or Museum Guide: '451411'
+                            451412  Tour Guide: '451412'
+                        4515  Personal Care Consultants:    
+                            451511  Natural Remedy Consultant: '451511'
+                            451512  Weight Loss Consultant: '451512'
+                            451513  Herbalist (Western): '451513'
+                        4516  Tourism and Travel Advisers:    
+                            451611  Tourist Information Officer: '451611'
+                            451612  Travel Consultant: '451612'
+                        4517  Travel Attendants:    
+                            451711  Flight Attendant: '451711'
+                            451799  Travel Attendants nec: '451799'
+                        4518  Other Personal Service Workers:    
+                            451811  Civil Celebrant: '451811'
+                            451812  Hair or Beauty Salon Assistant: '451812'
+                            451813  Sex Worker or Escort: '451813'
+                            451814  Body Artist: '451814'
+                            451815  First Aid Trainer: '451815'
+                            451816  Religious Assistant: '451816'
+                            451899  Other Personal Service Workers nec: '451899'
+                    452  Sports and Fitness Workers:        
+                        4521  Fitness Instructors:    
+                            452111  Fitness Instructor: '452111'
+                        4522  Outdoor Adventure Guides:    
+                            452211  Bungy Jump Master: '452211'
+                            452212  Fishing Guide: '452212'
+                            452213  Hunting Guide: '452213'
+                            452214  Mountain or Glacier Guide: '452214'
+                            452215  Outdoor Adventure Instructor: '452215'
+                            452216  Trekking Guide: '452216'
+                            452217  Whitewater Rafting Guide: '452217'
+                            452299  Outdoor Adventure Guides nec: '452299'
+                        4523  Sports Coaches, Instructors and Officials:    
+                            452311  Diving Instructor (Open Water): '452311'
+                            452312  Gymnastics Coach or Instructor: '452312'
+                            452313  Horse Riding Coach or Instructor: '452313'
+                            452314  Snowsport Instructor: '452314'
+                            452315  Swimming Coach or Instructor: '452315'
+                            452316  Tennis Coach: '452316'
+                            452317  Other Sports Coach or Instructor: '452317'
+                            452318  Dog or Horse Racing Official: '452318'
+                            452321  Sports Development Officer: '452321'
+                            452322  Sports Umpire: '452322'
+                            452323  Other Sports Official: '452323'
+                        4524  Sportspersons:    
+                            452411  Footballer: '452411'
+                            452412  Golfer: '452412'
+                            452413  Jockey: '452413'
+                            452414  Lifeguard: '452414'
+                            452499  Sportspersons nec: '452499'
+            5  CLERICAL AND ADMINISTRATIVE WORKERS:                
+                51  Office Managers and Program Administrators:            
+                    511  Contract, Program and Project Administrators:        
+                        5111  Contract, Program and Project Administrators:    
+                            511111  Contract Administrator: '511111'
+                            511112  Program or Project Administrator: '511112'
+                    512  Office and Practice Managers:        
+                        5121  Office Managers:    
+                            512111  Office Manager: '512111'
+                        5122  Practice Managers:    
+                            512211  Health Practice Manager: '512211'
+                            512299  Practice Managers nec: '512299'
+                52  Personal Assistants and Secretaries:            
+                    521  Personal Assistants and Secretaries:        
+                        5211  Personal Assistants:    
+                            521111  Personal Assistant: '521111'
+                        5212  Secretaries:    
+                            521211  Secretary (General): '521211'
+                            521212  Legal Secretary: '521212'
+                53  General Clerical Workers:            
+                    531  General Clerks:        
+                        5311  General Clerks:    
+                            531111  General Clerk: '531111'
+                    532  Keyboard Operators:        
+                        5321  Keyboard Operators:    
+                            532111  Data Entry Operator: '532111'
+                            532112  Machine Shorthand Reporter: '532112'
+                            532113  Word Processing Operator: '532113'
+                54  Inquiry Clerks and Receptionists:            
+                    541  Call or Contact Centre Information Clerks:        
+                        5411  Call or Contact Centre Workers:    
+                            541111  Call or Contact Centre Team Leader: '541111'
+                            541112  Call or Contact Centre Operator: '541112'
+                        5412  Inquiry Clerks:    
+                            541211  Information Officer: '541211'
+                    542  Receptionists:        
+                        5421  Receptionists:    
+                            542111  Receptionist (General): '542111'
+                            542112  Admissions Clerk: '542112'
+                            542113  Hotel or Motel Receptionist: '542113'
+                            542114  Medical Receptionist: '542114'
+                55  Numerical Clerks:            
+                    551  Accounting Clerks and Bookkeepers:        
+                        5511  Accounting Clerks:    
+                            551111  Accounts Clerk: '551111'
+                            551112  Cost Clerk: '551112'
+                        5512  Bookkeepers:    
+                            551211  Bookkeeper: '551211'
+                        5513  Payroll Clerks:    
+                            551311  Payroll Clerk: '551311'
+                    552  Financial and Insurance Clerks:        
+                        5521  Bank Workers:    
+                            552111  Bank Worker: '552111'
+                        5522  Credit and Loans Officers (AUS)/Finance clerks (NZ):    
+                            552211  Credit and Loans Officer (Aus)/Finance Clerk (NZ): '552211'
+                        5523  Insurance, Money Market and Statistical Clerks:    
+                            552311  Bookmaker: '552311'
+                            552312  Insurance Consultant: '552312'
+                            552313  Money Market Clerk: '552313'
+                            552314  Statistical Clerk: '552314'
+                56  Clerical and Office Support Workers:            
+                    561  Clerical and Office Support Workers:        
+                        5611  Betting Clerks:    
+                            561111  Betting Agency Counter Clerk: '561111'
+                            561112  Bookmaker's Clerk: '561112'
+                            561113  Telephone Betting Clerk: '561113'
+                            561199  Betting Clerks nec: '561199'
+                        5612  Couriers and Postal Deliverers:    
+                            561211  Courier: '561211'
+                            561212  Postal Delivery Officer: '561212'
+                        5613  Filing and Registry Clerks:    
+                            561311  Filing or Registry Clerk: '561311'
+                        5614  Mail Sorters:    
+                            561411  Mail Clerk: '561411'
+                            561412  Postal Sorting Officer: '561412'
+                        5615  Survey Interviewers:    
+                            561511  Survey Interviewer: '561511'
+                        5616  Switchboard Operators:    
+                            561611  Switchboard Operator: '561611'
+                        5619  Other Clerical and Office Support Workers:    
+                            561911  Classified Advertising Clerk: '561911'
+                            561912  Meter Reader: '561912'
+                            561913  Parking Inspector: '561913'
+                            561999  Clerical and Office Support Workers nec: '561999'
+                59  Other Clerical and Administrative Workers:            
+                    591  Logistics Clerks:        
+                        5911  Purchasing and Supply Logistics Clerks:    
+                            591112  Production Clerk: '591112'
+                            591113  Purchasing Officer: '591113'
+                            591115  Stock Clerk: '591115'
+                            591116  Warehouse Administrator: '591116'
+                            591117  Order Clerk: '591117'
+                        5912  Transport and Despatch Clerks:    
+                            591211  Despatching and Receiving Clerk: '591211'
+                            591212  Import-Export Clerk: '591212'
+                    599  Miscellaneous Clerical and Administrative Workers:        
+                        5991  Conveyancers and Legal Executives:    
+                            599111  Conveyancer: '599111'
+                            599112  Legal Executive: '599112'
+                        5992  Court and Legal Clerks:    
+                            599211  Clerk of Court: '599211'
+                            599212  Court Bailiff or Sheriff: '599212'
+                            599213  Court Orderly: '599213'
+                            599214  Law Clerk: '599214'
+                            599215  Trust Officer: '599215'
+                        5993  Debt Collectors:    
+                            599311  Debt Collector: '599311'
+                        5994  Human Resource Clerks:    
+                            599411  Human Resources Clerk: '599411'
+                        5995  Inspectors and Regulatory Officers:    
+                            599511  Customs Officer: '599511'
+                            599512  Immigration Officer: '599512'
+                            599513  Motor Vehicle Licence Examiner: '599513'
+                            599514  Noxious Weeds and Pest Inspector: '599514'
+                            599515  Social Security Assessor: '599515'
+                            599516  Taxation Inspector: '599516'
+                            599517  Train Examiner: '599517'
+                            599518  Transport Operations Inspector: '599518'
+                            599521  Water Inspector: '599521'
+                            599599  Inspectors and Regulatory Officers nec: '599599'
+                        5996  Insurance Investigators, Loss Adjusters and Risk Surveyors:    
+                            599611  Insurance Investigator: '599611'
+                            599612  Insurance Loss Adjuster: '599612'
+                            599613  Insurance Risk Surveyor: '599613'
+                        5997  Library Assistants:    
+                            599711  Library Assistant: '599711'
+                        5999  Other Miscellaneous Clerical and Administrative Workers:    
+                            599912  Production Assistant (Film, Television, Radio or Stage): '599912'
+                            599913  Proof Reader: '599913'
+                            599914  Radio Despatcher: '599914'
+                            599915  Clinical Coder: '599915'
+                            599916  Facilities Administrator: '599916'
+                            599999  Clerical and Administrative Workers nec: '599999'
+            6  SALES WORKERS:                
+                61  Sales Representatives and Agents:            
+                    611  Insurance Agents and Sales Representatives:        
+                        6111  Auctioneers, and Stock and Station Agents:    
+                            611111  Auctioneer: '611111'
+                            611112  Stock and Station Agent: '611112'
+                        6112  Insurance Agents:    
+                            611211  Insurance Agent: '611211'
+                        6113  Sales Representatives:    
+                            611311  Sales Representative (Building and Plumbing Supplies): '611311'
+                            611312  Sales Representative (Business Services): '611312'
+                            611313  Sales Representative (Motor Vehicle Parts and Accessories): '611313'
+                            611314  Sales Representative (Personal and Household Goods): '611314'
+                            611399  Sales Representatives nec: '611399'
+                    612  Real Estate Sales Agents:        
+                        6121  Real Estate Sales Agents:    
+                            612111  Business Broker: '612111'
+                            612112  Property Manager: '612112'
+                            612113  Real Estate Agency Principal: '612113'
+                            612114  Real Estate Agent: '612114'
+                            612115  Real Estate Representative: '612115'
+                62  Sales Assistants and Salespersons:            
+                    621  Sales Assistants and Salespersons:        
+                        6211  Sales Assistants (General):    
+                            621111  Sales Assistant (General): '621111'
+                        6212  ICT Sales Assistants:    
+                            621211  ICT Sales Assistant: '621211'
+                        6213  Motor Vehicle and Vehicle Parts Salespersons:    
+                            621311  Motor Vehicle or Caravan Salesperson: '621311'
+                            621312  Motor Vehicle Parts Interpreter: '621312'
+                        6214  Pharmacy Sales Assistants:    
+                            621411  Pharmacy Sales Assistant: '621411'
+                        6215  Retail Supervisors:    
+                            621511  Retail Supervisor: '621511'
+                        6216  Service Station Attendants:    
+                            621611  Service Station Attendant: '621611'
+                        6217  Street Vendors and Related Salespersons:    
+                            621711  Cash Van Salesperson: '621711'
+                            621712  Door-to-door Salesperson: '621712'
+                            621713  Street Vendor: '621713'
+                        6219  Other Sales Assistants and Salespersons:    
+                            621911  Materials Recycler: '621911'
+                            621912  Rental Salesperson: '621912'
+                            621999  Sales Assistants and Salespersons nec: '621999'
+                63  Sales Support Workers:            
+                    631  Checkout Operators and Office Cashiers:        
+                        6311  Checkout Operators and Office Cashiers:    
+                            631111  Checkout Operator: '631111'
+                            631112  Office Cashier: '631112'
+                    639  Miscellaneous Sales Support Workers:        
+                        6391  Models and Sales Demonstrators:    
+                            639111  Model: '639111'
+                            639112  Sales Demonstrator: '639112'
+                        6392  Retail and Wool Buyers:    
+                            639211  Retail Buyer: '639211'
+                            639212  Wool Buyer: '639212'
+                        6393  Telemarketers:    
+                            639311  Telemarketer: '639311'
+                        6394  Ticket Salespersons:    
+                            639411  Ticket Seller: '639411'
+                            639412  Transport Conductor: '639412'
+                        6395  Visual Merchandisers:    
+                            639511  Visual Merchandiser: '639511'
+                        6399  Other Sales Support Workers:    
+                            639911  Other Sales Support Worker: '639911'
+            7  MACHINERY OPERATORS AND DRIVERS:                
+                71  Machine and Stationary Plant Operators:            
+                    711  Machine Operators:        
+                        7111  Clay, Concrete, Glass and Stone Processing Machine Operators:    
+                            711111  Clay Products Machine Operator: '711111'
+                            711112  Concrete Products Machine Operator: '711112'
+                            711113  Glass Production Machine Operator: '711113'
+                            711114  Stone Processing Machine Operator: '711114'
+                            711199  Clay, Concrete, Glass and Stone Processing Machine Operators nec: '711199'
+                        7112  Industrial Spraypainters:    
+                            711211  Industrial Spraypainter: '711211'
+                        7113  Paper and Wood Processing Machine Operators:    
+                            711311  Paper Products Machine Operator: '711311'
+                            711313  Sawmilling Operator: '711313'
+                            711314  Other Wood Processing Machine Operator: '711314'
+                        7114  Photographic Developers and Printers:    
+                            711411  Photographic Developer and Printer: '711411'
+                        7115  Plastics and Rubber Production Machine Operators:    
+                            711511  Plastic Cablemaking Machine Operator: '711511'
+                            711512  Plastic Compounding and Reclamation Machine Operator: '711512'
+                            711513  Plastics Fabricator or Welder: '711513'
+                            711514  Plastics Production Machine Operator (General): '711514'
+                            711515  Reinforced Plastic and Composite Production Worker: '711515'
+                            711516  Rubber Production Machine Operator: '711516'
+                            711599  Plastics and Rubber Production Machine Operators nec: '711599'
+                        7116  Sewing Machinists:    
+                            711611  Sewing Machinist: '711611'
+                        7117  Textile and Footwear Production Machine Operators:    
+                            711711  Footwear Production Machine Operator: '711711'
+                            711712  Hide and Skin Processing Machine Operator: '711712'
+                            711713  Knitting Machine Operator: '711713'
+                            711714  Textile Dyeing and Finishing Machine Operator: '711714'
+                            711715  Weaving Machine Operator: '711715'
+                            711716  Yarn Carding and Spinning Machine Operator: '711716'
+                            711799  Textile and Footwear Production Machine Operators nec: '711799'
+                        7119  Other Machine Operators:    
+                            711911  Chemical Production Machine Operator: '711911'
+                            711912  Motion Picture Projectionist: '711912'
+                            711913  Sand Blaster: '711913'
+                            711914  Sterilisation Technician: '711914'
+                            711999  Machine Operators nec: '711999'
+                    712  Stationary Plant Operators:        
+                        7121  Crane, Hoist and Lift Operators:    
+                            712111  Crane, Hoist or Lift Operator: '712111'
+                        7122  Drillers, Miners and Shot Firers:    
+                            712211  Driller: '712211'
+                            712212  Miner: '712212'
+                            712213  Shot Firer: '712213'
+                        7123  Engineering Production Workers:    
+                            712311  Engineering Production Worker: '712311'
+                        7129  Other Stationary Plant Operators:    
+                            712911  Boiler or Engine Operator: '712911'
+                            712912  Bulk Materials Handling Plant Operator: '712912'
+                            712913  Cement Production Plant Operator: '712913'
+                            712914  Concrete Batching Plant Operator: '712914'
+                            712915  Concrete Pump Operator: '712915'
+                            712916  Paper and Pulp Mill Operator: '712916'
+                            712917  Railway Signal Operator: '712917'
+                            712918  Train Controller: '712918'
+                            712921  Waste Water or Water Plant Operator: '712921'
+                            712922  Weighbridge Operator: '712922'
+                            712999  Stationary Plant Operators nec: '712999'
+                72  Mobile Plant Operators:            
+                    721  Mobile Plant Operators:        
+                        7211  Agricultural, Forestry and Horticultural Plant Operators:    
+                            721111  Agricultural and Horticultural Mobile Plant Operator: '721111'
+                            721112  Logging Plant Operator: '721112'
+                        7212  Earthmoving Plant Operators:    
+                            721211  Earthmoving Plant Operator (General): '721211'
+                            721212  Backhoe Operator: '721212'
+                            721213  Bulldozer Operator: '721213'
+                            721214  Excavator Operator: '721214'
+                            721215  Grader Operator: '721215'
+                            721216  Loader Operator: '721216'
+                        7213  Forklift Drivers:    
+                            721311  Forklift Driver: '721311'
+                        7219  Other Mobile Plant Operators:    
+                            721911  Aircraft Baggage Handler and Airline Ground Crew: '721911'
+                            721912  Linemarker: '721912'
+                            721913  Paving Plant Operator: '721913'
+                            721914  Railway Track Plant Operator: '721914'
+                            721915  Road Roller Operator: '721915'
+                            721916  Streetsweeper Operator: '721916'
+                            721999  Mobile Plant Operators nec: '721999'
+                73  Road and Rail Drivers:            
+                    731  Automobile, Bus and Rail Drivers:        
+                        7311  Automobile Drivers:    
+                            731111  Chauffeur: '731111'
+                            731112  Taxi Driver: '731112'
+                            731199  Automobile Drivers nec: '731199'
+                        7312  Bus and Coach Drivers:    
+                            731211  Bus Driver: '731211'
+                            731212  Charter and Tour Bus Driver: '731212'
+                            731213  Passenger Coach Driver: '731213'
+                        7313  Train and Tram Drivers:    
+                            731311  Train Driver: '731311'
+                            731312  Tram Driver: '731312'
+                    732  Delivery Drivers:        
+                        7321  Delivery Drivers:    
+                            732111  Delivery Driver: '732111'
+                    733  Truck Drivers:        
+                        7331  Truck Drivers:    
+                            733111  Truck Driver (General): '733111'
+                            733112  Aircraft Refueller: '733112'
+                            733113  Furniture Removalist: '733113'
+                            733114  Tanker Driver: '733114'
+                            733115  Tow Truck Driver: '733115'
+                74  Storepersons:            
+                    741  Storepersons:        
+                        7411  Storepersons:    
+                            741111  Storeperson: '741111'
+            8  LABOURERS:                
+                81  Cleaners and Laundry Workers:            
+                    811  Cleaners and Laundry Workers:        
+                        8111  Car Detailers:    
+                            811111  Car Detailer: '811111'
+                        8112  Commercial Cleaners:    
+                            811211  Commercial Cleaner: '811211'
+                        8113  Domestic Cleaners:    
+                            811311  Domestic Cleaner: '811311'
+                        8114  Housekeepers:    
+                            811411  Commercial Housekeeper: '811411'
+                            811412  Domestic Housekeeper: '811412'
+                        8115  Laundry Workers:    
+                            811511  Laundry Worker (General): '811511'
+                            811512  Drycleaner: '811512'
+                            811513  Ironer or Presser: '811513'
+                        8116  Other Cleaners:    
+                            811611  Carpet Cleaner: '811611'
+                            811612  Window Cleaner: '811612'
+                            811699  Cleaners nec: '811699'
+                82  Construction and Mining Labourers:            
+                    821  Construction and Mining Labourers:        
+                        8211  Building and Plumbing Labourers:    
+                            821111  Builder's Labourer: '821111'
+                            821112  Drainage, Sewerage and Stormwater Labourer: '821112'
+                            821113  Earthmoving Labourer: '821113'
+                            821114  Plumber's Assistant: '821114'
+                        8212  Concreters:    
+                            821211  Concreter: '821211'
+                        8213  Fencers:    
+                            821311  Fencer: '821311'
+                        8214  Insulation and Home Improvement Installers:    
+                            821411  Building Insulation Installer: '821411'
+                            821412  Home Improvement Installer: '821412'
+                        8215  Paving and Surfacing Labourers:    
+                            821511  Paving and Surfacing Labourer: '821511'
+                        8216  Railway Track Workers:    
+                            821611  Railway Track Worker: '821611'
+                        8217  Structural Steel Construction Workers:    
+                            821711  Construction Rigger: '821711'
+                            821712  Scaffolder: '821712'
+                            821713  Steel Fixer: '821713'
+                            821714  Structural Steel Erector: '821714'
+                        8219  Other Construction and Mining Labourers:    
+                            821911  Crane Chaser: '821911'
+                            821912  Driller's Assistant: '821912'
+                            821913  Lagger: '821913'
+                            821914  Mining Support Worker: '821914'
+                            821915  Surveyor's Assistant: '821915'
+                83  Factory Process Workers:            
+                    831  Food Process Workers:        
+                        8311  Food and Drink Factory Workers:    
+                            831111  Baking Factory Worker: '831111'
+                            831112  Brewery Worker: '831112'
+                            831113  Confectionery Maker: '831113'
+                            831114  Dairy Products Maker: '831114'
+                            831115  Fruit and Vegetable Factory Worker: '831115'
+                            831116  Grain Mill Worker: '831116'
+                            831117  Sugar Mill Worker: '831117'
+                            831118  Winery Cellar Hand: '831118'
+                            831199  Food and Drink Factory Workers nec: '831199'
+                        8312  Meat Boners and Slicers, and Slaughterers:    
+                            831211  Meat Boner and Slicer: '831211'
+                            831212  Slaughterer: '831212'
+                        8313  Meat, Poultry and Seafood Process Workers:    
+                            831311  Meat Process Worker: '831311'
+                            831312  Poultry Process Worker: '831312'
+                            831313  Seafood Process Worker: '831313'
+                    832  Packers and Product Assemblers:        
+                        8321  Packers:    
+                            832111  Chocolate Packer: '832111'
+                            832112  Container Filler: '832112'
+                            832113  Fruit and Vegetable Packer: '832113'
+                            832114  Meat Packer: '832114'
+                            832115  Seafood Packer: '832115'
+                            832199  Packers nec: '832199'
+                        8322  Product Assemblers:    
+                            832211  Product Assembler: '832211'
+                    839  Miscellaneous Factory Process Workers:        
+                        8391  Metal Engineering Process Workers:    
+                            839111  Metal Engineering Process Worker: '839111'
+                        8392  Plastics and Rubber Factory Workers:    
+                            839211  Plastics Factory Worker: '839211'
+                            839212  Rubber Factory Worker: '839212'
+                        8393  Product Quality Controllers:    
+                            839311  Product Examiner: '839311'
+                            839312  Product Grader: '839312'
+                            839313  Product Tester: '839313'
+                        8394  Timber and Wood Process Workers:    
+                            839411  Paper and Pulp Mill Worker: '839411'
+                            839412  Sawmill or Timber Yard Worker: '839412'
+                            839413  Wood and Wood Products Factory Worker: '839413'
+                        8399  Other Factory Process Workers:    
+                            839911  Cement and Concrete Plant Worker: '839911'
+                            839912  Chemical Plant Worker: '839912'
+                            839913  Clay Processing Factory Worker: '839913'
+                            839914  Fabric and Textile Factory Worker: '839914'
+                            839915  Footwear Factory Worker: '839915'
+                            839916  Glass Processing Worker: '839916'
+                            839917  Hide and Skin Processing Worker: '839917'
+                            839918  Recycling Worker: '839918'
+                            839999  Factory Process Workers nec: '839999'
+                84  Farm, Forestry and Garden Workers:            
+                    841  Farm, Forestry and Garden Workers:        
+                        8411  Aquaculture Workers:    
+                            841111  Aquaculture Worker: '841111'
+                        8412  Crop Farm Workers:    
+                            841211  Fruit or Nut Farm Worker: '841211'
+                            841212  Fruit or Nut Picker: '841212'
+                            841213  Grain, Oilseed or Pasture Farm Worker: '841213'
+                            841214  Vegetable Farm Worker: '841214'
+                            841215  Vegetable Picker: '841215'
+                            841216  Vineyard Worker: '841216'
+                            841217  Mushroom Picker: '841217'
+                            841299  Crop Farm Workers nec: '841299'
+                        8413  Forestry and Logging Workers:    
+                            841311  Forestry Worker: '841311'
+                            841312  Logging Assistant: '841312'
+                            841313  Tree Faller: '841313'
+                        8414  Garden and Nursery Labourers:    
+                            841411  Garden Labourer: '841411'
+                            841412  Horticultural Nursery Assistant: '841412'
+                        8415  Livestock Farm Workers:    
+                            841511  Beef Cattle Farm Worker: '841511'
+                            841512  Dairy Cattle Farm Worker: '841512'
+                            841513  Mixed Livestock Farm Worker: '841513'
+                            841514  Poultry Farm Worker: '841514'
+                            841515  Sheep Farm Worker: '841515'
+                            841516  Stablehand: '841516'
+                            841517  Wool Handler: '841517'
+                            841599  Livestock Farm Workers nec: '841599'
+                        8416  Mixed Crop and Livestock Farm Workers:    
+                            841611  Mixed Crop and Livestock Farm Worker: '841611'
+                        8419  Other Farm, Forestry and Garden Workers:    
+                            841911  Hunter-Trapper: '841911'
+                            841913  Pest Controller: '841913'
+                            841999  Farm, Forestry and Garden Workers nec: '841999'
+                85  Food Preparation Assistants:            
+                    851  Food Preparation Assistants:        
+                        8511  Fast Food Cooks:    
+                            851111  Fast Food Cook: '851111'
+                        8512  Food Trades Assistants:    
+                            851211  Pastrycook's Assistant: '851211'
+                            851299  Food Trades Assistants nec: '851299'
+                        8513  Kitchenhands:    
+                            851311  Kitchenhand: '851311'
+                89  Other Labourers:            
+                    891  Freight Handlers and Shelf Fillers:        
+                        8911  Freight and Furniture Handlers:    
+                            891111  Freight Handler (Rail or Road): '891111'
+                            891112  Truck Driver's Offsider: '891112'
+                            891113  Waterside Worker: '891113'
+                        8912  Shelf Fillers:    
+                            891211  Shelf Filler: '891211'
+                    899  Miscellaneous Labourers:        
+                        8991  Caretakers:    
+                            899111  Caretaker: '899111'
+                        8992  Deck and Fishing Hands:    
+                            899211  Deck Hand: '899211'
+                            899212  Fishing Hand: '899212'
+                        8993  Handypersons:    
+                            899311  Handyperson: '899311'
+                        8994  Motor Vehicle Parts and Accessories Fitters:    
+                            899411  Motor Vehicle Parts and Accessories Fitter (General): '899411'
+                            899412  Autoglazier: '899412'
+                            899413  Exhaust and Muffler Repairer: '899413'
+                            899414  Radiator Repairer: '899414'
+                            899415  Tyre Fitter: '899415'
+                        8995  Printing Assistants and Table Workers:    
+                            899511  Printer's Assistant: '899511'
+                            899512  Printing Table Worker: '899512'
+                        8996  Recycling and Rubbish Collectors:    
+                            899611  Recycling or Rubbish Collector: '899611'
+                        8997  Vending Machine Attendants:    
+                            899711  Vending Machine Attendant: '899711'
+                        8999  Other Miscellaneous Labourers:    
+                            899911  Bicycle Mechanic: '899911'
+                            899912  Car Park Attendant: '899912'
+                            899913  Crossing Supervisor: '899913'
+                            899914  Electrical or Telecommunications Trades Assistant: '899914'
+                            899915  Leaflet or Newspaper Deliverer: '899915'
+                            899916  Mechanic's Assistant: '899916'
+                            899917  Railways Assistant: '899917'
+                            899918  Sign Erector: '899918'
+                            899921  Ticket Collector or Usher: '899921'
+                            899922  Trolley Collector: '899922'
+                            899923  Road Traffic Controller: '899923'
+                            899999  Labourers nec: '899999'

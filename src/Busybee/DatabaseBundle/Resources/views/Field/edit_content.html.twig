@@ -1,0 +1,54 @@
+{# src/General/ValidationBundle/Resources/views/Validation/edit_content.html.twig #}
+
+{% trans_default_domain 'BusybeeDatabaseBundle' %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 ">
+			<div class="row market">
+				<div class="col-sm-6 ">
+					<div class="form-actions well">
+						{{ form_row(form.name) }}
+						{{ form_row(form.prompt) }}
+						{{ form_row(form.table) }}
+					</div>
+				</div>
+				<div class="col-sm-6 ">
+					<div class="form-actions well">
+						{{ form_row(form.type) }}
+						{{ form_row(form.role) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 ">
+			<div class="row market">
+				<div class="col-sm-12 ">
+					<div class="form-actions well">
+					{{ form_row(form.validator) }}
+					{{ form_row(form.parameters) }}
+					{{ form_row(form.sortkey) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-sm-12 ">
+					<div class="form-actions well text-center">
+						{% if form.save is defined %}{{ form_widget(form.save) }}{% endif %}
+						{% if form.save_and_add is defined %}{{ form_widget(form.save_and_add) }}{% endif %}
+						{% if form.delete is defined %}{{ form_widget(form.delete) }}{% endif %}
+						{% if form.cancel is defined %}{{ form_widget(form.cancel) }}{% endif %}
+						{% if form._token is defined %}{{ form_widget(form._token) }}{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,15 @@
+homepage:
+    path:     /
+    defaults: { _controller: BusybeeDisplayBundle:Home:home }
+home_page:
+    path:     /
+    defaults: { _controller: BusybeeDisplayBundle:Home:home }
+busybee_home_page:
+    path:     /
+    defaults: { _controller: BusybeeDisplayBundle:Home:home }
+busybee_admin:
+    path:     /admin/
+    defaults: { _controller: BusybeeDisplayBundle:Home:admin }
+busybee_contact:
+    path:     /contact/
+    defaults: { _controller: BusybeeDisplayBundle:Home:contact }

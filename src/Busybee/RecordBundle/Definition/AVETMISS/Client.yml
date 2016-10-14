@@ -1,0 +1,428 @@
+Tables:
+    - table:
+        name: Client
+        limits: ~
+        role: ROLE_REGISTRAR
+        parent: ~
+        fields:
+            - field:
+                name: Client Identifier
+                type: string
+                validator:
+                    NotBlank: ~ 
+                    length: 10
+                    upper: ~
+                    Regex:
+                        pattern: /^\S+$/
+                        message: record.not_valid.regex.client_identifier 
+                sortkey: 0
+                role: ~ 
+            - field:
+                name: Client Name
+                type: string
+                validator:
+                    NotBlank: ~
+                    Length: 60 
+                sortkey: 1 
+            - field:
+                name: Highest School Level Completed
+                type: enum_school_level_completed
+                validator:
+                    NotBlank: ~
+                    Length: 2 
+                sortkey: 2
+            - field:
+                name: Year highest School Level Completed
+                type: year
+                validator:
+                    NotBlank: ~
+                    Length: 4 
+                parameters:
+                    start: -100
+                    finish: 0
+                sortkey: 3
+            - field:
+                name: Sex
+                prompt: Gender
+                type: yesno
+                validator:
+                    NotBlank: ~
+                sortkey: 4
+                parameters:
+                    yes:
+                        prompt: Female
+                        key: F
+                    no:
+                        prompt: Male
+                        key: M
+            - field:
+                name: Client Postcode
+                type: string
+                validator:
+                    NotBlank: ~
+                    Regex:
+                        pattern: /^(\d){4}$|^OSPC$/
+                        message: record.not_valid.regex.postcode
+                sortkey: 5
+            - field:
+                name: Indigenous Status Identifier
+                prompt: Are you of Aboriginal or Torres Strait Islander origin? 
+                type: enum_indigenous_status
+                validator:
+                    NotBlank: ~
+                sortkey: 6
+                parameters:
+                    default: '@'
+            - field:
+                name: Language Identifier
+                prompt: "Do you speak a language other than English at home?"
+                help: "If more than one language, indicate the one that is spoken most often."
+                type: enum_language
+                validator:
+                    NotBlank: ~
+                    length: 7 
+                sortkey: 6
+                parameters:
+                    default: 1201
+            - field:
+                name: Labour Force Status Identifier
+                prompt: Of the following categories, which BEST describes your current employment status?
+                type: enum_labour_force_status
+                validator:
+                    NotBlank: ~
+                    length: 2
+                sortkey: 8
+                parameters:
+                    default: '@@'
+            - field:
+                name: Country Identifier
+                prompt: In which country were you born?
+                type: enum_country_identifier
+                validator:
+                    NotBlank: ~
+                    length: 4
+                sortkey: 9
+                parameters:
+                    default: 1101
+            - field:
+                name: Disability Flag
+                prompt: Do you consider yourself to have a disability, impairment or long-term condition?
+                type: yesno
+                validator:
+                    NotBlank: ~
+                sortkey: 10
+                parameters:
+                    default: N
+                    yes:
+                        prompt: Yes – the client has a disability, impairment or long-term condition
+                        key: Y
+                    no:
+                        prompt: No – the client does not have a disability, impairment or long-term condition
+                        key: N
+            - field:
+                name: Prior Educational Achievement Flag
+                prompt: Have you SUCCESSFULLY completed any of the following qualifications?
+                help: If a client successfully completes a certificate I, II, III or IV in the secondary education system, then the Prior educational achievement flag will be ‘Y’, regardless of whether the client is still at school. Senior secondary education (Year 12 or Year 11) and junior secondary education (Year 10) are not considered as prior educational achievement for the purpose of this data element.
+                type: yesno
+                validator:
+                    NotBlank: ~
+                sortkey: 11
+                parameters: 
+                    default: N 
+                    yes:
+                        prompt: Yes – a prior educational achievement has been successfully completed
+                        key: Y
+                    no:
+                        key: N
+                        prompt: No – a prior educational achievement has not been successfully completed
+            - field:
+                name: At School Flag
+                prompt: Are you still attending secondary school?
+                type: yesno
+                validator:
+                    NotBlank: ~
+                    length: 1
+                sortkey: 12
+                parameters: 
+                    default: N
+                    yes:
+                        key: Y
+                        prompt: Yes – the client is still attending secondary school
+                    no:
+                        prompt: No – the client is not attending secondary school
+                        key: N
+            - field:
+                name: Proficiency in Spoken English
+                prompt: How well do you speak English?
+                help: Those clients who answer 'English' to the language spoken at home must answer 'Very Well' to this question.
+                type: enum_english_proficiency
+                validator:
+                    NotBlank: ~
+                    length: 1
+                sortkey: 13
+                parameters: 
+                    default: '@'
+            - field:
+                name: Address Location
+                prompt: What is the suburb, locality or town of your usual residence?
+                help: Please provide the physical address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    NotBlank: ~
+                    Length: 50
+                sortkey: 14 
+            - field:
+                name: Unique Student Identifier
+                prompt: What is the Unique Student Identifier?
+                help: The Unique student identifier (USI) uniquely identifies an individual who accesses vocational education and training over his or her lifetime. The Unique student identifier is assigned by the USI Registrar.
+                type: string
+                validator:
+                    Length: 
+                        min: 10
+                        max: 10
+                    Regex: 
+                        pattern: /^[A-HJ-NP-Z2-9]{10}$/
+                        message: record.not_valid.regex.unique_student_identifier 
+                sortkey: 15 
+            - field:
+                name: State Identifier
+                prompt: What is the locality state? 
+                type: enum_state
+                validator:
+                    NotBlank: ~
+                sortkey: 16
+            - field:
+                name: Address Building or Property Name
+                prompt: What is the Building or Property name of your address?
+                help: Please provide the physical address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Length: 50
+                sortkey: 17 
+            - field:
+                name: Address Flat or Unit Details
+                prompt: What is the Flat/Unit Details of your address?
+                help: Please provide the physical address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Length: 30
+                sortkey: 18 
+            - field:
+                name: Address Street Number
+                prompt: What is the Street Number of your address?
+                help: Please provide the physical address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Length: 15
+                sortkey: 19 
+            - field:
+                name: Address Street Name
+                prompt: What is the Street Name of your address?
+                help: Please provide the physical address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Length: 70
+                    NotBlank: ~ 
+                sortkey: 20 
+            - field:
+                name: Title
+                prompt: What is your Title?
+                type: string
+                validator:
+                    Length: 4
+                sortkey: 21
+            - field:
+                name: First Given Name
+                type: string
+                validator:
+                    Length: 40
+                    NotBlank: ~
+                sortkey: 22
+            - field:
+                name: Last Name
+                type: string
+                validator:
+                    Length: 40
+                    NotBlank: ~
+                sortkey: 23
+            - field:
+                name: Postal Address Building or Property Name 
+                prompt: What is the Building or Property name of your postal address?
+                help: Only required if different to the physical address. Please provide the postal address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Length: 50
+                sortkey: 24
+            - field:
+                name: Postal Address Flat or Unit Details
+                prompt: What is the Flat/Unit Details of your postal address?
+                help: Only required if different to the physical address. Please provide the postal address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Length: 30
+                sortkey: 25 
+            - field:
+                name: Postal Address Street Number
+                prompt: What is the Street Number of your postal address?
+                help: Only required if different to the physical address. Please provide the postal address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Length: 15
+                sortkey: 26
+            - field:
+                name: Postal Address Street Name
+                prompt: What is the Street Name of your postal address?
+                help: Only required if different to the physical address. Please provide the postal address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Length: 70
+                sortkey: 27
+            - field:
+                name: Postal Delivery Box
+                prompt: What is your Postal Delivery Box?
+                help: Only required if different to the physical address. Please provide the postal address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Length: 22
+                sortkey: 28
+            - field:
+                name: Postal Address Location
+                prompt: What is the suburb, locality or town of your postal address?
+                help: Only required if different to the physical address. Please provide the postal address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Length: 50
+                sortkey: 29
+            - field:
+                name: Postal Postcode
+                prompt: What is your postal post code?
+                help: Only required if different to the physical address. Please provide the postal address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: string
+                validator:
+                    Regex:
+                        pattern: /^(\d){4}$|^OSPC$/
+                        message: record.not_valid.regex.postcode
+                sortkey: 30
+            - field:
+                name: Postal State
+                prompt: What is your postal state?
+                help: Only required if different to the physical address. Please provide the postal address (street number and name not post office box) where you usually reside rather than any temporary address at which you reside for training, work or other purposes before returning to your home.
+                type: enum_state
+                sortkey: 31
+            - field:
+                name: Telephone number - home
+                prompt: What is your home phone number?
+                type: string
+                validator:
+                    length: 20 
+                sortkey: 32
+            - field:
+                name: Telephone number - work
+                prompt: What is your work phone number?
+                type: string
+                validator:
+                    length: 20 
+                sortkey: 33
+            - field:
+                name: Telephone number - mobile
+                prompt: What is your mobile phone number?
+                type: string
+                validator:
+                    length: 20 
+                sortkey: 34
+            - field:
+                name: Email Address
+                prompt: What is your Email Address?
+                type: string
+                validator: 
+                    length: 80
+                    Email: ~
+                sortkey: 35
+            - field:
+                name: Disability
+                prompt: If you indicated the presence of a disability, impairment or long-term condition, please select the area(s) in the following list. 
+                type: enum_disability_identifier
+                validator: 
+                    length: 2
+                parameters:
+                    default: 99 
+                sortkey: 36
+            - field:
+                name: Prior Education Identifier
+                prompt: If you indicated the presence of prior education, specify your highest education achievement?
+                type: enum_prior_education_identifier
+                validator: 
+                    length: 3
+                parameters:
+                    default: 99 
+                sortkey: 37
+            - field:
+                name: Photo
+                prompt: Photograph
+                type: photo
+                sortkey: 38
+Enumerators:
+    - enumerator:            
+        name: School Level Completed        
+        list:        
+            '02 -  Did not go to school': '02'    
+            '08 -  Year 8 or below': '08'    
+            '09 -  Year 9 or equivalent': '09'    
+            '10 -  Completed Year 10': '10'    
+            '11 -  Completed Year 11': '11'    
+            '12 -  Completed Year 12': '12'    
+    - enumerator:            
+        name: Indigenous Status        
+        list:        
+            'No, Neither Aboriginal nor Torres Strait Islander': '4'    
+            'Yes, Aboriginal AND Torres Strait Islander': '3'    
+            'Yes, Torres Strait Islander': '2'    
+            'Yes, Aboriginal': '1'    
+            'Not Recorded ': '@'    
+    - enumerator:            
+        name: Labour Force Status        
+        list:        
+            Employed:    
+                '01 -  Full-time employee': '01'
+                '02 -  Part-time employee': '02'
+                '03 -  Self-employed – not employing others': '03'
+                '04 -  Employer': '04'
+                '05 -  Employed – unpaid worker in a family business': '05'
+            Unemployed:    
+                '06 -  Unemployed – seeking full-time work': '06'
+                '07 -  Unemployed – seeking part-time work': '07'
+            Not in the labour force:    
+                '08 -  Not employed – not seeking employment': '08'
+                '@@ -  Not Recorded': '@@'
+    - enumerator:            
+        name: English Proficiency        
+        list:         
+            '1 - Very well': '1'    
+            '2 - Well': '2'    
+            '3 - Not well': '3'    
+            '4 - Not at all': '4'    
+            '@ -  Not Recorded': '@'    
+    - enumerator:            
+        name: Disability Identifier        
+        list:         
+            '11 - Hearing/deaf': '11'    
+            '12 - Physical': '12'    
+            '13 - Intellectual': '13'    
+            '14 - Learning': '14'    
+            '15 - Mental illness': '15'    
+            '16 - Acquired brain impairment': '16'    
+            '17 - Vision': '17'    
+            '18 - Medical condition': '18'    
+            '19 - Other ': '19'    
+            '99 - Not specified': '99'    
+    - enumerator:            
+        name: Prior Education Identifier        
+        list:         
+            '008 - Bachelor degree or higher degree level (defined for AVETMISS use only)': '008'    
+            '410 - Advanced diploma or associate degree level': '410'    
+            '420 - Diploma level': '420'    
+            '511 - Certificate IV': '511'    
+            '514 - Certificate III': '514'    
+            '521 - Certificate II': '521'    
+            '524 - Certificate I': '524'    
+            '990 - Miscellaneous education ': '990'	

@@ -1,0 +1,33 @@
+# src\Busybee\RecordBundle\Resources\config\doctrine\YearType.orm.yml
+Busybee\RecordBundle\Entity\YearType:
+    type: entity
+    table: record_year
+    repositoryClass: Busybee\RecordBundle\Entity\YearTypeRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        record:
+            type: integer
+            column: record_id
+        field:
+            type: integer
+            column: field_id
+        table:
+            type: integer
+            column: table_id 
+        value:
+            type: string
+            length: 4 
+        user:
+            type: integer
+            column: user_id
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ updateLastModified ]
+        preUpdate: [ updateLastModified ]

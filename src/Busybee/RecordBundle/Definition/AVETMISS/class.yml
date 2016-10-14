@@ -1,0 +1,107 @@
+Tables:
+    - table:
+        name: Class
+        limits: ~
+        role: ROLE_REGISTRAR
+        parent: ~
+        fields:
+            - field:
+                name: Delivery Location
+                prompt: Select a Delivery Location
+                type: parent
+                validator:
+                    NotBlank: ~ 
+                    length: 
+                        max: 10
+                sortkey: 0
+                role: ~ 
+                parameters:
+                    table: Delivery Location
+                    data: Delivery Location Identifier
+                    display: Delivery Location Name
+                    relationship: many 
+            - field:
+                name: Subject Identifier
+                prompt: Select a Subject 
+                type: parent
+                validator:
+                    NotBlank: ~ 
+                    length: 
+                        max: 12
+                sortkey: 1
+                role: ~ 
+                parameters:
+                    table: Subject
+                    data: Subject Identifier
+                    display: Subject Name 
+                    relationship: many 
+            - field:
+                name: Program Identifier
+                prompt: Select a Program
+                type: parent
+                validator:
+                    NotBlank: ~ 
+                    length: 
+                        max: 10
+                sortkey: 2
+                role: ~ 
+                parameters:
+                    table: Program
+                    data: Program Identifier
+                    display: Program Name
+                    relationship: many 
+            - field:
+                name: Activity Start Date
+                prompt: Training commences
+                type: date
+                sortkey: 3
+                role: ~ 
+                parameters:
+                    start: "-1"
+                    finish: "+2"
+                    type: single_text
+            - field:
+                name: Activity End Date
+                prompt: All training and marking completed on
+                type: date
+                sortkey: 4
+                role: ~ 
+                parameters:
+                    start: "-1"
+                    finish: "+2"
+                    type: single_text
+            - field:
+                name: Delivery Mode
+                prompt: How is the enrolment delivered?
+                type: enum_delivery_mode_identifier
+                sortkey: 5
+                validator:
+                    NotBlank: ~ 
+                    length: 
+                        min: 2
+                        max: 2
+                role: ~ 
+                parameters:
+                    placeholder: Select Delivery Mode
+            - field:
+                name: Associated course
+                prompt: Associated course identifier
+                type: string
+                help: | 
+                    Associated course identifier uniquely identifies a qualification or course that is associated with a skill set for funding purposes.
+                    Applicable only to training organisations that have contractual obligations with state or territory training authorities. Rules are determined by individual states and territories.
+                sortkey: 6
+                validator: 
+                    length: 10
+                role: ~ 
+                parameters: 
+                    placeholder: Associated course identifier
+Enumerators:
+    - enumerator:
+        name: Delivery Mode Identifier
+        list:
+            'Classroom-based': '10'
+            'Electronic-based': '20'
+            'Employment-based': '30' 
+            'Other delivery': '40'
+            'Not applicable – recognition of prior learning/credit transfer': '90'

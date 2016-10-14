@@ -1,0 +1,4 @@
+services:
+#    busybee_home.example:
+#        class: Busybee\HomeBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

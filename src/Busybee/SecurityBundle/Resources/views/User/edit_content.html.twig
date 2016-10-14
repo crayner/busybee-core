@@ -1,0 +1,42 @@
+{# src/General/SecurityBundle/Resources/views/User/edit_content.html.twig #}
+
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+
+<div class="row marketing">
+	<div class="col-lg-12">
+
+		<div class="row well">
+			{{ form_row(form.email) }}
+		</div>
+		<div class="row well">
+			{{ form_row(form.username) }}
+		</div>
+		{% if is_granted('ROLE_REGISTRAR') %}
+		<div class="row well">
+			{{ form_row(form.groups) }}
+		</div> 
+		{% else %}
+			{% do form.groups.setRendered %}
+			{% do form.directroles.setRendered %}
+		{% endif %}
+		{% if form.current_password is defined %}
+		<div class="row well">
+			{{ form_row(form.current_password) }}
+		</div>
+		{% endif %}
+		{% if is_granted('ROLE_REGISTRAR') %}
+		<div class="form-group well">
+			{{ form_row(form.directroles) }}
+		</div>  
+		{% endif %}
+		<div class="form-group well text-center">
+			{{ form_widget(form.save) }}
+			{{ form_widget(form.cancel) }}
+		</div>
+
+	</div>
+</div>
+
+
+
+

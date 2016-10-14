@@ -1,0 +1,112 @@
+# Database Language en_GB
+"": ""
+(optional): (optional)
+field:
+    list:
+        title: List Field Records
+        create: Create Field Record 
+        name: Field Name 
+        table: Table Name
+        type: Field Type
+    pagination:
+        search:
+            sort: Table Name
+            search: Field Name
+    edit:
+        title: Field Management
+        error: The field record is not yet ready to save. 
+        success: The field record was saved successfully.
+        failed: The field record was not saved.
+        delete: The field was deleted successfully. 
+    new:
+        title: Field Management 
+    label:
+        name: Field Name
+        type: Field Type
+        table: Table Name
+        role: Security 
+        ignore: Ignore Character 
+        validator: Validation
+        parameters: Parameters
+        prompt: Field Prompt 
+    help:
+        type: The database can manage a number of different types of data, which helps enter appropriate data for the field.
+        table: A field MUST be a part of a table.  If your field is for a table that you have not yet created, then abandon this record and create the table first.
+        role: Set the security to limit access to the information contained within this field to those people who have the role selected. 
+        validator: Use yml format to create validation. 
+        parameters: See some web page to get the details for parametes. 
+        prompt: Create a question or prompt to help users complete this field correctly. If left blank, the prompt defaults to the Firld Name. 
+    placeholder:
+        type: Select a field type
+        table: Select a table for this field
+        role: Security Role Selection
+table:
+    list:
+        title: List Table Records
+        name: Table Name
+        create: Create New Table
+    pagination:
+        sort: Sort
+        search: Search
+        placeholder:
+            sort: Select sort 
+            search: Search
+    new:
+        title: Create New Table
+    label:
+        name: Table Name
+        role: Security
+        parent: Parent Table
+        limits: Limit Table Records 
+    placeholder:
+        role: Security Role Selection
+    edit:
+        success: The table record saved successfully.
+        title: Modify Table Record
+    help:
+        role: Set the security to limit access to the information contained within this table to those people who have the role selected. Fields in this table will default to the role given in the table. 
+        limits: A table can be limited to a single record or can have an unlimited number of records.
+        parent: The table is a sub-record of the selected table.
+# Miscellaneous
+enumerator:
+    list:
+        prompt: Enumerator Prompt
+        value: Enumerator Value
+        name: Enumerator Name
+        title: Enumerator List 
+        create: Create Enumerator Record 
+    label:
+        prompt: Prompt
+        value: Value
+        name: Enumerator
+    new:
+        title: Create Enumerator
+    edit:
+        title: Alter Enumerator 
+        success: Enumerator saved successfully. 
+        failed: Enumerator has not saved. 
+database:
+    label:
+        name: File 
+        refresh: Overwrite Existing
+    help:
+        refresh: Overwrite the values in the database when this checkbox is selected. 
+        name: Load a yml file or zip file containing a collection of yml files. 
+    load:
+        title: Database Load 
+        success: All data was loaded from the file into the database without any detected issue.
+        failed: Database Load Failed. 
+        filetype:
+            zip: "The file %name% has been identified as a zip archive."
+            yml: "The file %name% has been identified as a yml file."
+            fail: "The file %name% has not been identified successfully. The file must be a zip or yml file."
+        saved: 
+            enumerator: The enumerator %name%:%prompt% was successfully saved to the system database.
+            table: The table definition %name% was successfully saved to the system database.
+            field: The field definition %name% in table %table% was successfully saved to the system database.
+            nochange: The file %name% did not contain any changes to store in the current database structure.
+            change: The file %name% contained changes that were stored in the database.            
+        process:
+            start: The file %name% processing was started. 
+        refresh:
+            on: Refresh is turned on.  Overwrite of existing records will occur if the the databse record differs from the defined structure in the file.

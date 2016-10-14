@@ -1,0 +1,14 @@
+{# src/General/SecurityBundle/Resources/views/User/impersonate.html.twig #}
+{% extends "BusybeeSecurityBundle::layout.html.twig" %}
+
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+{% block title %}Busybee - {{ 'security.impersonate.title'|trans }}{% endblock title %}
+{% block titleBlock %}
+<div class="jumbotron">
+	<h1>{{ 'security.impersonate.title'|trans }}</h1>
+	<p class="lead">{{ 'security.impersonate.description'|trans }}</p>
+</div>
+{% endblock titleBlock %}
+{% block SecurityBundleContent %}
+{% include "BusybeeSecurityBundle:User:impersonate_content.html.twig" %}
+{% endblock SecurityBundleContent %}

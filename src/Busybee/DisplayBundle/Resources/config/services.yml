@@ -1,0 +1,6 @@
+services:
+    doctrine.tblprefix_subscriber:
+        class: Busybee\DisplayBundle\Subscriber\TablePrefixSubscriber
+        arguments: ['%database_prefix%']
+        tags:
+            - { name: doctrine.event_subscriber }    

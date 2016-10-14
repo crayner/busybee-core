@@ -1,0 +1,109 @@
+# BusybeeRecordBundle
+imports:
+    - { resource: parameters.yml }
+
+services:
+    record_security:
+        class: Busybee\RecordBundle\Model\SecurityChecker
+        arguments:
+            - '@busybee_security.authorisation.checker'
+            - '@table.repository' 
+            - '@service_container'
+    record.formtype:
+        class: Busybee\RecordBundle\Form\RecordType
+    record.form.manager:
+        class: Busybee\RecordBundle\Model\FormManager
+        arguments:
+            - '@service_container' 
+    record.string.repository:
+        class: Busybee\RecordBundle\Entity\StringTypeRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeRecordBundle:StringType"
+    record.enum.repository:
+        class: Busybee\RecordBundle\Entity\EnumTypeRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeRecordBundle:EnumType"
+    record.repository:
+        class: Busybee\RecordBundle\Entity\RecordRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeRecordBundle:Record"
+    record.date.repository:
+        class: Busybee\RecordBundle\Entity\DateTypeRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeRecordBundle:DateType"
+    record.integer.repository:
+        class: Busybee\RecordBundle\Entity\IntegerType
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeRecordBundle:IntegerType"
+    record.year.repository:
+        class: Busybee\RecordBundle\Entity\YearTypeRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeRecordBundle:YearType"
+    record.child.repository:
+        class: Busybee\RecordBundle\Entity\ChildTypeRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeRecordBundle:ChildType"
+    record.yesno.repository:
+        class: Busybee\RecordBundle\Entity\YesnoTypeRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeRecordBundle:YesnoType"
+    record.parent.repository:
+        class: Busybee\RecordBundle\Entity\ParentTypeRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeRecordBundle:ParentType"
+    record.list.manager:
+        class: Busybee\RecordBundle\Model\ListManager
+        arguments:
+            - '@record.entity.manager'
+    record.link.manager:
+        class: Busybee\RecordBundle\Model\LinkManager
+        arguments:
+            - '@record.entity.manager' 
+    record.entity.manager: 
+        class: Busybee\RecordBundle\Model\RecordEntityManager 
+        arguments:
+            - '@table.repository' 
+            - '@field.repository' 
+            - '@service_container' 
+    record.photo.repository:
+        class: Busybee\RecordBundle\Entity\PhotoTypeRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeRecordBundle:PhotoType"
+    record.pagination.manager:
+        class: Busybee\RecordBundle\Model\RecordPaginationManager
+        arguments:
+            - '%record.list.pagination%'
+            - '@record.repository'
+            - '@doctrine.orm.entity_manager' 
+            - '@service_container' 
+

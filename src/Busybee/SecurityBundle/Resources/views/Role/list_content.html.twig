@@ -1,0 +1,32 @@
+{# src/General/SecurityBundle/Resources/views/Role/list_content.html.twig #}
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+
+	<div class="row marketing">
+		<div class="col-lg-12">
+			<table class="table table-striped">
+				<thead>
+				  <tr>
+					<th>{{ 'role.label.name'|trans }}</th>
+					<th>{{ 'role.label.children'|trans }}</th>
+					<th>{{ 'role.label.descendants'|trans }}</th>
+				  </tr>
+				</thead>
+				<tbody>
+				{% for role in roles %}
+
+				  <tr>
+					<td><a href="{{ path('busybee_security_role_edit', {'roleName': role.name} ) }}"><span class="glyphicon glyphicon-pencil"></span> {{ role.name }}</a></td>
+					<td>{% for name in role.children %}<p class="small">{{ name }}</p>{% endfor %}</td>
+					<td><p class="small">{% for name in role.descendants %}{{ name }}<br />{% endfor %}</p></td>
+				  </tr>
+
+				{% endfor %}
+				<tr>
+					<td><a class="btn btn-primary" href="{{ path('busybee_security_role_add') }}" role="button">{{ 'role.list.create'|trans }}</a></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				</tbody>
+			  </table>
+		</div>
+	</div>

@@ -1,0 +1,105 @@
+# BusybeeDatabaseBundle
+imports:
+    - { resource: parameters.yml }
+
+services:
+    app.request:
+        class: Symfony\Component\HttpFoundation\RequestStack
+        factory: 
+            - '@request_stack'
+            - getCurrentRequest 
+    field.repository:
+        class: Busybee\DatabaseBundle\Entity\FieldRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeDatabaseBundle:Field"
+    form.repository:
+        class: Busybee\DatabaseBundle\Entity\FormRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeDatabaseBundle:Form"
+    table.repository:
+        class: Busybee\DatabaseBundle\Entity\TableRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeDatabaseBundle:Table"
+    enumerator.repository:
+        class: Busybee\DatabaseBundle\Entity\EnumeratorRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeDatabaseBundle:Enumerator"
+    table.pagination.manager:
+        class: Busybee\DatabaseBundle\Model\TablePaginationManager
+        arguments:
+            - '%table.list.pagination%'
+            - '@table.repository'
+            - '@doctrine.orm.entity_manager' 
+    field.pagination.manager:
+        class: Busybee\DatabaseBundle\Model\FieldPaginationManager
+        arguments:
+            - '%field.list.pagination%'
+            - '@field.repository'
+            - '@doctrine.orm.entity_manager' 
+    field.nametable.constraint: 
+        class: Busybee\DatabaseBundle\Validator\Constraints\NameTableValidator
+        tags:
+            - { name: validator.constraint_validator, alias: name_table_validator }
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@app.request' 
+    field.namefield.constraint: 
+        class: Busybee\DatabaseBundle\Validator\Constraints\NameFieldValidator
+        tags:
+            - { name: validator.constraint_validator, alias: name_field_validator }
+    enumerator.pagination.manager:
+        class: Busybee\DatabaseBundle\Model\EnumeratorPaginationManager
+        arguments:
+            - '%enumerator.list.pagination%'
+            - '@enumerator.repository'
+            - '@doctrine.orm.entity_manager' 
+    enumerator.formtype:
+        class: Busybee\DatabaseBundle\Form\EnumeratorType
+    field.formtype:
+        class: Busybee\DatabaseBundle\Form\FieldType
+        arguments:
+            - '@enumerator.repository' 
+    table.formtype:
+        class: Busybee\DatabaseBundle\Form\TableType
+    database.manager: 
+        class: Busybee\DatabaseBundle\Model\DatabaseManager
+        arguments:
+            - '@service_container' 
+    monolog.formatter.session_request:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%% %%context%% %%extra%%\n"
+    monolog.processor.session_request:
+        class: Busybee\DatabaseBundle\Model\SessionRequestProcessor
+        arguments:  ["@session"]
+        tags:
+            - { name: monolog.processor, method: processRecord }
+    monolog.logger.busybee:
+        class: Busybee\DatabaseBundle\Model\BusybeeLogger 
+        arguments: ['@logger']
+        tags:
+            - { name: monolog.logger, channel: busybee }
+    database.table.manager: 
+        class: Busybee\DatabaseBundle\Model\TableManager
+        arguments:
+            - '@service_container' 
+    database.field.manager: 
+        class: Busybee\DatabaseBundle\Model\FieldManager
+        arguments:
+            - '@service_container' 
+    database.enumerator.manager: 
+        class: Busybee\DatabaseBundle\Model\EnumeratorManager
+        arguments:
+            - '@service_container' 

@@ -1,0 +1,26 @@
+institute:
+    label:
+        phone: Phone Number
+        identifier: Institute Identifier
+        email: E-Mail Address
+        facsimile: Facsimile Number 
+        name: Institute Name 
+        postcode: Post Code
+        state: State
+        locality: Suburb, locality or town 
+        address_line_one: Address
+        address_line_two: "" 
+        contact: Contact Name 
+    help:
+        identifier: This detail is usually supplied by the authority to which the institute reports. 
+        contact: Give the name of a person who can represent the institute. 
+        address_line_two: You can use the second line for a postal address, if different than your physical address in line 1, or continue your address information in line two if line one does not allow your full address. 
+        locality: If your physical and postal address is different, and both are listed above, then enter your postal locality.   
+    edit:
+        title: Institute Details
+        success: The institute details wher successfully saved. 
+        error: The institute details are not ready to save. 
+        name_header: Institute Name / Identifier
+        contact_header: Contact Details 
+        address_header: Address Information 
+"": ""

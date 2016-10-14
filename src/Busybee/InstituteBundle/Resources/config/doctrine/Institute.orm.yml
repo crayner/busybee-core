@@ -1,0 +1,46 @@
+# src\Busybee\InstituteBundle\Resources\config\doctrine\Institute.orm.yml
+Busybee\InstituteBundle\Entity\Institute:
+    type: entity
+    table: institute
+    repositoryClass: Busybee\InstituteBundle\Entity\InstituteRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 100
+            unique: true
+        identifier:
+            type: string
+            length: 20
+            unique: true
+        address_line_one:
+            type: string
+            length: 50
+        address_line_two:
+            type: string
+            length: 50
+        locality:
+            type: string
+            length: 50
+        postcode:
+            type: string    
+            length: 15
+        state:
+            type: string
+            length: 20
+        contact:
+            type: string
+            length: 60
+        phone:
+            type: string
+            length: 20
+        facsimile:
+            type: string
+            length: 20
+        email:
+            type: string
+            length: 80 

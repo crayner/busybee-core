@@ -1,0 +1,44 @@
+# src\Busybee\DatabaseBundle\Resources\config\doctrine\Table.orm.yml
+Busybee\DatabaseBundle\Entity\Table:
+    type: entity
+    table: db_tables
+    repositoryClass: Busybee\DatabaseBundle\Entity\TableRepository
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [name]
+            errorPath: name
+            message: 'The Table Name must be unique.'
+    indexes:
+        name:
+            columns: [ name ] 
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 64
+            unique: true
+        limits:
+            type: string
+            column: table_limit
+        linkDetails:
+            type: json_array
+            column: link_details 
+            nullable: true 
+    manyToMany:
+        role:
+            targetEntity: Busybee\SecurityBundle\Entity\Role
+            orderBy: { 'role': 'ASC' }
+            joinTable: 
+                name: db_table_role
+                joinColumns:
+                    table_id:
+                        referencedColumnName: id
+                        unique: true 
+                inverseJoinColumns:
+                    role_id:
+                        referencedColumnName: id 
+                        

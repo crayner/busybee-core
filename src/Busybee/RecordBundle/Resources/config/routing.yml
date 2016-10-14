@@ -1,0 +1,15 @@
+record_display:
+    path:     /display/{table_form}/{record_id}/
+    defaults: { _controller: BusybeeRecordBundle:Display:index }
+
+record_new:
+    path:     /new/{table_form}/
+    defaults: { _controller: BusybeeRecordBundle:New:index }
+
+record_list:
+    path:     /list/{table_form}/
+    defaults: { _controller: BusybeeRecordBundle:List:index }
+
+record_edit:
+    path:     /edit/{table_form}/{record_id}
+    defaults: { _controller: BusybeeRecordBundle:Edit:index }

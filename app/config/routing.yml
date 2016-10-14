@@ -1,3 +1,23 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+busybee_record:
+    resource: "@BusybeeRecordBundle/Resources/config/routing.yml"
+    prefix:   /record/
+
+busybee_pagination:
+    resource: "@BusybeePaginationBundle/Resources/config/routing.yml"
+    prefix:   /pagination/
+
+busybee_database:
+    resource: "@BusybeeDatabaseBundle/Resources/config/routing.yml"
+    prefix:   /database/
+
+general_image:
+    resource: "@BusybeeImageBundle/Resources/config/routing.yml"
+    prefix:   /image/
+
+general_display:
+    resource: "@BusybeeHomeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+general_security:
+    resource: "@BusybeeSecurityBundle/Resources/config/routing.yml"
+    prefix:   /security/

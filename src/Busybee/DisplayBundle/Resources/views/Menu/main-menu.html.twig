@@ -1,0 +1,36 @@
+{# src/Busybee/DisplayBundle/Resources/views/Menu/main-menu.html.twig #}
+
+{% trans_default_domain "BusybeeDisplayBundle" %}
+
+{% block navigation %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{{ path('busybee_home_page') }}">{% block projectname %}Busybee{% endblock %}</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+			<li{% if app.request.get('_route') == 'admin' %} class="active"{% endif %}><a href="{{ path('busybee_admin') }}">{{ 'Admin'| trans }}</a></li>
+			<li{% if app.request.get('_route') == 'contact' %} class="active"{% endif %}><a href="{{ path('busybee_contact') }}">{{ 'Contact'| trans }}</a></li>
+			{% include "BusybeeDisplayBundle:Menu:site-menu.html.twig" %}			
+{% if is_granted('ROLE_USER') %}
+				{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+					<li><a href="{{ path('busybee_home_page', {'_switch_user': '_exit'}) }}">Exit Impersonation of: {{ app.user.username }}</a></li>
+				{% elseif is_granted('ROLE_USER') %}
+					<li><a href="{{ path('busybee_security_logout') }}" target="_self">{{ 'Sign Out'|trans }}: {{ app.user.username }}</a></li>
+				{% endif %}
+				</ul>
+{% else %}
+		</ul>
+		{% include 'BusybeeDisplayBundle:Menu:sign-in-form.html.twig' %}
+{% endif %}
+		</div><!--/.navbar-collapse -->
+	</div>
+</nav>
+{% endblock navigation %}

@@ -1,0 +1,66 @@
+# src\    Busybee\DatabaseBundle\Resources\config\doctrine\Field.orm.yml
+Busybee\DatabaseBundle\Entity\Field:
+    type: entity
+    table: db_fields
+    repositoryClass: Busybee\DatabaseBundle\Entity\FieldRepository
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [name, table]
+            errorPath: name
+            message: field.error.name.unique
+    indexes:
+        name:
+            columns: [ name ] 
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 64
+        type:
+            type: string
+            length: 64
+        prompt:
+            type: string
+            length: 255
+            nullable: true 
+        help:
+            type: text
+            nullable: true 
+        validator:
+            type: text
+            nullable: true 
+        parameters:
+            type: text
+            nullable: true 
+        sortkey: 
+            type: integer 
+    manyToMany:
+        table:
+            targetEntity: Busybee\DatabaseBundle\Entity\Table
+            orderBy: { 'name': 'ASC' }
+            joinTable: 
+                name: db_field_table
+                joinColumns:
+                    field_id:
+                        referencedColumnName: id
+                        unique: true 
+                inverseJoinColumns:
+                    table_id:
+                        referencedColumnName: id            
+        role:
+            targetEntity: Busybee\SecurityBundle\Entity\Role
+            orderBy: { 'role': 'ASC' }
+            joinTable: 
+                name: db_field_role
+                joinColumns:
+                    field_id:
+                        referencedColumnName: id
+                        unique: true 
+                inverseJoinColumns:
+                    role_id:
+                        referencedColumnName: id
+ 

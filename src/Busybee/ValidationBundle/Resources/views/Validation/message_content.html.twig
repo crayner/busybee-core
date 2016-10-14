@@ -1,0 +1,17 @@
+{# src/General/ValidationBundle/Resources/views/Validation/main_content.html.twig #}
+
+{% trans_default_domain 'GeneralValidationBundle' %}
+
+{{ form_row(form.message) }}
+
+
+{% for mess in form.message %}
+<div class="row well">
+    <div class="col-sm-12">
+        <div class="well">
+            {{ form_row(mess) }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+{{ dump(form) }}

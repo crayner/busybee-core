@@ -1,0 +1,15 @@
+{# src/General/SecurityBundle/Resources/views/User/request.html.twig #}
+{% extends "BusybeeSecurityBundle::layout.html.twig" %}
+
+
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+{% block title %}{{ parent() }}{{ 'security.request.title'|trans }}{% endblock title %}
+{% block titleBlock %}
+<div class="jumbotron">
+	<h1>{{ 'security.request.title'|trans }}</h1>
+	<p>{{ 'security.request.description'|trans }}</p>
+</div>
+{% endblock titleBlock %}
+{% block SecurityBundleContent %}
+{% include "BusybeeSecurityBundle:User:request_content.html.twig" %}
+{% endblock SecurityBundleContent %}

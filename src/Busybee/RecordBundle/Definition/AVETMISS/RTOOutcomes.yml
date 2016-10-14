@@ -1,0 +1,5 @@
+Enumerators:
+    - enumerator:
+        name: RTO Outcome Identifier
+        list: 
+            'RTO Outcomes are not Defined': '   '

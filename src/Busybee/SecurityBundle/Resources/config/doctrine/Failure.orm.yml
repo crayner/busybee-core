@@ -1,0 +1,24 @@
+# src\Busybee\SecurityBundle\Resources\config\doctrine\Failure.orm.yml
+Busybee\SecurityBundle\Entity\Failure:
+    type: entity
+    table: secure_failure
+    repositoryClass: Busybee\SecurityBundle\Entity\FailureRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        address:
+            type: string
+            length: 16
+            unique: true
+        failures:
+            type: integer
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ updateLastModified ]
+        preUpdate: [ updateLastModified ]

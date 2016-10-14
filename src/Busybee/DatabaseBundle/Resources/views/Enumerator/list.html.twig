@@ -1,0 +1,29 @@
+{# src/Busybee/DatabaseBundle/Resources/views/Enumerator/list.html.twig #}
+{% extends "BusybeeDisplayBundle:Bootstrap:jumbotron.html.twig" %}
+
+{% trans_default_domain 'BusybeeDatabaseBundle' %}
+
+{% block title %}Busybee - {{ 'enumerator.list.title'|trans }}{% endblock title %}
+
+{% block header %}
+<div class="jumbotron">
+	<div class="container">
+		<h1 class="text-center">{{ 'enumerator.list.title'|trans }}</h1>
+	</div>
+</div>
+{% endblock header %}
+
+{% block container %}
+{% include 'BusybeeDisplayBundle:Bootstrap:flashmessage.html.twig' %}
+<div class="form_error container"></div>
+{{ form_start(form) }}
+	<div id="form_body" class="container">
+		{% include "BusybeeDatabaseBundle:Enumerator:list_content.html.twig" %}
+	</div>
+{{ form_end(form) }}
+{% endblock container %}
+
+{% block javascripts %}
+{{parent() }}
+{% include "BusybeeDisplayBundle:Form:initAjaxForm.html.twig" %}
+{% endblock javascripts %}

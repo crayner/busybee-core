@@ -1,0 +1,43 @@
+{# src/Busybee/DatabaseBundle/Resources/views/Load/load_content.html.twig #}
+
+{% trans_default_domain 'BusybeeDatabaseBundle' %}
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 ">
+			<div class="row market well">
+				<div class="col-sm-5 ">
+					<div class="form-actions ">
+						{{ form_row(form.name) }}
+					</div>
+				</div>
+				<div class="col-sm-4 ">
+					<div class="form-actions">
+						{{ form_row(form.refresh) }}
+					</div>
+				</div>
+				<div class="col-sm-3 ">
+					<div class="form-actions text-center">
+						{% if form.upload is defined %}{{ form_widget(form.upload) }}{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	{% if messages is not empty %}
+		<div class="row">
+			<div class="col-md-12 ">
+				<div class="row market">
+					{% for message in messages %}
+						<div class="col-sm-12 alert alert-{{ message.status }}">
+							{{ message.message }}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+	
+</div>

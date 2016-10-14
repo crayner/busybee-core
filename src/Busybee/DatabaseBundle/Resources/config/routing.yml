@@ -1,0 +1,49 @@
+database_field_list:
+    path:     /field/
+    defaults: { _controller: BusybeeDatabaseBundle:List:field }
+#    defaults: { _controller: BusybeeDatabaseBundle:List:fieldlist }
+
+database_field_sortlist:
+    path:     /field/sort/
+    defaults: { _controller: BusybeeDatabaseBundle:List:sortField }
+
+database_field_new:
+    path:     /field/new/
+    defaults: { _controller: BusybeeDatabaseBundle:New:field }
+
+database_field_edit:
+    path:     /field/{field_id}/edit/
+    defaults: { _controller: BusybeeDatabaseBundle:Edit:field }
+
+database_table_list:
+    path:     /table/
+#    defaults: { _controller: BusybeeDatabaseBundle:List:tablelist }
+    defaults: { _controller: BusybeeDatabaseBundle:List:table }
+
+database_table_new:
+    path:     /table/new/
+    defaults: { _controller: BusybeeDatabaseBundle:New:table }
+
+database_table_edit:
+    path:     /table/{table_id}/edit/
+    defaults: { _controller: BusybeeDatabaseBundle:Edit:table }
+
+database_form_list:
+    path:     /form/
+    defaults: { _controller: BusybeeDatabaseBundle:List:form }
+
+database_enumerator_list:
+    path:     /enumerator/
+    defaults: { _controller: BusybeeDatabaseBundle:List:enumerator }
+
+database_enumerator_new:
+    path:     /enumerator/new/
+    defaults: { _controller: BusybeeDatabaseBundle:New:enumerator }
+
+database_enumerator_edit:
+    path:     /enumerator/{enumerator_id}/edit/
+    defaults: { _controller: BusybeeDatabaseBundle:Edit:enumerator }
+
+database_upload: 
+    path:     /load/
+    defaults: { _controller: BusybeeDatabaseBundle:Load:upload }

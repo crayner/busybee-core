@@ -1,0 +1,25 @@
+{# src/Busybee/RecordBundle/Resources/views/Table/new.html.twig #}
+{% extends "BusybeeDisplayBundle:Bootstrap:jumbotron.html.twig" %}
+
+{% trans_default_domain 'BusybeeRecordBundle' %}
+
+{% block title %}Busybee - {{ record.title|trans }}{% endblock title %}
+
+{% block header %}
+<div class="jumbotron">
+		<h1 class="text-center">{{ record.title|trans }}</h1>
+</div>
+{% endblock header %}
+
+{% block container %}
+{% include 'BusybeeDisplayBundle:Bootstrap:flashmessage.html.twig' %}
+<div class="form_error container"></div>
+{{ form_start(form) }}
+	<fieldset>
+		<div id="form_body">
+			{% include "BusybeeRecordBundle:Display:edit_content.html.twig" %}
+		</div>
+	</fieldset>
+{{ form_end(form) }}
+
+{% endblock container %}

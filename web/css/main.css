@@ -1,0 +1,25 @@
+/* CSS Document */
+body {
+	padding-top: 70px;
+	padding-bottom: 30px;
+	background-image: url(../img/backgroundPage.jpg) ;
+}
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+  width: auto;
+}
+.theme-showcase {
+	background-color: rgba(250, 250, 250, 0.85);
+	border-radius: 10px; 
+	box-shadow: 2px 2px 15px rgba(0,0,0,0.75);
+}
