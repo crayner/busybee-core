@@ -1,0 +1,9 @@
+user:
+    error:
+        email:
+            email: The email needs to be a real one. 
+            unique: The email address is already registered as a user. 
+        username: 
+            unique: The user name is already registered as a user.  
+        password:
+            match: The passwords do not match. 

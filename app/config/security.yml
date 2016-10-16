@@ -35,8 +35,12 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
+#        main:
+#            pattern: ^(/install/|/)
+#            security:    false
+#            anonymous:    true
         default: 
-            pattern: ^/
+            pattern: ^/.{1,}
             form_login:
                 # login success redirecting options (read further below)
                 provider:              busybee_security_provider
@@ -62,8 +66,9 @@ security:
             anonymous:    true
             switch_user:  true
 
-    access_control:
+    access_control: 
         - { path: busybee_security_login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: start_install, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(_(profiler|wdt)|css|images|js)/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: ROLE_ADMIN }
  

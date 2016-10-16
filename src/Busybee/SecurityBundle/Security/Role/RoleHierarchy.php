@@ -3,6 +3,7 @@ namespace Busybee\SecurityBundle\Security\Role;
 
 use Doctrine\ORM\EntityManager ;
 use Symfony\Component\Security\Core\Role\RoleHierarchy as RoleHierarchyBase;
+use Doctrine\DBAL\Exception\TableNotFoundException ;
 
 class RoleHierarchy extends RoleHierarchyBase {
 	
@@ -11,10 +12,11 @@ class RoleHierarchy extends RoleHierarchyBase {
     /**
      * @param array $hierarchy
      */
-    public function __construct(array $hierarchy, EntityManager  $em)
+    public function __construct(array $hierarchy, EntityManager $em)
     {
         $this->em = $em;
-        parent::__construct($this->buildRolesTree());
+		$x = $this->buildRolesTree();
+		parent::__construct($x);
     }
     /**
      * Here we build an array with roles. It looks like a two-levelled tree - just 
@@ -24,8 +26,13 @@ class RoleHierarchy extends RoleHierarchyBase {
     private function buildRolesTree() {
 		
         $hierarchy = array();
-        $roles = $this->em->createQuery('SELECT r FROM BusybeeSecurityBundle:Role r')->execute();;
-        foreach ($roles as $role) {
+		try {
+			$roles = $this->em->createQuery('SELECT r FROM BusybeeSecurityBundle:Role r')->execute() ;
+		}
+		catch (TableNotFoundException $e) {
+			return array();
+		}
+		foreach ($roles as $role) {
 			if (!isset($hierarchy[$role->getRole()]))
 				$hierarchy[$role->getRole()] = array();
 			foreach ($role->getChildrenRoles() as $name)

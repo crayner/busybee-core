@@ -13,6 +13,8 @@
 	<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 	<button type="submit" class="btn btn-success">{{ 'Sign In'|trans }}</button>
 </form>   
+{% elseif config.signin is null %}
+	&nbsp;
 {% else %}
 	<form class="navbar-form navbar-right">
 		<div class="form-group">

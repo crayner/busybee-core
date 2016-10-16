@@ -1,3 +1,6 @@
 home_page:
     path:     /
     defaults: { _controller: BusybeeHomeBundle:Default:index }
+error_page:
+    path:     /error/{message}
+    defaults: { _controller: BusybeeHomeBundle:Error:index }

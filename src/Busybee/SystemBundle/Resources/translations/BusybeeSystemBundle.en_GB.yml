@@ -1,0 +1,39 @@
+system:
+    install:
+        title: Install System
+        description: Test and install the system architecture. 
+parameter:
+    file:    
+        title: Parameter File Status
+        ok: "The 'parameter,.yml' file is writable. Values you enter here will be saved."
+        fail: "The 'parameter,.yml' file is NOT writable. You will need to manually update this file before the system will work correctly. You will be provided with the details to copy by this script."
+    sql:
+        title: Database Connection Parameteres
+        ok: "A connection to the database %name% was successful."
+        fail: "A connection to the database %name% was not successful.  The connection error staes: %error%" 
+sql:
+    database:
+        driver: 
+            title: The Type of Database Connection
+            description: The database connection is dependant on your server architecture. Please obtain the information from your Information Technology person.
+        save: Save 
+        host:
+            title: The Host Name or IP Address
+            description: What is the name of the server or th IP address of the server on which the database is located.
+        port:
+            title: The Communication Port used by the Database Server
+            description: Please obtain the information from your Information Technology person. 
+        name:
+            title: The Name of the Database
+            description: The database needs to exist and have this name. 
+        user:
+            title: The User Name to access the Database
+            description: ''
+        password:
+            title: The Password to the user for the Database.
+            description: ''
+        prefix:
+            title: The Prefix added to ALL tables.
+            description: Allows multiple systems to use the same database.
+           
+        

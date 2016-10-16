@@ -257,7 +257,7 @@ class UserController extends Controller
         $roleHierarchy = $this->get('security.role_hierarchy');
         $roleList = array();
         foreach($roleHierarchy->getHierarchy() as $role => $w)
-            if    ($this->get('security.authorization_checker')->isGranted($role))
+            if ($this->get('security.authorization_checker')->isGranted($role))
                 $roleList[$role] = $role;
         return $roleList;
     }

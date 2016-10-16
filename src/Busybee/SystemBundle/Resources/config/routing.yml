@@ -1,0 +1,9 @@
+system_homepage:
+    path:     /
+    defaults: { _controller: SystemBundle:Default:index }
+install_start:
+    path:     /install/start/
+    defaults: { _controller: SystemBundle:Install:index }
+install_save_database_parameters:
+    path:     /install/saveDatabase/
+    defaults: { _controller: SystemBundle:Install:saveDatabase }

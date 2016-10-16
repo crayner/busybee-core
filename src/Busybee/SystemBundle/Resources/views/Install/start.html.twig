@@ -1,0 +1,131 @@
+{# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
+{% extends "BusybeeHomeBundle:Default:index.html.twig" %}
+
+
+{% block stylesheets %}
+{{ parent() }}
+	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
+{% endblock stylesheets %}
+
+
+{% trans_default_domain 'BusybeeSystemBundle' %}
+{% block title %}Busybee - {{ 'system.install.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
+
+
+
+{% block contentContainer %}
+
+<div class="row">
+	<div class="col-sm-6">
+		{% if config.parameterStatus %}
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ 'parameter.file.title'|trans }}</h3>
+			</div>
+			<div class="panel-body">
+				{{ 'parameter.file.ok'|trans }}
+			</div>
+		</div>
+		{% else %}
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ 'parameter.file.title'|trans }}</h3>
+			</div>
+			<div class="panel-body">
+				{{ 'parameter.file.fail'|trans }}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+
+
+	<div class="col-sm-6">
+		{% if config.sql.isConnected %}
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ 'parameter.sql.title'|trans }}</h3>
+			</div>
+			<div class="panel-body">
+				{{ 'parameter.sql.ok'|trans({'%name%': config.sql.database_name}) }}
+			</div>
+		</div>
+		{% else %}
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ 'parameter.sql.title'|trans }}</h3>
+			</div>
+			<div class="panel-body">
+				{{ 'parameter.sql.fail'|trans({'%name%': config.sql.database_name, '%error%': config.sql.error}) }}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+
+
+
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<h3>Database Connection Parameters</h3>
+	</div>
+</div>
+<form action="{{ path("install_save_database_parameters") }}" method="post">
+	<div id="form_body" class="container-fluid">
+		<div class="row">
+			<div class="well col-sm-6 form-group">
+				<label for="driver">{{ 'sql.database.driver.title'|trans }}</label><br />
+				<span>{{ 'sql.database.driver.description'|trans }}</span>
+				<select id="driver" name="driver" value="{{ config.sql.database_driver }}" required class="form-control">
+					<option value='pdo_mysql'>pdo_mysql</option>
+				</select>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('database') }}" />
+			</div>
+			<div class="well col-sm-6 form-group">
+				<label for="host">{{ 'sql.database.host.title'|trans }}</label><br />
+				<span>{{ 'sql.database.host.description'|trans }}</span>
+				<input type="text" id="host" name="host" value="{{ config.sql.database_host }}" required class="form-control" >
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="well col-sm-6 form-group">
+				<label for="port">{{ 'sql.database.port.title'|trans }}</label><br />
+				<span>{{ 'sql.database.port.description'|trans }}</span>
+				<input type="number" id="port" name="port" value="{{ config.sql.database_port }}" class="form-control" >
+			</div>
+			<div class="well col-sm-6 form-group">
+				<label for="name">{{ 'sql.database.name.title'|trans }}</label><br />
+				<span>{{ 'sql.database.name.description'|trans }}</span>
+				<input type="text" id="name" name="name" value="{{ config.sql.database_name }}" required class="form-control" >
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="well col-sm-6 form-group">
+				<label for="user">{{ 'sql.database.user.title'|trans }}</label><br />
+				<span>{{ 'sql.database.user.description'|trans }}</span>
+				<input type="text" id="user" name="user" value="{{ config.sql.database_user }}" required class="form-control" >
+			</div>
+			<div class="well col-sm-6 form-group">
+				<label for="password">{{ 'sql.database.password.title'|trans }}</label><br />
+				<span>{{ 'sql.database.password.description'|trans }}</span>
+				<input type="text" id="password" name="password" value="{{ config.sql.database_password }}" required class="form-control" >
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="well col-sm-6 form-group">
+				<label for="prefix">{{ 'sql.database.prefix.title'|trans }}</label><br />
+				<span>{{ 'sql.database.prefix.description'|trans }}</span>
+				<input type="text" id="prefix" name="prefix" value="{{ config.sql.database_prefix }}" required class="form-control" maxlength="6" >
+			</div>
+			<div class="well col-sm-6 form-group text-right">
+				<button type="submit" id="_submit" name="_submit" class="btn btn-success">{{ 'sql.database.save'|trans }}<span class="glyphicons glyphicons-disk-save"></span></button>
+			</div>
+		</div>
+	</div>
+</form>	
+{{ dump(config) }}
+{% endblock contentContainer %}

@@ -1,3 +1,7 @@
+system:
+    resource: "@SystemBundle/Resources/config/routing.yml"
+    prefix:   /system/
+
 busybee_record:
     resource: "@BusybeeRecordBundle/Resources/config/routing.yml"
     prefix:   /record/
