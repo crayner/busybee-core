@@ -18,8 +18,10 @@
 
 <body>
 	
+	{% block menuContainer %}
 	{{ include('BusybeeHomeBundle:Menu:main-menu.html.twig') }}
-
+	{% endblock menuContainer %}
+	
     <div class="container theme-showcase" role="main">
 	
 		<div class="jumbotron">
@@ -27,6 +29,8 @@
 			<h1>{% block headerTitle %}Busybee{% endblock headerTitle %}</h1>
 			<p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
 		</div>
+
+		{{ include('BusybeeHomeBundle:Default:flash.html.twig') }}
 	
 		{% block contentContainer %}
 		

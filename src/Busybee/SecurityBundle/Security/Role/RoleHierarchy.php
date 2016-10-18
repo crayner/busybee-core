@@ -15,7 +15,10 @@ class RoleHierarchy extends RoleHierarchyBase {
     public function __construct(array $hierarchy, EntityManager $em)
     {
         $this->em = $em;
-		$x = $this->buildRolesTree();
+		$y = $em->getConnection()->getParams();
+		$x = array();
+		if ($y['driver'] != 'pdo_sqlite')
+			$x = $this->buildRolesTree();
 		parent::__construct($x);
     }
     /**

@@ -1,0 +1,76 @@
+{# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
+{% extends "BusybeeHomeBundle:Default:index.html.twig" %}
+
+
+{% block stylesheets %}
+{{ parent() }}
+	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
+{% endblock stylesheets %}
+
+
+{% trans_default_domain 'BusybeeSystemBundle' %}
+{% block title %}Busybee - {{ 'system.install.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
+
+
+
+{% block contentContainer %}
+<div class="row">
+	<div class="col-sm-12">
+		<h2>{{ 'install.misc.parameters'|trans }}</h2>
+	</div>
+</div>
+<form action="{{ path("install_misc_save") }}" method="post">
+	<div id="form_body" class="container-fluid">
+		<div class="row">
+			<div class="well col-sm-6 form-group">
+				<label for="secret">{{ 'misc.secret.title'|trans }}</label><br />
+				<span>{{ 'misc.secret.description'|trans }}</span>
+				<input type="text" id="secret" name="secret" value="{{ config.misc.secret }}" required class="form-control" >
+			</div>
+			<div class="well col-sm-6 form-group">
+				<label for="session_name">{{ 'misc.session_name.title'|trans }}</label><br />
+				<span>{{ 'misc.session_name.description'|trans }}</span>
+				<input type="text" id="session_name" name="session_name" value="{{ config.misc.session_name }}" required class="form-control" >
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="well col-sm-6 form-group">
+				<label for="session_max_idle_time">{{ 'misc.session_max_idle_time.title'|trans }}</label><br />
+				<span>{{ 'misc.session_max_idle_time.description'|trans }}</span>
+				<input type="number" id="session_max_idle_time" name="session_max_idle_time" value="{{ config.misc.session_max_idle_time }}" required class="form-control" >
+			</div>
+			<div class="well col-sm-6 form-group">
+				<label for="signin_count_minimum">{{ 'misc.signin_count_minimum.title'|trans }}</label><br />
+				<span>{{ 'misc.signin_count_minimum.description'|trans }}</span>
+				<input type="number" id="signin_count_minimum" name="signin_count_minimum" value="{{ config.misc.signin_count_minimum }}" required class="form-control" >
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="well col-sm-6 form-group">
+				<label for="locale">{{ 'misc.locale.title'|trans }}</label><br />
+				<span>{{ 'misc.locale.description'|trans }}</span>
+				<input type="text" id="locale" name="locale" value="{{ config.misc.locale }}" required class="form-control" maxlength='5' />
+			</div>
+			<div class="well col-sm-6 form-group">
+				<label for="country">{{ 'misc.country.title'|trans }}</label><br />
+				<span>{{ 'misc.country.description'|trans }}</span>
+				<input type="text" id="country" name="country" value="{{ config.misc.country }}" required class="form-control" />
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="well col-sm-offset-6 col-sm-6 form-group text-right">
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('miscellaneous') }}" />
+				<button type="submit" id="_submit" name="_submit" class="btn btn-success">{{ 'mailer.save'|trans }}<span class="glyphicons glyphicons-disk-save"></span></button>
+				{% if config.proceed %}
+				<button type="button" onClick="window.open('{{ path("install_build_system") }}','_self')" name="_submit" id="proceedButton" class="btn btn-info">{{ 'install.proceed'|trans }}<span class="glyphicons glyphicons-hand-right"></span></button>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</form>	
+{% endblock contentContainer %}

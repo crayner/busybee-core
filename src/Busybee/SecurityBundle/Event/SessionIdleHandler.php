@@ -26,8 +26,8 @@ class SessionIdleHandler
         $this->maxIdleTime = $maxIdleTime;
 		$this->cookieNames = array(
 			'PHPSESSID',
-			$container->getParameter('session.name'),
-			$container->getParameter('session.remember_me.name'),
+			$container->getParameter('session_name'),
+			$container->getParameter('session_remember_me_name'),
 		);
     }
 

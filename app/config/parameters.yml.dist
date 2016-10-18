@@ -3,7 +3,7 @@
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
     database_driver:   pdo_mysql
-    database_host:     127.0.0.1
+    database_host:     localhost
     database_port:     ~
     database_name:     symfony
     database_user:     symfony
@@ -12,10 +12,13 @@ parameters:
     # database_path: "%kernel.root_dir%/data.db3"
     database_prefix: ~
 
-    mailer_transport:  gmail
-    mailer_host:       smtp.gmail.com
+    mailer_transport:  ~
+    mailer_host:       ~
     mailer_user:       ~
     mailer_password:   ~
+    mailer_port:       ~
+    mailer_encryption: ~
+    mailer_auth_mode:  ~
     mailer_sender_name:  ~
     mailer_sender_address:  ~
 

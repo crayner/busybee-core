@@ -35,5 +35,72 @@ sql:
         prefix:
             title: The Prefix added to ALL tables.
             description: Allows multiple systems to use the same database.
-           
-        
+install:
+    database:
+        parameters: Database Connection Parameters
+        connection:
+            complete: The database connection has been successfully tested.
+    proceed: Proceed 
+    mailer:
+        parameters: Email Settings 
+    misc:
+        parameters: Miscellaneous Settings 
+mailer:
+    transport:
+        title: Transport Method
+        description: Select appropriate transport method for your installation.
+        off: No Mailer
+        smtp: SMTP
+        mail: Mail
+        sendmail: Sendmail
+        gmail: Google Mail 
+    host: 
+        title: SMTP Host
+        description: ''
+    port:
+        title: SMTP Port
+        description: ''
+    encryption:
+        title: SMTP Encryption
+        description: ''
+        none: None
+        ssl: SSL
+        tls: TLS
+    auth_mode:
+        title: SMTP Authority Mode
+        description: ''
+        plain: Plain
+        login: Login
+        cram-md5: CRAM MD5
+    user:
+        title: Email System User Name
+        description: ''
+    password:
+        title: Email System Password
+        description: '' 
+    sender_name:
+        title: "Email System Default Sender's Name"
+        description: This would usually be the name of the Organisation.
+    sender_address:
+        title: "Email System Default Sender's Email Address"
+        description: This would usually be the email of the Organisation.
+    save: Save   
+misc:
+    secret:
+        title: Enter a Secret Code
+        description: This code is used to seed various keys in the system.
+    session_name:
+        title: Enter a Session Name
+        description: The session name stored for your system.
+    session_max_idle_time:
+        title: Idle Time Sign Off
+        description: The time in seconds before the system will sign off an idle connection.
+    signin_count_minimum:
+        title: Allow Incorrect SignIn
+        description: Block users who forget their password, when they record this number of failures.
+    locale:
+        title: Locale (Language)
+        description: System Default Language
+    country:
+        title: Country
+        description: 'Country'

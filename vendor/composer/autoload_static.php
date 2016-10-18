@@ -206,17 +206,6 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
                 0 => __DIR__ . '/..' . '/sensiolabs/security-checker',
             ),
         ),
-        'M' => 
-        array (
-            'Mopa\\Bundle\\BootstrapBundle\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/mopa/bootstrap-bundle',
-            ),
-            'Mopa\\Bridge\\Composer' => 
-            array (
-                0 => __DIR__ . '/..' . '/mopa/composer-bridge/src',
-            ),
-        ),
         'D' => 
         array (
             'Doctrine\\ORM\\' => 

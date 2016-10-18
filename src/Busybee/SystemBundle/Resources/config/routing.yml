@@ -7,3 +7,18 @@ install_start:
 install_save_database_parameters:
     path:     /install/saveDatabase/
     defaults: { _controller: SystemBundle:Install:saveDatabase }
+install_check_mailer_parameters:
+    path:     /install/checkMailer/
+    defaults: { _controller: SystemBundle:Install:checkMailer }
+install_save_mailer:
+    path:     /install/saveMailer/
+    defaults: { _controller: SystemBundle:Install:saveMailer }
+install_misc_check: 
+    path:     /install/miscCheck/
+    defaults: { _controller: SystemBundle:Install:miscCheck }
+install_misc_save: 
+    path:     /install/miscSave/
+    defaults: { _controller: SystemBundle:Install:miscSave }
+install_build_system:
+    path:     /install/build/
+    defaults: { _controller: SystemBundle:Install:build }

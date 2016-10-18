@@ -1,0 +1,165 @@
+{# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
+{% extends "BusybeeHomeBundle:Default:index.html.twig" %}
+
+
+{% block stylesheets %}
+{{ parent() }}
+	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
+{% endblock stylesheets %}
+
+
+{% trans_default_domain 'BusybeeSystemBundle' %}
+{% block title %}Busybee - {{ 'system.install.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
+
+
+
+{% block contentContainer %}
+	<div class="row">
+		<div class="col-sm-12">
+			<h2>{{ 'install.mailer.parameters'|trans }}</h2>
+		</div>
+	</div>
+	<form action="{{ path("install_save_mailer") }}" method="post">
+		<div id="form_body" class="container-fluid">
+			<div class="row">
+				<div class="well col-sm-6 form-group">
+					<label for="transport">{{ 'mailer.transport.title'|trans }}</label><br />
+					<span>{{ 'mailer.transport.description'|trans }}</span>
+					<select id="transport" name="transport" class="form-control">
+						<option value=''{% if config.mailer.mailer_transport == '' %} selected{% endif %}>{{ 'mailer.transport.off'| trans }}</option>
+						<option value='smtp'{% if config.mailer.mailer_transport == 'smtp' %} selected{% endif %}>{{ 'mailer.transport.smtp'| trans }}</option>
+						<option value='mail'{% if config.mailer.mailer_transport == 'mail' %} selected{% endif %}>{{ 'mailer.transport.mail'| trans }}</option>
+						<option value='sendmail'{% if config.mailer.mailer_transport == 'sendmail' %} selected{% endif %}>{{ 'mailer.transport.sendmail'| trans }}</option>
+						<option value='gmail'{% if config.mailer.mailer_transport == 'gmail' %} selected{% endif %}>{{ 'mailer.transport.gmail'| trans }}</option>
+					</select>
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('mailer') }}" />
+				</div>
+			</div>
+			
+			<div class="row" id="smtpMailer">
+				<div class="well col-sm-3 form-group">
+					<label for="host">{{ 'mailer.host.title'|trans }}</label><br />
+					<span>{{ 'mailer.host.description'|trans }}</span>
+					<input type="text" id="host" name="host" value="{{ config.mailer.mailer_host }}" class="form-control" >
+				</div>
+				<div class="well col-sm-3 form-group">
+					<label for="port">{{ 'mailer.port.title'|trans }}</label><br />
+					<span>{{ 'mailer.port.description'|trans }}</span>
+					<input type="number" id="port" name="port" value="{{ config.mailer.mailer_port }}" class="form-control" >
+				</div>
+				<div class="well col-sm-3 form-group">
+					<label for="encryption">{{ 'mailer.encryption.title'|trans }}</label><br />
+					<span>{{ 'mailer.encryption.description'|trans }}</span>
+					<select id="encryption" name="encryption" value="{{ config.mailer.mailer_encryption }}" required class="form-control">
+						<option value=''>{{ 'mailer.encryption.none'| trans }}</option>
+						<option value='ssl'>{{ 'mailer.encryption.ssl'| trans }}</option>
+						<option value='tls'>{{ 'mailer.encryption.tls'| trans }}</option>
+					</select>
+				</div>
+				<div class="well col-sm-3 form-group">
+					<label for="auth_mode">{{ 'mailer.auth_mode.title'|trans }}</label><br />
+					<span>{{ 'mailer.auth_mode.description'|trans }}</span>
+					<select id="auth_mode" name="auth_mode" value="{{ config.mailer.mailer_auth_mode }}" required class="form-control">
+						<option value='plain'>{{ 'mailer.auth_mode.plain'| trans }}</option>
+						<option value='login'>{{ 'mailer.auth_mode.login'| trans }}</option>
+						<option value='cram-md5'>{{ 'mailer.auth_mode.cram-md5'| trans }}</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="well col-sm-6 form-group">
+					<label for="user">{{ 'mailer.user.title'|trans }}</label><br />
+					<span>{{ 'mailer.user.description'|trans }}</span>
+					<input type="text" id="user" name="user" value="{{ config.mailer.mailer_user }}" required class="form-control" >
+				</div>
+				<div class="well col-sm-6 form-group">
+					<label for="password">{{ 'mailer.password.title'|trans }}</label><br />
+					<span>{{ 'mailer.password.description'|trans }}</span>
+					<input type="text" id="password" name="password" value="{{ config.mailer.mailer_password }}" required class="form-control" >
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="well col-sm-6 form-group">
+					<label for="sender_name">{{ 'mailer.sender_name.title'|trans }}</label><br />
+					<span>{{ 'mailer.sender_name.description'|trans }}</span>
+					<input type="text" id="sender_name" name="sender_name" value="{{ config.mailer.mailer_sender_name }}" required class="form-control" >
+				</div>
+				<div class="well col-sm-6 form-group">
+					<label for="sender_address">{{ 'mailer.sender_address.title'|trans }}</label><br />
+					<span>{{ 'mailer.sender_address.description'|trans }}</span>
+					<input type="text" id="sender_address" name="sender_address" value="{{ config.mailer.mailer_sender_address }}" required class="form-control" >
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="well col-sm-offset-6 col-sm-6 form-group text-right">
+					<button type="submit" id="_submit" name="_submit" class="btn btn-success">{{ 'mailer.save'|trans }}<span class="glyphicons glyphicons-disk-save"></span></button>
+					<button type="button" onClick="window.open('{{ path("install_misc_check") }}','_self')" name="_submit" id="proceedButton" class="btn btn-info"{% if config.mailer.mailer_transport is empty or config.mailer.canDeliver %}{% else %}disabled{% endif %}>{{ 'install.proceed'|trans }}<span class="glyphicons glyphicons-hand-right"></span></button>
+				</div>
+			</div>
+		</div>
+	</form>	
+{% endblock contentContainer %}
+
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(function() {
+			$('#smtpMailer').hide(); 
+			$('#host').prop('disabled', true);
+			$('#port').prop('disabled', true);
+			$('#encryption').prop('disabled', true);
+			$('#auth_mode').prop('disabled', true);
+			if($('#transport').val() == '') {
+				$('#user').prop('disabled', true);
+				$('#password').prop('disabled', true);
+				$('#sender_name').prop('disabled', true);
+				$('#sender_address').prop('disabled', true);
+			} else {
+				$('#user').prop('disabled', false);
+				$('#password').prop('disabled', false);
+				$('#sender_name').prop('disabled', false);
+				$('#sender_address').prop('disabled', false);
+			}
+			$('#transport').change(function(){
+				if($('#transport').val() == 'smtp') {
+					$('#smtpMailer').show(); 
+					$('#host').prop('disabled', false);
+					$('#port').prop('disabled', false);
+					$('#encryption').prop('disabled', false);
+					$('#auth_mode').prop('disabled', false);
+					$('#user').prop('disabled', false);
+					$('#password').prop('disabled', false);
+					$('#sender_name').prop('disabled', false);
+					$('#sender_address').prop('disabled', false);
+					$('#proceedButton').prop('disabled', true);
+				} else {
+					if($('#transport').val() == '') {
+						$('#proceedButton').prop('disabled', false);
+						$('#user').prop('disabled', true);
+						$('#password').prop('disabled', true);
+						$('#sender_name').prop('disabled', true);
+						$('#sender_address').prop('disabled', true);
+					} else {
+						$('#proceedButton').prop('disabled', true);
+						$('#user').prop('disabled', false);
+						$('#password').prop('disabled', false);
+						$('#sender_name').prop('disabled', false);
+						$('#sender_address').prop('disabled', false);
+					}
+					$('#host').prop('disabled', true);
+					$('#port').prop('disabled', true);
+					$('#encryption').prop('disabled', true);
+					$('#auth_mode').prop('disabled', true);
+					$('#smtpMailer').hide(); 
+				} 
+			});
+		});
+	</script>
+{% endblock javascripts %}
