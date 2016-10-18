@@ -51,7 +51,7 @@ class GroupType extends AbstractType
 					'translation_domain' 	=> 'BusybeeDisplayBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
-						'class' 				=> 'btn btn-info glyphicon glyphicon-exclamation-sign',
+						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
 					),
 				)
 			)

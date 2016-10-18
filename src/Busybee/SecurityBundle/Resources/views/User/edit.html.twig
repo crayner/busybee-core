@@ -1,27 +1,29 @@
 {# src/General/SecurityBundle/Resources/views/User/edit.html.twig #}
-{% extends "BusybeeSecurityBundle::layout.html.twig" %}
+{% extends "BusybeeHomeBundle:Default:index.html.twig" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
 {% trans_default_domain 'BusybeeSecurityBundle' %}
 
 {% block title %}Busybee - {{ 'user.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'user.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'user.edit.description'|trans }}{% endblock headerLead %}
 
-{% block titleBlock %}
-<div class="jumbotron">
-	<h1>{{ 'user.edit.title'|trans }}</h1>
-	<p class="lead">{{ 'user.edit.description'|trans }}</p>
-</div>
-{% endblock titleBlock %}
+{% block stylesheets %}
+{{ parent() }}
+	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
+{% endblock stylesheets %}
 
-{% block SecurityBundleContent %}
-<div class="form_error"></div>
+{% block contentContainer %}
 {{ form_start(form) }}
-<div id="form_body">
-	{% include "BusybeeSecurityBundle:User:edit_content.html.twig" %}
-</div>
+	<div id="form_body" class="container-fluid">
+		{% include "BusybeeSecurityBundle:User:edit_content.html.twig" %}
+	</div>
 {{ form_end(form) }}
-{% endblock SecurityBundleContent %}
+
+{% endblock contentContainer %}
 
 {% block javascripts %}
 {{parent() }}
-{% include "BusybeeDisplayBundle:Form:initAjaxForm.html.twig" %}
+{% include "BusybeeHomeBundle:Form:initAjaxForm.html.twig" %}
 {% endblock javascripts %}

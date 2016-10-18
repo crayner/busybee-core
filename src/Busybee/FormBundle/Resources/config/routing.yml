@@ -1,0 +1,3 @@
+busybee_form_homepage:
+    path:     /
+    defaults: { _controller: BusybeeFormBundle:Default:index }

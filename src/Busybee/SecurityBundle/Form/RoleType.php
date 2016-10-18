@@ -46,7 +46,7 @@ class RoleType extends AbstractType
 						'label'					=> 'form.cancel', 
 						'translation_domain' 	=> 'BusybeeDisplayBundle',
 						'attr' 					=> array(
-							'class' 				=> 'btn btn-info glyphicon glyphicon-exclamation-sign',
+							'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
 							'formnovalidate' 		=> 'formnovalidate'
 						),
 					)

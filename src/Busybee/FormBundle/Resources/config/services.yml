@@ -1,0 +1,4 @@
+services:
+#    busybee_form.example:
+#        class: Busybee\FormBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

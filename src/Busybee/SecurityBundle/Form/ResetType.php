@@ -33,7 +33,7 @@ class ResetType extends AbstractType
 		 	->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label'=> 'form.cancel', 
 				'translation_domain' 	=> 'BusybeeDisplayBundle',
 				'attr' 					=> array(
-					'class' 				=> 'btn btn-info glyphicon glyphicon-exclamation-sign',
+					'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
 					'formnovalidate' 		=> 'formnovalidate'
 				),
 			)

@@ -21,6 +21,35 @@ class DefaultController extends Controller
 		$x = $em->getConnection()->getParams();
 		if ($x['driver'] == 'pdo_sqlite')
 			return new RedirectResponse($this->generateUrl('install_start'));
+			
+		$user = $this->getUser();
+		if (! is_null($user)) 
+		{
+			$encoder = $this->get('security.encoder_factory');
+			$encoder = $encoder->getEncoder($user);
+	
+			// Note the difference
+			if ($user->getUsername() === 'admin') 
+				return new RedirectResponse($this->generateUrl('busybee_security_user_edit'));
+			if ($encoder->isPasswordValid($user->getPassword(), 'p@ssword', $user->getSalt())) 
+			{
+				$user->setForcePasswordReset(true);
+				$em->persist($user);
+				$em->flush();
+				$email = null;
+				if (!empty($user))
+					$email = trim($user->getEmail());
+				
+				$config = new \stdClass();
+				$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+				
+				return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
+					'email' => $email,
+					'config' => $config,
+					'forcePasswordReset' => $user->getForcePasswordReset(),
+				));
+			}
+		}
 
 		return $this->render('BusybeeHomeBundle:Default:index.html.twig', array('name' => $name, 'config' => $config));
     }

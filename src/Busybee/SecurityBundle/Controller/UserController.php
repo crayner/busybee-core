@@ -15,6 +15,7 @@ use Busybee\SecurityBundle\BusybeeSecurityEvents;
 use Busybee\SecurityBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\DisplayBundle\Model\MessageManager ;
+use Symfony\Component\Form\FormError ;
 
 class UserController extends Controller
 {
@@ -63,7 +64,7 @@ class UserController extends Controller
 					'translation_domain' 	=> 'BusybeeDisplayBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
-						'class' 				=> 'btn btn-info glyphicon glyphicon-exclamation-sign',
+						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
 						'onClick'				=> 'location.href=\''.$this->generateUrl('busybee_security_user_list')."'",
 					),
 				)
@@ -88,7 +89,7 @@ class UserController extends Controller
 				$userManager->updateUser($user);
 				
 				if (null === $response = $event->getResponse()){
-					$url = $this->generateUrl('busybee_home_page');
+					$url = $this->generateUrl('home_page');
 					$response = new RedirectResponse($url);
 				}
 
@@ -164,9 +165,11 @@ class UserController extends Controller
     {
 		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_USER'))) return $response;
 		
+		$config = new \stdClass();
+		$config->signin = true ;
+
         $user = $this->getUser();
     
-
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
@@ -184,8 +187,8 @@ class UserController extends Controller
 					'translation_domain' 	=> 'BusybeeDisplayBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
-						'class' 				=> 'btn btn-info glyphicon glyphicon-exclamation-sign',
-						'onClick'				=> 'location.href=\''.$this->generateUrl('busybee_home_page')."'",
+						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
+						'onClick'				=> 'location.href=\''.$this->generateUrl('home_page')."'",
 					),
 				)
 			)
@@ -195,8 +198,9 @@ class UserController extends Controller
 
         $form->handleRequest($request);
 
-		$mm = new MessageManager($this->get('translator'), $request->getLocale(), 'BusybeeSecurityBundle');
-		
+		if ($form->get('username')->getData() == 'admin')
+			$form->get('username')->addError(new FormError('user.edit.admin'));	
+			
 		if ($form->isSubmitted()) {
 			if ($form->isValid()) {
 
@@ -209,15 +213,15 @@ class UserController extends Controller
 				$userManager->updateUser($user);
 	
 				if (null === $response = $event->getResponse()){
-					$url = $this->generateUrl('busybee_home_page');
+					$url = $this->generateUrl('home_page');
 					$response = new RedirectResponse($url);
 				}
 
 				$dispatcher->dispatch(BusybeeSecurityEvents::USER_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
+				$this->get('session')->getFlashBag()->add('success', 'user.edit.success');
 				return new JsonResponse(
 					array(
-						'message' => $mm->message('user.edit.success', 'success'),
 						'form' => $this->renderView('BusybeeSecurityBundle:User:edit_content.html.twig',
 							array(
 								'user' => $user,
@@ -229,9 +233,9 @@ class UserController extends Controller
 	
 			} else {
 
+				$this->get('session')->getFlashBag()->add('error', 'user.edit.error');
 				return new JsonResponse(
 					array(
-						'message' => $mm->message('user.edit.error', 'danger'),
 						'form' => $this->renderView('BusybeeSecurityBundle:User:edit_content.html.twig',
 							array(
 								'user' => $user,
@@ -239,13 +243,14 @@ class UserController extends Controller
 								)
 							)
 						), 
-						400);
+						200);
 			}
 		}
 
         return $this->render('BusybeeSecurityBundle:User:edit.html.twig', array(
 				'user' => $user,
 				'form' => $form->createView(),
+				'config' => $config,
 			)
 		);
     }
@@ -320,7 +325,7 @@ class UserController extends Controller
 
         $form->handleRequest($request);
 		if ($form->get('cancel')->isClicked()) {
-			$url = $this->generateUrl('busybee_home_page');
+			$url = $this->generateUrl('home_page');
 			$response = new RedirectResponse($url);
 			return $response;			
 		}
@@ -336,7 +341,7 @@ class UserController extends Controller
 					'success',
 					$this->get('translator')->trans('user.reset.success', array(), 'BusybeeSecurityBundle')
 				);
-                $url = $this->generateUrl('busybee_home_page');
+                $url = $this->generateUrl('home_page');
                 $response = new RedirectResponse($url);
             }
 

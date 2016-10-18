@@ -49,7 +49,7 @@ class Authorisation extends AuthorizationChecker
 		$this->session->remove( $this->key );
 		$this->session->set('_url', $this->router->generate('home_page'));
 		$this->session->set('_authorised', true);
-        if ($role === 'IS_AUTHENTICATED_FULLY' and in_array($this->route, array('homepage', 'home_page', 'busybee_home_page')))
+        if ($role === 'IS_AUTHENTICATED_FULLY' && in_array($this->route, array('home_page')))
 			return $this->response;
 		elseif (parent::isGranted($role))
 			return $this->response;
@@ -73,7 +73,7 @@ class Authorisation extends AuthorizationChecker
 					'warning',
 					$this->translator->trans('security.authorisation.blocked_ip', array("%remoteIP%" => $this->ip), 'BusybeeSecurityBundle')
 				);
-				$url = $this->router->generate('homepage');
+				$url = $this->router->generate('home_page');
 				$this->response = new RedirectResponse($url);
 				return $this->response ;
 			}

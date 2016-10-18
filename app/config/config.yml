@@ -40,8 +40,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-#    form_themes:
-#        - bootstrap_3_layout.html.twig
+    form_themes:
+        - bootstrap_3_layout.html.twig
 #        - bootstrap_3_horizontal_layout.html.twig 
 
 # Assetic Configuration
@@ -86,7 +86,7 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:
             default:
-                connection: install
+                connection: normal
                 auto_mapping: true 
             dynamic:
                 connection: normal   

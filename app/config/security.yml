@@ -35,12 +35,8 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
-        main:
-            pattern: ^(/system/install/|/)
-            security:    false
-            anonymous:    true
         default: 
-            pattern: ^/.{1,}
+            pattern: ^/
             form_login:
                 # login success redirecting options (read further below)
                 provider:              busybee_security_provider

@@ -26,7 +26,7 @@ class EditController extends Controller
 					'translation_domain' 	=> 'BusybeeDisplayBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
-						'class' 				=> 'btn btn-info glyphicon glyphicon-exclamation-sign',
+						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
 						'onClick'				=> 'location.href=\''.$this->generateUrl('database_field_list')."'",
 					),
 				)
@@ -112,7 +112,7 @@ class EditController extends Controller
 					'translation_domain' 	=> 'BusybeeDisplayBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
-						'class' 				=> 'btn btn-info glyphicon glyphicon-exclamation-sign',
+						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
 						'onClick'				=> 'location.href=\''.$this->generateUrl('database_table_list')."'",
 					),
 				)
@@ -173,7 +173,7 @@ class EditController extends Controller
 					'translation_domain' 	=> 'BusybeeDisplayBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
-						'class' 				=> 'btn btn-info glyphicon glyphicon-exclamation-sign',
+						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
 						'onClick'				=> 'location.href=\''.$this->generateUrl('database_field_list')."'",
 					),
 				)

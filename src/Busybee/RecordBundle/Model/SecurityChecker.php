@@ -39,7 +39,7 @@ class SecurityChecker
 		if (NULL === ($role = $this->getTableRole($table)))
 		{
 			$role = '';
-            $url = $this->router->generate('busybee_home_page');
+            $url = $this->router->generate('home_page');
 			$this->session->getFlashBag()->add(
 				'warning',
 				$this->translator->trans('security.authorisation.no_table', array("%name%" => $table), 'BusybeeSecurityBundle')
@@ -58,7 +58,7 @@ class SecurityChecker
 			if ($request->getMethod() !== "POST")
 				return $this->testAuthorisation($role);
 			$role = '';
-            $url = $this->router->generate('busybee_home_page');
+            $url = $this->router->generate('home_page');
 			$this->session->getFlashBag()->add(
 				'warning',
 				$this->translator->trans('security.authorisation.no_table', array("%name%" => $table), 'BusybeeSecurityBundle')

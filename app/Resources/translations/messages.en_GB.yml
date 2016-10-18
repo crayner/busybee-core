@@ -1,0 +1,4 @@
+user:
+    edit:
+        error: The details were not saved.  Correct invalid fields below. 
+        success: The details where correctly saved.

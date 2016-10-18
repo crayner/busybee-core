@@ -2,7 +2,7 @@
 
 {% trans_default_domain "BusybeeHomeBundle" %}
 
-{% if config.signin %}
+{% if config.signin and not is_granted('ROLE_USER') %}
 <form class="navbar-form navbar-right" action="{{ path('busybee_security_check') }}" method="post">
 	<div class="form-group">
 		<input type="text" id="username" class="form-control input-sm" name="_username" value="{{ last_username|default("") }}" placeholder="{{ 'Username/Email'|trans }}" />
@@ -12,13 +12,17 @@
 	</div>
 	<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 	<button type="submit" class="btn btn-success">{{ 'Sign In'|trans }}</button>
-</form>   
+</form>  
 {% elseif config.signin is null %}
 	&nbsp;
-{% else %}
+{% elseif config.signin and is_granted('ROLE_USER') %}
 	<form class="navbar-form navbar-right">
 		<div class="form-group">
-			<a class="btn btn-warning" href="{{ path('busybee_security_login') }}" role="button">{{ 'Sign In'|trans }}</a>
+			{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+				<a class="btn btn-info" href="{{ path('home_page', {'_switch_user': '_exit'}) }}" role="button">{{ 'Exit Impersonation of'|trans }}: {{ app.user.username }}</a>
+			{% endif %}
+			<a class="btn btn-danger" href="{{ path('busybee_security_logout') }}" role="button">{{ 'Sign Out'|trans }}</a>
 		</div>
 	</form>
 {% endif %}
+

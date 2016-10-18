@@ -53,6 +53,9 @@ Busybee\SecurityBundle\Entity\User:
             nullable: true
         locked:
             type: boolean
+        forcePasswordReset:
+            type: boolean
+            default: false
         expired:
             type: boolean
         expiresAt:
@@ -97,4 +100,7 @@ Busybee\SecurityBundle\Entity\User:
                 inverseJoinColumns:
                     role_id:
                         referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ checkUsername ]
+        preUpdate: [ checkUsername ]
 

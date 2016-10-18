@@ -12,92 +12,92 @@ class User extends UserBase
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $username;
+    protected $username;
 
     /**
      * @var string
      */
-    private $usernameCanonical;
+    protected $usernameCanonical;
 
     /**
      * @var string
      */
-    private $email;
+    protected $email;
 
     /**
      * @var string
      */
-    private $emailCanonical;
+    protected $emailCanonical;
 
     /**
      * @var boolean
      */
-    private $enabled;
+    protected $enabled;
 
     /**
      * @var string
      */
-    private $locale;
+    protected $locale;
 
     /**
      * @var string
      */
-    private $password;
+    protected $password;
 
     /**
      * @var \DateTime
      */
-    private $lastLogin;
+    protected $lastLogin;
 
     /**
      * @var boolean
      */
-    private $locked;
+    protected $locked;
 
     /**
      * @var boolean
      */
-    private $expired;
+    protected $expired;
 
     /**
      * @var \DateTime
      */
-    private $expiresAt;
+    protected $expiresAt;
 
     /**
      * @var string
      */
-    private $confirmationToken;
+    protected $confirmationToken;
 
     /**
      * @var \DateTime
      */
-    private $passwordRequestedAt;
+    protected $passwordRequestedAt;
 
     /**
      * @var boolean
      */
-    private $credentialsExpired;
+    protected $credentialsExpired;
 
     /**
      * @var \DateTime
      */
-    private $credentialsExpireAt;
+    protected $credentialsExpireAt;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $groups;
+    protected $groups;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $directroles;
+    protected $directroles;
 
     /**
      * Constructor
@@ -128,7 +128,7 @@ class User extends UserBase
     public function setUsername($username)
     {
         $this->username = $username;
-
+		
         return $this;
     }
 
@@ -176,7 +176,7 @@ class User extends UserBase
     public function setEmail($email)
     {
         $this->email = $email;
-
+			
         return $this;
     }
 
@@ -545,5 +545,46 @@ class User extends UserBase
     {
         return $this->directroles;
     }
-}
 
+    /**
+     * check Username
+     *
+     * @return void
+     */
+    public function checkUsername()
+    {
+        if (empty($this->getUsername()))
+			$this->setUsername($this->getEmail());
+        if (empty($this->getUsernameCanonical()))
+			$this->setUsernameCanonical($this->getEmailCanonical());
+    }
+    /**
+     * @var boolean
+     */
+    private $forcePasswordReset;
+
+
+    /**
+     * Set forcePasswordReset
+     *
+     * @param boolean $forcePasswordReset
+     *
+     * @return User
+     */
+    public function setForcePasswordReset($forcePasswordReset)
+    {
+        $this->forcePasswordReset = $forcePasswordReset;
+
+        return $this;
+    }
+
+    /**
+     * Get forcePasswordReset
+     *
+     * @return boolean
+     */
+    public function getForcePasswordReset()
+    {
+        return $this->forcePasswordReset;
+    }
+}
