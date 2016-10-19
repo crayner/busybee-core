@@ -67,7 +67,11 @@
     </div> <!-- /container -->
 
 
-{{ include('BusybeeHomeBundle:Default:scripts.html.twig') }}
+
+{% block javascripts %}
+	{% include "BusybeeHomeBundle:Default:scripts.html.twig" %}
+{% endblock javascripts %}
+
 
 </body>
 </html>
