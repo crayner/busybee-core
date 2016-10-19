@@ -13,3 +13,8 @@ services:
         arguments: ['@logger']
         tags:
             - { name: monolog.logger, channel: busybee }
+    doctrine.tblprefix_subscriber:
+        class: Busybee\SystemBundle\Subscriber\TablePrefixSubscriber
+        arguments: ['%database_prefix%']
+        tags:
+            - { name: doctrine.event_subscriber }    

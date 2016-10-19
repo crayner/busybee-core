@@ -16,11 +16,8 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Busybee\DisplayBundle\BusybeeDisplayBundle(),
             new Busybee\HomeBundle\BusybeeHomeBundle(),
             new Busybee\SecurityBundle\BusybeeSecurityBundle(),
-            new Busybee\ImageBundle\BusybeeImageBundle(),
-            new Busybee\PaginationBundle\BusybeePaginationBundle(),
             new Busybee\SystemBundle\SystemBundle(),
             new Busybee\FormBundle\BusybeeFormBundle(),
         );
