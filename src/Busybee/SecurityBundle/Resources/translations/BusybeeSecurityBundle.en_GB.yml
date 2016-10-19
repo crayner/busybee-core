@@ -53,7 +53,7 @@ security:
         title: Authentication
         description: The page you have requested requires authorisation to view.  Please sign in here to authenticate.
         submit: Sign In
-        forgot: Help Me!
+        forgot: Password Reset
         remember_me: Remember Me
     impersonate:
         title: User Impersonation

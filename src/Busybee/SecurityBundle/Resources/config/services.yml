@@ -143,3 +143,9 @@ services:
             - '%signin_count_minimum%'
             - '%signin_timeout_period%'
             - '%signin_ip_exceptions%' 
+    password.validator:
+        class: Busybee\SecurityBundle\Validator\Constraints\PasswordValidator
+        tags:
+            - { name: validator.constraint_validator, alias: password.validator  }
+        arguments:
+            - '@service_container'

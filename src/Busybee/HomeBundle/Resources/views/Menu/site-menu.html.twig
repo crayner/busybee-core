@@ -1,15 +1,18 @@
 {# src/Busybee/DisplayBundle/Resources/views/Menu/user-menu.html.twig #}
 
-{% trans_default_domain "BusybeeDisplayBundle" %}
+{% trans_default_domain "BusybeeHomeBundle" %}
 
 {% if is_granted('ROLE_USER') %}
 <li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'Site'|trans }}<span class="caret"></span></a>
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'menu.Site'|trans }}<span class="caret"></span></a>
 	<ul class="dropdown-menu">
-		<li><a href="{{ path("busybee_security_user_edit") }}">{{ 'Security'|trans }}</a></li> 
-		<li><a href="{{ path("database_table_list") }}">{{ 'Table Management'|trans }}</a></li> 
-		<li><a href="{{ path("database_field_list") }}">{{ 'Field Management'|trans }}</a></li> 
-		<li><a href="{{ path("database_upload") }}">{{ 'Load Database'|trans }}</a></li> 
+		<li><a href="{{ path("busybee_security_user_edit") }}">{{ 'menu.Security'|trans }}</a></li> 
+	</ul>
+</li>
+<li class="dropdown">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'menu.Misc'|trans }}<span class="caret"></span></a>
+	<ul class="dropdown-menu">
+		<li><a href="{{ path("home_template") }}">{{ 'menu.templateDesign'|trans }}</a></li> 
 	</ul>
 </li>
 {% endif %}

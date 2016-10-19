@@ -28,3 +28,8 @@ body {
 	font-size: 85% ;
 	color: #3DB3D7;
 }
+@media screen and (min-width: 768px) {
+	.dropdown:hover>.dropdown-menu {
+		display: block;
+	}
+}

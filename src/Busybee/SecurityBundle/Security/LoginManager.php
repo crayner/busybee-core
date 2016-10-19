@@ -46,7 +46,7 @@ class LoginManager implements LoginManagerInterface
 
         $token = $this->createToken($firewallName, $user);
 
-        if ($this->container->isScopeActive('request')) {
+        if ($this->container->has('request')) {
             $this->sessionStrategy->onAuthentication($this->container->get('request'), $token);
 
             if (null !== $response) {

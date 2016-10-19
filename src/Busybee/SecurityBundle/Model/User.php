@@ -192,4 +192,9 @@ abstract class User implements UserInterface
 	{
 		return false ;
 	}
+
+	public function formatName()
+	{
+		return $this->getUsername();
+	}
 }

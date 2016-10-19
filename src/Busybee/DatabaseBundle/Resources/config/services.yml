@@ -77,20 +77,6 @@ services:
         class: Busybee\DatabaseBundle\Model\DatabaseManager
         arguments:
             - '@service_container' 
-    monolog.formatter.session_request:
-        class: Monolog\Formatter\LineFormatter
-        arguments:
-            - "[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%% %%context%% %%extra%%\n"
-    monolog.processor.session_request:
-        class: Busybee\DatabaseBundle\Model\SessionRequestProcessor
-        arguments:  ["@session"]
-        tags:
-            - { name: monolog.processor, method: processRecord }
-    monolog.logger.busybee:
-        class: Busybee\DatabaseBundle\Model\BusybeeLogger 
-        arguments: ['@logger']
-        tags:
-            - { name: monolog.logger, channel: busybee }
     database.table.manager: 
         class: Busybee\DatabaseBundle\Model\TableManager
         arguments:

@@ -9,3 +9,4 @@ buildDatabase:
     success: The database was built successfully.
 Yes: Yes
 No: No
+'%name% at IP:%remoteIP% has failed to authenticate correctly.': '%name% at IP:%remoteIP% has failed to authenticate correctly.'

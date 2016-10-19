@@ -13,7 +13,6 @@ class DefaultController extends Controller
     {
 //		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('IS_AUTHENTICATED_FULLY'))) return $response;
 
-		$name = 'BusybeeHomeBundle:Default:index.html.twig';
 		$config = new \stdClass();
 		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 
@@ -48,7 +47,7 @@ class DefaultController extends Controller
 			}
 		}
 
-		return $this->render('BusybeeHomeBundle:Default:index.html.twig', array('name' => $name, 'config' => $config));
+		return $this->render('BusybeeHomeBundle:Default:index.html.twig', array('config' => $config));
     }
 
 	/**

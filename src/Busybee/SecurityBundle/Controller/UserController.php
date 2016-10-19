@@ -14,8 +14,10 @@ use Busybee\SecurityBundle\Event\FilterUserResponseEvent;
 use Busybee\SecurityBundle\BusybeeSecurityEvents;
 use Busybee\SecurityBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\JsonResponse ;
-use Busybee\DisplayBundle\Model\MessageManager ;
+use Busybee\HomeBundle\Model\MessageManager ;
+use Busybee\SecurityBundle\Validator\Password ;
 use Symfony\Component\Form\FormError ;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException ;
 
 class UserController extends Controller
 {
@@ -320,20 +322,37 @@ class UserController extends Controller
             return $event->getResponse();
         }
 
-		$form = $this->createForm(new ResetType, $user);
+		$form = $this->createForm('Busybee\SecurityBundle\Form\ResetType', $user);
         $form->setData($user);
 
         $form->handleRequest($request);
+
+		$validator = $this->get('validator');
+	
+		$constraints = array(
+			new Password(),
+		);
+	
+		$errors = $validator->validate($request->request->get('reset')['plainPassword']['first'], $constraints);
+		
+		$valid = true ;
+		if (count($errors) > 0) {
+			$this->get('session')->getFlashBag()->add('error', $errors->get(0)->getMessage());
+			$valid = false;
+		}
+
 		if ($form->get('cancel')->isClicked()) {
 			$url = $this->generateUrl('home_page');
 			$response = new RedirectResponse($url);
 			return $response;			
 		}
 
-        if ($form->isValid()) {
+        if ($valid && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(BusybeeSecurityEvents::RESETTING_RESET_SUCCESS, $event);
 
+			$user->setConfirmationToken(null);
+			$user->setPasswordRequestedAt(null);
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {

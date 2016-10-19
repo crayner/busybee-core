@@ -7,3 +7,5 @@ user:
             unique: The user name is already registered as a user.  
         password:
             match: The passwords do not match. 
+    password:
+        message: "Required Aspects: Minimum Length: %minLength% characters, Numbers Required: %numbers%, Mixed Case: %mixedCase%, Special Characters: %specials%."

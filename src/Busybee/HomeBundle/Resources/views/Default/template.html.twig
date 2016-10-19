@@ -26,23 +26,48 @@
 	
 		<div class="jumbotron">
 			<img src="{{ asset('img/bee.png') }}" height="150" alt="Busybee" style="float: right;" />
-			<h1>{% block headerTitle %}{{ 'homePage.heading'|trans }}{% endblock headerTitle %}</h1>
-			<p class="lead">{% block headerLead %}{{ 'homePage.lead'|trans }}.{% endblock headerLead %}</p>
+			<h1>{% block headerTitle %}Busybee{% endblock headerTitle %}</h1>
+			<p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
 		</div>
 
 		{{ include('BusybeeHomeBundle:Default:flash.html.twig') }}
 	
 		{% block contentContainer %}
-<p>{{ 'homePage.para1'|trans }}</p>
-<p>{{ 'homePage.para2'|trans }}</p>
-<p>{{ 'homePage.para3'|trans }}</p>
-
-<p>Craig Rayner</p>	
+		
+	
+		{{ include('BusybeeHomeBundle:Default:buttons.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:tables.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:thumbnails.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:labels.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:badges.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:dropdowns.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:navs.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:navBars.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:alerts.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:progressBars.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:listGroups.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:panels.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:wells.html.twig') }}
+	
+		{{ include('BusybeeHomeBundle:Default:carousel.html.twig') }}
 	
 		{% endblock contentContainer %}
     </div> <!-- /container -->
 
 
 {{ include('BusybeeHomeBundle:Default:scripts.html.twig') }}
+
 </body>
 </html>

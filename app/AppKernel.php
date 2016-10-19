@@ -20,9 +20,7 @@ class AppKernel extends Kernel
             new Busybee\HomeBundle\BusybeeHomeBundle(),
             new Busybee\SecurityBundle\BusybeeSecurityBundle(),
             new Busybee\ImageBundle\BusybeeImageBundle(),
-            new Busybee\DatabaseBundle\BusybeeDatabaseBundle(),
             new Busybee\PaginationBundle\BusybeePaginationBundle(),
-            new Busybee\RecordBundle\BusybeeRecordBundle(),
             new Busybee\SystemBundle\SystemBundle(),
             new Busybee\FormBundle\BusybeeFormBundle(),
         );

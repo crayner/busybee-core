@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\DatabaseBundle\Model;
+namespace Busybee\SystemBundle\Model;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 

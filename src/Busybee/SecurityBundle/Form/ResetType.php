@@ -6,16 +6,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use Busybee\SecurityBundle\Validator\Password ;
+
 class ResetType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-			->add('plainPassword', 'repeated', array(
-				'type' 					=> 'password',
+			->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', array(
+				'type' 					=> 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
 				'first_options' 		=> array(
-					'label' 				=> 'user.label.password'
+					'label' 				=> 'user.label.password',
 				),
 				'second_options'		=> array(
 					'label' 				=> 'user.label.password_confirmation'
@@ -23,15 +25,16 @@ class ResetType extends AbstractType
 				'invalid_message' 		=> 'user.error.password.match',
         	)
 		)
-		 	->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(	'label' => 'form.save',
-				'translation_domain' 	=> 'BusybeeDisplayBundle',
+		 	->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+				'label'					=> 'form.save',
+				'translation_domain' 	=> 'BusybeeHomeBundle',
 				'attr' 					=> array(
-					'class' => 'btn btn-success glyphicon glyphicon-save'
+					'class'					=> 'btn btn-success glyphicons glyphicons-disk-save'
 				),
 			)
 		)
 		 	->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label'=> 'form.cancel', 
-				'translation_domain' 	=> 'BusybeeDisplayBundle',
+				'translation_domain' 	=> 'BusybeeHomeBundle',
 				'attr' 					=> array(
 					'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
 					'formnovalidate' 		=> 'formnovalidate'
@@ -39,15 +42,15 @@ class ResetType extends AbstractType
 			)
 		)
 		;
-
-    }
-
+	}
+	
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Busybee\SecurityBundle\Entity\User',
             'intention'  => 'resetting',
 			'translation_domain' => 'BusybeeSecurityBundle',
+			'validation_groups'	=> array(),
         ));
     }
 
