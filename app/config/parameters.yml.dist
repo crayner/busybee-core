@@ -26,8 +26,8 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
     
     locale: en_GB
-    session.name: busybee_session
-    session.remember_me.name: busybee_remember_session
+    session_name: busybee_session
+    session_remember_me_name: busybee_session_remember
     session_max_idle_time: 900
     country: ~
     signin_count_minimum: 3

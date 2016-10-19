@@ -2444,5 +2444,42 @@
             "images",
             "placeholders"
         ]
+    },
+    {
+        "name": "vsn4ik/bootstrap-checkbox",
+        "version": "v1.4.0",
+        "version_normalized": "1.4.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/vsn4ik/bootstrap-checkbox.git",
+            "reference": "23497a05853f686aac1764fa1fba7c035784d71d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/vsn4ik/bootstrap-checkbox/zipball/23497a05853f686aac1764fa1fba7c035784d71d",
+            "reference": "23497a05853f686aac1764fa1fba7c035784d71d",
+            "shasum": ""
+        },
+        "time": "2016-04-09 10:20:00",
+        "type": "library",
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Vasily A.",
+                "homepage": "https://github.com/vsn4ik"
+            }
+        ],
+        "description": "A checkbox component based on Bootstrap framework",
+        "homepage": "http://vsn4ik.github.io/bootstrap-checkbox",
+        "keywords": [
+            "bootstrap",
+            "checkbox",
+            "jquery-plugin",
+            "switch"
+        ]
     }
 ]

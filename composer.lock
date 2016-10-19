@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "22763b0c388a833c7654447bb7c04b77",
-    "content-hash": "c9952c9a2d6c287e7cc097689809ca52",
+    "hash": "d3e3dfd984caa6afa4b989ad9d68d033",
+    "content-hash": "734d152a3ab1223764e5ab4b40c6dd4e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2269,6 +2269,41 @@
                 "templating"
             ],
             "time": "2016-10-05 18:57:41"
+        },
+        {
+            "name": "vsn4ik/bootstrap-checkbox",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vsn4ik/bootstrap-checkbox.git",
+                "reference": "23497a05853f686aac1764fa1fba7c035784d71d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vsn4ik/bootstrap-checkbox/zipball/23497a05853f686aac1764fa1fba7c035784d71d",
+                "reference": "23497a05853f686aac1764fa1fba7c035784d71d",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vasily A.",
+                    "homepage": "https://github.com/vsn4ik"
+                }
+            ],
+            "description": "A checkbox component based on Bootstrap framework",
+            "homepage": "http://vsn4ik.github.io/bootstrap-checkbox",
+            "keywords": [
+                "bootstrap",
+                "checkbox",
+                "jquery-plugin",
+                "switch"
+            ],
+            "time": "2016-04-09 10:20:00"
         }
     ],
     "packages-dev": [
