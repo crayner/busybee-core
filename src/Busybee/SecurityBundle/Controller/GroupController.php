@@ -75,7 +75,7 @@ class GroupController extends Controller
 
         $form->add('delete', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
 					'label' 				=> 'form.delete',
-					'translation_domain' 	=> 'BusybeeDisplayBundle',
+					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
 						'class' 				=> 'btn btn-danger glyphicon glyphicon-remove-sign',
 						'formnovalidate' 		=> 'formnovalidate'

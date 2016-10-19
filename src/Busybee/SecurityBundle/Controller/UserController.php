@@ -63,7 +63,7 @@ class UserController extends Controller
 			)
 			->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
 					'label'					=> 'form.cancel', 
-					'translation_domain' 	=> 'BusybeeDisplayBundle',
+					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
 						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
@@ -186,7 +186,7 @@ class UserController extends Controller
         $form = $this->createForm( 'Busybee\SecurityBundle\Form\UserType', $user);
         $form->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
 					'label'					=> 'form.cancel', 
-					'translation_domain' 	=> 'BusybeeDisplayBundle',
+					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
 						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',

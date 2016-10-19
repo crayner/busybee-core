@@ -32,7 +32,7 @@ class GroupType extends AbstractType
 			)
             ->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(	
 					'label' 				=> 'form.save',
-					'translation_domain' 	=> 'BusybeeDisplayBundle',
+					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
 						'class'					=> 'btn btn-success glyphicon glyphicon-save'
 					),
@@ -40,7 +40,7 @@ class GroupType extends AbstractType
 			)
             ->add('save_and_add', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
 					'label' 				=> 'form.save_and_add',
-					'translation_domain' 	=> 'BusybeeDisplayBundle',
+					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
 						'class' 				=> 'btn btn-success glyphicon glyphicon-plus-sign'
 					),
@@ -48,7 +48,7 @@ class GroupType extends AbstractType
 			)
             ->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
 					'label'					=> 'form.cancel', 
-					'translation_domain' 	=> 'BusybeeDisplayBundle',
+					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
 						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',

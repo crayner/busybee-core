@@ -74,7 +74,7 @@ class RoleController extends Controller {
 
         $form->add('delete', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label' => 'form.delete',
                                 'attr' => array('formnovalidate' => 'formnovalidate'),
-                                'translation_domain' => 'BusybeeDisplayBundle',
+                                'translation_domain' => 'BusybeeHomeBundle',
                                 'attr' => array('class' => 'btn btn-danger glyphicon glyphicon-remove-sign'),
                                 ));
 

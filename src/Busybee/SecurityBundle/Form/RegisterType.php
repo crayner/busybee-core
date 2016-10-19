@@ -60,7 +60,7 @@ class RegisterType extends AbstractType
 			)
 			->add('register', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
 					'label' 				=> 'form.register',
-					'translation_domain' 	=> 'BusybeeDisplayBundle',
+					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
 						'class' 				=> 'btn btn-success glyphicon glyphicon-save'
 					),
