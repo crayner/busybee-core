@@ -40,6 +40,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function __construct(EncoderFactoryInterface $encoderFactory, CanonicaliserInterface $usernameCanonicaliser, CanonicaliserInterface $emailCanonicaliser)
     {
+        trigger_error('Using the UserManager as user provider is deprecated. UseBusybee\SecurityBundle\Security\UserProvider instead.', E_USER_DEPRECATED);
         $this->encoderFactory = $encoderFactory;
         $this->usernameCanonicaliser = $usernameCanonicaliser;
         $this->emailCanonicaliser = $emailCanonicaliser;
