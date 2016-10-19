@@ -209,6 +209,62 @@ class InstallController extends Controller
 
 		$params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
 		$config->misc = new stdClass();
+		$config->proceed = true;
+		if (! empty($params['parameters']['user']))
+		{
+			$config->misc->username = $params['parameters']['user']['name'];
+			$config->misc->email = $params['parameters']['user']['email'];
+			$config->misc->password1 = $params['parameters']['user']['password'];
+			$config->misc->password2 = $params['parameters']['user']['password'];
+			$config->proceed = $params['parameters']['user']['valid'];
+
+		}
+		else
+		{
+			$config->misc->username = null;
+			$config->misc->email = null;
+			$config->misc->password1 = null;
+			$config->misc->password2 = null;
+			$config->proceed = false;
+		}
+		$config->misc->password = new stdClass();
+		foreach ($params['parameters']['password'] as $name => $value)
+			$config->misc->password->$name = $value ;
+		
+		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789![]{}()%&*$#^<>~@|";
+		$text = "";
+		for($i = 0; $i < $config->misc->password->minLength + 4; $i++) {
+			if ($i == 0) 
+			 	$text .= substr($chars, rand(1, 26) - 1, 1);
+			elseif ($i == 1)
+				$text .= substr($chars, rand(1, 26) + 25, 1);
+			else if ($i == 2) 
+				$text .= substr($chars, rand(1, 10) + 51, 1);
+			else if ($i == 3) 
+				$text .= substr($chars, rand(1, 19) + 61, 1);
+			else 
+				$text .= substr($chars, rand(1, strlen($chars)), 1);
+		}
+		$config->misc->password->text = $text;
+
+		$pattern = "^(.*";
+		if ( $config->misc->password->mixedCase) {
+			$pattern .= "(?=.*[a-z])(?=.*[A-Z])";
+			$config->misc->password->mixedCase = $config->misc->password->mixedCase ? 'checked' : '' ;
+		}
+		if ($config->misc->password->numbers) {
+			$pattern .= "(?=.*[0-9])";
+			$config->misc->password->numbers = $config->misc->password->numbers ? 'checked' : '' ;
+		}
+		if ($config->misc->password->specials) {
+			$pattern .= "(?=.*?[#?!@$%^&*-])";
+			$config->misc->password->specials = $config->misc->password->specials ? 'checked' : '' ;
+		}
+		$pattern .= ".*){".$config->misc->password->minLength.",}$";
+
+		$config->misc->password->pattern = $pattern;
+
+
 		$valueList = array(
 			'secret' => '',
 			'locale' => '',
@@ -221,7 +277,6 @@ class InstallController extends Controller
 		
 		foreach($valueList as $name => $value)
 			$config->misc->$name = $params['parameters'][$name];
-		$config->proceed = true;
 		if ($params['parameters']['secret'] == 'ThisTokenIsNotSoSecretChangeIt')
 		{
 				$config->proceed = false ;
@@ -239,7 +294,7 @@ class InstallController extends Controller
 			$config->proceed = false ;
 		if ($config->misc->signin_count_minimum < 3 || $config->misc->signin_count_minimum > 10)
 			$config->misc->signin_count_minimum = 3 ;
-
+//die();
         return $this->render('SystemBundle:Install:misc.html.twig', array('config' => $config));
  	}
 	
@@ -257,12 +312,63 @@ class InstallController extends Controller
 		$params['parameters']["signin_count_minimum"] = $request->request->get('signin_count_minimum');
 		$params['parameters']["locale"] = $request->request->get('locale');
 		$params['parameters']["country"] = $request->request->get('country');
+
+		$params['parameters']["user"]['email'] = $request->request->get('email') ;
+		$valid = true ;
+		$params['parameters']["user"]['name'] = empty($request->request->get('name')) ? $request->request->get('email') : $request->request->get('name') ;
+
+		if (empty($request->request->get('password1')) || $request->request->get('password1') !== $request->request->get('password2')) {
+			$this->get('session')->getFlashBag()->add('error', 'error.password.notMatch');
+			$valid = false;
+		}
+
+		$params['parameters']['password']['mixedCase'] = $request->request->get('mixedCase') == 'on' ? true : false ;
+		$params['parameters']['password']['numbers'] = $request->request->get('numbers') == 'on' ? true : false ;
+		$params['parameters']['password']['specials'] = $request->request->get('specials') == 'on' ? true : false ;
+		$params['parameters']['password']['minLength'] = $request->request->get('minLength') >= 6 && $request->request->get('minLength') <= 25 ? intval($request->request->get('minLength')) : 8 ;
+
+		$pattern = "^(.*";
+		if ( $params['parameters']['password']['mixedCase']) {
+			$pattern .= "(?=.*[a-z])(?=.*[A-Z])";
+		}
+		if ($params['parameters']['password']['numbers']) {
+			$pattern .= "(?=.*[0-9])";
+		}
+		if ($params['parameters']['password']['specials']) {
+			$pattern .= "(?=.*?[#?!@$%^&*-])";
+		}
+		$pattern .= ".*){".$params['parameters']['password']['minLength'].",}$";
+		if (preg_match('/'.$pattern.'/', $request->request->get('password1')) !== 1) {
+			$this->get('session')->getFlashBag()->add('error', 'error.password.notValid');
+			$valid = false;
+		}
+		
+		$params['parameters']["user"]['password'] = $request->request->get('password1');
+	
+		$validator = $this->get('validator');
+	
+		$constraints = array(
+			new \Symfony\Component\Validator\Constraints\Email(),
+			new \Symfony\Component\Validator\Constraints\NotBlank()
+		);
+	
+		
+	
+		$errors = $validator->validate($params['parameters']["user"]['email'], $constraints);
+
+		if (count($errors) > 0) {
+			$this->get('session')->getFlashBag()->add('error', $errors->get(0)->getMessage());
+			$valid = false;
+		}
+		$params['parameters']["user"]['valid'] = $valid;
+		
 		
 		if (! file_put_contents($this->get('kernel')->getRootDir().'/config/parameters.yml', Yaml::dump($params)))
 			return new RedirectResponse($this->generateUrl('error_page', array('message' => 'error.save.parameters')));
 		else
 		{
-			$this->get('session')->getFlashBag()->set('success', 'success.save.parameters');
+			if ($valid)
+				$this->get('session')->getFlashBag()->set('success', 'success.save.parameters');
 			return new RedirectResponse($this->generateUrl('install_misc_check'));
 		}
 	}
@@ -354,13 +460,15 @@ class InstallController extends Controller
 			$newEm->flush();
 		}
 
-        $this->entity = $this->findOrCreateUser('admin', $newEm);
+        $this->entity = $newEm->getRepository('BusybeeSecurityBundle:User')->find(1);
+		if (is_null($this->entity))
+			$this->entity = new User();
+		$user = $this->getParameter('user');
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->setUsername('admin');
-			$this->entity->setUsernameCanonical('admin');
-			$this->entity->setPassword('$2a$12$2sWSdbciRFcuP8SnFzj10uFyNiS88mKISWy3m985RyWXe.Wu8Myp2'); //p@ssword
-			$this->entity->setEmail('admin@yourbusybeesite.com');
-			$this->entity->setEmailCanonical('admin@yourbusybeesite.com');
+			$this->entity->setUsername($user['name']);
+			$this->entity->setUsernameCanonical($user['name']);
+			$this->entity->setEmail($user['email']);
+			$this->entity->setEmailCanonical($user['email']);
 			$this->entity->setLocale('en_GB');
 			$this->entity->setLocked(false);
 			$this->entity->setExpired(false);
@@ -368,6 +476,9 @@ class InstallController extends Controller
 			$this->entity->setEnabled(true);
 			$repos = $newEm->getRepository('BusybeeSecurityBundle:Role');
 			$this->entity->addDirectrole($repos->findOneBy(['role' => 'ROLE_SYSTEM_ADMIN']));
+			$encoder = $this->get('security.password_encoder');
+			$encoded = $encoder->encodePassword($this->entity, $user['password']);
+			$this->entity->setPassword($encoded); 
 	
 			$newEm->persist($this->entity);
 			$newEm->flush(); 
@@ -417,6 +528,12 @@ class InstallController extends Controller
 		$w['doctrine']['orm']['entity_managers']['dynamic']['connection'] = 'install';
 		
 		file_put_contents($this->get('kernel')->getRootDir().'/config/config.yml', Yaml::dump($w));
+		
+		$w = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
+
+		unset($w['parameters']['user']);
+	
+		file_put_contents($this->get('kernel')->getRootDir().'/config/parameters.yml', Yaml::dump($w));
 		
 		$this->get('session')->getFlashBag()->add('success', 'buildDatabase.success');
 

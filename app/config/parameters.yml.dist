@@ -33,3 +33,8 @@ parameters:
     signin_count_minimum: 3
     signin_timeout_period: 600
     signin_ip_exceptions: ['127.0.0.1']
+    password:
+        minLength: 8
+        numbers: 1
+        mixedCase: 1
+        specials: 0

@@ -363,8 +363,11 @@ class UserController extends Controller
     {
         $user = $this->getUser();
 		$email = null;
-		if (!empty($user))
+		$force = false ;
+		if (! empty($user)) {
 			$email = trim($user->getEmail());
+			$force = $user->getExpired();
+		}
 		
 		$config = new \stdClass();
 		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
@@ -372,6 +375,7 @@ class UserController extends Controller
 		return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
 			'email' => $email,
 			'config' => $config,
+			'forcePasswordReset' => $force,
 		));
     }
 
@@ -394,6 +398,7 @@ class UserController extends Controller
             return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
                 'invalid_username' => $username,
 				'config' => $config,
+				'forcePasswordReset' => false,
             ));
         }
 
@@ -478,7 +483,9 @@ class UserController extends Controller
             // the user does not come from the sendEmail action
             return new RedirectResponse($this->generateUrl('busybee_user_resetting_request'));
         }
-
+		
+		
+		
         return $this->render('BusybeeSecurityBundle:User:checkEmail.html.twig', array(
             'email' => $email,
         ));

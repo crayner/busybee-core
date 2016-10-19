@@ -53,9 +53,6 @@ Busybee\SecurityBundle\Entity\User:
             nullable: true
         locked:
             type: boolean
-        forcePasswordReset:
-            type: boolean
-            default: false
         expired:
             type: boolean
         expiresAt:

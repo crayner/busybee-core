@@ -86,7 +86,7 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:
             default:
-                connection: normal
+                connection: install
                 auto_mapping: true 
             dynamic:
                 connection: normal   
@@ -98,7 +98,6 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
 
 monolog:
     handlers:

@@ -2,3 +2,10 @@ user:
     edit:
         error: The details were not saved.  Correct invalid fields below. 
         success: The details where correctly saved.
+success:
+    save:
+        parameters: Parameters successfully saved.
+buildDatabase:
+    success: The database was built successfully.
+Yes: Yes
+No: No

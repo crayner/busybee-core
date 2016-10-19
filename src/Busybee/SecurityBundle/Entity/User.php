@@ -558,33 +558,5 @@ class User extends UserBase
         if (empty($this->getUsernameCanonical()))
 			$this->setUsernameCanonical($this->getEmailCanonical());
     }
-    /**
-     * @var boolean
-     */
-    private $forcePasswordReset;
 
-
-    /**
-     * Set forcePasswordReset
-     *
-     * @param boolean $forcePasswordReset
-     *
-     * @return User
-     */
-    public function setForcePasswordReset($forcePasswordReset)
-    {
-        $this->forcePasswordReset = $forcePasswordReset;
-
-        return $this;
-    }
-
-    /**
-     * Get forcePasswordReset
-     *
-     * @return boolean
-     */
-    public function getForcePasswordReset()
-    {
-        return $this->forcePasswordReset;
-    }
 }

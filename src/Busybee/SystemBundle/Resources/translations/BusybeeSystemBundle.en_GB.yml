@@ -104,3 +104,32 @@ misc:
     country:
         title: Country
         description: 'Country'
+    email: 
+        description: "Provide your email address."
+    user:
+        title: Admin User Details
+    password1:
+        title: Password
+        description: ""
+        copy: "Copy this password if required from the field below:"
+        generate: Generate Password
+        message: "Required Aspects: Minimum Length: %minLength% characters, Numbers Required: %numbers%, Mixed Case: %mixedCase%, Special Characters: %specials%."
+    password2:
+        title: Confirm Password
+        description: "" 
+        message: Your passwords must match.
+    password:
+        title: System Password Requirements 
+        message: All user passwords will need to match the requirements that you set.
+        minLength:
+            title: Minimum Length
+            description: "The minimum length that the password must reach to satisfy requirements." 
+        mixedCase:
+            title: Upper and Lower Case Characters
+            description: "The password requires at least one upper and lower case character" 
+        numbers:
+            title: Require a Number
+            description: "The password requires at least one number" 
+        specials:
+            title: Require a Punctuation Character
+            description: "The password requires at least one Punctuation Character. ![]{}()%&*$#^<>~@|" 

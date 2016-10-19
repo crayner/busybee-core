@@ -31,11 +31,8 @@ class DefaultController extends Controller
 			// Note the difference
 			if ($user->getUsername() === 'admin') 
 				return new RedirectResponse($this->generateUrl('busybee_security_user_edit'));
-			if ($encoder->isPasswordValid($user->getPassword(), 'p@ssword', $user->getSalt())) 
+			if ($encoder->isPasswordValid($user->getPassword(), 'p@ssword', $user->getSalt()) || $user->getExpired()) 
 			{
-				$user->setForcePasswordReset(true);
-				$em->persist($user);
-				$em->flush();
 				$email = null;
 				if (!empty($user))
 					$email = trim($user->getEmail());
@@ -46,7 +43,7 @@ class DefaultController extends Controller
 				return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
 					'email' => $email,
 					'config' => $config,
-					'forcePasswordReset' => $user->getForcePasswordReset(),
+					'forcePasswordReset' => $user->getExpired(),
 				));
 			}
 		}
