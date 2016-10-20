@@ -315,7 +315,7 @@ class InstallController extends Controller
 
 		$params['parameters']["user"]['email'] = $request->request->get('email') ;
 		$valid = true ;
-		$params['parameters']["user"]['name'] = empty($request->request->get('name')) ? $request->request->get('email') : $request->request->get('name') ;
+		$params['parameters']["user"]['name'] = empty($request->request->get('username')) ? $request->request->get('email') : $request->request->get('username') ;
 
 		if (empty($request->request->get('password1')) || $request->request->get('password1') !== $request->request->get('password2')) {
 			$this->get('session')->getFlashBag()->add('error', 'error.password.notMatch');
