@@ -1,7 +1,0 @@
-# Validation Validator
-validator:
-    name:
-        blank: The Constraint Name must be completed. 
-        unique: The [Constraint Name, Constraint Group] must be unique.
-    group:
-        blank: The Constraint Group must be completed. Hint: 'Default' 

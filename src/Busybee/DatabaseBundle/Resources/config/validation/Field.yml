@@ -1,9 +1,0 @@
-# src\Busybee\DatabaseBundle\Resources\config\validation\Field.orm.yml
-Busybee\DatabaseBundle\Entity\Field:
-    properties:
-        name:
-            - NotBlank: ~
-            - Busybee\DatabaseBundle\Validator\Constraints\NameTable: ~ 
-            - Busybee\DatabaseBundle\Validator\Constraints\NameField: ~ 
-        table:
-            - NotBlank: ~

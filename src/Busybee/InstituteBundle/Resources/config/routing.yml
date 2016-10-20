@@ -1,3 +1,0 @@
-institute_edit:
-    path:     /edit
-    defaults: { _controller: BusybeeInstituteBundle:Institute:edit }

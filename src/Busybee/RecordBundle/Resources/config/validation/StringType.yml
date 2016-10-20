@@ -1,7 +1,0 @@
-# src\Busybee\RecordBundle\Resources\config\validation\StringType.yml
-Busybee\RecordBundle\Entity\StringType:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [fieldId, recordId]
-            errorPath: value
-            message: 'The record needs to be unique within the field.'

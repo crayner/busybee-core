@@ -1,3 +1,0 @@
-busybee_image_display:
-    path:     /{entity}/{id}/{width}/{height}
-    defaults: { _controller: BusybeeImageBundle:Image:display }
