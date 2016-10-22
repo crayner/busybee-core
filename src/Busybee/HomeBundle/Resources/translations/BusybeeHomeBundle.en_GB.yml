@@ -48,14 +48,15 @@ form:
 menu:
     site:
         manage: Configuration
+        update: Update 
+        security: Security
     family:
         manage: Manage Family       
     people:
         manage: Manage Person
-    Site: Site
+    Site: System
     Misc: Miscellaneous
     templateDesign: Template Design 
-    Security: Security
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

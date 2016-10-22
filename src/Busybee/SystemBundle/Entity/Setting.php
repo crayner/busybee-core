@@ -42,7 +42,6 @@ class Setting
      */
     private $user;
 
-
     /**
      * Get id
      *
@@ -206,5 +205,34 @@ class Setting
         if (empty($this->getCreatedOn()))
 			$this->setCreatedOn(new \DateTime('now')); 
 		$this->setLastModified(new \DateTime('now'));
+    }
+    /**
+     * @var \Busybee\SecurityBundle\Entity\Role
+     */
+    private $role;
+
+
+    /**
+     * Set role
+     *
+     * @param \Busybee\SecurityBundle\Entity\Role $role
+     *
+     * @return Setting
+     */
+    public function setRole(\Busybee\SecurityBundle\Entity\Role $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return \Busybee\SecurityBundle\Entity\Role
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 }

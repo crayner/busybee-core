@@ -1,3 +1,7 @@
+parameters:
+    version:
+        system: 0.0.01
+        database: 0.0.01
 services:
     monolog.formatter.session_request:
         class: Monolog\Formatter\LineFormatter
@@ -18,3 +22,15 @@ services:
         arguments: ['%database_prefix%']
         tags:
             - { name: doctrine.event_subscriber }    
+    system.setting.repository:
+        class: Busybee\SystemBundle\Entity\SettingRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "SystemBundle:Setting"
+    system.setting.manager:
+        class: Busybee\SystemBundle\Setting\SettingManager
+        arguments: 
+            - "@service_container"
+    

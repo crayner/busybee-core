@@ -1,4 +1,4 @@
-# src\Busybee\SystemBundle\Resources\config\doctrine\System.orm.yml
+# src\Busybee\SystemBundle\Resources\config\doctrine\Setting.orm.yml
 Busybee\SystemBundle\Entity\Setting:
     type: entity
     table: system_setting
@@ -25,7 +25,7 @@ Busybee\SystemBundle\Entity\Setting:
             length: 25
             unique: true
         value:
-            type: blob
+            type: text
         lastModified:
             type: datetime
         createdOn:
@@ -35,6 +35,11 @@ Busybee\SystemBundle\Entity\Setting:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 user_id:
+                    referencedColumnName: id
+        role:
+            targetEntity: Busybee\SecurityBundle\Entity\Role
+            joinColumns:
+                role_id:
                     referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ updateLastModified ]

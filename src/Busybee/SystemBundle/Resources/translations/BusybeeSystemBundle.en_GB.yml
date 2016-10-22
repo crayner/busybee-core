@@ -2,6 +2,21 @@ system:
     install:
         title: Install System
         description: Test and install the system architecture. 
+    update:
+        title: System Update
+        description: Checks the current System Version ready for any required update of software and database structure.
+        database: 
+            required: '{1}The database is not currently up to date, requiring an update.|[2,Inf[ The database is not currently up to date, requiring %count% updates.'
+            title: Database Update 
+            notRequired: The database is up to date.
+            warning: It is recommended that you backup the database before proceeding.
+    version:
+        system:
+            title: "Current System Version: %version%"
+            description: "Available System Version: %version%"
+        database:
+            title: "Current Database Version: %version%"
+            description: "Available Database Version: %version%"
 parameter:
     file:    
         title: Parameter File Status

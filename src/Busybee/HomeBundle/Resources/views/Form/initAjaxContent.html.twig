@@ -1,0 +1,49 @@
+{% trans_default_domain 'BusybeeHomeBundle' %}
+
+<!-- in your script give 'ajaxLoad as an id to a button and set the twig 'action' variable to the url you wish to call in the setup script.  -->
+
+<script type="text/javascript">
+	$('#ajaxLoad').click(function() {
+		
+		ajaxindicatorstart('{{ 'ajax.wait_message'| trans }}')
+
+		$.ajax({
+			type:'POST',
+			url: '{{ action }}',
+			datatype: 'json'
+		})
+		.done(function (data) {
+			if (typeof data.redirect !== 'undefined') {
+				window.setInterval(securityLogin(data.redirect), 250);
+			}
+			if (typeof data.message !== 'undefined') {
+				$('.form_error').html(data.message);
+			}
+			if (typeof data.content !== 'undefined') {
+				$('#contentContainer').html(data.content);
+			}
+		})
+		.fail(function (jqXHR, textStatus, errorThrown) {
+			if (typeof data.redirect !== 'undefined') {
+				window.location.href = data.redirect;
+			}
+			if (typeof jqXHR.responseJSON !== 'undefined') {
+				if (jqXHR.responseJSON.hasOwnProperty('content')) {
+					$('#contentContainer').html(jqXHR.responseJSON.content);
+				}
+
+				$('.form_error').html(jqXHR.responseJSON.message);
+
+			} else {
+				alert(errorThrown);
+			}
+
+		});
+		
+		ajaxindicatorstop();
+		
+	});
+
+	{% include 'BusybeeHomeBundle:Form:initAjaxCore.html.twig' %}
+
+</script>

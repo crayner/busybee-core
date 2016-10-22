@@ -22,3 +22,9 @@ install_misc_save:
 install_build_system:
     path:     /install/build/
     defaults: { _controller: SystemBundle:Install:build }
+update_start:
+    path:     /update/start/
+    defaults: { _controller: SystemBundle:Update:index }
+update_database:
+    path:     /update/database/
+    defaults: { _controller: SystemBundle:Update:database }
