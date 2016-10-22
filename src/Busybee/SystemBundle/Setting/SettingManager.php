@@ -1,9 +1,15 @@
 <?php
-
 namespace Busybee\SystemBundle\Setting ;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
+/**
+ * Setting Manager
+ *
+ * @version	22nd October 2016
+ * @since	20th October 2016
+ * @author	Craig Rayner
+ */
 class SettingManager
 {
 	private	$repo ;
@@ -19,7 +25,7 @@ class SettingManager
 	/**
 	 * get Setting
 	 *
-	 * @version	20th October 2016
+	 * @version	22nd October 2016
 	 * @since	20th October 2016
 	 * @param	string	$name
 	 * @param	mixed	$default
@@ -31,12 +37,19 @@ class SettingManager
 			$this->setting = $this->repo->findOneByName($name);
 		} catch (\Exception $e) {
 			if ($e->getErrorCode() !== 1146){
-				dump($e); 
-				die();
+				throw new \Exception($e->getMessage());
 			}
 		}
 		if (is_null($this->setting))
 			return $default;
+		switch ($this->setting->getType())
+		{
+			case 'string':
+				return strval(mb_substr($this->setting->getValue(), 0, 25));
+				break;
+			default:
+				throw new \Exception('The Setting Type ('.$this->setting->getType().') has not been defined.');
+		}
 		return $this->setting->getValue();
     }
 	
@@ -70,7 +83,7 @@ class SettingManager
 	/**
 	 * set Setting
 	 *
-	 * @version	21st October 2016
+	 * @version	22nd October 2016
 	 * @since	21st October 2016
 	 * @param	string	$name
 	 * @param	mixed	$value
@@ -81,6 +94,14 @@ class SettingManager
         $x = $this->getSetting($name, $value);
 		if (is_null($this->setting))
 			return null;
+		switch ($this->setting->getType())
+		{
+			case 'string':
+				$value =  strval(mb_substr($value, 0, 25));
+				break;
+			default:
+				throw new \Exception('The Setting Type ('.$this->setting->getType().') has not been defined.');
+		}
 		$this->setting->setValue($value);
 		$this->saveSetting($this->setting);
 		return $this ;
