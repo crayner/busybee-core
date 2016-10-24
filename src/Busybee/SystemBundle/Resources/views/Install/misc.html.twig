@@ -24,41 +24,53 @@
 <form action="{{ path("install_misc_save") }}" method="post">
 	<div id="form_body" class="container-fluid">
 		<div class="row">
-			<div class="well col-sm-6 form-group">
-				<label for="secret">{{ 'misc.secret.title'|trans }}</label><br />
-				<span>{{ 'misc.secret.description'|trans }}</span>
-				<input type="text" id="secret" name="secret" value="{{ config.misc.secret }}" required class="form-control" >
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="secret">{{ 'misc.secret.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.secret.description'|trans }}</span>
+					<input type="text" id="secret" name="secret" value="{{ config.misc.secret }}" required class="form-control" >
+				</div>
 			</div>
-			<div class="well col-sm-6 form-group">
-				<label for="session_name">{{ 'misc.session_name.title'|trans }}</label><br />
-				<span>{{ 'misc.session_name.description'|trans }}</span>
-				<input type="text" id="session_name" name="session_name" value="{{ config.misc.session_name }}" required class="form-control" >
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="well col-sm-6 form-group">
-				<label for="session_max_idle_time">{{ 'misc.session_max_idle_time.title'|trans }}</label><br />
-				<span>{{ 'misc.session_max_idle_time.description'|trans }}</span>
-				<input type="number" id="session_max_idle_time" name="session_max_idle_time" value="{{ config.misc.session_max_idle_time }}" required class="form-control" >
-			</div>
-			<div class="well col-sm-6 form-group">
-				<label for="signin_count_minimum">{{ 'misc.signin_count_minimum.title'|trans }}</label><br />
-				<span>{{ 'misc.signin_count_minimum.description'|trans }}</span>
-				<input type="number" id="signin_count_minimum" name="signin_count_minimum" value="{{ config.misc.signin_count_minimum }}" required class="form-control" >
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="session_name">{{ 'misc.session_name.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.session_name.description'|trans }}</span>
+					<input type="text" id="session_name" name="session_name" value="{{ config.misc.session_name }}" required class="form-control" >
+				</div>
 			</div>
 		</div>
 		
 		<div class="row">
-			<div class="well col-sm-6 form-group">
-				<label for="locale">{{ 'misc.locale.title'|trans }}</label><br />
-				<span>{{ 'misc.locale.description'|trans }}</span>
-				<input type="text" id="locale" name="locale" value="{{ config.misc.locale }}" required class="form-control" maxlength='5' />
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="session_max_idle_time">{{ 'misc.session_max_idle_time.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.session_max_idle_time.description'|trans }}</span>
+					<input type="number" id="session_max_idle_time" name="session_max_idle_time" value="{{ config.misc.session_max_idle_time }}" required class="form-control" >
+				</div>
 			</div>
-			<div class="well col-sm-6 form-group">
-				<label for="country">{{ 'misc.country.title'|trans }}</label><br />
-				<span>{{ 'misc.country.description'|trans }}</span>
-				<input type="text" id="country" name="country" value="{{ config.misc.country }}" required class="form-control" />
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="signin_count_minimum">{{ 'misc.signin_count_minimum.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.signin_count_minimum.description'|trans }}</span>
+					<input type="number" id="signin_count_minimum" name="signin_count_minimum" value="{{ config.misc.signin_count_minimum }}" required class="form-control" >
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="locale">{{ 'misc.locale.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.locale.description'|trans }}</span>
+					<input type="text" id="locale" name="locale" value="{{ config.misc.locale }}" required class="form-control" maxlength='5' />
+				</div>
+			</div>
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="country">{{ 'misc.country.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.country.description'|trans }}</span>
+					<input type="text" id="country" name="country" value="{{ config.misc.country }}" required class="form-control" />
+				</div>
 			</div>
 		</div>
 
@@ -68,33 +80,41 @@
 		</div>
 
 		<div class="row">
-			<div class="col-sm-6 well form-group">
-				<label for="minLength">{{ 'misc.password.minLength.title'|trans }}</label><br />
-				<span>{{ 'misc.password.minLength.description'|trans }}</span>
-				<input type="number" id="minLength" name="minLength" value="{{ config.misc.password.minLength }}" required class="form-control" min='6' max='25' step='1' />
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="minLength">{{ 'misc.password.minLength.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.password.minLength.description'|trans }}</span>
+						<input type="number" id="minLength" name="minLength" value="{{ config.misc.password.minLength }}" required class="form-control" min='6' max='25' step='1' />
+				</div>
 			</div>
-			<div class="col-sm-6 well form-group">
-				<label for="numbers">{{ 'misc.password.numbers.title'|trans }}</label><br />
-				<span>{{ 'misc.password.numbers.description'|trans }}</span>
-				<div class="text-right">
-				<input type="checkbox" id="numbers" name="numbers" {{ config.misc.password.numbers }} class="form-control" data-off-label="false" data-on-label="false" data-off-icon-cls="glyphicon-thumbs-down" data-on-icon-cls="glyphicon-thumbs-up" />
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="numbers">{{ 'misc.password.numbers.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.password.numbers.description'|trans }}</span>
+					<div class="text-right">
+						<input type="checkbox" id="numbers" name="numbers" {{ config.misc.password.numbers }} class="form-control yes-no" data-off-label="false" data-on-label="false" data-off-icon-cls="glyphicon-thumbs-down" data-on-icon-cls="glyphicon-thumbs-up" />
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-sm-6 well form-group">
-				<label for="mixedCase">{{ 'misc.password.mixedCase.title'|trans }}</label><br />
-				<span>{{ 'misc.password.mixedCase.description'|trans }}</span>
-				<div class="text-right">
-				<input type="checkbox" id="mixedCase" name="mixedCase" {{ config.misc.password.mixedCase }} class="form-control" data-off-label="false" data-on-label="false" data-off-icon-cls="glyphicon-thumbs-down" data-on-icon-cls="glyphicon-thumbs-up" />
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="mixedCase">{{ 'misc.password.mixedCase.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.password.mixedCase.description'|trans }}</span>
+					<div class="text-right">
+						<input type="checkbox" id="mixedCase" name="mixedCase" {{ config.misc.password.mixedCase }} class="form-control yes-no" data-off-label="false" data-on-label="false" data-off-icon-cls="glyphicon-thumbs-down" data-on-icon-cls="glyphicon-thumbs-up" />
+					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 well form-group">
-				<label for="specials">{{ 'misc.password.specials.title'|trans }}</label><br />
-				<span>{{ 'misc.password.specials.description'|trans }}</span>
-				<div class="text-right">
-				<input type="checkbox" id="specials" name="specials" {{ config.misc.password.specials }} class="form-control" data-off-label="false" data-on-label="false" data-off-icon-cls="glyphicon-thumbs-down" data-on-icon-cls="glyphicon-thumbs-up" />
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="specials">{{ 'misc.password.specials.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.password.specials.description'|trans }}</span>
+					<div class="text-right">
+						<input type="checkbox" id="specials" name="specials" {{ config.misc.password.specials }} class="form-control yes-no" data-off-label="false" data-on-label="false" data-off-icon-cls="glyphicon-thumbs-down" data-on-icon-cls="glyphicon-thumbs-up" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -104,45 +124,57 @@
 		</div>
 
 		<div class="row">
-			<div class="col-sm-6 well form-group">
-				<label for="email">{% trans from "BusybeeSecurityBundle" %}user.label.email{% endtrans %}</label><br />
-				<span>{{ 'misc.email.description'|trans }}</span>
-				<input type="email" id="email" name="email" value="{{ config.misc.email }}" required class="form-control" maxlength='75' />
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="email">{% trans from "BusybeeSecurityBundle" %}user.label.email{% endtrans %}</label><br />
+					<span class='field-help'>{{ 'misc.email.description'|trans }}</span>
+					<input type="email" id="email" name="email" value="{{ config.misc.email }}" required class="form-control" maxlength='75' />
+				</div>
 			</div>
-			<div class="col-sm-6 well form-group">
-				<label for="username">{% trans from "BusybeeSecurityBundle" %}user.label.username{% endtrans %}</label><br />
-				<span>{% trans from "BusybeeSecurityBundle" %}user.help.username{% endtrans %}</span>
-				<input type="text" id="username" name="username" value="{{ config.misc.username }}" class="form-control" maxlength='75' />
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="username">{% trans from "BusybeeSecurityBundle" %}user.label.username{% endtrans %}</label><br />
+					<span class='field-help'>{% trans from "BusybeeSecurityBundle" %}user.help.username{% endtrans %}</span>
+					<input type="text" id="username" name="username" value="{{ config.misc.username }}" class="form-control" maxlength='75' />
+				</div>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="well col-sm-6 form-group">
-				<label for="password1">{{ 'misc.password1.title'|trans }}</label><br />
-				<span>{{ 'misc.password1.description'|trans }}</span>
-				<input type="password" title="{{ 'misc.password1.message'|trans ({'%minLength%': config.misc.password.minLength, '%numbers%': config.misc.password.numbers, '%mixedCase%': config.misc.password.mixedCase, '%specials%': config.misc.password.specials }) }}" id="password1" name="password1" value="{{ config.misc.password1 }}" required pattern="{{ config.misc.password.pattern }}" class="form-control"  onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
-  if(this.checkValidity()) form.password2.pattern = this.value;
-  " />
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="password1">{{ 'misc.password1.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.password1.description'|trans }}</span>
+					<input type="password" title="{{ 'misc.password1.message'|trans ({'%minLength%': config.misc.password.minLength, '%numbers%': config.misc.password.numbers, '%mixedCase%': config.misc.password.mixedCase, '%specials%': config.misc.password.specials }) }}" id="password1" name="password1" value="{{ config.misc.password1 }}" required pattern="{{ config.misc.password.pattern }}" class="form-control"  onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+	  if(this.checkValidity()) form.password2.pattern = this.value;
+	  " />
+				</div>
 			</div>
-			<div class="well col-sm-6 form-group">
-				<label for="password2">{{ 'misc.password2.title'|trans }}</label><br />
-				<span>{{ 'misc.password2.description'|trans }}</span>
-				<input type="password" title="{{ 'misc.password2.message'|trans }}" id="password2" name="password2" value="{{ config.misc.password2 }}" required pattern="{{ config.misc.password.pattern }}" class="form-control" onchange="
-  this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
-" />
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<label for="password2">{{ 'misc.password2.title'|trans }}</label><br />
+					<span class='field-help'>{{ 'misc.password2.description'|trans }}</span>
+					<input type="password" title="{{ 'misc.password2.message'|trans }}" id="password2" name="password2" value="{{ config.misc.password2 }}" required pattern="{{ config.misc.password.pattern }}" class="form-control" onchange="
+	  this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+	" />
+				</div>
 			</div>
 		</div>
 		
 		<div class="row">
-			<div class="well col-sm-6 form-group text-right">
-				<button type="button" id="generatePassword" name="generatePassword" class="btn btn-info">{{ 'misc.password1.generate'|trans }}</button>
+			<div class="well col-sm-6">
+				<div class="form-group text-right">
+					<button type="button" id="generatePassword" name="generatePassword" class="btn btn-info">{{ 'misc.password1.generate'|trans }}</button>
+				</div>
 			</div>
-			<div class="well col-sm-6 form-group text-right">
-				<input type="hidden" name="_csrf_token" value="{{ csrf_token('miscellaneous') }}" />
-				<button type="submit" id="_submit" name="_submit" class="btn btn-success">{{ 'mailer.save'|trans }}<span class="glyphicons glyphicons-disk-save"></span></button>
-				{% if config.proceed %}
-				<button type="button" onClick="window.open('{{ path('install_build_system') }}','_self')" name="_submit" id="proceedButton" class="btn btn-info">{{ 'install.proceed'|trans }}<span class="glyphicons glyphicons-hand-right"></span></button>
-				{% endif %}
+			<div class="well col-sm-6">
+				<div class="form-group text-right">
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('miscellaneous') }}" />
+					<button type="submit" id="_submit" name="_submit" class="btn btn-success">{{ 'mailer.save'|trans }}<span class="glyphicons glyphicons-disk-save"></span></button>
+					{% if config.proceed %}
+					<button type="button" onClick="window.open('{{ path('install_build_system') }}','_self')" name="_submit" id="proceedButton" class="btn btn-info">{{ 'install.proceed'|trans }}<span class="glyphicons glyphicons-hand-right"></span></button>
+					{% endif %}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -154,7 +186,7 @@
 {% block javascripts %}
 	{{ parent() }}
 	<script type="text/javascript">
-		$("#generatePassword").click(function(){
+		$("#generatePassword").on('click', function(){
 			$('input[name="password1"]').val('{{ config.misc.password.text|raw }}');
 			$('input[name="password1"]').get(0).type = "text";
 			$('input[name="password1"]').blur(function() {
@@ -166,6 +198,6 @@
 	</script>
 	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
 	<script type="text/javascript">
-		$(':checkbox').checkboxpicker();
+		$('.yes-no').checkboxpicker();
 	</script>
 {% endblock javascripts %}

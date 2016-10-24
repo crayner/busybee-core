@@ -33,4 +33,10 @@ services:
         class: Busybee\SystemBundle\Setting\SettingManager
         arguments: 
             - "@service_container"
+    system.update.manager:
+        class: Busybee\SystemBundle\Update\UpdateManager
+        arguments: 
+            - "@service_container"
+    system.password.manager:
+        class: Busybee\SystemBundle\Password\PasswordManager
     

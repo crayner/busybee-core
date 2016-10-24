@@ -5,7 +5,9 @@
 {% javascripts
 	'%kernel.root_dir%/../vendor/components/jquery/jquery.min.js' 
 	'%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.min.js' 
+	'js/bootstrap-submenu.min.js' 
 	'js/ie10-viewport-bug-workaround.js'
 	'%kernel.root_dir%/../vendor/imsky/holder/holder.js' %}
 	<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+	<script>$('[data-submenu]').submenupicker();</script>

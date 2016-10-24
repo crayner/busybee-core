@@ -31,7 +31,7 @@
 {% endif %}
 {% if form.current_password is defined %}
 <div class="row">
-	<div class="col-sm-6 well">
+	<div class="col-sm-6 well ">
 		{{ form_row(form.current_password) }}
 	</div>
 	<div class="col-sm-6 well text-right">
@@ -42,8 +42,10 @@
 {% else %}
 <div class="row">
 	<div class="col-sm-6 col-sm-offset-6 well text-right">
-		{{ form_widget(form.save) }}
-		{{ form_widget(form.cancel) }}
+		<div class="form-group">
+			{{ form_widget(form.save) }}
+			{{ form_widget(form.cancel) }}
+		</div>
 	</div>
 </div>
 {% endif %}

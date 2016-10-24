@@ -1,4 +1,4 @@
-{% use 'bootstrap_3_layout.html.twig' %}
+{% extends 'bootstrap_3_layout.html.twig' %}
 
 {% block form_label -%}
     {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
@@ -23,3 +23,25 @@
     {% if form.parent %}</span>{% else %}</div>{% endif %}
     {%- endif %}
 {%- endblock form_errors %}
+
+{% block _yesno_widget -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {% if 'checkbox-inline' in parent_label_class %}
+        {{- form_label(form, null, { widget: parent() }) -}}
+    {% else -%}
+        <div class="checkbox">
+            {{- form_label(form, null, { widget: parent() }) -}}
+        </div> 
+    {%- endif %}
+{%- endblock _yesno_widget %}
+
+{% block yesno_widget -%}
+	<div class="yesno-right">
+		<input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+	</div>
+
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+	<label class="control-label">{{ (translation_domain is same as(false) ? form.vars.label : form.vars.label|trans({}, translation_domain)) }}</label>
+		{%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+		{% if form.vars.help is defined %}<br /><span class="field-help">{{ (translation_domain is same as(false) ? form.vars.help : form.vars.help|trans({}, translation_domain)) }}</span>{% endif %}	
+{%- endblock yesno_widget %}

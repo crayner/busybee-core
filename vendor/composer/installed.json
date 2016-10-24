@@ -975,56 +975,6 @@
         ]
     },
     {
-        "name": "paragonie/random_compat",
-        "version": "v2.0.2",
-        "version_normalized": "2.0.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/paragonie/random_compat.git",
-            "reference": "088c04e2f261c33bed6ca5245491cfca69195ccf"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/paragonie/random_compat/zipball/088c04e2f261c33bed6ca5245491cfca69195ccf",
-            "reference": "088c04e2f261c33bed6ca5245491cfca69195ccf",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "4.*|5.*"
-        },
-        "suggest": {
-            "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
-        },
-        "time": "2016-04-03 06:00:07",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/random.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Paragon Initiative Enterprises",
-                "email": "security@paragonie.com",
-                "homepage": "https://paragonie.com"
-            }
-        ],
-        "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
-        "keywords": [
-            "csprng",
-            "pseudorandom",
-            "random"
-        ]
-    },
-    {
         "name": "symfony/polyfill-php70",
         "version": "v1.2.0",
         "version_normalized": "1.2.0.0",
@@ -2446,21 +2396,71 @@
         ]
     },
     {
-        "name": "vsn4ik/bootstrap-checkbox",
-        "version": "v1.4.0",
-        "version_normalized": "1.4.0.0",
+        "name": "paragonie/random_compat",
+        "version": "v2.0.3",
+        "version_normalized": "2.0.3.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/vsn4ik/bootstrap-checkbox.git",
-            "reference": "23497a05853f686aac1764fa1fba7c035784d71d"
+            "url": "https://github.com/paragonie/random_compat.git",
+            "reference": "c0125896dbb151380ab47e96c621741e79623beb"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/vsn4ik/bootstrap-checkbox/zipball/23497a05853f686aac1764fa1fba7c035784d71d",
-            "reference": "23497a05853f686aac1764fa1fba7c035784d71d",
+            "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c0125896dbb151380ab47e96c621741e79623beb",
+            "reference": "c0125896dbb151380ab47e96c621741e79623beb",
             "shasum": ""
         },
-        "time": "2016-04-09 10:20:00",
+        "require": {
+            "php": ">=5.2.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.*|5.*"
+        },
+        "suggest": {
+            "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+        },
+        "time": "2016-10-17 15:23:22",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/random.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Paragon Initiative Enterprises",
+                "email": "security@paragonie.com",
+                "homepage": "https://paragonie.com"
+            }
+        ],
+        "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+        "keywords": [
+            "csprng",
+            "pseudorandom",
+            "random"
+        ]
+    },
+    {
+        "name": "vsn4ik/bootstrap-submenu",
+        "version": "v2.0.4",
+        "version_normalized": "2.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/vsn4ik/bootstrap-submenu.git",
+            "reference": "663c0c48eeb43d6fae893edb38ba48f1477676e5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/vsn4ik/bootstrap-submenu/zipball/663c0c48eeb43d6fae893edb38ba48f1477676e5",
+            "reference": "663c0c48eeb43d6fae893edb38ba48f1477676e5",
+            "shasum": ""
+        },
+        "time": "2016-03-19 08:16:43",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
@@ -2473,13 +2473,13 @@
                 "homepage": "https://github.com/vsn4ik"
             }
         ],
-        "description": "A checkbox component based on Bootstrap framework",
-        "homepage": "http://vsn4ik.github.io/bootstrap-checkbox",
+        "description": "Bootstrap Sub-Menus",
+        "homepage": "http://vsn4ik.github.io/bootstrap-submenu",
         "keywords": [
             "bootstrap",
-            "checkbox",
+            "dropdown",
             "jquery-plugin",
-            "switch"
+            "submenu"
         ]
     }
 ]

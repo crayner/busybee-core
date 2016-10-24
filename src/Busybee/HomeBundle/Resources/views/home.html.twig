@@ -1,0 +1,25 @@
+{# src/General/HomeBundle/Resources/views/home.html.twig #}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% trans_default_domain 'BusybeeHomeBundle' %}
+
+{% block stylesheets %}
+{{ parent() }}
+	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
+{% endblock stylesheets %}
+
+
+{% block title %}Busybee {{ 'Home'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'homePage.heading'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'homePage.lead'|trans }}.{% endblock headerLead %}
+
+
+{% block contentContainer %}
+<p>{{ 'homePage.para1'|trans }}</p>
+<p>{{ 'homePage.para2'|trans }}</p>
+<p>{{ 'homePage.para3'|trans }}</p>
+
+<p>Craig Rayner</p>	
+	
+{% endblock contentContainer %}

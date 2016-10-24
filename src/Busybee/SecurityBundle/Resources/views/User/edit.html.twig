@@ -1,5 +1,5 @@
 {# src/General/SecurityBundle/Resources/views/User/edit.html.twig #}
-{% extends "BusybeeHomeBundle:Default:index.html.twig" %}
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
@@ -20,7 +20,6 @@
 		{% include "BusybeeSecurityBundle:User:edit_content.html.twig" %}
 	</div>
 {{ form_end(form) }}
-
 {% endblock contentContainer %}
 
 {% block javascripts %}

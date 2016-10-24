@@ -54,7 +54,8 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     {
         $class = $this->getClass();
         $user = new $class;
-
+		
+		
         return $user;
     }
 

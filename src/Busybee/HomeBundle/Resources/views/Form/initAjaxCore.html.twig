@@ -58,6 +58,7 @@
 		jQuery('#resultLoading .bg').height('100%');
 		jQuery('#resultLoading').fadeOut(300);
 		jQuery('body').css('cursor', 'default');
+		{% if initialise is defined %}{{ initialise|raw }}{% endif %}
 	}
 	
 	

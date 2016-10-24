@@ -17,6 +17,10 @@ Parent: Parent
 Student: Student
 Teaching Staff: Teaching Staff
 Warning: Warning
+register:
+    enabled:
+        label: User Enabled 
+        description: The user is able to sign in and use the site.
 user:
     label:
         username: User Name
@@ -29,6 +33,7 @@ user:
     help: 
         username: "You can leave the user name blank and the username will default to the email address. The username must not be 'admin'" 
         directroles: Direct Role allocation for a user should not be used unless the user needs a level of access not supplied by group selection.  Direct Roles are applied with the indirect roles inherited from the Groups to which the user belongs.
+        email: "Must be unique!  Will be used as the username if the username is left blank."
         groups: Groups are created by you to match a user to groups that provide authority to use the various pages in the site.  Groups are also used by the site to lists groups such as classes and parents of classes.
     edit:
         title: Edit User

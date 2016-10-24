@@ -32,6 +32,8 @@ class UserController extends Controller
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
+		$cUser = $this->getUser();
+		
         $user = $userManager->createUser();        
         $user->setEnabled(true);
 
@@ -48,13 +50,18 @@ class UserController extends Controller
                  	'data' 					=> 0
             	)
 			)
-			->add('enabled', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
+			->add('enabled', 'Busybee\FormBundle\Type\YesNoType', array(
                  	'data' 					=> true,
-					'label' 				=> 'user.label.enabled',
+					'label'					=> 'register.enabled.label',
+					'help'					=> 'register.enabled.description',
             	)
 			)
 			->add('expired', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
                  	'data' 					=> 0,
+            	)
+			)
+			->add('locale', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+                 	'data' 					=> $this->getParameter('locale'),
             	)
 			)
 			->add('credentials_expired', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
@@ -72,13 +79,14 @@ class UserController extends Controller
 				)
 			);
 
-
         $form->setData($user);
 
         $form->handleRequest($request);
 
 		$mm = new MessageManager($this->get('translator'), $request->getLocale(), 'BusybeeSecurityBundle');
 
+		$password = $this->get('system.password.manager')->buildPassword($this->getParameter('password'));
+		
         if ($form->isSubmitted()) {
 			if ($form->isValid()) {
 
@@ -88,6 +96,8 @@ class UserController extends Controller
 				
 				$repository = $this->get('busybee_security.user_provider.username');
 				
+				$user->setPlainPassword($request->request->get('password1'));
+				
 				$userManager->updateUser($user);
 				
 				if (null === $response = $event->getResponse()){
@@ -95,7 +105,7 @@ class UserController extends Controller
 					$response = new RedirectResponse($url);
 				}
 
-				$dispatcher->dispatch(BusybeeSecurityEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+				$dispatcher->dispatch(BusybeeSecurityEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($cUser, $request, $response));
 
 				return new JsonResponse(
 					array(
@@ -104,6 +114,7 @@ class UserController extends Controller
 							array(
 								'user' => $user,
 								'form' => $form->createView(),
+								'password' => $password,
 								)
 							)
 						), 
@@ -118,6 +129,7 @@ class UserController extends Controller
 							array(
 								'user' => $user,
 								'form' => $form->createView(),
+								'password' => $password,
 								)
 							)
 						), 
@@ -128,6 +140,7 @@ class UserController extends Controller
         
         return $this->render('BusybeeSecurityBundle:User:register.html.twig', array(
                 'form' => $form->createView(),
+				'password' => $password,
             ));
     }
     /**

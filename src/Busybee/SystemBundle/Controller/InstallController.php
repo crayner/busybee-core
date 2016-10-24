@@ -227,42 +227,8 @@ class InstallController extends Controller
 			$config->misc->password2 = null;
 			$config->proceed = false;
 		}
-		$config->misc->password = new stdClass();
-		foreach ($params['parameters']['password'] as $name => $value)
-			$config->misc->password->$name = $value ;
-		
-		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789![]{}()%&*$#^<>~@|";
-		$text = "";
-		for($i = 0; $i < $config->misc->password->minLength + 4; $i++) {
-			if ($i == 0) 
-			 	$text .= substr($chars, rand(1, 26) - 1, 1);
-			elseif ($i == 1)
-				$text .= substr($chars, rand(1, 26) + 25, 1);
-			else if ($i == 2) 
-				$text .= substr($chars, rand(1, 10) + 51, 1);
-			else if ($i == 3) 
-				$text .= substr($chars, rand(1, 19) + 61, 1);
-			else 
-				$text .= substr($chars, rand(1, strlen($chars)), 1);
-		}
-		$config->misc->password->text = $text;
 
-		$pattern = "^(.*";
-		if ( $config->misc->password->mixedCase) {
-			$pattern .= "(?=.*[a-z])(?=.*[A-Z])";
-			$config->misc->password->mixedCase = $config->misc->password->mixedCase ? 'checked' : '' ;
-		}
-		if ($config->misc->password->numbers) {
-			$pattern .= "(?=.*[0-9])";
-			$config->misc->password->numbers = $config->misc->password->numbers ? 'checked' : '' ;
-		}
-		if ($config->misc->password->specials) {
-			$pattern .= "(?=.*?[#?!@$%^&*-])";
-			$config->misc->password->specials = $config->misc->password->specials ? 'checked' : '' ;
-		}
-		$pattern .= ".*){".$config->misc->password->minLength.",}$";
-
-		$config->misc->password->pattern = $pattern;
+		$config->misc->password = $this->get('system.password.manager')->buildPassword($this->getParameter('password'));
 
 
 		$valueList = array(

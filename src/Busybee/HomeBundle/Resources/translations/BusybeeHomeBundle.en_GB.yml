@@ -49,7 +49,10 @@ menu:
     site:
         manage: Configuration
         update: Update 
-        security: Security
+        security:
+            user: User Manage
+            edit: Edit Self
+            register: Register User 
     family:
         manage: Manage Family       
     people:

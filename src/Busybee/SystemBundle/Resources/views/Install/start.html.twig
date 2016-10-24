@@ -79,12 +79,16 @@
 		<div id="form_body" class="container-fluid">
 			
 			<div class="row">
-				<div class="well col-sm-6 form-group">
-					<p>{{ 'install.database.connection.complete'|trans }}</p>
-					<input type="hidden" name="_csrf_token" value="{{ csrf_token('mailer') }}" />
+				<div class="well col-sm-6">
+					<div class="form-group">
+						<p>{{ 'install.database.connection.complete'|trans }}</p>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('mailer') }}" />
+					</div>
 				</div>
-				<div class="well col-sm-6 form-group text-right">
-					<button type="submit" id="_submit" name="_submit" class="btn btn-info">{{ 'install.proceed'|trans }}<span class="glyphicons glyphicons-hand-right"></span></button>
+				<div class="well col-sm-6">
+					<div class="form-group text-right">
+						<button type="submit" id="_submit" name="_submit" class="btn btn-info">{{ 'install.proceed'|trans }}<span class="glyphicons glyphicons-hand-right"></span></button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -98,55 +102,71 @@
 	<form action="{{ path("install_save_database_parameters") }}" method="post">
 		<div id="form_body" class="container-fluid">
 			<div class="row">
-				<div class="well col-sm-6 form-group">
-					<label for="driver">{{ 'sql.database.driver.title'|trans }}</label><br />
-					<span>{{ 'sql.database.driver.description'|trans }}</span>
-					<select id="driver" name="driver" value="{{ config.sql.database_driver }}" required class="form-control">
-						<option value='pdo_mysql'>pdo_mysql</option>
-					</select>
-					<input type="hidden" name="_csrf_token" value="{{ csrf_token('database') }}" />
+				<div class="well col-sm-6">
+					<div class="form-group">
+						<label for="driver">{{ 'sql.database.driver.title'|trans }}</label><br />
+						<span>{{ 'sql.database.driver.description'|trans }}</span>
+						<select id="driver" name="driver" value="{{ config.sql.database_driver }}" required class="form-control">
+							<option value='pdo_mysql'>pdo_mysql</option>
+						</select>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('database') }}" />
+					</div>
 				</div>
-				<div class="well col-sm-6 form-group">
-					<label for="host">{{ 'sql.database.host.title'|trans }}</label><br />
-					<span>{{ 'sql.database.host.description'|trans }}</span>
-					<input type="text" id="host" name="host" value="{{ config.sql.database_host }}" required class="form-control" >
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="well col-sm-6 form-group">
-					<label for="port">{{ 'sql.database.port.title'|trans }}</label><br />
-					<span>{{ 'sql.database.port.description'|trans }}</span>
-					<input type="number" id="port" name="port" value="{{ config.sql.database_port }}" class="form-control" >
-				</div>
-				<div class="well col-sm-6 form-group">
-					<label for="name">{{ 'sql.database.name.title'|trans }}</label><br />
-					<span>{{ 'sql.database.name.description'|trans }}</span>
-					<input type="text" id="name" name="name" value="{{ config.sql.database_name }}" required class="form-control" >
+				<div class="well col-sm-6">
+					<div class="form-group">
+						<label for="host">{{ 'sql.database.host.title'|trans }}</label><br />
+						<span>{{ 'sql.database.host.description'|trans }}</span>
+						<input type="text" id="host" name="host" value="{{ config.sql.database_host }}" required class="form-control" >
+					</div>
 				</div>
 			</div>
 			
 			<div class="row">
-				<div class="well col-sm-6 form-group">
-					<label for="user">{{ 'sql.database.user.title'|trans }}</label><br />
-					<span>{{ 'sql.database.user.description'|trans }}</span>
-					<input type="text" id="user" name="user" value="{{ config.sql.database_user }}" required class="form-control" >
+				<div class="well col-sm-6">
+					<div class="form-group">
+						<label for="port">{{ 'sql.database.port.title'|trans }}</label><br />
+						<span>{{ 'sql.database.port.description'|trans }}</span>
+						<input type="number" id="port" name="port" value="{{ config.sql.database_port }}" class="form-control" >
+					</div>
 				</div>
-				<div class="well col-sm-6 form-group">
-					<label for="password">{{ 'sql.database.password.title'|trans }}</label><br />
-					<span>{{ 'sql.database.password.description'|trans }}</span>
-					<input type="text" id="password" name="password" value="{{ config.sql.database_password }}" required class="form-control" >
+				<div class="well col-sm-6">
+					<div class="form-group">
+						<label for="name">{{ 'sql.database.name.title'|trans }}</label><br />
+						<span>{{ 'sql.database.name.description'|trans }}</span>
+						<input type="text" id="name" name="name" value="{{ config.sql.database_name }}" required class="form-control" >
+					</div>
 				</div>
 			</div>
 			
 			<div class="row">
-				<div class="well col-sm-6 form-group">
-					<label for="prefix">{{ 'sql.database.prefix.title'|trans }}</label><br />
-					<span>{{ 'sql.database.prefix.description'|trans }}</span>
-					<input type="text" id="prefix" name="prefix" value="{{ config.sql.database_prefix }}" required class="form-control" maxlength="6" >
+				<div class="well col-sm-6">
+					<div class="form-group">
+						<label for="user">{{ 'sql.database.user.title'|trans }}</label><br />
+						<span>{{ 'sql.database.user.description'|trans }}</span>
+						<input type="text" id="user" name="user" value="{{ config.sql.database_user }}" required class="form-control" >
+					</div>
 				</div>
-				<div class="well col-sm-6 form-group text-right">
-					<button type="submit" id="_submit" name="_submit" class="btn btn-success">{{ 'sql.database.save'|trans }}<span class="glyphicons glyphicons-disk-save"></span></button>
+				<div class="well col-sm-6">
+					<div class="form-group">
+						<label for="password">{{ 'sql.database.password.title'|trans }}</label><br />
+						<span>{{ 'sql.database.password.description'|trans }}</span>
+						<input type="text" id="password" name="password" value="{{ config.sql.database_password }}" required class="form-control" >
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="well col-sm-6">
+					<div class="form-group">
+						<label for="prefix">{{ 'sql.database.prefix.title'|trans }}</label><br />
+						<span>{{ 'sql.database.prefix.description'|trans }}</span>
+						<input type="text" id="prefix" name="prefix" value="{{ config.sql.database_prefix }}" required class="form-control" maxlength="6" >
+					</div>
+				</div>
+				<div class="well col-sm-6">
+					<div class="form-group text-right">
+						<button type="submit" id="_submit" name="_submit" class="btn btn-success">{{ 'sql.database.save'|trans }}<span class="glyphicons glyphicons-disk-save"></span></button>
+					</div>
 				</div>
 			</div>
 		</div>

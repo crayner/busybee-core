@@ -3,22 +3,22 @@
 
 	<div class="row">
 		<div class="col-sm-6">
-			<div class="panel panel-{% if config.version['system'] == config.VersionSys %}success{% else %}warning{% endif %}">
+			<div class="panel panel-{% if config.version.shouldBe['system'] == config.version.current['system'] %}success{% else %}warning{% endif %}">
 				<div class="panel-heading">
-					<h3 class="panel-title">{{ 'system.version.system.title'|trans ({'%version%': config.VersionSys}) }}</h3>
+					<h3 class="panel-title">{{ 'system.version.system.title'|trans ({'%version%': config.version.current['system']}) }}</h3>
 				</div>
 				<div class="panel-body">
-					<p>{{ 'system.version.system.description'|trans ({'%version%': config.version['system']}) }}</p>
+					<p>{{ 'system.version.system.description'|trans ({'%version%': config.version.shouldBe['system']}) }}</p>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-6">
-			<div class="panel panel-{% if config.version['database'] == config.Versiondb %}success{% else %}warning{% endif %}">
+			<div class="panel panel-{% if config.version.shouldBe['database'] == config.version.current['database'] %}success{% else %}warning{% endif %}">
 				<div class="panel-heading">
-					<h3 class="panel-title">{{ 'system.version.database.title'|trans ({'%version%': config.Versiondb }) }}</h3>
+					<h3 class="panel-title">{{ 'system.version.database.title'|trans ({'%version%': config.version.current['database'] }) }}</h3>
 				</div>
 				<div class="panel-body">
-					<p>{{ 'system.version.database.description'|trans ({'%version%': config.version['database']}) }}</p>
+					<p>{{ 'system.version.database.description'|trans ({'%version%': config.version.shouldBe['database']}) }}</p>
 				</div>
 			</div>
 		</div>
@@ -29,7 +29,7 @@
 					<h3 class="panel-title">{{ 'system.update.database.title'|trans }}</h3>
 				</div>
 				<div class="panel-body">
-					<p><button class="btn btn-warning" id="ajaxLoad" style="float: right" ><span class="glyphicons glyphicons-roundabout"></span>Update</button>
+					<p><button class="btn btn-warning" id="ajaxLoad" style="float: right"><span class="glyphicons glyphicons-roundabout"></span>Update</button>
 					{% transchoice config.dbUpdate with  {'%count%': config.dbUpdate} %}
 						system.update.database.required
 					{% endtranschoice %}</p>

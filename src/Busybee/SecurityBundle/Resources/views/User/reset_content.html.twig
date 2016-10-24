@@ -5,21 +5,23 @@
 	<div id="form_body" class="container-fluid">
 		<div class="row">
 			<div class="col-sm-6 ">
-				<div class="well row form-group">
+				<div class="well row">
 					{{form_row(form.plainPassword.first) }}
 				</div>
 			</div>
 			<div class="col-sm-6 ">
-				<div class="well row form-group">
+				<div class="well row">
 					{{form_row(form.plainPassword.second) }}
 				</div>
 			</div>
 		</div>
 		<div class="row ">
 			<div class="col-sm-6 col-sm-offset-6">
-				<div class="well row text-right form-group">
-					{{form_widget(form.save) }}
-					{{form_widget(form.cancel) }}
+				<div class="well row">
+					<div class="text-right form-group">
+						{{form_widget(form.save) }}
+						{{form_widget(form.cancel) }}
+					</div>
 				</div>
 			</div>
 		</div>

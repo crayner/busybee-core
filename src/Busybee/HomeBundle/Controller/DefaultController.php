@@ -47,7 +47,7 @@ class DefaultController extends Controller
 			}
 		}
 
-		return $this->render('BusybeeHomeBundle:Default:index.html.twig', array('config' => $config));
+		return $this->render('BusybeeHomeBundle::home.html.twig', array('config' => $config));
     }
 
 	/**

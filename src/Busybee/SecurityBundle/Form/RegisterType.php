@@ -19,7 +19,9 @@ class RegisterType extends AbstractType
         $builder
             ->add('username', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
 					'label' 				=> 'user.label.username',
-					'help_block' 			=> 'user.help.username',
+					'attr'					=> array(
+							'help' 			=> 'user.help.username',
+						),
 					'required' 				=> false,
 				)
 			)
@@ -36,6 +38,10 @@ class RegisterType extends AbstractType
 			)
             ->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
 					'label' 				=> 'user.label.email',
+					'required'				=> true,
+					'attr'					=> array(
+							'help' 			=> 'user.help.email',
+						),
 				)
 			)
             ->add('directroles', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
@@ -45,7 +51,9 @@ class RegisterType extends AbstractType
 					'class' 				=> 'Busybee\SecurityBundle\Entity\Role',
 					'choice_label' 			=> 'role',
 					'required' 				=> false,
-					'help_block' 			=> 'user.help.directroles',
+					'attr'					=> array(
+							'help' 			=> 'user.help.directroles',
+						),
 				)
 			)
             ->add('groups', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
@@ -55,14 +63,16 @@ class RegisterType extends AbstractType
 					'choice_label' 			=> 'groupname',
 					'label' 				=> 'user.label.groups',
 					'required' 				=> true,
-					'help_block' 			=> 'user.help.groups',
+					'attr'					=> array(
+							'help' 			=> 'user.help.groups',
+						),
 				)
 			)
 			->add('register', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
 					'label' 				=> 'form.register',
 					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
-						'class' 				=> 'btn btn-success glyphicon glyphicon-save'
+						'class' 				=> 'btn btn-success glyphicons glyphicons-disk-save'
 					),
 				)
 			)
