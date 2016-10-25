@@ -176,14 +176,14 @@ class UserController extends Controller
     /**
      * Edit the user
      */
-    public function editAction(Request $request)
+    public function editAction($id, Request $request)
     {
 		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_USER'))) return $response;
 		
 		$config = new \stdClass();
 		$config->signin = true ;
 
-        $user = $this->getUser();
+		$user = intval($id) > 0 ? $this->get('user.repository')->findOneBy(array('id'=>$id)) : $this->getUser();
     
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
@@ -208,7 +208,16 @@ class UserController extends Controller
 				)
 			)
 		;
-		
+		if ($id > 0)
+			$form->add('enabled', 'Busybee\FormBundle\Type\YesNoType', array(
+					'label'					=> 'register.enabled.label',
+					'help'					=> 'register.enabled.description',
+					'data'					=> true,
+            	)
+			);
+		else
+			$form->add('enabled', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array('data' => true));
+
         $form->setData($user);
 
         $form->handleRequest($request);
@@ -280,34 +289,6 @@ class UserController extends Controller
             if ($this->get('security.authorization_checker')->isGranted($role))
                 $roleList[$role] = $role;
         return $roleList;
-    }
-    /**
-     * Impersonate the user
-     */
-    public function impersonateAction()
-    {
-
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_ALLOWED_TO_SWITCH'))) return $response;
-		
-        $user = $this->getUser();
-
-        $roleHierarchy = $this->get('security.role_hierarchy');
-
-        $userManager = $this->get('busybee_security.user_manager');
-
-		$users = $userManager->findChildren($user, $this->get('security.authorization_checker'));
-
-		if ( empty ( $users ) ) {
-            $this->addFlash(
-                'warning',
-                $this->get('translator')->trans('No users where found that you have permission to impersonate.')
-            );
-		}
-		
-        return $this->render('BusybeeSecurityBundle:User:impersonate.html.twig', array(
-            'user' => $user,
-			'users' => $users,
-        ));
     }
 
     /**
@@ -391,9 +372,12 @@ class UserController extends Controller
     /**
      * Request reset user password: show form
      */
-    public function requestAction(Request $request)
+    public function requestAction($id, Request $request)
     {
-        $user = $this->getUser();
+        if (intval($id) > 0)
+			if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_REGISTRAR'))) return $response;
+ 		
+		$user = intval($id) > 0 ? $this->get('user.repository')->findOneBy(array('id' => $id)) : $this->getUser();
 		$email = null;
 		$force = false ;
 		if (! empty($user)) {
@@ -565,7 +549,7 @@ class UserController extends Controller
 			$status = 'success';
 		}
 		return new JsonResponse(
-			array('message' => $this->get('translator')->trans('The user %user% was '.$enabled, array('%user%' => $user->formatName())), 'status' => $status), 
+			array('message' => $this->get('translator')->trans('The user %user% was '.$enabled, array('%user%' => $user->formatName()), 'BusybeeSecurityBundle'), 'status' => $status), 
 			200
 		);
     }

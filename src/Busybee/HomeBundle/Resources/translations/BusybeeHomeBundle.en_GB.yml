@@ -11,6 +11,7 @@ No users where found that you have permission to impersonate.: No users where fo
 Contact: Contact
 Load Database: Load Database
 Database Loaded: Database Loaded
+'Exit Impersonation': 'Exit Impersonation'
 Home: Home
 form:
     register: Register

@@ -16,8 +16,10 @@
 				<input type="text" id="username" name="username" required {% if email is defined %} value="{{ email }}" {% endif %} class="form-control" />
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 			</div>
-			<div class="col-sm-6 well text-right">
-				<input type="submit" value="{{ 'security.request.submit'|trans }}" class="btn btn-success" />	
+			<div class="col-sm-6 well">
+				<div class="form-group text-right">
+					<input type="submit" value="{{ 'security.request.submit'|trans }}" class="btn btn-success" />
+				</div>	
 			</div>
 		</div>
 	</div>

@@ -198,6 +198,8 @@
 	</script>
 	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
 	<script type="text/javascript">
-		$('.yes-no').checkboxpicker();
+		$('.yes-no').checkboxpicker({
+			iconCls: 'glyphicons'
+		});
 	</script>
 {% endblock javascripts %}

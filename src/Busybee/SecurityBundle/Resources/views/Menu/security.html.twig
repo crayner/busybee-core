@@ -2,13 +2,13 @@
 
 {% trans_default_domain "BusybeeHomeBundle" %}
 
-<!--			<li><a href="{{ path("busybee_security_user_edit") }}">{{ 'menu.site.security.edit'|trans }}</a></li>  -->
+<!--			<li><a href="{{ path('busybee_security_user_edit', {'id': '0'}) }}">{{ 'menu.site.security.edit'|trans }}</a></li>  -->
 		
 				<li class="dropdown-submenu">
 					<a tabindex="0">{{ 'menu.site.security.user'|trans }}</a>
 			
 					<ul class="dropdown-menu">
-						<li><a href="{{ path("busybee_security_user_edit") }}">{{ 'menu.site.security.edit'|trans }}</a></li>
+						<li><a href="{{ path('busybee_security_user_edit', {'id': '0'}) }}">{{ 'menu.site.security.edit'|trans }}</a></li>
 {% if is_granted('ROLE_ADMIN') %}
 						<li><a href="{{ path("busybee_security_user_register") }}">{{ 'menu.site.security.register'|trans }}</a></li>
 						<li><a href="{{ path("busybee_security_user_list") }}">{{ 'menu.site.security.list'|trans }}</a></li>

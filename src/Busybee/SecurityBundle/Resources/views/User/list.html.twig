@@ -26,11 +26,19 @@
 	</div>
 	<div class="container-fluid well">
 		<div class="row row-header">
-			<div class="col-sm-3 col-md-3">
-				{{ 'user.list.username'|trans }}
+			<div class="col-sm-3 col-md-3" style="display: inline-block;">
+				{% if pagination.getSortByName == 'User Name' %}
+					<span class="halflings halflings-sort-by-alphabet"></span> {{ 'user.list.username'|trans }}
+				{% else %}
+					{{ 'user.list.username'|trans }}
+				{% endif %}
 			</div>
-			<div class="col-md-5 hidden-sm hidden-xs">
-				{{ 'user.list.email'|trans }}
+			<div class="col-md-5 hidden-sm hidden-xs" style="display: inline-block;">
+				{% if pagination.getSortByName == 'Email' %}
+					<span class="halflings halflings-sort-by-alphabet"></span> {{ 'user.list.email'|trans }}
+				{% else %}
+					{{ 'user.list.email'|trans }}
+				{% endif %}
 			</div>
 			<div class="col-sm-4 col-md-2">
 				{{ 'user.list.enabled'|trans }}
@@ -41,16 +49,23 @@
 		</div>
 	{% for user in pagination.getResult %}
 		<div class="row row-striped">
-			<div class="col-sm-3 col-md-3">
+			<div class="col-sm-3 col-md-3 form-inline">
 				{{ user.username }}
 			</div>
 			<div class="col-md-5 hidden-sm hidden-xs">
 				{{ user.email }}
 			</div>
-			<div class="col-sm-4 col-md-2 text-center">
-				<input type="checkbox" data-off-label="false" data-on-label="false" data-off-icon-cls="halflings-thumbs-down" data-on-icon-cls="halflings-thumbs-up" class="yes-no" value="{{ user.id }}" {% if user.enabled %}checked{% endif %} />
+			<div class="col-sm-4 col-md-2">
+				<input type="checkbox" data-off-label="false" data-on-label="false" data-off-icon-cls="halflings-thumbs-down" data-on-icon-cls="halflings-thumbs-up" class="yes-no" value="{{ user.getId }}" {% if user.getEnabled %}checked{% endif %} />
 			</div>
 			<div class="col-sm-5 col-md-2">
+				<button title='{{ 'user.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('busybee_security_user_edit', {'id': user.getId}) }}','_self')"></button>
+				{% if app.user.getId != user.getId and user.getEnabled %}
+					<button title='{{ 'security.impersonate.title'|trans}}' type="button" class="glyphicons glyphicons-theater btn btn-warning" style="margin: 1px 0 0 0 ; padding: 0 4px;" onClick="window.open('{{ path('home_page') }}?_switch_user={{ user.username }}','_self')"></button>
+				{% else %}
+					<button title='{{ 'security.impersonate.title'|trans}}' type="button" class="glyphicons glyphicons-theater btn btn-default" style="margin: 1px 0 0 0 ; padding: 0 4px;" onClick="window.open('{{ path('home_page') }}?_switch_user={{ user.username }}','_self')" disabled></button>
+				{% endif %}
+				<button title='{{ 'user.reset.title'|trans}}' type="button" class="glyphicons glyphicons-user-key btn btn-warning" style="margin: 1px 0 0 0 ; padding: 0 4px;" onClick="window.open('{{ path('busybee_security_user_reset_request', {'id': user.getId}) }}','_self')"></button>
 			</div>
 		</div>
 	{% endfor %}
@@ -73,14 +88,14 @@
 					$("#result").stop().hide();           
 					$('#result').html(data.message);   
 					$("#result").removeClass().addClass('col-sm-12 alert alert-' + data.status);
-					$("#result").fadeIn(500);           
+					$("#result").fadeIn(20);           
 					$("#result").fadeOut(3000);           
 				},
 				error:function(){
 					$("#result").stop().hide();           
 					$("#result").html('{{ 'There was an error updating the settings'|trans }}');
 					$("#result").removeClass().addClass('col-sm-12 alert alert-danger');
-					$("#result").fadeIn(500);
+					$("#result").fadeIn(20);
 					$("#result").fadeOut(3000);           
 				}   
 			}); 

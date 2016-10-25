@@ -41,7 +41,10 @@
 </div>
 {% else %}
 <div class="row">
-	<div class="col-sm-6 col-sm-offset-6 well text-right">
+	<div class="col-sm-6 well">
+		{{ form_row(form.enabled) }}
+	</div>
+	<div class="col-sm-6 well text-right">
 		<div class="form-group">
 			{{ form_widget(form.save) }}
 			{{ form_widget(form.cancel) }}

@@ -5,14 +5,15 @@
 
 {% trans_default_domain 'BusybeeSecurityBundle' %}
 
-{% block title %}Busybee - {{ 'user.edit.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'user.edit.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'user.edit.description'|trans }}{% endblock headerLead %}
-
 {% block stylesheets %}
 {{ parent() }}
 	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
+	<link href="{{ asset('css/glyphicons-halflings.css') }}" type="text/css" rel="stylesheet" />
 {% endblock stylesheets %}
+
+{% block title %}Busybee - {{ 'user.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'user.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'user.edit.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
 {{ form_start(form) }}
@@ -24,5 +25,14 @@
 
 {% block javascripts %}
 {{parent() }}
-{% include "BusybeeHomeBundle:Form:initAjaxForm.html.twig" %}
+	{% set initialise = "$('.yes-no').checkboxpicker({
+			iconCls: 'glyphicons'
+		});" %}
+	{% include "BusybeeHomeBundle:Form:initAjaxForm.html.twig" %}
+	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+	<script type="text/javascript">
+		$('.yes-no').checkboxpicker({
+			iconCls: 'glyphicons'
+		});
+	</script>
 {% endblock javascripts %}

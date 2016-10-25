@@ -29,17 +29,13 @@ busybee_security_user_register:
     path:     /user/register
     defaults: { _controller: BusybeeSecurityBundle:User:register }
 busybee_security_user_edit:
-    path:     /user/edit
+    path:     /user/edit/{id}
     defaults: { _controller: BusybeeSecurityBundle:User:edit }
-    methods:  [GET, POST]
 busybee_security_user_list: 
     path:     /user/list
     defaults: { _controller: BusybeeSecurityBundle:User:list }
-busybee_switch_user_impersonate:
-    path:     /user/impersonate
-    defaults: { _controller: BusybeeSecurityBundle:User:impersonate }
 busybee_security_user_reset_request:
-    path:     /user/request
+    path:     /user/request/{id}
     defaults: { _controller: BusybeeSecurityBundle:User:request }
 busybee_security_user_reset_reset:
     path:     /user/reset/{token}
