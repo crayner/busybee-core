@@ -51,6 +51,13 @@ user:
     reset:
         title: Reset Password 
         success: The password for the user was successfully altered and saved.  You can now sign into the site using the new password. 
+    list:
+        title: User List
+        description: List of users configured on the site. 
+        username: User Name
+        email: Email Address
+        actions: Actions 
+        enabled: Enabled 
 security:
     login:
         password: Password
@@ -121,3 +128,4 @@ group:
     list:
         title: Group List
         create: Create Group
+There was an error updating the settings: There was an error updating the settings.

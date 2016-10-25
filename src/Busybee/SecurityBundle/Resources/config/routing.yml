@@ -68,3 +68,8 @@ busybee_security_createuser:
 busybee_security_user_reset_check_email:
     path:     /checkemail
     defaults: { _controller: BusybeeSecurityBundle:User:checkEmail }
+busybee_user_toggleEnabled:
+    path:     /user/toggleEnabled/
+busybee_user_toggle_enabled:
+    path:     /user/toggleEnabled/{id}
+    defaults: { _controller: BusybeeSecurityBundle:User:toggleEnabled }

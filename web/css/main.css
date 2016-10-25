@@ -59,4 +59,27 @@ p {
 	float: right ;
 	margin-left: 5px;
 }
-	
+.row-striped {
+	border: 1px solid rgba(204,204,204,1);
+	border-radius: 8px;
+	min-height: 25px;
+}
+.row-striped:nth-of-type(odd){
+	background-color: rgba(204,204,204,0.5);
+}
+
+.row-striped:nth-of-type(even){
+	background-color: transparent;
+}
+.row-header {
+	font-size: 125%;
+	font-weight: bold;
+	background-color: rgba(204,204,204,1);
+	text-align: center ;
+	border: 1px solid rgba(204,204,204,1);
+	border-radius: 8px;
+	min-height: 25px;
+}
+.row-striped > [class*='col-'] {
+	display: block ;
+}

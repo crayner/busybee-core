@@ -9,7 +9,19 @@ parameters:
         '%mailer_sender_address%': '%mailer_sender_name%' 
     busybee_security.resetting.email.from_email: 
         '%mailer_sender_address%': '%mailer_sender_name%'
-
+    userPagination: 
+        sortBy:
+            User Name: 
+                a.username: ASC
+                a.email: ASC
+            Email: 
+                a.email: ASC
+                a.username: ASC
+        limit: 15
+        searchList:
+            - a.username
+            - a.email
+            
 
 services:
     busybee_security.authentication.login_handler: 
@@ -32,6 +44,13 @@ services:
         arguments: 
             - '%busybee_security.user.entity%'
     busybee_security.user.repository:
+        class: Busybee\SecurityBundle\Entity\UserRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeSecurityBundle:User"
+    user.repository:
         class: Busybee\SecurityBundle\Entity\UserRepository
         factory: 
             - "@doctrine"
@@ -148,4 +167,10 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: password.validator  }
         arguments:
+            - '@service_container'
+    user.pagination:
+        class: Busybee\SecurityBundle\Model\UserPagination
+        arguments: 
+            - '%userPagination%'
+            - '@user.repository'
             - '@service_container'

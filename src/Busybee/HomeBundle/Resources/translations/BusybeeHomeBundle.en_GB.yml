@@ -53,6 +53,7 @@ menu:
             user: User Manage
             edit: Edit Self
             register: Register User 
+            list: Current Users 
     family:
         manage: Manage Family       
     people:

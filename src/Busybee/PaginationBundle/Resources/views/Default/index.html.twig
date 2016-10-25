@@ -1,0 +1,55 @@
+{# src/Busybee/PaginationBundle/Resources/views/Default/index.html.twig #}
+
+{% trans_default_domain 'BusybeePaginationBundle' %}
+
+{% set form = pagination.getForm %}
+
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{{ form_start(form) }}
+
+<div class="container-fluid well">
+	<div class="row">
+		<div class="col-sm-2">
+			{{ form_widget(form.currentSearch) }}
+		</div>
+		<div class="col-sm-2">
+			{{ form_widget(form.currentSort) }}
+		</div>
+		<div class="col-sm-1">
+				{{ form_widget(form.startSearch) }}
+		</div>
+			{% if pagination.getTotal > pagination.getLimit %}
+				<div class="col-sm-offset-4 col-sm-1">
+					{{ form_widget(form.lastSearch, {value: pagination.getSearch }) }}
+					{{ form_widget(form.offSet, {value: pagination.getOffSet}) }}
+					{{ form_widget(form.limit) }}
+					{{ form_widget(form.total, {value: pagination.getTotal}) }}
+				</div>
+				<div class="col-sm-1">
+					{{ form_widget(form.prev) }}
+				</div>
+				<div class="col-sm-1">
+					{{ form_widget(form.next) }}
+				</div>
+			{% elseif pagination.getTotal > 10 %}
+				<div class="col-sm-offset-6 col-sm-1">
+					{{ form_widget(form.limit) }}
+					{% do form.prev.setRendered %}
+					{% do form.next.setRendered %}
+				</div>
+			{% else %}
+				{% do form.prev.setRendered %}
+				{% do form.next.setRendered %}
+				{% do form.limit.setRendered %}
+				<input type="hidden" name="limit" value="{{ pagination.getLimit }}" />
+			{% endif %}
+	</div>				
+	<div class="row">
+		<div class="col-sm-12 text-right">
+			{{ 'pagination.figures'|trans({'%total%': pagination.getTotal, '%current%': pagination.getCurrentPage, '%pages%': pagination.getTotalPages} ) }}
+		</div>
+	</div>				
+</div>
+{{ form_end(form) }}
+

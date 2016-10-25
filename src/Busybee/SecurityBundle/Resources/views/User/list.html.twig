@@ -1,0 +1,89 @@
+{# src/General/SecurityBundle/Resources/views/User/edit.html.twig #}
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+
+
+
+
+{% block stylesheets %}
+{{ parent() }}
+	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
+	<link href="{{ asset('css/glyphicons-halflings.css') }}" type="text/css" rel="stylesheet" />
+{% endblock stylesheets %}
+
+{% block title %}Busybee - {{ 'user.list.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'user.list.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'user.list.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+	{% include 'PaginationBundle:Default:index.html.twig' %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12" id="result">
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid well">
+		<div class="row row-header">
+			<div class="col-sm-3 col-md-3">
+				{{ 'user.list.username'|trans }}
+			</div>
+			<div class="col-md-5 hidden-sm hidden-xs">
+				{{ 'user.list.email'|trans }}
+			</div>
+			<div class="col-sm-4 col-md-2">
+				{{ 'user.list.enabled'|trans }}
+			</div>
+			<div class="col-sm-5 col-md-2">
+				{{ 'user.list.actions'|trans }}
+			</div>
+		</div>
+	{% for user in pagination.getResult %}
+		<div class="row row-striped">
+			<div class="col-sm-3 col-md-3">
+				{{ user.username }}
+			</div>
+			<div class="col-md-5 hidden-sm hidden-xs">
+				{{ user.email }}
+			</div>
+			<div class="col-sm-4 col-md-2 text-center">
+				<input type="checkbox" data-off-label="false" data-on-label="false" data-off-icon-cls="halflings-thumbs-down" data-on-icon-cls="halflings-thumbs-up" class="yes-no" value="{{ user.id }}" {% if user.enabled %}checked{% endif %} />
+			</div>
+			<div class="col-sm-5 col-md-2">
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+{% endblock contentContainer %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+	<script type="text/javascript">
+		$('.yes-no').checkboxpicker();
+		$('.yes-no').change(function($e) {
+			$.ajax({
+				url: "{{ path('busybee_user_toggleEnabled') }}" + this.value,
+				type: "POST",
+				async: false,
+				datatype: 'json',
+				success: function(data){
+					$("#result").stop().hide();           
+					$('#result').html(data.message);   
+					$("#result").removeClass().addClass('col-sm-12 alert alert-' + data.status);
+					$("#result").fadeIn(500);           
+					$("#result").fadeOut(3000);           
+				},
+				error:function(){
+					$("#result").stop().hide();           
+					$("#result").html('{{ 'There was an error updating the settings'|trans }}');
+					$("#result").removeClass().addClass('col-sm-12 alert alert-danger');
+					$("#result").fadeIn(500);
+					$("#result").fadeOut(3000);           
+				}   
+			}); 
+		});
+	</script>
+{% endblock javascripts %}

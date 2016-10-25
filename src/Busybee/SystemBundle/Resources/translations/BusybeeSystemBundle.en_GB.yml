@@ -148,3 +148,7 @@ misc:
         specials:
             title: Require a Punctuation Character
             description: "The password requires at least one Punctuation Character. ![]{}()%&*$#^<>~@|" 
+user:
+    list:
+        title: User List
+        description: List of users configured on the site. 

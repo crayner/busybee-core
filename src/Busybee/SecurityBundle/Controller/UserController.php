@@ -523,5 +523,50 @@ class UserController extends Controller
         ));
     }
 
+    /**
+     * list the Users
+     */
+    public function listAction(Request $request)
+    {
+		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_REGISTRAR'))) return $response;
+		
+		$up = $this->get('user.pagination');
+		
+		$up->injectRequest($request);
+		
+		$up->getDataSet();
 
+        return $this->render('BusybeeSecurityBundle:User:list.html.twig', 
+			array(
+            	'pagination' => $up,
+        	)
+		);
+    }
+
+    /**
+     * toggle User Enabled
+     */
+    public function toggleEnabledAction($id)
+    {
+		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_REGISTRAR'))) return $response;
+		
+        $userManager = $this->get('user.repository');
+		
+		$user = $userManager->find($id);
+		$user->setEnabled(! $user->getEnabled());
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($user);
+		$em->flush();
+		$enabled = 'disabled';
+		$status = 'warning';
+		if ($user->getEnabled())
+		{ 
+			$enabled = 'enabled';
+			$status = 'success';
+		}
+		return new JsonResponse(
+			array('message' => $this->get('translator')->trans('The user %user% was '.$enabled, array('%user%' => $user->formatName())), 'status' => $status), 
+			200
+		);
+    }
 }

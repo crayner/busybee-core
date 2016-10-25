@@ -11,6 +11,7 @@
 						<li><a href="{{ path("busybee_security_user_edit") }}">{{ 'menu.site.security.edit'|trans }}</a></li>
 {% if is_granted('ROLE_ADMIN') %}
 						<li><a href="{{ path("busybee_security_user_register") }}">{{ 'menu.site.security.register'|trans }}</a></li>
+						<li><a href="{{ path("busybee_security_user_list") }}">{{ 'menu.site.security.list'|trans }}</a></li>
 {% endif %}
 <!--						<li class="dropdown-submenu">
 							<a tabindex="0">Another sub action</a>

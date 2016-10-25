@@ -1,7 +1,3 @@
-busybee_form:
-    resource: "@BusybeeFormBundle/Resources/config/routing.yml"
-    prefix:   /form
-
 busybee_system:
     resource: "@SystemBundle/Resources/config/routing.yml"
     prefix:   /system/

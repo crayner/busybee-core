@@ -1,0 +1,13 @@
+# Database Language en_GB
+User Name: User Name
+Email: Email
+pagination:
+    search: ''
+    placeholder:
+        search: 'Search for ...'
+    sort: ''
+    limit: ''
+    startSearch: ''
+    figures: 'Page %current% of %pages%. Total Records: %total%'  
+    next: ''
+    prev: ''
