@@ -16,6 +16,25 @@ Busybee\SecurityBundle\Entity\Group:
             type: string
             length: 64
             unique: true
+        lastModified:
+            type: datetime
+            nullable: true
+        createdOn:
+            type: datetime
+            nullable: true
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+                    nullable: true
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id
+                    nullable: true
     manyToMany:
         roles:
             targetEntity: Busybee\SecurityBundle\Entity\Role

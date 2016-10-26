@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function registerAction(Request $request) {
     
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_REGISTRAR'))) return $response;
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
 		
         $userManager = $this->get('busybee_security.user_manager');
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
@@ -148,6 +148,7 @@ class UserController extends Controller
      */
     private function getGroupList()
     {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
         $groupRepo = $this->getDoctrine()
             ->getRepository('BusybeeSecurityBundle:Group');
 
@@ -164,7 +165,7 @@ class UserController extends Controller
      */
     public function confirmedAction()
     {
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_USER'))) return $response;
+		$this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page!');
 		
         $user = $this->getUser();
 
@@ -178,7 +179,7 @@ class UserController extends Controller
      */
     public function editAction($id, Request $request)
     {
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_USER'))) return $response;
+		$this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page!');
 		
 		$config = new \stdClass();
 		$config->signin = true ;
@@ -283,6 +284,7 @@ class UserController extends Controller
      */
     private function userRoleList() 
     { 
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
         $roleHierarchy = $this->get('security.role_hierarchy');
         $roleList = array();
         foreach($roleHierarchy->getHierarchy() as $role => $w)
@@ -461,7 +463,7 @@ class UserController extends Controller
      */
     public function createAction($personID) {
     
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_ADMIN'))) return $response;
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
 		$personRepo = $this->get('busybee_people.repository');
 		$person = $personRepo->find($personID);
         if (empty($person->getUser())) {
@@ -512,7 +514,7 @@ class UserController extends Controller
      */
     public function listAction(Request $request)
     {
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_REGISTRAR'))) return $response;
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
 		
 		$up = $this->get('user.pagination');
 		

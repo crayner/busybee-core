@@ -1,0 +1,3 @@
+busybee_person_homepage:
+    path:     /
+    defaults: { _controller: BusybeePersonBundle:Default:index }

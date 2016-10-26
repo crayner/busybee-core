@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Busybee\SystemBundle\SystemBundle(),
             new Busybee\FormBundle\BusybeeFormBundle(),
             new Busybee\PaginationBundle\PaginationBundle(),
+            new Busybee\PersonBundle\BusybeePersonBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

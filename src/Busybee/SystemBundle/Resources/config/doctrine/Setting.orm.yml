@@ -28,19 +28,26 @@ Busybee\SystemBundle\Entity\Setting:
             type: text
         lastModified:
             type: datetime
+            nullable: true 
         createdOn:
             type: datetime
+            nullable: true 
     manyToOne:
-        user:
+        createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
+            nullable: true
             joinColumns:
-                user_id:
+                createdBy:
+                    referencedColumnName: id
+                    
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            nullable: true
+            joinColumns:
+                modifiedBy:
                     referencedColumnName: id
         role:
             targetEntity: Busybee\SecurityBundle\Entity\Role
             joinColumns:
                 role_id:
                     referencedColumnName: id
-    lifecycleCallbacks:
-        prePersist: [ updateLastModified ]
-        preUpdate: [ updateLastModified ]

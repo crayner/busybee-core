@@ -1,7 +1,7 @@
 parameters:
     version:
-        system: 0.0.01
-        database: 0.0.01
+        system: 0.0.02
+        database: 0.0.02
 services:
     monolog.formatter.session_request:
         class: Monolog\Formatter\LineFormatter
@@ -19,7 +19,8 @@ services:
             - { name: monolog.logger, channel: busybee }
     doctrine.tblprefix_subscriber:
         class: Busybee\SystemBundle\Subscriber\TablePrefixSubscriber
-        arguments: ['%database_prefix%']
+        arguments: 
+            - '%database_prefix%'
         tags:
             - { name: doctrine.event_subscriber }    
     system.setting.repository:
@@ -29,14 +30,16 @@ services:
             - getRepository 
         arguments: 
             - "SystemBundle:Setting"
-    system.setting.manager:
-        class: Busybee\SystemBundle\Setting\SettingManager
-        arguments: 
-            - "@service_container"
     system.update.manager:
         class: Busybee\SystemBundle\Update\UpdateManager
         arguments: 
             - "@service_container"
     system.password.manager:
         class: Busybee\SystemBundle\Password\PasswordManager
-    
+    busybee.writeDoctrine.listener:
+        class: Busybee\SystemBundle\EventListener\WriteDoctrineListener
+        arguments: 
+            - "@service_container"
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }

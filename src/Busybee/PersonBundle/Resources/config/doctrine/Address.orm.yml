@@ -1,20 +1,35 @@
-# src\Busybee\SecurityBundle\Resources\config\doctrine\Failure.orm.yml
-Busybee\SecurityBundle\Entity\Failure:
+Busybee\PersonBundle\Entity\Address:
     type: entity
-    table: secure_failure
-    repositoryClass: Busybee\SecurityBundle\Entity\FailureRepository
+    table: address
+    repositoryClass: Busybee\PersonBundle\Repository\AddressRepository
     id:
         id:
             type: integer
+            id: true
             generator:
                 strategy: AUTO
     fields:
-        address:
+        line1:
             type: string
-            length: 16
-            unique: true
-        failures:
-            type: integer
+            length: '50'
+        line2:
+            type: string
+            length: '50'
+            nullable: true
+        locality:
+            type: string
+            length: '50'
+        territory:
+            type: string
+            length: '50'
+            nullable: true
+        postCode:
+            type: string
+            length: '12'
+            nullable: true
+        country:
+            type: string
+            length: '50'
         lastModified:
             type: datetime
             nullable: true

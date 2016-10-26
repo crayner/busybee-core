@@ -8,7 +8,9 @@
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-submenu>{{ 'menu.Site'|trans }}<span class="caret"></span></a>
 		<ul class="dropdown-menu">
 			{% include 'BusybeeSecurityBundle:Menu:security.html.twig' %}
+{% if is_granted('ROLE_ADMIN') %}
 			<li><a href="{{ path("update_start") }}">{{ 'menu.site.update'|trans }}</a></li> 
+{% endif %}
 		</ul>
 	</li>
 	<li class="dropdown">

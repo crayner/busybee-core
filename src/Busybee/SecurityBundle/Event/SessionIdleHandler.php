@@ -10,12 +10,12 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class SessionIdleHandler
 {
 
-    protected $session;
-    protected $securityToken;
-    protected $router;
-    protected $translator;
-    private 	$cookieNames;
-    protected $maxIdleTime;
+    protected	 $session;
+    protected 	$securityToken;
+    protected 	$router;
+    protected 	$translator;
+    private		$cookieNames;
+    protected 	$maxIdleTime;
 
     public function __construct(Container $container, TokenStorageInterface $securityToken, $maxIdleTime = 900)
     {

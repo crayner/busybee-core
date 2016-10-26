@@ -100,6 +100,11 @@ class User extends UserBase
     protected $directroles;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $lastModified;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -559,4 +564,114 @@ class User extends UserBase
 			$this->setUsernameCanonical($this->getEmailCanonical());
     }
 
+    /**
+     * Set lastModified
+     *
+     * @param \DateTime $lastModified
+     *
+     * @return Setting
+     */
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+
+        return $this;
+    }
+
+    /**
+     * Get lastModified
+     *
+     * @return \DateTime
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $createdOn;
+
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $createdBy;
+
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $modifiedBy;
+
+
+    /**
+     * Set createdOn
+     *
+     * @param \DateTime $createdOn
+     *
+     * @return User
+     */
+    public function setCreatedOn($createdOn)
+    {
+        $this->createdOn = $createdOn;
+
+        return $this;
+    }
+
+    /**
+     * Get createdOn
+     *
+     * @return \DateTime
+     */
+    public function getCreatedOn()
+    {
+        return $this->createdOn;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param \Busybee\SecurityBundle\Entity\User $createdBy
+     *
+     * @return User
+     */
+    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return \Busybee\SecurityBundle\Entity\User
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set modifiedBy
+     *
+     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     *
+     * @return User
+     */
+    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+    {
+        $this->modifiedBy = $modifiedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedBy
+     *
+     * @return \Busybee\SecurityBundle\Entity\User
+     */
+    public function getModifiedBy()
+    {
+        return $this->modifiedBy;
+    }
 }

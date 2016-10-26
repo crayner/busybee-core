@@ -1,0 +1,79 @@
+Busybee\PersonBundle\Entity\Person:
+    type: entity
+    table: person
+    repositoryClass: Busybee\PersonBundle\Repository\PersonRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: '5'
+            nullable: true
+        surname:
+            type: string
+            length: '50'
+        firstName:
+            type: string
+            length: '50'
+        preferredName:
+            type: string
+            length: '50'
+        officialName:
+            type: string
+            length: '150'
+        gender:
+            type: string
+            length: '1'
+        dob:
+            type: date
+            nullable: true
+        email:
+            type: string
+            length: '65'
+            nullable: true
+        email2:
+            type: string
+            length: '65'
+            nullable: true
+        photo:
+            type: blob
+            nullable: true
+        website:
+            type: string
+            length: '150'
+        lastModified:
+            type: datetime
+            nullable: true 
+        createdOn:
+            type: datetime
+            nullable: true 
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+                    nullable: true
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id
+                    nullable: true
+        address1:
+            targetEntity: Busybee\PersonBundle\Entity\Address
+            joinColumns:
+                address1_id:
+                    referencedColumnName: id
+                    nullable: true
+        address2:
+            targetEntity: Busybee\PersonBundle\Entity\Address
+            joinColumns:
+                address2_id:
+                    referencedColumnName: id
+                    nullable: true
+

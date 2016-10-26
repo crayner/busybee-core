@@ -1,11 +1,12 @@
 <?php
-namespace Busybee\SecurityBundle\Entity ;
 
-use \Doctrine\Common\Collections\ArrayCollection ;
+namespace Busybee\PersonBundle\Entity;
 
-class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
+/**
+ * Address
+ */
+class Address
 {
-
     /**
      * @var integer
      */
@@ -14,12 +15,32 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
     /**
      * @var string
      */
-    private $role;
+    private $line1;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var string
      */
-    private $childrenRoles;
+    private $line2;
+
+    /**
+     * @var string
+     */
+    private $locality;
+
+    /**
+     * @var string
+     */
+    private $territory;
+
+    /**
+     * @var string
+     */
+    private $postCode;
+
+    /**
+     * @var string
+     */
+    private $country;
 
     /**
      * @var \DateTime
@@ -41,19 +62,11 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
      */
     private $modifiedBy;
 
-    /**
-     * Constructor
-     */
-    public function __construct($role = null)
-    {
-        $this->childrenRoles = new \Doctrine\Common\Collections\ArrayCollection();
-		if ($role != null)
-			$this->setRole($role);
-	}
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -61,63 +74,147 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
     }
 
     /**
-     * Set role
+     * Set line1
      *
-     * @param string $role
-     * @return Role
+     * @param string $line1
+     *
+     * @return Address
      */
-    public function setRole($role)
+    public function setLine1($line1)
     {
-        
-		$role = strtoupper($role);
-		if (0 !== strpos($role, 'ROLE_'))
-			$role = 'ROLE_' . $role;
-		$this->role = $role;
+        $this->line1 = $line1;
 
         return $this;
     }
 
     /**
-     * Get role
+     * Get line1
      *
-     * @return string 
+     * @return string
      */
-    public function getRole()
+    public function getLine1()
     {
-        return $this->role;
+        return $this->line1;
     }
 
     /**
-     * Add childrenRoles
+     * Set line2
      *
-     * @param \Busybee\SecurityBundle\Entity\Role $childrenRoles
-     * @return Role
+     * @param string $line2
+     *
+     * @return Address
      */
-    public function addChildrenRole(\Busybee\SecurityBundle\Entity\Role $childrenRoles)
+    public function setLine2($line2)
     {
-        $this->childrenRoles[] = $childrenRoles;
+        $this->line2 = $line2;
 
         return $this;
     }
 
     /**
-     * Remove childrenRoles
+     * Get line2
      *
-     * @param \Busybee\SecurityBundle\Entity\Role $childrenRoles
+     * @return string
      */
-    public function removeChildrenRole(\Busybee\SecurityBundle\Entity\Role $childrenRoles)
+    public function getLine2()
     {
-        $this->childrenRoles->removeElement($childrenRoles);
+        return $this->line2;
     }
 
     /**
-     * Get childrenRoles
+     * Set locality
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @param string $locality
+     *
+     * @return Address
      */
-    public function getChildrenRoles()
+    public function setLocality($locality)
     {
-        return $this->childrenRoles;
+        $this->locality = $locality;
+
+        return $this;
+    }
+
+    /**
+     * Get locality
+     *
+     * @return string
+     */
+    public function getLocality()
+    {
+        return $this->locality;
+    }
+
+    /**
+     * Set territory
+     *
+     * @param string $territory
+     *
+     * @return Address
+     */
+    public function setTerritory($territory)
+    {
+        $this->territory = $territory;
+
+        return $this;
+    }
+
+    /**
+     * Get territory
+     *
+     * @return string
+     */
+    public function getTerritory()
+    {
+        return $this->territory;
+    }
+
+    /**
+     * Set postCode
+     *
+     * @param string $postCode
+     *
+     * @return Address
+     */
+    public function setPostCode($postCode)
+    {
+        $this->postCode = $postCode;
+
+        return $this;
+    }
+
+    /**
+     * Get postCode
+     *
+     * @return string
+     */
+    public function getPostCode()
+    {
+        return $this->postCode;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     *
+     * @return Address
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 
     /**
@@ -125,7 +222,7 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
      *
      * @param \DateTime $lastModified
      *
-     * @return Role
+     * @return Address
      */
     public function setLastModified($lastModified)
     {
@@ -149,7 +246,7 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
      *
      * @param \DateTime $createdOn
      *
-     * @return Role
+     * @return Address
      */
     public function setCreatedOn($createdOn)
     {
@@ -173,7 +270,7 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Role
+     * @return Address
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -197,7 +294,7 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Role
+     * @return Address
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {

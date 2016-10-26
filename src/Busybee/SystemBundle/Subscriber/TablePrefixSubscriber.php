@@ -2,6 +2,9 @@
 namespace Busybee\SystemBundle\Subscriber;
 
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+use Doctrine\DBAL\Logging\DebugStack;
+use Doctrine\ORM\EntityManager;
+
 
 class TablePrefixSubscriber implements \Doctrine\Common\EventSubscriber
 {
@@ -10,6 +13,7 @@ class TablePrefixSubscriber implements \Doctrine\Common\EventSubscriber
     public function __construct($prefix)
     {
         $this->prefix = (string) $prefix;
+		$logger = new DebugStack();
     }
 
     public function getSubscribedEvents()

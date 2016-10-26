@@ -175,4 +175,62 @@ class Failure
 			$this->setCreatedOn(new \DateTime('now')); 
 		$this->setLastModified(new \DateTime('now'));
     }
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $createdBy;
+
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $modifiedBy;
+
+
+    /**
+     * Set createdBy
+     *
+     * @param \Busybee\SecurityBundle\Entity\User $createdBy
+     *
+     * @return Failure
+     */
+    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return \Busybee\SecurityBundle\Entity\User
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set modifiedBy
+     *
+     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     *
+     * @return Failure
+     */
+    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+    {
+        $this->modifiedBy = $modifiedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedBy
+     *
+     * @return \Busybee\SecurityBundle\Entity\User
+     */
+    public function getModifiedBy()
+    {
+        return $this->modifiedBy;
+    }
 }

@@ -74,6 +74,25 @@ Busybee\SecurityBundle\Entity\User:
             column: credentials_expire_at
             type: datetime
             nullable: true
+        lastModified:
+            type: datetime
+            nullable: true
+        createdOn:
+            type: datetime
+            nullable: true
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+                    nullable: true
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id
+                    nullable: true
     manyToMany:
         groups:
             targetEntity: Busybee\SecurityBundle\Entity\Group
@@ -97,7 +116,4 @@ Busybee\SecurityBundle\Entity\User:
                 inverseJoinColumns:
                     role_id:
                         referencedColumnName: id
-    lifecycleCallbacks:
-        prePersist: [ checkUsername ]
-        preUpdate: [ checkUsername ]
 

@@ -1,0 +1,4 @@
+services:
+#    busybee_person.example:
+#        class: Busybee\PersonBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

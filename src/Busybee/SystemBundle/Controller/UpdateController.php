@@ -35,8 +35,7 @@ class UpdateController extends Controller
 		$config->version = $um->getVersion();
 		$config->dbUpdate = $um->getUpdateDetails();
 		$content = $this->renderView('SystemBundle:Update:index_content.html.twig', array('config' => $config));
-dump($config);
-dump($content);
+
 		return new JsonResponse(
 			array('content' => $content),
 			200
