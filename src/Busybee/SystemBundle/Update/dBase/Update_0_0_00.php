@@ -69,6 +69,14 @@ Class Update_0_0_00 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('boolean');
+		$entity->setValue(true);
+		$entity->setName('Installed');
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+
+		$this->sm->saveSetting($entity);
+		
 		return true ;
 	}
 	

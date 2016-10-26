@@ -59,7 +59,7 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        default_connection: install
+        default_connection: normal
         connections:
             normal: 
                 driver:    pdo_mysql
@@ -74,10 +74,6 @@ doctrine:
                     collate: utf8mb4_unicode_ci 
                 mapping_types:
                     enum: string 
-            install:
-                driver:  pdo_sqlite
-                memory:  true
-                charset: utf8mb4
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -91,8 +87,6 @@ doctrine:
             default:
                 connection: normal
                 auto_mapping: true 
-            dynamic:
-                connection: normal  
 
 
 # Swiftmailer Configuration

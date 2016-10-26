@@ -16,10 +16,9 @@ class DefaultController extends Controller
 		$config = new \stdClass();
 		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 
-        $em = $this->get('doctrine')->getManager();
-		$x = $em->getConnection()->getParams();
-		if ($x['driver'] == 'pdo_sqlite')
-			return new RedirectResponse($this->generateUrl('install_start'));
+        $setting = $this->get('doctrine')->getRepository('SystemBundle:Setting');
+		if (! $setting->getSetting('Installed', false))
+			return new RedirectResponse($this->generateUrl('busybee_install'));
 			
 		$user = $this->getUser();
 		if (! is_null($user)) 

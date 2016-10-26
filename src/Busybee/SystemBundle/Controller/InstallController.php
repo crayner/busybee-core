@@ -342,7 +342,7 @@ class InstallController extends Controller
 	public function buildAction(Request $request)
 	{
 		$em = $this->get('doctrine')->getManager('default');
-		$x = $this->get('doctrine')->getManager('dynamic');
+		$x = $this->get('doctrine')->getManager('default');
     	$newEm = EntityManager::create($x->getConnection(), $em->getConfiguration());
 		$meta = $em->getMetadataFactory()->getAllMetadata();	
 
@@ -486,15 +486,7 @@ class InstallController extends Controller
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
-		
-		
-		$w = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/config.yml'));
-
-		$w['doctrine']['orm']['entity_managers']['default']['connection'] = 'normal';
-		$w['doctrine']['orm']['entity_managers']['dynamic']['connection'] = 'install';
-		
-		file_put_contents($this->get('kernel')->getRootDir().'/config/config.yml', Yaml::dump($w));
-		
+	
 		$w = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
 
 		unset($w['parameters']['user']);
@@ -502,6 +494,12 @@ class InstallController extends Controller
 		file_put_contents($this->get('kernel')->getRootDir().'/config/parameters.yml', Yaml::dump($w));
 		
 		$this->get('session')->getFlashBag()->add('success', 'buildDatabase.success');
+
+		$um = $this->get('system.update.manager');
+	
+		$um->build();
+		$um->getVersion();
+		$um->getUpdateDetails();
 
 		return new RedirectResponse($this->generateUrl('home_page'));
 	}

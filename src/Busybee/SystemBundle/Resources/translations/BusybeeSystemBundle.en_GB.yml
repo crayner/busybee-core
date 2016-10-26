@@ -152,3 +152,4 @@ user:
     list:
         title: User List
         description: List of users configured on the site. 
+updateDatabase.success: 'Updated from version %version%'

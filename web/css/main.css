@@ -82,3 +82,9 @@ p {
 .row-striped > [class*='col-'] {
 	display: block ;
 }
+.busybee-panel {
+	background-color: transparent ;
+}
+.panel-title {
+	font-weight: bold;
+	font-size: 24px;

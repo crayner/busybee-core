@@ -148,6 +148,7 @@ class UpdateManager
 			{
 				$x = new $v($this->sm, $em);
 				$x->build();
+				$this->container->get('session')->getFlashBag()->add('success', $this->container->get('translator')->trans('updateDatabase.success', array('%version%' => $sysVersion), 'BusybeeSystemBundle' ));
 			}
 			$sysVersion = $this->incrementVersion($sysVersion);
 		}
@@ -157,5 +158,6 @@ class UpdateManager
  
 		$this->version->current['system'] = $this->sm->getSetting('version.system', $this->version->shouldBe['system']);
 		$this->version->current['database'] = $this->sm->getSetting('version.database', $this->version->shouldBe['database']);
+
 	}
 }
