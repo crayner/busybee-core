@@ -1,3 +1,6 @@
-busybee_person_homepage:
-    path:     /
-    defaults: { _controller: BusybeePersonBundle:Default:index }
+staff_person:
+    path:     /staff/
+    defaults: { _controller: BusybeePersonBundle:Staff:index }
+staff_edit:
+    path:     /staff/edit/{id}
+    defaults: { _controller: BusybeePersonBundle:Staff:edit }

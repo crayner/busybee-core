@@ -104,6 +104,16 @@ abstract class PaginationManager
 	private $control = array();
 
 	/**
+	 * @var array
+	 */
+	private $join = array();
+
+	/**
+	 * @var array
+	 */
+	private $select = array();
+
+	/**
 	 * Constructor
 	 *
 	 * @version	25th October 2016
@@ -343,28 +353,6 @@ abstract class PaginationManager
 			}
 		}
 		return $this ;
-	}
-
-	/**
-	 * build Query
-	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
-	 * @param	boolean		$count
-	 * @return	query
-	 */
-	public function buildQuery($count = false)
-	{
-		$this->initiateQuery($count);
-		if ($count) 
-			$this
-				->setSearchWhere();
-		else
-			$this
-				->setOrderBy()
-				->setSearchWhere();
-		
-		return $this->query ;
 	}
 
 	/**
@@ -681,5 +669,64 @@ abstract class PaginationManager
 	{
 		$this->lastLimit = intval($this->lastLimit) < 10 ? 10 : intval($this->lastLimit);
 		return $this->lastLimit ;
+	}
+	
+	/**
+	 * set Join
+	 *
+	 * @version	27th October 2016
+	 * @since	27th October 2016
+	 * @return	this
+	 */
+	public function setJoin($join)
+	{
+		$this->join = $join;
+		return $this ;
+	}
+	
+	/**
+	 * set Select
+	 *
+	 * @version	27th October 2016
+	 * @since	27th October 2016
+	 * @return	this
+	 */
+	public function setSelect($select)
+	{
+		$this->select = $select;
+		return $this ;
+	}
+	
+	/**
+	 * set Join
+	 *
+	 * @version	27th October 2016
+	 * @since	27th October 2016
+	 * @return	this
+	 */
+	public function setQueryJoin()
+	{
+		if (! is_array($this->join)) return $this ;
+		foreach ($this->join as $name=>$pars)
+		{
+			$type = empty($pars['type']) ? 'join' : $pars['type'] ;
+			$this->query->$type($name, $pars['alias']);
+		}
+		return $this ;
+	}
+	
+	/**
+	 * set Select
+	 *
+	 * @version	27th October 2016
+	 * @since	27th October 2016
+	 * @return	this
+	 */
+	public function setQuerySelect()
+	{
+		if (! is_array($this->select)) return $this ;
+		foreach ($this->select as $name)
+			$this->query->addSelect($name);
+		return $this ;
 	}
 }

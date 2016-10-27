@@ -13,7 +13,3 @@ busybee_person:
 busybee_system:
     resource: "@SystemBundle/Resources/config/routing.yml"
     prefix:   /system/
-
-busybee_install:
-    path:     /install/
-    defaults: { _controller: SystemBundle:Install:index }

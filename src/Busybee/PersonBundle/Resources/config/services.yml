@@ -1,4 +1,43 @@
+parameters:
+    staffPagination:
+        sortBy:
+            Family Name: 
+                p.surname: ASC
+                p.firstName: ASC
+            Given Name: 
+                p.firstName: ASC
+                p.surname: ASC
+            Email: 
+                p.email: ASC
+                p.surname: ASC
+                p.firstName: ASC
+        limit: '10'
+        searchList:
+            - p.surname
+            - p.firstName
+            - p.email
+        join:
+            a.person:
+                alias: p
+                type: leftJoin
+        select:
+            - p.surname
+            - p.firstName
+            - a.id
+            - p.email
+            
+
 services:
-#    busybee_person.example:
-#        class: Busybee\PersonBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    staff.repository:
+        class: Busybee\PersonBundle\Entity\Repository\StaffRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeePersonBundle:Staff"
+    staff.pagination:
+        class: Busybee\PersonBundle\Model\StaffPagination
+        arguments: 
+            - '%staffPagination%'
+            - '@staff.repository'
+            - '@service_container'

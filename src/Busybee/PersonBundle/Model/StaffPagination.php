@@ -1,9 +1,9 @@
 <?php
-namespace Busybee\SecurityBundle\Model;
+namespace Busybee\PersonBundle\Model;
 
 use Busybee\PaginationBundle\Model\PaginationManager ;
 
-class UserPagination extends PaginationManager
+class StaffPagination extends PaginationManager
 {
 
 	/**

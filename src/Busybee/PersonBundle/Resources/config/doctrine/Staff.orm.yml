@@ -1,7 +1,7 @@
-Busybee\PersonBundle\Entity\Address:
+Busybee\PersonBundle\Entity\Staff:
     type: entity
-    table: person_address
-    repositoryClass: Busybee\PersonBundle\Repository\AddressRepository
+    table: person_staff
+    repositoryClass: Busybee\PersonBundle\Repository\StaffRepository
     id:
         id:
             type: integer
@@ -9,33 +9,12 @@ Busybee\PersonBundle\Entity\Address:
             generator:
                 strategy: AUTO
     fields:
-        line1:
-            type: string
-            length: '50'
-        line2:
-            type: string
-            length: '50'
-            nullable: true
-        locality:
-            type: string
-            length: '50'
-        territory:
-            type: string
-            length: '50'
-            nullable: true
-        postCode:
-            type: string
-            length: '12'
-            nullable: true
-        country:
-            type: string
-            length: '50'
         lastModified:
             type: datetime
-            nullable: true
+            nullable: true 
         createdOn:
             type: datetime
-            nullable: true
+            nullable: true 
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
@@ -49,3 +28,11 @@ Busybee\PersonBundle\Entity\Address:
                 modified_by:
                     referencedColumnName: id
                     nullable: true
+    oneToOne:
+        person:
+            targetEntity: Busybee\PersonBundle\Entity\Person
+            joinColumn:
+                name: person_id
+                referencedColumn: id
+                
+            

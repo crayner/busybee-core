@@ -1,0 +1,10 @@
+person:
+    staff:
+        title: Staff Management
+        description: Select and manage staff
+        familyName: Family Name
+        givenName: Given Name
+        email: Email
+        edit: Edit Staff Member
+        add: Add Staff Member
+    actions: Actions

@@ -1,6 +1,6 @@
 Busybee\PersonBundle\Entity\Person:
     type: entity
-    table: person
+    table: person_person
     repositoryClass: Busybee\PersonBundle\Repository\PersonRepository
     id:
         id:

@@ -59,9 +59,11 @@ menu:
         manage: Manage Family       
     people:
         manage: Manage Person
+        staff: Staff
     Site: System
     Misc: Miscellaneous
     templateDesign: Template Design 
+    Person: People
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security
