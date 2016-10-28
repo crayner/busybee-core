@@ -1,0 +1,35 @@
+{# src/Busybee/PersonBundle/Resources/views/Locality/edit.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+
+<div class="container-fluid">
+	<div class='row'>
+		<div class='col-sm-12 well'>
+			{{ form_row(form.localityList) }}
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-sm-6 well'>
+			{{ form_row(form.locality) }}
+		</div>
+		<div class='col-sm-6 well'>
+			{{ form_row(form.territory) }}
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-sm-4 well'>
+			{{ form_row(form.postCode) }}
+		</div>
+		<div class='col-sm-6 well'>
+			{{ form_row(form.country) }}
+		</div>
+		<div class='col-sm-2 well'>
+			<div class='form-widget text-right'>
+				{{ form_widget(form.save) }}
+			</div>
+		</div>
+	</div>
+</div>

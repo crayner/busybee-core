@@ -15,6 +15,10 @@ Busybee\SecurityBundle\Entity\User:
     indexes:
         username:
             columns: [ username ] 
+    properties:
+        email:
+            - Email: ~
+            - NotBlank: ~
     id:
         id:
             type: integer

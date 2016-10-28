@@ -1,6 +1,7 @@
 {% extends 'bootstrap_3_layout.html.twig' %}
 
 {% block form_label -%}
+	{% if 'image' in block_prefixes and data is not null %}<img src="data:image/jpeg;base64,'.base64_encode($image->load()) .'" style="float: right"/>{% endif %}
     {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
     {{- parent() -}}
 	{% for attrname,attrvalue in attr %}
@@ -9,8 +10,6 @@
 		{% endif %}
 	{% endfor %}
 {%- endblock form_label %}
-
-
 
 {% block form_errors -%}
     {% if errors|length > 0 -%}
@@ -23,17 +22,6 @@
     {% if form.parent %}</span>{% else %}</div>{% endif %}
     {%- endif %}
 {%- endblock form_errors %}
-
-{% block _yesno_widget -%}
-    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
-    {% if 'checkbox-inline' in parent_label_class %}
-        {{- form_label(form, null, { widget: parent() }) -}}
-    {% else -%}
-        <div class="checkbox">
-            {{- form_label(form, null, { widget: parent() }) -}}
-        </div> 
-    {%- endif %}
-{%- endblock _yesno_widget %}
 
 {% block yesno_widget -%}
 	<div class="yesno-right">

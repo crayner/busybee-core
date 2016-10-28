@@ -3,9 +3,9 @@
 namespace Busybee\PersonBundle\Entity;
 
 /**
- * Address
+ * Locality
  */
-class Address
+class Locality
 {
     /**
      * @var integer
@@ -15,12 +15,22 @@ class Address
     /**
      * @var string
      */
-    private $line1;
+    private $locality;
 
     /**
      * @var string
      */
-    private $line2;
+    private $territory;
+
+    /**
+     * @var string
+     */
+    private $postCode;
+
+    /**
+     * @var string
+     */
+    private $country;
 
     /**
      * @var \DateTime
@@ -42,11 +52,6 @@ class Address
      */
     private $modifiedBy;
 
-    /**
-     * @var \Busybee\PersonBundle\Entity\Locality
-     */
-    private $locality;
-
 
     /**
      * Get id
@@ -59,51 +64,99 @@ class Address
     }
 
     /**
-     * Set line1
+     * Set locality
      *
-     * @param string $line1
+     * @param string $locality
      *
-     * @return Address
+     * @return Locality
      */
-    public function setLine1($line1)
+    public function setLocality($locality)
     {
-        $this->line1 = $line1;
+        $this->locality = $locality;
 
         return $this;
     }
 
     /**
-     * Get line1
+     * Get locality
      *
      * @return string
      */
-    public function getLine1()
+    public function getLocality()
     {
-        return $this->line1;
+        return $this->locality;
     }
 
     /**
-     * Set line2
+     * Set territory
      *
-     * @param string $line2
+     * @param string $territory
      *
-     * @return Address
+     * @return Locality
      */
-    public function setLine2($line2)
+    public function setTerritory($territory)
     {
-        $this->line2 = $line2;
+        $this->territory = $territory;
 
         return $this;
     }
 
     /**
-     * Get line2
+     * Get territory
      *
      * @return string
      */
-    public function getLine2()
+    public function getTerritory()
     {
-        return $this->line2;
+        return $this->territory;
+    }
+
+    /**
+     * Set postCode
+     *
+     * @param string $postCode
+     *
+     * @return Locality
+     */
+    public function setPostCode($postCode)
+    {
+        $this->postCode = $postCode;
+
+        return $this;
+    }
+
+    /**
+     * Get postCode
+     *
+     * @return string
+     */
+    public function getPostCode()
+    {
+        return $this->postCode;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     *
+     * @return Locality
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 
     /**
@@ -111,7 +164,7 @@ class Address
      *
      * @param \DateTime $lastModified
      *
-     * @return Address
+     * @return Locality
      */
     public function setLastModified($lastModified)
     {
@@ -135,7 +188,7 @@ class Address
      *
      * @param \DateTime $createdOn
      *
-     * @return Address
+     * @return Locality
      */
     public function setCreatedOn($createdOn)
     {
@@ -159,7 +212,7 @@ class Address
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Address
+     * @return Locality
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -183,7 +236,7 @@ class Address
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Address
+     * @return Locality
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -201,28 +254,5 @@ class Address
     {
         return $this->modifiedBy;
     }
-
-    /**
-     * Set locality
-     *
-     * @param \Busybee\PersonBundle\Entity\Locality $locality
-     *
-     * @return Address
-     */
-    public function setLocality(\Busybee\PersonBundle\Entity\Locality $locality = null)
-    {
-        $this->locality = $locality;
-
-        return $this;
-    }
-
-    /**
-     * Get locality
-     *
-     * @return \Busybee\PersonBundle\Entity\Locality
-     */
-    public function getLocality()
-    {
-        return $this->locality;
-    }
 }
+

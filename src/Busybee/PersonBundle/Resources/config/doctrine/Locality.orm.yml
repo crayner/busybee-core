@@ -1,7 +1,12 @@
-Busybee\PersonBundle\Entity\Address:
+Busybee\PersonBundle\Entity\Locality:
     type: entity
-    table: person_address
-    repositoryClass: Busybee\PersonBundle\Repository\AddressRepository
+    table: person_address_locality
+    repositoryClass: Busybee\PersonBundle\Repository\LocalityRepository
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [locality,territory,postCode,country]
+            errorPath: locaity
+            message: 'The locality must be unique'
     id:
         id:
             type: integer
@@ -9,13 +14,20 @@ Busybee\PersonBundle\Entity\Address:
             generator:
                 strategy: AUTO
     fields:
-        line1:
+        locality:
             type: string
             length: '50'
-        line2:
+        territory:
             type: string
             length: '50'
             nullable: true
+        postCode:
+            type: string
+            length: '12'
+            nullable: true
+        country:
+            type: string
+            length: '6'
         lastModified:
             type: datetime
             nullable: true
@@ -33,11 +45,5 @@ Busybee\PersonBundle\Entity\Address:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 modified_by:
-                    referencedColumnName: id
-                    nullable: true
-        locality:
-            targetEntity: Busybee\PersonBundle\Entity\Locality
-            joinColumns:
-                locality_id:
                     referencedColumnName: id
                     nullable: true

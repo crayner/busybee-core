@@ -73,11 +73,12 @@ class UserController extends Controller
 					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
-						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
-						'onClick'				=> 'location.href=\''.$this->generateUrl('busybee_security_user_list')."'",
+						'class' 				=> 'btn btn-info glyphicons glyphicons-remove-circle',
+						'onClick'				=> 'location.href=\''.$this->generateUrl('staff_person')."'",
 					),
 				)
-			);
+			)
+			;
 
         $form->setData($user);
 

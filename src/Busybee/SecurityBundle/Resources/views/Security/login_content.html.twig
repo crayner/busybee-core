@@ -21,10 +21,10 @@
 					<input type="password" id="password" name="_password" required class="form-control" />
 				</div>
 			</div>
-			<div class="well col-sm-12 text-right">
+			<div class="well col-sm-6 col-sm-offset-6 text-right">
 				<div class="form-group">
-					<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-success glyphicons glyphicons-pen" />
-					<button type="button" class="btn btn-info" onclick="location.href='{{ path("busybee_security_resetting_request") }}'">{{ 'security.login.forgot'|trans }}</button>
+					<button type="submit" id="_submit" name="_submit" class="btn btn-success glyphicons glyphicons-pen" >{{ 'security.login.submit'|trans }}</button>
+					<button type="button" class="btn btn-info glyphicons glyphicons-restart" onclick="location.href='{{ path("busybee_security_resetting_request") }}'">{{ 'security.login.forgot'|trans }}</button>
 				</div>
 			</div>
 		</div>

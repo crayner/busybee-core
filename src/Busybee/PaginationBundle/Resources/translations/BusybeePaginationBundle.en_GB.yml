@@ -11,3 +11,5 @@ pagination:
     figures: 'Page %current% of %pages%. Total Records: %total%'  
     next: ''
     prev: ''
+Family Name: Family Name
+Given Name: Given Name

@@ -1,0 +1,46 @@
+{# src/Busybee/PersonBundle/Resources/views/Staff/edit.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+{% block title %}{{ parent() }}{% if id == 'Add' %}{{ 'person.staff.add.title'|trans }}{% else %}{{ 'person.staff.edit.title'|trans }}{% endif %}{% endblock title %}
+{% block headerTitle %}{% if id == 'Add' %}{{ 'person.staff.add.title'|trans }}{% else %}{{ 'person.staff.edit.title'|trans }}{% endif %}{% endblock headerTitle %}
+{% block headerLead %}{% if id == 'Add' %}{{ 'person.staff.add.description'|trans }}{% else %}{{ 'person.staff.edit.description'|trans }}{% endif %}{% endblock headerLead %}
+
+{% block contentContainer %}
+{{ form_start(form) }}
+<div id="personTabs">
+	<ul class="nav nav-tabs" role="tablist">
+		<li><a href="#person" role="tab" data-toggle="tab">{{ 'person.tab.person'|trans }}</a></li>
+		<li><a href="#address1" role="tab" data-toggle="tab">{{ 'person.tab.address1'|trans }}</a></li>
+		<li><a href="#address2" role="tab" data-toggle="tab">{{ 'person.tab.address2'|trans }}</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="person" >
+			{{ include('BusybeePersonBundle:Form:person.html.twig', {'form': form.person}) }}
+		</div>
+		<div class="tab-pane" id="address1" >
+			{{ include('BusybeePersonBundle:Form:personaddress.html.twig', {'form': form.address1}) }}
+			{% do form.address1.setRendered %}
+		</div>
+		<div class="tab-pane" id="address2" >
+			{{ include('BusybeePersonBundle:Form:personaddress.html.twig', {'form': form.address2}) }}
+			{% do form.address2.setRendered %}
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-6 well">
+			<div class="form-group text-right">
+				{{ form_widget(form.save) }}
+				{{ form_widget(form.cancel) }}
+			</div>
+		</div>
+	</div>
+</div>
+{{ form_end(form) }}
+{% endblock contentContainer %}

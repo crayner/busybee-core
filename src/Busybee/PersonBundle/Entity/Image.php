@@ -3,9 +3,9 @@
 namespace Busybee\PersonBundle\Entity;
 
 /**
- * Address
+ * Image
  */
-class Address
+class Image
 {
     /**
      * @var integer
@@ -15,12 +15,22 @@ class Address
     /**
      * @var string
      */
-    private $line1;
+    private $type;
 
     /**
      * @var string
      */
-    private $line2;
+    private $image;
+
+    /**
+     * @var string
+     */
+    private $size;
+
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
      * @var \DateTime
@@ -42,11 +52,6 @@ class Address
      */
     private $modifiedBy;
 
-    /**
-     * @var \Busybee\PersonBundle\Entity\Locality
-     */
-    private $locality;
-
 
     /**
      * Get id
@@ -59,51 +64,99 @@ class Address
     }
 
     /**
-     * Set line1
+     * Set type
      *
-     * @param string $line1
+     * @param string $type
      *
-     * @return Address
+     * @return Image
      */
-    public function setLine1($line1)
+    public function setType($type)
     {
-        $this->line1 = $line1;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Get line1
+     * Get type
      *
      * @return string
      */
-    public function getLine1()
+    public function getType()
     {
-        return $this->line1;
+        return $this->type;
     }
 
     /**
-     * Set line2
+     * Set image
      *
-     * @param string $line2
+     * @param string $image
      *
-     * @return Address
+     * @return Image
      */
-    public function setLine2($line2)
+    public function setImage($image)
     {
-        $this->line2 = $line2;
+        $this->image = $image;
 
         return $this;
     }
 
     /**
-     * Get line2
+     * Get image
      *
      * @return string
      */
-    public function getLine2()
+    public function getImage()
     {
-        return $this->line2;
+        return $this->image;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     *
+     * @return Image
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Image
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -111,7 +164,7 @@ class Address
      *
      * @param \DateTime $lastModified
      *
-     * @return Address
+     * @return Image
      */
     public function setLastModified($lastModified)
     {
@@ -135,7 +188,7 @@ class Address
      *
      * @param \DateTime $createdOn
      *
-     * @return Address
+     * @return Image
      */
     public function setCreatedOn($createdOn)
     {
@@ -159,7 +212,7 @@ class Address
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Address
+     * @return Image
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -183,7 +236,7 @@ class Address
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Address
+     * @return Image
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -200,29 +253,5 @@ class Address
     public function getModifiedBy()
     {
         return $this->modifiedBy;
-    }
-
-    /**
-     * Set locality
-     *
-     * @param \Busybee\PersonBundle\Entity\Locality $locality
-     *
-     * @return Address
-     */
-    public function setLocality(\Busybee\PersonBundle\Entity\Locality $locality = null)
-    {
-        $this->locality = $locality;
-
-        return $this;
-    }
-
-    /**
-     * Get locality
-     *
-     * @return \Busybee\PersonBundle\Entity\Locality
-     */
-    public function getLocality()
-    {
-        return $this->locality;
     }
 }

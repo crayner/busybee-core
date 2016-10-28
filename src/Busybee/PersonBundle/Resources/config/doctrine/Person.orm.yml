@@ -39,9 +39,6 @@ Busybee\PersonBundle\Entity\Person:
             type: string
             length: '65'
             nullable: true
-        photo:
-            type: blob
-            nullable: true
         website:
             type: string
             length: '150'
@@ -76,4 +73,20 @@ Busybee\PersonBundle\Entity\Person:
                 address2_id:
                     referencedColumnName: id
                     nullable: true
-
+    oneToOne:
+        photo:
+            targetEntity: Busybee\PersonBundle\Entity\Image
+            joinColumns:
+                address2_id:
+                    referencedColumnName: id
+                    nullable: true
+    properties:
+        email:
+            - Email: ~
+        email2:
+            - Email: ~
+        website:
+            - Url: ~
+        gender:
+            - Choice: 
+                choices: { callback: getGenders }

@@ -1,5 +1,6 @@
 parameters:
     staffPagination:
+        alias: s
         sortBy:
             Family Name: 
                 p.surname: ASC
@@ -17,17 +18,47 @@ parameters:
             - p.firstName
             - p.email
         join:
-            a.person:
+            s.person:
                 alias: p
                 type: leftJoin
         select:
             - p.surname
             - p.firstName
-            - a.id
+            - s.id
             - p.email
-            
+    personPagination:
+        alias: p
+        sortBy:
+            Family Name: 
+                p.surname: ASC
+                p.firstName: ASC
+            Given Name: 
+                p.firstName: ASC
+                p.surname: ASC
+            Email: 
+                p.email: ASC
+                p.surname: ASC
+                p.firstName: ASC
+        limit: '10'
+        searchList:
+            - p.surnameaddress.formType
+            - p.firstName
+            - p.email
 
 services:
+    person.repository:
+        class: Busybee\PersonBundle\Entity\Repository\PersonRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeePersonBundle:Person"
+    person.pagination:
+        class: Busybee\PersonBundle\Model\PersonPagination
+        arguments: 
+            - '%personPagination%'
+            - '@person.repository'
+            - '@service_container'
     staff.repository:
         class: Busybee\PersonBundle\Entity\Repository\StaffRepository
         factory: 
@@ -41,3 +72,15 @@ services:
             - '%staffPagination%'
             - '@staff.repository'
             - '@service_container'
+    address.manager:
+        class: Busybee\PersonBundle\Model\AddressManager
+        arguments:
+            - '@translator'
+    locality.repository:
+        class: Busybee\PersonBundle\Entity\Repository\LocalityRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeePersonBundle:Locality"
+   

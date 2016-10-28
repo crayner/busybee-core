@@ -2,9 +2,67 @@ person:
     staff:
         title: Staff Management
         description: Select and manage staff
-        familyName: Family Name
-        givenName: Given Name
-        email: Email
-        edit: Edit Staff Member
-        add: Add Staff Member
+        edit: 
+            title: Edit Staff Member
+            description: ''
+        add:
+            title: Add Staff Member
+            description: ''
+        type:
+            label: Type of Staff
     actions: Actions
+    dob:
+        label: Date of Birth
+    people:
+        title: Manage People
+        description: Add, modify and manage people data.
+    familyName: Family Name
+    givenName: Given Name
+    email: Email
+    label:
+        surname: Family Name
+        firstName: Given Name
+        preferredName: Preferred Name
+        officialName: Official Name
+        email: Email
+        email2: Alternate Email
+        photo: Head Shot
+        gender: Gender
+        website: Personal Web Site
+    help:
+        officialName: This is the name recorded on official documents. e.g. birth certificates and passports.
+        photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 
+    tab:
+        person: Person
+        address1: Address
+        address2: Alt Address
+    add:
+        title: Add Person
+        description: ''
+    edit: 
+        title: Edit Personarray()
+        description: ''
+address:
+    label:
+        line1: Address Line 1
+        line2: Address Line 2
+        test: Test
+    help:
+        line1: Unit/Street Number Street Name Street Type
+        line2: Additional Address information.
+    test:
+        empty: Address is not valid.  It is empty.
+locality:
+    help:
+        choice: Select a locality or add a new locality below.
+    placeholder:
+        choice: Select Locality (Clear Data)
+    label:
+        choice: Choose Existing Locality
+        locality: Town, Suburb or City
+        postcode: Post Code
+        country: Country
+        territory: State, Province ot Territory
+    edit:
+        failure: The locality was not saved.
+        success:  The locality saved successfully.

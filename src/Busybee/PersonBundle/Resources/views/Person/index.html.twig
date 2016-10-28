@@ -1,12 +1,12 @@
-{# src/Busybee/PersonBundle/Resources/views/Staff/index.html.twig #}
+{# src/Busybee/PersonBundle/Resources/views/Person/index.html.twig #}
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
-{% block title %}{{ parent() }}{{ 'person.staff.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'person.staff.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'person.staff.description'|trans }}{% endblock headerLead %}
+{% block title %}{{ parent() }}{{ 'person.people.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'person.people.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'person.people.description'|trans }}{% endblock headerLead %}
 
 
 
@@ -36,22 +36,22 @@
 				{% endif %}
 			</div>
 			<div class="col-sm-3 col-md-3 withAdd">
-				<button title='{{ 'person.staff.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('staff_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'person.actions'|trans }} 
+				<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'person.actions'|trans }} 
 			</div>
 		</div>
-	{% for staff in pagination.getResult %}
+	{% for person in pagination.getResult %}
 		<div class="row row-striped">
 			<div class="col-sm-2 col-md-2 form-inline">
-				{{ staff.surname }}
+				{{ person.surname }}
 			</div>
 			<div class="col-sm-2 col-md-2 form-inline">
-				{{ staff.firstName }}
+				{{ person.firstName }}
 			</div>
 			<div class="col-sm-5 hidden-sm hidden-xs form-inline">
-				{{ staff.email }}
+				{{ person.email }}
 			</div>
 			<div class="col-sm-3 col-md-3 form-inline">
-				<button title='{{ 'person.staff.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('staff_edit', {'id': staff.id}) }}','_self')"></button>
+				<button title='{{ 'person.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('person_edit', {'id': person.id}) }}','_self')"></button>
 			</div>
 		</div>
 	{% endfor %}

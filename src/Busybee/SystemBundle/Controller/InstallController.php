@@ -15,7 +15,7 @@ use Doctrine\ORM\Tools\SchemaTool ;
 use Busybee\SecurityBundle\Entity\User ;
 use Busybee\SecurityBundle\Entity\Role ;
 use Busybee\SecurityBundle\Entity\Group ;
-
+use Symfony\Component\Intl\Intl;
 
 class InstallController extends Controller
 {
@@ -260,6 +260,7 @@ class InstallController extends Controller
 			$config->proceed = false ;
 		if ($config->misc->signin_count_minimum < 3 || $config->misc->signin_count_minimum > 10)
 			$config->misc->signin_count_minimum = 3 ;
+		$config->countryList = Intl::getRegionBundle()->getCountryNames();
 //die();
         return $this->render('SystemBundle:Install:misc.html.twig', array('config' => $config));
  	}

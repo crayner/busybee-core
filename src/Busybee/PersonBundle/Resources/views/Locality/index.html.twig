@@ -1,0 +1,70 @@
+{# src/Busybee/PersonBundle/Resources/views/Locality/index.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'person.locality.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'person.locality.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'person.locality.description'|trans }}{% endblock headerLead %}
+
+
+
+{% block contentContainer %}
+{{ form_start(form, {'action': path('locality_edit', {'id': id}), 'method': 'POST'}) }}
+	<div class="container-fluid">
+		<div class='row' id="localityMessage" style="display: none;">
+		</div>
+	</div>
+	<div id="localityContent">
+		{% include 'BusybeePersonBundle:Locality:edit.html.twig' %}
+	</div>
+{{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$('#busybee_locality_localityList').change(function() {
+		  	$.ajax({
+				url: '{{ path('locality_fetch') }}',	
+				data: {'id': $(this).val()},
+				type: 'POST',
+				success: function(data) {
+					$('#busybee_locality_locality').val(data.locality);
+					$('#busybee_locality_territory').val(data.territory);
+					$('#busybee_locality_country').val(data.country);
+					$('#busybee_locality_postCode').val(data.postCode);
+				}
+			});
+		});
+		$('#busybee_locality_save').click(function() {
+			$.ajax({
+				url: '{{ path('locality_edit') }}',	
+				data: {
+					'id': $('#busybee_locality_localityList').val(),
+					'locality': $('#busybee_locality_locality').val(),
+					'territory': $('#busybee_locality_territory').val(),
+					'country': $('#busybee_locality_country').val(),
+					'postCode': $('#busybee_locality_postCode').val()
+				},
+				type: 'POST',
+				success: function(data) {
+					$('#busybee_locality_locality').val(data.locality);
+					$('#busybee_locality_territory').val(data.territory);
+					$('#busybee_locality_country').val(data.country);
+					$('#busybee_locality_postCode').val(data.postCode);
+					$("#busybee_locality_localityList").html(data.options);
+					$("#busybee_locality_localityList").val(data.id);
+					$('#localityMessage').show()
+					$('#localityMessage').removeClass().addClass('row alert alert-' + data.status);
+					$('#localityMessage').html(data.message);
+					$('#localityMessage').fadeOut(3000);
+				}
+			});
+			
+		});
+	</script>
+{% endblock javascripts %}

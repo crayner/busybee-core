@@ -114,6 +114,11 @@ abstract class PaginationManager
 	private $select = array();
 
 	/**
+	 * @var string
+	 */
+	private $alias = 'a';
+
+	/**
 	 * Constructor
 	 *
 	 * @version	25th October 2016
@@ -163,9 +168,9 @@ abstract class PaginationManager
 	 */
 	protected function initiateQuery($count = false)
 	{
-		$this->query = $this->repository->createQueryBuilder('a');
+		$this->query = $this->repository->createQueryBuilder($this->getAlias());
 		if ($count)
-			$this->query->select('COUNT(a)');
+			$this->query->select('COUNT('.$this->getAlias().')');
 		return $this->query ;
 	}
 	
@@ -678,7 +683,7 @@ abstract class PaginationManager
 	 * @since	27th October 2016
 	 * @return	this
 	 */
-	public function setJoin($join)
+	private function setJoin($join)
 	{
 		$this->join = $join;
 		return $this ;
@@ -691,7 +696,7 @@ abstract class PaginationManager
 	 * @since	27th October 2016
 	 * @return	this
 	 */
-	public function setSelect($select)
+	private function setSelect($select)
 	{
 		$this->select = $select;
 		return $this ;
@@ -704,7 +709,7 @@ abstract class PaginationManager
 	 * @since	27th October 2016
 	 * @return	this
 	 */
-	public function setQueryJoin()
+	protected function setQueryJoin()
 	{
 		if (! is_array($this->join)) return $this ;
 		foreach ($this->join as $name=>$pars)
@@ -722,11 +727,36 @@ abstract class PaginationManager
 	 * @since	27th October 2016
 	 * @return	this
 	 */
-	public function setQuerySelect()
+	protected function setQuerySelect()
 	{
 		if (! is_array($this->select)) return $this ;
 		foreach ($this->select as $name)
 			$this->query->addSelect($name);
 		return $this ;
+	}
+	
+	/**
+	 * set Alias
+	 *
+	 * @version	27th October 2016
+	 * @since	27th October 2016
+	 * @return	this
+	 */
+	private function setAlias($alias)
+	{
+		$this->alias = $alias;
+		return $this ;
+	}
+	
+	/**
+	 * set Select
+	 *
+	 * @version	27th October 2016
+	 * @since	27th October 2016
+	 * @return	this
+	 */
+	public function getAlias()
+	{
+		return $this->alias ;
 	}
 }

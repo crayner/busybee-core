@@ -9,6 +9,12 @@ Busybee\PersonBundle\Entity\Staff:
             generator:
                 strategy: AUTO
     fields:
+        type:
+            type: string
+            length: '20'
+        jobTitle:
+            type: string    
+            length: '100'
         lastModified:
             type: datetime
             nullable: true 

@@ -515,4 +515,19 @@ class Person
     {
         return $this->address2;
     }
+
+    /**
+     * Get Genders
+     *
+     * @return array
+     */
+    public function getGenders()
+    {
+        return array(
+			'Unspecified' => 'U',
+			'Female' => 'F',
+			'Male' => 'M',
+			'Other' => 'O'
+		);
+    }
 }

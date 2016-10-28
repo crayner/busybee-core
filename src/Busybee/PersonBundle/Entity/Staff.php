@@ -167,4 +167,62 @@ class Staff
     {
         return $this->modifiedBy;
     }
+    /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @var string
+     */
+    private $jobTitle;
+
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Staff
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set jobTitle
+     *
+     * @param string $jobTitle
+     *
+     * @return Staff
+     */
+    public function setJobTitle($jobTitle)
+    {
+        $this->jobTitle = $jobTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get jobTitle
+     *
+     * @return string
+     */
+    public function getJobTitle()
+    {
+        return $this->jobTitle;
+    }
 }

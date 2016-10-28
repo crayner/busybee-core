@@ -72,7 +72,11 @@
 						<div class="form-group">
 							<label for="country">{{ 'misc.country.title'|trans }}</label><br />
 							<span class='field-help'>{{ 'misc.country.description'|trans }}</span>
-							<input type="text" id="country" name="country" value="{{ config.misc.country }}" required class="form-control" />
+							<select id="country" name="country" value="{{ config.misc.country }}" required class="form-control" >
+							{% for code,name in config.countryList %}
+								<option value="{{ code }}">{{ name }}</option>
+							{% endif %}
+							</select>
 						</div>
 					</div>
 				</div>

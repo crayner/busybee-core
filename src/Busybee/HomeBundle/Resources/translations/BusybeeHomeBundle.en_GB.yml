@@ -17,6 +17,7 @@ form:
     register: Register
     cancel: Cancel
     save: Save
+    add: Add New
     update: Update
     delete: Delete 
     save_and_add: Save&Add 
@@ -58,8 +59,10 @@ menu:
     family:
         manage: Manage Family       
     people:
-        manage: Manage Person
-        staff: Staff
+        person: 
+            manage: Manage People
+        staff: 
+            manage: Manage Staff
     Site: System
     Misc: Miscellaneous
     templateDesign: Template Design 

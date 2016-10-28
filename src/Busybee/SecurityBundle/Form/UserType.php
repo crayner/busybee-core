@@ -87,6 +87,6 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'bee_security_user';
+        return 'security_user';
     }
 }
