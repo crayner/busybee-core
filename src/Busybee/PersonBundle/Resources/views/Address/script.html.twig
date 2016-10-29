@@ -6,7 +6,7 @@
 
 	<script>
 		$('.beeAddressList{{ classSuffix }}').change(function() {
-		  	$.ajax({
+			$.ajax({
 				url: '{{ path('address_fetch') }}',	
 				data: {'id': $(this).val()},
 				type: 'POST',
