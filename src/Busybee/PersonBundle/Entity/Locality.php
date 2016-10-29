@@ -57,6 +57,11 @@ class Locality
      */
     public $repo;
 
+    /**
+     * @var string
+     */
+    public $name;
+
 
     /**
      * Get id
@@ -269,6 +274,30 @@ class Locality
     {
         $this->repo = $repo;
 		return $this;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Address
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }
 

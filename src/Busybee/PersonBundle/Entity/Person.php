@@ -2,6 +2,7 @@
 
 namespace Busybee\PersonBundle\Entity;
 
+use Busybee\PersonBundle\Entity\address ;
 /**
  * Person
  */
@@ -489,6 +490,7 @@ class Person
      */
     public function getAddress1()
     {
+        if (! $this->address1 instanceof Address) $this->setAddress1(new Address());
         return $this->address1;
     }
 
@@ -513,6 +515,7 @@ class Person
      */
     public function getAddress2()
     {
+        if (! $this->address2 instanceof Address) $this->setAddress2(new Address());
         return $this->address2;
     }
 

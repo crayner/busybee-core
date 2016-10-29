@@ -21,7 +21,7 @@ class LocalityType extends AbstractType
 					'label' => 'locality.label.locality',
 					'required' => false,
 					'attr' => array(
-						'class' => 'beeLocality',
+						'class' => 'beeLocality'.$options['data']->getName(),
 					),
 				)
 			)
@@ -29,7 +29,7 @@ class LocalityType extends AbstractType
 					'label' => 'locality.label.territory',
 					'required' => false,
 					'attr' => array(
-						'class' => 'beeTerritory',
+						'class' => 'beeTerritory'.$options['data']->getName(),
 					),
 				)
 			)
@@ -37,7 +37,7 @@ class LocalityType extends AbstractType
 					'label' => 'locality.label.postcode',
 					'required' => false,
 					'attr' => array(
-						'class' => 'beePostCode',
+						'class' => 'beePostCode'.$options['data']->getName(),
 					),
 				)
 			)
@@ -45,7 +45,7 @@ class LocalityType extends AbstractType
 					'label' => 'locality.label.country',
 					'required' => false,
 					'attr' => array(
-						'class' => 'beeCountry',
+						'class' => 'beeCountry'.$options['data']->getName(),
 					),
 				)
 			)
@@ -59,7 +59,7 @@ class LocalityType extends AbstractType
 					'required' => false,
 					'attr' => array(
 						'help' => 'locality.help.choice',
-						'class' => 'beeLocalityList',
+						'class' => 'beeLocalityList'.$options['data']->getName(),
 					),
 					'mapped' => false,
 					'translation_domain' => 'BusybeePersonBundle',
@@ -68,14 +68,11 @@ class LocalityType extends AbstractType
 			->add('save', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
 					'label'					=> 'locality.label.save', 
 					'attr' 					=> array(
-						'class' 				=> 'beeLocalitySave btn btn-info glyphicons glyphicons-plus-sign',
+						'class' 				=> 'beeLocalitySave'.$options['data']->getName().' btn btn-info glyphicons glyphicons-plus-sign',
 					),
 				)
 			)
-			->addEventListener(
-                FormEvents::PRE_SUBMIT,
-                array($this, 'saveWhat')
-            )        ;
+		;
     }
     
     /**
@@ -99,17 +96,4 @@ class LocalityType extends AbstractType
     {
         return 'locality';
     }
-
-	/**
-	 * Save What
-	 *
-	 * @version	28th October 2016
-	 * @since	28th October 2016
-	 * @param	FormEvent	$event
-	 * @return 
-	 */
-	public function saveWhat(FormEvent $event)
-	{
-		dump($event);
-	}
 }

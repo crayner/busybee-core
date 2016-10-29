@@ -40,8 +40,9 @@ person:
         title: Add Person
         description: ''
     edit: 
-        title: Edit Personarray()
+        title: Edit Person
         description: ''
+    title: Person
 address:
     label:
         line1: Address Line 1
@@ -77,3 +78,10 @@ locality:
         failure: The locality was not saved.
         success:  The locality saved successfully.
     title: Locality
+address2:
+    title: Alternate Address
+Title: Title
+Unspecified: Unspecified
+Male: Male
+Female: Female
+Other: Other

@@ -6,7 +6,8 @@
 
 	<div class="panel panel-primary busybee-panel">
 		<div class="panel-heading">
-			<h3 class="panel-title">{{ 'address.title'|trans}}</h3>
+			{% if addressTitle is not defined %}{% set addressTitle = 'address.title' %}{% endif %}
+			<h3 class="panel-title">{{ addressTitle|trans}}</h3>
 		</div>
 		<div class="panel-body">
 			<div class="container-fluid">
@@ -38,5 +39,4 @@
 			</div>
 		</div>
 	</div>
-</div>
 

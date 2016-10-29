@@ -14,12 +14,12 @@ class AddressType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+		$builder
 			->add('line1', null, array(
 					'label' => 'address.label.line1',
 					'attr' => array(
 						'help' => 'address.help.line1',
-						'class' => 'beeLine1',
+						'class' => 'beeLine1'.$options['data']->getName(),
 					),
 				)
 			)
@@ -27,8 +27,9 @@ class AddressType extends AbstractType
 					'label' => 'address.label.line2',
 					'attr' => array(
 						'help' => 'address.help.line2',
-						'class' => 'beeLine2',
+						'class' => 'beeLine2'.$options['data']->getName(),
 					),
+					'required' => false,
 				)
 			)
 			->add('locality', 'Busybee\PersonBundle\Form\LocalityType', array(
@@ -45,7 +46,7 @@ class AddressType extends AbstractType
 					'required' => false,
 					'attr' => array(
 						'help' => 'address.help.choice',
-						'class' => 'beeAddressList',
+						'class' => 'beeAddressList'.$options['data']->getName(),
 					),
 					'mapped' => false,
 					'translation_domain' => 'BusybeePersonBundle',
@@ -54,12 +55,11 @@ class AddressType extends AbstractType
 			->add('save', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
 					'label'					=> 'address.label.save', 
 					'attr' 					=> array(
-						'class' 				=> 'beeAddressSave btn btn-primary glyphicons glyphicons-plus-sign',
+						'class' 				=> 'beeAddressSave'.$options['data']->getName().' btn btn-primary glyphicons glyphicons-plus-sign',
 					),
 				)
 			)
 		;
-		dump($options);
     }
     
     /**

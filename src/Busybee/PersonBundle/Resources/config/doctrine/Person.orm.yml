@@ -77,7 +77,7 @@ Busybee\PersonBundle\Entity\Person:
         photo:
             targetEntity: Busybee\PersonBundle\Entity\Image
             joinColumns:
-                address2_id:
+                photo_id:
                     referencedColumnName: id
                     nullable: true
     properties:

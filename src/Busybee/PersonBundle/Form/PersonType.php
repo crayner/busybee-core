@@ -40,15 +40,18 @@ class PersonType extends AbstractType
 			)
 			->add('dob', null, array(
 					'years' => $this->getYears(),
-					'label' => 'person.dob.label'
+					'label' => 'person.dob.label',
+					'required' => false,
 				)
 			)
 			->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
-					'label' => 'person.label.email'
+					'label' => 'person.label.email',
+					'required' => false,
 				)
 			)
 			->add('email2', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
-					'label' => 'person.label.email2'
+					'label' => 'person.label.email2',
+					'required' => false,
 				)
 			)
 			->add('photo', 'Busybee\FormBundle\Type\ImageType', array(
@@ -61,6 +64,34 @@ class PersonType extends AbstractType
 			)
 			->add('website', 'Symfony\Component\Form\Extension\Core\Type\UrlType', array(
 					'label' => 'person.label.website',
+				)
+			)
+			->add('address1', 'Busybee\PersonBundle\Form\AddressType', array(
+					'data' => $options['data']->getAddress1(),
+					'required' => false,
+				)
+			)
+			->add('address2', 'Busybee\PersonBundle\Form\AddressType', array(
+					'data' => $options['data']->getAddress2(),
+					'required' => false,
+				)
+			)
+            ->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+					'label' 				=> 'form.save',
+					'translation_domain' 	=> 'BusybeeHomeBundle',
+					'attr' 					=> array(
+						'class' 				=> 'btn btn-success glyphicons glyphicons-disk-save'
+					),
+				)
+			)
+			->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
+					'label'					=> 'form.cancel', 
+					'translation_domain' 	=> 'BusybeeHomeBundle',
+					'attr' 					=> array(
+						'formnovalidate' 		=> 'formnovalidate',
+						'class' 				=> 'btn btn-info glyphicons glyphicons-remove-circle',
+						'onClick'				=> 'location.href=\''.$options['data']->cancelURL."'",
+					),
 				)
 			)
 		;
@@ -82,7 +113,7 @@ class PersonType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'busybee_person';
+        return 'person';
     }
     /**
      * {@inheritdoc}

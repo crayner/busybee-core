@@ -20,14 +20,22 @@
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="person" >
-			{{ include('BusybeePersonBundle:Form:person.html.twig', {'form': form.person}) }}
+			{{ include('BusybeePersonBundle:Person:person.html.twig') }}
 		</div>
 		<div class="tab-pane" id="address1" >
-			{{ include('BusybeePersonBundle:Form:personaddress.html.twig', {'form': form.address1}) }}
+			<div class="container-fluid">
+				<div class='row' id="addressMessage" style="display: none;">
+				</div>
+			</div>
+			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.address1} %}
 			{% do form.address1.setRendered %}
 		</div>
 		<div class="tab-pane" id="address2" >
-			{{ include('BusybeePersonBundle:Form:personaddress.html.twig', {'form': form.address2}) }}
+			<div class="container-fluid">
+				<div class='row' id="addressMessage_alt" style="display: none;">
+				</div>
+			</div>
+			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.address2, 'addressTitle': 'address2.title'} %}
 			{% do form.address2.setRendered %}
 		</div>
 	</div>
@@ -44,3 +52,12 @@
 </div>
 {{ form_end(form) }}
 {% endblock contentContainer %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': ''} %}
+	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': ''} %}
+	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': '_alt'} %}
+	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': '_alt'} %}
+{% endblock javascripts %}

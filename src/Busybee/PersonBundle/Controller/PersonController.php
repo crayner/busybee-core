@@ -34,8 +34,22 @@ class PersonController extends Controller
 		if ($id !== 'Add')
 			$person = $this->get('person.repository')->findOneBy(array('id' => $id));
 		
+		$person->cancelURL = $this->generateUrl('busybee_security_user_list');
+		
+		$person->getAddress1()->injectRepository($this->get('address.repository'));
+		$person->getAddress1()->getLocality()->injectRepository($this->get('locality.repository'));
+		$person->getAddress2()->injectRepository($this->get('address.repository'));
+		$person->getAddress2()->getLocality()->injectRepository($this->get('locality.repository'));
+		$person->getAddress2()->setName('_alt');
+		$person->getAddress2()->getLocality()->setName('_alt');
 
-		$form = $this->createFormBuilder()
+        $form = $this->createForm('Busybee\PersonBundle\Form\PersonType', $person);
+
+
+		$form->handleRequest($request);
+dump($form);
+
+/*		$form = $this->createFormBuilder()
 			->add('person', 'Busybee\PersonBundle\Form\PersonType', 
 				array(
 					'data_class' => 'Busybee\PersonBundle\Entity\Person',
@@ -72,7 +86,7 @@ class PersonController extends Controller
 					),
 				)
 			)
-			->getForm();
+			->getForm(); */
 
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
 			array('id' => $id, 'form' => $form->createView())			

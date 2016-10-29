@@ -2,17 +2,19 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
+{% if classSuffix is not defined %}{% set classSuffix = '' %}{% endif %}
+
 	<script>
-		$('.beeLocalityList').change(function() {
+		$('.beeLocalityList{{ classSuffix }}').change(function() {
 		  	$.ajax({
 				url: '{{ path('locality_fetch') }}',	
 				data: {'id': $(this).val()},
 				type: 'POST',
 				success: function(data) {
-					$('.beeLocality').val(data.locality);
-					$('.beeTerritory').val(data.territory);
-					$('.beeCountry').val(data.country);
-					$('.beePostCode').val(data.postCode);
+					$('.beeLocality{{ classSuffix }}').val(data.locality);
+					$('.beeTerritory{{ classSuffix }}').val(data.territory);
+					$('.beeCountry{{ classSuffix }}').val(data.country);
+					$('.beePostCode{{ classSuffix }}').val(data.postCode);
 				}
 			});
 		});
@@ -20,20 +22,20 @@
 			$.ajax({
 				url: '{{ path('locality_edit') }}',	
 				data: {
-					'id': $('.beeLocalityList').val(),
-					'locality': $('.beeLocality').val(),
-					'territory': $('.beeTerritory').val(),
-					'country': $('.beeCountry').val(),
-					'postCode': $('.beePostCode').val()
+					'id': $('.beeLocalityList{{ classSuffix }}').val(),
+					'locality': $('.beeLocality{{ classSuffix }}').val(),
+					'territory': $('.beeTerritory{{ classSuffix }}').val(),
+					'country': $('.beeCountry{{ classSuffix }}').val(),
+					'postCode': $('.beePostCode{{ classSuffix }}').val()
 				},
 				type: 'POST',
 				success: function(data) {
-					$('.beeLocality').val(data.locality);
-					$('.beeTerritory').val(data.territory);
-					$('.beeCountry').val(data.country);
-					$('.beePostCode').val(data.postCode);
-					$(".beeLocalityList").html(data.options);
-					$(".beeLocalityList").val(data.id);
+					$('.beeLocality{{ classSuffix }}').val(data.locality);
+					$('.beeTerritory{{ classSuffix }}').val(data.territory);
+					$('.beeCountry{{ classSuffix }}').val(data.country);
+					$('.beePostCode{{ classSuffix }}').val(data.postCode);
+					$(".beeLocalityList{{ classSuffix }}").html(data.options);
+					$(".beeLocalityList{{ classSuffix }}").val(data.id);
 					$('#localityMessage').show()
 					$('#localityMessage').removeClass().addClass('row alert alert-' + data.status);
 					$('#localityMessage').html(data.message);

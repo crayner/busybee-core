@@ -12,48 +12,57 @@
 
 {% block contentContainer %}
 	{% include 'PaginationBundle:Default:index.html.twig' %}
-	<div class="container-fluid well">
-		<div class="row row-header">
-			<div class="col-sm-2 col-md-2" style="display: inline-block;">
-				{% if pagination.getSortByName == 'Family Name' %}
-					<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.familyName'|trans }}
-				{% else %}
-					{{ 'person.familyName'|trans }}
-				{% endif %}
-			</div>
-			<div class="col-sm-2 col-md-2" style="display: inline-block;">
-				{% if pagination.getSortByName == 'Given Name' %}
-					<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.givenName'|trans }}
-				{% else %}
-					{{ 'person.givenName'|trans }}
-				{% endif %}
-			</div>
-			<div class="col-sm-5 hidden-sm hidden-xs" style="display: inline-block;">
-				{% if pagination.getSortByName == 'Email' %}
-					<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.email'|trans }}
-				{% else %}
-					{{ 'person.email'|trans }}
-				{% endif %}
-			</div>
-			<div class="col-sm-3 col-md-3 withAdd">
-				<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'person.actions'|trans }} 
+	<div class="panel panel-primary busybee-panel">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{ 'address.title'|trans}}</h3>
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid well">
+				<div class="row row-header">
+					<div class="col-sm-2 col-md-2" style="display: inline-block;">
+						{% if pagination.getSortByName == 'Family Name' %}
+							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.familyName'|trans }}
+						{% else %}
+							{{ 'person.familyName'|trans }}
+						{% endif %}
+					</div>
+					<div class="col-sm-2 col-md-2" style="display: inline-block;">
+						{% if pagination.getSortByName == 'Given Name' %}
+							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.givenName'|trans }}
+						{% else %}
+							{{ 'person.givenName'|trans }}
+						{% endif %}
+					</div>
+					<div class="col-sm-5 hidden-sm hidden-xs" style="display: inline-block;">
+						{% if pagination.getSortByName == 'Email' %}
+							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.email'|trans }}
+						{% else %}
+							{{ 'person.email'|trans }}
+						{% endif %}
+					</div>
+					<div class="col-sm-3 col-md-3 withAdd">
+						<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'person.actions'|trans }} 
+					</div>
+				</div>
+			{% for person in pagination.getResult %}
+				<div class="row row-striped">
+					<div class="col-sm-2 col-md-2 form-inline">
+						{{ person.surname }}
+					</div>
+					<div class="col-sm-2 col-md-2 form-inline">
+						{{ person.firstName }}
+					</div>
+					<div class="col-sm-5 hidden-sm hidden-xs form-inline">
+						{{ person.email }}
+					</div>
+					<div class="col-sm-3 col-md-3 form-inline">
+						<button title='{{ 'person.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('person_edit', {'id': person.id}) }}','_self')"></button>
+					</div>
+				</div>
+			{% endfor %}
 			</div>
 		</div>
-	{% for person in pagination.getResult %}
-		<div class="row row-striped">
-			<div class="col-sm-2 col-md-2 form-inline">
-				{{ person.surname }}
-			</div>
-			<div class="col-sm-2 col-md-2 form-inline">
-				{{ person.firstName }}
-			</div>
-			<div class="col-sm-5 hidden-sm hidden-xs form-inline">
-				{{ person.email }}
-			</div>
-			<div class="col-sm-3 col-md-3 form-inline">
-				<button title='{{ 'person.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('person_edit', {'id': person.id}) }}','_self')"></button>
-			</div>
-		</div>
-	{% endfor %}
 	</div>
 {% endblock contentContainer %}
+
+

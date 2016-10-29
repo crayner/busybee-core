@@ -1,0 +1,57 @@
+{# src/Busybee/PersonBundle/Resources/views/Form/person.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+<div class="panel panel-primary busybee-panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ 'person.title'|trans}}</h3>
+	</div>
+	<div class="panel-body">
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-4 well">
+					{{ form_row(form.surname) }}
+				</div>
+				<div class="col-sm-4 well">
+					{{ form_row(form.firstName) }}
+				</div>
+				<div class="col-sm-4 well">
+					{{ form_row(form.photo) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2 well">
+					{{ form_row(form.title) }}
+				</div>
+				<div class="col-sm-4 well">
+					{{ form_row(form.preferredName) }}
+				</div>
+				<div class="col-sm-2 well">
+					{{ form_row(form.gender) }}
+				</div>
+				<div class="col-sm-4 well">
+					{{ form_row(form.officialName) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4 well">
+					{{ form_row(form.email) }}
+				</div>
+				<div class="col-sm-4 well">
+					{{ form_row(form.email2) }}
+				</div>
+				<div class="col-sm-4 well">
+					{{ form_row(form.dob) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-6 well">
+					{{ form_row(form.website) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
