@@ -2,6 +2,8 @@
 
 namespace Busybee\PersonBundle\Entity;
 
+use Busybee\PersonBundle\Entity\Locality ;
+
 /**
  * Address
  */
@@ -46,6 +48,11 @@ class Address
      * @var \Busybee\PersonBundle\Entity\Locality
      */
     private $locality;
+
+    /**
+     * @var \Busybee\PersonBundle\Repository\AddressRepository
+     */
+    public $repo;
 
 
     /**
@@ -223,6 +230,18 @@ class Address
      */
     public function getLocality()
     {
-        return $this->locality;
+        if (! $this->locality instanceof Locality) $this->setLocality(new Locality());
+		return $this->locality;
+    }
+
+    /**
+     * inject Repo
+     *
+     * @return \Busybee\PersonBundle\Repository\AddressRepository
+     */
+    public function injectRepository(\Busybee\PersonBundle\Repository\AddressRepository $repo)
+    {
+        $this->repo = $repo;
+		return $this;
     }
 }

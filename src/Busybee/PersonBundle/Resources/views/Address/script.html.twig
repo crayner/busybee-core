@@ -1,0 +1,43 @@
+{# src/Busybee/PersonBundle/Resources/views/Address/script.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+	<script>
+		$('.beeAddressList').change(function() {
+		  	$.ajax({
+				url: '{{ path('address_fetch') }}',	
+				data: {'id': $(this).val()},
+				type: 'POST',
+				success: function(data) {
+					$('.beeLine1').val(data.line1);
+					$('.beeTerritory').val(data.line2);
+					$('.beeLocalityList').val(data.locality);
+					$(".beeLocalityList").trigger('change');
+				}
+			});
+		});
+		$('.beeAddressSave').click(function() {
+			$.ajax({
+				url: '{{ path('address_edit') }}',	
+				data: {
+					'id': $('.beeAddressList').val(),
+					'line1': $('.beeLine1').val(),
+					'line2': $('.beeLine2').val(),
+					'locality_id': $('.beeLocalityList').val()
+				},
+				type: 'POST',
+				success: function(data) {
+					$('.beeLocalityList').val(data.locality);
+					$('.beeLine1').val(data.line1);
+					$('.beeLine2').val(data.line2);
+					$(".beeAddressList").html(data.options);
+					$(".beeAddressList").val(data.id);
+					$('#addressMessage').show()
+					$('#addressMessage').removeClass().addClass('row alert alert-' + data.status);
+					$('#addressMessage').html(data.message);
+					$('#addressMessage').fadeOut(3000);
+					$(".beeLocalityList").trigger('change');
+				}
+			});
+		});
+	</script>

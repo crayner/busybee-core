@@ -10,4 +10,19 @@ namespace Busybee\PersonBundle\Repository;
  */
 class AddressRepository extends \Doctrine\ORM\EntityRepository
 {
+	/**
+	 * get Locality Choices
+	 *
+	 * @version	29th October 2016
+	 * @since	29th October 2016
+	 * @return	array	hint=>value
+	 */
+	public function getAddressChoices()
+	{
+		$x = $this->findBy(array(), array('line1' => 'ASC', 'line2' => 'ASC'));
+		$result = array();
+		foreach ($x as $w)
+			$result[$w->getLine1().' '.$w->getLine2().' '.$w->getLocality()->getLocality()] = $w->getId();
+		return $result;
+	}
 }

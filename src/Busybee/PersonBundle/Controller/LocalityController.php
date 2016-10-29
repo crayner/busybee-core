@@ -1,9 +1,9 @@
 <?php
 
-namespace Busybee\PersonBundle\Controller;
+namespace Busybee\PersonBundle\Controller ;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
+use Symfony\Component\HttpFoundation\Request ;
 use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\PersonBundle\Entity\Locality ;
 

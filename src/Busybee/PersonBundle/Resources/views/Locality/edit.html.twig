@@ -4,32 +4,38 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
-
-<div class="container-fluid">
-	<div class='row'>
-		<div class='col-sm-12 well'>
-			{{ form_row(form.localityList) }}
+	<div class="panel panel-info busybee-panel">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{ 'locality.title'|trans}}</h3>
 		</div>
-	</div>
-	<div class='row'>
-		<div class='col-sm-6 well'>
-			{{ form_row(form.locality) }}
-		</div>
-		<div class='col-sm-6 well'>
-			{{ form_row(form.territory) }}
-		</div>
-	</div>
-	<div class='row'>
-		<div class='col-sm-4 well'>
-			{{ form_row(form.postCode) }}
-		</div>
-		<div class='col-sm-6 well'>
-			{{ form_row(form.country) }}
-		</div>
-		<div class='col-sm-2 well'>
-			<div class='form-widget text-right'>
-				{{ form_widget(form.save) }}
+		<div class="panel-body">
+			<div class="container-fluid">
+				<div class='row'>
+					<div class='col-sm-12 well'>
+						{{ form_row(form.localityList) }}
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-sm-6 well'>
+						{{ form_row(form.locality) }}
+					</div>
+					<div class='col-sm-6 well'>
+						{{ form_row(form.territory) }}
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-sm-4 well'>
+						{{ form_row(form.postCode) }}
+					</div>
+					<div class='col-sm-5 well'>
+						{{ form_row(form.country) }}
+					</div>
+					<div class='col-sm-3 well'>
+						<div class='form-widget text-right'>
+							{{ form_widget(form.save) }}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>

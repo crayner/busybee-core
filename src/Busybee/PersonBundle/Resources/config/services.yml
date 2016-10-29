@@ -83,4 +83,11 @@ services:
             - 'getRepository' 
         arguments: 
             - "BusybeePersonBundle:Locality"
+    address.repository:
+        class: Busybee\PersonBundle\Entity\Repository\AddressRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeePersonBundle:Address"
    

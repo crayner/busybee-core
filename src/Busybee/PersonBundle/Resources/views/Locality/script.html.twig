@@ -1,0 +1,44 @@
+{# src/Busybee/PersonBundle/Resources/views/Locality/script.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+	<script>
+		$('.beeLocalityList').change(function() {
+		  	$.ajax({
+				url: '{{ path('locality_fetch') }}',	
+				data: {'id': $(this).val()},
+				type: 'POST',
+				success: function(data) {
+					$('.beeLocality').val(data.locality);
+					$('.beeTerritory').val(data.territory);
+					$('.beeCountry').val(data.country);
+					$('.beePostCode').val(data.postCode);
+				}
+			});
+		});
+		$('.beeLocalitySave').click(function() {
+			$.ajax({
+				url: '{{ path('locality_edit') }}',	
+				data: {
+					'id': $('.beeLocalityList').val(),
+					'locality': $('.beeLocality').val(),
+					'territory': $('.beeTerritory').val(),
+					'country': $('.beeCountry').val(),
+					'postCode': $('.beePostCode').val()
+				},
+				type: 'POST',
+				success: function(data) {
+					$('.beeLocality').val(data.locality);
+					$('.beeTerritory').val(data.territory);
+					$('.beeCountry').val(data.country);
+					$('.beePostCode').val(data.postCode);
+					$(".beeLocalityList").html(data.options);
+					$(".beeLocalityList").val(data.id);
+					$('#localityMessage').show()
+					$('#localityMessage').removeClass().addClass('row alert alert-' + data.status);
+					$('#localityMessage').html(data.message);
+					$('#localityMessage').fadeOut(3000);
+				}
+			});
+		});
+	</script>

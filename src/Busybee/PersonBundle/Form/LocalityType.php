@@ -20,21 +20,33 @@ class LocalityType extends AbstractType
 			->add('locality', null, array(
 					'label' => 'locality.label.locality',
 					'required' => false,
+					'attr' => array(
+						'class' => 'beeLocality',
+					),
 				)
 			)
 			->add('territory', null, array(
 					'label' => 'locality.label.territory',
 					'required' => false,
+					'attr' => array(
+						'class' => 'beeTerritory',
+					),
 				)
 			)
 			->add('postCode', null, array(
 					'label' => 'locality.label.postcode',
 					'required' => false,
+					'attr' => array(
+						'class' => 'beePostCode',
+					),
 				)
 			)
 			->add('country', 'Symfony\Component\Form\Extension\Core\Type\CountryType', array(
 					'label' => 'locality.label.country',
 					'required' => false,
+					'attr' => array(
+						'class' => 'beeCountry',
+					),
 				)
 			)
 			->add('localityList', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
@@ -47,16 +59,16 @@ class LocalityType extends AbstractType
 					'required' => false,
 					'attr' => array(
 						'help' => 'locality.help.choice',
+						'class' => 'beeLocalityList',
 					),
 					'mapped' => false,
 					'translation_domain' => 'BusybeePersonBundle',
 				)
 			)
 			->add('save', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
-					'label'					=> 'form.save', 
-					'translation_domain' 	=> 'BusybeeHomeBundle',
+					'label'					=> 'locality.label.save', 
 					'attr' 					=> array(
-						'class' 				=> 'btn btn-info glyphicons glyphicons-plus-sign',
+						'class' 				=> 'beeLocalitySave btn btn-info glyphicons glyphicons-plus-sign',
 					),
 				)
 			)
@@ -85,7 +97,7 @@ class LocalityType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'busybee_locality';
+        return 'locality';
     }
 
 	/**

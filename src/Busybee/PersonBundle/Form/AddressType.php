@@ -19,6 +19,7 @@ class AddressType extends AbstractType
 					'label' => 'address.label.line1',
 					'attr' => array(
 						'help' => 'address.help.line1',
+						'class' => 'beeLine1',
 					),
 				)
 			)
@@ -26,14 +27,35 @@ class AddressType extends AbstractType
 					'label' => 'address.label.line2',
 					'attr' => array(
 						'help' => 'address.help.line2',
+						'class' => 'beeLine2',
 					),
 				)
 			)
-			->add('locality', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
-					'label' => 'address.label.locality',
-					'class' => 'Busybee\PersonBundle\Entity\Locality',
-//					'choices' => $options['data']->getLocality()->getLocalities(),
-//					'data' => $options['data']->getLocality(),
+			->add('locality', 'Busybee\PersonBundle\Form\LocalityType', array(
+					'data' => $options['data']->getLocality(),
+				)
+			)
+			->add('addressList', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
+				array(
+					'data_class' => 'Busybee\PersonBundle\Entity\Address',
+					'choices' => $options['data']->repo->getAddressChoices(),
+					'label' => 'address.label.choice',
+					'placeholder' => 'address.placeholder.choice',
+					'empty_data'  => null,
+					'required' => false,
+					'attr' => array(
+						'help' => 'address.help.choice',
+						'class' => 'beeAddressList',
+					),
+					'mapped' => false,
+					'translation_domain' => 'BusybeePersonBundle',
+				)
+			)
+			->add('save', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
+					'label'					=> 'address.label.save', 
+					'attr' 					=> array(
+						'class' 				=> 'beeAddressSave btn btn-primary glyphicons glyphicons-plus-sign',
+					),
 				)
 			)
 		;
@@ -48,6 +70,7 @@ class AddressType extends AbstractType
         $resolver->setDefaults(array(
 				'data_class' => 'Busybee\PersonBundle\Entity\Address',
 				'translation_domain' 	=> 'BusybeePersonBundle',
+				'allow_extra_fields' => true,
 			)
 		);
     }
@@ -57,7 +80,7 @@ class AddressType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'busybee_address';
+        return 'address';
     }
 
 

@@ -52,6 +52,11 @@ class Locality
      */
     private $modifiedBy;
 
+    /**
+     * @var \Busybee\PersonBundle\Repository\LocalityRepository
+     */
+    public $repo;
+
 
     /**
      * Get id
@@ -253,6 +258,17 @@ class Locality
     public function getModifiedBy()
     {
         return $this->modifiedBy;
+    }
+
+    /**
+     * inject Repo
+     *
+     * @return \Busybee\PersonBundle\Repository\LocalityRepository
+     */
+    public function injectRepository(\Busybee\PersonBundle\Repository\LocalityRepository $repo)
+    {
+        $this->repo = $repo;
+		return $this;
     }
 }
 

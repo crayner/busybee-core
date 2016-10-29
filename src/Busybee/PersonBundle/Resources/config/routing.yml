@@ -22,3 +22,12 @@ locality_edit:
 locality_fetch:
     path:     /locality/fetch/
     defaults: { _controller: BusybeePersonBundle:Locality:fetch }
+address_manage:
+    path:     /address/{id}
+    defaults: { _controller: BusybeePersonBundle:Address:index }
+address_edit:
+    path:     /address/edit/
+    defaults: { _controller: BusybeePersonBundle:Address:edit }
+address_fetch:
+    path:     /address/fetch/
+    defaults: { _controller: BusybeePersonBundle:Address:fetch }

@@ -47,11 +47,20 @@ address:
         line1: Address Line 1
         line2: Address Line 2
         test: Test
+        choice: Choose an existing Address
+        save: Save Address
     help:
         line1: Unit/Street Number Street Name Street Type
         line2: Additional Address information.
+        choice: Use an existing address or create a new address using the form below.
+    placeholder:
+        choice: Choose Existing Address (Clear Data)
     test:
         empty: Address is not valid.  It is empty.
+    title: Address
+    edit:
+        failure: The address was not saved.
+        success: The address was saved successfully.
 locality:
     help:
         choice: Select a locality or add a new locality below.
@@ -63,6 +72,8 @@ locality:
         postcode: Post Code
         country: Country
         territory: State, Province ot Territory
+        save: Save Locality
     edit:
         failure: The locality was not saved.
         success:  The locality saved successfully.
+    title: Locality

@@ -13,18 +13,19 @@
 
 
 {% block contentContainer %}
-{{ form_start(form, {'action': path('locality_edit', {'id': id}), 'method': 'POST'}) }}
+{{ form_start(form, {'action': path('address_edit', {'id': id}), 'method': 'POST'}) }}
 	<div class="container-fluid">
-		<div class='row' id="localityMessage" style="display: none;">
+		<div class='row' id="addressMessage" style="display: none;">
 		</div>
 	</div>
-	<div id="localityContent">
-		{% include 'BusybeePersonBundle:Locality:edit.html.twig' %}
+	<div id="addressContent">
+		{% include 'BusybeePersonBundle:Address:edit.html.twig' %}
 	</div>
 {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
 	{{ parent() }}
+	{% include 'BusybeePersonBundle:Address:script.html.twig' %}
 	{% include 'BusybeePersonBundle:Locality:script.html.twig' %}
 {% endblock javascripts %}
