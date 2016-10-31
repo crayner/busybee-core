@@ -2,10 +2,12 @@
 
 namespace Busybee\PersonBundle\Entity;
 
+use Busybee\PersonBundle\Model\LocalityModel ;
+
 /**
  * Locality
  */
-class Locality
+class Locality extends LocalityModel
 {
     /**
      * @var integer
@@ -51,16 +53,6 @@ class Locality
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
-
-    /**
-     * @var \Busybee\PersonBundle\Repository\LocalityRepository
-     */
-    public $repo;
-
-    /**
-     * @var string
-     */
-    public $name;
 
 
     /**
@@ -264,40 +256,4 @@ class Locality
     {
         return $this->modifiedBy;
     }
-
-    /**
-     * inject Repo
-     *
-     * @return \Busybee\PersonBundle\Repository\LocalityRepository
-     */
-    public function injectRepository(\Busybee\PersonBundle\Repository\LocalityRepository $repo)
-    {
-        $this->repo = $repo;
-		return $this;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Address
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
 }
-

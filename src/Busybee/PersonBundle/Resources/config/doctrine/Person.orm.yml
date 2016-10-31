@@ -1,6 +1,6 @@
 Busybee\PersonBundle\Entity\Person:
     type: entity
-    table: person_person
+    table: person
     repositoryClass: Busybee\PersonBundle\Repository\PersonRepository
     id:
         id:
@@ -48,34 +48,10 @@ Busybee\PersonBundle\Entity\Person:
         createdOn:
             type: datetime
             nullable: true 
-    manyToOne:
-        createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
-            joinColumns:
-                created_by:
-                    referencedColumnName: id
-                    nullable: true
-        modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
-            joinColumns:
-                modified_by:
-                    referencedColumnName: id
-                    nullable: true
-        address1:
-            targetEntity: Busybee\PersonBundle\Entity\Address
-            joinColumns:
-                address1_id:
-                    referencedColumnName: id
-                    nullable: true
-        address2:
-            targetEntity: Busybee\PersonBundle\Entity\Address
-            joinColumns:
-                address2_id:
-                    referencedColumnName: id
-                    nullable: true
     oneToOne:
         photo:
             targetEntity: Busybee\PersonBundle\Entity\Image
+            cascade: ["persist"]
             joinColumns:
                 photo_id:
                     referencedColumnName: id
@@ -90,3 +66,29 @@ Busybee\PersonBundle\Entity\Person:
         gender:
             - Choice: 
                 choices: { callback: getGenders }
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+                    nullable: true
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id
+                    nullable: true
+    manyToMany:
+        address:
+            targetEntity: Busybee\PersonBundle\Entity\Address
+            joinTable:
+                name: person_addresses
+                joinColumns:
+                    person_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    address_id:
+                        referencedColumnName: id 
+
+        

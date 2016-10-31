@@ -2,12 +2,12 @@
 
 namespace Busybee\PersonBundle\Entity;
 
-use Busybee\PersonBundle\Entity\Locality ;
+use Busybee\PersonBundle\Model\AddressModel ;
 
 /**
  * Address
  */
-class Address
+class Address extends AddressModel 
 {
     /**
      * @var integer
@@ -43,21 +43,6 @@ class Address
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
-
-    /**
-     * @var \Busybee\PersonBundle\Entity\Locality
-     */
-    private $locality;
-
-    /**
-     * @var \Busybee\PersonBundle\Repository\AddressRepository
-     */
-    public $repo;
-
-    /**
-     * @var string
-     */
-    public $name;
 
 
     /**
@@ -213,64 +198,33 @@ class Address
     {
         return $this->modifiedBy;
     }
-
+	
     /**
-     * Set locality
-     *
-     * @param \Busybee\PersonBundle\Entity\Locality $locality
-     *
-     * @return Address
+     * @var integer
      */
-    public function setLocality(\Busybee\PersonBundle\Entity\Locality $locality = null)
-    {
-        $this->locality = $locality;
-
-        return $this;
-    }
+    private $locality;
 
     /**
      * Get locality
      *
-     * @return \Busybee\PersonBundle\Entity\Locality
+     * @return integer
      */
     public function getLocality()
     {
-        if (! $this->locality instanceof Locality) $this->setLocality(new Locality());
-		return $this->locality;
+        return $this->locality;
     }
 
     /**
-     * inject Repo
+     * Set locality
      *
-     * @return \Busybee\PersonBundle\Repository\AddressRepository
-     */
-    public function injectRepository(\Busybee\PersonBundle\Repository\AddressRepository $repo)
-    {
-        $this->repo = $repo;
-		return $this;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
+     * @param integer $locality
      *
      * @return Address
      */
-    public function setName($name)
+    public function setLocality($locality)
     {
-        $this->name = $name;
+        $this->locality = $locality;
 
         return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }

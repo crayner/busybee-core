@@ -14,12 +14,13 @@ class AddressType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+dump($options['data']->localityRecord);
 		$builder
 			->add('line1', null, array(
 					'label' => 'address.label.line1',
 					'attr' => array(
 						'help' => 'address.help.line1',
-						'class' => 'beeLine1'.$options['data']->getName(),
+						'class' => 'beeLine1'.$options['data']->getClassSuffix(),
 					),
 				)
 			)
@@ -27,26 +28,26 @@ class AddressType extends AbstractType
 					'label' => 'address.label.line2',
 					'attr' => array(
 						'help' => 'address.help.line2',
-						'class' => 'beeLine2'.$options['data']->getName(),
+						'class' => 'beeLine2'.$options['data']->getClassSuffix(),
 					),
 					'required' => false,
 				)
 			)
 			->add('locality', 'Busybee\PersonBundle\Form\LocalityType', array(
-					'data' => $options['data']->getLocality(),
+					'data' => $options['data']->localityRecord,
 				)
 			)
 			->add('addressList', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
 				array(
 					'data_class' => 'Busybee\PersonBundle\Entity\Address',
-					'choices' => $options['data']->repo->getAddressChoices(),
+					'choices' => $options['data']->getRepository()->getAddressChoices(),
 					'label' => 'address.label.choice',
 					'placeholder' => 'address.placeholder.choice',
 					'empty_data'  => null,
 					'required' => false,
 					'attr' => array(
 						'help' => 'address.help.choice',
-						'class' => 'beeAddressList'.$options['data']->getName(),
+						'class' => 'beeAddressList'.$options['data']->getClassSuffix(),
 					),
 					'mapped' => false,
 					'translation_domain' => 'BusybeePersonBundle',
@@ -55,7 +56,7 @@ class AddressType extends AbstractType
 			->add('save', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
 					'label'					=> 'address.label.save', 
 					'attr' 					=> array(
-						'class' 				=> 'beeAddressSave'.$options['data']->getName().' btn btn-primary glyphicons glyphicons-plus-sign',
+						'class' 				=> 'beeAddressSave'.$options['data']->getClassSuffix().' btn btn-primary glyphicons glyphicons-plus-sign',
 					),
 				)
 			)

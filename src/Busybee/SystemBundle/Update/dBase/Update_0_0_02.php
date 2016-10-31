@@ -10,7 +10,7 @@ use Busybee\SystemBundle\Update\UpdateInterface ;
  * @since	23rd October 2016
  * @author	Craig Rayner
  */
-Class Update_0_0_00 implements UpdateInterface
+Class Update_0_0_02 implements UpdateInterface
 {
 	/**
 	 * @var	Setting Manager	
@@ -25,7 +25,7 @@ Class Update_0_0_00 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	=	3 ;
+	private $count	=	1 ;
 	
 	/**
 	 * Constructor
@@ -54,26 +54,14 @@ Class Update_0_0_00 implements UpdateInterface
 		
 		$role = $this->em->getRepository('BusybeeSecurityBundle:Role');
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
-		$entity->setType('string');
-		$entity->setValue('0.0.00');
-		$entity->setName('Version.System');
-		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
-
-		$this->sm->saveSetting($entity);
-		
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
-		$entity->setType('string');
-		$entity->setValue('0.0.00');
-		$entity->setName('Version.Database');
-		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
-
-		$this->sm->saveSetting($entity);
-		
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
-		$entity->setType('boolean');
-		$entity->setValue(true);
-		$entity->setName('Installed');
-		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+		$entity->setType('twig');
+		$entity->setValue("<pre>{{ line1 }}
+{% if line2 is not empty %}{{ line2 }}
+{% endif %}
+{{ locality }} {{ territory }} {{ postCode }}
+{{ country }}</pre>");
+		$entity->setName('Address.Format');
+		$entity->setRole($role->findOneByRole('ROLE_RGISTRAR'));
 
 		$this->sm->saveSetting($entity);
 		

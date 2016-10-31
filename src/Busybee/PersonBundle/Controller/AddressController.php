@@ -39,9 +39,10 @@ class AddressController extends Controller
 		if ($id !== 'Add')
 			$address = $repo->findOneBy(array('id' => $id));
 		$address->injectRepository($this->get('address.repository'));
-		$address->getLocality()->injectRepository($this->get('locality.repository'));
+		$address->localityRecord = $this->get('locality.repository')->setAddressLocality($address->getLocality());
 
         $form = $this->createForm('Busybee\PersonBundle\Form\AddressType', $address);
+
 
         return $this->render('BusybeePersonBundle:Address:index.html.twig',
 			array('id' => $id, 'form' => $form->createView())			
@@ -54,13 +55,17 @@ class AddressController extends Controller
 		
 		$id = $request->request->get('id');
 
-		$address = $id > 0 ? $this->get('address.repository')->findOneBy(array('id' => $id)) : new Address();	
+		$address = $id > 0 ? $this->get('address.repository')->findOneBy(array('id' => $id)) : new Address();
+		$address->localityRecord = $this->get('locality.repository')->setAddressLocality($address->getLocality());
+		
+		$formattedAddress = $this->get('setting.manager')->get('Address.Format', null, array('line1' => $address->getLine1(), 'line2' => $address->getLine2(), 'locality' => $address->localityRecord->getLocality(), 'territory' => $address->localityRecord->getTerritory(), 'postCode' => $address->localityRecord->getPostCode(), 'country' => $address->localityRecord->getCountryName()));
 
 		return new JsonResponse(
 			array(
-				'locality' => $address->getLocality()->getId(),
+				'locality' => $address->getLocality(),
 				'line1' => $address->getLine1(),
 				'line2' => $address->getLine2(),
+				'address' => $formattedAddress,
 			),
 			200
 		);
@@ -73,14 +78,15 @@ class AddressController extends Controller
 		$id = $request->request->get('id');
 
 		$entity = $id > 0 ? $this->get('address.repository')->findOneBy(array('id' => $id)) : new Address();	
-		$entity->repo = $this->get('address.repository') ;
+		$entity->injectRepository($this->get('address.repository')) ;
+		$entity->localityRecord = $this->get('locality.repository')->setAddressLocality($request->request->get('locality_id'));
 		$valid = true;
 
 		$locality_id = $request->request->get('locality_id');		
 		if (empty($locality_id)) 
 			$valid = false;
 		else
-			$entity->setLocality($this->get('locality.repository')->findOneBy(array('id' => $locality_id)));
+			$entity->setLocality($locality_id);
 
 		$line1 = $request->request->get('line1');		
 		if (empty($line1)) 
@@ -104,11 +110,13 @@ class AddressController extends Controller
 			$status = 'danger';
 		}
 
-		$list = $entity->repo->getAddressChoices();
+		$list = $entity->getRepository()->getAddressChoices();
 		$addressOptions = '<option value="">'.$this->get('translator')->trans('address.placeholder.choice', array(), 'BusybeePersonBundle').'</option>';
 		foreach($list as $name=>$value) {
 			$addressOptions .= '<option value="'.$value.'">'.$name.'</option>';	
 		}
+
+		$formattedAddress = $this->get('setting.manager')->get('Address.Format', null, array('line1' => $entity->getLine1(), 'line2' => $entity->getLine2(), 'locality' => $entity->localityRecord->getLocality(), 'territory' => $entity->localityRecord->getTerritory(), 'postCode' => $entity->localityRecord->getPostCode(), 'country' => $entity->localityRecord->getCountryName()));
 	
 
 		return new JsonResponse(
@@ -116,10 +124,11 @@ class AddressController extends Controller
 				'message' => $message,
 				'status' => $status,
 				'id' => $id,
-				'locality' => $entity->getLocality()->getId(),
+				'locality' => $entity->getLocality(),
 				'line1' => $entity->getLine1(),
 				'line2' => $entity->getLine2(),
 				'options' => $addressOptions,
+				'address' => $formattedAddress,
 			),
 			200
 		);

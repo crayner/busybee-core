@@ -1,6 +1,6 @@
 Busybee\PersonBundle\Entity\Address:
     type: entity
-    table: person_address
+    table: address
     repositoryClass: Busybee\PersonBundle\Repository\AddressRepository
     id:
         id:
@@ -16,6 +16,8 @@ Busybee\PersonBundle\Entity\Address:
             type: string
             length: '50'
             nullable: true
+        locality: 
+            type: integer
         lastModified:
             type: datetime
             nullable: true
@@ -33,11 +35,5 @@ Busybee\PersonBundle\Entity\Address:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 modified_by:
-                    referencedColumnName: id
-                    nullable: true
-        locality:
-            targetEntity: Busybee\PersonBundle\Entity\Locality
-            joinColumns:
-                locality_id:
                     referencedColumnName: id
                     nullable: true

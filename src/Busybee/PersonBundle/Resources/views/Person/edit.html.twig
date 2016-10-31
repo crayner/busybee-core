@@ -27,7 +27,7 @@
 				<div class='row' id="addressMessage" style="display: none;">
 				</div>
 			</div>
-			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.address1} %}
+			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.address1, 'address': address1} %}
 			{% do form.address1.setRendered %}
 		</div>
 		<div class="tab-pane" id="address2" >
@@ -35,7 +35,7 @@
 				<div class='row' id="addressMessage_alt" style="display: none;">
 				</div>
 			</div>
-			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.address2, 'addressTitle': 'address2.title'} %}
+			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.address2, 'addressTitle': 'address2.title', 'address': address2} %}
 			{% do form.address2.setRendered %}
 		</div>
 	</div>

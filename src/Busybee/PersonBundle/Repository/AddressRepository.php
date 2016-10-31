@@ -22,7 +22,7 @@ class AddressRepository extends \Doctrine\ORM\EntityRepository
 		$x = $this->findBy(array(), array('line1' => 'ASC', 'line2' => 'ASC'));
 		$result = array();
 		foreach ($x as $w)
-			$result[$w->getLine1().' '.$w->getLine2().' '.$w->getLocality()->getLocality()] = $w->getId();
+			$result[$w->getLine1().' '.$w->getLine2()] = $w->getId();
 		return $result;
 	}
 }

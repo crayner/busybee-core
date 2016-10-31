@@ -25,13 +25,14 @@ class SettingManager
 	/**
 	 * get Setting
 	 *
-	 * @version	22nd October 2016
+	 * @version	31st October 2016
 	 * @since	20th October 2016
 	 * @param	string	$name
 	 * @param	mixed	$default
+	 * @param	array	$options
 	 * @return	mixed	Value
 	 */
-    public function getSetting($name, $default = null)
+    public function getSetting($name, $default = null, $options = array())
     {
         try{
 			$this->setting = $this->repo->findOneByName($name);
@@ -46,6 +47,12 @@ class SettingManager
 		{
 			case 'string':
 				return strval(mb_substr($this->setting->getValue(), 0, 25));
+				break;
+			case 'twig':
+				return $this->container->get('twig')->createTemplate($this->setting->getValue())->render($options);
+				break;
+			case 'boolean':
+				return (bool) $this->setting->getValue();
 				break;
 			default:
 				throw new \Exception('The Setting Type ('.$this->setting->getType().') has not been defined.');
@@ -83,21 +90,27 @@ class SettingManager
 	/**
 	 * set Setting
 	 *
-	 * @version	22nd October 2016
+	 * @version	31st October 2016
 	 * @since	21st October 2016
 	 * @param	string	$name
 	 * @param	mixed	$value
-	 * @return	mixed	Value
+	 * @return	this
 	 */
     public function setSetting($name, $value)
     {
         $x = $this->getSetting($name, $value);
 		if (is_null($this->setting))
 			return null;
+		$this->container->denyAccessUnlessGranted($this->setting->getRole()->getRole(), null, 'Unable to write this setting!');
 		switch ($this->setting->getType())
 		{
 			case 'string':
 				$value =  strval(mb_substr($value, 0, 25));
+				break;
+			case 'twig':
+				break;
+			case 'boolean':
+				$value = (bool) $value ;
 				break;
 			default:
 				throw new \Exception('The Setting Type ('.$this->setting->getType().') has not been defined.');
@@ -105,5 +118,34 @@ class SettingManager
 		$this->setting->setValue($value);
 		$this->saveSetting($this->setting);
 		return $this ;
+    }
+
+	/**
+	 * get Setting
+	 *
+	 * @version	31st October 2016
+	 * @since	20th October 2016
+	 * @param	string	$name
+	 * @param	mixed	$default
+	 * @param	array	$options
+	 * @return	mixed	Value
+	 */
+    public function get($name, $default = null, $options = array())
+    {
+        return $this->getSetting($name, $default, $options);
+    }
+
+	/**
+	 * set Setting
+	 *
+	 * @version	31st October 2016
+	 * @since	21st October 2016
+	 * @param	string	$name
+	 * @param	mixed	$value
+	 * @return	this
+	 */
+    public function set($name, $value)
+    {
+        return $this->setSetting($name, $value);
     }
 }

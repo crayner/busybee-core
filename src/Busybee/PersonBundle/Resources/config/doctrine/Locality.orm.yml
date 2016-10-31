@@ -1,6 +1,6 @@
 Busybee\PersonBundle\Entity\Locality:
     type: entity
-    table: person_address_locality
+    table: locality
     repositoryClass: Busybee\PersonBundle\Repository\LocalityRepository
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 

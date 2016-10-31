@@ -17,7 +17,7 @@ class LocalityController extends Controller
 		$lr = $this->get('locality.repository');
 		if ($id !== 'Add')
 			$locality = $lr->findOneBy(array('id' => $id));
-		$locality->repo = $lr ;
+		$locality->injectRepository($lr);
         $form = $this->createForm('Busybee\PersonBundle\Form\LocalityType', $locality);
 
         return $this->render('BusybeePersonBundle:Locality:index.html.twig',
@@ -32,7 +32,7 @@ class LocalityController extends Controller
 		$id = $request->request->get('id');
 
 		$entity = $id > 0 ? $this->get('locality.repository')->findOneBy(array('id' => $id)) : new Locality();	
-		$entity->repo = $this->get('locality.repository') ;
+		$entity->injectRepository($this->get('locality.repository')) ;
 		$valid = true;
 
 		$locality = $request->request->get('locality');		
@@ -59,7 +59,7 @@ class LocalityController extends Controller
 			$status = 'danger';
 		}
 
-		$list = $entity->repo->getLocalityChoices();
+		$list = $entity->getRepository()->getLocalityChoices();
 		$localityOptions = '<option value="">'.$this->get('translator')->trans('locality.placeholder.choice', array(), 'BusybeePersonBundle').'</option>';
 		foreach($list as $name=>$value) {
 			$localityOptions .= '<option value="'.$value.'">'.$name.'</option>';	

@@ -14,6 +14,7 @@
 					$('.beeLine1{{ classSuffix }}').val(data.line1);
 					$('.beeTerritory{{ classSuffix }}').val(data.line2);
 					$('.beeLocalityList{{ classSuffix }}').val(data.locality);
+					$('#addressDisplay{{ classSuffix }}').html(data.address);
 					$(".beeLocalityList{{ classSuffix }}").trigger('change');
 				}
 			});
@@ -29,15 +30,16 @@
 				},
 				type: 'POST',
 				success: function(data) {
-					$('.beeLocalityList{{ classSuffix }}').val(data.locality);
 					$('.beeLine1{{ classSuffix }}').val(data.line1);
 					$('.beeLine2{{ classSuffix }}').val(data.line2);
+					$('#addressDisplay{{ classSuffix }}').html(data.address);
 					$(".beeAddressList{{ classSuffix }}").html(data.options);
 					$(".beeAddressList{{ classSuffix }}").val(data.id);
 					$('#addressMessage{{ classSuffix }}').show()
 					$('#addressMessage{{ classSuffix }}').removeClass().addClass('row alert alert-' + data.status);
 					$('#addressMessage{{ classSuffix }}').html(data.message);
 					$('#addressMessage{{ classSuffix }}').fadeOut(3000);
+					$('.beeLocalityList{{ classSuffix }}').val(data.locality);
 					$(".beeLocalityList{{ classSuffix }}").trigger('change');
 				}
 			});

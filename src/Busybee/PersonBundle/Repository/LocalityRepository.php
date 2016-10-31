@@ -2,7 +2,9 @@
 
 namespace Busybee\PersonBundle\Repository;
 
-use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\Intl ;
+use Busybee\PersonBundle\Entity\Locality ;
+use stdClass ;
 
 /**
  * LocalityRepository
@@ -26,5 +28,23 @@ class LocalityRepository extends \Doctrine\ORM\EntityRepository
 		foreach ($x as $w)
 			$result[$w->getLocality().' '.$w->getTerritory().' '.$w->getpostCode().' '.Intl::getRegionBundle()->getCountryName(strtoupper($w->getCountry()))] = $w->getId();
 		return $result;
+	}
+
+	/**
+	 * set Address Locality
+	 *
+	 * @version	28th October 2016
+	 * @since	28th October 2016
+	 * @param	integer		$id
+	 * @return	array
+	 */
+	public function setAddressLocality($id)
+	{
+		if (intval($id) > 0)
+			$entity = $this->findOneBy(array('id' => $id));	
+		else
+			$entity = new Locality(); 
+		$entity->injectRepository($this);
+		return $entity ;			
 	}
 }

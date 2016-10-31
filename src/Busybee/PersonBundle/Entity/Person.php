@@ -2,7 +2,6 @@
 
 namespace Busybee\PersonBundle\Entity;
 
-use Busybee\PersonBundle\Entity\address ;
 /**
  * Person
  */
@@ -61,11 +60,6 @@ class Person
     /**
      * @var string
      */
-    private $photo;
-
-    /**
-     * @var string
-     */
     private $website;
 
     /**
@@ -79,6 +73,11 @@ class Person
     private $createdOn;
 
     /**
+     * @var \Busybee\PersonBundle\Entity\Image
+     */
+    private $photo;
+
+    /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $createdBy;
@@ -89,15 +88,17 @@ class Person
     private $modifiedBy;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\address
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $address1;
+    private $address;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\address
+     * Constructor
      */
-    private $address2;
-
+    public function __construct()
+    {
+        $this->address = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -326,30 +327,6 @@ class Person
     }
 
     /**
-     * Set photo
-     *
-     * @param string $photo
-     *
-     * @return Person
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
      * Set website
      *
      * @param string $website
@@ -422,6 +399,30 @@ class Person
     }
 
     /**
+     * Set photo
+     *
+     * @param \Busybee\PersonBundle\Entity\Image $photo
+     *
+     * @return Person
+     */
+    public function setPhoto(\Busybee\PersonBundle\Entity\Image $photo = null)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \Busybee\PersonBundle\Entity\Image
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
      * Set createdBy
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
@@ -470,67 +471,114 @@ class Person
     }
 
     /**
-     * Set address1
+     * Add address
      *
-     * @param \Busybee\PersonBundle\Entity\address $address1
+     * @param \Busybee\PersonBundle\Entity\Address $address
      *
      * @return Person
      */
-    public function setAddress1(\Busybee\PersonBundle\Entity\address $address1 = null)
+    public function addAddress(\Busybee\PersonBundle\Entity\Address $address)
     {
-        $this->address1 = $address1;
+        $this->address[] = $address;
 
         return $this;
+    }
+
+    /**
+     * Remove address
+     *
+     * @param \Busybee\PersonBundle\Entity\Address $address
+     */
+    public function removeAddress(\Busybee\PersonBundle\Entity\Address $address)
+    {
+        $this->address->removeElement($address);
+    }
+
+    /**
+     * Get address
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $address1;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $address2;
+
+
+    /**
+     * Add address1
+     *
+     * @param \Busybee\PersonBundle\Entity\Address $address1
+     *
+     * @return Person
+     */
+    public function addAddress1(\Busybee\PersonBundle\Entity\Address $address1)
+    {
+        $this->address1[] = $address1;
+
+        return $this;
+    }
+
+    /**
+     * Remove address1
+     *
+     * @param \Busybee\PersonBundle\Entity\Address $address1
+     */
+    public function removeAddress1(\Busybee\PersonBundle\Entity\Address $address1)
+    {
+        $this->address1->removeElement($address1);
     }
 
     /**
      * Get address1
      *
-     * @return \Busybee\PersonBundle\Entity\address
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAddress1()
     {
-        if (! $this->address1 instanceof Address) $this->setAddress1(new Address());
         return $this->address1;
     }
 
     /**
-     * Set address2
+     * Add address2
      *
-     * @param \Busybee\PersonBundle\Entity\address $address2
+     * @param \Busybee\PersonBundle\Entity\Address $address2
      *
      * @return Person
      */
-    public function setAddress2(\Busybee\PersonBundle\Entity\address $address2 = null)
+    public function addAddress2(\Busybee\PersonBundle\Entity\Address $address2)
     {
-        $this->address2 = $address2;
+        $this->address2[] = $address2;
 
         return $this;
     }
 
     /**
-     * Get address2
+     * Remove address2
      *
-     * @return \Busybee\PersonBundle\Entity\address
+     * @param \Busybee\PersonBundle\Entity\Address $address2
      */
-    public function getAddress2()
+    public function removeAddress2(\Busybee\PersonBundle\Entity\Address $address2)
     {
-        if (! $this->address2 instanceof Address) $this->setAddress2(new Address());
-        return $this->address2;
+        $this->address2->removeElement($address2);
     }
 
     /**
-     * Get Genders
+     * Get address2
      *
-     * @return array
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getGenders()
+    public function getAddress2()
     {
-        return array(
-			'Unspecified' => 'U',
-			'Female' => 'F',
-			'Male' => 'M',
-			'Other' => 'O'
-		);
+        return $this->address2;
     }
 }

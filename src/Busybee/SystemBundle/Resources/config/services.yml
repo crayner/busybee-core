@@ -1,6 +1,6 @@
 parameters:
     version:
-        system: 0.0.02
+        system: 0.0.03
         database: 0.0.02
 services:
     monolog.formatter.session_request:
@@ -43,3 +43,7 @@ services:
         tags:
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: prePersist }
+    setting.manager:
+        class: Busybee\SystemBundle\Setting\SettingManager
+        arguments: 
+            - "@service_container"

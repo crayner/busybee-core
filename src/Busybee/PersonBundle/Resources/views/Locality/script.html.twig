@@ -18,7 +18,7 @@
 				}
 			});
 		});
-		$('.beeLocalitySave').click(function() {
+		$('.beeLocalitySave{{ classSuffix }}').click(function() {
 			$.ajax({
 				url: '{{ path('locality_edit') }}',	
 				data: {
@@ -36,10 +36,10 @@
 					$('.beePostCode{{ classSuffix }}').val(data.postCode);
 					$(".beeLocalityList{{ classSuffix }}").html(data.options);
 					$(".beeLocalityList{{ classSuffix }}").val(data.id);
-					$('#localityMessage').show()
-					$('#localityMessage').removeClass().addClass('row alert alert-' + data.status);
-					$('#localityMessage').html(data.message);
-					$('#localityMessage').fadeOut(3000);
+					$('#localityMessage{{ classSuffix }}').show()
+					$('#localityMessage{{ classSuffix }}').removeClass().addClass('row alert alert-' + data.status);
+					$('#localityMessage{{ classSuffix }}').html(data.message);
+					$('#localityMessage{{ classSuffix }}').fadeOut(3000);
 				}
 			});
 		});

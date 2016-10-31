@@ -13,6 +13,16 @@ class Staff
     private $id;
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @var string
+     */
+    private $jobTitle;
+
+    /**
      * @var \DateTime
      */
     private $lastModified;
@@ -23,7 +33,7 @@ class Staff
     private $createdOn;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\Person
+     * @var \Busybee\PersonBundle\Entity\Person
      */
     private $person;
 
@@ -46,6 +56,54 @@ class Staff
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Staff
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set jobTitle
+     *
+     * @param string $jobTitle
+     *
+     * @return Staff
+     */
+    public function setJobTitle($jobTitle)
+    {
+        $this->jobTitle = $jobTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get jobTitle
+     *
+     * @return string
+     */
+    public function getJobTitle()
+    {
+        return $this->jobTitle;
     }
 
     /**
@@ -99,11 +157,11 @@ class Staff
     /**
      * Set person
      *
-     * @param \Busybee\SecurityBundle\Entity\Person $person
+     * @param \Busybee\PersonBundle\Entity\Person $person
      *
      * @return Staff
      */
-    public function setPerson(\Busybee\SecurityBundle\Entity\Person $person = null)
+    public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
     {
         $this->person = $person;
 
@@ -113,7 +171,7 @@ class Staff
     /**
      * Get person
      *
-     * @return \Busybee\SecurityBundle\Entity\Person
+     * @return \Busybee\PersonBundle\Entity\Person
      */
     public function getPerson()
     {
@@ -166,63 +224,5 @@ class Staff
     public function getModifiedBy()
     {
         return $this->modifiedBy;
-    }
-    /**
-     * @var string
-     */
-    private $type;
-
-    /**
-     * @var string
-     */
-    private $jobTitle;
-
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Staff
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set jobTitle
-     *
-     * @param string $jobTitle
-     *
-     * @return Staff
-     */
-    public function setJobTitle($jobTitle)
-    {
-        $this->jobTitle = $jobTitle;
-
-        return $this;
-    }
-
-    /**
-     * Get jobTitle
-     *
-     * @return string
-     */
-    public function getJobTitle()
-    {
-        return $this->jobTitle;
     }
 }
