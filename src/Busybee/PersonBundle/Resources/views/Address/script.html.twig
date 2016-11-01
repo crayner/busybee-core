@@ -2,8 +2,6 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% if classSuffix is not defined %}{% set classSuffix = '' %}{% endif %}
-
 	<script>
 		$('.beeAddressList{{ classSuffix }}').change(function() {
 			$.ajax({

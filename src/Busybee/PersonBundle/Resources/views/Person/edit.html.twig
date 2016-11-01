@@ -28,18 +28,18 @@
 		</div>
 		<div class="tab-pane" id="address1" >
 			<div class="container-fluid">
-				<div class='row' id="addressMessage" style="display: none;">
+				<div class='row' id="addressMessageaddress1" style="display: none;">
 				</div>
 			</div>
-			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.address1, 'address': address1} %}
+			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.add1, 'address': address1, 'classSuffix': 'address1'} %}
 			{% do form.address1.setRendered %}
 		</div>
 		<div class="tab-pane" id="address2" >
 			<div class="container-fluid">
-				<div class='row' id="addressMessage_alt" style="display: none;">
+				<div class='row' id="addressMessageaddress2" style="display: none;">
 				</div>
 			</div>
-			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.address2, 'addressTitle': 'address2.title', 'address': address2} %}
+			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.add2, 'addressTitle': 'address2.title', 'address': address2, 'classSuffix': 'address2'} %}
 			{% do form.address2.setRendered %}
 		</div>
 	</div>
@@ -60,9 +60,8 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': ''} %}
-	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': ''} %}
-	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': '_alt'} %}
-	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': '_alt'} %}
-	{% include 'BusybeePersonBundle:Person:script.html.twig' %}
+	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': 'address1'} %}
+	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': 'address1'} %}
+	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': 'address2'} %}
+	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': 'address2'} %}
 {% endblock javascripts %}

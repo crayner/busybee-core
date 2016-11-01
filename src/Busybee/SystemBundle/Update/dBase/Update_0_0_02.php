@@ -95,7 +95,7 @@ Class Update_0_0_02 implements UpdateInterface
 				'Dr' => 'Dr',
 			))
 		);
-		$entity->setName('Person.Title');
+		$entity->setName('Person.Titles');
 		$entity->setDescription('List of Titles');
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 

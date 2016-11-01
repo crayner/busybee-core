@@ -46,6 +46,10 @@ person:
     title: Person
     save: 
         success: "Success: The details of the person where successfully saved."
+        error: 'An error occurred'
+    error:
+        list: is not a valid selection.
+        empty: can not be empty.
 address:
     label:
         line1: Address Line 1
