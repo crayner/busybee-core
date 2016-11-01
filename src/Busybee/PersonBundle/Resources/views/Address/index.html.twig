@@ -1,4 +1,4 @@
-{# src/Busybee/PersonBundle/Resources/views/Locality/index.html.twig #}
+{# src/Busybee/PersonBundle/Resources/views/Address/index.html.twig #}
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
@@ -6,9 +6,9 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
-{% block title %}{{ parent() }}{{ 'person.locality.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'person.locality.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'person.locality.description'|trans }}{% endblock headerLead %}
+{% block title %}{{ parent() }}{{ 'person.address.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'person.address.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'person.address.description'|trans }}{% endblock headerLead %}
 
 
 
@@ -19,13 +19,13 @@
 		</div>
 	</div>
 	<div id="addressContent">
-		{% include 'BusybeePersonBundle:Address:edit.html.twig' %}
+		{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'classSuffix': 'address1'} %}
 	</div>
 {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
 	{{ parent() }}
-	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': ''} %}
-	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': ''} %}
+	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': 'address1'} %}
+	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': 'address1'} %}
 {% endblock javascripts %}

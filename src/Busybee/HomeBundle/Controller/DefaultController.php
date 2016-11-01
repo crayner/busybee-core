@@ -18,7 +18,7 @@ class DefaultController extends Controller
 
         $setting = $this->get('doctrine')->getRepository('SystemBundle:Setting');
 		if (! $setting->getSetting('Installed', false))
-			return new RedirectResponse($this->generateUrl('busybee_install'));
+			return new RedirectResponse($this->generateUrl('install_start'));
 			
 		$user = $this->getUser();
 		if (! is_null($user)) 

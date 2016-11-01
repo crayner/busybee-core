@@ -37,13 +37,17 @@ class PersonController extends Controller
 		
 		$setting = $this->get('setting.manager') ;
 
-        $form = $this->createForm('Busybee\PersonBundle\Form\PersonType', $person);
+		$em = $this->get('doctrine')->getManager();
+		$em->detach($person->getAddress1Record()->localityRecord);
+		$em->detach($person->getAddress2Record()->localityRecord);
+		$em->detach($person->getAddress1Record());
+		$em->detach($person->getAddress2Record());
 
+        $form = $this->createForm('Busybee\PersonBundle\Form\PersonType', $person);
 
 		if (! empty($request->request->get('person')))
 		{
 			$data = $request->request->get('person');
-dump($data);
 			$data['address1'] = intval($data['add1']['addressList']);
 			$data['address2'] = intval($data['add2']['addressList']);
 			if ($data['address1'] < 1)
@@ -63,21 +67,20 @@ dump($data);
 			}
 			$request->request->set('person', $data);
 			$person->setAddress1($data['address1']);
-			$person->setAddress2($data['address1']);
+			$person->setAddress2($data['address2']);
         	
 			$form->setData($person);
 
 			$form->handleRequest($request);
+
 	
-dump($form->isSubmitted());
-dump($form->isValid());
-dump($form);
 			if ($form->isSubmitted() && $form->isValid())
 			{
-				$em = $this->get('doctrine')->getManager();
 				$em->persist($person);
 				$em->flush();
 				$id = $person->getId();
+				return new RedirectResponse($this->generateUrl('person_edit', array('id' => $id)));
+
 			}
 			$request->request->set('person', null);
 		} else

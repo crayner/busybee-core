@@ -4,8 +4,6 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
-{% set classSuffix = form.vars.name %}
-
 {% if form.vars.data is not null %}
 	{% set address_id = form.vars.data.id %}
 {% else %}

@@ -75,7 +75,7 @@
 							<select id="country" name="country" value="{{ config.misc.country }}" required class="form-control" >
 							{% for code,name in config.countryList %}
 								<option value="{{ code }}">{{ name }}</option>
-							{% endif %}
+							{% endfor %}
 							</select>
 						</div>
 					</div>

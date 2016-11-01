@@ -90,19 +90,6 @@ class Person extends PersonModel
     private $modifiedBy;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $address;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->address = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -473,39 +460,6 @@ class Person extends PersonModel
     }
 
     /**
-     * Add address
-     *
-     * @param \Busybee\PersonBundle\Entity\Address $address
-     *
-     * @return Person
-     */
-    public function addAddress(\Busybee\PersonBundle\Entity\Address $address)
-    {
-        $this->address[] = $address;
-
-        return $this;
-    }
-
-    /**
-     * Remove address
-     *
-     * @param \Busybee\PersonBundle\Entity\Address $address
-     */
-    public function removeAddress(\Busybee\PersonBundle\Entity\Address $address)
-    {
-        $this->address->removeElement($address);
-    }
-
-    /**
-     * Get address
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $address1;
@@ -517,30 +471,6 @@ class Person extends PersonModel
 
 
     /**
-     * Add address1
-     *
-     * @param \Busybee\PersonBundle\Entity\Address $address1
-     *
-     * @return Person
-     */
-    public function addAddress1(\Busybee\PersonBundle\Entity\Address $address1)
-    {
-        $this->address1[] = $address1;
-
-        return $this;
-    }
-
-    /**
-     * Remove address1
-     *
-     * @param \Busybee\PersonBundle\Entity\Address $address1
-     */
-    public function removeAddress1(\Busybee\PersonBundle\Entity\Address $address1)
-    {
-        $this->address1->removeElement($address1);
-    }
-
-    /**
      * Get address1
      *
      * @return \Doctrine\Common\Collections\Collection
@@ -548,30 +478,6 @@ class Person extends PersonModel
     public function getAddress1()
     {
         return $this->address1;
-    }
-
-    /**
-     * Add address2
-     *
-     * @param \Busybee\PersonBundle\Entity\Address $address2
-     *
-     * @return Person
-     */
-    public function addAddress2(\Busybee\PersonBundle\Entity\Address $address2)
-    {
-        $this->address2[] = $address2;
-
-        return $this;
-    }
-
-    /**
-     * Remove address2
-     *
-     * @param \Busybee\PersonBundle\Entity\Address $address2
-     */
-    public function removeAddress2(\Busybee\PersonBundle\Entity\Address $address2)
-    {
-        $this->address2->removeElement($address2);
     }
 
     /**
