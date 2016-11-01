@@ -28,3 +28,10 @@ update_start:
 update_database:
     path:     /update/database/
     defaults: { _controller: SystemBundle:Update:database }
+setting_manage:
+    path:     /setting/manage
+    defaults: { _controller: SystemBundle:Setting:index }
+setting_edit:
+    path:     /setting/edit/{id}
+    defaults: { _controller: SystemBundle:Setting:edit }
+

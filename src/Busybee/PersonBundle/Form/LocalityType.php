@@ -16,7 +16,6 @@ class LocalityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-dump($options);
         $builder
 			->add('locality', null, array(
 					'label' => 'locality.label.locality',

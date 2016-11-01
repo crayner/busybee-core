@@ -29,6 +29,7 @@ person:
         photo: Head Shot
         gender: Gender
         website: Personal Web Site
+        title: Personal Title
     help:
         officialName: This is the name recorded on official documents. e.g. birth certificates and passports.
         photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 
@@ -43,6 +44,8 @@ person:
         title: Edit Person
         description: ''
     title: Person
+    save: 
+        success: "Success: The details of the person where successfully saved."
 address:
     label:
         line1: Address Line 1

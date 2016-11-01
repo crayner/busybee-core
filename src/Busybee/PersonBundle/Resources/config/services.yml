@@ -44,14 +44,6 @@ parameters:
             - p.surnameaddress.formType
             - p.firstName
             - p.email
-    Address:
-        Format: >
-            <pre>
-            {{ line1 }}
-            {% if line2 is not empty %}{{ line2 }}{% endif %}
-            {{ locality }} {{ territory }} {{ postCode }}
-            {{ country }} 
-            </pre>
     
 services:
     person.repository:

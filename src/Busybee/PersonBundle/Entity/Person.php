@@ -2,10 +2,12 @@
 
 namespace Busybee\PersonBundle\Entity;
 
+use Busybee\PersonBundle\Model\PersonModel ;
+
 /**
  * Person
  */
-class Person
+class Person extends PersonModel
 {
     /**
      * @var integer
@@ -580,5 +582,33 @@ class Person
     public function getAddress2()
     {
         return $this->address2;
+    }
+
+    /**
+     * Set address1
+     *
+     * @param integer $address1
+     *
+     * @return Person
+     */
+    public function setAddress1($address1)
+    {
+        $this->address1 = $address1;
+
+        return $this;
+    }
+
+    /**
+     * Set address2
+     *
+     * @param integer $address2
+     *
+     * @return Person
+     */
+    public function setAddress2($address2)
+    {
+        $this->address2 = $address2;
+
+        return $this;
     }
 }

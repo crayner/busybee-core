@@ -42,23 +42,22 @@ Busybee\PersonBundle\Entity\Person:
         website:
             type: string
             length: '150'
+        address1:
+            type: integer
+            nullable: true
+        address2:
+            type: integer
+            nullable: true
         lastModified:
             type: datetime
             nullable: true 
         createdOn:
             type: datetime
             nullable: true 
-    oneToOne:
-        photo:
-            targetEntity: Busybee\PersonBundle\Entity\Image
-            cascade: ["persist"]
-            joinColumns:
-                photo_id:
-                    referencedColumnName: id
-                    nullable: true
     properties:
         email:
             - Email: ~
+            - Unique: ~
         email2:
             - Email: ~
         website:
@@ -79,16 +78,3 @@ Busybee\PersonBundle\Entity\Person:
                 modified_by:
                     referencedColumnName: id
                     nullable: true
-    manyToMany:
-        address:
-            targetEntity: Busybee\PersonBundle\Entity\Address
-            joinTable:
-                name: person_addresses
-                joinColumns:
-                    person_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    address_id:
-                        referencedColumnName: id 
-
-        

@@ -1,4 +1,4 @@
-{# src/Busybee/PersonBundle/Resources/views/Staff/edit.html.twig #}
+{# src/Busybee/PersonBundle/Resources/views/Person/edit.html.twig #}
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
@@ -20,6 +20,10 @@
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="person" >
+			<div class="container-fluid">
+				<div class='row' id="personMessage" style="display: none;">
+				</div>
+			</div>
 			{{ include('BusybeePersonBundle:Person:person.html.twig') }}
 		</div>
 		<div class="tab-pane" id="address1" >
@@ -60,4 +64,5 @@
 	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': ''} %}
 	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': '_alt'} %}
 	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': '_alt'} %}
+	{% include 'BusybeePersonBundle:Person:script.html.twig' %}
 {% endblock javascripts %}

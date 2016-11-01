@@ -2,6 +2,8 @@
 
 namespace Busybee\PersonBundle\Repository;
 
+use Busybee\PersonBundle\Entity\Address ;
+
 /**
  * AddressRepository
  *
@@ -24,5 +26,23 @@ class AddressRepository extends \Doctrine\ORM\EntityRepository
 		foreach ($x as $w)
 			$result[$w->getLine1().' '.$w->getLine2()] = $w->getId();
 		return $result;
+	}
+
+	/**
+	 * set Address Locality
+	 *
+	 * @version	28th October 2016
+	 * @since	28th October 2016
+	 * @param	integer		$id
+	 * @return	array
+	 */
+	public function setPersonAddress($id)
+	{
+		if (intval($id) > 0)
+			$entity = $this->findOneBy(array('id' => $id));	
+		else
+			$entity = new Address(); 
+		$entity->injectRepository($this);
+		return $entity ;			
 	}
 }

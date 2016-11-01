@@ -57,6 +57,7 @@ Class Update_0_0_00 implements UpdateInterface
 		$entity->setType('string');
 		$entity->setValue('0.0.00');
 		$entity->setName('Version.System');
+		$entity->setDescription('The version of Busybee currently configured on your system.');
 		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
 		$this->sm->saveSetting($entity);
@@ -65,6 +66,7 @@ Class Update_0_0_00 implements UpdateInterface
 		$entity->setType('string');
 		$entity->setValue('0.0.00');
 		$entity->setName('Version.Database');
+		$entity->setDescription('The version of Busybee Database currently configured on your system.');
 		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
 		$this->sm->saveSetting($entity);
@@ -73,6 +75,7 @@ Class Update_0_0_00 implements UpdateInterface
 		$entity->setType('boolean');
 		$entity->setValue(true);
 		$entity->setName('Installed');
+		$entity->setDescription('A flag showing the system has finished installing.');
 		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
 		$this->sm->saveSetting($entity);

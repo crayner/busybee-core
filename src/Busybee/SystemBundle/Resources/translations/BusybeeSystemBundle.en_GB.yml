@@ -17,6 +17,27 @@ system:
         database:
             title: "Current Database Version: %version%"
             description: "Available Database Version: %version%"
+    setting:
+        warning: "CAUTION: Changing System Settings can have unpredictable affects on the operation of the system, and should only be done with caution."
+        manage:
+            title: Manage Settings
+            description: Alter system  settings to suit your installation.
+            name: Setting Name
+            valueDesc: Setting Description
+            actions: Actions
+        edit:
+            title: Edit Setting
+            description: Change the value and description of settings.
+        label:
+            name: Setting Name
+            description: Setting Description
+            value: Setting Value
+        help:
+            name: Setting names are set by the program and are not available to change. 
+            description: You can alter the setting decription to better describe the setting.
+            boolean: Setting is true or false, Yes or No.
+            array: "Setting values for arrays are displayed as a display name: key combination."
+            twig: "Templates in twig need to be tested on the page for which thay are used."
 parameter:
     file:    
         title: Parameter File Status

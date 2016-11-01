@@ -2,6 +2,7 @@
 namespace Busybee\SystemBundle\Setting ;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\Yaml\Yaml ;
 
 /**
  * Setting Manager
@@ -54,6 +55,9 @@ class SettingManager
 			case 'boolean':
 				return (bool) $this->setting->getValue();
 				break;
+			case 'array':
+				return Yaml::parse($this->setting->getValue());
+				break;
 			default:
 				throw new \Exception('The Setting Type ('.$this->setting->getType().') has not been defined.');
 		}
@@ -101,7 +105,7 @@ class SettingManager
         $x = $this->getSetting($name, $value);
 		if (is_null($this->setting))
 			return null;
-		$this->container->denyAccessUnlessGranted($this->setting->getRole()->getRole(), null, 'Unable to write this setting!');
+		if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole()->getRole())) return $this;
 		switch ($this->setting->getType())
 		{
 			case 'string':
@@ -111,6 +115,9 @@ class SettingManager
 				break;
 			case 'boolean':
 				$value = (bool) $value ;
+				break;
+			case 'array':
+				$value = Yaml::dump($value);
 				break;
 			default:
 				throw new \Exception('The Setting Type ('.$this->setting->getType().') has not been defined.');
@@ -147,5 +154,53 @@ class SettingManager
     public function set($name, $value)
     {
         return $this->setSetting($name, $value);
+    }
+
+	/**
+	 * get Form Array Data
+	 *
+	 * @version	1st Novenber 2016
+	 * @since	1st Novenber 2016
+	 * @param	string	$name
+	 * @param	mixed	$default
+	 * @param	array	$options
+	 * @return	mixed	Value
+	 */
+    public function getFormArrayData($name, $default = null, $options = array())
+    {
+        $x = $this->getSetting($name, $default, $options);
+		$y = array();
+		foreach($x as $display=>$value)
+		{
+			$w = array();
+			$w['keyValue'] = $value;
+			$w['displayName'] = $display;
+			$y[] = $w;
+		}
+		$w = array();
+		$w['keyValue'] = '';
+		$w['displayName'] = '';
+		$y['new'] = $w;
+		
+		return $y;
+    }
+
+	/**
+	 * set Form Array Data
+	 *
+	 * @version	1st Novenber 2016
+	 * @since	1st Novenber 2016
+	 * @param	array	$value
+	 * @return	array
+	 */
+    public function setFormArrayData($value)
+    {
+		$result = array();
+		foreach($value as $w)
+		{
+			if (! empty($w['keyValue']))
+				$result[$w['displayName']] = $w['keyValue'];
+		}
+		return $result ;
     }
 }

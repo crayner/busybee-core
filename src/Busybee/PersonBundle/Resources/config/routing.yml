@@ -10,6 +10,9 @@ person_manage:
 person_edit:
     path:     /edit/{id}
     defaults: { _controller: BusybeePersonBundle:Person:edit }
+person_save:
+    path:     /save/{id}
+    defaults: { _controller: BusybeePersonBundle:Person:save }
 address_check:
     path:     /address/
     defaults: { _controller: BusybeePersonBundle:Address:check }

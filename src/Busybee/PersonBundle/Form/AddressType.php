@@ -14,7 +14,6 @@ class AddressType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-dump($options['data']->localityRecord);
 		$builder
 			->add('line1', null, array(
 					'label' => 'address.label.line1',

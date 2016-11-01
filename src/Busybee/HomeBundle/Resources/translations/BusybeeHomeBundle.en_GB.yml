@@ -56,6 +56,8 @@ menu:
             edit: Edit Self
             register: Register User 
             list: Current Users 
+        setting:
+            manage: Manage Settings
     family:
         manage: Manage Family       
     people:

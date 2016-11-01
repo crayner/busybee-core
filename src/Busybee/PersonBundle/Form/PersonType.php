@@ -13,7 +13,13 @@ class PersonType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')
+        $builder->add('title', null, array(
+					'label' => 'person.label.title',
+					'attr'	=> array(
+						'class' => 'beeTitle',
+					),
+				)
+			)
 			->add('surname', null, array(
 					'label' => 'person.label.surname',
 				)
@@ -34,7 +40,7 @@ class PersonType extends AbstractType
 				)
 			)
 			->add('gender', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-					'choices' => $options['data']->getGenders(),
+					'choices' => $options['data']->genderList,
 					'label' => 'person.label.gender',
 				)
 			)
@@ -67,20 +73,20 @@ class PersonType extends AbstractType
 				)
 			)
 			->add('address1', 'Busybee\PersonBundle\Form\AddressType', array(
-					'data' => $options['data']->getAddress1(),
+					'data' => $options['data']->getAddress1Record(),
 					'required' => false,
 				)
 			)
 			->add('address2', 'Busybee\PersonBundle\Form\AddressType', array(
-					'data' => $options['data']->getAddress2(),
+					'data' => $options['data']->getAddress2Record(),
 					'required' => false,
 				)
 			)
-            ->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+			->add('save', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
 					'label' 				=> 'form.save',
 					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
-						'class' 				=> 'btn btn-success glyphicons glyphicons-disk-save'
+						'class' 				=> 'personSave btn btn-success glyphicons glyphicons-disk-save',
 					),
 				)
 			)

@@ -1,7 +1,25 @@
 parameters:
     version:
         system: 0.0.03
-        database: 0.0.02
+        database: 0.0.03
+    settingPagination:
+        alias: s
+        sortBy:
+            Name: 
+                s.name: ASC
+                s.description: ASC
+            Description: 
+                s.description: ASC
+                s.name: ASC
+        limit: '10'
+        searchList:
+            - s.name
+            - s.description
+        select:
+            - s.name
+            - s.description
+            - s.id
+
 services:
     monolog.formatter.session_request:
         class: Monolog\Formatter\LineFormatter
@@ -30,6 +48,13 @@ services:
             - getRepository 
         arguments: 
             - "SystemBundle:Setting"
+    setting.repository:
+        class: Busybee\SystemBundle\Entity\SettingRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "SystemBundle:Setting"
     system.update.manager:
         class: Busybee\SystemBundle\Update\UpdateManager
         arguments: 
@@ -47,3 +72,9 @@ services:
         class: Busybee\SystemBundle\Setting\SettingManager
         arguments: 
             - "@service_container"
+    setting.pagination:
+        class: Busybee\SystemBundle\Model\SettingPagination
+        arguments: 
+            - '%settingPagination%'
+            - '@setting.repository'
+            - '@service_container'

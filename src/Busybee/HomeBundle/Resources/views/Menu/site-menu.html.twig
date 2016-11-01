@@ -11,6 +11,9 @@
 {% if is_granted('ROLE_ADMIN') %}
 			<li><a href="{{ path("update_start") }}">{{ 'menu.site.update'|trans }}</a></li> 
 {% endif %}
+{% if is_granted('ROLE_REGISTRAR') %}
+			<li><a href="{{ path("setting_manage") }}">{{ 'menu.site.setting.manage'|trans }}</a></li> 
+{% endif %}
 		</ul>
 	</li>
 	{% include 'BusybeePersonBundle:Menu:person.html.twig' %}

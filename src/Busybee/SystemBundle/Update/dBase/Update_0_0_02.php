@@ -2,6 +2,7 @@
 namespace Busybee\SystemBundle\Update\dBase ;
 
 use Busybee\SystemBundle\Update\UpdateInterface ;
+use Symfony\Component\Yaml\Yaml ;
 
 /**
  * Update 0.0.00
@@ -25,7 +26,7 @@ Class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	=	1 ;
+	private $count	=	3 ;
 	
 	/**
 	 * Constructor
@@ -61,7 +62,42 @@ Class Update_0_0_02 implements UpdateInterface
 {{ locality }} {{ territory }} {{ postCode }}
 {{ country }}</pre>");
 		$entity->setName('Address.Format');
-		$entity->setRole($role->findOneByRole('ROLE_RGISTRAR'));
+		$entity->setDescription('A template for displaying an address.');
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('array');
+		$entity->setValue(
+			Yaml::dump(array(
+				'Unspecified' => 'U',
+				'Male' => 'M',
+				'Female' => 'F',
+				'Other' => '0',
+			))
+		);
+		$entity->setName('Gender.List');
+		$entity->setDescription('Gender List');
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('array');
+		$entity->setValue(
+			Yaml::dump(array(
+				'' => '',
+				'Mr' => 'Mr',
+				'Mrs' => 'Mrs',
+				'Ms' => 'Ms',
+				'Miss' => 'Miss',
+				'Dr' => 'Dr',
+			))
+		);
+		$entity->setName('Person.Title');
+		$entity->setDescription('List of Titles');
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);
 		

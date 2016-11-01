@@ -24,6 +24,9 @@ Busybee\SystemBundle\Entity\Setting:
             type: string
             length: 25
             unique: true
+        description:
+            type: string
+            length: 255
         value:
             type: text
         lastModified:
@@ -51,3 +54,4 @@ Busybee\SystemBundle\Entity\Setting:
             joinColumns:
                 role_id:
                     referencedColumnName: id
+                    nullable: false 

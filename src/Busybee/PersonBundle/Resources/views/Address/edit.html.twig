@@ -1,8 +1,9 @@
-{# src/Busybee/PersonBundle/Resources/views/Locality/edit.html.twig #}
+{# src/Busybee/PersonBundle/Resources/views/Address/edit.html.twig #}
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
 
 	<div class="panel panel-primary busybee-panel">
 		<div class="panel-heading">
@@ -13,11 +14,11 @@
 			<div class="container-fluid">
 				<div class='row'>
 					<div class='col-sm-6 well'>
-						{{ form_row(form.addressList, {'value': form.vars.value.id|trim}) }}
+						{{ form_row(form.addressList, {'value': form.vars.data.id|trim}) }}
 					</div>
 					<div class='col-sm-4 well'>
 						<div class='form-group' id="addressDisplay{{ form.vars.data.getClassSuffix }}">
-
+							{{ address|raw }}
 						</div>
 					</div>
 					<div class='col-sm-2 well'>

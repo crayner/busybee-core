@@ -1,0 +1,27 @@
+{# src/Busybee/PersonBundle/Resources/views/Address/script.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% if classSuffix is not defined %}{% set classSuffix = '' %}{% endif %}
+
+	<script>
+		$('.personSave').click(function() {
+			$.ajax({
+				url: '{{ path('person_save', {'id': id }) }}',	
+				data: {
+					'title': $('.beeTitle').val(),
+				},
+				type: 'POST',
+				success: function(data) {
+					$('.beeTitle').val(data.title);
+
+					$('#personMessage{{ classSuffix }}').show()
+					$('#personMessage{{ classSuffix }}').removeClass().addClass('row alert alert-' + data.status);
+					$('#personMessage{{ classSuffix }}').html(data.message);
+					$('#personMessage{{ classSuffix }}').fadeOut(3000);
+					$(".beeAddressList").trigger('change');
+					$(".beeAddressList_alt").trigger('change');
+				}
+			});
+		});
+	</script>
