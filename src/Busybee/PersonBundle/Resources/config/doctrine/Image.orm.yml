@@ -9,11 +9,12 @@ Busybee\PersonBundle\Entity\Image:
             generator:
                 strategy: AUTO
     fields:
-        type:
+        mimeType:
             type: string
             length: '25'
-        image:
-            type: blob    
+        path:
+            type: string
+            length: 150
         size:
             type: string
             length: '25'

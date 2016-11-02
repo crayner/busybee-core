@@ -9,6 +9,7 @@ use Busybee\PersonBundle\Entity\Address ;
 use Busybee\PersonBundle\Entity\Locality ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Symfony\Component\HttpFoundation\JsonResponse ;
+use Busybee\PersonBundle\Form\PersonType ;
 
 class PersonController extends Controller
 {
@@ -42,8 +43,16 @@ class PersonController extends Controller
 		$em->detach($person->getAddress2Record()->localityRecord);
 		$em->detach($person->getAddress1Record());
 		$em->detach($person->getAddress2Record());
+		$person->transformer = $this->get('person.transformer.photo') ;
 
-        $form = $this->createForm('Busybee\PersonBundle\Form\PersonType', $person);
+		$data = $request->files->get('person'); 
+		if (is_null($data['photo']) && ! is_null($person->getPhoto()))
+		{	
+			$data['photo'] = $this->get('image.repository')->findOneBy(array('id' => $person->getPhoto()));
+			$request->files->set('person', $data); 
+		}
+
+        $form = $this->createForm(PersonType::class, $person);
 
 		if (! empty($request->request->get('person')))
 		{
@@ -72,10 +81,12 @@ class PersonController extends Controller
 			$form->setData($person);
 
 			$form->handleRequest($request);
+			
+dump($form);
 
-	
 			if ($form->isSubmitted() && $form->isValid())
 			{
+
 				$em->persist($person);
 				$em->flush();
 				$id = $person->getId();

@@ -15,12 +15,12 @@ class Image
     /**
      * @var string
      */
-    private $type;
+    private $mimeType;
 
     /**
      * @var string
      */
-    private $image;
+    private $path;
 
     /**
      * @var string
@@ -70,9 +70,9 @@ class Image
      *
      * @return Image
      */
-    public function setType($type)
+    public function setMimeType($type)
     {
-        $this->type = $type;
+        $this->mimeType = $type;
 
         return $this;
     }
@@ -82,33 +82,33 @@ class Image
      *
      * @return string
      */
-    public function getType()
+    public function getMimeType()
     {
-        return $this->type;
+        return $this->mimeType;
     }
 
     /**
-     * Set image
+     * Set path
      *
      * @param string $image
      *
      * @return Image
      */
-    public function setImage($image)
+    public function setPath($image)
     {
-        $this->image = $image;
+        $this->path = $image;
 
         return $this;
     }
 
     /**
-     * Get image
+     * Get path
      *
      * @return string
      */
-    public function getImage()
+    public function getPath()
     {
-        return $this->image;
+        return $this->path;
     }
 
     /**

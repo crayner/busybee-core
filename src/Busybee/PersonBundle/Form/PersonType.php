@@ -5,6 +5,8 @@ namespace Busybee\PersonBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Busybee\PersonBundle\Form\Transformer\PhotoTransformer ;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
 class PersonType extends AbstractType
 {
@@ -19,6 +21,7 @@ class PersonType extends AbstractType
 					'attr'	=> array(
 						'class' => 'beeTitle',
 					),
+					'required' => false,
 				)
 			)
 			->add('surname', null, array(
@@ -40,6 +43,7 @@ class PersonType extends AbstractType
 					'attr'	=> array(
 						'class' => 'beePreferredName',
 					),
+					'required' => false,
 				)
 			)
 			->add('officialName', null, array(
@@ -79,13 +83,17 @@ class PersonType extends AbstractType
 			->add('photo', 'Busybee\FormBundle\Type\ImageType', array(
 					'attr' => array(
 						'help' => 'person.help.photo' ,
+						'imageClass' => 'headShot75',
 					),
 					'label' => 'person.label.photo',
 					'required' => false,
+					'data' => $options['data']->getPhoto(),
+					'data_class' => null,
 				)
 			)
 			->add('website', 'Symfony\Component\Form\Extension\Core\Type\UrlType', array(
 					'label' => 'person.label.website',
+					'required' => false,
 				)
 			)
 			->add('add1', 'Busybee\PersonBundle\Form\AddressType', array(
@@ -125,6 +133,7 @@ class PersonType extends AbstractType
 				)
 			)
 		;
+		$builder->get('photo')->addModelTransformer($options['data']->transformer);
     }
     
     /**
@@ -134,7 +143,8 @@ class PersonType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Busybee\PersonBundle\Entity\Person',
-			'translation_domain' 	=> 'BusybeePersonBundle',
+			'translation_domain' => 'BusybeePersonBundle',
+			'validation_groups' => 'default',
         ));
     }
 

@@ -41,7 +41,7 @@ parameters:
                 p.firstName: ASC
         limit: '10'
         searchList:
-            - p.surnameaddress.formType
+            - p.surname
             - p.firstName
             - p.email
     
@@ -83,6 +83,13 @@ services:
             - 'getRepository' 
         arguments: 
             - "BusybeePersonBundle:Locality"
+    image.repository:
+        class: Busybee\PersonBundle\Entity\Repository\ImageRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeePersonBundle:Image"
     address.repository:
         class: Busybee\PersonBundle\Entity\Repository\AddressRepository
         factory: 
@@ -90,4 +97,8 @@ services:
             - 'getRepository' 
         arguments: 
             - "BusybeePersonBundle:Address"
-   
+    person.transformer.photo:
+        class: Busybee\PersonBundle\Form\Transformer\PhotoTransformer
+        arguments:
+            - "@doctrine"
+            - "%upload_path%"

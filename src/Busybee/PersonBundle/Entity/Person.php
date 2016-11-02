@@ -75,11 +75,6 @@ class Person extends PersonModel
     private $createdOn;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Image
-     */
-    private $photo;
-
-    /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $createdBy;
@@ -388,30 +383,6 @@ class Person extends PersonModel
     }
 
     /**
-     * Set photo
-     *
-     * @param \Busybee\PersonBundle\Entity\Image $photo
-     *
-     * @return Person
-     */
-    public function setPhoto(\Busybee\PersonBundle\Entity\Image $photo = null)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return \Busybee\PersonBundle\Entity\Image
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
      * Set createdBy
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
@@ -516,5 +487,34 @@ class Person extends PersonModel
         $this->address2 = $address2;
 
         return $this;
+    }
+    /**
+     * @var \Busybee\PersonBundle\Entity\Image
+     */
+    private $photo;
+
+
+    /**
+     * Set photo
+     *
+     * @param \Busybee\PersonBundle\Entity\Image $photo
+     *
+     * @return Person
+     */
+    public function setPhoto(\Busybee\PersonBundle\Entity\Image $photo = null)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \Busybee\PersonBundle\Entity\Image
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 }

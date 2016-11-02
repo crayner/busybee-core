@@ -19,6 +19,21 @@ class BusybeeHomeExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+ 		$container->setParameter(
+            'current_year',
+            date("Y")
+        );
+
+        $container->setParameter(
+            'current_month',
+            date("m")
+        );
+
+        $container->setParameter(
+            'current_day',
+            date("d")
+        ); 
+
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 

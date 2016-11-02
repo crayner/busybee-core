@@ -11,6 +11,7 @@ person:
         type:
             label: Type of Staff
     actions: Actions
+    return: Manage People
     dob:
         label: Date of Birth
     people:
@@ -37,6 +38,7 @@ person:
         person: Person
         address1: Address
         address2: Alt Address
+        contact: Contact
     add:
         title: Add Person
         description: ''

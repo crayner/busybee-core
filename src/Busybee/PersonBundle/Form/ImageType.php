@@ -13,7 +13,7 @@ class ImageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('type')->add('image')->add('size')->add('name')->add('lastModified')->add('createdOn')->add('createdBy')->add('modifiedBy')        ;
+        $builder->add('mimeType')->add('image')->add('size')->add('name')->add('lastModified')->add('createdOn')->add('createdBy')->add('modifiedBy')        ;
     }
     
     /**

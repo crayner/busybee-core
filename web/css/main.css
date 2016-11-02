@@ -92,3 +92,8 @@ p {
 .withAdd {
 	display: block!important;
 }
+img.headShot75 {
+	float: right;
+	margin-left: 6px;
+	width: 75px;
+}
