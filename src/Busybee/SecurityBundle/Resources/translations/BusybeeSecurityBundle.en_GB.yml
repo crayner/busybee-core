@@ -99,7 +99,7 @@ security:
     authentication: 
         failure: '%name% at IP:%remoteIP% has failed to authenticate correctly.'
     session:
-        timeout: 'You have been logged out due to inactivity. You have not used the site for %lapseTime%.' 
+        timeout: 'You have been logged out due to inactivity. You have not used the site for %hours% hours : %minutes% minutes.' 
 role:
     label:
         name: Role Name

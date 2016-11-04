@@ -7,9 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Busybee\PersonBundle\Entity\Person ;
 use Busybee\PersonBundle\Entity\Address ;
 use Busybee\PersonBundle\Entity\Locality ;
+use Busybee\PersonBundle\Entity\Image ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\PersonBundle\Form\PersonType ;
+
 
 class PersonController extends Controller
 {
@@ -43,14 +45,6 @@ class PersonController extends Controller
 		$em->detach($person->getAddress2Record()->localityRecord);
 		$em->detach($person->getAddress1Record());
 		$em->detach($person->getAddress2Record());
-		$person->transformer = $this->get('person.transformer.photo') ;
-
-		$data = $request->files->get('person'); 
-		if (is_null($data['photo']) && ! is_null($person->getPhoto()))
-		{	
-			$data['photo'] = $this->get('image.repository')->findOneBy(array('id' => $person->getPhoto()));
-			$request->files->set('person', $data); 
-		}
 
         $form = $this->createForm(PersonType::class, $person);
 
@@ -82,20 +76,18 @@ class PersonController extends Controller
 
 			$form->handleRequest($request);
 			
-dump($form);
-
 			if ($form->isSubmitted() && $form->isValid())
 			{
-
+			
 				$em->persist($person);
 				$em->flush();
 				$id = $person->getId();
 				return new RedirectResponse($this->generateUrl('person_edit', array('id' => $id)));
 
-			}
+			} 
 			$request->request->set('person', null);
 		} else
-       	 $form->setData($person);
+       	 	$form->setData($person);
 
 		$view = $form->createView();
 		
@@ -134,8 +126,8 @@ dump($form);
 		$person->getAddress2Record()->localityRecord->setClassSuffix('address2');
 
 		$setting = $this->get('setting.manager') ;
-		$person->genderList = $setting->get('Gender.List');
-		$person->titleList = $setting->get('Person.Titles');
+		$person->setGenderList($setting->get('Gender.List'));
+		$person->setTitleList($setting->get('Person.Titles'));
 		
 		return $person ;
 	}

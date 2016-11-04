@@ -3,6 +3,7 @@
 namespace Busybee\PersonBundle\Entity;
 
 use Busybee\PersonBundle\Model\PersonModel ;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Person
@@ -480,7 +481,7 @@ class Person extends PersonModel
      *
      * @param integer $address2
      *
-     * @return Person
+     * @return	Person
      */
     public function setAddress2($address2)
     {
@@ -488,30 +489,49 @@ class Person extends PersonModel
 
         return $this;
     }
+
     /**
-     * @var \Busybee\PersonBundle\Entity\Image
+     * @var string
      */
     private $photo;
+
+    /**
+     * @var string
+     */
+    protected $oldPhoto;
 
 
     /**
      * Set photo
      *
-     * @param \Busybee\PersonBundle\Entity\Image $photo
+     * @param	string	$photo
      *
-     * @return Person
+     * @return	Person
      */
-    public function setPhoto(\Busybee\PersonBundle\Entity\Image $photo = null)
+    public function setPhoto($photo = null)
     {
-        $this->photo = $photo;
-
+		if ($photo instanceof File)
+		{
+			$this->photo = $photo ;
+			return $this ;
+		}
+        if (is_null($photo) && $this->deletePhoto)
+		{
+			$this->oldPhoto = $this->photo;
+			$this->photo = $photo ;
+		}
+		elseif (! is_null($photo) && $this->getPhoto() !== $photo)
+		{
+			$this->oldPhoto = $this->photo;
+			$this->photo = $photo ;
+		}
         return $this;
     }
 
     /**
      * Get photo
      *
-     * @return \Busybee\PersonBundle\Entity\Image
+     * @return string
      */
     public function getPhoto()
     {

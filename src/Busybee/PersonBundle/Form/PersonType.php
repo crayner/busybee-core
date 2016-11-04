@@ -1,12 +1,13 @@
 <?php
 
-namespace Busybee\PersonBundle\Form;
+namespace Busybee\PersonBundle\Form ;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\AbstractType ;
+use Symfony\Component\Form\FormBuilderInterface ;
+use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Busybee\PersonBundle\Form\Transformer\PhotoTransformer ;
-use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine ;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class PersonType extends AbstractType
 {
@@ -17,11 +18,12 @@ class PersonType extends AbstractType
     {
         $builder->add('title', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
 					'label' => 'person.label.title',
-					'choices' => $options['data']->titleList,
+					'choices' => $options['data']->getTitleList(),
 					'attr'	=> array(
 						'class' => 'beeTitle',
 					),
 					'required' => false,
+					'constraints' => array(new Assert\Choice(array('groups' => 'person_form', 'choices' => $options['data']->getTitleList(true)))),
 				)
 			)
 			->add('surname', null, array(
@@ -29,6 +31,8 @@ class PersonType extends AbstractType
 					'attr'	=> array(
 						'class' => 'beeSurname',
 					),
+					'required' => false,
+					'constraints' => array(new Assert\NotBlank(array('groups' => 'person_form'))),
 				)
 			)
 			->add('firstName', null, array(
@@ -36,6 +40,7 @@ class PersonType extends AbstractType
 					'attr'	=> array(
 						'class' => 'beeFirstName',
 					),
+					'constraints' => array(new Assert\NotBlank(array('groups'=>'person_form'))),
 				)
 			)
 			->add('preferredName', null, array(
@@ -52,14 +57,16 @@ class PersonType extends AbstractType
 						'help' => 'person.help.officialName',
 						'class' => 'beeOfficialName',
 					),
+					'constraints' => array(new Assert\NotBlank(array('groups'=>'person_form'))),
 				)
 			)
 			->add('gender', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-					'choices' => $options['data']->genderList,
+					'choices' => $options['data']->getGenderList(),
 					'label' => 'person.label.gender',
 					'attr'	=> array(
 						'class' => 'beeGender',
 					),
+					'constraints' => array(new Assert\Choice(array('groups'=>'person_form', 'choices' => $options['data']->getGenderList()))),
 				)
 			)
 			->add('dob', 'Symfony\Component\Form\Extension\Core\Type\BirthdayType', array(
@@ -68,16 +75,19 @@ class PersonType extends AbstractType
 					'attr'	=> array(
 						'class' => 'beeDob',
 					),
+					'constraints' => array(new Assert\Date(array('groups'=>'person_form'))),
 				)
 			)
 			->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
 					'label' => 'person.label.email',
 					'required' => false,
+					'constraints' => array(new Assert\Email(array('groups'=>'person_form', 'checkMX' => true))),
 				)
 			)
 			->add('email2', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
 					'label' => 'person.label.email2',
 					'required' => false,
+					'constraints' => array(new Assert\Email(array('groups'=>'person_form', 'checkMX' => true))),
 				)
 			)
 			->add('photo', 'Busybee\FormBundle\Type\ImageType', array(
@@ -87,13 +97,28 @@ class PersonType extends AbstractType
 					),
 					'label' => 'person.label.photo',
 					'required' => false,
-					'data' => $options['data']->getPhoto(),
-					'data_class' => null,
+					'constraints' => array(
+						new Assert\Image(
+							array(
+								'groups' => 'person_form', 
+								'maxSize' => '200k',
+								'minWidth' => '350',
+								'maxWidth' => '450',
+								'minHeight' => '400',
+								'maxHeight' => '500',
+								'allowPortrait' => true,
+								'allowLandscape' => false,
+								'minRatio' => '0.75',
+								'maxRatio' => '0.9',
+							)
+						)
+					),
 				)
 			)
 			->add('website', 'Symfony\Component\Form\Extension\Core\Type\UrlType', array(
 					'label' => 'person.label.website',
 					'required' => false,
+					'constraints' => array(new Assert\Url(array('groups'=>'person_form'))),
 				)
 			)
 			->add('add1', 'Busybee\PersonBundle\Form\AddressType', array(
@@ -128,12 +153,11 @@ class PersonType extends AbstractType
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
 						'class' 				=> 'btn btn-info glyphicons glyphicons-remove-circle',
-						'onClick'				=> 'location.href=\''.$options['data']->cancelURL."'",
+						'onClick'				=> "location.href='".$options['data']->cancelURL."'",
 					),
 				)
 			)
 		;
-		$builder->get('photo')->addModelTransformer($options['data']->transformer);
     }
     
     /**
@@ -144,7 +168,7 @@ class PersonType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Busybee\PersonBundle\Entity\Person',
 			'translation_domain' => 'BusybeePersonBundle',
-			'validation_groups' => 'default',
+			'validation_groups' => array('person_form'),
         ));
     }
 

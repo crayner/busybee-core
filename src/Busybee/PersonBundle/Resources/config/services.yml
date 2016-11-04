@@ -83,13 +83,6 @@ services:
             - 'getRepository' 
         arguments: 
             - "BusybeePersonBundle:Locality"
-    image.repository:
-        class: Busybee\PersonBundle\Entity\Repository\ImageRepository
-        factory: 
-            - "@doctrine"
-            - 'getRepository' 
-        arguments: 
-            - "BusybeePersonBundle:Image"
     address.repository:
         class: Busybee\PersonBundle\Entity\Repository\AddressRepository
         factory: 
@@ -97,8 +90,16 @@ services:
             - 'getRepository' 
         arguments: 
             - "BusybeePersonBundle:Address"
-    person.transformer.photo:
-        class: Busybee\PersonBundle\Form\Transformer\PhotoTransformer
+    person.uploader.photo:
+        class: Busybee\PersonBundle\Model\PhotoUploader
         arguments:
-            - "@doctrine"
             - "%upload_path%"
+    person.listener:
+        class: Busybee\PersonBundle\EventListener\PersonListener
+        arguments: ['@person.uploader.photo']
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postLoad }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: postRemove }

@@ -56,16 +56,9 @@ class SessionIdleHandler
 				
                 $this->session->getFlashBag()->set(
 					'info', 
-					$this->translator->trans('security.session.timeout', array('%lapseTime%' => gmdate('H:i:s', $lapse)), 'BusybeeSecurityBundle')
+					$this->translator->trans('security.session.timeout', array('%hours%' => gmdate('hh', $lapse), '%minutes%' => gmdate('i', $lapse)), 'BusybeeSecurityBundle')
 				);
 				
-//				$response = new RedirectResponse($this->router->generate('busybee_security_login'));
-
-			 	// Clearing the cookies.
-//				foreach ($this->cookieNames as $cookieName)
-	//				$response->headers->clearCookie($cookieName);
-				
-//                $event->setResponse($response);
 				return ;
             }
         }
