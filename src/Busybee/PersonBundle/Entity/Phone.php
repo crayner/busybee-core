@@ -2,12 +2,10 @@
 
 namespace Busybee\PersonBundle\Entity;
 
-use Busybee\PersonBundle\Model\AddressModel ;
-
 /**
- * Address
+ * Phone
  */
-class Address extends AddressModel 
+class Phone
 {
     /**
      * @var integer
@@ -17,12 +15,17 @@ class Address extends AddressModel
     /**
      * @var string
      */
-    private $line1;
+    private $phoneType;
 
     /**
      * @var string
      */
-    private $line2;
+    private $phoneNumber;
+
+    /**
+     * @var string
+     */
+    private $countryCode;
 
     /**
      * @var \DateTime
@@ -56,51 +59,75 @@ class Address extends AddressModel
     }
 
     /**
-     * Set line1
+     * Set phoneType
      *
-     * @param string $line1
+     * @param string $phoneType
      *
-     * @return Address
+     * @return Phone
      */
-    public function setLine1($line1)
+    public function setPhoneType($phoneType)
     {
-        $this->line1 = $line1;
+        $this->phoneType = $phoneType;
 
         return $this;
     }
 
     /**
-     * Get line1
+     * Get phoneType
      *
      * @return string
      */
-    public function getLine1()
+    public function getPhoneType()
     {
-        return $this->line1;
+        return $this->phoneType;
     }
 
     /**
-     * Set line2
+     * Set phoneNumber
      *
-     * @param string $line2
+     * @param string $phoneNumber
      *
-     * @return Address
+     * @return Phone
      */
-    public function setLine2($line2)
+    public function setPhoneNumber($phoneNumber)
     {
-        $this->line2 = $line2;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
 
     /**
-     * Get line2
+     * Get phoneNumber
      *
      * @return string
      */
-    public function getLine2()
+    public function getPhoneNumber()
     {
-        return $this->line2;
+        return $this->phoneNumber;
+    }
+
+    /**
+     * Set countryCode
+     *
+     * @param string $countryCode
+     *
+     * @return Phone
+     */
+    public function setCountryCode($countryCode)
+    {
+        $this->countryCode = $countryCode;
+
+        return $this;
+    }
+
+    /**
+     * Get countryCode
+     *
+     * @return string
+     */
+    public function getCountryCode()
+    {
+        return $this->countryCode;
     }
 
     /**
@@ -108,7 +135,7 @@ class Address extends AddressModel
      *
      * @param \DateTime $lastModified
      *
-     * @return Address
+     * @return Phone
      */
     public function setLastModified($lastModified)
     {
@@ -132,7 +159,7 @@ class Address extends AddressModel
      *
      * @param \DateTime $createdOn
      *
-     * @return Address
+     * @return Phone
      */
     public function setCreatedOn($createdOn)
     {
@@ -156,7 +183,7 @@ class Address extends AddressModel
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Address
+     * @return Phone
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -180,7 +207,7 @@ class Address extends AddressModel
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Address
+     * @return Phone
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -197,121 +224,5 @@ class Address extends AddressModel
     public function getModifiedBy()
     {
         return $this->modifiedBy;
-    }
-	
-    /**
-     * @var integer
-     */
-    private $locality;
-
-    /**
-     * Get locality
-     *
-     * @return integer
-     */
-    public function getLocality()
-    {
-        return $this->locality;
-    }
-
-    /**
-     * Set locality
-     *
-     * @param integer $locality
-     *
-     * @return Address
-     */
-    public function setLocality($locality)
-    {
-        $this->locality = $locality;
-
-        return $this;
-    }
-    /**
-     * @var string
-     */
-    private $buildingType;
-
-    /**
-     * @var string
-     */
-    private $buildingNumber;
-
-    /**
-     * @var string
-     */
-    private $streetNumber;
-
-
-    /**
-     * Set buildingType
-     *
-     * @param string $buildingType
-     *
-     * @return Address
-     */
-    public function setBuildingType($buildingType)
-    {
-        $this->buildingType = $buildingType;
-
-        return $this;
-    }
-
-    /**
-     * Get buildingType
-     *
-     * @return string
-     */
-    public function getBuildingType()
-    {
-        return $this->buildingType;
-    }
-
-    /**
-     * Set buildingNumber
-     *
-     * @param string $buildingNumber
-     *
-     * @return Address
-     */
-    public function setBuildingNumber($buildingNumber)
-    {
-        $this->buildingNumber = $buildingNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get buildingNumber
-     *
-     * @return string
-     */
-    public function getBuildingNumber()
-    {
-        return $this->buildingNumber;
-    }
-
-    /**
-     * Set streetNumber
-     *
-     * @param string $streetNumber
-     *
-     * @return Address
-     */
-    public function setStreetNumber($streetNumber)
-    {
-        $this->streetNumber = $streetNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get streetNumber
-     *
-     * @return string
-     */
-    public function getStreetNumber()
-    {
-        return $this->streetNumber;
     }
 }

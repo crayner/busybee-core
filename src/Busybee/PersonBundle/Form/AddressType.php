@@ -15,6 +15,33 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 		$builder
+			->add('buildingType', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+					'label' => 'address.label.buildingType',
+					'attr' => array(
+						'help' => 'address.help.buildingType',
+						'class' => 'beeBuildingType'.$options['data']->getClassSuffix(),
+					),
+					'choices' => $options['data']->getBuildingTypeList(),
+				)
+			)
+			->add('buildingNumber', null, array(
+					'label' => 'address.label.buildingNumber',
+					'attr' => array(
+						'help' => 'address.help.buildingNumber',
+						'maxLength' => 10,
+						'class' => 'beeBuildingNumber'.$options['data']->getClassSuffix(),
+					),
+				)
+			)
+			->add('streetNumber', null, array(
+					'label' => 'address.label.streetNumber',
+					'attr' => array(
+						'help' => 'address.help.streetNumber',
+						'maxLength' => 10,
+						'class' => 'beeStreetNumber'.$options['data']->getClassSuffix(),
+					),
+				)
+			)
 			->add('line1', null, array(
 					'label' => 'address.label.line1',
 					'attr' => array(
@@ -36,12 +63,10 @@ class AddressType extends AbstractType
 					'data' => $options['data']->localityRecord,
 				)
 			)
-			->add('addressList', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
+			->add('addressList', 'Symfony\Component\Form\Extension\Core\Type\TextType', 
 				array(
 					'data_class' => 'Busybee\PersonBundle\Entity\Address',
-					'choices' => $options['data']->getRepository()->getAddressChoices(),
 					'label' => 'address.label.choice',
-					'placeholder' => 'address.placeholder.choice',
 					'empty_data'  => null,
 					'required' => false,
 					'attr' => array(
@@ -49,13 +74,21 @@ class AddressType extends AbstractType
 						'class' => 'beeAddressList'.$options['data']->getClassSuffix(),
 					),
 					'mapped' => false,
-					'translation_domain' => 'BusybeePersonBundle',
 				)
 			)
 			->add('save', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
 					'label'					=> 'address.label.save', 
 					'attr' 					=> array(
 						'class' 				=> 'beeAddressSave'.$options['data']->getClassSuffix().' btn btn-primary glyphicons glyphicons-plus-sign',
+						'style'					=>	'width: 146px;',
+					),
+				)
+			)
+			->add('clear', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
+					'label'					=> 'address.label.clear', 
+					'attr' 					=> array(
+						'class' 				=> 'beeAddressClear'.$options['data']->getClassSuffix().' btn btn-warning glyphicons glyphicons-restart',
+						'style'					=>	'width: 146px;',
 					),
 				)
 			)
@@ -70,7 +103,6 @@ class AddressType extends AbstractType
         $resolver->setDefaults(array(
 				'data_class' => 'Busybee\PersonBundle\Entity\Address',
 				'translation_domain' 	=> 'BusybeePersonBundle',
-				'allow_extra_fields' => true,
 			)
 		);
     }

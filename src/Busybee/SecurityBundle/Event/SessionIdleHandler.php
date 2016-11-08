@@ -56,7 +56,7 @@ class SessionIdleHandler
 				
                 $this->session->getFlashBag()->set(
 					'info', 
-					$this->translator->trans('security.session.timeout', array('%hours%' => gmdate('hh', $lapse), '%minutes%' => gmdate('i', $lapse)), 'BusybeeSecurityBundle')
+					$this->translator->trans('security.session.timeout', array('%hours%' => gmdate('H', $lapse), '%minutes%' => gmdate('i', $lapse)), 'BusybeeSecurityBundle')
 				);
 				
 				return ;

@@ -88,6 +88,19 @@ class LocalityController extends Controller
 		$id = $request->request->get('id');
 
 		$locality = $id > 0 ? $this->get('locality.repository')->findOneBy(array('id' => $id)) : new Locality();	
+		
+		$address = $this->get('address.repository')->findBy(array('locality'=>$id), array('line1'=>'ASC', 'line2'=>'ASC'));
+		$addressList = array();
+		if (is_array($address))
+			foreach($address as $xx)
+			{
+				$x = array();
+				$x['label'] = $this->get('address.manager')->getAddressListLabel($xx);
+				$x['value'] = $xx->getId();
+				$addressList[] = $x;
+			}
+
+		$addressDisabled = empty($address) ? 'true' : 'false';
 
 		return new JsonResponse(
 			array(
@@ -95,6 +108,8 @@ class LocalityController extends Controller
 				'territory' => $locality->getTerritory(),
 				'country' => $locality->getCountry(),
 				'postCode' => $locality->getPostCode(),
+				'addressList' => $addressList,
+				'addressDisabled' => $addressDisabled,
 			),
 			200
 		);

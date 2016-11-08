@@ -2,6 +2,17 @@ Busybee\PersonBundle\Entity\Address:
     type: entity
     table: address
     repositoryClass: Busybee\PersonBundle\Repository\AddressRepository
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields:
+                - buildingType
+                - buildingNumber
+                - streetNumber
+                - line1
+                - line2
+                - locality
+            errorPath: line1
+            message: address.error.unique 
     id:
         id:
             type: integer
@@ -9,6 +20,18 @@ Busybee\PersonBundle\Entity\Address:
             generator:
                 strategy: AUTO
     fields:
+        buildingType:
+            type: string 
+            length: '10'
+            nullable: true
+        buildingNumber:
+            type: string
+            length: '10'
+            nullable: true
+        streetNumber:
+            type: string
+            length: '10'
+            nullable: true
         line1:
             type: string
             length: '50'

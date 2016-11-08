@@ -17,6 +17,9 @@ class AddressController extends Controller
 		$address = array();
 		$address['line1'] = $request->request->get('line1');
 		$address['line2'] = $request->request->get('line2');
+		$address['streetNumber'] = $request->request->get('streetNumber');
+		$address['buildingNumber'] = $request->request->get('buildingNumber');
+		$address['buildingType'] = $request->request->get('buildingType');
 		$address['locality'] = $request->request->get('locality');
 		$address['territory'] = $request->request->get('territory');
 		$address['postCode'] = $request->request->get('postCode');
@@ -58,14 +61,28 @@ class AddressController extends Controller
 		$address = $id > 0 ? $this->get('address.repository')->findOneBy(array('id' => $id)) : new Address();
 		$address->localityRecord = $this->get('locality.repository')->setAddressLocality($address->getLocality());
 		
-		$formattedAddress = $this->get('setting.manager')->get('Address.Format', null, array('line1' => $address->getLine1(), 'line2' => $address->getLine2(), 'locality' => $address->localityRecord->getLocality(), 'territory' => $address->localityRecord->getTerritory(), 'postCode' => $address->localityRecord->getPostCode(), 'country' => $address->localityRecord->getCountryName()));
-
+		$list = $this->get('locality.repository')->getLocalityChoices();
+		$localityOptions = '<option value="">'.$this->get('translator')->trans('locality.placeholder.choice', array(), 'BusybeePersonBundle').'</option>';
+		foreach($list as $name=>$value) {
+			$localityOptions .= '<option value="'.$value.'">'.$name.'</option>';	
+		}
+		
 		return new JsonResponse(
 			array(
-				'locality' => $address->getLocality(),
 				'line1' => $address->getLine1(),
 				'line2' => $address->getLine2(),
-				'address' => $formattedAddress,
+				'streetNumber' => $address->getStreetNumber(),
+				'buildingType' => $address->getBuildingType(),
+				'buildingNumber' => $address->getBuildingNumber(),
+				'locality_id' => is_null($address->getLocality()) ? 0 : (is_int($address->getLocality()) ? $address->getLocality() : $address->getLocality()->getId()),
+				'territory' => $address->localityRecord->getTerritory(),
+				'locality' => $address->localityRecord->getLocality(),
+				'country' => $address->localityRecord->getCountry(),
+				'postCode' => $address->localityRecord->getPostCode(),
+				'options' => $localityOptions,
+				'address' => $this->get('address.manager')->formatAddress($address),
+				'addressListLabel' => $this->get('address.manager')->getAddressListLabel($address),
+				'id' => $address->getId(),
 			),
 			200
 		);
@@ -95,7 +112,21 @@ class AddressController extends Controller
 			$entity->setLine1($line1);
 
 		$entity->setLine2($request->request->get('line2'));
+		$entity->setStreetNumber((empty($request->request->get('streetNumber')) ? null : $request->request->get('streetNumber')));
+		$entity->setBuildingType((empty($request->request->get('buildingType')) ? null : $request->request->get('buildingType')));
+		$entity->setBuildingNumber((empty($request->request->get('buildingNumber')) ? null : $request->request->get('buildingNumber')));
 		
+		$addressList =$this->get('address.manager')->getAddressList($request->request->get('locality_id'));
+		$al = array();
+		foreach($addressList as $detail)
+			$al[$detail['value']] = $detail['label'] ;
+			
+		if (in_array($this->get('address.manager')->getAddressListLabel($entity), $al))
+		{
+			$value = array_search($this->get('address.manager')->getAddressListLabel($entity), $al);
+			if ($value !== $entity->getId())
+				$valid = false ;
+		}
 		if ($valid)
 		{
 			$message = $this->get('translator')->trans('address.edit.success', array(), 'BusybeePersonBundle');
@@ -105,19 +136,18 @@ class AddressController extends Controller
             $em->persist($entity);
             $em->flush();
 			$id = $entity->getId();
+			$saved = true ;
 		} else {
 			$message = $this->get('translator')->trans('address.edit.failure', array(), 'BusybeePersonBundle');
 			$status = 'danger';
+			$saved = false ;
 		}
 
-		$list = $entity->getRepository()->getAddressChoices();
-		$addressOptions = '<option value="">'.$this->get('translator')->trans('address.placeholder.choice', array(), 'BusybeePersonBundle').'</option>';
-		foreach($list as $name=>$value) {
-			$addressOptions .= '<option value="'.$value.'">'.$name.'</option>';	
-		}
+		$addressList =$this->get('address.manager')->getAddressList($request->request->get('locality_id'));
 
-		$formattedAddress = $this->get('setting.manager')->get('Address.Format', null, array('line1' => $entity->getLine1(), 'line2' => $entity->getLine2(), 'locality' => $entity->localityRecord->getLocality(), 'territory' => $entity->localityRecord->getTerritory(), 'postCode' => $entity->localityRecord->getPostCode(), 'country' => $entity->localityRecord->getCountryName()));
-	
+		$addressDisabled = empty($addressList) || $saved ? 'true' : 'false';
+
+		$formattedAddress = $this->get('address.manager')->formatAddress($entity);
 
 		return new JsonResponse(
 			array(
@@ -127,8 +157,13 @@ class AddressController extends Controller
 				'locality' => $entity->getLocality(),
 				'line1' => $entity->getLine1(),
 				'line2' => $entity->getLine2(),
-				'options' => $addressOptions,
+				'streetNumber' => $entity->getStreetNumber(),
+				'buildingType' => $entity->getBuildingType(),
+				'buildingNumber' => $entity->getBuildingNumber(),
 				'address' => $formattedAddress,
+				'addressListLabel' => $this->get('address.manager')->getAddressListLabel($entity),
+				'addressList' => $addressList,
+				'addressDisabled' => $addressDisabled,
 			),
 			200
 		);

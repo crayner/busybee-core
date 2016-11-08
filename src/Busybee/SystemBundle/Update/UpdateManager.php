@@ -75,6 +75,7 @@ class UpdateManager
         $em = $this->container->get('doctrine')->getManager();
 
         $schemaTool = new SchemaTool($em);
+
         $metaData = $em->getMetadataFactory()->getAllMetadata();
 
 		$xx = $schemaTool->getUpdateSchemaSql($metaData, false);

@@ -5,7 +5,7 @@ namespace Busybee\PersonBundle\Model ;
 /**
  * Address Model
  *
- * @version	31st October 2016
+ * @version	8th November 2016
  * @since	31st October 2016
  * @author	Craig Rayner
  */
@@ -20,6 +20,11 @@ abstract class AddressModel
 	 * @var	\Busybee\PersonBundle\Repository\LocalityRepository
 	 */
 	protected $repo;
+
+	/**
+	 * @var	array
+	 */
+	protected $buildingTypeList;
 
 	/**
 	 * set classSuffix
@@ -67,5 +72,28 @@ abstract class AddressModel
     public function getRepository()
     {
         return $this->repo ;
+    }
+	
+	/**
+     * set BuildingType List
+     *
+	 * @param	array	$list
+     * @return Address
+     */
+    public function setBuildingTypeList($list)
+    {
+        $this->buildingTypeList = $list;
+		
+		return $this ;
+    }
+	
+	/**
+     * get BuildingType List
+     *
+     * @return array
+     */
+    public function getBuildingTypeList()
+    {
+        return $this->buildingTypeList ;
     }
 }

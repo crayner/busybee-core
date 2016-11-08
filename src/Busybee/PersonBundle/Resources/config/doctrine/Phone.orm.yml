@@ -1,0 +1,37 @@
+Busybee\PersonBundle\Entity\Phone:
+    type: entity
+    table: phone
+    repositoryClass: Busybee\PersonBundle\Repository\PhoneRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        phoneType:
+            type: string
+            length: '25'
+        phoneNumber:
+            type: string
+            length: '20'
+        countryCode:
+            type: string
+            length: '6'
+        lastModified:
+            type: datetime
+            nullable: true 
+        createdOn:
+            type: datetime
+            nullable: true 
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id

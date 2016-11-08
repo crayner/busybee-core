@@ -1,4 +1,4 @@
-{# src/Busybee/PersonBundle/Resources/views/Form/person.html.twig #}
+{# src/Busybee/PersonBundle/Resources/views/Person/person.html.twig #}
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
@@ -11,6 +11,8 @@
 		{% if id != 'Add' %}
 			<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
 		{% endif %}
+		<button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="reset" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+		<button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}' type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
 		</h3>
 	</div>
 	<div class="panel-body">
@@ -27,28 +29,22 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-2 well">
-					{{ form_row(form.title) }}
-				</div>
 				<div class="col-sm-4 well">
 					{{ form_row(form.preferredName) }}
-				</div>
-				<div class="col-sm-2 well">
-					{{ form_row(form.gender) }}
 				</div>
 				<div class="col-sm-4 well">
 					{{ form_row(form.officialName) }}
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4 well">
-					{{ form_row(form.email) }}
-				</div>
-				<div class="col-sm-4 well">
-					{{ form_row(form.email2) }}
-				</div>
 				<div class="col-sm-4 well">
 					{{ form_row(form.dob) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-offset-8 col-sm-2 well">
+					{{ form_row(form.title) }}
+				</div>
+				<div class="col-sm-2 well">
+					{{ form_row(form.gender) }}
 				</div>
 			</div>
 		</div>

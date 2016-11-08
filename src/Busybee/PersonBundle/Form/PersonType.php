@@ -31,7 +31,6 @@ class PersonType extends AbstractType
 					'attr'	=> array(
 						'class' => 'beeSurname',
 					),
-					'required' => false,
 					'constraints' => array(new Assert\NotBlank(array('groups' => 'person_form'))),
 				)
 			)
@@ -134,9 +133,17 @@ class PersonType extends AbstractType
 				)
 			)
 			->add('address1', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+					'attr'	=> array(
+						'class' => 'beeAddressValueaddress1',
+					),
+					'data' => $options['data']->getAddress1(),
 				)
 			)
 			->add('address2', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+					'attr'	=> array(
+						'class' => 'beeAddressValueaddress2',
+					),
+					'data' => $options['data']->getAddress2(),
 				)
 			)
 			->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(

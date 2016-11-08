@@ -31,7 +31,7 @@ class SettingController extends Controller
     public function editAction($id, Request $request)
     {
 		$setting = $this->get('setting.repository')->findOneBy(array('id' => $id));
-dump($setting);
+
 		$this->denyAccessUnlessGranted($setting->getRole()->getRole(), null, 'Unable to access this page!');
 
 		$sm = $this->get('setting.manager');

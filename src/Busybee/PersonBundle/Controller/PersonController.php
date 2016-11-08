@@ -51,8 +51,8 @@ class PersonController extends Controller
 		if (! empty($request->request->get('person')))
 		{
 			$data = $request->request->get('person');
-			$data['address1'] = intval($data['add1']['addressList']);
-			$data['address2'] = intval($data['add2']['addressList']);
+			$data['address1'] = intval($data['address1']['AddressValue']);
+			$data['address2'] = intval($data['address2']['AddressValue']);
 			if ($data['address1'] < 1)
 				$data['address1'] = null;
 			
@@ -91,16 +91,18 @@ class PersonController extends Controller
 
 		$view = $form->createView();
 		
-		$formattedAddress1 = $setting->get('Address.Format', null, array('line1' => $person->getAddress1Record()->getLine1(), 
-			'line2' => $person->getAddress1Record()->getLine2(), 'locality' => $person->getAddress1Record()->localityRecord->getLocality(), 'territory' =>$person->getAddress1Record()->localityRecord->getTerritory(), 
-			'postCode' => $person->getAddress1Record()->localityRecord->getPostCode(), 'country' => $person->getAddress1Record()->localityRecord->getCountryName()));
+		$formattedAddress1 = $this->formatAddress($person->getAddress1Record());
+		$formattedAddress2 = $this->formatAddress($person->getAddress2Record());
 
-		$formattedAddress2 = $setting->get('Address.Format', null, array('line1' => $person->getAddress2Record()->getLine1(), 
-			'line2' => $person->getAddress2Record()->getLine2(), 'locality' => $person->getAddress2Record()->localityRecord->getLocality(), 'territory' => $person->getAddress2Record()->localityRecord->getTerritory(), 
-			'postCode' => $person->getAddress2Record()->localityRecord->getPostCode(), 'country' => $person->getAddress2Record()->localityRecord->getCountryName()));
-		
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
-			array('id' => $id, 'form' => $view, 'address1' => $formattedAddress1, 'address2' => $formattedAddress2)			
+			array(
+				'id' => $id, 
+				'form' => $view, 
+				'address1' => $formattedAddress1, 
+				'address2' => $formattedAddress2, 
+				'addressLabel1' => $this->get('address.manager')->getAddressListLabel($person->getAddress1Record()),		
+				'addressLabel2' => $this->get('address.manager')->getAddressListLabel($person->getAddress2Record()),
+			)		
 		);
     }
 
@@ -110,25 +112,33 @@ class PersonController extends Controller
 		$person = new Person();
 		if ($id !== 'Add')
 			$person = $this->get('person.repository')->findOneBy(array('id' => $id));
-		
 		$person->cancelURL = $this->generateUrl('busybee_security_user_list');
+
+		$sm = $this->get('setting.manager');
 
 		$person->setAddress1Record($this->get('address.repository')->setPersonAddress($person->getAddress1()));
 		$person->getAddress1Record()->localityRecord = $this->get('locality.repository')->setAddressLocality($person->getAddress1Record()->getLocality());
+		$person->getAddress1Record()->setBuildingTypeList($sm->get('Address.BuildingType'));
 
 		$person->getAddress1Record()->setClassSuffix('address1');
 		$person->getAddress1Record()->localityRecord->setClassSuffix('address1');
 
 		$person->setAddress2Record($this->get('address.repository')->setPersonAddress($person->getAddress2()));
 		$person->getAddress2Record()->localityRecord = $this->get('locality.repository')->setAddressLocality($person->getAddress2Record()->getLocality());
+		$person->getAddress2Record()->setBuildingTypeList($sm->get('Address.BuildingType'));
 
 		$person->getAddress2Record()->setClassSuffix('address2');
 		$person->getAddress2Record()->localityRecord->setClassSuffix('address2');
 
-		$setting = $this->get('setting.manager') ;
-		$person->setGenderList($setting->get('Gender.List'));
-		$person->setTitleList($setting->get('Person.Titles'));
+		$person->setGenderList($sm->get('Gender.List'));
+		$person->setTitleList($sm->get('Person.Titles'));
 		
 		return $person ;
+	}
+
+
+    private function formatAddress($address)
+    {
+		return $this->get('address.manager')->formatAddress($address);
 	}
 }

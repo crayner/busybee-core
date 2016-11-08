@@ -4,11 +4,6 @@
 	{% if 'image' in block_prefixes and data.pathname is defined %}<img src="{{ asset( data.pathname|slice(7) ) }}" class="{{ attr.imageClass }}" />{% endif %}
     {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
     {{- parent() -}}
-	{% for attrname,attrvalue in attr %}
-		{% if attrname == 'help' %}
-			<br /><span class="field-help">{{ (translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain)) }}</span>
-		{% endif %}
-	{% endfor %}
 {%- endblock form_label %}
 
 {% block form_errors -%}
@@ -21,6 +16,11 @@
     </ul>
     {% if form.parent %}</span>{% else %}</div>{% endif %}
     {%- endif %}
+	{% for attrname,attrvalue in attr %}
+		{% if attrname == 'help' %}
+			<br /><span class="field-help">{{ (translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain)) }}</span>
+		{% endif %}
+	{% endfor %}
 {%- endblock form_errors %}
 
 {% block yesno_widget -%}

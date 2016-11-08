@@ -537,4 +537,51 @@ class Person extends PersonModel
     {
         return $this->photo;
     }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $phone;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->phone = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add phone
+     *
+     * @param \Busybee\PersonBundle\Entity\Phone $phone
+     *
+     * @return Person
+     */
+    public function addPhone(\Busybee\PersonBundle\Entity\Phone $phone)
+    {
+        $this->phone[] = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Remove phone
+     *
+     * @param \Busybee\PersonBundle\Entity\Phone $phone
+     */
+    public function removePhone(\Busybee\PersonBundle\Entity\Phone $phone)
+    {
+        $this->phone->removeElement($phone);
+    }
+
+    /**
+     * Get phone
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
 }

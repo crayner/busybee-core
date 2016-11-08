@@ -6,6 +6,12 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	{% include 'BusybeeHomeBundle:AutoComplete:style.html.twig' %}
+{% endblock stylesheets %}
+
+
 {% block title %}{{ parent() }}{% if id == 'Add' %}{{ 'person.staff.add.title'|trans }}{% else %}{{ 'person.staff.edit.title'|trans }}{% endif %}{% endblock title %}
 {% block headerTitle %}{% if id == 'Add' %}{{ 'person.staff.add.title'|trans }}{% else %}{{ 'person.staff.edit.title'|trans }}{% endif %}{% endblock headerTitle %}
 {% block headerLead %}{% if id == 'Add' %}{{ 'person.staff.add.description'|trans }}{% else %}{{ 'person.staff.edit.description'|trans }}{% endif %}{% endblock headerLead %}
@@ -35,7 +41,7 @@
 				<div class='row' id="addressMessageaddress1" style="display: none;">
 				</div>
 			</div>
-			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.add1, 'address': address1, 'classSuffix': 'address1'} %}
+			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.add1, 'address': address1, 'classSuffix': 'address1', 'addressLabel': addressLabel1} %}
 			{% do form.address1.setRendered %}
 		</div>
 		<div class="tab-pane" id="address2" >
@@ -43,15 +49,15 @@
 				<div class='row' id="addressMessageaddress2" style="display: none;">
 				</div>
 			</div>
-			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.add2, 'addressTitle': 'address2.title', 'address': address2, 'classSuffix': 'address2'} %}
+			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.add2, 'addressTitle': 'address2.title', 'address': address2, 'classSuffix': 'address2', 'addressLabel': addressLabel2} %}
 			{% do form.address2.setRendered %}
 		</div>
 	</div>
 </div>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-6 col-sm-offset-6 well">
-			<div class="form-group text-right">
+		<div class="col-sm-12">
+			<div class="form-group text-right" style="margin-bottom: 5px">
 				{{ form_widget(form.save) }}
 				{{ form_widget(form.cancel) }}
 			</div>
@@ -61,11 +67,81 @@
 {{ form_end(form) }}
 {% endblock contentContainer %}
 
-
 {% block javascripts %}
 	{{ parent() }}
 	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': 'address1'} %}
-	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': 'address1'} %}
 	{% include 'BusybeePersonBundle:Address:script.html.twig' with {'classSuffix': 'address2'} %}
+	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': 'address1'} %}
 	{% include 'BusybeePersonBundle:Locality:script.html.twig' with {'classSuffix': 'address2'} %}
+	{% include 'BusybeeHomeBundle:AutoComplete:script.html.twig' %}
+	<script>
+		$('.beeAddressListaddress1').prop('disabled', true);
+		$('.beeAddressListaddress1').autocomplete({
+			source: [],
+			disabled: true,
+			minLength: 2,
+			delay: 250,
+			focus: function(event, ui) {
+				// prevent autocomplete from updating the textbox
+				event.preventDefault();
+				// manually update the textbox
+				$(this).val(ui.item.label);
+			},
+			select: function(event, ui) {
+				// prevent autocomplete from updating the textbox
+				event.preventDefault();
+				// manually update the textbox and hidden field
+				$(this).val(ui.item.label);
+				$('.beeAddressValueaddress1').val(ui.item.value);
+			}
+		});
+		$('.beeAddressListaddress2').prop('disabled', true);
+		$('.beeAddressListaddress2').autocomplete({
+			source: [],
+			disabled: true,
+			minLength: 2,
+			delay: 250,
+			focus: function(event, ui) {
+				// prevent autocomplete from updating the textbox
+				event.preventDefault();
+				// manually update the textbox
+				$(this).val(ui.item.label);
+			},
+			select: function(event, ui) {
+				// prevent autocomplete from updating the textbox
+				event.preventDefault();
+				// manually update the textbox and hidden field
+				$(this).val(ui.item.label);
+				$('.beeAddressValueaddress2').val(ui.item.value);
+			}
+		});
+		$( document ).ready(function() {
+			$.ajax({
+				url: '{{ path('address_fetch') }}',	
+				data: {'id': {% if form.address1.vars.value > 0 %}{{ form.address1.vars.value }}{% else %}0{% endif %} },
+				type: 'POST',
+				success: function(data) {
+					$('.beeLine1address1').val(data.line1);
+					$('.beeLine2address1').val(data.line2);
+					$('.beeLocalityaddress1').val(data.locality);
+					$('.beeTerritoryaddress1').val(data.territory);
+					$('.beeCountryaddress1').val(data.country);
+					$('.beePostCodeaddress1').val(data.postCode);
+				}
+			});
+			$.ajax({
+				url: '{{ path('address_fetch') }}',	
+				data: {'id': {% if form.address2.vars.value > 0 %}{{ form.address2.vars.value }}{% else %}0{% endif %} },
+				type: 'POST',
+				success: function(data) {
+					$('.beeLine1address2').val(data.line1);
+					$('.beeLine2address2').val(data.line2);
+					$('.beeLocalityaddress2').val(data.locality);
+					$('.beeTerritoryaddress2').val(data.territory);
+					$('.beeCountryaddress2').val(data.country);
+					$('.beePostCodeaddress2').val(data.postCode);
+				}
+			});
+		});
+	</script>
 {% endblock javascripts %}

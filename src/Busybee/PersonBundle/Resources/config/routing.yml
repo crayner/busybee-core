@@ -34,3 +34,6 @@ address_edit:
 address_fetch:
     path:     /address/fetch/
     defaults: { _controller: BusybeePersonBundle:Address:fetch }
+address_fetch_search:
+    path:     /address/search/{id}
+    defaults: { _controller: BusybeePersonBundle:Address:search }

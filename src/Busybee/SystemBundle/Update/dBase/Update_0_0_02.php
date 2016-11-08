@@ -26,7 +26,7 @@ Class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	=	3 ;
+	private $count	=	6 ;
 	
 	/**
 	 * Constructor
@@ -56,7 +56,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$role = $this->em->getRepository('BusybeeSecurityBundle:Role');
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('twig');
-		$entity->setValue("<pre>{{ line1 }}
+		$entity->setValue("<pre>{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ line1 }}
 {% if line2 is not empty %}{{ line2 }}
 {% endif %}
 {{ locality }} {{ territory }} {{ postCode }}
@@ -64,6 +64,16 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity->setName('Address.Format');
 		$entity->setDescription('A template for displaying an address.');
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		
+		$role = $this->em->getRepository('BusybeeSecurityBundle:Role');
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('twig');
+		$entity->setValue("{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ line1 }}{% if line2 is not empty %} {{ line2 }}{% endif %}");
+		$entity->setName('Address.ListLabel');
+		$entity->setDescription('A template to convert the entity values into a string label for autocomplete.');
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
 		$this->sm->saveSetting($entity);
 		
@@ -97,6 +107,37 @@ Class Update_0_0_02 implements UpdateInterface
 		);
 		$entity->setName('Person.Titles');
 		$entity->setDescription('List of Titles');
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('array');
+		$entity->setValue(
+			Yaml::dump(array(
+				'' => '',
+			))
+		);
+		$entity->setName('Address.Territories');
+		$entity->setDescription('List of Territories, States or Provinces (Counties) available to address in your organisation.');
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('array');
+		$entity->setValue(
+			Yaml::dump(
+				array(
+					'' => '',
+					'Unit' => 'Unit',
+					'Apartment' => 'Apt',
+					'Town House' => 'TnHs',
+				)
+			)
+		);
+		$entity->setName('Address.BuildingType');
+		$entity->setDescription("List of building types found in your organisation's area.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);

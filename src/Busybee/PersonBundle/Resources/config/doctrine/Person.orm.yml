@@ -87,10 +87,19 @@ Busybee\PersonBundle\Entity\Person:
             joinColumns:
                 created_by:
                     referencedColumnName: id
-                    nullable: true
         modifiedBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 modified_by:
                     referencedColumnName: id
-                    nullable: true
+    manyToMany:
+        phone:
+            targetEntity: Busybee\PersonBundle\Entity\Phone
+            joinTable:
+                name: person_phone
+                joinColumns:
+                    person_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    phone_id:
+                        referencedColumnName: id

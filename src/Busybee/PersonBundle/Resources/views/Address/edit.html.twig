@@ -7,34 +7,54 @@
 {% if form.vars.data is not null %}
 	{% set address_id = form.vars.data.id %}
 {% else %}
-	{% set address_id = form.vars.value %}
+	{% set address_id = form.vars.value.id %}
 {% endif %}
-
 	<div class="panel panel-primary busybee-panel">
 		<div class="panel-heading">
 			{% if addressTitle is not defined %}{% set addressTitle = 'address.title' %}{% endif %}
-			<h3 class="panel-title">{{ addressTitle|trans}}</h3>
+			<h3 class="panel-title">{{ addressTitle|trans}}
+			<button title='{{ 'person.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('person_manage') }}','_self')" style="float: right"></button>
+		{% if id != 'Add' %}
+			<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
+		{% endif %}
+		<button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="reset" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+		<button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}' type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
+
+			</h3>
 		</div>
 		<div class="panel-body">
 			<div class="container-fluid">
 				<div class='row'>
 					<div class='col-sm-6 well'>
-						{{ form_row(form.addressList, {'value': address_id|trim}) }}
+						{{ form_row(form.addressList, {'value': addressLabel|trim}) }}
+						<input type="hidden" class="beeAddressValue{{ classSuffix }}" value="{{ address_id|trim }}" name="person[{{ classSuffix }}][AddressValue]" />
 					</div>
-					<div class='col-sm-4 well'>
-						<div class='form-group' id="addressDisplay{{ classSuffix }}">
-							{{ address|raw }}
-						</div>
-					</div>
-					<div class='col-sm-2 well'>
+					<div class='col-sm-6 well'>
 						<div class='form-group text-right'>
 							{{ form_widget(form.save) }}
+							{{ form_widget(form.clear) }}
 						</div>
 					</div>
 				</div>
 				<div class='row'>
+					<div class='col-sm-2 well'>
+						{{ form_row(form.buildingType) }}
+					</div>
+					<div class='col-sm-2 well'>
+						{{ form_row(form.buildingNumber) }}
+					</div>
+					<div class='col-sm-2 well'>
+						{{ form_row(form.streetNumber) }}
+					</div>
 					<div class='col-sm-6 well'>
 						{{ form_row(form.line1) }}
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-sm-6 well'>
+						<div class='form-group' id="addressDisplay{{ classSuffix }}">
+							{{ address|raw }}
+						</div>
 					</div>
 					<div class='col-sm-6 well'>
 						{{ form_row(form.line2) }}
@@ -46,7 +66,7 @@
 				</div>
 			</div>
 			<div id="localityContent">
-				{% include 'BusybeePersonBundle:Locality:edit.html.twig' with {'form': form.locality} %}
+				{% include 'BusybeePersonBundle:Locality:edit.html.twig' with {'form': form.locality, 'classSuffix': classSuffix } %}
 			</div>
 		</div>
 	</div>

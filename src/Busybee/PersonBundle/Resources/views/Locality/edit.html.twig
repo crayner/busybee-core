@@ -9,32 +9,39 @@
 			<h3 class="panel-title">{{ 'locality.title'|trans}}</h3>
 		</div>
 		<div class="panel-body">
-			<div class="container-fluid">
-				<div class='row'>
-					<div class='col-sm-9 well'>
-						{{ form_row(form.localityList, {'value': form.vars.value.id|trim }) }}
+			<div class="col-sm-8">
+				<div class="container-fluid">
+					<div class='row'>
+						<div class='col-sm-9 well'>
+							{{ form_row(form.localityList, {'value': form.vars.value.id|trim }) }}
+						</div>
+						<div class='col-sm-3 well'>
+							<div class='form-widget text-right'>
+								{{ form_widget(form.save) }}
+							</div>
+						</div>
 					</div>
-					<div class='col-sm-3 well'>
-						<div class='form-widget text-right'>
-							{{ form_widget(form.save) }}
+					<div class='row'>
+						<div class='col-sm-6 well'>
+							{{ form_row(form.locality) }}
+						</div>
+						<div class='col-sm-6 well'>
+							{{ form_row(form.territory) }}
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-sm-6 well'>
+							{{ form_row(form.postCode) }}
+						</div>
+						<div class='col-sm-6 well'>
+							{{ form_row(form.country) }}
 						</div>
 					</div>
 				</div>
-				<div class='row'>
-					<div class='col-sm-6 well'>
-						{{ form_row(form.locality) }}
-					</div>
-					<div class='col-sm-6 well'>
-						{{ form_row(form.territory) }}
-					</div>
-				</div>
-				<div class='row'>
-					<div class='col-sm-6 well'>
-						{{ form_row(form.postCode) }}
-					</div>
-					<div class='col-sm-6 well'>
-						{{ form_row(form.country) }}
-					</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="container-fluid well">
+					<p>{{ 'address.help.manage'|trans }}</p>
 				</div>
 			</div>
 		</div>

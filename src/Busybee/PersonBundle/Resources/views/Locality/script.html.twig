@@ -13,6 +13,15 @@
 					$('.beeTerritory{{ classSuffix }}').val(data.territory);
 					$('.beeCountry{{ classSuffix }}').val(data.country);
 					$('.beePostCode{{ classSuffix }}').val(data.postCode);
+					$('.beeAddressList{{ classSuffix }}').autocomplete( "option", "source", data.addressList );
+					if (data.addressDisabled == 'true') {
+						$('.beeAddressList{{ classSuffix }}').autocomplete( 'disable' );
+						$('.beeAddressList{{ classSuffix }}').prop('disabled', true);
+					} else {
+						$('.beeAddressList{{ classSuffix }}').prop('disabled', false);
+						$('.beeAddressList{{ classSuffix }}').autocomplete( 'enable' );
+					}
+					$('.beeAddressList{{ classSuffix }}').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: '', value: 0}});
 				}
 			});
 		});

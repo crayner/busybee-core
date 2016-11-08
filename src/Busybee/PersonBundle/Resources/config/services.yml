@@ -76,6 +76,8 @@ services:
         class: Busybee\PersonBundle\Model\AddressManager
         arguments:
             - '@translator'
+            - '@setting.manager'
+            - '@address.repository'
     locality.repository:
         class: Busybee\PersonBundle\Entity\Repository\LocalityRepository
         factory: 
