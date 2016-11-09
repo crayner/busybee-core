@@ -8,9 +8,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Component\Intl\Locale\Locale ;
 use Symfony\Component\Form\FormEvent ;
 use Symfony\Component\Form\FormEvents ;
+use Busybee\SystemBundle\Setting\SettingManager ;
 
 class LocalityType extends AbstractType
 {
+	/**
+	 * @var	Busybee\SystemBundle\Setting\SettingManager 
+	 */
+	private $sm ;
+	
+	/**
+	 * Construct
+	 */
+	public function __construct(SettingManager $sm)
+	{
+		$this->sm = $sm ;
+	}
+
     /**
      * {@inheritdoc}
      */
@@ -25,12 +39,13 @@ class LocalityType extends AbstractType
 					),
 				)
 			)
-			->add('territory', null, array(
+			->add('territory', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
 					'label' => 'locality.label.territory',
 					'required' => false,
 					'attr' => array(
 						'class' => 'beeTerritory'.$options['data']->getClassSuffix(),
 					),
+					'choices' => $this->sm->get('Address.TerritoryList'),
 				)
 			)
 			->add('postCode', null, array(

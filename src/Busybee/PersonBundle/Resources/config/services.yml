@@ -92,6 +92,13 @@ services:
             - 'getRepository' 
         arguments: 
             - "BusybeePersonBundle:Address"
+    phone.repository:
+        class: Busybee\PersonBundle\Entity\Repository\PhoneRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeePersonBundle:Phone"
     person.uploader.photo:
         class: Busybee\PersonBundle\Model\PhotoUploader
         arguments:
@@ -105,3 +112,27 @@ services:
             - { name: doctrine.event_listener, event: postLoad }
             - { name: doctrine.event_listener, event: postUpdate }
             - { name: doctrine.event_listener, event: postRemove }
+    person.form.phoneType:
+        class: Busybee\PersonBundle\Form\PhoneType
+        arguments:
+            - '@setting.manager'
+        tags: 
+            - { name: form.type }    
+    person.form.personType:
+        class: Busybee\PersonBundle\Form\PersonType
+        arguments:
+            - '@setting.manager'
+        tags: 
+            - { name: form.type }
+    person.form.addressType:
+        class: Busybee\PersonBundle\Form\AddressType
+        arguments:
+            - '@setting.manager'
+        tags: 
+            - { name: form.type }
+    person.form.localityType:
+        class: Busybee\PersonBundle\Form\LocalityType
+        arguments:
+            - '@setting.manager'
+        tags: 
+            - { name: form.type }

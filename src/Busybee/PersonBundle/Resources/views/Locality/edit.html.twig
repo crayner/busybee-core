@@ -16,7 +16,7 @@
 							{{ form_row(form.localityList, {'value': form.vars.value.id|trim }) }}
 						</div>
 						<div class='col-sm-3 well'>
-							<div class='form-widget text-right'>
+							<div class='form-widget text-center'>
 								{{ form_widget(form.save) }}
 							</div>
 						</div>
@@ -40,9 +40,7 @@
 				</div>
 			</div>
 			<div class="col-sm-4">
-				<div class="container-fluid well">
-					<p>{{ 'address.help.manage'|trans }}</p>
-				</div>
+				<p class="alert alert-default">{{ 'address.help.manage'|trans }}</p>
 			</div>
 		</div>
 	</div>

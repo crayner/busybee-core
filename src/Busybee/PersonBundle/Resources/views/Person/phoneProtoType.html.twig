@@ -1,0 +1,15 @@
+<div class="well phoneNumber">
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(form.phone.vars.prototype.phoneType|e) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.phone.vars.prototype.countryCode|e) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{ form_row(form.phone.vars.prototype.phoneNumber|e) }}
+        </div>
+    </div>
+</div>

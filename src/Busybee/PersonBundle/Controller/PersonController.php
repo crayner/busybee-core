@@ -8,6 +8,7 @@ use Busybee\PersonBundle\Entity\Person ;
 use Busybee\PersonBundle\Entity\Address ;
 use Busybee\PersonBundle\Entity\Locality ;
 use Busybee\PersonBundle\Entity\Image ;
+use Busybee\PersonBundle\Entity\Phone ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\PersonBundle\Form\PersonType ;
@@ -67,7 +68,8 @@ class PersonController extends Controller
 			if ($data['address2'] > 0 && $data['address1'] == $data['address2'])
 			{
 				$data['address2'] = null ;
-			}
+			}			
+			
 			$request->request->set('person', $data);
 			$person->setAddress1($data['address1']);
 			$person->setAddress2($data['address2']);
@@ -76,9 +78,25 @@ class PersonController extends Controller
 
 			$form->handleRequest($request);
 			
+
 			if ($form->isSubmitted() && $form->isValid())
 			{
 			
+				foreach($person->getPhone() as $q=>$w)
+				{
+					if (empty($w->getPhoneNumber()))
+						$person->removePhone($w);   
+					else {
+						$phone = $this->get('phone.repository')->findOneBy(array('phoneNumber' => $w->getPhoneNumber()));
+						if ($phone instanceof Phone && $phone->getId() !== $w->getId())
+						{
+							$person->getPhone()->remove($q);
+							$person->getPhone()->set($q, $phone);
+						}
+					}
+				}
+
+
 				$em->persist($person);
 				$em->flush();
 				$id = $person->getId();
@@ -112,27 +130,21 @@ class PersonController extends Controller
 		$person = new Person();
 		if ($id !== 'Add')
 			$person = $this->get('person.repository')->findOneBy(array('id' => $id));
-		$person->cancelURL = $this->generateUrl('busybee_security_user_list');
+		$person->cancelURL = $this->generateUrl('person_edit', array('id' => $id));
 
 		$sm = $this->get('setting.manager');
 
 		$person->setAddress1Record($this->get('address.repository')->setPersonAddress($person->getAddress1()));
 		$person->getAddress1Record()->localityRecord = $this->get('locality.repository')->setAddressLocality($person->getAddress1Record()->getLocality());
-		$person->getAddress1Record()->setBuildingTypeList($sm->get('Address.BuildingType'));
 
 		$person->getAddress1Record()->setClassSuffix('address1');
 		$person->getAddress1Record()->localityRecord->setClassSuffix('address1');
 
 		$person->setAddress2Record($this->get('address.repository')->setPersonAddress($person->getAddress2()));
 		$person->getAddress2Record()->localityRecord = $this->get('locality.repository')->setAddressLocality($person->getAddress2Record()->getLocality());
-		$person->getAddress2Record()->setBuildingTypeList($sm->get('Address.BuildingType'));
 
 		$person->getAddress2Record()->setClassSuffix('address2');
 		$person->getAddress2Record()->localityRecord->setClassSuffix('address2');
-
-		$person->setGenderList($sm->get('Gender.List'));
-		$person->setTitleList($sm->get('Person.Titles'));
-		
 		return $person ;
 	}
 

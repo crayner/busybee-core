@@ -4,6 +4,7 @@ namespace Busybee\PersonBundle\Entity;
 
 use Busybee\PersonBundle\Model\PersonModel ;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection ;
 
 /**
  * Person
@@ -548,7 +549,7 @@ class Person extends PersonModel
      */
     public function __construct()
     {
-        $this->phone = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->phone = new ArrayCollection();
     }
 
     /**
@@ -560,7 +561,7 @@ class Person extends PersonModel
      */
     public function addPhone(\Busybee\PersonBundle\Entity\Phone $phone)
     {
-        $this->phone[] = $phone;
+        $this->phone->add($phone);
 
         return $this;
     }

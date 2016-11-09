@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile ;
 use Doctrine\ORM\Event\LifecycleEventArgs ;
 use Doctrine\ORM\Event\PreUpdateEventArgs ;
 use Busybee\PersonBundle\Entity\Person ;
+use Busybee\PersonBundle\Entity\Phone ;
 use Busybee\PersonBundle\Model\PhotoUploader ;
 use Symfony\Component\HttpFoundation\File\File ;
 

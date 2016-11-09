@@ -8,9 +8,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Busybee\PersonBundle\Form\Transformer\PhotoTransformer ;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine ;
 use Symfony\Component\Validator\Constraints as Assert;
+use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\PersonBundle\Form\AddressType ;
 
 class PersonType extends AbstractType
 {
+	/**
+	 * @var	Busybee\SystemBundle\Setting\SettingManager 
+	 */
+	private $sm ;
+	
+	/**
+	 * Construct
+	 */
+	public function __construct(SettingManager $sm)
+	{
+		$this->sm = $sm ;
+	}
+
     /**
      * {@inheritdoc}
      */
@@ -18,12 +33,12 @@ class PersonType extends AbstractType
     {
         $builder->add('title', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
 					'label' => 'person.label.title',
-					'choices' => $options['data']->getTitleList(),
+					'choices' => $this->sm->get('Person.TitleList'),
 					'attr'	=> array(
 						'class' => 'beeTitle',
 					),
 					'required' => false,
-					'constraints' => array(new Assert\Choice(array('groups' => 'person_form', 'choices' => $options['data']->getTitleList(true)))),
+					'constraints' => array(new Assert\Choice(array('groups' => 'person_form', 'choices' => $this->sm->get('Person.TitleList')))),
 				)
 			)
 			->add('surname', null, array(
@@ -60,12 +75,12 @@ class PersonType extends AbstractType
 				)
 			)
 			->add('gender', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
-					'choices' => $options['data']->getGenderList(),
+					'choices' => $this->sm->get('Person.GenderList'),
 					'label' => 'person.label.gender',
 					'attr'	=> array(
 						'class' => 'beeGender',
 					),
-					'constraints' => array(new Assert\Choice(array('groups'=>'person_form', 'choices' => $options['data']->getGenderList()))),
+					'constraints' => array(new Assert\Choice(array('groups'=>'person_form', 'choices' => $this->sm->get('Person.GenderList')))),
 				)
 			)
 			->add('dob', 'Symfony\Component\Form\Extension\Core\Type\BirthdayType', array(
@@ -120,13 +135,13 @@ class PersonType extends AbstractType
 					'constraints' => array(new Assert\Url(array('groups'=>'person_form'))),
 				)
 			)
-			->add('add1', 'Busybee\PersonBundle\Form\AddressType', array(
+			->add('add1', AddressType::class, array(
 					'data' => $options['data']->getAddress1Record(),
 					'required' => false,
 					'mapped' => false,
 				)
 			)
-			->add('add2', 'Busybee\PersonBundle\Form\AddressType', array(
+			->add('add2', AddressType::class, array(
 					'data' => $options['data']->getAddress2Record(),
 					'required' => false,
 					'mapped' => false,
@@ -164,6 +179,14 @@ class PersonType extends AbstractType
 					),
 				)
 			)
+			->add('phone', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
+					'label'					=> 'person.label.phones', 
+					'entry_type'			=> 'Busybee\PersonBundle\Form\PhoneType',
+					'allow_add'				=> true,
+					'by_reference'			=> false,
+					'allow_delete'			=> true,
+				)
+			)
 		;
     }
     
@@ -172,11 +195,13 @@ class PersonType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Busybee\PersonBundle\Entity\Person',
-			'translation_domain' => 'BusybeePersonBundle',
-			'validation_groups' => array('person_form'),
-        ));
+        $resolver->setDefaults(
+			array(
+				'data_class' => 'Busybee\PersonBundle\Entity\Person',
+				'translation_domain' => 'BusybeePersonBundle',
+				'validation_groups' => array('person_form'),
+			)
+		);
     }
 
     /**

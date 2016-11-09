@@ -26,7 +26,7 @@ Class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	=	6 ;
+	private $count	= 7 ;
 	
 	/**
 	 * Constructor
@@ -87,7 +87,7 @@ Class Update_0_0_02 implements UpdateInterface
 				'Other' => '0',
 			))
 		);
-		$entity->setName('Gender.List');
+		$entity->setName('Person.GenderList');
 		$entity->setDescription('Gender List');
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
@@ -105,7 +105,7 @@ Class Update_0_0_02 implements UpdateInterface
 				'Dr' => 'Dr',
 			))
 		);
-		$entity->setName('Person.Titles');
+		$entity->setName('Person.TitleList');
 		$entity->setDescription('List of Titles');
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
@@ -118,8 +118,8 @@ Class Update_0_0_02 implements UpdateInterface
 				'' => '',
 			))
 		);
-		$entity->setName('Address.Territories');
-		$entity->setDescription('List of Territories, States or Provinces (Counties) available to address in your organisation.');
+		$entity->setName('Address.TerritoryList');
+		$entity->setDescription('List of Territories, States or Provinces (Counties) available to addresses in your organisation.');
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);
@@ -138,6 +138,38 @@ Class Update_0_0_02 implements UpdateInterface
 		);
 		$entity->setName('Address.BuildingType');
 		$entity->setDescription("List of building types found in your organisation's area.");
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('array');
+		$entity->setValue(
+			Yaml::dump(
+				array(
+					'Home' => 'Home',
+					'Mobile' => 'Mobile',
+					'Work' => 'Work',
+				)
+			)
+		);
+		$entity->setName('Phone.TypeList');
+		$entity->setDescription("List of phone types.");
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		
+		$this->sm->saveSetting($entity);
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('array');
+		$entity->setValue(
+			Yaml::dump(
+				array(
+					'Australia +61' => '+61',
+				)
+			)
+		);
+		$entity->setName('Phone.CountryList');
+		$entity->setDescription("List of phone country codes.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);

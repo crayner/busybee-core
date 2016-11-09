@@ -95,6 +95,7 @@ Busybee\PersonBundle\Entity\Person:
     manyToMany:
         phone:
             targetEntity: Busybee\PersonBundle\Entity\Phone
+            cascade: [ 'persist' ]
             joinTable:
                 name: person_phone
                 joinColumns:

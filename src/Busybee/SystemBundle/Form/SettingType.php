@@ -5,6 +5,7 @@ namespace Busybee\SystemBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class SettingType extends AbstractType
 {
@@ -27,11 +28,12 @@ class SettingType extends AbstractType
 					)
 				)
 			)
-			->add('description', null, 
+			->add('description', TextareaType::class, 
 				array(
 					'label' => 'system.setting.label.description',
 					'attr' => array(
 						'help' => 'system.setting.help.description',
+						'rows' => '5',
 					)
 				)
 			)

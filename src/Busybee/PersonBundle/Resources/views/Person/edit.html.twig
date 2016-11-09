@@ -144,4 +144,61 @@
 			});
 		});
 	</script>
+
+	<script>
+		$('#addPhoneButton').click(function(e) {
+		
+			e.preventDefault();
+		
+			var $collectionHolder  = $('.phoneNumberList');
+			
+			$collectionHolder.data('index', $collectionHolder.find('.phoneNumber').length);
+			
+			var index = $collectionHolder.data('index');
+			
+			var prototype = $collectionHolder.data('prototype');
+			
+			var newForm = prototype.replace(/__name__/g, index);
+						
+			$('.phoneNumberList').append(newForm);
+			
+			$('#person_phone_' + index + '_phoneNumber').autocomplete({
+				source: '{{ path('phone_fetch') }}',
+				minLength: 4,
+				delay: 250,
+				focus: function(event, ui) {
+					// prevent autocomplete from updating the textbox
+					event.preventDefault();
+					// manually update the textbox
+					$(this).val(ui.item.label);
+				},
+				select: function(event, ui) {
+					// prevent autocomplete from updating the textbox
+					event.preventDefault();
+					// manually update the textbox and hidden field
+					$(this).val(ui.item.label);
+				}
+			});
+			$('#person_phone_' + index + '_phoneNumber').prop('readonly', false);
+
+			$collectionHolder.data('index', index + 1);
+			
+			$('.deletePhoneButton').hide();
+
+
+		});
+		$('#addPhoneForm').hide();
+
+		$('.deletePhoneButton').click(function(e) {
+			e.preventDefault();
+			
+			var id = $(this).attr('id');
+
+			$('#phone_' + id.substring(12)).remove();
+			
+			$('#addPhoneButton').hide();
+		});
+
+	</script>
+
 {% endblock javascripts %}

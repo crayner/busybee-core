@@ -6,9 +6,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Intl\Locale\Locale ;
+use Busybee\SystemBundle\Setting\SettingManager;
 
 class AddressType extends AbstractType
 {
+	/**
+	 * @var	Busybee\SystemBundle\Setting\SettingManager 
+	 */
+	private $sm ;
+	
+	/**
+	 * Construct
+	 */
+	public function __construct(SettingManager $sm)
+	{
+		$this->sm = $sm ;
+	}
+
     /**
      * {@inheritdoc}
      */
@@ -21,7 +35,7 @@ class AddressType extends AbstractType
 						'help' => 'address.help.buildingType',
 						'class' => 'beeBuildingType'.$options['data']->getClassSuffix(),
 					),
-					'choices' => $options['data']->getBuildingTypeList(),
+					'choices' => $this->sm->get('Address.BuildingType'),
 				)
 			)
 			->add('buildingNumber', null, array(

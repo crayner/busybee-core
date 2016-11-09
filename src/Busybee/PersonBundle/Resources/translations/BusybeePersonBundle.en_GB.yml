@@ -32,6 +32,11 @@ person:
         gender: Gender
         website: Personal Web Site
         title: Personal Title
+        phones: Phone Details
+        phone:
+            type: Type of Phone
+            number: Phone Number
+            country: Country Code 
     help:
         officialName: This is the name recorded on official documents. e.g. birth certificates and passports.
         photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 
@@ -43,6 +48,7 @@ person:
     add:
         title: Add Person
         description: ''
+        phone: Add Phone
     edit: 
         title: Edit Person
         description: ''
@@ -90,7 +96,7 @@ locality:
         locality: Town, Suburb or City
         postcode: Post Code
         country: Country
-        territory: State, Province ot Territory
+        territory: State, Province or Territory
         save: Save Locality
     edit:
         failure: The locality was not saved.
@@ -103,3 +109,8 @@ Unspecified: Unspecified
 Male: Male
 Female: Female
 Other: Other
+contact:
+    phone:
+        delete: Delete Phone
+        add: Add Phone
+        saveWarning: Additions and removal of numbers are NOT saved until the person is saved.  Use the green Save button to save the person, or the light blue Cancel button to restore changes.  Each phone number is only stored once.

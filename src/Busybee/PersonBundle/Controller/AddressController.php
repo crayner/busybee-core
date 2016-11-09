@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\PersonBundle\Entity\Address ;
-
+use Busybee\PersonBundle\Form\AddressType ;
 
 class AddressController extends Controller
 {
@@ -44,7 +44,7 @@ class AddressController extends Controller
 		$address->injectRepository($this->get('address.repository'));
 		$address->localityRecord = $this->get('locality.repository')->setAddressLocality($address->getLocality());
 
-        $form = $this->createForm('Busybee\PersonBundle\Form\AddressType', $address);
+        $form = $this->createForm(AddressType::class, $address);
 
 
         return $this->render('BusybeePersonBundle:Address:index.html.twig',

@@ -37,3 +37,6 @@ address_fetch:
 address_fetch_search:
     path:     /address/search/{id}
     defaults: { _controller: BusybeePersonBundle:Address:search }
+phone_fetch:
+    path:     /phone/fetch/
+    defaults: { _controller: BusybeePersonBundle:Phone:fetch }
