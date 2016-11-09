@@ -1,1 +1,10 @@
 services:
+    form.errors.parser:
+        class: Busybee\FormBundle\Model\FormErrorsParser
+    form.all_form_errors_extension:
+        class: Busybee\FormBundle\Model\FormErrorsExtension
+        arguments:
+            - '@form.errors.parser'
+            - '@translator'
+        tags:
+            - { name: twig.extension }

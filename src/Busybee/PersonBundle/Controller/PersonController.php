@@ -70,6 +70,11 @@ class PersonController extends Controller
 				$data['address2'] = null ;
 			}			
 			
+			foreach($data['phone'] as $q=>$w)
+			{
+				$data['phone'][$q]['phoneNumber'] = preg_replace('/\D/', '', $w['phoneNumber']);
+			}
+
 			$request->request->set('person', $data);
 			$person->setAddress1($data['address1']);
 			$person->setAddress2($data['address2']);
@@ -77,7 +82,6 @@ class PersonController extends Controller
 			$form->setData($person);
 
 			$form->handleRequest($request);
-			
 
 			if ($form->isSubmitted() && $form->isValid())
 			{
@@ -104,7 +108,13 @@ class PersonController extends Controller
 
 			} 
 			$request->request->set('person', null);
-		} else
+
+		} elseif ($form->isSubmitted() && ! $form->isValid())
+		{
+       	 	$form->setData($person);
+
+		}
+		else
        	 	$form->setData($person);
 
 		$view = $form->createView();
@@ -115,11 +125,14 @@ class PersonController extends Controller
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
 			array(
 				'id' => $id, 
-				'form' => $view, 
+				'form' => $view,
+				'fullForm' => $form, 
 				'address1' => $formattedAddress1, 
 				'address2' => $formattedAddress2, 
 				'addressLabel1' => $this->get('address.manager')->getAddressListLabel($person->getAddress1Record()),		
 				'addressLabel2' => $this->get('address.manager')->getAddressListLabel($person->getAddress2Record()),
+				'setting' => $setting,
+
 			)		
 		);
     }

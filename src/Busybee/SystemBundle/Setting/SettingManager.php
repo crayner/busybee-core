@@ -46,6 +46,9 @@ class SettingManager
 			return $default;
 		switch ($this->setting->getType())
 		{
+			case 'regex':
+				return $this->setting->getValue();
+				break ;
 			case 'string':
 				return strval(mb_substr($this->setting->getValue(), 0, 25));
 				break;
@@ -111,6 +114,7 @@ class SettingManager
 			case 'string':
 				$value =  strval(mb_substr($value, 0, 25));
 				break;
+			case 'regex':
 			case 'twig':
 				break;
 			case 'boolean':

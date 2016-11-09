@@ -136,3 +136,10 @@ services:
             - '@setting.manager'
         tags: 
             - { name: form.type }
+    person.phone.validator:
+        class: Busybee\PersonBundle\Validator\Constraints\PhoneValidator
+        arguments:
+            - '@setting.manager'
+        tags:
+            - { name: validator.constraint_validator, alias: phone_validator }
+            - { name: validator.constraint_validator, alias: alias_name }

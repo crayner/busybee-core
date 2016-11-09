@@ -10,3 +10,8 @@ buildDatabase:
 Yes: Yes
 No: No
 '%name% at IP:%remoteIP% has failed to authenticate correctly.': '%name% at IP:%remoteIP% has failed to authenticate correctly.'
+regex:
+    error: "Regex Error: %systemMessage%"
+person:
+    error:
+        phone: Not a valid phone number.

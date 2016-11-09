@@ -27,7 +27,6 @@ class PhoneType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
 			->add('phoneType', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
 				array(
@@ -40,7 +39,13 @@ class PhoneType extends AbstractType
 					'label' => 'person.label.phone.number',
 					'attr'	=> array(
 						'readonly' => 'readonly',					
-					)
+					),
+					'constraints' => array(new \Busybee\PersonBundle\Validator\Phone(
+							array(
+								'groups' => 'person_form',
+							)
+						)
+					),
 				)
 			)
 			->add('countryCode', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
@@ -61,6 +66,7 @@ class PhoneType extends AbstractType
 			array(
 				'data_class' => 'Busybee\PersonBundle\Entity\Phone',
 				'translation_domain' => 'BusybeePersonBundle',
+				'validation_groups' => array('person_form'),
 			)
 		);
     }

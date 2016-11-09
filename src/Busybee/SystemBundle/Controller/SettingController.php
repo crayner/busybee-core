@@ -87,7 +87,7 @@ class SettingController extends Controller
 				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array_merge($options, array(
 							'attr' => array(
 								'help' => 'system.setting.help.twig',
-								'rows' => 8,
+								'rows' => 5,
 							),
 							
 						)
@@ -99,7 +99,18 @@ class SettingController extends Controller
 							'attr' => array(
 								'maxLength' => 25,
 							),
-							
+						)
+					)
+				); 
+				break ;
+			case 'regex':
+				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array_merge($options, array(
+							'attr' => array(
+								'rows' => 5,
+							),
+							'constraints' => array(
+								new \Busybee\HomeBundle\Validator\Regex(),
+							),
 						)
 					)
 				); 

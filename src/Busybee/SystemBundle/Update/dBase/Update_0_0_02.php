@@ -26,7 +26,7 @@ Class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	= 7 ;
+	private $count	= 9 ;
 	
 	/**
 	 * Constructor
@@ -158,7 +158,6 @@ Class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		
-		$this->sm->saveSetting($entity);
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue(
@@ -170,6 +169,29 @@ Class Update_0_0_02 implements UpdateInterface
 		);
 		$entity->setName('Phone.CountryList');
 		$entity->setDescription("List of phone country codes.");
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('regex');
+		$entity->setValue("(^1300(| )[0-9]{3}(| )[0-9]{3}$)|(^1800|1900|1902(| )[0-9]{3}(| )[0-9]{3}$)|(^0[2|3|7|8]{1}(| )[0-9]{4}(| )[0-9]{4}$)|(^13(| )[0-9]{4}$)|(^04[0-9]{2,3}(| )[0-9]{3}(| )[0-9]{3}$)");
+		$entity->setName('Phone.Validation');
+		$entity->setDescription("Phone Validation Regular Expression");
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+
+		$this->sm->saveSetting($entity);
+		
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('twig');
+		$entity->setValue("{% set start = phone|slice(0,2) %}
+{% set len = phone|length %}
+{% if start in [02,03,07,08.09] %}
+({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}}{% elseif start in [18,13,04] and len == 10 %}
+{{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}{% elseif start in [13] and len == 6 %}
+{{ phone|slice(0,4)}} {{ phone|slice(4,3)}}{% else %}{{ phone }}{% endif %}");
+		$entity->setName('Phone.Display');
+		$entity->setDescription("A template to convert phone numbers into display version.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);

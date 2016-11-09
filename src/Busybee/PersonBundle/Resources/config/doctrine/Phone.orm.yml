@@ -34,3 +34,7 @@ Busybee\PersonBundle\Entity\Phone:
             joinColumns:
                 modified_by:
                     referencedColumnName: id
+    properties:
+        phoneNumber:
+            - Busybee\PersonBundle\Validator\Phone: 
+                - groups: person_form
