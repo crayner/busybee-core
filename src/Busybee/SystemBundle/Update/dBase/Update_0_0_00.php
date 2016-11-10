@@ -53,28 +53,32 @@ Class Update_0_0_00 implements UpdateInterface
     {
 		
 		$role = $this->em->getRepository('BusybeeSecurityBundle:Role');
+		//1
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('0.0.00');
 		$entity->setName('Version.System');
+		$entity->setDisplayName('System Version');
 		$entity->setDescription('The version of Busybee currently configured on your system.');
 		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
 		$this->sm->saveSetting($entity);
-		
+		//2
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('0.0.00');
 		$entity->setName('Version.Database');
+		$entity->setDisplayName('Database Version');
 		$entity->setDescription('The version of Busybee Database currently configured on your system.');
 		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
 		$this->sm->saveSetting($entity);
-		
+		//3
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('boolean');
 		$entity->setValue(true);
 		$entity->setName('Installed');
+		$entity->setDisplayName('System Installed');
 		$entity->setDescription('A flag showing the system has finished installing.');
 		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 

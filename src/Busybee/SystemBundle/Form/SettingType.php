@@ -28,6 +28,14 @@ class SettingType extends AbstractType
 					)
 				)
 			)
+			->add('displayName', null, 
+				array(
+					'label' => 'system.setting.label.displayName',
+					'attr' => array(
+						'help' => 'system.setting.help.displayName',
+					)
+				)
+			)
 			->add('description', TextareaType::class, 
 				array(
 					'label' => 'system.setting.label.description',

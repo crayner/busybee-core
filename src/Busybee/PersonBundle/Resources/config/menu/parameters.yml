@@ -1,0 +1,13 @@
+# Person
+parameters:
+    menu:
+        People: 
+            grant: ROLE_USER
+            label: menu.Person
+            dropdown:
+                Manage People:
+                    label: menu.people.person.manage
+                    grant: ROLE_REGISTRAR
+                    path: 
+                        route: person_manage
+                        parameters: []

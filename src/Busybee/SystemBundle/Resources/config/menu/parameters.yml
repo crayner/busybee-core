@@ -1,0 +1,43 @@
+# System
+parameters:
+    menu:
+        System: 
+            grant: ROLE_USER
+            label: menu.system
+            dropdown:
+                User Manage:
+                    label: menu.site.security.user
+                    grant: ROLE_USER
+                    submenu:
+                        Edit Self:
+                            label: menu.site.security.edit
+                            grant: ROLE_USER
+                            path:
+                                route: busybee_security_user_edit
+                                parameters:
+                                    'id': '0'
+                        Register User:
+                            label: menu.site.security.register
+                            grant: ROLE_REGISTRAR
+                            path:
+                                route: busybee_security_user_register
+                                parameters: []
+                        Current User:
+                            label: menu.site.security.list
+                            grant: ROLE_REGISTRAR
+                            path:
+                                route: busybee_security_user_list
+                                parameters: []
+                Update:
+                    label: menu.site.update
+                    path: 
+                        route: update_start
+                        parameters: []
+                    grant: ROLE_ADMIN
+                Manage Setting:
+                    label: menu.site.setting.manage
+                    path: 
+                        route: setting_manage
+                        parameters: []
+                    grant: ROLE_REGISTRAR
+    

@@ -1,3 +1,4 @@
+# Security
 parameters:
     busybee_security.firewall_name: default 
     busybee_security.user.entity: Busybee\SecurityBundle\Entity\User

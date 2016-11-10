@@ -1,0 +1,12 @@
+# Home
+parameters:
+    menu:
+        Miscellaneous: 
+            label: menu.Misc
+            dropdown:
+                Template Design:
+                    label: menu.templateDesign
+                    path: 
+                        route: home_template
+                        parameters: []
+   

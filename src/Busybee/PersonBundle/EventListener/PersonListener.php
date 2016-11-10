@@ -51,7 +51,8 @@ class PersonListener
         $entity = $args->getEntity();
         if ($entity instanceof Person)
 		{
-			$file = is_null($entity->getPhoto()) ? null : new File($entity->getPhoto(), true);
+			$file = file_exists($entity->getPhoto()) ? $entity->getPhoto() : null ;
+			$file = is_null($file) ? new File(null, false) : new File($file, true);
 			$entity->setPhoto($file);
 		}
     }

@@ -28,16 +28,19 @@ system:
         edit:
             title: Edit Setting
             description: Change the value and description of settings.
+            success: The setting was saved successfully.
         label:
             name: Setting Name
             description: Setting Description
             value: Setting Value
+            displayName: Setting Display Name 
         help:
             name: Setting names are set by the program and are not available to change. 
             description: You can alter the setting decription to better describe the setting.
             boolean: Setting is true or false, Yes or No.
             array: "Setting values for arrays are displayed as a display name: key combination."
             twig: "Templates in twig need to be tested on the page for which thay are used."
+            displayName: 'The display name is available to change for your system, but it must be unique on your system.'
 parameter:
     file:    
         title: Parameter File Status

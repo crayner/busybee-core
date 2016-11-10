@@ -29,7 +29,8 @@
 	
 		<div class="jumbotron">
 			<img src="{{ asset('img/bee.png') }}" height="150" alt="Busybee" style="float: right;" />
-			<h1>{% block headerTitle %}Busybee{% endblock headerTitle %}</h1>
+			<h1>{{ get_setting('Organisation.Name') }}</h1>
+			<h2>{% block headerTitle %}Busybee{% endblock headerTitle %}</h2>
 			<p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
 		</div>
 

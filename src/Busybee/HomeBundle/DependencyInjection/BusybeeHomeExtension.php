@@ -39,5 +39,19 @@ class BusybeeHomeExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+		
+		$newContainer =  new ContainerBuilder();
+		$loader = new Loader\YamlFileLoader($newContainer, new FileLocator(__DIR__.'/../Resources/config/menu'));
+		$loader->load('parameters.yml');
+		
+		if ($container->getParameterBag()->has('menu')) 
+		{
+			$menu =  $container->getParameterBag()->get('menu', array()) ;
+			$container->getParameterBag()->remove('menu');
+		} else
+			$menu = array();
+		
+		$container->getParameterBag()
+			->set('menu', array_merge($menu, $newContainer->getParameterBag()->get('menu')));
     }
 }

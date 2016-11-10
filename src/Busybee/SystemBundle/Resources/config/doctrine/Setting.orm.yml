@@ -1,8 +1,8 @@
 # src\Busybee\SystemBundle\Resources\config\doctrine\Setting.orm.yml
 Busybee\SystemBundle\Entity\Setting:
     type: entity
-    table: system_setting
-    repositoryClass: Busybee\SystemBundle\Entity\SettingRepository
+    table: setting
+    repositoryClass: Busybee\SystemBundle\Repository\SettingRepository
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
             fields: [name]
@@ -19,14 +19,19 @@ Busybee\SystemBundle\Entity\Setting:
     fields:
         type:
             type: string
-            length: 25
+            length: '25'
         name:
             type: string
-            length: 25
+            length: '25'
             unique: true
+        displayName:
+            type: string
+            length: '64'
+            unique: true
+            column: display_name
         description:
             type: string
-            length: 255
+            length: '255'
         value:
             type: text
         lastModified:

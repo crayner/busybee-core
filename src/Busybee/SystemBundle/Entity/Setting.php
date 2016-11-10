@@ -340,4 +340,33 @@ class Setting
     {
         return $this->description;
     }
+    /**
+     * @var string
+     */
+    private $displayName;
+
+
+    /**
+     * Set displayName
+     *
+     * @param string $displayName
+     *
+     * @return Setting
+     */
+    public function setDisplayName($displayName)
+    {
+        $this->displayName = $displayName;
+
+        return $this;
+    }
+
+    /**
+     * Get displayName
+     *
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
 }

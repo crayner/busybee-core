@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\SystemBundle\Entity;
+namespace Busybee\SystemBundle\Repository ;
 
 use Doctrine\ORM\EntityRepository ;
 use Busybee\SecurityBundle\Entity\User ;

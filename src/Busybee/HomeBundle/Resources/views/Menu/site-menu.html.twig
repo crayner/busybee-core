@@ -2,27 +2,7 @@
 
 {% trans_default_domain "BusybeeHomeBundle" %}
 
-
-{% if is_granted('ROLE_USER') %}
-	<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-submenu>{{ 'menu.Site'|trans }}<span class="caret"></span></a>
-		<ul class="dropdown-menu">
-			{% include 'BusybeeSecurityBundle:Menu:security.html.twig' %}
-{% if is_granted('ROLE_ADMIN') %}
-			<li><a href="{{ path("update_start") }}">{{ 'menu.site.update'|trans }}</a></li> 
-{% endif %}
-{% if is_granted('ROLE_REGISTRAR') %}
-			<li><a href="{{ path("setting_manage") }}">{{ 'menu.site.setting.manage'|trans }}</a></li> 
-{% endif %}
-		</ul>
-	</li>
-	{% include 'BusybeePersonBundle:Menu:person.html.twig' %}
-	<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'menu.Misc'|trans }}<span class="caret"></span></a>
-		<ul class="dropdown-menu">
-			<li><a href="{{ path("home_template") }}">{{ 'menu.templateDesign'|trans }}</a></li> 
-		</ul>
-	</li>
-{% endif %}
-
-
+{% set menu = get_parameter('menu') %}
+{% include 'BusybeeHomeBundle:Menu:dropdown.html.twig' with {'menu': menu.System} %}
+{% include 'BusybeeHomeBundle:Menu:dropdown.html.twig' with {'menu': menu.People} %}
+{% include 'BusybeeHomeBundle:Menu:dropdown.html.twig' with {'menu': menu.Miscellaneous} %}

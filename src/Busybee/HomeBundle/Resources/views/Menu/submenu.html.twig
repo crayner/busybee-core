@@ -1,0 +1,20 @@
+{# src/Busybee/HomeBundle/Resources/views/Menu/dropdown.html.twig #}
+
+{% trans_default_domain "BusybeeHomeBundle" %}
+
+{% if (menu.grant is defined and is_granted(menu.grant)) or menu.grant is not defined %}
+	<li class="dropdown-submenu">
+		<a tabindex="0">{{ menu.label|trans }}</a>
+		<ul class="dropdown-menu">
+			{% for drop in menu.submenu %}
+				{% if (drop.grant is defined and is_granted(drop.grant)) or drop.grant is not defined %}
+					{% if drop.submenu is defined %}
+						{% include 'BusybeeHomeBundle:Menu:submenu.html.twig' with {'menu': drop} %}
+					{% else %}
+						<li><a href="{{ path(drop.path.route, drop.path.parameters) }}">{{ drop.label|trans }}</a></li>  
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</li>
+{% endif %}

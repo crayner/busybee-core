@@ -17,6 +17,9 @@ class FormErrorsExtension extends \Twig_Extension
      * @var FormErrorsParser
      */
     private $parser;
+    /**
+     * @var Translator
+     */
     private $trans ;
 	
     public function __construct(FormErrorsParser $parser, Translator $trans)
@@ -29,9 +32,9 @@ class FormErrorsExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return [
-            new \Twig_SimpleFunction('all_form_errors', [$this, 'getFormErrors'], ['is_safe' => ['html']]),
-        ];
+        return array(
+            new \Twig_SimpleFunction('all_form_errors', array($this, 'getFormErrors'), array('is_safe' => array('html'))),
+        );
     }
     /**
      * Main Twig extension. Call this in Twig to get formatted output of your form errors.
@@ -43,8 +46,9 @@ class FormErrorsExtension extends \Twig_Extension
      * @param   string         $class  Class of each error. Default is none.
      * @return  string
      */
-    public function getFormErrors(FormInterface $form, $tag = 'li', $class = '')
+    public function getFormErrors(FormInterface $form, $tag = 'li', $class = '', $noErrorMessage = '', $noErrorClass = '')
     {
+		if (! $form->isSubmitted()) return '';
         $errorsList = $this->parser->parseErrors($form);
         $return = '';
         if (count($errorsList) > 0) {
@@ -58,6 +62,19 @@ class FormErrorsExtension extends \Twig_Extension
                 $return .= '</ul>';
             }
         }
+		if (empty($return) && ! empty($noErrorMessage))
+		{
+            if ($tag == 'li') {
+                $return .= '<ul>';
+            }
+			$return .= '<'. $tag .' class="'. $noErrorClass .'">';
+			$return .= $noErrorMessage;
+			$return .= '</'. $tag . '>';
+			
+            if ($tag == 'li') {
+                $return .= '</ul>';
+            }
+		}
         return $return;
     }
     /**
@@ -78,7 +95,7 @@ class FormErrorsExtension extends \Twig_Extension
                 $return .= '<'. $tag .' class="'. $class .'">';
                 $return .= $this->trans->trans($item['label'], array(), $item['translation']);
                 $return .= ': ';
-                $return .= $error->getMessage();
+                $return .= $error->getMessage();  // The translator has already translated any validation error.
                 $return .= '</'. $tag . '>';
             }
         }

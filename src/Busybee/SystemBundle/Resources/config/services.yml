@@ -1,22 +1,23 @@
+# System Bundle
 parameters:
     version:
-        system: 0.0.03
-        database: 0.0.03
+        system: '0.0.03'
+        database: '0.0.03'
     settingPagination:
         alias: s
         sortBy:
             Name: 
-                s.name: ASC
+                s.displayName: ASC
                 s.description: ASC
             Description: 
                 s.description: ASC
-                s.name: ASC
+                s.displayName: ASC
         limit: '10'
         searchList:
-            - s.name
+            - s.displayName
             - s.description
         select:
-            - s.name
+            - s.displayName
             - s.description
             - s.id
 
@@ -78,3 +79,10 @@ services:
             - '%settingPagination%'
             - '@setting.repository'
             - '@service_container'
+    setting.extension:
+        class: Busybee\SystemBundle\Model\SettingExtension
+        arguments:
+            - '@setting.manager'
+            - '@service_container'
+        tags:
+            - { name: twig.extension }

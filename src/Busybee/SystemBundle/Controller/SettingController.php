@@ -115,6 +115,9 @@ class SettingController extends Controller
 					)
 				); 
 				break ;
+			case 'text':
+				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', array_merge($options, array())); 
+				break ;
 			default:
 				dump($setting);
 				die();
@@ -135,6 +138,7 @@ class SettingController extends Controller
 
         return $this->render('SystemBundle:Setting:edit.html.twig', array(
 				'form' => $form->createView(),
+				'fullForm' => $form,
 			)
 		);
 	}
