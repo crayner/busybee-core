@@ -1,13 +1,18 @@
 # Person
 parameters:
-    menu:
-        People: 
-            grant: ROLE_USER
+    nodes:
+        2:
+            name: People
             label: menu.Person
-            dropdown:
-                Manage People:
-                    label: menu.people.person.manage
-                    grant: ROLE_REGISTRAR
-                    path: 
-                        route: person_manage
-                        parameters: []
+            role: ROLE_USER
+            order: 2
+            menu: 2
+    items:
+        20:
+            label: menu.people.person.manage
+            name: Manage People
+            route: person_manage
+            role: ROLE_REGISTRAR
+            parameters: []
+            node: 2
+            order: 20

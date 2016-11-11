@@ -74,7 +74,7 @@ class UserController extends Controller
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
 						'class' 				=> 'btn btn-info glyphicons glyphicons-remove-circle',
-						'onClick'				=> 'location.href=\''.$this->generateUrl('staff_person')."'",
+						'onClick'				=> 'location.href=\''.$this->generateUrl('home_page')."'",
 					),
 				)
 			)

@@ -1,43 +1,55 @@
 # System
 parameters:
-    menu:
-        System: 
-            grant: ROLE_USER
+    nodes:
+        1:
+            name: System
             label: menu.system
-            dropdown:
-                User Manage:
-                    label: menu.site.security.user
-                    grant: ROLE_USER
-                    submenu:
-                        Edit Self:
-                            label: menu.site.security.edit
-                            grant: ROLE_USER
-                            path:
-                                route: busybee_security_user_edit
-                                parameters:
-                                    'id': '0'
-                        Register User:
-                            label: menu.site.security.register
-                            grant: ROLE_REGISTRAR
-                            path:
-                                route: busybee_security_user_register
-                                parameters: []
-                        Current User:
-                            label: menu.site.security.list
-                            grant: ROLE_REGISTRAR
-                            path:
-                                route: busybee_security_user_list
-                                parameters: []
-                Update:
-                    label: menu.site.update
-                    path: 
-                        route: update_start
-                        parameters: []
-                    grant: ROLE_ADMIN
-                Manage Setting:
-                    label: menu.site.setting.manage
-                    path: 
-                        route: setting_manage
-                        parameters: []
-                    grant: ROLE_REGISTRAR
+            role: ROLE_USER
+            order: 1
+            menu: 1
+    items:
+        10:
+            name: User Manage
+            label: menu.site.security.user
+            role: ROLE_USER
+            node: 1
+            order: 10
+            menu: 10
+        11:
+            name: Update
+            label: menu.site.update
+            role: ROLE_ADMIN
+            node: 1
+            route: update_start
+            order: 11
+        12:
+            name: Manage Setting
+            label: menu.site.setting.manage
+            role: ROLE_REGISTRAR
+            node: 1
+            route: setting_manage
+            order: 12
+        100:
+            label: menu.site.security.edit
+            role: ROLE_USER
+            node: 10
+            route: busybee_security_user_edit
+            parameters:
+                'id': '0'
+            order: 100
+        101:
+            name: Register User:
+            label: menu.site.security.register
+            grant: ROLE_REGISTRAR
+            route: busybee_security_user_register
+            node: 10
+            order: 101
+        102:
+            name: Current User:
+            label: menu.site.security.user
+            grant: ROLE_REGISTRAR
+            route: busybee_security_user_list
+            node: 10
+            order: 102
+        
     

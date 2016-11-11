@@ -1,1 +1,5 @@
 services:
+    menu.manager:
+        class: Busybee\HomeBundle\Model\MenuManager
+        arguments:
+            - '@service_container'

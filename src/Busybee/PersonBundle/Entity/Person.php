@@ -247,7 +247,7 @@ class Person extends PersonModel
      *
      * @return Person
      */
-    public function setDob(\DateTime $dob)
+    public function setDob(\DateTime $dob = null)
     {
         $this->dob = $dob;
 

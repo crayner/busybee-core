@@ -2,7 +2,8 @@
 
 {% trans_default_domain "BusybeeHomeBundle" %}
 
-{% set menu = get_parameter('menu') %}
-{% include 'BusybeeHomeBundle:Menu:dropdown.html.twig' with {'menu': menu.System} %}
-{% include 'BusybeeHomeBundle:Menu:dropdown.html.twig' with {'menu': menu.People} %}
-{% include 'BusybeeHomeBundle:Menu:dropdown.html.twig' with {'menu': menu.Miscellaneous} %}
+{% set nodes = get_menu() %}
+
+{% for node in nodes %}
+	{% include 'BusybeeHomeBundle:Menu:dropdown.html.twig' with {'menu': node} %}
+{% endfor %}

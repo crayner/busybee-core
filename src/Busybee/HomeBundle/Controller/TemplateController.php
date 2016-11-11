@@ -11,7 +11,6 @@ class TemplateController extends Controller
 {
     public function indexAction( Request $request )
     {
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->ajaxAuthorisation('ROLE_ADMIN', $request))) return $response ;
 		$config = new \stdClass();
 		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 

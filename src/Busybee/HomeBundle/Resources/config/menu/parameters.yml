@@ -1,12 +1,16 @@
 # Home
 parameters:
-    menu:
-        Miscellaneous: 
+    nodes:
+        3:
+            name: Miscellaneous
             label: menu.Misc
-            dropdown:
-                Template Design:
-                    label: menu.templateDesign
-                    path: 
-                        route: home_template
-                        parameters: []
-   
+            order: 3
+            menu: 3
+    items:
+        30:
+            label: menu.templateDesign
+            name: Template Design
+            route: home_template
+            parameters: []
+            node: 3
+            order: 30

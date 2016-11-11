@@ -69,11 +69,11 @@ class PersonController extends Controller
 			{
 				$data['address2'] = null ;
 			}			
-			
-			foreach($data['phone'] as $q=>$w)
-			{
-				$data['phone'][$q]['phoneNumber'] = preg_replace('/\D/', '', $w['phoneNumber']);
-			}
+			if (! empty($data['phone']) and is_array($data['phone']))
+				foreach($data['phone'] as $q=>$w)
+				{
+					$data['phone'][$q]['phoneNumber'] = preg_replace('/\D/', '', $w['phoneNumber']);
+				}
 
 			$request->request->set('person', $data);
 			$person->setAddress1($data['address1']);

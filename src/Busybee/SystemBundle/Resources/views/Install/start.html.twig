@@ -2,12 +2,6 @@
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
 
-{% block stylesheets %}
-{{ parent() }}
-	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
-{% endblock stylesheets %}
-
-
 {% trans_default_domain 'BusybeeSystemBundle' %}
 {% block title %}Busybee - {{ 'system.install.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}

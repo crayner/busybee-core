@@ -2,6 +2,9 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
+{% set altSuffix = 'address2' %}
+{% if classSuffix == 'address2' %}{% set altSuffix = 'address1' %}{% endif %}
+
 	<script>
 		$( '.beeAddressList{{ classSuffix }}' ).on( "autocompleteselect", function( event, ui ) {
 			$.ajax({

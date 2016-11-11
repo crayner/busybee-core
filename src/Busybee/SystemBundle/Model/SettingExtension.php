@@ -34,6 +34,8 @@ class SettingExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('get_setting', array($this, 'getSetting')),
             new \Twig_SimpleFunction('get_parameter', array($this, 'getParameter')),
+            new \Twig_SimpleFunction('get_menu', array($this, 'getMenu')),
+            new \Twig_SimpleFunction('get_menuItems', array($this, 'getMenuItems')),
         );
     }
 
@@ -55,6 +57,16 @@ class SettingExtension extends \Twig_Extension
     public function getParameter($name, $default = null)
     {
         return $this->container->getParameter($name, $default);
+    }
+
+    public function getMenu()
+    {
+        return $this->container->get('menu.manager')->getMenu();
+    }
+
+    public function getMenuItems($node)
+    {
+        return $this->container->get('menu.manager')->getMenuItems($node);
     }
 
     public function getName()

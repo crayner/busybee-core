@@ -184,7 +184,7 @@ Class Update_0_0_02 implements UpdateInterface
 		//9
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('regex');
-		$entity->setValue("(^(1300|1800|1900|1902)[0-9]{6}$)|(^0[2|3|4|7|8]{1}[0-9]{8}$)|(^13[0-9]{4}$)");
+		$entity->setValue("/(^(1300|1800|1900|1902)[0-9]{6}$)|(^0[2|3|4|7|8]{1}[0-9]{8}$)|(^13[0-9]{4}$)/");
 		$entity->setName('Phone.Validation');
 		$entity->setDisplayName('Phone Validation Rule');
 		$entity->setDescription("Phone Validation Regular Expression");

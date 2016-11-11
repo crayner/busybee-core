@@ -40,6 +40,8 @@ person:
     help:
         officialName: This is the name recorded on official documents. e.g. birth certificates and passports.
         photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 
+        phone:
+            number: Any character but a number is ignored. The display can be altered in the settings.
     tab:
         person: Person
         address1: Address
@@ -74,7 +76,7 @@ address:
         line1: Street Name and Type
         line2: Additional Address information.
         choice: Use an existing address or create a new address using the form below.  To select an exising address, start typing the name.  The field will start a search after two characters are entered.  The choice only works when a locality is selected.
-        manage: "To reduce the amount of typing required, the system allows for addresses to be entered only once.  To select an existing address, select the locality in which the address id located.  If the locality does not   exist, then clear the locality selector, enter the new details and save the new locality. Once a locality is selected, you can start typing the name of the street in the address search box.  All matching addresses are presented for selection (limited to the first 20.) To create a new address, clear the address, select the appropriate locality, enter the new address details then save the address."
+        manage: "To reduce the amount of typing required, the system allows for addresses to be entered only once.  To select an existing address, select the locality in which the address id located.  If the locality does not   exist, then clear the locality selector, enter the new details and save the new locality. Once a locality is selected, you can start typing the name of the street in the address search box.  All matching addresses are presented for selection (limited to the first 20.) To create a new address, clear the address, select the appropriate locality, enter the new address details then save the address. Save the person record (green button) to save the address to the person."
         buildingType: ''
         buildingNumber: The building identifier within the complex.
         streetNumber: ''

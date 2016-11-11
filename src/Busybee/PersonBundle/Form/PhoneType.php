@@ -38,7 +38,8 @@ class PhoneType extends AbstractType
 				array(
 					'label' => 'person.label.phone.number',
 					'attr'	=> array(
-						'readonly' => 'readonly',					
+						'readonly' => 'readonly',
+						'help'	=> 'person.help.phone.number',					
 					),
 					'constraints' => array(new \Busybee\PersonBundle\Validator\Phone(
 							array(

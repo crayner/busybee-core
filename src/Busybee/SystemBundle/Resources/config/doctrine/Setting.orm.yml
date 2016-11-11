@@ -1,4 +1,3 @@
-# src\Busybee\SystemBundle\Resources\config\doctrine\Setting.orm.yml
 Busybee\SystemBundle\Entity\Setting:
     type: entity
     table: setting

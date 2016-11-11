@@ -2,16 +2,17 @@
 
 {% trans_default_domain "BusybeeHomeBundle" %}
 
-{% if (menu.grant is defined and is_granted(menu.grant)) or menu.grant is not defined %}
+
+{% if (menu.role is defined and is_granted(menu.role)) or menu.role is not defined %}
 	<li class="dropdown-submenu">
 		<a tabindex="0">{{ menu.label|trans }}</a>
 		<ul class="dropdown-menu">
-			{% for drop in menu.submenu %}
-				{% if (drop.grant is defined and is_granted(drop.grant)) or drop.grant is not defined %}
-					{% if drop.submenu is defined %}
+			{% for drop in get_menuItems(menu.menu) %}
+				{% if (drop.role is defined and is_granted(drop.role)) or drop.role is not defined %}
+					{% if drop.menu is defined %}
 						{% include 'BusybeeHomeBundle:Menu:submenu.html.twig' with {'menu': drop} %}
-					{% else %}
-						<li><a href="{{ path(drop.path.route, drop.path.parameters) }}">{{ drop.label|trans }}</a></li>  
+					{% elseif drop.route is defined %}
+						<li><a href="{{ path(drop.route, drop.parameters) }}">{{ drop.label|trans }}</a></li>  
 					{% endif %}
 				{% endif %}
 			{% endfor %}

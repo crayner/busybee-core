@@ -1,0 +1,5 @@
+regex:
+    error: "Regex Error: %systemMessage%"
+person:
+    error:
+        phone: Not a valid phone number.

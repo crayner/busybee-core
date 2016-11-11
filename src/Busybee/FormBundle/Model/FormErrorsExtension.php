@@ -9,7 +9,6 @@ namespace Busybee\FormBundle\Model ;
 use Busybee\FormBundle\Model\FormErrorsParser;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Translation\DataCollectorTranslator as Translator;
 
 class FormErrorsExtension extends \Twig_Extension
 {
@@ -22,7 +21,7 @@ class FormErrorsExtension extends \Twig_Extension
      */
     private $trans ;
 	
-    public function __construct(FormErrorsParser $parser, Translator $trans)
+    public function __construct(FormErrorsParser $parser, $trans)
     {
         $this->parser = $parser;
 		$this->trans =  $trans ;
