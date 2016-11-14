@@ -71,6 +71,11 @@
 		</div>
     </div> <!-- /container -->
 
+    <div class="container theme-showcase" role="footer" id="footerContainer">
+		{% block footerContainer %}
+			{{ include('BusybeeHomeBundle:Default:footer.html.twig') }}
+		{% endblock footerContainer %}
+    </div> <!-- /container footer -->
 
 
 {% block javascripts %}

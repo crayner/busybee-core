@@ -17,3 +17,4 @@
 /web/uploads/
 !/web/uploads/database/
 *.php~
+/src/Busybee/Plugin/

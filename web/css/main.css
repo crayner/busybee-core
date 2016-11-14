@@ -100,3 +100,22 @@ img.headShot75 {
 .well {
 	margin-bottom: 5px ;
 }
+div#footerContainer {
+    margin-top: 5px;
+	padding-top: 10px;
+    background: rgba(33,33,33,0.25);
+}
+p.footerDetails {
+    color: white;
+    text-align: center;
+}
+a:focus, a:hover {
+    color: #c09000;
+}
+a {
+    color: #775522;
+}
+.yesno-right .btn-group {
+	margin: 0 0 5px 5px;
+	float: right ;
+}

@@ -36,6 +36,10 @@ class BusybeeHomeExtension extends Extension
             'current_day',
             date("d")
         ); 
+        $container->setParameter(
+            'author',
+            'Craig Rayner'
+        ); 
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);

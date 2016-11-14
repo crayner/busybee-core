@@ -34,4 +34,7 @@ setting_manage:
 setting_edit:
     path:     /setting/edit/{id}
     defaults: { _controller: SystemBundle:Setting:edit }
+setting_edit_name:
+    path:     /setting/editName/{name}
+    defaults: { _controller: SystemBundle:Setting:editName }
 

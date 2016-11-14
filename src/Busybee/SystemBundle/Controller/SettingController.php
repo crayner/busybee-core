@@ -28,6 +28,13 @@ class SettingController extends Controller
 	}
 
 
+    public function editNameAction($name, Request $request)
+    {
+		$setting = $this->get('setting.repository')->findOneBy(array('name' => $name));
+		
+		return $this->editAction($setting->getId(), $request);
+	}
+	
     public function editAction($id, Request $request)
     {
 		$setting = $this->get('setting.repository')->findOneBy(array('id' => $id));

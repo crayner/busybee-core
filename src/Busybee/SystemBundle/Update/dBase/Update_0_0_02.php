@@ -210,7 +210,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('text');
 		$entity->setValue("Busybee Institute");
-		$entity->setName('Organisation.Name');
+		$entity->setName('Org.Name');
 		$entity->setDisplayName('Organisation Name');
 		$entity->setDescription("The name of your organisation");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -220,7 +220,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('');
-		$entity->setName('Organisation.Ext.Id');
+		$entity->setName('Org.Ext.Id');
 		$entity->setDisplayName('Organisation External Identifier');
 		$entity->setDescription("The identifier given to your organisation by your parent or external education authority.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -230,7 +230,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('text');
 		$entity->setValue('');
-		$entity->setName('Postal.Address.1');
+		$entity->setName('Postal.Add.1');
 		$entity->setDisplayName('Organisation Postal Address Line 1');
 		$entity->setDescription("First line of this organisation's postal address.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -240,7 +240,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('text');
 		$entity->setValue('');
-		$entity->setName('Postal.Address.2');
+		$entity->setName('Org.Postal.Add.2');
 		$entity->setDisplayName('Organisation Postal Address Line 2');
 		$entity->setDescription("Second line of this organisation's postal address.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -250,7 +250,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('text');
 		$entity->setValue('');
-		$entity->setName('Postal.Locality');
+		$entity->setName('Org.Postal.Locality');
 		$entity->setDisplayName('Organisation Postal Locality');
 		$entity->setDescription("Locality of this organisation's postal address. (Town, Suburb or Locality)");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -260,7 +260,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('');
-		$entity->setName('Postal.Postcode');
+		$entity->setName('Org.Postal.Postcode');
 		$entity->setDisplayName('Organisation Postal Post Code');
 		$entity->setDescription("Post Code of this organisation's postal address.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -270,7 +270,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('');
-		$entity->setName('Postal.Territory');
+		$entity->setName('Oranisation.Postal.Territory');
 		$entity->setDisplayName('Organisation Postal Territory');
 		$entity->setDescription("Territory of this organisation's postal address. (State, Province, County)");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -280,7 +280,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('text');
 		$entity->setValue('');
-		$entity->setName('Contact.Name');
+		$entity->setName('Oganisation.Contact.Name');
 		$entity->setDisplayName('Organisation Contact');
 		$entity->setDescription("The name of the person to contact in this organisation.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -290,7 +290,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('');
-		$entity->setName('Contact.Phone');
+		$entity->setName('Org.Contact.Phone');
 		$entity->setDisplayName('Organisation Contact Phone Number');
 		$entity->setDescription("The phone number of the person to contact in this organisation.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -300,7 +300,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('');
-		$entity->setName('Contact.Facsimile');
+		$entity->setName('Org.Contact.Facsimile');
 		$entity->setDisplayName('Organisation Contact Facsimile Number');
 		$entity->setDescription("The facsimile number of the person to contact in this organisation.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -310,7 +310,7 @@ Class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('');
-		$entity->setName('Contact.Email');
+		$entity->setName('Org.Contact.Email');
 		$entity->setDisplayName('Organisation Contact Email Address');
 		$entity->setDescription("The email address of the person to contact in this organisation.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
