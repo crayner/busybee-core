@@ -26,7 +26,7 @@ class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	= 21 ;
+	private $count	= 26 ;
 	
 	/**
 	 * Constructor
@@ -230,7 +230,7 @@ class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('text');
 		$entity->setValue('');
-		$entity->setName('Postal.Add.1');
+		$entity->setName('Org.Postal.Addess.1');
 		$entity->setDisplayName('Organisation Postal Address Line 1');
 		$entity->setDescription("First line of this organisation's postal address.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -240,7 +240,7 @@ class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('text');
 		$entity->setValue('');
-		$entity->setName('Org.Postal.Add.2');
+		$entity->setName('Org.Postal.Address.2');
 		$entity->setDisplayName('Organisation Postal Address Line 2');
 		$entity->setDescription("Second line of this organisation's postal address.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -313,6 +313,56 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setName('Org.Contact.Email');
 		$entity->setDisplayName('Organisation Contact Email Address');
 		$entity->setDescription("The email address of the person to contact in this organisation.");
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		//22
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('text');
+		$entity->setValue('');
+		$entity->setName('Org.Physical.Addess.1');
+		$entity->setDisplayName('Organisation Postal Address Line 1');
+		$entity->setDescription("First line of this organisation's postal address.");
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		//23
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('text');
+		$entity->setValue('');
+		$entity->setName('Org.Physical.Address.2');
+		$entity->setDisplayName('Organisation Postal Address Line 2');
+		$entity->setDescription("Second line of this organisation's postal address.");
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		//24
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('text');
+		$entity->setValue('');
+		$entity->setName('Org.Physical.Locality');
+		$entity->setDisplayName('Organisation Postal Locality');
+		$entity->setDescription("Locality of this organisation's postal address. (Town, Suburb or Locality)");
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		//25
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('string');
+		$entity->setValue('');
+		$entity->setName('Org.Physical.Postcode');
+		$entity->setDisplayName('Organisation Postal Post Code');
+		$entity->setDescription("Post Code of this organisation's postal address.");
+		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		//26
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('string');
+		$entity->setValue('');
+		$entity->setName('Oranisation.Physical.Territory');
+		$entity->setDisplayName('Organisation Postal Territory');
+		$entity->setDescription("Territory of this organisation's postal address. (State, Province, County)");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);

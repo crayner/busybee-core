@@ -240,4 +240,37 @@ class SettingManager
 		$v[2] = str_pad($v[2], 2, '00', STR_PAD_LEFT);
 		return implode('.', $v);
 	}
+
+	/**
+	 * get Choices
+	 *
+	 * @version	15th November 2016
+	 * @since	15th November 2016
+	 * @param	string	$version
+	 * @return	array
+	 */
+    public function getChoices($choice)
+    {
+		if (0 === strpos($choice, 'parameter.'))
+		{
+			$name = substr($choice, 10);
+			if (false === strpos($name, '.'))
+				$list = $this->container->getParameter($name);
+			else
+			{
+				$name = explode('.', $name);
+				$list = $this->container->getParameter($name[0]);
+				array_shift($name);
+				while (! empty($name))
+				{
+					$key = reset($name);
+					$list = $list[$key];
+					array_shift($name);
+				}
+			}
+		}
+		else
+			$list = $this->get($choice);
+		return $list;
+	}
 }

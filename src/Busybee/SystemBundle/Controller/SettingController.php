@@ -31,7 +31,7 @@ class SettingController extends Controller
     public function editNameAction($name, Request $request)
     {
 		$setting = $this->get('setting.repository')->findOneBy(array('name' => $name));
-		
+
 		return $this->editAction($setting->getId(), $request);
 	}
 	
@@ -62,7 +62,6 @@ class SettingController extends Controller
 		}
 	
 		$setting->cancelURL = $this->generateUrl('setting_manage');
-
 		$form = $this->createForm('Busybee\SystemBundle\Form\SettingType', $setting);
 
 		$options = array(
@@ -102,13 +101,21 @@ class SettingController extends Controller
 				); 
 				break ;
 			case 'string':
-				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', array_merge($options, array(
+				if (is_null($setting->getChoice()))
+					$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', array_merge($options, array(
 							'attr' => array(
 								'maxLength' => 25,
 							),
 						)
 					)
-				); 
+				);
+				else 
+				{
+dump($setting);
+					$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array_merge($options, array(
+						'choices' => $sm->getChoices($setting->getChoice())
+					))); 
+				}
 				break ;
 			case 'regex':
 				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array_merge($options, array(

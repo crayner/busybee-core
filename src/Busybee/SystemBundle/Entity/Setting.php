@@ -48,6 +48,11 @@ class Setting
     private $securityActive;
 
     /**
+     * @var string
+     */
+    private $choice;
+
+    /**
      * Get id
      *
      * @return integer
@@ -368,5 +373,29 @@ class Setting
     public function getDisplayName()
     {
         return $this->displayName;
+    }
+
+    /**
+     * Set choice
+     *
+     * @param string $choice
+     *
+     * @return Setting
+     */
+    public function setChoice($choice)
+    {
+        $this->choice = $choice;
+
+        return $this;
+    }
+
+    /**
+     * Get choice
+     *
+     * @return string
+     */
+    public function getChoice()
+    {
+        return $this->choice;
     }
 }

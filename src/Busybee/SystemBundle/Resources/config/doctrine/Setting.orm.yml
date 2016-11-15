@@ -33,6 +33,10 @@ Busybee\SystemBundle\Entity\Setting:
             length: '255'
         value:
             type: text
+        choice:
+            type: string
+            length: '50'
+            nullable: true
         lastModified:
             type: datetime
             nullable: true 

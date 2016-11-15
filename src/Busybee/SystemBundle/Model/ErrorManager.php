@@ -67,6 +67,8 @@ class ErrorManager
 		$error->item = $item ;
 		$error->message = $message ;
 		$error->value = $value;
+		if (is_array($value)) $error->value = json_encode($value);
+		if (is_object($value)) $error->value = json_encode($value);
 		$error->route = $route;
         return $error;
     }
