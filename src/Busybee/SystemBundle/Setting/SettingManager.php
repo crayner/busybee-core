@@ -209,4 +209,35 @@ class SettingManager
 		}
 		return $result ;
     }
+
+	/**
+	 * increment Version
+	 *
+	 * @version	20th October 2016
+	 * @since	20th October 2016
+	 * @param	string	$version
+	 * @return	string Version
+	 */
+    public function incrementVersion($version)
+    {
+		$v = explode('.', $version);
+		if (!isset($v[2])) $v[2] = 0;
+		if (!isset($v[1])) $v[1] = 0;
+		if (!isset($v[0])) $v[0] = 0;
+		while (count($v) > 3)
+			array_pop($v);
+		$v[2]++;
+		if ($v[2] > 99) 
+		{
+			$v[2] = 0;
+			$v[1]++;
+		}
+		if ($v[1] > 9)
+		{
+			$v[1] = 0;
+			$v[0]++;
+		}
+		$v[2] = str_pad($v[2], 2, '00', STR_PAD_LEFT);
+		return implode('.', $v);
+	}
 }

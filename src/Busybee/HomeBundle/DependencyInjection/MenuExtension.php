@@ -22,7 +22,7 @@ trait MenuExtension
 			$menu = array();
 		
 		$container->getParameterBag()
-			->set('nodes', array_merge($menu, $newContainer->getParameterBag()->get('nodes')));
+			->set('nodes', $this->arrayMerge($menu, $newContainer->getParameterBag()->get('nodes')));
 
 		if ($container->getParameterBag()->has('items')) 
 		{
@@ -32,8 +32,17 @@ trait MenuExtension
 			$menu = array();
 		
 		$container->getParameterBag()
-			->set('items', array_merge($menu, $newContainer->getParameterBag()->get('items')));
+			->set('items', $this->arrayMerge($menu, $newContainer->getParameterBag()->get('items')));
 			
 		return $container ;
     }
+	
+	protected function arrayMerge($a1, $a2)
+	{
+		foreach($a2 as $q=>$w)
+			if (! array_key_exists($q, $a1))
+				$a1[$q] = $w;
+		
+		return $a1;
+	}
 }

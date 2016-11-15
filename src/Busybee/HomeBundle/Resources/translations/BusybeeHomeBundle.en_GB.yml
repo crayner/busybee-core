@@ -58,6 +58,8 @@ menu:
             list: Current Users 
         setting:
             manage: Manage Settings
+        plugin:
+            manage: Manage Plugins
     family:
         manage: Manage Family       
     people:
@@ -70,6 +72,8 @@ menu:
     templateDesign: Template Design 
     Person: People
     system: System
+    reports:
+        title: Reports
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

@@ -86,3 +86,7 @@ services:
             - '@service_container'
         tags:
             - { name: twig.extension }
+    test.plugin.manage:
+        class: Busybee\SystemBundle\Test\TestPluginManage
+        arguments:
+            - '@service_container'

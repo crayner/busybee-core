@@ -10,7 +10,7 @@ use Busybee\SystemBundle\Update\UpdateInterface ;
  * @since	23rd October 2016
  * @author	Craig Rayner
  */
-Class Update_0_0_00 implements UpdateInterface
+class Update_0_0_00 implements UpdateInterface
 {
 	/**
 	 * @var	Setting Manager	

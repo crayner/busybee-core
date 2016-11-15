@@ -11,7 +11,7 @@ use Symfony\Component\Yaml\Yaml ;
  * @since	23rd October 2016
  * @author	Craig Rayner
  */
-Class Update_0_0_02 implements UpdateInterface
+class Update_0_0_02 implements UpdateInterface
 {
 	/**
 	 * @var	Setting Manager	
@@ -26,7 +26,7 @@ Class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	= 12 ;
+	private $count	= 21 ;
 	
 	/**
 	 * Constructor

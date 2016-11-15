@@ -29,6 +29,17 @@ parameters:
             node: 1
             route: setting_manage
             order: 12
+        13:
+            name: Plugin Manager
+            label: menu.site.plugin.manage
+            role: ROLE_ADMIN
+            node: 1
+            order: 13
+            menu: 13
+            test:
+                value1: test.plugin.manage
+                value2: true
+                comparitor: !=
         100:
             label: menu.site.security.edit
             role: ROLE_USER
