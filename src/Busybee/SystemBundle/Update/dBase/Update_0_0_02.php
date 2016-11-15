@@ -321,8 +321,8 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setType('text');
 		$entity->setValue('');
 		$entity->setName('Org.Physical.Addess.1');
-		$entity->setDisplayName('Organisation Postal Address Line 1');
-		$entity->setDescription("First line of this organisation's postal address.");
+		$entity->setDisplayName('Organisation Physical Address Line 1');
+		$entity->setDescription("First line of this organisation's physical address.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);
@@ -331,8 +331,8 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setType('text');
 		$entity->setValue('');
 		$entity->setName('Org.Physical.Address.2');
-		$entity->setDisplayName('Organisation Postal Address Line 2');
-		$entity->setDescription("Second line of this organisation's postal address.");
+		$entity->setDisplayName('Organisation Physical Address Line 2');
+		$entity->setDescription("Second line of this organisation's physical address.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);
@@ -341,8 +341,8 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setType('text');
 		$entity->setValue('');
 		$entity->setName('Org.Physical.Locality');
-		$entity->setDisplayName('Organisation Postal Locality');
-		$entity->setDescription("Locality of this organisation's postal address. (Town, Suburb or Locality)");
+		$entity->setDisplayName('Organisation Physical Locality');
+		$entity->setDescription("Locality of this organisation's physical address. (Town, Suburb or Locality)");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);
@@ -351,8 +351,8 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setType('string');
 		$entity->setValue('');
 		$entity->setName('Org.Physical.Postcode');
-		$entity->setDisplayName('Organisation Postal Post Code');
-		$entity->setDescription("Post Code of this organisation's postal address.");
+		$entity->setDisplayName('Organisation Physical Post Code');
+		$entity->setDescription("Post Code of this organisation's physical address.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);
@@ -361,8 +361,8 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setType('string');
 		$entity->setValue('');
 		$entity->setName('Oranisation.Physical.Territory');
-		$entity->setDisplayName('Organisation Postal Territory');
-		$entity->setDescription("Territory of this organisation's postal address. (State, Province, County)");
+		$entity->setDisplayName('Organisation Physical Territory');
+		$entity->setDescription("Territory of this organisation's physical address. (State, Province, County)");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
 		$this->sm->saveSetting($entity);

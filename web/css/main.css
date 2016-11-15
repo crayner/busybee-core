@@ -119,3 +119,18 @@ a {
 	margin: 0 0 5px 5px;
 	float: right ;
 }
+#bee-logo {
+	height: 150px;
+	float: right;
+	margin-left: 10px ;
+}
+.lead {
+	margin-bottom: 15px;
+    font-size: 21px!important;
+    font-weight: 200!important;
+}
+.sub-lead {
+	margin-top: -15px;
+    font-size: 16px!important;
+    font-weight: 100!important;
+}
