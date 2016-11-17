@@ -1,0 +1,59 @@
+Busybee\CampusBundle\Entity\Campus:
+    type: entity
+    table: campus
+    repositoryClass: Busybee\CampusBundle\Repository\CampusRepository
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [identifier]
+            errorPath: identifier
+            message: 'campus.identifier.error.unique'
+#    indexes:
+#        type:
+#            columns: [ type, name ] 
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        identifier:
+            type: string
+            length: '10'
+            nullable: true
+        name:
+            type: string
+            length: '100'
+            unique: true
+        postcode:
+            type: string
+            length: '20'
+        territory:
+            type: string
+            length: '20'
+            nullable: true
+        locality:
+            type: string
+            length: '50'
+        country:
+            type: string
+            length: '10'
+        lastModified:
+            type: datetime
+            nullable: true 
+        createdOn:
+            type: datetime
+            nullable: true 
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            nullable: true
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+                    
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            nullable: true
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

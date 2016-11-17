@@ -26,7 +26,7 @@ class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	= 26 ;
+	private $count	= 27 ;
 	
 	/**
 	 * Constructor
@@ -364,6 +364,16 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setDisplayName('Organisation Physical Territory');
 		$entity->setDescription("Territory of this organisation's physical address. (State, Province, County)");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+		$this->sm->saveSetting($entity);
+		//27
+		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity->setType('text');
+		$entity->setValue('Symfony\Component\Form\Extension\Core\Type\CountryType');
+		$entity->setName('CountryType');
+		$entity->setDisplayName('Country Type Form Handler');
+		$entity->setDescription("Determines how the country details are obtained and stored in the database.");
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
 		$this->sm->saveSetting($entity);
 		

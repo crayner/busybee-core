@@ -1,0 +1,11 @@
+# Home
+parameters:
+    nodes: []
+    items:
+        150:
+            label: menu.campus.manage
+            name: Campus Management
+            node: 15
+            order: 150
+            route: campus_manage
+            

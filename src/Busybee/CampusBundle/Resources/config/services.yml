@@ -1,0 +1,14 @@
+services:
+    campus.repository:
+        class: Busybee\CampusBundle\Entity\CampusRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeCampusBundle:Campus"
+    campus.form.campusType:
+        class: Busybee\CampusBundle\Form\CampusType
+        arguments:
+            - '@setting.manager'
+        tags: 
+            - { name: form.type }    

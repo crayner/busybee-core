@@ -58,8 +58,10 @@ menu:
             list: Current Users 
         setting:
             manage: Manage Settings
+        settings: Defined Settings
         plugin:
             manage: Manage Plugins
+            settings: Plugin Settings
     family:
         manage: Manage Family       
     people:
@@ -74,6 +76,8 @@ menu:
     system: System
     reports:
         title: Reports
+    campus:
+        manage: Campus Manage
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

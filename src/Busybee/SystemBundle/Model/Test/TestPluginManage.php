@@ -1,6 +1,6 @@
 <?php 
 
-namespace Busybee\SystemBundle\Test ;
+namespace Busybee\SystemBundle\Model\Test ;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
 use DirectoryIterator ;
@@ -12,22 +12,20 @@ use DirectoryIterator ;
  * @since	15th November 2016
  * @author	Craig Rayner
  */
-class TestPluginManage implements TestInterface
+class TestPluginManage extends Tester
 {
-	protected $container ;
-	
 	/**
 	 * Test
 	 *
 	 * @version	15th November 2016
 	 * @since	15th November 2016
 	 * @param	Symfony Container
-	 * @return	this
+	 * @return	boolean
 	 */
 	public function test()
 	{
 		$setting = $this->container->get('setting.manager');
-		foreach (new DirectoryIterator(__DIR__.'/../../Plugin') as $fileInfo) {
+		foreach (new DirectoryIterator(__DIR__.'/../../../Plugin') as $fileInfo) {
 			if ($fileInfo->isDot()) continue;
 			if ($fileInfo->isDir())
 			{
@@ -38,19 +36,5 @@ class TestPluginManage implements TestInterface
 			}
 		}
 		return true;
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @version	15th November 2016
-	 * @since	15th November 2016
-	 * @param	Symfony Container
-	 * @return	this
-	 */
-	public function __construct(Container $container) 
-	{
-		$this->container = $container ;
-		return $this ;
 	}
 }

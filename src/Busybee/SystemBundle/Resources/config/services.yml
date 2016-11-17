@@ -59,34 +59,42 @@ services:
     system.update.manager:
         class: Busybee\SystemBundle\Update\UpdateManager
         arguments: 
-            - "@service_container"
+            - "@my_service_container"
     system.password.manager:
         class: Busybee\SystemBundle\Password\PasswordManager
     busybee.writeDoctrine.listener:
         class: Busybee\SystemBundle\EventListener\WriteDoctrineListener
         arguments: 
-            - "@service_container"
+            - "@my_service_container"
         tags:
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: prePersist }
     setting.manager:
         class: Busybee\SystemBundle\Setting\SettingManager
         arguments: 
-            - "@service_container"
+            - "@my_service_container"
     setting.pagination:
         class: Busybee\SystemBundle\Model\SettingPagination
         arguments: 
             - '%settingPagination%'
             - '@setting.repository'
-            - '@service_container'
+            - '@my_service_container'
     setting.extension:
         class: Busybee\SystemBundle\Model\SettingExtension
         arguments:
             - '@setting.manager'
-            - '@service_container'
+            - '@my_service_container'
         tags:
             - { name: twig.extension }
     test.plugin.manage:
-        class: Busybee\SystemBundle\Test\TestPluginManage
+        class: Busybee\SystemBundle\Model\Test\TestPluginManage
+        arguments:
+            - '@my_service_container'
+    my_service_container:
+        class: Busybee\SystemBundle\Model\myContainer
         arguments:
             - '@service_container'
+    test.plugin.installed:
+        class: Busybee\SystemBundle\Model\Test\TestPluginInstalled
+        arguments:
+            - '@my_service_container'

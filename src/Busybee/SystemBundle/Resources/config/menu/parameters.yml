@@ -40,6 +40,17 @@ parameters:
                 value1: test.plugin.manage
                 value2: true
                 comparitor: !=
+        14:
+            name: Plugin Settings
+            label: menu.site.plugin.settings
+            role: ROLE_REGISTRAR
+            node: 1
+            order: 14
+            menu: 14
+            test:
+                value1: test.plugin.installed
+                value2: true
+                comparitor: !=
         100:
             label: menu.site.security.edit
             role: ROLE_USER
@@ -62,5 +73,10 @@ parameters:
             route: busybee_security_user_list
             node: 10
             order: 102
-        
-    
+        15:
+            name: Settings
+            label: menu.site.settings
+            role: ROLE_REGISTRAR
+            node: 1
+            order: 15
+            menu: 15

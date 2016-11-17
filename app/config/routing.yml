@@ -14,6 +14,10 @@ busybee_system:
     resource: "@SystemBundle/Resources/config/routing.yml"
     prefix:   /system/
 
+busybee_campus:
+    resource: "@BusybeeCampusBundle/Resources/config/routing.yml"
+    prefix:   /campus/
+
 busybee_avetmiss:
     resource: "@BusybeeAVETMISSBundle/Resources/config/routing.yml"
     prefix:   /avetmiss/

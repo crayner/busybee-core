@@ -1,6 +1,6 @@
 <?php 
 
-namespace Busybee\SystemBundle\Test ;
+namespace Busybee\SystemBundle\Model\Test ;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
 
