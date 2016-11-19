@@ -1,0 +1,7 @@
+services:
+    avetmiss.form.programType:
+        class: Busybee\Plugin\AVETMISSBundle\Form\ProgramType
+        arguments:
+            - '@setting.manager'
+        tags: 
+            - { name: form.type }    

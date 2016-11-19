@@ -6,6 +6,11 @@ parameters:
             label: menu.Misc
             order: 3
             menu: 3
+        5:
+            name: curriculum
+            label: menu.curriculum
+            order: 5
+            menu: 5
     items:
         30:
             label: menu.templateDesign

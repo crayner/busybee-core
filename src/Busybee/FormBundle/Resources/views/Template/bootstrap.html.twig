@@ -24,13 +24,14 @@
 {%- endblock form_errors %}
 
 {% block yesno_widget -%}
+	{%- set attr = attr|merge({class: (attr.class|default('') ~ ' yes-no form-control')|trim}) -%}
+
 	<div class="yesno-right">
 		<input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 	</div>
 
     {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
 	<label class="control-label">{{ (translation_domain is same as(false) ? form.vars.label : form.vars.label|trans({}, translation_domain)) }}</label>
-		{%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
 		{% if form.vars.help is defined %}<br /><span class="field-help">{{ (translation_domain is same as(false) ? form.vars.help : form.vars.help|trans({}, translation_domain)) }}</span>{% endif %}	
 {%- endblock yesno_widget %}
 

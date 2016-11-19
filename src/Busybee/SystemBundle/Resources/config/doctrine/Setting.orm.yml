@@ -21,7 +21,7 @@ Busybee\SystemBundle\Entity\Setting:
             length: '25'
         name:
             type: string
-            length: '25'
+            length: '64'
             unique: true
         displayName:
             type: string

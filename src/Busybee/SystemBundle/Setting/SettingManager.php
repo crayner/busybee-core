@@ -26,7 +26,7 @@ class SettingManager
 	/**
 	 * get Setting
 	 *
-	 * @version	31st October 2016
+	 * @version	18th November 2016
 	 * @since	20th October 2016
 	 * @param	string	$name
 	 * @param	mixed	$default
@@ -43,7 +43,17 @@ class SettingManager
 			}
 		}
 		if (is_null($this->setting))
+		{
+			if (false === strpos($name, '.'))
+				return $default;
+			$name = explode('.', $name);
+			$last = end($name);
+			array_pop($name);
+			$value = $this->getSetting(implode('.', $name), $default, $options);
+			if (is_array($value) && isset($value[$last]))
+				return $value[$last];
 			return $default;
+		}
 		switch ($this->setting->getType())
 		{
 			case 'regex':

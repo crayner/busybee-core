@@ -78,6 +78,7 @@ menu:
         title: Reports
     campus:
         manage: Campus Manage
+    curriculum: Curriculum
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

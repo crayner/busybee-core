@@ -111,7 +111,6 @@ class SettingController extends Controller
 				);
 				else 
 				{
-dump($setting);
 					$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array_merge($options, array(
 						'choices' => $sm->getChoices($setting->getChoice())
 					))); 

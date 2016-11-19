@@ -58,7 +58,7 @@ services:
         arguments: 
             - '%personPagination%'
             - '@person.repository'
-            - '@service_container'
+            - '@my_service_container'
     staff.repository:
         class: Busybee\PersonBundle\Entity\Repository\StaffRepository
         factory: 
@@ -71,7 +71,7 @@ services:
         arguments: 
             - '%staffPagination%'
             - '@staff.repository'
-            - '@service_container'
+            - '@my_service_container'
     address.manager:
         class: Busybee\PersonBundle\Model\AddressManager
         arguments:
