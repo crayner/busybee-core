@@ -1,0 +1,10 @@
+# Program
+parameters:
+    nodes:
+        5:
+            name: curriculum
+            label: menu.curriculum
+            order: 5
+            menu: 5
+            role: ROLE_TEACHER
+    items: []

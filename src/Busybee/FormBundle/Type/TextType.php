@@ -14,7 +14,6 @@ class TextType extends BaseType
     {
         $resolver->setDefaults(array(
             'compound' => false,
-			'help' => null,
         ));
     }
 }

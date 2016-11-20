@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\ProgramBundle\Repository;
+namespace Busybee\CurriculumBundle\Repository;
 
 /**
  * ProgramRepository

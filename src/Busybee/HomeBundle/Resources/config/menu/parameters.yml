@@ -1,21 +1,16 @@
 # Home
 parameters:
     nodes:
-        3:
+        9:
             name: Miscellaneous
             label: menu.Misc
-            order: 3
-            menu: 3
-        5:
-            name: curriculum
-            label: menu.curriculum
-            order: 5
-            menu: 5
+            order: 9
+            menu: 9
     items:
-        30:
+        90:
             label: menu.templateDesign
             name: Template Design
             route: home_template
             parameters: []
-            node: 3
-            order: 30
+            node: 9
+            order: 90

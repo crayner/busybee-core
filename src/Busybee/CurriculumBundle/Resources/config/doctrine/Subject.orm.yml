@@ -1,12 +1,12 @@
-Busybee\ProgramBundle\Entity\Program:
+Busybee\CurriculumBundle\Entity\Subject:
     type: entity
-    table: program
-    repositoryClass: Busybee\ProgramBundle\Repository\ProgramRepository
+    table: subject
+    repositoryClass: Busybee\CurriculumBundle\Repository\SubjectRepository
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
             fields: [name]
             errorPath: name
-            message: 'program.error.name.unique'
+            message: 'subject.error.name.unique'
 #    indexes:
 #        type:
 #            columns: [ type, name ] 

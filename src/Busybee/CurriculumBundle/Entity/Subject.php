@@ -1,11 +1,11 @@
 <?php
 
-namespace Busybee\ProgramBundle\Entity;
+namespace Busybee\CurriculumBundle\Entity;
 
 /**
- * Program
+ * Subject
  */
-class Program
+class Subject
 {
     /**
      * @var integer
@@ -53,7 +53,7 @@ class Program
      *
      * @param string $name
      *
-     * @return Program
+     * @return Subject
      */
     public function setName($name)
     {
@@ -77,7 +77,7 @@ class Program
      *
      * @param \DateTime $lastModified
      *
-     * @return Program
+     * @return Subject
      */
     public function setLastModified($lastModified)
     {
@@ -101,7 +101,7 @@ class Program
      *
      * @param \DateTime $createdOn
      *
-     * @return Program
+     * @return Subject
      */
     public function setCreatedOn($createdOn)
     {
@@ -125,7 +125,7 @@ class Program
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Program
+     * @return Subject
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -149,7 +149,7 @@ class Program
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Program
+     * @return Subject
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -168,3 +168,4 @@ class Program
         return $this->modifiedBy;
     }
 }
+

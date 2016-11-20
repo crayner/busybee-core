@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\ProgramBundle\Controller;
+namespace Busybee\CurriculumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

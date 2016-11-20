@@ -25,6 +25,7 @@
 
 {% block yesno_widget -%}
 	{%- set attr = attr|merge({class: (attr.class|default('') ~ ' yes-no form-control')|trim}) -%}
+	{%- set attr = attr|merge({"data-off-label": "false", "data-on-label": "false", "data-off-icon-cls": "glyphicons-thumbs-down", "data-on-icon-cls": "glyphicons-thumbs-up"}) -%}
 
 	<div class="yesno-right">
 		<input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />

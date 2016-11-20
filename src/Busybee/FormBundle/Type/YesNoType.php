@@ -7,6 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Component\Form\FormInterface ;
 use Symfony\Component\Form\FormView ;
 use Symfony\Component\Form\AbstractTypeExtension;
+use Symfony\Component\Form\FormBuilderInterface ;
 
 
 class YesNoType extends AbstractType
@@ -21,14 +22,6 @@ class YesNoType extends AbstractType
         };
 
         $resolver->setDefaults(array(
-			'help' 					=> null,
-			'attr'					=> array(
-				'data-off-label' 		=> "false",
-				'data-on-label' 		=> "false",
-				'data-off-icon-cls'	 	=> "glyphicons-thumbs-down",
-				'data-on-icon-cls' 		=> "glyphicons-thumbs-up",
-				'class'					=> 'yes-no',
-			),
             'value' 				=> '1',
             'empty_data' 			=> $emptyData,
             'compound' 				=> false,
@@ -53,6 +46,5 @@ class YesNoType extends AbstractType
 	 */
 	public function buildView(FormView $view, FormInterface $form, array $options)
 	{
-		$view->vars['help'] = $options['help'];
 	}
 }

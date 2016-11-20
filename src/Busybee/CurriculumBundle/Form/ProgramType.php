@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\ProgramBundle\Form;
+namespace Busybee\CurriculumBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,7 +22,7 @@ class ProgramType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Busybee\ProgramBundle\Entity\Program'
+            'data_class' => 'Busybee\CurriculumBundle\Entity\Program'
         ));
     }
 
