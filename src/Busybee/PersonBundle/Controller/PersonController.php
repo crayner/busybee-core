@@ -37,9 +37,14 @@ class PersonController extends Controller
     public function editAction($id, Request $request)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+
 		$person = $this->getPerson($id);
 		
 		$setting = $this->get('setting.manager') ;
+		
+		$formDefinition = $this->get('my_service_container')->getParameter('person');
+		
+		unset($formDefinition['person'], $formDefinition['contact'], $formDefinition['address1'], $formDefinition['address2']);
 
 		$em = $this->get('doctrine')->getManager();
 		$em->detach($person->getAddress1Record()->localityRecord);
@@ -48,6 +53,20 @@ class PersonController extends Controller
 		$em->detach($person->getAddress2Record());
 
         $form = $this->createForm(PersonType::class, $person);
+
+		foreach($formDefinition as $extra)
+		{
+			if (isset($extra['form']) && isset($extra['name']))
+			{
+				$options = array();
+				if (! empty($extra['options']) && is_array($extra['options']))
+					$options = $extra['options'];
+				$name = $extra['data']['name'];
+				$options['data'] = $this->get($name)->findOneByPerson($person->getId());
+				$options['data']->setPerson($person);
+				$form->add($extra['name'], $extra['form'], $options);
+			}
+		}
 
 		if (! empty($request->request->get('person')))
 		{
@@ -74,6 +93,15 @@ class PersonController extends Controller
 				{
 					$data['phone'][$q]['phoneNumber'] = preg_replace('/\D/', '', $w['phoneNumber']);
 				}
+
+			foreach($formDefinition as $extra)
+			{
+				if (isset($extra['request']) )
+				{
+					$this->get($extra['request']['name'])->handleRequest($data, $person);
+					unset($data[$extra['request']['post']]);
+				}
+			}
 
 			$request->request->set('person', $data);
 			$person->setAddress1($data['address1']);
@@ -131,8 +159,6 @@ class PersonController extends Controller
 				'address2' => $formattedAddress2, 
 				'addressLabel1' => $this->get('address.manager')->getAddressListLabel($person->getAddress1Record()),		
 				'addressLabel2' => $this->get('address.manager')->getAddressListLabel($person->getAddress2Record()),
-				'setting' => $setting,
-
 			)		
 		);
     }
@@ -144,8 +170,6 @@ class PersonController extends Controller
 		if ($id !== 'Add')
 			$person = $this->get('person.repository')->findOneBy(array('id' => $id));
 		$person->cancelURL = $this->generateUrl('person_edit', array('id' => $id));
-
-		$sm = $this->get('setting.manager');
 
 		$person->setAddress1Record($this->get('address.repository')->setPersonAddress($person->getAddress1()));
 		$person->getAddress1Record()->localityRecord = $this->get('locality.repository')->setAddressLocality($person->getAddress1Record()->getLocality());

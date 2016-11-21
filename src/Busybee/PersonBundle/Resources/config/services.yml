@@ -44,7 +44,6 @@ parameters:
             - p.surname
             - p.firstName
             - p.email
-    
 services:
     person.repository:
         class: Busybee\PersonBundle\Entity\Repository\PersonRepository

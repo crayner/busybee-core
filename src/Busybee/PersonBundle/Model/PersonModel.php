@@ -176,4 +176,16 @@ abstract class PersonModel
 		
 		return $this;
 	}
+
+	/**
+	 * get Format Name
+	 *
+	 * @version	21st November 2016
+	 * @since	21st November 2016
+	 * @return 	string
+	 */
+	public function getFormatName()
+	{
+		return $this->getSurname().': '.$this->getFirstName().' ('.$this->getPreferredName().')';
+	}
 }

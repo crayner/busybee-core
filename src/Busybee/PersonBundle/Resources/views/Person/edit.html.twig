@@ -16,43 +16,35 @@
 {% block headerTitle %}{% if id == 'Add' %}{{ 'person.staff.add.title'|trans }}{% else %}{{ 'person.staff.edit.title'|trans }}{% endif %}{% endblock headerTitle %}
 {% block headerLead %}{% if id == 'Add' %}{{ 'person.staff.add.description'|trans }}{% else %}{{ 'person.staff.edit.description'|trans }}{% endif %}{% endblock headerLead %}
 
+{% set tabs = get_parameter('person') %}
+
 {% block contentContainer %}
 {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
 {{ form_start(form) }}
 <div id="personTabs">
 	<ul class="nav nav-tabs" role="tablist">
-		<li><a href="#person" role="tab" data-toggle="tab">{{ 'person.tab.person'|trans }}</a></li>
-		<li><a href="#contact" role="tab" data-toggle="tab">{{ 'person.tab.contact'|trans }}</a></li>
-		<li><a href="#address1" role="tab" data-toggle="tab">{{ 'person.tab.address1'|trans }}</a></li>
-		<li><a href="#address2" role="tab" data-toggle="tab">{{ 'person.tab.address2'|trans }}</a></li>
+		{% for name,tab in tabs %}
+			{% set translation = 'BusybeePersonBundle' %}
+			{% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
+			<li><a href="#{{ name }}" role="tab" data-toggle="tab">{{ tab.label|trans({}, translation) }}</a></li>
+		{% endfor %}
 	</ul>
+	{% set active = ' active' %}
 	<div class="tab-content">
-		<div class="tab-pane active" id="person" >
-			<div class="container-fluid">
-				<div class='row' id="personMessage" style="display: none;">
+		{% for name,tab in tabs %}
+			{% set translation = 'BusybeePersonBundle' %}
+			{% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
+			<div class="tab-pane{{ active }}" id="{{ name }}" >
+				{% if tab.message is defined %}
+				<div class="container-fluid">
+					<div class='row' id="{{ tab.message }}" style="display: none;">
+					</div>
 				</div>
+				{% endif %}
+				{% include(tab.include) %}
 			</div>
-			{{ include('BusybeePersonBundle:Person:person.html.twig') }}
-		</div>
-		<div class="tab-pane" id="contact" >
-			{% include 'BusybeePersonBundle:Person:contact.html.twig' %}
-		</div>
-		<div class="tab-pane" id="address1" >
-			<div class="container-fluid">
-				<div class='row' id="addressMessageaddress1" style="display: none;">
-				</div>
-			</div>
-			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.add1, 'address': address1, 'classSuffix': 'address1', 'addressLabel': addressLabel1} %}
-			{% do form.address1.setRendered %}
-		</div>
-		<div class="tab-pane" id="address2" >
-			<div class="container-fluid">
-				<div class='row' id="addressMessageaddress2" style="display: none;">
-				</div>
-			</div>
-			{% include 'BusybeePersonBundle:Address:edit.html.twig' with {'form': form.add2, 'addressTitle': 'address2.title', 'address': address2, 'classSuffix': 'address2', 'addressLabel': addressLabel2} %}
-			{% do form.address2.setRendered %}
-		</div>
+			{% set active = '' %}
+		{% endfor %}
 	</div>
 </div>
 <div class="container-fluid">
