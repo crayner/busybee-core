@@ -37,6 +37,16 @@
 					</div>
 				</div>
 				<div class='row'>
+					<div class='col-sm-6 well'>
+						<div class='form-group' id="addressDisplay{{ classSuffix }}">
+							{{ address|raw }}
+						</div>
+					</div>
+					<div class='col-sm-6 well'>
+						{{ form_row(form.propertyName) }}
+					</div>
+				</div>
+				<div class='row'>
 					<div class='col-sm-2 well'>
 						{{ form_row(form.buildingType) }}
 					</div>
@@ -47,17 +57,7 @@
 						{{ form_row(form.streetNumber) }}
 					</div>
 					<div class='col-sm-6 well'>
-						{{ form_row(form.line1) }}
-					</div>
-				</div>
-				<div class='row'>
-					<div class='col-sm-6 well'>
-						<div class='form-group' id="addressDisplay{{ classSuffix }}">
-							{{ address|raw }}
-						</div>
-					</div>
-					<div class='col-sm-6 well'>
-						{{ form_row(form.line2) }}
+						{{ form_row(form.streetName) }}
 					</div>
 				</div>
 			</div>

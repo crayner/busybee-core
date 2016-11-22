@@ -56,21 +56,21 @@ class AddressType extends AbstractType
 					),
 				)
 			)
-			->add('line1', null, array(
-					'label' => 'address.label.line1',
+			->add('propertyName', null, array(
+					'label' => 'address.label.propertyName',
 					'attr' => array(
-						'help' => 'address.help.line1',
-						'class' => 'beeLine1'.$options['data']->getClassSuffix(),
-					),
-				)
-			)
-			->add('line2', null, array(
-					'label' => 'address.label.line2',
-					'attr' => array(
-						'help' => 'address.help.line2',
-						'class' => 'beeLine2'.$options['data']->getClassSuffix(),
+						'help' => 'address.help.propertyName',
+						'class' => 'beePropertyName'.$options['data']->getClassSuffix(),
 					),
 					'required' => false,
+				)
+			)
+			->add('streetName', null, array(
+					'label' => 'address.label.streetName',
+					'attr' => array(
+						'help' => 'address.help.streetName',
+						'class' => 'beeStreetName'.$options['data']->getClassSuffix(),
+					),
 				)
 			)
 			->add('locality', 'Busybee\PersonBundle\Form\LocalityType', array(

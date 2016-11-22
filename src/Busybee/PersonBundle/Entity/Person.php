@@ -433,65 +433,6 @@ class Person extends PersonModel
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $address1;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $address2;
-
-
-    /**
-     * Get address1
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAddress1()
-    {
-        return $this->address1;
-    }
-
-    /**
-     * Get address2
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAddress2()
-    {
-        return $this->address2;
-    }
-
-    /**
-     * Set address1
-     *
-     * @param integer $address1
-     *
-     * @return Person
-     */
-    public function setAddress1($address1)
-    {
-        $this->address1 = $address1;
-
-        return $this;
-    }
-
-    /**
-     * Set address2
-     *
-     * @param integer $address2
-     *
-     * @return	Person
-     */
-    public function setAddress2($address2)
-    {
-        $this->address2 = $address2;
-
-        return $this;
-    }
-
-    /**
      * @var string
      */
     private $photo;
@@ -500,7 +441,6 @@ class Person extends PersonModel
      * @var string
      */
     protected $oldPhoto;
-
 
     /**
      * Set photo
@@ -584,5 +524,63 @@ class Person extends PersonModel
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * @var \Busybee\PersonBundle\Entity\Address
+     */
+    private $address1;
+
+    /**
+     * @var \Busybee\PersonBundle\Entity\Address
+     */
+    private $address2;
+
+    /**
+     * Set address1
+     *
+     * @param \Busybee\PersonBundle\Entity\Address $address1
+     *
+     * @return Person
+     */
+    public function setAddress1(\Busybee\PersonBundle\Entity\Address $address1 = null)
+    {
+        $this->address1 = $address1;
+
+        return $this;
+    }
+
+    /**
+     * Get address1
+     *
+     * @return \Busybee\PersonBundle\Entity\Address
+     */
+    public function getAddress1()
+    {
+        return $this->address1;
+    }
+
+    /**
+     * Set address2
+     *
+     * @param \Busybee\PersonBundle\Entity\Address $address2
+     *
+     * @return Person
+     */
+    public function setAddress2(\Busybee\PersonBundle\Entity\Address $address2 = null)
+    {
+        $this->address2 = $address2;
+
+        return $this;
+    }
+
+    /**
+     * Get address2
+     *
+     * @return \Busybee\PersonBundle\Entity\Address
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
     }
 }

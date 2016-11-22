@@ -12,11 +12,11 @@
 				data: {'id': ui.item.value},
 				type: 'POST',
 				success: function(data) {
-					$('.beeLine1{{ classSuffix }}').val(data.line1);
-					$('.beeLine2{{ classSuffix }}').val(data.line2);
+					$('.beePropertyName{{ classSuffix }}').val(data.propertyName);
+					$('.beeStreetName{{ classSuffix }}').val(data.streetName);
 					$('.beeStreetNumber{{ classSuffix }}').val(data.streetNumber);
 					$('.beeBuildingType{{ classSuffix }}').val(data.buildingType);
-					$('.beeBuildingNumber{{ classSuffix }}').val(data.bsuildingNumber);
+					$('.beeBuildingNumber{{ classSuffix }}').val(data.buildingNumber);
 					$('.beeAddressValue{{ classSuffix }}').val(data.id);
 					$('.beeAddressList{{ classSuffix }}').val(data.addressListLabel);
 					$('#addressDisplay{{ classSuffix }}').html(data.address);
@@ -29,8 +29,8 @@
 				url: '{{ path('address_edit') }}',	
 				data: {
 					'id': $('.beeAddressValue{{ classSuffix }}').val(),
-					'line1': $('.beeLine1{{ classSuffix }}').val(),
-					'line2': $('.beeLine2{{ classSuffix }}').val(),
+					'propertyName': $('.beePropertyName{{ classSuffix }}').val(),
+					'streetName': $('.beeStreetName{{ classSuffix }}').val(),
 					'streetNumber': $('.beeStreetNumber{{ classSuffix }}').val(),
 					'buildingType': $('.beeBuildingType{{ classSuffix }}').val(),
 					'buildingNumber': $('.beeBuildingNumber{{ classSuffix }}').val(),
@@ -38,8 +38,8 @@
 				},
 				type: 'POST',
 				success: function(data) {
-					$('.beeLine1{{ classSuffix }}').val(data.line1);
-					$('.beeLine2{{ classSuffix }}').val(data.line2);
+					$('.beePropertyName{{ classSuffix }}').val(data.propertyName);
+					$('.beeStreetName{{ classSuffix }}').val(data.streetName);
 					$('.beeStreetNumber{{ classSuffix }}').val(data.streetNumber),
 					$('.beeBuildingType{{ classSuffix }}').val(data.buildingType),
 					$('.beeBuildingNumber{{ classSuffix }}').val(data.buildingNumber),
@@ -62,8 +62,8 @@
 			});
 		});
 		$('.beeAddressClear{{ classSuffix }}').click(function() {
-			$('.beeLine1{{ classSuffix }}').val('');
-			$('.beeLine2{{ classSuffix }}').val('');
+			$('.beePropertyName{{ classSuffix }}').val('');
+			$('.beeStreetName{{ classSuffix }}').val('');
 			$('.beeStreetNumber{{ classSuffix }}').val('');
 			$('.beeBuildingType{{ classSuffix }}').val('');
 			$('.beeBuildingNumber{{ classSuffix }}').val('');

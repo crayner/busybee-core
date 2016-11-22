@@ -4,15 +4,15 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
-{% set addressName = form.line1.parent.vars.name %}
+{% set addressName = form.propertyName.parent.vars.name %}
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-6 well">
-			{{ form_row(form.line1) }}
+			{{ form_row(form.propertyName) }}
 		</div>
 		<div class="col-sm-6 well">
-			{{ form_row(form.line2) }}
+			{{ form_row(form.streetName) }}
 		</div>
 	</div>
 	<div class="row">

@@ -57,7 +57,7 @@ class AddressManager
 		$result = array();
 		$result['message'] = '';
 		$result['status'] = 'success';
-		if (empty($address['line1']))
+		if (empty($address['streetName']))
 		{
 			$result['message'] = $this->trans->trans('address.test.empty', array(), 'BusybeePersonBundle');
 			$result['status'] = 'warning';
@@ -75,8 +75,8 @@ class AddressManager
 	 */
     public function formatAddress($address)
     {
-		$data =  array('line1' => $address->getLine1(), 
-			'line2' => $address->getLine2(), 'locality' => $address->localityRecord->getLocality(), 'territory' => $address->localityRecord->getTerritory(), 
+		$data =  array('propertyName' => $address->getPropertyName(), 
+			'streetName' => $address->getStreetName(), 'locality' => $address->localityRecord->getLocality(), 'territory' => $address->localityRecord->getTerritory(), 
 			'postCode' => $address->localityRecord->getPostCode(), 'country' => $address->localityRecord->getCountryName(), 
 			'buildingType' => $address->getBuildingType(), 'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber());
 		
@@ -93,7 +93,7 @@ class AddressManager
 	 */
     public function getAddressListLabel($address)
     {
-		$data = array('line1' => $address->getLine1(), 'line2' => $address->getLine2(), 'buildingType' => $address->getBuildingType(), 
+		$data = array('propertyName' => $address->getPropertyName(), 'streetName' => $address->getStreetName(), 'buildingType' => $address->getBuildingType(), 
 			'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber());
 
 		return trim($this->sm->get('Address.ListLabel', null, $data));
@@ -101,14 +101,14 @@ class AddressManager
 	/**
 	 * get Address List
 	 *
-	 * @version	8th November 2016
+	 * @version	22nd November 2016
 	 * @since	8th November 2016
 	 * @param	integer	$locality_id
 	 * @return	array	
 	 */
     public function getAddressList($locality_id)
     {
-		$address = $this->ar->findBy(array('locality' => $locality_id), array('streetNumber'=> 'ASC', 'line1'=>'ASC', 'line2'=>'ASC'));
+		$address = $this->ar->findBy(array('locality' => $locality_id), array('propertyName'=>'ASC', 'streetName'=>'ASC', 'streetNumber'=> 'ASC'));
 		$addressList = array();
 		if (is_array($address))
 			foreach($address as $xx)

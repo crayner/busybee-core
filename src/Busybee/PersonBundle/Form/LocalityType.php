@@ -9,6 +9,7 @@ use Symfony\Component\Intl\Locale\Locale ;
 use Symfony\Component\Form\FormEvent ;
 use Symfony\Component\Form\FormEvents ;
 use Busybee\SystemBundle\Setting\SettingManager ;
+use Busybee\PersonBundle\Repository\LocalityRepository ;
 
 class LocalityType extends AbstractType
 {
@@ -16,13 +17,18 @@ class LocalityType extends AbstractType
 	 * @var	Busybee\SystemBundle\Setting\SettingManager 
 	 */
 	private $sm ;
+	/**
+	 * @var	Busybee\PersonBundle\Repository\LocalityRepository 
+	 */
+	private $lr ;
 	
 	/**
 	 * Construct
 	 */
-	public function __construct(SettingManager $sm)
+	public function __construct(SettingManager $sm, LocalityRepository $lr)
 	{
 		$this->sm = $sm ;
+		$this->lr = $lr ;
 	}
 
     /**
@@ -67,7 +73,7 @@ class LocalityType extends AbstractType
 			->add('localityList', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
 				array(
 					'data_class' => 'Busybee\PersonBundle\Entity\Locality',
-					'choices' => $options['data']->getRepository()->getLocalityChoices(),
+					'choices' => $this->lr->getLocalityChoices(),
 					'label' => 'locality.label.choice',
 					'placeholder' => 'locality.placeholder.choice',
 					'empty_data'  => null,

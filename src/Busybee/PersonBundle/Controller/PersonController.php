@@ -51,6 +51,7 @@ class PersonController extends Controller
 		$em->detach($person->getAddress2Record()->localityRecord);
 		$em->detach($person->getAddress1Record());
 		$em->detach($person->getAddress2Record());
+		$editOptions = array();
 
         $form = $this->createForm(PersonType::class, $person);
 
@@ -65,7 +66,10 @@ class PersonController extends Controller
 				$options['data'] = $this->get($name)->findOneByPerson($person->getId());
 				$options['data']->setPerson($person);
 				$form->add($extra['name'], $extra['form'], $options);
+				
 			}
+			if (isset($extra['script']))
+				$editOptions['script'][] = $extra['script'];
 		}
 
 		if (! empty($request->request->get('person')))
@@ -103,10 +107,24 @@ class PersonController extends Controller
 				}
 			}
 
+			if (! is_null($data['address1']))
+			{
+				$data['address1'] = $this->get('address.repository')->findOneById($data['address1']);
+				$person->setAddress1($data['address1']);
+			}
+			else
+				$person->setAddress1(null);
+
+			if (! is_null($data['address2']))
+			{
+				$data['address2'] = $this->get('address.repository')->findOneById($data['address2']);
+				$person->setAddress2($data['address2']);
+			}
+			else
+				$person->setAddress2(null);
+        	unset($data['add1'],$data['add2']);
 			$request->request->set('person', $data);
-			$person->setAddress1($data['address1']);
-			$person->setAddress2($data['address2']);
-        	
+
 			$form->setData($person);
 
 			$form->handleRequest($request);
@@ -145,21 +163,16 @@ class PersonController extends Controller
 		else
        	 	$form->setData($person);
 
-		$view = $form->createView();
-		
-		$formattedAddress1 = $this->formatAddress($person->getAddress1Record());
-		$formattedAddress2 = $this->formatAddress($person->getAddress2Record());
+		$editOptions['id'] = $id;
+		$editOptions['form'] = $form->createView();
+		$editOptions['fullForm'] = $form;
+		$editOptions['address1'] = $this->formatAddress($person->getAddress1Record());
+		$editOptions['address2'] = $this->formatAddress($person->getAddress2Record());
+		$editOptions['addressLabel1'] = $this->get('address.manager')->getAddressListLabel($person->getAddress1Record());
+		$editOptions['addressLabel2'] = $this->get('address.manager')->getAddressListLabel($person->getAddress2Record());
 
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
-			array(
-				'id' => $id, 
-				'form' => $view,
-				'fullForm' => $form, 
-				'address1' => $formattedAddress1, 
-				'address2' => $formattedAddress2, 
-				'addressLabel1' => $this->get('address.manager')->getAddressListLabel($person->getAddress1Record()),		
-				'addressLabel2' => $this->get('address.manager')->getAddressListLabel($person->getAddress2Record()),
-			)		
+			$editOptions	
 		);
     }
 
@@ -168,17 +181,15 @@ class PersonController extends Controller
     {
 		$person = new Person();
 		if ($id !== 'Add')
-			$person = $this->get('person.repository')->findOneBy(array('id' => $id));
+			$person = $this->get('person.repository')->findOneById($id);
 		$person->cancelURL = $this->generateUrl('person_edit', array('id' => $id));
 
-		$person->setAddress1Record($this->get('address.repository')->setPersonAddress($person->getAddress1()));
-		$person->getAddress1Record()->localityRecord = $this->get('locality.repository')->setAddressLocality($person->getAddress1Record()->getLocality());
+		$person->setAddress1Record($person->getAddress1());
 
 		$person->getAddress1Record()->setClassSuffix('address1');
 		$person->getAddress1Record()->localityRecord->setClassSuffix('address1');
 
-		$person->setAddress2Record($this->get('address.repository')->setPersonAddress($person->getAddress2()));
-		$person->getAddress2Record()->localityRecord = $this->get('locality.repository')->setAddressLocality($person->getAddress2Record()->getLocality());
+		$person->setAddress2Record($person->getAddress2());
 
 		$person->getAddress2Record()->setClassSuffix('address2');
 		$person->getAddress2Record()->localityRecord->setClassSuffix('address2');

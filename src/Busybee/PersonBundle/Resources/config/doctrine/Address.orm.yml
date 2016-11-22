@@ -8,10 +8,10 @@ Busybee\PersonBundle\Entity\Address:
                 - buildingType
                 - buildingNumber
                 - streetNumber
-                - line1
-                - line2
+                - propertyName
+                - streetName
                 - locality
-            errorPath: line1
+            errorPath: streetName
             message: address.error.unique 
     id:
         id:
@@ -30,17 +30,15 @@ Busybee\PersonBundle\Entity\Address:
             nullable: true
         streetNumber:
             type: string
-            length: '10'
+            length: '15'
             nullable: true
-        line1:
-            type: string
-            length: '50'
-        line2:
+        propertyName:
             type: string
             length: '50'
             nullable: true
-        locality: 
-            type: integer
+        streetName:
+            type: string
+            length: '70'
         lastModified:
             type: datetime
             nullable: true
@@ -53,10 +51,14 @@ Busybee\PersonBundle\Entity\Address:
             joinColumns:
                 created_by:
                     referencedColumnName: id
-                    nullable: true
         modifiedBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 modified_by:
                     referencedColumnName: id
-                    nullable: true
+        locality:
+            targetEntity: Busybee\PersonBundle\Entity\Locality
+            cascade: ['persist']
+            joinColumns:
+                locality:
+                    referencedColumnName: id

@@ -17,12 +17,12 @@ class Address extends AddressModel
     /**
      * @var string
      */
-    private $line1;
+    private $propertyName;
 
     /**
      * @var string
      */
-    private $line2;
+    private $streetName;
 
     /**
      * @var \DateTime
@@ -56,51 +56,51 @@ class Address extends AddressModel
     }
 
     /**
-     * Set line1
+     * Set propertyName
      *
-     * @param string $line1
+     * @param string $propertyName
      *
      * @return Address
      */
-    public function setLine1($line1)
+    public function setPropertyName($propertyName)
     {
-        $this->line1 = $line1;
+        $this->propertyName = $propertyName;
 
         return $this;
     }
 
     /**
-     * Get line1
+     * Get propertyName
      *
      * @return string
      */
-    public function getLine1()
+    public function getPropertyName()
     {
-        return $this->line1;
+        return $this->propertyName;
     }
 
     /**
-     * Set line2
+     * Set streetName
      *
-     * @param string $line2
+     * @param string $streetName
      *
      * @return Address
      */
-    public function setLine2($line2)
+    public function setStreetName($streetName)
     {
-        $this->line2 = $line2;
+        $this->streetName = $streetName;
 
         return $this;
     }
 
     /**
-     * Get line2
+     * Get streetName
      *
      * @return string
      */
-    public function getLine2()
+    public function getStreetName()
     {
-        return $this->line2;
+        return $this->streetName;
     }
 
     /**
@@ -314,4 +314,5 @@ class Address extends AddressModel
     {
         return $this->streetNumber;
     }
+
 }

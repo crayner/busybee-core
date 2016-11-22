@@ -1,3 +1,4 @@
+#PersonBundle
 parameters:
     staffPagination:
         alias: s
@@ -133,6 +134,7 @@ services:
         class: Busybee\PersonBundle\Form\LocalityType
         arguments:
             - '@setting.manager'
+            - '@locality.repository'
         tags: 
             - { name: form.type }
     person.phone.validator:

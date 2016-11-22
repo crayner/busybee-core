@@ -2,6 +2,9 @@
 
 namespace Busybee\PersonBundle\Model ;
 
+use Busybee\PersonBundle\Entity\Address ;
+use Busybee\PersonBundle\Entity\Locality ;
+
 /**
  * Address Model
  *
@@ -44,8 +47,14 @@ abstract class PersonModel
 	 * @param	\Busybee\personBundle\Entity\Address $address
 	 * @return	this
 	 */
-	public function setAddress1Record(\Busybee\personBundle\Entity\Address $address = null)
+	public function setAddress1Record(Address $address = null)
 	{
+		if (! $address instanceof Address)
+		{
+			$address = new Address();
+			$address->setLocality(new Locality());
+		}
+		$address->localityRecord = $address->getLocality();
 		$this->address1Record = $address;
 		
 		return $this ;
@@ -59,8 +68,14 @@ abstract class PersonModel
 	 * @param	\Busybee\personBundle\Entity\Address $address
 	 * @return 	this
 	 */
-	public function setAddress2Record(\Busybee\personBundle\Entity\Address $address = null)
+	public function setAddress2Record(Address $address = null)
 	{
+		if (! $address instanceof Address)
+		{
+			$address = new Address();
+			$address->setLocality(new Locality());
+		}
+		$address->localityRecord = $address->getLocality();
 		$this->address2Record = $address;
 		
 		return $this ;
@@ -75,7 +90,13 @@ abstract class PersonModel
 	 */
 	public function getAddress1Record()
 	{
-		return $this->address1Record ;
+		if ($this->address1Record instanceof Address)
+			return $this->address1Record ;
+		if ($this->address1 instanceof Address)
+		{
+			return $this->setAddress1Record($this->address1)->getAddress1Record();
+		}
+		return $this->setAddress1Record(null)->getAddress1Record();
 	}
 
 	/**
@@ -87,7 +108,13 @@ abstract class PersonModel
 	 */
 	public function getAddress2Record()
 	{
-		return $this->address2Record ;
+		if ($this->address2Record instanceof Address)
+			return $this->address2Record ;
+		if ($this->address2 instanceof Address)
+		{
+			return $this->setAddress2Record($this->address2)->getAddress2Record();
+		}
+		return $this->setAddress2Record(null)->getAddress2Record();
 	}
 
 	/**

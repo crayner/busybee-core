@@ -21,28 +21,14 @@ class AddressRepository extends \Doctrine\ORM\EntityRepository
 	 */
 	public function getAddressChoices()
 	{
-		$x = $this->findBy(array(), array('line1' => 'ASC', 'line2' => 'ASC'));
+		$x = $this->findBy(array(), array('propertyName' => 'ASC', 'streetName' => 'ASC'));
 		$result = array();
-		foreach ($x as $w)
-			$result[$w->getLine1().' '.$w->getLine2()] = $w->getId();
+		foreach ($x as $w) 
+		{
+			$key = trim($w->getPropertyName().' '.$w->getBuildingType().' '.$w->getBuildingNumber().'/'.$w->getStreetNumber().' '.$w->getStreetName(), ' /');
+			$result[$key] = $w->getId();
+		}
 		return $result;
 	}
 
-	/**
-	 * set Address Locality
-	 *
-	 * @version	28th October 2016
-	 * @since	28th October 2016
-	 * @param	integer		$id
-	 * @return	array
-	 */
-	public function setPersonAddress($id)
-	{
-		if (intval($id) > 0)
-			$entity = $this->findOneBy(array('id' => $id));	
-		else
-			$entity = new Address(); 
-		$entity->injectRepository($this);
-		return $entity ;			
-	}
 }

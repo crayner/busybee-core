@@ -89,7 +89,7 @@ class LocalityController extends Controller
 
 		$locality = $id > 0 ? $this->get('locality.repository')->findOneBy(array('id' => $id)) : new Locality();	
 		
-		$address = $this->get('address.repository')->findBy(array('locality'=>$id), array('line1'=>'ASC', 'line2'=>'ASC'));
+		$address = $this->get('address.repository')->findBy(array('locality'=>$id), array('propertyName'=>'ASC', 'streetName'=>'ASC'));
 		$addressList = array();
 		if (is_array($address))
 			foreach($address as $xx)

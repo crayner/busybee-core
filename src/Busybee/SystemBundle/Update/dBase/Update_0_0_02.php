@@ -57,9 +57,8 @@ class Update_0_0_02 implements UpdateInterface
 		//1
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('twig');
-		$entity->setValue("<pre>{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ line1 }}
-{% if line2 is not empty %}{{ line2 }}
-{% endif %}
+		$entity->setValue("<pre>{% if propertyName is not empty %}{{ propertyName }}
+{% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}
 {{ locality }} {{ territory }} {{ postCode }}
 {{ country }}</pre>");
 		$entity->setName('Address.Format');
@@ -71,7 +70,7 @@ class Update_0_0_02 implements UpdateInterface
 		// 2
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('twig');
-		$entity->setValue("{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ line1 }}{% if line2 is not empty %} {{ line2 }}{% endif %}");
+		$entity->setValue("{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}");
 		$entity->setName('Address.ListLabel');
 		$entity->setDisplayName('Address Label List');
 		$entity->setDescription('A template to convert the entity values into a string label for autocomplete.');

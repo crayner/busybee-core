@@ -43,12 +43,6 @@ Busybee\PersonBundle\Entity\Person:
             type: string
             length: '150'
             nullable: true
-        address1:
-            type: integer
-            nullable: true
-        address2:
-            type: integer
-            nullable: true
         photo:
             type: string
             length: '150'
@@ -91,6 +85,20 @@ Busybee\PersonBundle\Entity\Person:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 modified_by:
+                    referencedColumnName: id
+        address1:
+            targetEntity: Busybee\PersonBundle\Entity\Address
+            cascade: [ 'persist' ]
+            nullable: true
+            joinColumn:
+                address1:
+                    referencedColumnName: id
+        address2:
+            targetEntity: Busybee\PersonBundle\Entity\Address
+            cascade: [ 'persist' ]
+            nullable: true
+            joinColumn:
+                address2:
                     referencedColumnName: id
     manyToMany:
         phone:

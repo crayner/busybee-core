@@ -111,11 +111,14 @@
 		$( document ).ready(function() {
 			$.ajax({
 				url: '{{ path('address_fetch') }}',	
-				data: {'id': {% if form.address1.vars.value > 0 %}{{ form.address1.vars.value }}{% else %}0{% endif %} },
+				data: {'id': {% if form.address1.vars.value is not empty %}{{ form.address1.vars.value.getId }}{% else %}0{% endif %} },
 				type: 'POST',
 				success: function(data) {
-					$('.beeLine1address1').val(data.line1);
-					$('.beeLine2address1').val(data.line2);
+					$('.beePropertyNameaddress1').val(data.propertyName);
+					$('.beeStreetNameaddress1').val(data.streetName);
+					$('.beeStreetNumberaddress1').val(data.streetNumber);
+					$('.beeBuildingNumberaddress1').val(data.buildingNumber);
+					$('.beeBuildingTypeaddress1').val(data.buildingType);
 					$('.beeLocalityaddress1').val(data.locality);
 					$('.beeTerritoryaddress1').val(data.territory);
 					$('.beeCountryaddress1').val(data.country);
@@ -124,11 +127,14 @@
 			});
 			$.ajax({
 				url: '{{ path('address_fetch') }}',	
-				data: {'id': {% if form.address2.vars.value > 0 %}{{ form.address2.vars.value }}{% else %}0{% endif %} },
+				data: {'id': {% if form.address2.vars.value is not empty %}{{ form.address2.vars.value.getId }}{% else %}0{% endif %} },
 				type: 'POST',
 				success: function(data) {
-					$('.beeLine1address2').val(data.line1);
-					$('.beeLine2address2').val(data.line2);
+					$('.beePropertyNameaddress2').val(data.propertyName);
+					$('.beeStreetNameaddress2').val(data.streetName);
+					$('.beeStreetNumberaddress2').val(data.streetNumber);
+					$('.beeBuildingNumberaddress2').val(data.buildingNumber);
+					$('.beeBuildingTypeaddress2').val(data.buildingType);
 					$('.beeLocalityaddress2').val(data.locality);
 					$('.beeTerritoryaddress2').val(data.territory);
 					$('.beeCountryaddress2').val(data.country);
@@ -197,5 +203,9 @@
 		}
 
 	</script>
-
+	{% if script is defined %}
+		{% for xx in script %}
+			{% include xx %}
+		{% endfor %}
+	{% endif %} 
 {% endblock javascripts %}

@@ -15,8 +15,8 @@ class AddressController extends Controller
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
 		
 		$address = array();
-		$address['line1'] = $request->request->get('line1');
-		$address['line2'] = $request->request->get('line2');
+		$address['propertyName'] = $request->request->get('propertyName');
+		$address['streetName'] = $request->request->get('streetName');
 		$address['streetNumber'] = $request->request->get('streetNumber');
 		$address['buildingNumber'] = $request->request->get('buildingNumber');
 		$address['buildingType'] = $request->request->get('buildingType');
@@ -46,7 +46,6 @@ class AddressController extends Controller
 
         $form = $this->createForm(AddressType::class, $address);
 
-
         return $this->render('BusybeePersonBundle:Address:index.html.twig',
 			array('id' => $id, 'form' => $form->createView())			
 		);
@@ -66,11 +65,10 @@ class AddressController extends Controller
 		foreach($list as $name=>$value) {
 			$localityOptions .= '<option value="'.$value.'">'.$name.'</option>';	
 		}
-		
 		return new JsonResponse(
 			array(
-				'line1' => $address->getLine1(),
-				'line2' => $address->getLine2(),
+				'propertyName' => $address->getPropertyName(),
+				'streetName' => $address->getStreetName(),
 				'streetNumber' => $address->getStreetNumber(),
 				'buildingType' => $address->getBuildingType(),
 				'buildingNumber' => $address->getBuildingNumber(),
@@ -105,14 +103,20 @@ class AddressController extends Controller
 		else
 			$entity->setLocality($locality_id);
 
-		$line1 = $request->request->get('line1');		
-		if (empty($line1)) 
+		$streetName = $request->request->get('streetName');		
+		if (empty($streetName)) 
 			$valid = false;
 		else
-			$entity->setLine1($line1);
+			$entity->setStreetName($streetName);
 
-		$entity->setLine2($request->request->get('line2'));
+		$entity->setPropertyName((empty($request->request->get('propertyName')) ? null : $request->request->get('propertyName')));
 		$entity->setStreetNumber((empty($request->request->get('streetNumber')) ? null : $request->request->get('streetNumber')));
+		if (empty($entity->getStreetNumber()) && intval($entity->getStreetName()) > 0)
+		{
+			$num = strval(intval($entity->getStreetName()));
+			$entity->setStreetNumber($num);
+			$entity->setStreetName(trim(str_replace($num, '', $entity->getStreetName())));
+		}
 		$entity->setBuildingType((empty($request->request->get('buildingType')) ? null : $request->request->get('buildingType')));
 		$entity->setBuildingNumber((empty($request->request->get('buildingNumber')) ? null : $request->request->get('buildingNumber')));
 		
@@ -155,8 +159,8 @@ class AddressController extends Controller
 				'status' => $status,
 				'id' => $id,
 				'locality' => $entity->getLocality(),
-				'line1' => $entity->getLine1(),
-				'line2' => $entity->getLine2(),
+				'propertyName' => $entity->getPropertyName(),
+				'streetName' => $entity->getStreetName(),
 				'streetNumber' => $entity->getStreetNumber(),
 				'buildingType' => $entity->getBuildingType(),
 				'buildingNumber' => $entity->getBuildingNumber(),
