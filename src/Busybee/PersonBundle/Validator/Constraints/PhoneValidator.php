@@ -17,7 +17,7 @@ class PhoneValidator extends ConstraintValidatorBase
             return ;
 
 		$pattern = $this->sm->get('Phone.Validation');
-	
+
 		if (preg_match($pattern, $value) !== 1) {
 			$this->context->buildViolation($constraint->message)
 				->addViolation();

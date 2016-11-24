@@ -5,6 +5,7 @@ namespace Busybee\PersonBundle\Model ;
 use Symfony\Component\Translation\DataCollectorTranslator as Translator;
 use Busybee\SystemBundle\Setting\SettingManager ;
 use Busybee\PersonBundle\Repository\AddressRepository ;
+use Busybee\PersonBundle\Entity\Address ;
 
 /**
  * Address Manager
@@ -75,10 +76,16 @@ class AddressManager
 	 */
     public function formatAddress($address)
     {
-		$data =  array('propertyName' => $address->getPropertyName(), 
-			'streetName' => $address->getStreetName(), 'locality' => $address->localityRecord->getLocality(), 'territory' => $address->localityRecord->getTerritory(), 
-			'postCode' => $address->localityRecord->getPostCode(), 'country' => $address->localityRecord->getCountryName(), 
-			'buildingType' => $address->getBuildingType(), 'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber());
+		if ($address instanceof Address)
+			$data =  array('propertyName' => $address->getPropertyName(), 
+				'streetName' => $address->getStreetName(), 'locality' => $address->getLocality()->getLocality(), 'territory' => $address->getLocality()->getTerritory(), 
+				'postCode' => $address->getLocality()->getPostCode(), 'country' => $address->getLocality()->getCountryName(), 
+				'buildingType' => $address->getBuildingType(), 'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber());
+		else
+			$data =  array('propertyName' => null, 
+				'streetName' => null, 'locality' => null, 'territory' => null, 
+				'postCode' => null, 'country' => null, 
+				'buildingType' => null, 'buildingNumber' => null, 'streetNumber' => null);
 		
 		return $this->sm->get('Address.Format', null, $data);
 	}
@@ -93,8 +100,12 @@ class AddressManager
 	 */
     public function getAddressListLabel($address)
     {
-		$data = array('propertyName' => $address->getPropertyName(), 'streetName' => $address->getStreetName(), 'buildingType' => $address->getBuildingType(), 
-			'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber());
+		if ($address instanceof Address)
+			$data = array('propertyName' => $address->getPropertyName(), 'streetName' => $address->getStreetName(), 'buildingType' => $address->getBuildingType(), 
+				'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber());
+		else
+			$data = array('propertyName' => null, 'streetName' => null, 'buildingType' => null, 
+				'buildingNumber' => null, 'streetNumber' => null);
 
 		return trim($this->sm->get('Address.ListLabel', null, $data));
 	}

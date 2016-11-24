@@ -135,30 +135,16 @@ class PersonType extends AbstractType
 					'constraints' => array(new Assert\Url(array('groups'=>'person_form'))),
 				)
 			)
-			->add('add1', AddressType::class, array(
-					'data' => $options['data']->getAddress1Record(),
-					'required' => false,
-					'mapped' => false,
-				)
-			)
-			->add('add2', AddressType::class, array(
-					'data' => $options['data']->getAddress2Record(),
-					'required' => false,
-					'mapped' => false,
-				)
-			)
-			->add('address1', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
-					'attr'	=> array(
-						'class' => 'beeAddressValueaddress1',
-					),
+			->add('address1', AddressType::class, array(
 					'data' => $options['data']->getAddress1(),
+					'required' => false,
+					'classSuffix' => 'address1',
 				)
 			)
-			->add('address2', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
-					'attr'	=> array(
-						'class' => 'beeAddressValueaddress2',
-					),
+			->add('address2', AddressType::class, array(
 					'data' => $options['data']->getAddress2(),
+					'required' => false,
+					'classSuffix' => 'address2',
 				)
 			)
 			->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(

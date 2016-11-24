@@ -10,6 +10,8 @@ use Symfony\Component\Form\FormEvent ;
 use Symfony\Component\Form\FormEvents ;
 use Busybee\SystemBundle\Setting\SettingManager ;
 use Busybee\PersonBundle\Repository\LocalityRepository ;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType ;
+
 
 class LocalityType extends AbstractType
 {
@@ -41,7 +43,7 @@ class LocalityType extends AbstractType
 					'label' => 'locality.label.locality',
 					'required' => false,
 					'attr' => array(
-						'class' => 'beeLocality'.$options['data']->getClassSuffix(),
+						'class' => 'beeLocality'.$options['classSuffix'],
 					),
 				)
 			)
@@ -49,7 +51,7 @@ class LocalityType extends AbstractType
 					'label' => 'locality.label.territory',
 					'required' => false,
 					'attr' => array(
-						'class' => 'beeTerritory'.$options['data']->getClassSuffix(),
+						'class' => 'beeTerritory'.$options['classSuffix'],
 					),
 					'choices' => $this->sm->get('Address.TerritoryList'),
 				)
@@ -58,7 +60,7 @@ class LocalityType extends AbstractType
 					'label' => 'locality.label.postcode',
 					'required' => false,
 					'attr' => array(
-						'class' => 'beePostCode'.$options['data']->getClassSuffix(),
+						'class' => 'beePostCode'.$options['classSuffix'],
 					),
 				)
 			)
@@ -66,21 +68,20 @@ class LocalityType extends AbstractType
 					'label' => 'locality.label.country',
 					'required' => false,
 					'attr' => array(
-						'class' => 'beeCountry'.$options['data']->getClassSuffix(),
+						'class' => 'beeCountry'.$options['classSuffix'],
 					),
 				)
 			)
-			->add('localityList', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
+			->add('localityList', EntityType::class, 
 				array(
-					'data_class' => 'Busybee\PersonBundle\Entity\Locality',
-					'choices' => $this->lr->getLocalityChoices(),
+					'class' => 'BusybeePersonBundle:Locality',
 					'label' => 'locality.label.choice',
+					'choice_label'	=> 'fullLocality',
 					'placeholder' => 'locality.placeholder.choice',
-					'empty_data'  => null,
 					'required' => false,
 					'attr' => array(
 						'help' => 'locality.help.choice',
-						'class' => 'beeLocalityList'.$options['data']->getClassSuffix(),
+						'class' => 'beeLocalityList'.$options['classSuffix'],
 					),
 					'mapped' => false,
 					'translation_domain' => 'BusybeePersonBundle',
@@ -89,7 +90,7 @@ class LocalityType extends AbstractType
 			->add('save', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
 					'label'					=> 'locality.label.save', 
 					'attr' 					=> array(
-						'class' 				=> 'beeLocalitySave'.$options['data']->getClassSuffix().' btn btn-info glyphicons glyphicons-plus-sign',
+						'class' 				=> 'beeLocalitySave'.$options['classSuffix'].' btn btn-info glyphicons glyphicons-plus-sign',
 					),
 				)
 			)
@@ -106,6 +107,7 @@ class LocalityType extends AbstractType
 				'data_class' => 'Busybee\PersonBundle\Entity\Locality',
 				'translation_domain' => 'BusybeePersonBundle',
 				'allow_extra_fields' => true,
+				'classSuffix'	=> null,
 			)
 		);
     }

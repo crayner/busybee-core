@@ -4,9 +4,13 @@ Busybee\PersonBundle\Entity\Locality:
     repositoryClass: Busybee\PersonBundle\Repository\LocalityRepository
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [locality,territory,postCode,country]
-            errorPath: locaity
-            message: 'The locality must be unique'
+            fields: 
+                - locality
+                - territory
+                - postCode
+                - country
+            errorPath: locality
+            message: 'error.unique.locality'
     id:
         id:
             type: integer

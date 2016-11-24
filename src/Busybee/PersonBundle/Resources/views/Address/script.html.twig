@@ -45,12 +45,13 @@
 					$('.beeBuildingNumber{{ classSuffix }}').val(data.buildingNumber),
 					$('#addressDisplay{{ classSuffix }}').html(data.address);
 					$('.beeAddressList{{ classSuffix }}').autocomplete( "option", "source", data.addressList );
-					$('.beeAddressList{{ classSuffix }}').autocomplete( "option", "disabled", data.addressDisabled );
 					$('.beeAddressList{{ classSuffix }}').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: data.addressListLabel, value: data.id}});
 					if (data.addressDisabled == 'true') {
+						$('.beeAddressList{{ classSuffix }}').autocomplete( "option", "disabled", true );
 						$('.beeAddressList{{ classSuffix }}').autocomplete( 'disable' );
 						$('.beeAddressList{{ classSuffix }}').prop('disabled', true);
 					} else {
+						$('.beeAddressList{{ classSuffix }}').autocomplete( "option", "disabled", false );
 						$('.beeAddressList{{ classSuffix }}').prop('disabled', false);
 						$('.beeAddressList{{ classSuffix }}').autocomplete( 'enable' );
 					}

@@ -34,7 +34,7 @@ class PersonController extends Controller
     }
 
 
-    public function editAction($id, Request $request)
+    public function editAction(Request $request, $id)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
 
@@ -47,10 +47,6 @@ class PersonController extends Controller
 		unset($formDefinition['person'], $formDefinition['contact'], $formDefinition['address1'], $formDefinition['address2']);
 
 		$em = $this->get('doctrine')->getManager();
-		$em->detach($person->getAddress1Record()->localityRecord);
-		$em->detach($person->getAddress2Record()->localityRecord);
-		$em->detach($person->getAddress1Record());
-		$em->detach($person->getAddress2Record());
 		$editOptions = array();
 
         $form = $this->createForm(PersonType::class, $person);
@@ -66,110 +62,51 @@ class PersonController extends Controller
 				$options['data'] = $this->get($name)->findOneByPerson($person->getId());
 				$options['data']->setPerson($person);
 				$form->add($extra['name'], $extra['form'], $options);
+				$name = $extra['name'];
+				$person->$name = $options['data'];
 				
 			}
 			if (isset($extra['script']))
 				$editOptions['script'][] = $extra['script'];
 		}
 
-		if (! empty($request->request->get('person')))
+
+		foreach($formDefinition as $extra)
 		{
-			$data = $request->request->get('person');
-			$data['address1'] = intval($data['address1']['AddressValue']);
-			$data['address2'] = intval($data['address2']['AddressValue']);
-			if ($data['address1'] < 1)
-				$data['address1'] = null;
-			
-			if ($data['address2'] < 1)
-				$data['address2'] = null;
-
-			if ($data['address2'] > 0 && $data['address1'] < 1)
+			if (isset($extra['request']) )
 			{
-				$data['address1'] = $data['address2'];
-				$data['address2'] = null ;
+//					$data['client'] = $this->get($extra['request']['name'])->handleRequest($data['client'], $person);
 			}
-			if ($data['address2'] > 0 && $data['address1'] == $data['address2'])
-			{
-				$data['address2'] = null ;
-			}			
-			if (! empty($data['phone']) and is_array($data['phone']))
-				foreach($data['phone'] as $q=>$w)
-				{
-					$data['phone'][$q]['phoneNumber'] = preg_replace('/\D/', '', $w['phoneNumber']);
-				}
-
-			foreach($formDefinition as $extra)
-			{
-				if (isset($extra['request']) )
-				{
-					$this->get($extra['request']['name'])->handleRequest($data, $person);
-					unset($data[$extra['request']['post']]);
-				}
-			}
-
-			if (! is_null($data['address1']))
-			{
-				$data['address1'] = $this->get('address.repository')->findOneById($data['address1']);
-				$person->setAddress1($data['address1']);
-			}
-			else
-				$person->setAddress1(null);
-
-			if (! is_null($data['address2']))
-			{
-				$data['address2'] = $this->get('address.repository')->findOneById($data['address2']);
-				$person->setAddress2($data['address2']);
-			}
-			else
-				$person->setAddress2(null);
-        	unset($data['add1'],$data['add2']);
-			$request->request->set('person', $data);
-
-			$form->setData($person);
-
-			$form->handleRequest($request);
-
-			if ($form->isSubmitted() && $form->isValid())
-			{
-			
-				foreach($person->getPhone() as $q=>$w)
-				{
-					if (empty($w->getPhoneNumber()))
-						$person->removePhone($w);   
-					else {
-						$phone = $this->get('phone.repository')->findOneBy(array('phoneNumber' => $w->getPhoneNumber()));
-						if ($phone instanceof Phone && $phone->getId() !== $w->getId())
-						{
-							$person->getPhone()->remove($q);
-							$person->getPhone()->set($q, $phone);
-						}
-					}
-				}
-
-
-				$em->persist($person);
-				$em->flush();
-				$id = $person->getId();
-				return new RedirectResponse($this->generateUrl('person_edit', array('id' => $id)));
-
-			} 
-			$request->request->set('person', null);
-
-		} elseif ($form->isSubmitted() && ! $form->isValid())
-		{
-       	 	$form->setData($person);
-
 		}
-		else
-       	 	$form->setData($person);
+
+		$form->setData($person);
+		
+		if (! empty($request->get('person')))
+		{
+			$data = $request->get('person');
+			if (isset($data['address1']['addressList'])) unset($data['address1']['addressList']);
+			if (isset($data['address2']['addressList'])) unset($data['address2']['addressList']);
+			if (isset($data['address1']['AddressValue'])) unset($data['address1']['AddressValue']);
+			if (isset($data['address2']['AddressValue'])) unset($data['address2']['AddressValue']);
+			$request->request->set('person', $data);
+		}
+
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			$em->persist($person);
+			$em->flush();
+			$id = $person->getId();
+		} 
 
 		$editOptions['id'] = $id;
 		$editOptions['form'] = $form->createView();
 		$editOptions['fullForm'] = $form;
-		$editOptions['address1'] = $this->formatAddress($person->getAddress1Record());
-		$editOptions['address2'] = $this->formatAddress($person->getAddress2Record());
-		$editOptions['addressLabel1'] = $this->get('address.manager')->getAddressListLabel($person->getAddress1Record());
-		$editOptions['addressLabel2'] = $this->get('address.manager')->getAddressListLabel($person->getAddress2Record());
+		$editOptions['address1'] = $this->formatAddress($person->getAddress1());
+		$editOptions['address2'] = $this->formatAddress($person->getAddress2());
+		$editOptions['addressLabel1'] = $this->get('address.manager')->getAddressListLabel($person->getAddress1());
+		$editOptions['addressLabel2'] = $this->get('address.manager')->getAddressListLabel($person->getAddress2());
 
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
 			$editOptions	
@@ -184,15 +121,6 @@ class PersonController extends Controller
 			$person = $this->get('person.repository')->findOneById($id);
 		$person->cancelURL = $this->generateUrl('person_edit', array('id' => $id));
 
-		$person->setAddress1Record($person->getAddress1());
-
-		$person->getAddress1Record()->setClassSuffix('address1');
-		$person->getAddress1Record()->localityRecord->setClassSuffix('address1');
-
-		$person->setAddress2Record($person->getAddress2());
-
-		$person->getAddress2Record()->setClassSuffix('address2');
-		$person->getAddress2Record()->localityRecord->setClassSuffix('address2');
 		return $person ;
 	}
 

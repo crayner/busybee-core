@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\PersonBundle\Form\DataTransformer\PhoneTransformer ;
 
 class PhoneType extends AbstractType
 {
@@ -56,6 +57,8 @@ class PhoneType extends AbstractType
 					'choices' => $this->sm->get('Phone.CountryList'),
 				)
 			);
+        $builder->get('phoneNumber')
+            ->addModelTransformer(new PhoneTransformer());
     }
     
     /**

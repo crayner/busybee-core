@@ -12,7 +12,7 @@ Busybee\PersonBundle\Entity\Address:
                 - streetName
                 - locality
             errorPath: streetName
-            message: address.error.unique 
+            message: 'error.unique.address'
     id:
         id:
             type: integer

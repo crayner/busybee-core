@@ -40,8 +40,13 @@ class LocalityRepository extends \Doctrine\ORM\EntityRepository
 	 */
 	public function setAddressLocality($id)
 	{
+		if ($id instanceof Locality)
+		{	
+			$id->injectRepository($this);
+			return $id;
+		}
 		if (intval($id) > 0)
-			$entity = $this->findOneBy(array('id' => $id));	
+			$entity = $this->findOneById($id);	
 		else
 			$entity = new Locality(); 
 		$entity->injectRepository($this);

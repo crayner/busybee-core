@@ -6,13 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\PersonBundle\Entity\Address ;
+use Busybee\PersonBundle\Entity\Locality ;
 use Busybee\PersonBundle\Form\AddressType ;
 
 class AddressController extends Controller
 {
     public function checkAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
 		
 		$address = array();
 		$address['propertyName'] = $request->request->get('propertyName');
@@ -35,7 +36,7 @@ class AddressController extends Controller
 
     public function indexAction($id, Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
 		
 		$address = new Address();
 		$repo = $this->get('address.repository');
@@ -53,7 +54,7 @@ class AddressController extends Controller
 
     public function fetchAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
 		
 		$id = $request->request->get('id');
 
@@ -65,6 +66,7 @@ class AddressController extends Controller
 		foreach($list as $name=>$value) {
 			$localityOptions .= '<option value="'.$value.'">'.$name.'</option>';	
 		}
+
 		return new JsonResponse(
 			array(
 				'propertyName' => $address->getPropertyName(),
@@ -80,6 +82,7 @@ class AddressController extends Controller
 				'options' => $localityOptions,
 				'address' => $this->get('address.manager')->formatAddress($address),
 				'addressListLabel' => $this->get('address.manager')->getAddressListLabel($address),
+				'addressDisabled' => 'true',
 				'id' => $address->getId(),
 			),
 			200
@@ -88,20 +91,24 @@ class AddressController extends Controller
 
     public function editAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
 		
 		$id = $request->request->get('id');
 
-		$entity = $id > 0 ? $this->get('address.repository')->findOneBy(array('id' => $id)) : new Address();	
+		$entity = $id > 0 ? $this->get('address.repository')->findOneById($id) : new Address();	
 		$entity->injectRepository($this->get('address.repository')) ;
-		$entity->localityRecord = $this->get('locality.repository')->setAddressLocality($request->request->get('locality_id'));
+
+		$entity->localityRecord = $this->get('locality.repository')->findOneById($request->request->get('locality_id'));
+
 		$valid = true;
 
-		$locality_id = $request->request->get('locality_id');		
-		if (empty($locality_id)) 
-			$valid = false;
+		if ($entity->localityRecord instanceof Locality) 
+			$entity->setLocality($entity->localityRecord);
 		else
-			$entity->setLocality($locality_id);
+		{
+			$entity->setLocality(null);
+			$valid = false;
+		}
 
 		$streetName = $request->request->get('streetName');		
 		if (empty($streetName)) 
@@ -131,6 +138,7 @@ class AddressController extends Controller
 			if ($value !== $entity->getId())
 				$valid = false ;
 		}
+
 		if ($valid)
 		{
 			$message = $this->get('translator')->trans('address.edit.success', array(), 'BusybeePersonBundle');

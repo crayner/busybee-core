@@ -88,17 +88,19 @@ Busybee\PersonBundle\Entity\Person:
                     referencedColumnName: id
         address1:
             targetEntity: Busybee\PersonBundle\Entity\Address
-            cascade: [ 'persist' ]
             nullable: true
+            cascade: [ persist ]
             joinColumn:
                 address1:
+                    name: address1
                     referencedColumnName: id
-        address2:
+        address1:
             targetEntity: Busybee\PersonBundle\Entity\Address
-            cascade: [ 'persist' ]
             nullable: true
+            cascade: [ persist ]
             joinColumn:
-                address2:
+                address1:
+                    name: address1
                     referencedColumnName: id
     manyToMany:
         phone:

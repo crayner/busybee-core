@@ -61,6 +61,7 @@ person:
     error:
         list: is not a valid selection.
         empty: can not be empty.
+        notFound: "A person record of %number% does not exist"
 address:
     label:
         propertyName: Building / Property Name

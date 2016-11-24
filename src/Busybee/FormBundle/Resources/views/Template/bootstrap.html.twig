@@ -83,3 +83,8 @@
 	{% endif %}
 {%- endblock form_row %}
 
+{%- block auto_complete_widget -%}
+	{%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+	<input type="hidden" class="{{ hidden.class }}" value="{{ hidden.value }}" name="{{ hidden.name }}" />
+    <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock auto_complete_widget -%}

@@ -4,11 +4,6 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
-{% if form.vars.data is not null %}
-	{% set address_id = form.vars.data.id %}
-{% else %}
-	{% set address_id = form.vars.value.id %}
-{% endif %}
 	<div class="panel panel-primary busybee-panel">
 		<div class="panel-heading">
 			{% if addressTitle is not defined %}{% set addressTitle = 'address.title' %}{% endif %}
@@ -27,7 +22,6 @@
 				<div class='row'>
 					<div class='col-sm-6 well'>
 						{{ form_row(form.addressList, {'value': addressLabel|trim}) }}
-						<input type="hidden" class="beeAddressValue{{ classSuffix }}" value="{{ address_id|trim }}" name="person[{{ classSuffix }}][AddressValue]" />
 					</div>
 					<div class='col-sm-6 well'>
 						<div class='form-group text-right'>

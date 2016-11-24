@@ -111,7 +111,7 @@
 		$( document ).ready(function() {
 			$.ajax({
 				url: '{{ path('address_fetch') }}',	
-				data: {'id': {% if form.address1.vars.value is not empty %}{{ form.address1.vars.value.getId }}{% else %}0{% endif %} },
+				data: {'id': {% if form.address1.vars.value is not null and form.address1.vars.value.getId is not null %}{{ form.address1.vars.value.getId }}{% else %}0{% endif %} },
 				type: 'POST',
 				success: function(data) {
 					$('.beePropertyNameaddress1').val(data.propertyName);
@@ -123,11 +123,26 @@
 					$('.beeTerritoryaddress1').val(data.territory);
 					$('.beeCountryaddress1').val(data.country);
 					$('.beePostCodeaddress1').val(data.postCode);
-				}
+					$('#addressDisplayaddress1').html(data.address);
+					$('.beeAddressListaddress1').autocomplete( "option", "source", data.addressList );
+					$('.beeAddressListaddress1').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: data.addressListLabel, value: data.id}});
+					if (data.addressDisabled == 'true') {
+						$('.beeAddressListaddress1').autocomplete( "option", "disabled", true );
+						$('.beeAddressListaddress1').autocomplete( 'disable' );
+						$('.beeAddressListaddress1').prop('disabled', true);
+					} else {
+						$('.beeAddressListaddress1').autocomplete( "option", "disabled", false );
+						$('.beeAddressListaddress1').prop('disabled', false);
+						$('.beeAddressListaddress1').autocomplete( 'enable' );
+					}
+					$('#addressMessageaddress1').show()
+					$('#addressMessageaddress1').removeClass().addClass('row alert alert-' + data.status);
+					$('#addressMessageaddress1').html(data.message);
+					$('#addressMessageaddress1').fadeOut(3000);				}
 			});
 			$.ajax({
 				url: '{{ path('address_fetch') }}',	
-				data: {'id': {% if form.address2.vars.value is not empty %}{{ form.address2.vars.value.getId }}{% else %}0{% endif %} },
+				data: {'id': {% if form.address2.vars.value is not null  and form.address2.vars.value.getId is not null%}{{ form.address2.vars.value.getId }}{% else %}0{% endif %} },
 				type: 'POST',
 				success: function(data) {
 					$('.beePropertyNameaddress2').val(data.propertyName);
@@ -139,6 +154,21 @@
 					$('.beeTerritoryaddress2').val(data.territory);
 					$('.beeCountryaddress2').val(data.country);
 					$('.beePostCodeaddress2').val(data.postCode);
+					$('#addressDisplayaddress2').html(data.address);
+					$('.beeAddressListaddress2').autocomplete( "option", "source", data.addressList );
+					$('.beeAddressListaddress2').autocomplete( "option", "disabled", data.addressDisabled );
+					$('.beeAddressListaddress2').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: data.addressListLabel, value: data.id}});
+					if (data.addressDisabled == 'true') {
+						$('.beeAddressListaddress2').autocomplete( 'disable' );
+						$('.beeAddressListaddress2').prop('disabled', true);
+					} else {
+						$('.beeAddressListaddress2').prop('disabled', false);
+						$('.beeAddressListaddress2').autocomplete( 'enable' );
+					}
+					$('#addressMessageaddress2').show()
+					$('#addressMessageaddress2').removeClass().addClass('row alert alert-' + data.status);
+					$('#addressMessageaddress2').html(data.message);
+					$('#addressMessageaddress2').fadeOut(3000);
 				}
 			});
 		});

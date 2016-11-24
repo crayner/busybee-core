@@ -74,10 +74,20 @@ abstract class LocalityModel
 	/**
      * get Country Name
      *
-     * @return \Busybee\PersonBundle\Repository\LocalityRepository
+     * @return string
      */
     public function getCountryName()
     {
         return Intl::getRegionBundle()->getCountryName(strtoupper($this->getCountry()));
+    }
+	
+	/**
+     * get Full Locality
+     *
+     * @return string
+     */
+    public function getFullLocality()
+    {
+        return trim($this->getLocality().' '.$this->getTerritory().' '. $this->getPostCode().' '.$this->getCountryName());
     }
 }

@@ -107,3 +107,5 @@ homePage:
     para3: It is my hope to build a low cost core for such a system that will allow schools from 1 student to 50,000+ students to manage their administration, adding and creating modules to handle their particular needs as required within their region or circumstances. It is a big challenge, but one that I am looking forward to delivering soon.
 footer:
     details: 'Busybee Software. Version %version% &copy; %name%'
+security:
+    denied: You are denied access to this page!
