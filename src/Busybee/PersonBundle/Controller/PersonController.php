@@ -40,13 +40,34 @@ class PersonController extends Controller
 
 		$person = $this->getPerson($id);
 		
+		$em = $this->get('doctrine')->getManager();
+
+		$address = $person->getAddress1();
+		if (! is_null($address))
+		{
+			$address->getStreetName();
+			$locality = $address->getLocality();
+			$locality->getTerritory();
+			$em->detach($locality);
+			$em->detach($address);
+		}
+
+		$address = $person->getAddress2();
+		if (! is_null($address))
+		{
+			$address->getStreetName();
+			$locality = $address->getLocality();
+			$locality->getTerritory();
+			$em->detach($locality);
+			$em->detach($address);
+		}
+		
 		$setting = $this->get('setting.manager') ;
 		
 		$formDefinition = $this->get('my_service_container')->getParameter('person');
 		
 		unset($formDefinition['person'], $formDefinition['contact'], $formDefinition['address1'], $formDefinition['address2']);
 
-		$em = $this->get('doctrine')->getManager();
 		$editOptions = array();
 
         $form = $this->createForm(PersonType::class, $person);
@@ -70,34 +91,32 @@ class PersonController extends Controller
 				$editOptions['script'][] = $extra['script'];
 		}
 
-
-		foreach($formDefinition as $extra)
-		{
-			if (isset($extra['request']) )
-			{
-//					$data['client'] = $this->get($extra['request']['name'])->handleRequest($data['client'], $person);
-			}
-		}
-
-		$form->setData($person);
-		
 		if (! empty($request->get('person')))
 		{
 			$data = $request->get('person');
-			if (isset($data['address1']['addressList'])) unset($data['address1']['addressList']);
-			if (isset($data['address2']['addressList'])) unset($data['address2']['addressList']);
-			if (isset($data['address1']['AddressValue'])) unset($data['address1']['AddressValue']);
-			if (isset($data['address2']['AddressValue'])) unset($data['address2']['AddressValue']);
+			$data['address1'] = ! empty($data['address1']) ? $data['address1'] : null ;
+			$data['address2'] = ! empty($data['address2']) ? $data['address2'] : null ;
+			
+			unset($data['fullAddress1'], $data['fullAddress2']);
+
+			$form->get('fullAddress1')->setData($this->get('address.repository')->find($data['address1']));
+			$form->get('fullAddress2')->setData($this->get('address.repository')->find($data['address2']));
+
 			$request->request->set('person', $data);
 		}
+
+		$form->setData($person);
 
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
+dump($person);
 			$em->persist($person);
 			$em->flush();
 			$id = $person->getId();
+
+			return new RedirectResponse($this->generateUrl('person_edit', array('id' => $id)));
 		} 
 
 		$editOptions['id'] = $id;

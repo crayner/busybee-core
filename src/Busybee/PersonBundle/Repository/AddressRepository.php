@@ -31,4 +31,15 @@ class AddressRepository extends \Doctrine\ORM\EntityRepository
 		return $result;
 	}
 
+	/**
+     * find
+     *
+     * @return Address
+     */
+    public function find($id)
+    {
+		if (is_null($id))
+			return new Address();		
+		return parent::find($id);
+    }
 }

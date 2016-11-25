@@ -122,6 +122,7 @@ services:
         class: Busybee\PersonBundle\Form\PersonType
         arguments:
             - '@setting.manager'
+            - '@doctrine.orm.entity_manager'
         tags: 
             - { name: form.type }
     person.form.addressType:

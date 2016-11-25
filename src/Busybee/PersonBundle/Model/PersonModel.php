@@ -15,16 +15,6 @@ use Busybee\PersonBundle\Entity\Locality ;
 abstract class PersonModel
 {
 	/**
-	 * @var	\Busybee\personBundle\Entity\Address
-	 */
-	protected $address1Record ;
-
-	/**
-	 * @var	\Busybee\personBundle\Entity\Address
-	 */
-	protected $address2Record ;
-
-	/**
 	 * @var	boolean
 	 */
 	protected $deletePhoto = false;

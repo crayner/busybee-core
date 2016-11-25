@@ -51,6 +51,8 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="form-group text-right" style="margin-bottom: 5px">
+				{{ form_row(form.address1) }} <!--  Address Keys -->
+				{{ form_row(form.address2) }}
 				{{ form_widget(form.save) }}
 				{{ form_widget(form.cancel) }}
 			</div>
@@ -111,7 +113,7 @@
 		$( document ).ready(function() {
 			$.ajax({
 				url: '{{ path('address_fetch') }}',	
-				data: {'id': {% if form.address1.vars.value is not null and form.address1.vars.value.getId is not null %}{{ form.address1.vars.value.getId }}{% else %}0{% endif %} },
+				data: {'id': {% if form.fullAddress1.vars.value is not null and form.fullAddress1.vars.value.getId is not null %}{{ form.fullAddress1.vars.value.getId }}{% else %}0{% endif %} },
 				type: 'POST',
 				success: function(data) {
 					$('.beePropertyNameaddress1').val(data.propertyName);
@@ -125,7 +127,7 @@
 					$('.beePostCodeaddress1').val(data.postCode);
 					$('#addressDisplayaddress1').html(data.address);
 					$('.beeAddressListaddress1').autocomplete( "option", "source", data.addressList );
-					$('.beeAddressListaddress1').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: data.addressListLabel, value: data.id}});
+					$('.beeAddressListaddress1').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: data.addressListLabel, value: data.id, stopFetch: true}});
 					if (data.addressDisabled == 'true') {
 						$('.beeAddressListaddress1').autocomplete( "option", "disabled", true );
 						$('.beeAddressListaddress1').autocomplete( 'disable' );
@@ -142,7 +144,7 @@
 			});
 			$.ajax({
 				url: '{{ path('address_fetch') }}',	
-				data: {'id': {% if form.address2.vars.value is not null  and form.address2.vars.value.getId is not null%}{{ form.address2.vars.value.getId }}{% else %}0{% endif %} },
+				data: {'id': {% if form.fullAddress2.vars.value is not null and form.fullAddress2.vars.value.getId is not null%}{{ form.fullAddress2.vars.value.getId }}{% else %}0{% endif %} },
 				type: 'POST',
 				success: function(data) {
 					$('.beePropertyNameaddress2').val(data.propertyName);
@@ -157,7 +159,7 @@
 					$('#addressDisplayaddress2').html(data.address);
 					$('.beeAddressListaddress2').autocomplete( "option", "source", data.addressList );
 					$('.beeAddressListaddress2').autocomplete( "option", "disabled", data.addressDisabled );
-					$('.beeAddressListaddress2').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: data.addressListLabel, value: data.id}});
+					$('.beeAddressListaddress2').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: data.addressListLabel, value: data.id, stopFetch: true}});
 					if (data.addressDisabled == 'true') {
 						$('.beeAddressListaddress2').autocomplete( 'disable' );
 						$('.beeAddressListaddress2').prop('disabled', true);

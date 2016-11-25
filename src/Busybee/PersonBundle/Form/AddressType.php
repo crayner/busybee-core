@@ -91,7 +91,7 @@ class AddressType extends AbstractType
 					),
 					'mapped' => false,
 					'hidden' => array(
-						'name' => 'person['.$options['classSuffix'].'][AddressValue]',
+						'name' => 'person['.$options['classSuffix'].']',
 						'value' => ($options['data'] instanceof Address && $options['data']->getId() > 0 ? $options['data']->getId() : 0),
 						'class' => 'beeAddressValue'.$options['classSuffix'],
 					),
@@ -141,6 +141,7 @@ class AddressType extends AbstractType
 				'translation_domain' 	=> 'BusybeePersonBundle',
 				'classSuffix'			=> null,
 				'validation_groups' 	=> array('person_form'),
+				'allow_extra_fields' 	=> true,
 			)
 		);
     }

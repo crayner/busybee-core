@@ -10,6 +10,9 @@ use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine ;
 use Symfony\Component\Validator\Constraints as Assert;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\PersonBundle\Form\AddressType ;
+use Doctrine\Common\Persistence\ObjectManager ;
+use Busybee\PersonBundle\Form\DataTransformer\AddressTransformer ;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType ;
 
 class PersonType extends AbstractType
 {
@@ -17,13 +20,18 @@ class PersonType extends AbstractType
 	 * @var	Busybee\SystemBundle\Setting\SettingManager 
 	 */
 	private $sm ;
+	/**
+	 * @var	Doctrine\Common\Persistence\ObjectManager 
+	 */
+	private $manager ;
 	
 	/**
 	 * Construct
 	 */
-	public function __construct(SettingManager $sm)
+	public function __construct(SettingManager $sm, ObjectManager $manager)
 	{
 		$this->sm = $sm ;
+		$this->manager = $manager ;
 	}
 
     /**
@@ -135,16 +143,20 @@ class PersonType extends AbstractType
 					'constraints' => array(new Assert\Url(array('groups'=>'person_form'))),
 				)
 			)
-			->add('address1', AddressType::class, array(
+			->add('address1', HiddenType::class)
+			->add('address2', HiddenType::class)
+			->add('fullAddress1', AddressType::class, array(
 					'data' => $options['data']->getAddress1(),
 					'required' => false,
 					'classSuffix' => 'address1',
+					'mapped' => false,
 				)
 			)
-			->add('address2', AddressType::class, array(
+			->add('fullAddress2', AddressType::class, array(
 					'data' => $options['data']->getAddress2(),
 					'required' => false,
 					'classSuffix' => 'address2',
+					'mapped' => false,
 				)
 			)
 			->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
@@ -174,6 +186,10 @@ class PersonType extends AbstractType
 				)
 			)
 		;
+        $builder->get('address1')
+            ->addModelTransformer(new AddressTransformer($this->manager));
+        $builder->get('address2')
+            ->addModelTransformer(new AddressTransformer($this->manager));
     }
     
     /**
@@ -183,9 +199,10 @@ class PersonType extends AbstractType
     {
         $resolver->setDefaults(
 			array(
-				'data_class' => 'Busybee\PersonBundle\Entity\Person',
-				'translation_domain' => 'BusybeePersonBundle',
-				'validation_groups' => array('person_form'),
+				'data_class' 			=> 'Busybee\PersonBundle\Entity\Person',
+				'translation_domain'	=> 'BusybeePersonBundle',
+				'validation_groups'		=> array('person_form'),
+				'allow_extra_fields' 	=> true,
 			)
 		);
     }

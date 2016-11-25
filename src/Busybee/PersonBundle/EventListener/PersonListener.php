@@ -23,6 +23,7 @@ class PersonListener
         $entity = $args->getEntity();
 
 		$this->checkPreferredName($entity);
+		$this->checkAddresses($entity);
 
         $this->uploadFile($entity);
     }
@@ -32,6 +33,7 @@ class PersonListener
         $entity = $args->getEntity();
 
 		$this->checkPreferredName($entity);
+		$this->checkAddresses($entity);
 
         $this->uploadFile($entity);
     }
@@ -84,6 +86,33 @@ class PersonListener
         {
 			if (empty($entity->getPreferredName()))
 				$entity->setPreferredName($entity->getFirstName());
+		}
+    }
+
+    private function checkAddresses($entity)
+    {
+        // preferred name in Person Entity
+        if ($entity instanceof Person)
+        {
+			$address1 = $entity->getAddress1();
+			$address2 = $entity->getAddress2();
+			
+			if (is_null($address1) && is_null($address2)) return ;
+			
+			if (is_null($address1) && ! is_null($address2))
+			{
+				$entity->setAddress1($address2);
+				$entity->setAddress2(null);
+				return ;
+			}
+			if (is_null($address2)) return ;
+dump($address1);
+dump($address2);			
+			if ($address1->getId() == $address2->getId())
+			{
+				$entity->setAddress2(null);
+				return ;
+			}
 		}
     }
 }

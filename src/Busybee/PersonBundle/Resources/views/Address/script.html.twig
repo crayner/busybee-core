@@ -7,23 +7,31 @@
 
 	<script>
 		$( '.beeAddressList{{ classSuffix }}' ).on( "autocompleteselect", function( event, ui ) {
-			$.ajax({
-				url: '{{ path('address_fetch') }}',	
-				data: {'id': ui.item.value},
-				type: 'POST',
-				success: function(data) {
-					$('.beePropertyName{{ classSuffix }}').val(data.propertyName);
-					$('.beeStreetName{{ classSuffix }}').val(data.streetName);
-					$('.beeStreetNumber{{ classSuffix }}').val(data.streetNumber);
-					$('.beeBuildingType{{ classSuffix }}').val(data.buildingType);
-					$('.beeBuildingNumber{{ classSuffix }}').val(data.buildingNumber);
-					$('.beeAddressValue{{ classSuffix }}').val(data.id);
-					$('.beeAddressList{{ classSuffix }}').val(data.addressListLabel);
-					$('#addressDisplay{{ classSuffix }}').html(data.address);
-				}
-			});
+			if (! ui.item.stopFetch) {
+				$.ajax({
+					url: '{{ path('address_fetch') }}',	
+					data: {'id': ui.item.value},
+					type: 'POST',
+					success: function(data) {
+						$('.beePropertyName{{ classSuffix }}').val(data.propertyName);
+						$('.beeStreetName{{ classSuffix }}').val(data.streetName);
+						$('.beeStreetNumber{{ classSuffix }}').val(data.streetNumber);
+						$('.beeBuildingType{{ classSuffix }}').val(data.buildingType);
+						$('.beeBuildingNumber{{ classSuffix }}').val(data.buildingNumber);
+						$('.beeAddressValue{{ classSuffix }}').val(data.id);
+						$('.beeAddressList{{ classSuffix }}').val(data.addressListLabel);
+						$('#addressDisplay{{ classSuffix }}').html(data.address);
+						if (data.id > 0)
+						{
+							$('.beeAddressList{{ classSuffix }}').autocomplete( "option", "disabled", true );
+							$('.beeAddressList{{ classSuffix }}').autocomplete( 'disable' );
+							$('.beeAddressList{{ classSuffix }}').prop('disabled', true);
+						}
+					}
+				});
+			}
 		});
-
+		
 		$('.beeAddressSave{{ classSuffix }}').click(function() {
 			$.ajax({
 				url: '{{ path('address_edit') }}',	
@@ -72,9 +80,12 @@
 			$('.beeTerritory{{ classSuffix }}').val('');
 			$('.beeCountry{{ classSuffix }}').val('');
 			$('.beePostCode{{ classSuffix }}').val('');
-			$('.beeLocalityList{{ classSuffix }}').val(0);
-			$('.beeAddressValue{{ classSuffix }}').val(0);
+			$('.beeLocalityList{{ classSuffix }}').val('');
+			$('.beeAddressValue{{ classSuffix }}').val('');
 			$('.beeAddressList{{ classSuffix }}').val('');
 			$('#addressDisplay{{ classSuffix }}').html("<pre> </pre>");
+			$('.beeAddressList{{ classSuffix }}').autocomplete( "option", "disabled", true );
+			$('.beeAddressList{{ classSuffix }}').autocomplete( 'disable' );
+			$('.beeAddressList{{ classSuffix }}').prop('disabled', true);
 		});
 	</script>
