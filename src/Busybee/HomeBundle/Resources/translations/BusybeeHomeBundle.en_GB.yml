@@ -21,6 +21,8 @@ form:
     update: Update
     delete: Delete 
     save_and_add: Save&Add 
+    reset: Reset
+    upload: Upload
     student:
         save:
             success: The student record was saved.
@@ -58,10 +60,12 @@ menu:
             list: Current Users 
         setting:
             manage: Manage Settings
+            individual: Individual Setting
+            upload: Upload Settings
         settings: Defined Settings
         plugin:
             manage: Manage Plugins
-            settings: Plugin Settings
+            base: Plugin Management
     family:
         manage: Manage Family       
     people:

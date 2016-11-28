@@ -1,0 +1,39 @@
+{# src/General/SystemBundle/Resources/views/Setting/upload.html.twig #}
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% trans_default_domain 'BusybeeSystemBundle' %}
+
+
+{% block title %}Busybee - {{ 'system.upload.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.upload.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.upload.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+	{% if errors is not empty %}
+		<div class="container-fluid">
+			{% for error in errors %}
+			<div class="row alert alert-{{ error.status }}">
+				{{ error.message|trans( error.options ) }}
+			</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	{{ form_start(form) }}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-6 col-md-6 well">
+				{{ form_row(form.file) }}
+			</div>
+			<div class="col-sm-6 col-md-6 well">
+				<div class="form-group text-right">
+					{{ form_widget(form.upload) }}
+					{{ form_widget(form._token) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ form_end(form) }}
+{% endblock contentContainer %}
+
+

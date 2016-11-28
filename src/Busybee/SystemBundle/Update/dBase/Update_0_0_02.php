@@ -133,7 +133,8 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setValue(
 			Yaml::dump(
 				array(
-					'' => '',
+					'Not Specified' => '',
+					'Flat' => 'Flat',
 					'Unit' => 'Unit',
 					'Apartment' => 'Apt',
 					'Town House' => 'TnHs',
@@ -193,12 +194,19 @@ class Update_0_0_02 implements UpdateInterface
 		//10
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('twig');
-		$entity->setValue("{% set start = phone|slice(0,2) %}
+		$entity->setValue("
+{% set start = phone|slice(0,2) %}
 {% set len = phone|length %}
-{% if start in [02,03,07,08.09] %}
-({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}}{% elseif start in [18,13,04] and len == 10 %}
-{{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}{% elseif start in [13] and len == 6 %}
-{{ phone|slice(0,4)}} {{ phone|slice(4,3)}}{% else %}{{ phone }}{% endif %}");
+{% if start in [02,03,07,08,09] %}
+({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}}
+{% elseif start in [18,13,04] and len == 10 %}
+{{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}
+{% elseif start in [13] and len == 6 %}
+{{ phone|slice(0,4)}} {{ phone|slice(4,3)}}
+{% else %}
+{{ phone }}
+{% endif %}
+");
 		$entity->setName('Phone.Display');
 		$entity->setDisplayName('Phone Display Format');
 		$entity->setDescription("A template to convert phone numbers into display version.");

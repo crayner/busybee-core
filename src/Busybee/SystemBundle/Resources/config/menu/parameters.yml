@@ -29,28 +29,14 @@ parameters:
             node: 1
             route: setting_manage
             order: 12
+            menu: 12
         13:
             name: Plugin Manager
-            label: menu.site.plugin.manage
+            label: menu.site.plugin.base
             role: ROLE_ADMIN
             node: 1
             order: 13
             menu: 13
-            test:
-                value1: test.plugin.manage
-                value2: true
-                comparitor: !=
-        14:
-            name: Plugin Settings
-            label: menu.site.plugin.settings
-            role: ROLE_REGISTRAR
-            node: 1
-            order: 14
-            menu: 14
-            test:
-                value1: test.plugin.installed
-                value2: true
-                comparitor: !=
         100:
             label: menu.site.security.edit
             role: ROLE_USER
@@ -80,3 +66,29 @@ parameters:
             node: 1
             order: 15
             menu: 15
+        130:
+            name: Plugin Manager
+            label: menu.site.plugin.manage
+            role: ROLE_ADMIN
+            node: 13
+            order: 130
+            route: plugin_manage
+            test:
+                value1: test.plugin.manage
+                value2: true
+                comparitor: ==
+                default1: false
+        120:
+            name: Manage Individual Setting
+            label: menu.site.setting.individual
+            role: ROLE_REGISTRAR
+            node: 12
+            route: setting_manage
+            order: 120
+        121:
+            name: Upload Default Settings
+            label: menu.site.setting.upload
+            role: ROLE_REGISTRAR
+            node: 12
+            route: setting_upload
+            order: 120

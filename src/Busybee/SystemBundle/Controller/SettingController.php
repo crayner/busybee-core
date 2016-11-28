@@ -84,7 +84,9 @@ class SettingController extends Controller
 								'help' => 'system.setting.help.array',
 								'rows' => 8,
 							),
-							
+							'constraints' => array(
+								new \Busybee\HomeBundle\Validator\Yaml(),
+							),
 						)
 					)
 				); 
@@ -95,7 +97,9 @@ class SettingController extends Controller
 								'help' => 'system.setting.help.twig',
 								'rows' => 5,
 							),
-							
+							'constraints' => array(
+								new \Busybee\HomeBundle\Validator\Twig(),
+							),
 						)
 					)
 				); 
@@ -155,4 +159,55 @@ class SettingController extends Controller
 			)
 		);
 	}
+	public function uploadAction(Request $request)
+	{
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		
+/*		$list = Yaml::parse(file_get_contents(__DIR__.'/../Resources/Defaults/Australia.yml'));
+		$sm = $this->get('setting.manager');
+		foreach($list as $name=>$value)
+			$sm->set($name, $value);
+*/
+		$form = $this->createForm('Busybee\SystemBundle\Form\UploadType', new \stdClass());
+
+		$form->handleRequest($request);
+
+		$errors = array();
+		$error = 0;
+		if ($form->isValid())
+		{
+			$file = $form->get('file')->getData();
+			$content = file_get_contents($file->getRealPath());
+			unlink($file->getRealPath());
+			$content = Yaml::parse($content);
+			if (empty($content['name']) || $content['name'] !== $file->getClientOriginalName())
+			{
+				$errors[++$error]['message'] = 'upload.error.fileNameMatch';
+				$errors[$error]['status'] = 'warning';
+				$errors[$error]['options'] = array('%name%' => $file->getClientOriginalName());
+			}
+			if (empty($content['settings']))
+			{
+				$errors[++$error]['message'] = 'upload.error.settingsMissing';
+				$errors[$error]['status'] = 'danger';
+				$errors[$error]['options'] = array();
+			}
+			if (empty($errors)) {
+				$sm = $this->get('setting.manager');
+				foreach($content['settings'] as $name=>$value)
+					$sm->set($name, $value);
+				$errors[++$error]['message'] = 'upload.success';
+				$errors[$error]['status'] = 'success';
+				$errors[$error]['options'] = array('%count%' => count($content['settings']));
+			}
+		}
+
+        return $this->render('SystemBundle:Setting:upload.html.twig',
+			array(
+				'form'	=> $form->createView(),
+				'errors' => $errors,
+			)
+		);
+	}
+
 }

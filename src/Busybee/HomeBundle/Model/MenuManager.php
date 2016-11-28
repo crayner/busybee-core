@@ -58,13 +58,15 @@ class MenuManager
 	 */
 	public function testMenuItem($test)
 	{
-		$value1 = $this->manageValue($test['value1']);
-		$value2 = $this->manageValue($test['value2']);
+		$test['default1'] = isset($test['default1']) ? $test['default1'] : null ;
+		$test['default2'] = isset($test['default2']) ? $test['default2'] : null ;
+		$value1 = $this->manageValue($test['value1'], $test['default1']);
+		$value2 = $this->manageValue($test['value2'], $test['default2']);
 
 		$test['comparitor'] = empty($test['comparitor']) ? '=' : $test['comparitor'] ;
 		switch($test['comparitor'])
 		{
-			case '=':
+			case '==':
 				if ($value1 == $value2) return true ;
 				break;
 			case '!=':
@@ -91,7 +93,7 @@ class MenuManager
 		{
 			$name = substr($value, 10);
 			if (strpos($name, '.') === false)
-				return $this->container->getParameter($name, $default);
+				return $this->container->getParameter($name);
 			$name = explode('.', $name);
 			$value = $this->container->getParameter($name[0]);
 			array_shift($name);
@@ -108,5 +110,17 @@ class MenuManager
 			return $this->container->get($value)->test();
 		
 		return $value ;
+	}
+
+	/**
+	 * @return	boolean
+	 */
+	public function menuRequired($menu)
+	{
+		$items = $this->container->getParameter('items');
+		foreach ($items as $item)
+			if (intval($menu) == intval($item['node']))
+				return true;
+		return false;
 	}
 }

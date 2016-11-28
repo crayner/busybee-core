@@ -19,6 +19,7 @@ class CampusController extends Controller
 			$campus = $this->get('campus.repository')->findOneBy(array('id' => $id));   
 
 		$campus->cancelURL = $this->get('router')->generate('campus_manage');
+		if (empty($campus->getCountry())) $campus->setCountry($this->getParameter('country'));
 
         $form = $this->createForm(CampusType::class, $campus);
 		if (intval($id) > 0)

@@ -16,3 +16,6 @@ campus:
         territory: ''
         postcode: ''
         country: ''
+    placeholder:
+        locations: Select a Location
+'': ""

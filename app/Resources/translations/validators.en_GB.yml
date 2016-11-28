@@ -1,5 +1,9 @@
 regex:
     error: "Regex Error: %systemMessage%"
+array:
+    error: "Array Error: %systemMessage%"
+twig:
+    error: "Twig Error: %systemMessage%"
 person:
     error:
         phone: Not a valid phone number.

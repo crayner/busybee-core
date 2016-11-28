@@ -3,6 +3,7 @@
 namespace Busybee\SystemBundle\Model ;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 class myContainer implements Container 
 {
@@ -28,12 +29,12 @@ class myContainer implements Container
      *
      * @throws InvalidArgumentException if the parameter is not defined
      */
-	public function getParameter($name)
+	public function getParameter($name, $throw = true)
 	{
 		if (false === (strpos($name, '.')))
-        	return $this->container->getParameterBag()->get($name);
+        	return $this->loadParameter($name, $throw);
 		$name = explode('.', $name);
-		$value = $this->container->getParameterBag()->get($name[0]);
+		$value = $this->loadParameter($name[0], $throw);
 		array_shift($name);
 		while (! empty($name))
 		{
@@ -118,5 +119,27 @@ class myContainer implements Container
     public function setParameter($name, $value)
 	{
 		return $this->container->setParameter($name, $value);
+	}
+
+    /**
+     * Load a parameter.
+     *
+	 * The system always fails if the parameter is not set, so this allows the paramater get to step over the Parameter Not Found Error. <br> 
+	 * The error is still thrown by default.
+     * @param	string $name  The parameter name
+     * @return	mixed  $value The parameter value
+     */
+    private function loadParameter($name, $throw = true)
+	{
+		try
+		{
+			$value = $this->container->getParameterBag()->get($name);
+		} catch (ParameterNotFoundException $e)
+		{	
+			if ($throw)
+				throw new ParameterNotFoundException($e->getKey(), $e->getsourceId(), $e->getSourceKey(), $e->getPrevious());
+			$value = null ;
+		}
+		return $value ;
 	}
 }

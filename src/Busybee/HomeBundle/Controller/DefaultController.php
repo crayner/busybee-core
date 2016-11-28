@@ -16,7 +16,7 @@ class DefaultController extends Controller
 		$config = new \stdClass();
 		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 
-        $setting = $this->get('doctrine')->getRepository('SystemBundle:Setting');
+        $setting = $this->get('setting.manager');
 		if (! $setting->getSetting('Installed', false))
 			return new RedirectResponse($this->generateUrl('install_start'));
 			

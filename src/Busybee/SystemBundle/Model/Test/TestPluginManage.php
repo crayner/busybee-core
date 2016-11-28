@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
 use DirectoryIterator ;
 
 /**
- * Test Interface
+ * Test Plugin Managed
  *
  * @version	15th November 2016
  * @since	15th November 2016
@@ -30,7 +30,7 @@ class TestPluginManage extends Tester
 			if ($fileInfo->isDir())
 			{
 				$bundle = str_replace('Bundle', '', $fileInfo->getFileName());
-				$bundleSettings = $this->container->getParameter($bundle);
+				$bundleSettings = $this->container->getParameter($bundle, false);
 				if (version_compare($setting->get($bundle.'.Version'), $bundleSettings['Version'], '<'))
 					return false ;
 			}

@@ -87,7 +87,7 @@ class CampusType extends AbstractType
 				)
 			)
 			->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
-					'label'					=> 'form.cancel', 
+					'label'					=> 'form.reset', 
 					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',
@@ -108,8 +108,9 @@ class CampusType extends AbstractType
 							return $er->createQueryBuilder('c')
 								->orderBy('c.name', 'ASC');	
 					},
-					'placeholder'	=> 'Select a Location',
+					'placeholder'	=> 'campus.placeholder.locations',
 					'required'		=> false,
+					'data'			=> $options['data']->getId(),
 				)
 			)
 		;

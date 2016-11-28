@@ -34,6 +34,7 @@ system:
             description: Setting Description
             value: Setting Value
             displayName: Setting Display Name 
+            upload: Upload Setting File
         help:
             name: Setting names are set by the program and are not available to change. 
             description: You can alter the setting decription to better describe the setting.
@@ -41,6 +42,9 @@ system:
             array: "Setting values for arrays are displayed as a display name: key combination."
             twig: "Templates in twig need to be tested on the page for which thay are used."
             displayName: 'The display name is available to change for your system, but it must be unique on your system.'
+    upload:
+        title: Upload Setting Package
+        description: 'Upload a set of pre coded default settings.'
 parameter:
     file:    
         title: Parameter File Status
@@ -177,3 +181,12 @@ user:
         title: User List
         description: List of users configured on the site. 
 updateDatabase.success: 'Updated from version %version%'
+plugin:
+    manage:
+        title: Plugin Management
+        description: Plugins available on the system but not installed or requiring update.
+upload:
+    error:
+        fileNameMatch: The file name (%name%) does not match the file data.
+        settingsMissing: "No settings have been defined in the file.  The file nust contain the name of the file (name:) and the settings: to be set."
+    success: '%count% Settings were correctly uploaded.'

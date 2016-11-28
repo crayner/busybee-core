@@ -3,6 +3,8 @@ namespace Busybee\SystemBundle\Setting ;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\Yaml\Yaml ;
+use Twig_Error_Syntax ;
+use Twig_Error_Runtime ;
 
 /**
  * Setting Manager
@@ -38,11 +40,9 @@ class SettingManager
         try{
 			$this->setting = $this->repo->findOneByName($name);
 		} catch (\Exception $e) {
-			if ($e->getErrorCode() !== 1146){
-				throw new \Exception($e->getMessage());
-			}
+			return $default;
 		}
-		if (is_null($this->setting))
+		if (is_null($this->setting) || is_null($this->setting->getName()))
 		{
 			if (false === strpos($name, '.'))
 				return $default;
@@ -116,8 +116,8 @@ class SettingManager
 	 */
     public function setSetting($name, $value)
     {
-        $x = $this->getSetting($name, $value);
-		if (is_null($this->setting))
+        $this->setting = $this->repo->findOneByName($name);
+		if (is_null($this->setting) || is_null($this->setting->getName()))
 			return null;
 		if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole()->getRole())) return $this;
 		switch ($this->setting->getType())
@@ -126,8 +126,20 @@ class SettingManager
 				$value =  strval(mb_substr($value, 0, 25));
 				break;
 			case 'regex':
+				$test = preg_match($value, 'qwlrfhfriwegtiwebnf934htr 5965tb');
+				break;
 			case 'text':
+				break ;
 			case 'twig':
+				try {
+					$x = $this->container->get('twig')->createTemplate($value)->render(array());
+				} catch (Twig_Error_Syntax $e)
+				{
+					throw new Twig_Error_Syntax($e->getMessage());
+				} catch (Twig_Error_Runtime $e)
+				{
+					// Ignore Runtime Errors
+				}
 				break;
 			case 'boolean':
 				$value = (bool) $value ;

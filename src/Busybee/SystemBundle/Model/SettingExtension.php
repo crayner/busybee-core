@@ -37,6 +37,7 @@ class SettingExtension extends \Twig_Extension
             new \Twig_SimpleFunction('get_menu', array($this, 'getMenu')),
             new \Twig_SimpleFunction('get_menuItems', array($this, 'getMenuItems')),
             new \Twig_SimpleFunction('test_menuItem', array($this, 'testMenuItem')),
+            new \Twig_SimpleFunction('menu_required', array($this, 'menuRequired')),
         );
     }
 
@@ -84,6 +85,11 @@ class SettingExtension extends \Twig_Extension
     public function testMenuItem($test)
     {
         return $this->container->get('menu.manager')->testMenuItem($test);
+    }
+
+    public function menuRequired($menu)
+    {	
+		return $this->container->get('menu.manager')->menuRequired($menu);
     }
 
     public function getName()

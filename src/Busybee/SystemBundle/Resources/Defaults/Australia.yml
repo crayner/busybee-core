@@ -1,0 +1,47 @@
+# Australian Default Settings
+name: 'Australia.yml'
+settings:
+    Address.Format: |
+        <pre>{% if propertyName is not empty %}{{ propertyName }}
+        {% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}
+        {{ locality }} {{ territory }} {{ postCode }}
+        {{ country }}</pre>
+    Address.ListLabel: "{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}"
+    Person.GenderList:
+        'Unspecified': 'U'
+        'Male': 'M'
+        'Female': 'F'
+        'Other': '0'
+    Address.TerritoryList:
+        'Not Specified': '@@'
+        'New South Wales': 'NSW'
+        'Victoria': 'VIC'
+        'Queensland': 'QLD'
+        'South Australia': 'SA'
+        'Western Australia': 'WA'
+        'Tasmania': 'TAS'
+        'Northern Territory': 'NT'
+        'Australian Capital Territory': 'ACT'
+        'Overseas Australian Territory': 'OAT'
+        'Overseas': 'OS'
+    Address.BuildingType:
+        'Not Specified':  ''
+        'Flat': 'Flat'
+        'Unit':  'Unit'
+        'Apartment':  'Apt'
+        'Town House':  'THse'
+    Phone.TypeList:
+        'Home': 'Home'
+        'Mobile': 'Mobile'
+        'Work': 'Work'
+    Phone.CountryList:
+        'Australia +61': 61'
+    Phone.Validation: "/(^(1300|1800|1900|1902)[0-9]{6}$)|(^0[2|3|4|7|8]{1}[0-9]{8}$)|(^13[0-9]{4}$)/"
+    Phone.Display: |
+        {% set start = phone|slice(0,2) %}
+        {% set len = phone|length %}
+        {% if start in [02,03,07,08.09] %}
+        ({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}}{% elseif start in [18,13,04] and len == 10 %}
+        {{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}{% elseif start in [13] and len == 6 %}
+        {{ phone|slice(0,4)}} {{ phone|slice(4,3)}}{% else %}{{ phone }}{% endif %}
+    
