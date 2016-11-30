@@ -1,22 +1,21 @@
 <?php
-namespace Busybee\PersonBundle\Validator ;
+namespace Busybee\CampusBundle\Validator ;
 
 use Symfony\Component\Validator\Constraint;
 
-class Phone extends Constraint
+class InstituteName extends Constraint
 {
-    public $message = 'person.error.phone';
+    public $message = 'campus.error.institute.name';
 	
 	public function validatedBy()
 	{
-		return 'phone_validator' ; 
+		return 'institute_name_validator' ; 
 	}
 	
 	public function __construct()
 	{
 		parent::__construct();
 		$this->addImplicitGroupName('Default');
-		$this->addImplicitGroupName('SettingList');
 		return $this ;
 	}
 }

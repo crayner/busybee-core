@@ -5,6 +5,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\Yaml\Yaml ;
 use Twig_Error_Syntax ;
 use Twig_Error_Runtime ;
+use Symfony\Component\Form\Extension\Core\Type\NumberType ;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType ;
+use Symfony\Component\Validator\Constraints\Length ;
+use Busybee\PersonBundle\Validator\Phone ;
+use Busybee\CampusBundle\Validator\InstituteName ;
 
 /**
  * Setting Manager
@@ -334,5 +339,65 @@ class SettingManager
     public function validateSetting($value)
     {
 		return true ;
+	}
+
+	/**
+	 * Buold Form
+	 *
+	 * @version	30th November 2016
+	 * @since	30th November 2016
+	 * @param	form	$value
+	 * @param	array	$value
+	 * @return	form
+	 */
+    public function buildForm($form, $settings)
+    {
+		foreach($settings as $name=>$setting)
+		{
+			$details = $this->repo->findOneByName($setting['setting']);
+			$type = null ;
+			$options = 				array(
+					'data'	=> $details->getValue(),
+					'label'	=> $name . ' ( '.$details->getDisplayName().' )',
+					'attr'	=>	array(
+						'help'	=> $details->getDescription(),
+					),
+					'validation_groups' => array('Default'),
+				);
+			$options['constraints'] = array();
+			if (isset($setting['blank']) && $setting['blank']) $options['required'] = false ;
+			
+			if (isset($setting['length'])) $options['attr']['maxLength'] = $setting['length'] ;
+			if (isset($setting['minLength'])) $options['attr']['minLength'] = $setting['minLength'] ;
+			
+			if (! empty($details->getChoice()))
+			{
+				if ( 0 === strpos($details->getChoice(), 'parameter.'))
+				{
+					$options['choices'] = $this->container->getParameter(str_replace('parameter.', '', $details->getChoice()));
+				} else {
+					$options['choices'] = $this->get($details->getChoice());
+				}
+				$type = ChoiceType::class;
+			}
+			if (! is_null($validator = $details->getValidator()))
+			{
+				$validator = explode(',', $validator);
+				foreach ($validator as $w)
+					switch ($w)
+					{
+						case 'phone.validator':
+							array_push($options['constraints'], new Phone(array('groups'=>'Default')));
+							break ;
+						case 'institute.name.validator':
+							array_push($options['constraints'], new InstituteName(array('groups'=>'Default')));
+							break ;
+						default:
+							throw new \Exception('I cannot handle '.$w);
+					}
+			}
+			$form->add(str_replace('.', '_', $details->getName()), $type, $options);
+		}
+		return $form ;
 	}
 }

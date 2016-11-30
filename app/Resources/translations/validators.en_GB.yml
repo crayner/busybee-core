@@ -7,3 +7,7 @@ twig:
 person:
     error:
         phone: Not a valid phone number.
+campus:
+    error:
+        institute:
+            name: "The default name of 'Busybee Institute' must be changed."

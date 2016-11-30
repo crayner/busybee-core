@@ -1,31 +1,21 @@
 <?php
-namespace Busybee\PersonBundle\Validator\Constraints ;
+namespace Busybee\CampusBundle\Validator\Constraints ;
 
 use Symfony\Component\Validator\Constraint ;
 use Symfony\Component\Validator\ConstraintValidator as ConstraintValidatorBase ;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Busybee\SystemBundle\Setting\SettingManager ;
 
-class PhoneValidator extends ConstraintValidatorBase 
+class InstituteNameValidator extends ConstraintValidatorBase 
 {
-    private $sm ;
-	
 	public function validate($value, Constraint $constraint)
     {
-        
         if (empty($value))
             return ;
 
-		$pattern = $this->sm->get('Phone.Validation');
-
-		if (preg_match($pattern, $value) !== 1) {
+		if ($value === 'Busybee Institute') {
 			$this->context->buildViolation($constraint->message)
 				->addViolation();
 		}
     }
-		
-	public function __construct(SettingManager $sm)
-	{
-		$this->sm = $sm ;
-	}
 }
