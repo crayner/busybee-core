@@ -1,3 +1,4 @@
+# Campus
 services:
     campus.repository:
         class: Busybee\CampusBundle\Entity\CampusRepository
