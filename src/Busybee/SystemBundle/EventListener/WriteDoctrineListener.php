@@ -37,6 +37,15 @@ class WriteDoctrineListener implements EventSubscriberInterface
 		$entity->setCreatedBy($this->getCurrentUser());
 		$entity->setLastModified(new \Datetime('now'));
 		$entity->setModifiedBy($this->getCurrentUser());
+		
+		if (! is_null($entity->getCreatedBy()) && $entityManager->getUnitOfWork()->isScheduledForInsert($entity->getCreatedBy()))
+		{
+			$entityManager->detach($entity->getCreatedBy());
+		}
+		if (! is_null($entity->getModifiedBy()) && $entityManager->getUnitOfWork()->isScheduledForInsert($entity->getModifiedBy()))
+		{
+			$entityManager->detach($entity->getModifiedBy());
+		}
 	}
 
     public function preUpdate(LifecycleEventArgs $args)
@@ -46,6 +55,12 @@ class WriteDoctrineListener implements EventSubscriberInterface
 		;
 		$entity->setLastModified(new \Datetime('now'));
 		$entity->setModifiedBy($this->getCurrentUser());
+
+		if (! is_null($entity->getModifiedBy()) && $entityManager->getUnitOfWork()->isScheduledForInsert($entity->getModifiedBy()))
+		{
+			$entityManager->detach($entity->getModifiedBy());
+		}
+
 		if ($entity instanceof \Busybee\SystemBundle\Entity\Setting)
 		{
 			if ($entity->getSecurityActive())
@@ -68,7 +83,8 @@ class WriteDoctrineListener implements EventSubscriberInterface
 			if ($token instanceof TokenInterface)
 				$this->user = $token->getUser();
 		} 
-		if (! $this->user instanceof User) $this->user = null;
+		if (! $this->user instanceof User) 
+			$this->user = $this->container->get('user.repository')->find(1) ;
 		return $this->user;
 	}
 }

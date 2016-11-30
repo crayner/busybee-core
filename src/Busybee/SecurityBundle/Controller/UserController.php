@@ -44,7 +44,6 @@ class UserController extends Controller
             return $event->getResponse();
         }
 
-     
         $form = $this->createForm( 'Busybee\SecurityBundle\Form\RegisterType', $user);
         $form->add('locked', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
                  	'data' 					=> 0
@@ -53,7 +52,9 @@ class UserController extends Controller
 			->add('enabled', 'Busybee\FormBundle\Type\YesNoType', array(
                  	'data' 					=> true,
 					'label'					=> 'register.enabled.label',
-					'help'					=> 'register.enabled.description',
+					'attr'					=> array(
+						'help'					=> 'register.enabled.description',
+					),
             	)
 			)
 			->add('expired', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
@@ -213,7 +214,9 @@ class UserController extends Controller
 		if ($id > 0)
 			$form->add('enabled', 'Busybee\FormBundle\Type\YesNoType', array(
 					'label'					=> 'register.enabled.label',
-					'help'					=> 'register.enabled.description',
+					'attr'					=> array(
+						'help'					=> 'register.enabled.description',
+					),
 					'data'					=> true,
             	)
 			);

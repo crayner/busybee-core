@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\Yaml\Dumper ;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
+use Doctrine\DBAL\DBALException ;
 
 class DefaultController extends Controller
 {

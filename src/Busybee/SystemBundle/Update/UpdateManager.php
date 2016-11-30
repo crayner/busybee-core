@@ -30,6 +30,11 @@ class UpdateManager
 	private	$sm ;
 	
 	/**
+	 * @var	User
+	 */
+	private	$user ;
+	
+	/**
 	 * Constructor
 	 *
 	 * @version	23rd October 2016
@@ -42,8 +47,9 @@ class UpdateManager
 		$this->container = $container ;
 		$this->version = new stdClass();
 		$this->version->shouldBe = $this->container->getParameter('version');
-		$this->sm = $this->container->get('system.setting.repository');
-		$this->sm->setCurrentUser($this->container->get('security.token_storage')->getToken()->getUser());
+		$this->sm = $this->container->get('setting.manager');
+		$this->user = $this->container->get('security.token_storage')->getToken()->getUser();
+		$this->sm->setCurrentUser($this->user);
 		$this->version->current = array();
 		$this->version->current['system'] = $this->sm->getSetting('version.system', '0.0.00');
 		$this->version->current['database'] = $this->sm->getSetting('version.database', '0.0.00');
@@ -153,12 +159,12 @@ class UpdateManager
 			}
 			$sysVersion = $this->incrementVersion($sysVersion);
 		}
-		
+
 		$this->sm->setSetting('Version.Database', $this->version->shouldBe['database'])
 			->setSetting('Version.System', $this->version->shouldBe['system']);
  
-		$this->version->current['system'] = $this->sm->getSetting('version.system', $this->version->shouldBe['system']);
-		$this->version->current['database'] = $this->sm->getSetting('version.database', $this->version->shouldBe['database']);
+		$this->version->current['system'] = $this->sm->getSetting('Version.System', $this->version->shouldBe['system']);
+		$this->version->current['database'] = $this->sm->getSetting('Version.Database', $this->version->shouldBe['database']);
 
 	}
 }

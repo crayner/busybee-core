@@ -106,8 +106,8 @@ class PersonListener
 				return ;
 			}
 			if (is_null($address2)) return ;
-dump($address1);
-dump($address2);			
+
+			
 			if ($address1->getId() == $address2->getId())
 			{
 				$entity->setAddress2(null);

@@ -112,6 +112,7 @@ Busybee\SecurityBundle\Entity\User:
         directroles:
             targetEntity: Busybee\SecurityBundle\Entity\Role
             nullable: true 
+            cascade: [persist]
             joinTable:
                 name: secure_users_to_roles
                 joinColumns:

@@ -197,4 +197,9 @@ abstract class User implements UserInterface
 	{
 		return $this->getUsername();
 	}
+	
+	public function __toString()
+	{
+		return $this->getId().'-'.$this->getUsername();
+	}
 }

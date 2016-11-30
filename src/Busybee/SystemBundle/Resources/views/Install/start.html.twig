@@ -1,15 +1,13 @@
 {# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
+{% block menuContainer %}
+{% endblock menuContainer %}
 
 {% trans_default_domain 'BusybeeSystemBundle' %}
 {% block title %}Busybee - {{ 'system.install.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
-
-{% block menuContainer %}
-	{{ include('BusybeeHomeBundle:Menu:empty-menu.html.twig') }}
-{% endblock menuContainer %}
 
 {% block contentContainer %}
 

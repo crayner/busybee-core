@@ -8,13 +8,13 @@ parameters:
             order: 1
             menu: 1
     items:
-        10:
+        19:
             name: User Manage
             label: menu.site.security.user
             role: ROLE_USER
             node: 1
-            order: 10
-            menu: 10
+            order: 19
+            menu: 19
         11:
             name: Update
             label: menu.site.update
@@ -22,6 +22,11 @@ parameters:
             node: 1
             route: update_start
             order: 11
+            test:
+                value1: test.update.available
+                value2: true
+                comparitor: ==
+                default1: false
         12:
             name: Manage Setting
             label: menu.site.setting.manage
@@ -30,54 +35,28 @@ parameters:
             route: setting_manage
             order: 12
             menu: 12
-        13:
-            name: Plugin Manager
-            label: menu.site.plugin.base
-            role: ROLE_ADMIN
-            node: 1
-            order: 13
-            menu: 13
-        100:
+        190:
             label: menu.site.security.edit
             role: ROLE_USER
-            node: 10
+            node: 19
             route: busybee_security_user_edit
             parameters:
                 'id': '0'
             order: 100
-        101:
+        191:
             name: Register User:
             label: menu.site.security.register
             grant: ROLE_REGISTRAR
             route: busybee_security_user_register
-            node: 10
+            node: 19
             order: 101
-        102:
+        192:
             name: Current User:
             label: menu.site.security.user
             grant: ROLE_REGISTRAR
             route: busybee_security_user_list
-            node: 10
+            node: 19
             order: 102
-        15:
-            name: Settings
-            label: menu.site.settings
-            role: ROLE_REGISTRAR
-            node: 1
-            order: 15
-            menu: 15
-        130:
-            name: Plugin Manager
-            label: menu.site.plugin.manage
-            role: ROLE_ADMIN
-            node: 13
-            order: 130
-            route: plugin_manage
-            test:
-                value1: test.plugin.manage
-                value2: true
-                comparitor: ==
-                default1: false
         120:
             name: Manage Individual Setting
             label: menu.site.setting.individual

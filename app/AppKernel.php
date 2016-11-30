@@ -2,6 +2,7 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Finder\Finder ;
 
 class AppKernel extends Kernel
 {
@@ -22,7 +23,7 @@ class AppKernel extends Kernel
             new Busybee\FormBundle\BusybeeFormBundle(),
             new Busybee\PaginationBundle\PaginationBundle(),
             new Busybee\PersonBundle\BusybeePersonBundle(),
-//            new Busybee\Plugin\AVETMISSBundle\BusybeeAVETMISSBundle(),
+            new Busybee\Plugin\AVETMISSBundle\BusybeeAVETMISSBundle(),
             new Busybee\CampusBundle\BusybeeCampusBundle(),
             new Busybee\CurriculumBundle\BusybeeCurriculumBundle(),
         );
@@ -34,7 +35,24 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 
-        return $bundles;
+		$searchPath = __DIR__.'/../src/Busybee/Plugin';
+        $finder     = new Finder();
+        $finder->files()
+               ->in($searchPath)
+               ->name('*Bundle.php');
+		
+		foreach ($finder as $file) {
+            $path       = substr($file->getRealpath(), strrpos($file->getRealpath(), "src/Busybee/Plugin") + 18);
+            $parts      = array_merge(array('Busybee', 'Plugin'), explode('/', $path));
+            $class      = array_pop($parts);
+            $namespace  = str_replace('\\\\', '\\', implode('\\', $parts));
+            $class      = str_replace('\\\\', '\\', $namespace.'\\'.$class);
+            //remove first slash and .php
+            $class = ltrim(str_replace('.php', '', $class), '\\');
+//            $bundles[]  = new $class();
+        }
+        
+		return $bundles;
     }
 
     public function getRootDir()

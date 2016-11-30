@@ -4,7 +4,7 @@ parameters:
 #    parameter_name: value
 
 services:
-    kernel.listener.your_pdo_listener:
-        class: Busybee\SystemBundle\EventListener\PDOConnectionListener
+    advanced_routing_loader:
+        class: Busybee\SystemBundle\Router\AdvancedLoader
         tags:
-           - { name: kernel.event_listener, event: kernel.exception, method: onPdoException }
+            - { name: routing.loader }

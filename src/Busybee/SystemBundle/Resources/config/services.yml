@@ -73,6 +73,10 @@ services:
         class: Busybee\SystemBundle\Setting\SettingManager
         arguments: 
             - "@my_service_container"
+    plugin.manager:
+        class: Busybee\SystemBundle\Plugin\PluginManager
+        arguments: 
+            - "@my_service_container"
     setting.pagination:
         class: Busybee\SystemBundle\Model\SettingPagination
         arguments: 
@@ -98,3 +102,13 @@ services:
         class: Busybee\SystemBundle\Model\Test\TestPluginInstalled
         arguments:
             - '@my_service_container'
+    test.update.available:
+        class: Busybee\SystemBundle\Model\Test\TestUpdateAvailable
+        arguments:
+            - '@my_service_container'
+    system.SettingListType:
+        class: Busybee\SystemBundle\Form\SettingListType
+        arguments:
+            - '@setting.manager'
+        tags: 
+            - { name: form.type }    

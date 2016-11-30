@@ -2,10 +2,10 @@
 parameters:
     nodes: []
     items:
-        150:
+        122:
             label: menu.campus.manage
             name: Campus Management
-            node: 15
-            order: 150
+            node: 12
+            order: 122
             route: campus_manage
             

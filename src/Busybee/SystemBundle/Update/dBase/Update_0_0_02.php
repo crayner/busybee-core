@@ -202,7 +202,7 @@ class Update_0_0_02 implements UpdateInterface
 {% elseif start in [18,13,04] and len == 10 %}
 {{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}
 {% elseif start in [13] and len == 6 %}
-{{ phone|slice(0,4)}} {{ phone|slice(4,3)}}
+{{ phone|slice(0,2)}} {{ phone|slice(2)}}
 {% else %}
 {{ phone }}
 {% endif %}
@@ -237,7 +237,7 @@ class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('text');
 		$entity->setValue('');
-		$entity->setName('Org.Postal.Addess.1');
+		$entity->setName('Org.Postal.Address.1');
 		$entity->setDisplayName('Organisation Postal Address Line 1');
 		$entity->setDescription("First line of this organisation's postal address.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -277,17 +277,18 @@ class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('');
-		$entity->setName('Oranisation.Postal.Territory');
+		$entity->setName('Org.Postal.Territory');
 		$entity->setDisplayName('Organisation Postal Territory');
 		$entity->setDescription("Territory of this organisation's postal address. (State, Province, County)");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+		$entity->setChoice('Address.TerritoryList');
 
 		$this->sm->saveSetting($entity);
 		//18
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('text');
 		$entity->setValue('');
-		$entity->setName('Oganisation.Contact.Name');
+		$entity->setName('Org.Contact.Name');
 		$entity->setDisplayName('Organisation Contact');
 		$entity->setDescription("The name of the person to contact in this organisation.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -301,6 +302,7 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setDisplayName('Organisation Contact Phone Number');
 		$entity->setDescription("The phone number of the person to contact in this organisation.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+		$entity->setValidator('phone');
 
 		$this->sm->saveSetting($entity);
 		//20
@@ -327,7 +329,7 @@ class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('text');
 		$entity->setValue('');
-		$entity->setName('Org.Physical.Addess.1');
+		$entity->setName('Org.Physical.Address.1');
 		$entity->setDisplayName('Organisation Physical Address Line 1');
 		$entity->setDescription("First line of this organisation's physical address.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
@@ -367,10 +369,11 @@ class Update_0_0_02 implements UpdateInterface
 		$entity = new \Busybee\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('');
-		$entity->setName('Oranisation.Physical.Territory');
+		$entity->setName('Org.Physical.Territory');
 		$entity->setDisplayName('Organisation Physical Territory');
 		$entity->setDescription("Territory of this organisation's physical address. (State, Province, County)");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+		$entity->setChoice('Address.TerritoryList');
 
 		$this->sm->saveSetting($entity);
 		//27

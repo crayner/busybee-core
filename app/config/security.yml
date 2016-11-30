@@ -35,6 +35,10 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
+#        install:
+#            pattern: ^/(?!(.))
+#            pattern: ^/system/install/
+#            security: false
         default: 
             pattern: ^/
             form_login:

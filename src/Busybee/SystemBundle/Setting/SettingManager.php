@@ -18,6 +18,7 @@ class SettingManager
 	private	$repo ;
 	private	$container ;
 	private	$setting ;
+	private	$currentUser ;
 
     public function __construct(Container $container)
     {
@@ -88,8 +89,7 @@ class SettingManager
 	 */
 	public function saveSetting(\Busybee\SystemBundle\Entity\Setting $setting)
 	{
-		$setting->setUser($this->getCurrentUser());
-		if (is_null($this->getCurrentUser()) || true !== ($response = $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($setting->getRole()->getRole())))
+		if (true !== ($response = $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($setting->getRole()->getRole())))
 			return $response;
 			
 		$em = $this->container->get('doctrine')->getManager();
@@ -102,23 +102,33 @@ class SettingManager
 	 */
 	public function getCurrentUser()
 	{
-		return $this->container->get('security.token_storage')->getToken()->getUser() ?: null;
+		return $this->currentUser ;
+	}
+
+	/**
+	 * @{inheritdoc}
+	 */
+	public function setCurrentUser(\Busybee\SecurityBundle\Entity\User $user = null)
+	{
+		$this->currentUser = $user;
+		
+		return $this ;
 	}
 
 	/**
 	 * set Setting
 	 *
-	 * @version	31st October 2016
+	 * @version	30th November 2016
 	 * @since	21st October 2016
 	 * @param	string	$name
 	 * @param	mixed	$value
-	 * @return	this
+	 * @return	Setting Manager
 	 */
     public function setSetting($name, $value)
     {
         $this->setting = $this->repo->findOneByName($name);
 		if (is_null($this->setting) || is_null($this->setting->getName()))
-			return null;
+			return $this;
 		if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole()->getRole())) return $this;
 		switch ($this->setting->getType())
 		{
@@ -150,7 +160,8 @@ class SettingManager
 			default:
 				throw new \Exception('The Setting Type ('.$this->setting->getType().') has not been defined.');
 		}
-		$this->setting->setValue($value);
+		if ($this->validateSetting($value))
+			$this->setting->setValue($value);
 		$this->saveSetting($this->setting);
 		return $this ;
     }
@@ -294,5 +305,34 @@ class SettingManager
 		else
 			$list = $this->get($choice);
 		return $list;
+	}
+	
+	/**
+	 * create Setting
+	 *
+	 * @version	21st October 2016
+	 * @since	21st October 2016
+	 * @param	Container	
+	 * @return	SettingManager
+	 */
+	public function createSetting(\Busybee\SystemBundle\Entity\Setting $setting)
+	{
+		$em = $this->container->get('doctrine')->getManager();
+		$em->persist($setting);
+		$em->flush();
+		return $this ;
+	}
+
+	/**
+	 * Validate Setting
+	 *
+	 * @version	30th November 2016
+	 * @since	30th November 2016
+	 * @param	mixed	$value
+	 * @return	boolean
+	 */
+    public function validateSetting($value)
+    {
+		return true ;
 	}
 }

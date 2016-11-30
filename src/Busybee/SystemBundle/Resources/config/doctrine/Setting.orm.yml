@@ -29,13 +29,16 @@ Busybee\SystemBundle\Entity\Setting:
             unique: true
             column: display_name
         description:
-            type: string
-            length: '255'
+            type: text
         value:
             type: text
         choice:
             type: string
             length: '50'
+            nullable: true
+        validator:
+            type: string
+            length: '255'
             nullable: true
         lastModified:
             type: datetime
@@ -50,7 +53,6 @@ Busybee\SystemBundle\Entity\Setting:
             joinColumns:
                 createdBy:
                     referencedColumnName: id
-                    
         modifiedBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             nullable: true
@@ -59,7 +61,7 @@ Busybee\SystemBundle\Entity\Setting:
                     referencedColumnName: id
         role:
             targetEntity: Busybee\SecurityBundle\Entity\Role
+            cascade: [persist]
             joinColumns:
                 role_id:
                     referencedColumnName: id
-                    nullable: false 

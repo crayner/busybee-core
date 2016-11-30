@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml ;
 use Symfony\Component\Form\FormError ;
+use InvalidArgumentException ;
 
 class SettingController extends Controller
 {
@@ -30,15 +31,17 @@ class SettingController extends Controller
 
     public function editNameAction($name, Request $request)
     {
-		$setting = $this->get('setting.repository')->findOneBy(array('name' => $name));
+		$setting = $this->get('setting.repository')->findOneByName($name);
 
+		if (is_null($setting)) throw new InvalidArgumentException('The System setting of name: '.$name.' was not found');
 		return $this->editAction($setting->getId(), $request);
 	}
 	
     public function editAction($id, Request $request)
     {
-		$setting = $this->get('setting.repository')->findOneBy(array('id' => $id));
+		$setting = $this->get('setting.repository')->findOneById($id);
 
+		if (is_null($setting)) throw new InvalidArgumentException('The System setting of identifier: '.$id.' was not found');
 		$this->denyAccessUnlessGranted($setting->getRole()->getRole(), null, 'Unable to access this page!');
 
 		$sm = $this->get('setting.manager');

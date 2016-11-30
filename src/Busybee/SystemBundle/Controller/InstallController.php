@@ -16,6 +16,8 @@ use Busybee\SecurityBundle\Entity\User ;
 use Busybee\SecurityBundle\Entity\Role ;
 use Busybee\SecurityBundle\Entity\Group ;
 use Symfony\Component\Intl\Intl;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class InstallController extends Controller
 {
@@ -256,6 +258,8 @@ class InstallController extends Controller
 			$config->misc->session_remember_me_name = $config->misc->session_name . '_remember';  
 		}
 		$config->misc->session_max_idle_time = $config->misc->session_max_idle_time < 300 ? 900 : $config->misc->session_max_idle_time;
+		$config->misc->country = empty($params['parameters']['country']) ? null : $params['parameters']['country'] ;
+
 		if (empty($config->misc->country))
 			$config->proceed = false ;
 		if ($config->misc->signin_count_minimum < 3 || $config->misc->signin_count_minimum > 10)
@@ -335,7 +339,10 @@ class InstallController extends Controller
 		else
 		{
 			if ($valid)
-				$this->get('session')->getFlashBag()->set('success', 'success.save.parameters');
+			{
+				$session = $this->get('session');
+				$session->getFlashBag()->set('success', 'success.save.parameters');
+			}
 			return new RedirectResponse($this->generateUrl('install_misc_check'));
 		}
 	}
@@ -376,53 +383,54 @@ class InstallController extends Controller
 			$newEm->flush();
 		}
 		
+        $this->entity = $this->findOrCreateRole('ROLE_STAFF', $newEm);
+       	if (intval($this->entity->getId()) == 0) {
+			$newEm->persist($this->entity);
+			$newEm->flush();
+		}
+
         $this->entity = $this->findOrCreateRole('ROLE_TEACHER', $newEm);
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneBy(array('role' => 'ROLE_STUDENT')));
-			$this->entity->addChildrenRole($repos->findOneBy(array('role' => 'ROLE_ALLOWED_TO_SWITCH')));
+			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_STUDENT'));
+			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_ALLOWED_TO_SWITCH'));
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
 		
         $this->entity = $this->findOrCreateRole('ROLE_HEAD_TEACHER', $newEm);
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneBy(array('role' => 'ROLE_TEACHER')));
+			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_TEACHER'));
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
 		
         $this->entity = $this->findOrCreateRole('ROLE_PRINCIPAL', $newEm);
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneBy(array('role' => 'ROLE_HEAD_TEACHER')));
+			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_HEAD_TEACHER'));
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
 		
         $this->entity = $this->findOrCreateRole('ROLE_ADMIN', $newEm);
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneBy(array('role' => 'ROLE_PARENT')));
-			$this->entity->addChildrenRole($repos->findOneBy(array('role' => 'ROLE_ALLOWED_TO_SWITCH')));
+			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_PARENT'));
+			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_ALLOWED_TO_SWITCH'));
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
 		
         $this->entity = $this->findOrCreateRole('ROLE_REGISTRAR', $newEm);
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneBy(array('role' => 'ROLE_PRINCIPAL')));
-			$this->entity->addChildrenRole($repos->findOneBy(array('role' => 'ROLE_ADMIN')));
+			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_PRINCIPAL'));
+			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_ADMIN'));
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
 		
         $this->entity = $this->findOrCreateRole('ROLE_SYSTEM_ADMIN', $newEm);
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneBy(array('role' => 'ROLE_REGISTRAR')));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateRole('ROLE_STAFF', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
+			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_ADMIN'));
+			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_REGISTRAR'));
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
@@ -442,42 +450,47 @@ class InstallController extends Controller
 			$this->entity->setCredentialsExpired(false);
 			$this->entity->setEnabled(true);
 			$repos = $newEm->getRepository('BusybeeSecurityBundle:Role');
-			$this->entity->addDirectrole($repos->findOneBy(['role' => 'ROLE_SYSTEM_ADMIN']));
+			$this->entity->addDirectrole($repos->findOneByRole('ROLE_SYSTEM_ADMIN'));
 			$encoder = $this->get('security.password_encoder');
-			$encoded = $encoder->encodePassword($this->entity, $user['password']);
-			$this->entity->setPassword($encoded); 
+			$password = $encoder->encodePassword($this->entity, $user['password']);
+			$this->entity->setPassword($password); 
 	
 			$newEm->persist($this->entity);
 			$newEm->flush(); 
 		}
 
-		$repos = $newEm->getRepository('BusybeeSecurityBundle:Role');
+        $user = $newEm->getRepository('BusybeeSecurityBundle:User')->find(1);
 
+		$session = $this->get('session');
+       // Here, "default" is the name of the firewall in your security.yml
+        $token = new UsernamePasswordToken($user, null, "default", $user->getRoles());
+
+        $this->get('security.token_storage')->setToken($token);
 
         $this->entity = $this->findOrCreateGroup('Parent', $newEm);
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addRole($repos->findOneBy(array('role' => 'ROLE_PARENT')));
+			$this->entity->addRole($repos->findOneByRole('ROLE_PARENT'));
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
 		
         $this->entity = $this->findOrCreateGroup('Student', $newEm);
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addRole($repos->findOneBy(array('role' => 'ROLE_STUDENT')));
+			$this->entity->addRole($repos->findOneByRole('ROLE_STUDENT'));
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
 		
         $this->entity = $this->findOrCreateGroup('Teaching Staff', $newEm);
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addRole($repos->findOneBy(array('role' => 'ROLE_TEACHER')));
+			$this->entity->addRole($repos->findOneByRole('ROLE_TEACHER'));
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
 		
         $this->entity = $this->findOrCreateGroup('Non Teaching Staff', $newEm);
        	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addRole($repos->findOneBy(array('role' => 'ROLE_STAFF')));
+			$this->entity->addRole($repos->findOneByRole('ROLE_STAFF'));
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
@@ -493,16 +506,10 @@ class InstallController extends Controller
 		unset($w['parameters']['user']);
 	
 		file_put_contents($this->get('kernel')->getRootDir().'/config/parameters.yml', Yaml::dump($w));
-		
+
 		$this->get('session')->getFlashBag()->add('success', 'buildDatabase.success');
 
-		$um = $this->get('system.update.manager');
-	
-		$um->build();
-		$um->getVersion();
-		$um->getUpdateDetails();
-
-		return new RedirectResponse($this->generateUrl('home_page'));
+		return new RedirectResponse($this->generateUrl('update_start'));
 	}
 
   /**

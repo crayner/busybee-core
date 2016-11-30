@@ -10,8 +10,11 @@ class PluginController extends Controller
 	public function managerAction()
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
-		
 
+		$pm = $this->get('plugin.manager');
+		
+		$pm->managePlugins();		
+dump($pm);
         return $this->render('SystemBundle:Plugin:manage.html.twig');
 	}
 

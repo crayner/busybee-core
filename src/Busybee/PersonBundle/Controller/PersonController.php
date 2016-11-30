@@ -111,7 +111,14 @@ class PersonController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-dump($person);
+			foreach($formDefinition as $defined)
+			{
+				$req = isset($defined['request']['post']) ? $defined['request']['post'] : null ;
+				if (! is_null($req) && isset($person->$req))
+				{
+					$em->persist($person->$req);
+				}
+			}
 			$em->persist($person);
 			$em->flush();
 			$id = $person->getId();

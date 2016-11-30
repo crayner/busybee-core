@@ -40,8 +40,12 @@ settings:
     Phone.Display: |
         {% set start = phone|slice(0,2) %}
         {% set len = phone|length %}
-        {% if start in [02,03,07,08.09] %}
-        ({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}}{% elseif start in [18,13,04] and len == 10 %}
-        {{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}{% elseif start in [13] and len == 6 %}
-        {{ phone|slice(0,4)}} {{ phone|slice(4,3)}}{% else %}{{ phone }}{% endif %}
-    
+        {% if start in [02,03,07,08,09] %}
+        ({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}}
+        {% elseif start in [18,13,04] and len == 10 %}
+        {{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}
+        {% elseif start in [13] and len == 6 %}
+        {{ phone|slice(0,2)}} {{ phone|slice(2)}}
+        {% else %}
+        {{ phone }}
+        {% endif %}    

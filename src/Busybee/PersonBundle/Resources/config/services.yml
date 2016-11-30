@@ -144,4 +144,5 @@ services:
             - '@setting.manager'
         tags:
             - { name: validator.constraint_validator, alias: phone_validator }
-            - { name: validator.constraint_validator, alias: alias_name }
+    phone.validator:
+        class: Busybee\PersonBundle\Validator\Phone

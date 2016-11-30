@@ -22,7 +22,8 @@ busybee_curriculum:
     resource: "@BusybeeCurriculumBundle/Resources/config/routing.yml"
     prefix:   /curriculum/
 
-#busybee_avetmiss:
-#    resource: "@BusybeeAVETMISSBundle/Resources/config/routing.yml"
-#    prefix:   /avetmiss/
+busybee_plugin:
+    resource: .
+    type: advanced_extra
+
 

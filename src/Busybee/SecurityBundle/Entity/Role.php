@@ -215,4 +215,14 @@ class Role implements \Symfony\Component\Security\Core\Role\RoleInterface
     {
         return $this->modifiedBy;
     }
+
+    /**
+     * to String
+     *
+     * @return \Busybee\SecurityBundle\Entity\User
+     */
+    public function __toString()
+    {
+        return $this->getRole();
+    }
 }

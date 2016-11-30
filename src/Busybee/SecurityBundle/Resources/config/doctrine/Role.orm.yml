@@ -44,6 +44,7 @@ Busybee\SecurityBundle\Entity\Role:
         childrenRoles:
             targetEntity: Busybee\SecurityBundle\Entity\Role
             nullable: true 
+            cascade: [persist]
             joinTable:
                 name: secure_role_children
                 joinColumns: 

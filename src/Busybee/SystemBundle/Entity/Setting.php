@@ -2,10 +2,12 @@
 
 namespace Busybee\SystemBundle\Entity;
 
+use Busybee\SystemBundle\Model\SettingModel ;
+
 /**
  * Setting
  */
-class Setting
+class Setting extends SettingModel
 {
     /**
      * @var integer
@@ -36,11 +38,6 @@ class Setting
      * @var \DateTime
      */
     private $createdOn;
-
-    /**
-     * @var \Busybee\SecurityBundle\Entity\User
-     */
-    private $user;
 
     /**
      * @var boolean
@@ -181,30 +178,7 @@ class Setting
     {
         return $this->createdOn;
     }
-
-    /**
-     * Set user
-     *
-     * @param \Busybee\SecurityBundle\Entity\User $user
-     *
-     * @return Setting
-     */
-    public function setUser(\Busybee\SecurityBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Busybee\SecurityBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
+	
     /**
      * @var \Busybee\SecurityBundle\Entity\Role
      */
@@ -397,5 +371,34 @@ class Setting
     public function getChoice()
     {
         return $this->choice;
+    }
+    /**
+     * @var string
+     */
+    private $validator;
+
+
+    /**
+     * Set validator
+     *
+     * @param string $validator
+     *
+     * @return Setting
+     */
+    public function setValidator($validator)
+    {
+        $this->validator = $validator;
+
+        return $this;
+    }
+
+    /**
+     * Get validator
+     *
+     * @return string
+     */
+    public function getValidator()
+    {
+        return $this->validator;
     }
 }

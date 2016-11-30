@@ -19,7 +19,23 @@ class UpdateController extends Controller
 		$config->version = $um->getVersion();
 		$config->dbUpdate = $um->getUpdateDetails();
 		
-        return $this->render('SystemBundle:Update:index.html.twig', array('config' => $config));
+		$sm = $this->get('setting.manager');
+		if (! $sm->get('Installed'))
+		{
+			$role = $this->get('security.role.repository');
+
+			$entity = new \Busybee\SystemBundle\Entity\Setting();
+			$entity->setType('boolean');
+			$entity->setValue(true);
+			$entity->setName('Installed');
+			$entity->setDisplayName('System Installed');
+			$entity->setDescription('A flag showing the system has finished installing.');
+			$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+	
+			$sm->createSetting($entity);
+		}
+        
+		return $this->render('SystemBundle:Update:index.html.twig', array('config' => $config));
     }
 
     public function databaseAction()

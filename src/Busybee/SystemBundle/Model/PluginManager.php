@@ -42,7 +42,7 @@ abstract class PluginManager implements UpdateInterface
 	public function __construct(Container $container)
 	{
 		$this->container = $container ;
-		$this->sm = $this->container->get('system.setting.repository');
+		$this->sm = $this->container->get('setting.manager');
 		$this->sm->setCurrentUser($this->container->get('security.token_storage')->getToken()->getUser());
 		$this->em = $container->get('doctrine')->getManager();
 		return $this ;

@@ -2,7 +2,6 @@
 
 {% trans_default_domain "BusybeeHomeBundle" %}
 
-{% block navigation %}
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
@@ -15,12 +14,12 @@
 			<a class="navbar-brand" href="{{ path('home_page') }}">{% block projectname %}Busybee{% endblock projectname %}</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
-		<ul class="nav navbar-nav">
-			{% include "BusybeeHomeBundle:Menu:site-menu.html.twig" %}			
-		</ul>
-		{% include 'BusybeeHomeBundle:Menu:sign-in-form.html.twig' %}
-
+			{% block dynamicMenu %}
+			<ul class="nav navbar-nav">
+				{% include "BusybeeHomeBundle:Menu:site-menu.html.twig" %}			
+			</ul>
+			{% include 'BusybeeHomeBundle:Menu:sign-in-form.html.twig' %}
+			{% endblock dynamicMenu %}
 		</div><!--/.navbar-collapse -->
 	</div>
 </nav>
-{% endblock navigation %}

@@ -1,19 +1,13 @@
 {# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
-
-{% block stylesheets %}
-{{ parent() }}
-	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
-{% endblock stylesheets %}
-
+{% block menuContainer %}
+{% endblock menuContainer %}
 
 {% trans_default_domain 'BusybeeSystemBundle' %}
 {% block title %}Busybee - {{ 'system.install.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
-
-
 
 {% block contentContainer %}
 	<div class="row">
@@ -26,8 +20,6 @@
 			<div class="row">
 				<div class="well col-sm-6">
 					<div class="form-group">
-						<label for="transport">{{ 'mailer.transport.title'|trans }}</label><br />
-						<span>{{ 'mailer.transport.description'|trans }}</span>
 						<select id="transport" name="transport" class="form-control">
 							<option value=''{% if config.mailer.mailer_transport == '' %} selected{% endif %}>{{ 'mailer.transport.off'| trans }}</option>
 							<option value='smtp'{% if config.mailer.mailer_transport == 'smtp' %} selected{% endif %}>{{ 'mailer.transport.smtp'| trans }}</option>
@@ -35,6 +27,8 @@
 							<option value='sendmail'{% if config.mailer.mailer_transport == 'sendmail' %} selected{% endif %}>{{ 'mailer.transport.sendmail'| trans }}</option>
 							<option value='gmail'{% if config.mailer.mailer_transport == 'gmail' %} selected{% endif %}>{{ 'mailer.transport.gmail'| trans }}</option>
 						</select>
+						<label for="transport">{{ 'mailer.transport.title'|trans }}</label><br />
+						<span>{{ 'mailer.transport.description'|trans }}</span>
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token('mailer') }}" />
 					</div>
 				</div>
@@ -43,38 +37,38 @@
 			<div class="row" id="smtpMailer">
 				<div class="well col-sm-3">
 					<div class="form-group">
+						<input type="text" id="host" name="host" value="{{ config.mailer.mailer_host }}" class="form-control" >
 						<label for="host">{{ 'mailer.host.title'|trans }}</label><br />
 						<span>{{ 'mailer.host.description'|trans }}</span>
-						<input type="text" id="host" name="host" value="{{ config.mailer.mailer_host }}" class="form-control" >
 					</div>
 				</div>
 				<div class="well col-sm-3">
 					<div class="form-group">
+						<input type="number" id="port" name="port" value="{{ config.mailer.mailer_port }}" class="form-control" >
 						<label for="port">{{ 'mailer.port.title'|trans }}</label><br />
 						<span>{{ 'mailer.port.description'|trans }}</span>
-						<input type="number" id="port" name="port" value="{{ config.mailer.mailer_port }}" class="form-control" >
 					</div>
 				</div>
 				<div class="well col-sm-3">
 					<div class="form-group">
-						<label for="encryption">{{ 'mailer.encryption.title'|trans }}</label><br />
-						<span>{{ 'mailer.encryption.description'|trans }}</span>
 						<select id="encryption" name="encryption" value="{{ config.mailer.mailer_encryption }}" required class="form-control">
 							<option value=''>{{ 'mailer.encryption.none'| trans }}</option>
 							<option value='ssl'>{{ 'mailer.encryption.ssl'| trans }}</option>
 							<option value='tls'>{{ 'mailer.encryption.tls'| trans }}</option>
 						</select>
+						<label for="encryption">{{ 'mailer.encryption.title'|trans }}</label><br />
+						<span>{{ 'mailer.encryption.description'|trans }}</span>
 					</div>
 				</div>
 				<div class="well col-sm-3">
 					<div class="form-group">
-						<label for="auth_mode">{{ 'mailer.auth_mode.title'|trans }}</label><br />
-						<span>{{ 'mailer.auth_mode.description'|trans }}</span>
 						<select id="auth_mode" name="auth_mode" value="{{ config.mailer.mailer_auth_mode }}" required class="form-control">
 							<option value='plain'>{{ 'mailer.auth_mode.plain'| trans }}</option>
 							<option value='login'>{{ 'mailer.auth_mode.login'| trans }}</option>
 							<option value='cram-md5'>{{ 'mailer.auth_mode.cram-md5'| trans }}</option>
 						</select>
+						<label for="auth_mode">{{ 'mailer.auth_mode.title'|trans }}</label><br />
+						<span>{{ 'mailer.auth_mode.description'|trans }}</span>
 					</div>
 				</div>
 			</div>
@@ -82,16 +76,16 @@
 			<div class="row">
 				<div class="well col-sm-6">
 					<div class="form-group">
+						<input type="text" id="user" name="user" value="{{ config.mailer.mailer_user }}" required class="form-control" >
 						<label for="user">{{ 'mailer.user.title'|trans }}</label><br />
 						<span>{{ 'mailer.user.description'|trans }}</span>
-						<input type="text" id="user" name="user" value="{{ config.mailer.mailer_user }}" required class="form-control" >
 					</div>
 				</div>
 				<div class="well col-sm-6">
 					<div class="form-group">
+						<input type="text" id="password" name="password" value="{{ config.mailer.mailer_password }}" required class="form-control" >
 						<label for="password">{{ 'mailer.password.title'|trans }}</label><br />
 						<span>{{ 'mailer.password.description'|trans }}</span>
-						<input type="text" id="password" name="password" value="{{ config.mailer.mailer_password }}" required class="form-control" >
 					</div>
 				</div>
 			</div>
@@ -99,16 +93,16 @@
 			<div class="row">
 				<div class="well col-sm-6">
 					<div class="form-group">
+						<input type="text" id="sender_name" name="sender_name" value="{{ config.mailer.mailer_sender_name }}" required class="form-control" >
 						<label for="sender_name">{{ 'mailer.sender_name.title'|trans }}</label><br />
 						<span>{{ 'mailer.sender_name.description'|trans }}</span>
-						<input type="text" id="sender_name" name="sender_name" value="{{ config.mailer.mailer_sender_name }}" required class="form-control" >
 					</div>
 				</div>
 				<div class="well col-sm-6">
 					<div class="form-group">
+						<input type="text" id="sender_address" name="sender_address" value="{{ config.mailer.mailer_sender_address }}" required class="form-control" >
 						<label for="sender_address">{{ 'mailer.sender_address.title'|trans }}</label><br />
 						<span>{{ 'mailer.sender_address.description'|trans }}</span>
-						<input type="text" id="sender_address" name="sender_address" value="{{ config.mailer.mailer_sender_address }}" required class="form-control" >
 					</div>
 				</div>
 			</div>
