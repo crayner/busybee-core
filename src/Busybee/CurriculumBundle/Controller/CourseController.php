@@ -5,7 +5,7 @@ namespace Busybee\CurriculumBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-class ProgramController extends Controller
+class CourseController extends Controller
 {
     public function indexAction()
     {
@@ -17,6 +17,6 @@ class ProgramController extends Controller
 			$campus = $this->get('campus.repository')->findOneBy(array('id' => $id));   
 
 		$campus->cancelURL = $this->get('router')->generate('campus_manage');
-        return $this->render('BusybeeProgramBundle:Program:index.html.twig');
+        return $this->render('BusybeeProgramBundle:Course:index.html.twig');
     }
 }

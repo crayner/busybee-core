@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProgramType extends AbstractType
+class CourseType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -31,7 +31,7 @@ class ProgramType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'program';
+        return 'course';
     }
 
 

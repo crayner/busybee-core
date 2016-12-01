@@ -5,7 +5,7 @@ namespace Busybee\CurriculumBundle\Entity;
 /**
  * Program
  */
-class Program
+class Course
 {
     /**
      * @var integer
