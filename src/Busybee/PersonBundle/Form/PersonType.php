@@ -20,6 +20,7 @@ class PersonType extends AbstractType
 	 * @var	Busybee\SystemBundle\Setting\SettingManager 
 	 */
 	private $sm ;
+	
 	/**
 	 * @var	Doctrine\Common\Persistence\ObjectManager 
 	 */

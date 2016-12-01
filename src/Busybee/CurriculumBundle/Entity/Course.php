@@ -2,10 +2,11 @@
 
 namespace Busybee\CurriculumBundle\Entity;
 
+use Busybee\CurriculumBundle\Model\Course as CourseModel ;
 /**
- * Program
+ * Course
  */
-class Course
+class Course extends CourseModel
 {
     /**
      * @var integer
@@ -53,7 +54,7 @@ class Course
      *
      * @param string $name
      *
-     * @return Program
+     * @return Course
      */
     public function setName($name)
     {
@@ -77,7 +78,7 @@ class Course
      *
      * @param \DateTime $lastModified
      *
-     * @return Program
+     * @return Course
      */
     public function setLastModified($lastModified)
     {
@@ -101,7 +102,7 @@ class Course
      *
      * @param \DateTime $createdOn
      *
-     * @return Program
+     * @return Course
      */
     public function setCreatedOn($createdOn)
     {
@@ -125,7 +126,7 @@ class Course
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Program
+     * @return Course
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -149,7 +150,7 @@ class Course
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Program
+     * @return Course
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -166,5 +167,34 @@ class Course
     public function getModifiedBy()
     {
         return $this->modifiedBy;
+    }
+ 
+    /**
+     * @var string
+     */
+    private $version;
+
+    /**
+     * Set release
+     *
+     * @param string $version
+     *
+     * @return Course
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get version
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
     }
 }

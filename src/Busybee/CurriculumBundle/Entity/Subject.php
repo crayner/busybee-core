@@ -2,10 +2,12 @@
 
 namespace Busybee\CurriculumBundle\Entity;
 
+use Busybee\CurriculumBundle\Model\Subject as SubjectCore ;
+
 /**
  * Subject
  */
-class Subject
+class Subject extends SubjectCore
 {
     /**
      * @var integer
@@ -167,5 +169,33 @@ class Subject
     {
         return $this->modifiedBy;
     }
-}
+    /**
+     * @var string
+     */
+    private $version;
 
+
+    /**
+     * Set version
+     *
+     * @param string $version
+     *
+     * @return Subject
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get version
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+}

@@ -2,14 +2,9 @@ Busybee\CurriculumBundle\Entity\Subject:
     type: entity
     table: subject
     repositoryClass: Busybee\CurriculumBundle\Repository\SubjectRepository
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [name]
-            errorPath: name
-            message: 'subject.error.name.unique'
-#    indexes:
-#        type:
-#            columns: [ type, name ] 
+    uniqueConstraints:
+        name_version:
+            columns: [ name, version ]
     id:
         id:
             type: integer
@@ -19,7 +14,9 @@ Busybee\CurriculumBundle\Entity\Subject:
         name:
             type: string
             length: '100'
-            unique: true
+        version:
+            type: string
+            length: '10'
         lastModified:
             type: datetime
         createdOn:
