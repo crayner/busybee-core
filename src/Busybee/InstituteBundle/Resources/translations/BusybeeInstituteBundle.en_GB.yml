@@ -1,0 +1,55 @@
+campus:
+    title: Campus Management
+    description: Create, edit and remove Campus details.
+    label:
+        identifier: Campus Identifier 
+        name: Campus Name
+        locality: Campus Locality
+        territory: State, Provence or County
+        postcode: Post Code
+        country: Country
+        locations: Select a Location to edit
+    help:
+        identifier: (Must be unique.)
+        name: ''
+        locality: Suburb, Town or City.
+        territory: ''
+        postcode: ''
+        country: ''
+    placeholder:
+        locations: Select a Location
+'': ""
+years:
+    title: Institute Years Definitions
+    description: ''
+    list: Years
+    empty: There are no Years Defined.
+year:
+    add:
+        title: Add Year
+calendar:
+    title: Define Calendars
+    description: Create and modify calendar definitions.
+    status:
+        past: Past
+        current: Current
+        future: Future
+    tab:
+        year: Year
+    year:
+        title: Manage Year
+        return: Return
+    label:
+        name: Year Name
+        start: Start Date
+        end: End Date
+        status: Calendar Status
+    help:
+        name: The name to display for this year.
+        start: ''
+        end: ''
+        status: Only one calendar can be current. 
+    placeholder:
+        status: Select Status
+    error:
+        status: The status is not valid.

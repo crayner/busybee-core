@@ -49,7 +49,7 @@
 </div>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="col-sm-12 well">
 			<div class="form-group text-right" style="margin-bottom: 5px">
 				{{ form_row(form.address1) }} <!--  Address Keys -->
 				{{ form_row(form.address2) }}
@@ -235,9 +235,4 @@
 		}
 
 	</script>
-	{% if script is defined %}
-		{% for xx in script %}
-			{% include xx %}
-		{% endfor %}
-	{% endif %} 
 {% endblock javascripts %}

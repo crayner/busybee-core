@@ -1,0 +1,7 @@
+# Person
+parameters:
+    calendar:
+        year:
+            label: calendar.tab.year
+            include: 'BusybeeInstituteBundle:Calendar:year.html.twig'    
+            message: calendarMessage

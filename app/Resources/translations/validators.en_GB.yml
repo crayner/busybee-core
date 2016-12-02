@@ -11,3 +11,6 @@ campus:
     error:
         institute:
             name: "The default name of 'Busybee Institute' must be changed."
+calendar:
+    error:
+        status: The current year is already set.

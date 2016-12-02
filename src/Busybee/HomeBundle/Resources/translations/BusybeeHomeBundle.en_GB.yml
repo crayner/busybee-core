@@ -54,18 +54,20 @@ menu:
         manage: Configuration
         update: Update 
         security:
-            user: User Manage
+            user: Users
             edit: Edit Self
             register: Register User 
             list: Current Users 
         setting:
-            manage: Manage Settings
+            manage: System
             individual: Individual Setting
             upload: Upload Settings
         settings: Defined Settings
         plugin:
             manage: Manage Plugins
             base: Plugin Management
+        institute:
+            manage: Institute
     family:
         manage: Manage Family       
     people:
@@ -77,12 +79,17 @@ menu:
     Misc: Miscellaneous
     templateDesign: Template Design 
     Person: People
-    system: System
+    system: Organise
     reports:
         title: Reports
     campus:
         manage: Campus Manage
+    facility:
+        manage: Facilities
     curriculum: Curriculum
+    calendar:
+        manage: Calendar
+        years: Years
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

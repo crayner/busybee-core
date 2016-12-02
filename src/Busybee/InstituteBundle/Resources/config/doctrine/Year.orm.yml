@@ -1,0 +1,44 @@
+Busybee\InstituteBundle\Entity\Year:
+    type: entity
+    table: calendar_year
+    repositoryClass: Busybee\InstituteBundle\Repository\YearRepository
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [name]
+            errorPath: name
+            message: 'The Year Name must be unique.'
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+            unique: true
+        start:
+            type: date
+        end:
+            type: date
+        status:
+            type: string
+            length: '20'
+        lastModified:
+            type: datetime
+            nullable: true 
+        createdOn:
+            type: datetime
+            nullable: true 
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+                    
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

@@ -1,0 +1,32 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/years.html.twig #}
+
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'years.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'years.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'years.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+<div class="panel panel-primary busybee-panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ 'years.list'|trans}}
+			<button title='{{ 'year.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('year_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
+		</h3>
+	</div>
+	<div class="panel-body">
+		{% if Years|length > 0 %}
+			
+			{{ dump(Years) }}
+		{% else %}
+			<p class="alert alert-warning">{{ 'years.empty'|trans }}<p>
+		{% endif %}
+	</div>
+</div>
+{% endblock contentContainer %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+{% endblock javascripts %}

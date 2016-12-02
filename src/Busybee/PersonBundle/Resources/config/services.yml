@@ -143,4 +143,4 @@ services:
         arguments:
             - '@setting.manager'
         tags:
-            - { name: validator.constraint_validator, alias: phone_validator }
+            - { name: validator.constraint_validator, alias: calendar_status_validator }

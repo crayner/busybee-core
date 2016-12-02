@@ -1,0 +1,35 @@
+# Campus
+parameters:
+    nodes: []
+    items:
+        14:
+            name: Manage School Settings
+            label: menu.site.institute.manage
+            role: ROLE_REGISTRAR
+            node: 1
+            order: 14
+            menu: 14
+        140:
+            label: menu.facility.manage
+            name: Facility Management
+            node: 14
+            order: 140
+            menu: 140
+        1400:
+            label: menu.campus.manage
+            name: Campus Management
+            node: 140
+            order: 1400
+            route: campus_manage
+        141:
+            label: menu.calendar.manage
+            name: Calendar Management
+            node: 14
+            order: 141
+            menu: 141
+        1410:
+            label: menu.calendar.years
+            name: Years
+            node: 141
+            order: 1410
+            route: calendar_years

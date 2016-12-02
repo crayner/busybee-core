@@ -1,0 +1,36 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/year.html.twig #}
+
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+<div class="panel panel-primary busybee-panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ 'calendar.year.title'|trans}}
+		<button title='{{ 'calendar.year.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('calendar_years') }}','_self')" style="float: right"></button>
+		{% if id != 'Add' %}
+			<button title='{{ 'year.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('year_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
+		{% endif %}
+		<button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button" onClick="location.href='{{ path('year_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+		<button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}' type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3 well">
+					{{ form_row(form.name) }}
+				</div>
+				<div class="col-sm-3 well">
+					{{ form_row(form.start) }}
+				</div>
+				<div class="col-sm-3 well">
+					{{ form_row(form.end) }}
+				</div>
+				<div class="col-sm-3 well">
+					{{ form_row(form.status) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

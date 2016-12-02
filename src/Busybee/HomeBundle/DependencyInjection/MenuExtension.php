@@ -10,30 +10,33 @@ trait MenuExtension
 {
     public function buildMenu($dir, ContainerBuilder $container)
     {
-		$newContainer =  new ContainerBuilder();
-		$loader = new Loader\YamlFileLoader($newContainer, new FileLocator($dir.'/../Resources/config/menu'));
-		$loader->load('parameters.yml');
-		
-		if ($container->getParameterBag()->has('nodes')) 
+		if (is_dir($dir . '/../Resources/config/menu') && is_file($dir . '/../Resources/config/menu/parameters.yml'))
 		{
-			$menu =  $container->getParameterBag()->get('nodes', array()) ;
-			$container->getParameterBag()->remove('nodes');
-		} else
-			$menu = array();
-		
-		$container->getParameterBag()
-			->set('nodes', $this->arrayMerge($menu, $newContainer->getParameterBag()->get('nodes')));
-
-		if ($container->getParameterBag()->has('items')) 
-		{
-			$menu =  $container->getParameterBag()->get('items', array()) ;
-			$container->getParameterBag()->remove('items');
-		} else
-			$menu = array();
-		
-		$container->getParameterBag()
-			->set('items', $this->arrayMerge($menu, $newContainer->getParameterBag()->get('items')));
+			$newContainer =  new ContainerBuilder();
+			$loader = new Loader\YamlFileLoader($newContainer, new FileLocator($dir.'/../Resources/config/menu'));
+			$loader->load('parameters.yml');
 			
+			if ($container->getParameterBag()->has('nodes')) 
+			{
+				$menu =  $container->getParameterBag()->get('nodes', array()) ;
+				$container->getParameterBag()->remove('nodes');
+			} else
+				$menu = array();
+			
+			$container->getParameterBag()
+				->set('nodes', $this->arrayMerge($menu, $newContainer->getParameterBag()->get('nodes')));
+	
+			if ($container->getParameterBag()->has('items')) 
+			{
+				$menu =  $container->getParameterBag()->get('items', array()) ;
+				$container->getParameterBag()->remove('items');
+			} else
+				$menu = array();
+			
+			$container->getParameterBag()
+				->set('items', $this->arrayMerge($menu, $newContainer->getParameterBag()->get('items')));
+				
+		}
 		return $container ;
     }
 	

@@ -1,0 +1,44 @@
+# InstituteBundle
+parameters:
+    calendarStatus:
+        calendar.status.past: past
+        calendar.status.current: current
+        calendar.status.future: future
+services:
+    campus.repository:
+        class: Busybee\InstituteBundle\Entity\CampusRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeInstituteBundle:Campus"
+    campus.form.campusType:
+        class: Busybee\InstituteBundle\Form\CampusType
+        arguments:
+            - '@setting.manager'
+        tags: 
+            - { name: form.type }    
+    institute.name.validator:
+        class: Busybee\InstituteBundle\Validator\Constraints\InstituteNameValidator
+        tags:
+            - { name: validator.constraint_validator, alias: institute_name_validator }
+    year.repository:
+        class: Busybee\InstituteBundle\Repository\YearRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeeInstituteBundle:Year"
+    calendar,yearType:
+        class: Busybee\InstituteBundle\Form\YearType
+        arguments:
+            - '%calendarStatus%'
+        tags: 
+            - { name: form.type }
+    calendar.status.validator:
+        class: Busybee\InstituteBundle\Validator\Constraints\CalendarStatusValidator
+        arguments:
+            - '@year.repository'
+            - '%calendarStatus%'
+        tags:
+            - { name: validator.constraint_validator, alias: calendar_status_validator }

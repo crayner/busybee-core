@@ -14,13 +14,13 @@ busybee_system:
     resource: "@SystemBundle/Resources/config/routing.yml"
     prefix:   /system/
 
-busybee_campus:
-    resource: "@BusybeeCampusBundle/Resources/config/routing.yml"
-    prefix:   /campus/
-
 busybee_curriculum:
     resource: "@BusybeeCurriculumBundle/Resources/config/routing.yml"
     prefix:   /curriculum/
+
+busybee_institute:
+    resource: "@BusybeeInstituteBundle/Resources/config/routing.yml"
+    prefix:   /institute/
 
 busybee_plugin:
     resource: .

@@ -11,3 +11,8 @@
 	<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 	<script>$('[data-submenu]').submenupicker();</script>
+	{% if script is defined %}
+		{% for xx in script %}
+			{% include xx %}
+		{% endfor %}
+	{% endif %} 

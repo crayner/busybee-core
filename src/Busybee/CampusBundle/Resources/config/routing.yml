@@ -1,3 +1,0 @@
-campus_manage:
-    path:     /manage/
-    defaults: { _controller: BusybeeCampusBundle:Campus:index }
