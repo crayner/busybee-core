@@ -10,14 +10,14 @@ use Symfony\Component\HttpFoundation\RedirectResponse ;
 
 class CalendarController extends Controller
 {
-    public function yearsAction(Request $request)
+    public function yearsAction()
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
 		
 		$repo = $this->get('year.repository');
 		
-		$years = $repo->findAll(array(), array('start'=>'ASC', 'end'=>'ASC'));
-		
+		$years = $repo->findBy(array(), array('firstDay'=>'ASC', 'lastDay'=>'ASC'));
+
 		return $this->render('BusybeeInstituteBundle:Calendar:years.html.twig', array('Years' => $years));
     }
 
@@ -55,5 +55,20 @@ class CalendarController extends Controller
 				'id'			=> $id,
 			)
 		);
+    }
+
+    public function deleteYearAction($id)
+    {
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		
+		$repo = $this->get('year.repository');
+		
+		$year = $repo->find($id);
+	
+		$em = $this->get('doctrine')->getManager();
+		$em->remove($year);
+		$em->flush();
+		
+		return new RedirectResponse($this->generateUrl('calendar_years'));
     }
 }

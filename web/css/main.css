@@ -128,6 +128,7 @@ a {
 	margin-bottom: 15px;
     font-size: 21px!important;
     font-weight: 200!important;
+	min-height: 25px;
 }
 .sub-lead {
 	margin-top: -15px;
@@ -136,4 +137,13 @@ a {
 }
 .alert .field-help {
     color: inherit;
+}
+.nav-tabs>li>a {
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+}.nav-tabs>li>a:hover {
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
 }

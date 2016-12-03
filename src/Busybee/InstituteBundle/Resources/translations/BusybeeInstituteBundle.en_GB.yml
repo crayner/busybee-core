@@ -20,13 +20,17 @@ campus:
         locations: Select a Location
 '': ""
 years:
-    title: Institute Year Definitions
+    title: Adademic Year Definitions
     description: ''
-    list: Years
+    list: Academic Years
     empty: There are no Years Defined.
 year:
     add:
         title: Add Year
+    delete:
+        title: Delete Year.
+    edit:
+        title: Edit Year
 calendar:
     title: Define Calendars
     description: Create and modify calendar definitions.

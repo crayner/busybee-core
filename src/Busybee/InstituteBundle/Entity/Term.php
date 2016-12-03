@@ -2,10 +2,12 @@
 
 namespace Busybee\InstituteBundle\Entity;
 
+use Busybee\InstituteBundle\Model\Term as TermModel ;
+
 /**
  * Term
  */
-class Term
+class Term extends TermModel 
 {
     /**
      * @var integer
