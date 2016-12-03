@@ -6,7 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType ;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType ;
 use Busybee\InstituteBundle\Validator\CalendarStatus ;
+use Busybee\InstituteBundle\Validator\CalendarDate ;
+use Busybee\InstituteBundle\Validator\TermDate ;
+use Busybee\InstituteBundle\Form\TermType ;
 
 class YearType extends AbstractType
 {
@@ -30,19 +34,22 @@ class YearType extends AbstractType
 					),
 				)
 			)
-			->add('start', null, 
+			->add('firstDay', null, 
 				array(
-					'label'	=>	'calendar.label.start',
+					'label'	=>	'calendar.label.firstDay',
 					'attr'	=>	array(
-						'help'	=>	'calendar.help.start',
+						'help'	=>	'calendar.help.firstDay',
 					),
 				)
 			)
-			->add('end', null, 
+			->add('lastDay', null, 
 				array(
-					'label'	=>	'calendar.label.end',
+					'label'	=>	'calendar.label.lastDay',
 					'attr'	=>	array(
-						'help'	=>	'calendar.help.end',
+						'help'	=>	'calendar.help.lastDay',
+					),
+					'constraints'	=> array(
+						new CalendarDate(array('fields' => $options['data'])),
 					),
 				)
 			)
@@ -77,7 +84,18 @@ class YearType extends AbstractType
 					),
 				)
 			)
-		;
+			->add('terms', CollectionType::class, array(
+					'entry_type'	=> TermType::class,
+					'allow_add'		=> true,
+					'entry_options'	=> array(
+						'year_data'	=>	$options['data'],
+					),
+					'constraints'	=> array(
+						new TermDate($options['data']),
+					),
+				)
+			)
+			;
     }
     
     /**
@@ -85,11 +103,13 @@ class YearType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Busybee\InstituteBundle\Entity\Year',
-			'translation_domain' => 'BusybeeInstituteBundle',
-			'validation_groups'	=> array('calendar', 'Default'),
-        ));
+        $resolver->setDefaults(
+			array(
+				'data_class' => 'Busybee\InstituteBundle\Entity\Year',
+				'translation_domain' => 'BusybeeInstituteBundle',
+				'validation_groups'	=> array('calendar', 'Default'),
+			)
+		);
     }
 
     /**

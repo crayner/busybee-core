@@ -44,7 +44,7 @@
 </div>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-12 well">
+		<div class="col-sm-3 col-sm-offset-9 well">
 			<div class="form-group text-right" style="margin-bottom: 5px">
 				{{ form_widget(form.save) }}
 				{{ form_widget(form.cancel) }}
@@ -53,9 +53,15 @@
 	</div>
 </div>
 {{ form_end(form) }}
+
 {% endblock contentContainer %}
 
 
 {% block javascripts %}
 	{{ parent() }}
+	<script>
+		if ( $(".fadeAlert").length ) {
+ 	   		$(".fadeAlert").fadeOut(3000);
+		}
+	</script>
 {% endblock javascripts %}

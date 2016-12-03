@@ -6,7 +6,7 @@ Busybee\SystemBundle\Entity\Setting:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
             fields: [name]
             errorPath: name
-            message: 'The Setting Name must be unique.'
+            message: 'unique.setting.name'
     indexes:
         type:
             columns: [ type, name ] 

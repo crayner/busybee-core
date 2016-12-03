@@ -20,16 +20,6 @@ class Year extends YearModel
     private $name;
 
     /**
-     * @var \DateTime
-     */
-    private $start;
-
-    /**
-     * @var \DateTime
-     */
-    private $end;
-
-    /**
      * @var string
      */
     private $status;
@@ -87,54 +77,6 @@ class Year extends YearModel
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set start
-     *
-     * @param \DateTime $start
-     *
-     * @return Year
-     */
-    public function setStart($start)
-    {
-        $this->start = $start;
-
-        return $this;
-    }
-
-    /**
-     * Get start
-     *
-     * @return \DateTime
-     */
-    public function getStart()
-    {
-        return $this->start;
-    }
-
-    /**
-     * Set end
-     *
-     * @param \DateTime $end
-     *
-     * @return Year
-     */
-    public function setEnd($end)
-    {
-        $this->end = $end;
-
-        return $this;
-    }
-
-    /**
-     * Get end
-     *
-     * @return \DateTime
-     */
-    public function getEnd()
-    {
-        return $this->end;
     }
 
     /**
@@ -256,5 +198,124 @@ class Year extends YearModel
     {
         return $this->modifiedBy;
     }
-}
 
+    /**
+     * @var \DateTime
+     */
+    private $firstDay;
+
+    /**
+     * @var \DateTime
+     */
+    private $lastDay;
+
+    /**
+     * Set firstDay
+     *
+     * @param \DateTime $firstDay
+     *
+     * @return Year
+     */
+    public function setFirstDay($firstDay)
+    {
+        $this->firstDay = $firstDay;
+
+        return $this;
+    }
+
+    /**
+     * Get firstDay
+     *
+     * @return \DateTime
+     */
+    public function getFirstDay()
+    {
+        return $this->firstDay;
+    }
+
+    /**
+     * Set lastDay
+     *
+     * @param \DateTime $lastDay
+     *
+     * @return Year
+     */
+    public function setLastDay($lastDay)
+    {
+        $this->lastDay = $lastDay;
+
+        return $this;
+    }
+
+    /**
+     * Get lastDay
+     *
+     * @return \DateTime
+     */
+    public function getLastDay()
+    {
+        return $this->lastDay;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $terms;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->terms = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add term
+     *
+     * @param \Busybee\InstituteBundle\Entity\Term $term
+     *
+     * @return Year
+     */
+    public function addTerm(\Busybee\InstituteBundle\Entity\Term $term)
+    {
+        $this->terms[] = $term;
+
+        return $this;
+    }
+
+    /**
+     * Remove term
+     *
+     * @param \Busybee\InstituteBundle\Entity\Term $term
+     */
+    public function removeTerm(\Busybee\InstituteBundle\Entity\Term $term)
+    {
+        $this->terms->removeElement($term);
+    }
+
+
+    /**
+     * @var boolean
+     */
+    private $termsSorted = false;
+
+    /**
+     * Get terms
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTerms()
+    {
+		if (count($this->terms) == 0 || $this->termsSorted)
+        	return $this->terms;
+			
+		$iterator = $this->terms->getIterator();
+		$iterator->uasort(function ($a, $b) {
+			return ($a->getFirstDay() < $b->getFirstDay()) ? -1 : 1;
+		});
+		$this->terms = new \Doctrine\Common\Collections\ArrayCollection(iterator_to_array($iterator));
+		$this->termsSorted = true ;
+		return $this->terms;
+    }
+}

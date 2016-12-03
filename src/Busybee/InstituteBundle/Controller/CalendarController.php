@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\HttpFoundation\Request ;
 use Busybee\InstituteBundle\Form\YearType ;
 use Busybee\InstituteBundle\Entity\Year ;
+use Symfony\Component\HttpFoundation\RedirectResponse ;
 
 class CalendarController extends Controller
 {
@@ -43,6 +44,8 @@ class CalendarController extends Controller
 			$em->persist($year);
 			$em->flush();
 			$id = $year->getId();
+			
+			return new RedirectResponse($this->generateUrl('year_edit', array('id' => $id)));
 		} 
 		
 		return $this->render('BusybeeInstituteBundle:Calendar:calendar.html.twig', 

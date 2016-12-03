@@ -9,7 +9,6 @@ use Busybee\InstituteBundle\Repository\YearRepository ;
 class CalendarStatusValidator extends ConstraintValidatorBase 
 {
     private $yr ;
-    private $settingList ;
 	
 	public function validate($value, Constraint $constraint)
     {
@@ -27,9 +26,8 @@ class CalendarStatusValidator extends ConstraintValidatorBase
 		
     }
 		
-	public function __construct(YearRepository $yr, $settingList)
+	public function __construct(YearRepository $yr)
 	{
 		$this->yr = $yr ;
-		$this->settingList = $settingList ;
 	}
 }

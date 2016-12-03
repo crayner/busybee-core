@@ -1,0 +1,31 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/term.html.twig #}
+
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+
+		<div class="panel panel-info busybee-panel">
+			<div class="panel-heading">
+				<h3 class="panel-title">{% if form.name.vars.value is empty %}{{ 'term.add'|trans}}{% else %}{{ form.name.vars.value }}{% endif %}</h3>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-4 well">
+							{{ form_row(form.name) }}
+						</div>
+						<div class="col-sm-2 well">
+							{{ form_row(form.shortName) }}
+						</div>
+						<div class="col-sm-3 well">
+							{{ form_row(form.firstDay) }}
+						</div>
+						<div class="col-sm-3 well">
+							{{ form_row(form.lastDay) }}
+							{{ form_widget(form.year, {'value': id}) }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

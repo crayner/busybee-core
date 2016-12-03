@@ -20,7 +20,7 @@ campus:
         locations: Select a Location
 '': ""
 years:
-    title: Institute Years Definitions
+    title: Institute Year Definitions
     description: ''
     list: Years
     empty: There are no Years Defined.
@@ -36,20 +36,39 @@ calendar:
         future: Future
     tab:
         year: Year
+        terms: Terms
     year:
         title: Manage Year
         return: Return
     label:
         name: Year Name
-        start: Start Date
-        end: End Date
+        firstDay: First Day
+        lastDay: Last Day
         status: Calendar Status
     help:
         name: The name to display for this year.
-        start: ''
-        end: ''
+        firstDay: ''
+        lastDay: ''
         status: Only one calendar can be current. 
+        terms: "Terms are sorted within the year by the First Day Date. Terms must exist within the year days, and must not overlap days in another term."
     placeholder:
         status: Select Status
     error:
-        status: The status is not valid.
+        status: The current year is already set.
+        dateOrder: The first day must be before the last day.
+        invalid: The first or last day is not valid.
+    header:
+        name: Name
+        firstDay: First Day
+        lastDay: Last Day
+        action: Actions
+    term:
+        title: "Manage Terms in %year%"
+term:
+    add: Add Term
+    help:
+        name: ''
+        shortName: ''
+    label:
+        name: Term Name
+        shortName: Term Short Name

@@ -17,8 +17,37 @@
 	</div>
 	<div class="panel-body">
 		{% if Years|length > 0 %}
-			
-			{{ dump(Years) }}
+			<div class="row row-header">
+				<div class="col-sm-2 col-md-2">
+					{{ 'calendar.header.name'|trans }}
+				</div>
+				<div class="col-sm-3 col-md-3">
+					{{ 'calendar.header.firstDay'|trans }}
+				</div>
+				<div class="col-sm-3 col-md-3">
+					{{ 'calendar.header.lastDay'|trans }}
+				</div>
+				<div class="col-sm-4 col-md-4">
+					{{ 'calendar.header.action'|trans }}
+				</div>
+			</div>
+			{% for Year in Years %}
+				<div class="row row-striped{% if Year.status == 'current' %} alert-success{% endif %}">
+					<div class="col-sm-2 col-md-2">
+						{{ Year.name }}
+					</div>
+					<div class="col-sm-3 col-md-3">
+						{{ Year.firstDay|date("D, jS F Y") }}
+					</div>
+					<div class="col-sm-3 col-md-3">
+						{{ Year.lastDay|date|date("D, jS F Y") }}
+					</div>
+					<div class="col-sm-4 col-md-4">
+						<button title='{{ 'year.add.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('year_edit', {'id': Year.id}) }}','_self')"></button>
+
+					</div>
+				</div>
+			{% endfor %}
 		{% else %}
 			<p class="alert alert-warning">{{ 'years.empty'|trans }}<p>
 		{% endif %}

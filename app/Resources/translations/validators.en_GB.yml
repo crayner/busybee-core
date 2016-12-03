@@ -14,3 +14,13 @@ campus:
 calendar:
     error:
         status: The current year is already set.
+        date: The year must be less than a year in length.
+        dateOrder: The first day must be before the last day in the year.
+        invalid: The first or last day of the year is not valid.
+        overlapped: "The year dates must not overlap. Check the years: %name1% and %name2%"
+term:
+    error:
+        invalidYear: The first or last day of the year is not valid.
+        outsideYear: "The term dates must be inside the year dates. %term_date% %operator% %year_date%"
+        invalid: The first or last day of a term is not valid.
+        overlapped: "The term dates must not overlap. Check the terms: %name1% and %name2%"

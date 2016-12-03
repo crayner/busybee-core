@@ -1,12 +1,21 @@
-Busybee\InstituteBundle\Entity\Year:
+Busybee\InstituteBundle\Entity\Term:
     type: entity
-    table: calendar_year
+    table: calendar_term
     repositoryClass: Busybee\InstituteBundle\Repository\YearRepository
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [name]
+            fields: [name, year]
             errorPath: name
-            message: 'The Year Name must be unique.'
+            message: 'The Term Name must be unique within the year.'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [shortName, year]
+            errorPath: shortName
+            message: 'The term Short Name must be unique within the year.'
+    uniqueConstraints:
+        name_year:
+            columns: [ name, year_id ]
+        shortName_year:
+            columns: [ shortName, year_id ]
     id:
         id:
             type: integer
@@ -16,14 +25,13 @@ Busybee\InstituteBundle\Entity\Year:
         name:
             type: string
             length: '100'
-            unique: true
+        shortName:
+            type: string
+            length: '6'
         firstDay:
             type: date
         lastDay:
             type: date
-        status:
-            type: string
-            length: '20'
         lastModified:
             type: datetime
             nullable: true 
@@ -42,8 +50,9 @@ Busybee\InstituteBundle\Entity\Year:
             joinColumns:
                 modifiedBy:
                     referencedColumnName: id
-    oneToMany:
-        terms:
-            targetEntity: Busybee\InstituteBundle\Entity\Term
-            mappedBy: year
-            cascade: [persist, remove]
+        year:
+            targetEntity: Busybee\InstituteBundle\Entity\Year
+            inversedBy: terms
+            joinColumn:
+                name: year_id
+                referencedColumnName: id

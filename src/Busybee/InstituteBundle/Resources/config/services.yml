@@ -29,7 +29,14 @@ services:
             - 'getRepository' 
         arguments: 
             - "BusybeeInstituteBundle:Year"
-    calendar,yearType:
+    term.repository:
+        class: Busybee\InstituteBundle\Repository\TermRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeeInstituteBundle:Term"
+    calendar.yearType:
         class: Busybee\InstituteBundle\Form\YearType
         arguments:
             - '%calendarStatus%'
@@ -39,6 +46,21 @@ services:
         class: Busybee\InstituteBundle\Validator\Constraints\CalendarStatusValidator
         arguments:
             - '@year.repository'
-            - '%calendarStatus%'
         tags:
             - { name: validator.constraint_validator, alias: calendar_status_validator }
+    calendar.date.validator:
+        class: Busybee\InstituteBundle\Validator\Constraints\CalendarDateValidator
+        arguments:
+            - "@year.repository"
+        tags:
+            - { name: validator.constraint_validator, alias: calendar_date_validator }
+    term.date.validator:
+        class: Busybee\InstituteBundle\Validator\Constraints\TermDateValidator
+        tags:
+            - { name: validator.constraint_validator, alias: term_date_validator }
+    form.termType:
+        class: Busybee\InstituteBundle\Form\TermType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags: 
+            - { name: form.type }
