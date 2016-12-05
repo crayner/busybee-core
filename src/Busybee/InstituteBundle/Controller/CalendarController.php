@@ -35,7 +35,7 @@ class CalendarController extends Controller
 		$year->cancelURL = $this->get('router')->generate('calendar_years');
  
         $form = $this->createForm(YearType::class, $year);
-		
+
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
@@ -70,5 +70,35 @@ class CalendarController extends Controller
 		$em->flush();
 		
 		return new RedirectResponse($this->generateUrl('calendar_years'));
+    }
+
+    public function deleteSpecialDayAction($id, $year)
+    {
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		
+		$repo = $this->get('specialDay.repository');
+		
+		$day = $repo->find($id);
+	
+		$em = $this->get('doctrine')->getManager();
+		$em->remove($day);
+		$em->flush();
+		
+		return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year)));
+    }
+
+    public function deleteTermAction($id, $year)
+    {
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		
+		$repo = $this->get('term.repository');
+		
+		$term = $repo->find($id);
+	
+		$em = $this->get('doctrine')->getManager();
+		$em->remove($term);
+		$em->flush();
+		
+		return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year)));
     }
 }

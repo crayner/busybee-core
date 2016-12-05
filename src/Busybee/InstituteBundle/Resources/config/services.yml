@@ -64,3 +64,20 @@ services:
             - '@doctrine.orm.entity_manager'
         tags: 
             - { name: form.type }
+    form.specialDayType:
+        class: Busybee\InstituteBundle\Form\SpecialDayType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags: 
+            - { name: form.type }
+    specialDay.date.validator:
+        class: Busybee\InstituteBundle\Validator\Constraints\SpecialDayDateValidator
+        tags:
+            - { name: validator.constraint_validator, alias: specialday_date_validator }
+    specialDay.repository:
+        class: Busybee\InstituteBundle\Repository\SpecialDayRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeeInstituteBundle:SpecialDay"

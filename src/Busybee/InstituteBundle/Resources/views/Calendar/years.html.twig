@@ -45,13 +45,6 @@
 					<div class="col-sm-4 col-md-4">
 						<button title='{{ 'year.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('year_edit', {'id': Year.id}) }}','_self')"></button>
 						<button title='{{ 'year.delete.title'|trans}}' type="button" class="halflings halflings-erase btn btn-{% if Year.canDelete %}danger"{% else %}default" disabled{% endif %} onclick="confirmDelete('{{ path('year_delete', {'id': Year.id}) }}')"></button>
-<script>
-	function confirmDelete(delUrl) {
-		if (confirm("Are you sure you want to delete")) {
-			document.location = delUrl;
-		}
-	}
-</script>
 
 					</div>
 				</div>
@@ -66,4 +59,11 @@
 
 {% block javascripts %}
 	{{ parent() }}
+	<script>
+		function confirmDelete(delUrl) {
+			if (confirm("{{ 'years.delete.confirm'|trans }}")) {
+				document.location = delUrl;
+			}
+		}
+	</script>
 {% endblock javascripts %}

@@ -24,3 +24,7 @@ term:
         outsideYear: "The term dates must be inside the year dates. %term_date% %operator% %year_date%"
         invalid: The first or last day of a term is not valid.
         overlapped: "The term dates must not overlap. Check the terms: %name1% and %name2%"
+specialDay:
+    error:
+        timeEmpty: Time is empty when time change active in Special Day.
+        timeInvalid: Times are not in the correct order in a Special Day.

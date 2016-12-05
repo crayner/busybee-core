@@ -42,16 +42,8 @@
 		{% endfor %}
 	</div>
 </div>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-3 col-sm-offset-9 well">
-			<div class="form-group text-right" style="margin-bottom: 5px">
-				{{ form_widget(form.save) }}
-				{{ form_widget(form.cancel) }}
-			</div>
-		</div>
-	</div>
-</div>
+{% do form.save.setRendered %}
+{% do form.cancel.setRendered %}
 {{ form_end(form) }}
 
 {% endblock contentContainer %}
@@ -59,7 +51,21 @@
 
 {% block javascripts %}
 	{{ parent() }}
+	{% for specialDay in form.specialDays %}
+		{% include 'BusybeeInstituteBundle:Calendar:specialDay.js.twig' with {'name': specialDay.vars.name} %}
+	{% endfor %}
+	{% include 'BusybeeInstituteBundle:Calendar:specialDay.js.twig' with {'name': '__name__'} %}
 	<script>
+		function confirmDayDelete(delUrl) {
+			if (confirm("{{ 'specialDay.delete.confirm'|trans }}")) {
+				document.location = delUrl;
+			}
+		}
+		function confirmTermDelete(delUrl) {
+			if (confirm("{{ 'term.delete.confirm'|trans }}")) {
+				document.location = delUrl;
+			}
+		}
 		if ( $(".fadeAlert").length ) {
  	   		$(".fadeAlert").fadeOut(3000);
 		}

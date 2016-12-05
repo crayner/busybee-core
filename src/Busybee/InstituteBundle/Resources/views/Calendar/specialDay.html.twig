@@ -1,0 +1,49 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/specialDay.html.twig #}
+
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+
+		<div class="panel panel-info busybee-panel">
+			<div class="panel-heading">
+				<h3 class="panel-title">{% if form.name.vars.value is empty %}{{ 'term.add'|trans}}{% else %}{{ form.name.vars.value }}{% endif %}
+				{% if form.vars.value.id is defined %}
+					<button title='{{ 'specialDay.delete.title'|trans}}' type="button" class="halflings halflings-erase btn btn-danger" onclick="confirmDayDelete('{{ path('specialday_delete', {'id': form.vars.value.id, 'year': id}) }}')" style="float: right ; "></button>
+				{% endif %}
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-3 well">
+							{{ form_row(form.day) }}
+						</div>
+						<div class="col-sm-2 well">
+							{{ form_row(form.type) }}
+						</div>
+						<div class="col-sm-2 well">
+							{{ form_row(form.name) }}
+						</div>
+						<div class="col-sm-5 well">
+							{{ form_row(form.term) }}
+							{{ form_row(form.description) }}
+						</div>
+					</div>
+					<div class="row alterTime{{ key }}" style="display: none">
+						<div class="col-sm-3 well">
+							{{ form_row(form.open) }}
+						</div>
+						<div class="col-sm-3 well">
+							{{ form_row(form.start) }}
+						</div>
+						<div class="col-sm-3 well">
+							{{ form_row(form.finish) }}
+						</div>
+						<div class="col-sm-3 well">
+							{{ form_row(form.close) }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

@@ -1,16 +1,18 @@
 <?php
 
-namespace Busybee\InstituteBundle\Form;
+namespace Busybee\InstituteBundle\Form ;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\AbstractType ;
+use Symfony\Component\Form\FormBuilderInterface ;
+use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType ;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType ;
 use Busybee\InstituteBundle\Validator\CalendarStatus ;
 use Busybee\InstituteBundle\Validator\CalendarDate ;
 use Busybee\InstituteBundle\Validator\TermDate ;
+use Busybee\InstituteBundle\Validator\SpecialDayDate ;
 use Busybee\InstituteBundle\Form\TermType ;
+use Busybee\InstituteBundle\Form\SpecialDayType ;
 
 class YearType extends AbstractType
 {
@@ -93,6 +95,21 @@ class YearType extends AbstractType
 					'constraints'	=> array(
 						new TermDate($options['data']),
 					),
+					'label'			=> false, 
+				)
+			)
+			->add('specialDays', CollectionType::class, array(
+					'entry_type'	=> SpecialDayType::class,
+					'allow_add'		=> true,
+					'entry_options'	=> array(
+						'year_data'	=>	$options['data'],
+					),
+					'constraints'	=> array(
+						new SpecialDayDate($options['data']),
+					),
+					'label'			=> false, 
+					'allow_delete'	=> true,
+					'mapped'		=> true,
 				)
 			)
 			;
@@ -105,9 +122,8 @@ class YearType extends AbstractType
     {
         $resolver->setDefaults(
 			array(
-				'data_class' => 'Busybee\InstituteBundle\Entity\Year',
-				'translation_domain' => 'BusybeeInstituteBundle',
-				'validation_groups'	=> array('calendar', 'Default'),
+				'data_class' 			=> 'Busybee\InstituteBundle\Entity\Year',
+				'translation_domain' 	=> 'BusybeeInstituteBundle',
 			)
 		);
     }

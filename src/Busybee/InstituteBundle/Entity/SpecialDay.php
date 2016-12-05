@@ -2,17 +2,27 @@
 
 namespace Busybee\InstituteBundle\Entity;
 
-use Busybee\InstituteBundle\Model\Term as TermModel ;
+use Busybee\InstituteBundle\Model\SpecialDay as SpecialDayModel ;
 
 /**
- * Term
+ * SpecialDay
  */
-class Term extends TermModel 
+class SpecialDay extends SpecialDayModel
 {
     /**
      * @var integer
      */
     private $id;
+
+    /**
+     * @var \DateTime
+     */
+    private $day;
+
+    /**
+     * @var string
+     */
+    private $type;
 
     /**
      * @var string
@@ -22,17 +32,27 @@ class Term extends TermModel
     /**
      * @var string
      */
-    private $shortName;
+    private $description;
 
     /**
      * @var \DateTime
      */
-    private $firstDay;
+    private $open;
 
     /**
      * @var \DateTime
      */
-    private $lastDay;
+    private $start;
+
+    /**
+     * @var \DateTime
+     */
+    private $finish;
+
+    /**
+     * @var \DateTime
+     */
+    private $close;
 
     /**
      * @var \DateTime
@@ -55,9 +75,9 @@ class Term extends TermModel
     private $modifiedBy;
 
     /**
-     * @var \Busybee\InstituteBundle\Entity\Year
+     * @var \Busybee\InstituteBundle\Entity\Term
      */
-    private $year;
+    private $term;
 
 
     /**
@@ -71,11 +91,59 @@ class Term extends TermModel
     }
 
     /**
+     * Set day
+     *
+     * @param \DateTime $day
+     *
+     * @return SpecialDay
+     */
+    public function setDay($day)
+    {
+        $this->day = $day;
+
+        return $this;
+    }
+
+    /**
+     * Get day
+     *
+     * @return \DateTime
+     */
+    public function getDay()
+    {
+        return $this->day;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return SpecialDay
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
      *
-     * @return Term
+     * @return SpecialDay
      */
     public function setName($name)
     {
@@ -95,75 +163,27 @@ class Term extends TermModel
     }
 
     /**
-     * Set shortName
+     * Set description
      *
-     * @param string $shortName
+     * @param string $description
      *
-     * @return Term
+     * @return SpecialDay
      */
-    public function setShortName($shortName)
+    public function setDescription($description)
     {
-        $this->shortName = $shortName;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get shortName
+     * Get description
      *
      * @return string
      */
-    public function getShortName()
+    public function getDescription()
     {
-        return $this->shortName;
-    }
-
-    /**
-     * Set firstDay
-     *
-     * @param \DateTime $firstDay
-     *
-     * @return Term
-     */
-    public function setFirstDay($firstDay)
-    {
-        $this->firstDay = $firstDay;
-
-        return $this;
-    }
-
-    /**
-     * Get firstDay
-     *
-     * @return \DateTime
-     */
-    public function getFirstDay()
-    {
-        return $this->firstDay;
-    }
-
-    /**
-     * Set lastDay
-     *
-     * @param \DateTime $lastDay
-     *
-     * @return Term
-     */
-    public function setLastDay($lastDay)
-    {
-        $this->lastDay = $lastDay;
-
-        return $this;
-    }
-
-    /**
-     * Get lastDay
-     *
-     * @return \DateTime
-     */
-    public function getLastDay()
-    {
-        return $this->lastDay;
+        return $this->description;
     }
 
     /**
@@ -171,7 +191,7 @@ class Term extends TermModel
      *
      * @param \DateTime $lastModified
      *
-     * @return Term
+     * @return SpecialDay
      */
     public function setLastModified($lastModified)
     {
@@ -195,7 +215,7 @@ class Term extends TermModel
      *
      * @param \DateTime $createdOn
      *
-     * @return Term
+     * @return SpecialDay
      */
     public function setCreatedOn($createdOn)
     {
@@ -219,7 +239,7 @@ class Term extends TermModel
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Term
+     * @return SpecialDay
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -243,7 +263,7 @@ class Term extends TermModel
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Term
+     * @return SpecialDay
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -263,73 +283,122 @@ class Term extends TermModel
     }
 
     /**
-     * Set year
+     * Set term
      *
-     * @param \Busybee\InstituteBundle\Entity\Year $year
+     * @param \Busybee\InstituteBundle\Entity\Term $term
      *
-     * @return Term
+     * @return SpecialDay
      */
-    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+    public function setTerm(\Busybee\InstituteBundle\Entity\Term $term = null)
     {
-        $this->year = $year;
+        $this->term = $term;
 
         return $this;
     }
 
     /**
-     * Get year
+     * Get term
      *
-     * @return \Busybee\InstituteBundle\Entity\Year
+     * @return \Busybee\InstituteBundle\Entity\Term
      */
-    public function getYear()
+    public function getTerm()
     {
-        return $this->year;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $specialDays;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->specialDays = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->term;
     }
 
     /**
-     * Add specialDay
+     * Set open
      *
-     * @param \Busybee\InstituteBundle\Entity\SpecialDay $specialDay
+     * @param \DateTime $open
      *
-     * @return Term
+     * @return SpecialDay
      */
-    public function addSpecialDay(\Busybee\InstituteBundle\Entity\SpecialDay $specialDay)
+    public function setOpen($open)
     {
-		if (! is_null($specialDay->getName()))
-        	$this->specialDays[] = $specialDay;
+        $this->open = $open;
 
         return $this;
     }
 
     /**
-     * Remove specialDay
+     * Get open
      *
-     * @param \Busybee\InstituteBundle\Entity\SpecialDay $specialDay
+     * @return \DateTime
      */
-    public function removeSpecialDay(\Busybee\InstituteBundle\Entity\SpecialDay $specialDay)
+    public function getOpen()
     {
-        $this->specialDays->removeElement($specialDay);
+        return $this->open;
     }
 
     /**
-     * Get specialDays
+     * Set start
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \DateTime $start
+     *
+     * @return SpecialDay
      */
-    public function getSpecialDays()
+    public function setStart($start)
     {
-        return $this->specialDays;
+        $this->start = $start;
+
+        return $this;
+    }
+
+    /**
+     * Get start
+     *
+     * @return \DateTime
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set finish
+     *
+     * @param \DateTime $finish
+     *
+     * @return SpecialDay
+     */
+    public function setFinish($finish)
+    {
+        $this->finish = $finish;
+
+        return $this;
+    }
+
+    /**
+     * Get finish
+     *
+     * @return \DateTime
+     */
+    public function getFinish()
+    {
+        return $this->finish;
+    }
+
+    /**
+     * Set close
+     *
+     * @param \DateTime $close
+     *
+     * @return SpecialDay
+     */
+    public function setClose($close)
+    {
+        $this->close = $close;
+
+        return $this;
+    }
+
+    /**
+     * Get close
+     *
+     * @return \DateTime
+     */
+    public function getClose()
+    {
+        return $this->close;
     }
 }

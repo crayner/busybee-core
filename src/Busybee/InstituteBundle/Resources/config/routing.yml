@@ -10,3 +10,9 @@ year_edit:
 year_delete:
     path:     /year/{id}/delete/
     defaults: { _controller: BusybeeInstituteBundle:Calendar:deleteYear }
+term_delete:
+    path:     /term/{id}/{year}/delete/
+    defaults: { _controller: BusybeeInstituteBundle:Calendar:deleteTerm }
+specialday_delete:
+    path:     /special_day/{id}/{year}/delete/
+    defaults: { _controller: BusybeeInstituteBundle:Calendar:deleteSpecialDay }

@@ -45,7 +45,7 @@ class CalendarDateValidator extends ConstraintValidatorBase
 			->setParameter('id', $year->getId())
 			->getQuery()
 			->getResult();
-dump($years);
+
 		if (is_array($years))
 			foreach($years as $year)
 			{

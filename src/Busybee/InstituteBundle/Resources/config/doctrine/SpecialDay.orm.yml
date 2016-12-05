@@ -1,0 +1,66 @@
+Busybee\InstituteBundle\Entity\SpecialDay:
+    type: entity
+    table: calendar_special_day
+    repositoryClass: Busybee\InstituteBundle\Repository\SpecialDayRepository
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [day]
+            errorPath: day
+            message: 'Each date must be unique to the Special Day record.'
+    uniqueConstraints:
+        day:
+            columns: [ day ]
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        day:
+            type: date
+            unique: true
+        type:
+            type: string
+            length: '25'
+        name:
+            type: string
+            length: '100'
+        description:
+            type: text
+            nullable: true
+        open:
+            type: time
+            nullable: true
+        start:
+            type: time
+            nullable: true
+        finish:
+            type: time
+            nullable: true
+        close:
+            type: time
+            nullable: true
+        lastModified:
+            type: datetime
+            nullable: true 
+        createdOn:
+            type: datetime
+            nullable: true 
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+                    
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id
+        term:
+            targetEntity: Busybee\InstituteBundle\Entity\Term
+            inversedBy: specialDays
+            joinColumn:
+                name: term_id
+                referencedColumnName: id

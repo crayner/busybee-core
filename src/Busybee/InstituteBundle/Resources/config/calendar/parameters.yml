@@ -9,3 +9,7 @@ parameters:
             label: calendar.tab.terms
             include: 'BusybeeInstituteBundle:Calendar:terms.html.twig'    
             message: termMessage
+        specialDays:
+            label: calendar.tab.specialDays
+            include: 'BusybeeInstituteBundle:Calendar:specialDays.html.twig'    
+            message: specialDayMessage
