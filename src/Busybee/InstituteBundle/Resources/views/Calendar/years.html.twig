@@ -45,6 +45,7 @@
 					<div class="col-sm-4 col-md-4">
 						<button title='{{ 'year.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('year_edit', {'id': Year.id}) }}','_self')"></button>
 						<button title='{{ 'year.delete.title'|trans}}' type="button" class="halflings halflings-erase btn btn-{% if Year.canDelete %}danger"{% else %}default" disabled{% endif %} onclick="confirmDelete('{{ path('year_delete', {'id': Year.id}) }}')"></button>
+						<button title='{{ 'year.calendar.button'|trans}}' type="button" class="halflings halflings-calendar btn btn-info" onClick="window.open('{{ path('year_calendar', {'id': Year.id}) }}','_self')"></button>
 
 					</div>
 				</div>

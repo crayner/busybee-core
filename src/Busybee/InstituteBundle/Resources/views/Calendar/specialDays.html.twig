@@ -11,7 +11,7 @@
 		{% if id != 'Add' %}
 			<button title="{{ 'year.add.title'|trans}}" type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('year_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
 		{% endif %}
-		<button title="{{ 'form.reset'|trans({}, 'BusybeeHomeBundle') }}" type="button" onClick="location.href='{{ path('year_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+		<button title="{{ 'form.reset.button'|trans({}, 'BusybeeHomeBundle') }}" type="button" onClick="location.href='{{ path('year_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
 		<button title="{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}" type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
 		</h3>
 	</div>

@@ -87,7 +87,7 @@ class CampusType extends AbstractType
 				)
 			)
 			->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
-					'label'					=> 'form.reset', 
+					'label'					=> 'form.reset.button', 
 					'translation_domain' 	=> 'BusybeeHomeBundle',
 					'attr' 					=> array(
 						'formnovalidate' 		=> 'formnovalidate',

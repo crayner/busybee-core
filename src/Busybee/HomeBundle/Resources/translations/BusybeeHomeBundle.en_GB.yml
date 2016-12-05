@@ -21,7 +21,6 @@ form:
     update: Update
     delete: Delete 
     save_and_add: Save&Add 
-    reset: Reset
     upload: Upload
     student:
         save:
@@ -45,10 +44,10 @@ form:
             failure: School Configuration was failed to save. user:
     reset:
         success: The password for the user was successfully altered and saved.  You can know sign into the site using the new password. 
+        button: Reset
     start_search: ""
     next: ""
     prev: ""
-    upload: "" 
 menu:
     site:
         manage: Configuration

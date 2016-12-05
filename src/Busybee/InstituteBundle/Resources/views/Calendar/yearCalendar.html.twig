@@ -1,0 +1,62 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/yearCalendar.html.twig #}
+
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'calendar.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'calendar.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'calendar.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+{% set row = 1 %}
+<h3 style="text-align: center; ">{{ year.name }}</h3>
+{% for month in calendar.months %}
+	{% if row == 1 %}<div class="row" style="margin-top: 5px;">{% endif %}
+		<div class="col-sm-3 col-md-3 calendarMonth">
+			<table>
+				<tr>
+					<th colspan="8">
+						{% if month.isSummer %}<font style='color: green; font-weight: bold; font-style: italic;'>{% endif %}
+							{{ month.fullName|trans }}
+						{% if month.isSummer %}</font>{% endif %}
+					</th>
+				</tr>
+				<tr class="calendarWeek">
+					<td><strong>{{ 'Wk'|trans }}</strong></td>
+					{% for week_name in calendar.weekShortNames %}
+						<td>
+							<strong>
+								{{ week_name|trans }}
+							</strong>
+						</td>
+					{% endfor %}
+				</tr>
+			{% for week in month.weeks %}   
+				<tr class="calendarWeek">
+					<td>
+						<strong>{{ week.number }}</strong>
+					</td>
+					{% for day in week.days %}
+						{% set style = '' %}
+						{% if day.isWeekEnd %}{% set style = 'font-weight: bold;' %}{% endif %}
+						{% if day.isHoliday %}{% set style = 'background-color: LIGHTSALMON; font-weight: bold;' %}{% endif %}
+						<td style="{{ style }}">
+							{% if day.inMonth(month) %}
+								{{ day.date | date('j') }}
+							{% endif %}
+						</td>
+					{% endfor %}
+				</tr>   
+			{% endfor %}
+			</table>
+		</div>
+	{% if row == 4 %}	
+	</div>
+		{% set row = 0 %}
+	{% endif %}
+	{% set row = row + 1 %}
+{% endfor %}
+
+{% endblock contentContainer %}
+

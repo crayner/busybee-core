@@ -33,6 +33,8 @@ year:
         title: Delete Year.
     edit:
         title: Edit Year
+    calendar:
+        button: Generate Calendar
 calendar:
     title: Define Calendars
     description: Create and modify calendar definitions.
@@ -112,3 +114,23 @@ specialDay:
     delete:
         title: Delete Special Day.
         confirm: Are you sure you want to delete this Special Day?
+Sun: Sun
+Mon: Mon
+Tue: Tue
+Wed: Wed
+Thu: Thu
+Fri: Fri
+Sat: Sat
+January: January
+February: February
+March: March
+April: April
+May: May
+June: June
+July: July
+August: August
+September: September
+October: October
+November: November
+December: December
+Wk: Wk

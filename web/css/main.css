@@ -142,8 +142,25 @@ a {
 	border-top: 1px solid #ddd;
 	border-left: 1px solid #ddd;
 	border-right: 1px solid #ddd;
-}.nav-tabs>li>a:hover {
+}
+.nav-tabs>li>a:hover {
 	border-top: 1px solid #ddd;
 	border-left: 1px solid #ddd;
 	border-right: 1px solid #ddd;
+}
+div.calendarMonth {
+    border: 1px solid #444;
+    border-radius: 15px;
+}
+div.calendarMonth>table {
+    width: 100%;
+}
+tr.calendarWeek>td {
+	border: 1px solid black;
+    height: 2em;
+	width: 2.6em ;
+    text-align: center;
+}
+div.calendarMonth th {
+	text-align: center ;
 }

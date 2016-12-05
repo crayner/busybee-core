@@ -81,3 +81,5 @@ services:
             - 'getRepository' 
         arguments: 
             - "BusybeeInstituteBundle:SpecialDay"
+    calendar.widget:
+        class: Busybee\InstituteBundle\Service\WidgetService
