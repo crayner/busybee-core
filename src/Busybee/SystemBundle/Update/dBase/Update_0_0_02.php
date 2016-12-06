@@ -3,6 +3,7 @@ namespace Busybee\SystemBundle\Update\dBase ;
 
 use Busybee\SystemBundle\Update\UpdateInterface ;
 use Symfony\Component\Yaml\Yaml ;
+use Busybee\SystemBundle\Entity\Setting ;
 
 /**
  * Update 0.0.00
@@ -26,7 +27,7 @@ class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	= 27 ;
+	private $count	= 29 ;
 	
 	/**
 	 * Constructor
@@ -55,7 +56,7 @@ class Update_0_0_02 implements UpdateInterface
 		
 		$role = $this->em->getRepository('BusybeeSecurityBundle:Role');
 		//1
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('twig');
 		$entity->setValue("<pre>{% if propertyName is not empty %}{{ propertyName }}
 {% endif %}{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}
@@ -68,7 +69,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		// 2
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('twig');
 		$entity->setValue("{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}");
 		$entity->setName('Address.ListLabel');
@@ -78,7 +79,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//3
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('array');
 		$entity->setValue(
 			Yaml::dump(array(
@@ -95,7 +96,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//4		
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('array');
 		$entity->setValue(
 			Yaml::dump(array(
@@ -114,7 +115,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//5
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('array');
 		$entity->setValue(
 			Yaml::dump(array(
@@ -128,7 +129,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//6
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('array');
 		$entity->setValue(
 			Yaml::dump(
@@ -148,7 +149,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//7
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('array');
 		$entity->setValue(
 			Yaml::dump(
@@ -166,7 +167,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//8
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('array');
 		$entity->setValue(
 			Yaml::dump(
@@ -182,7 +183,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//9
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('regex');
 		$entity->setValue("/(^(1300|1800|1900|1902)[0-9]{6}$)|(^0[2|3|4|7|8]{1}[0-9]{8}$)|(^13[0-9]{4}$)/");
 		$entity->setName('Phone.Validation');
@@ -192,7 +193,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//10
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('twig');
 		$entity->setValue("
 {% set start = phone|slice(0,2) %}
@@ -214,7 +215,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//11
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('text');
 		$entity->setValue("Busybee Institute");
 		$entity->setName('Org.Name');
@@ -224,7 +225,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//12
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('string');
 		$entity->setValue('');
 		$entity->setName('Org.Ext.Id');
@@ -234,7 +235,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//13
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('text');
 		$entity->setValue('');
 		$entity->setName('Org.Postal.Address.1');
@@ -244,7 +245,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//14
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('text');
 		$entity->setValue('');
 		$entity->setName('Org.Postal.Address.2');
@@ -254,7 +255,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//15
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('text');
 		$entity->setValue('');
 		$entity->setName('Org.Postal.Locality');
@@ -264,7 +265,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//16
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('string');
 		$entity->setValue('');
 		$entity->setName('Org.Postal.Postcode');
@@ -274,7 +275,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//17
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('string');
 		$entity->setValue('');
 		$entity->setName('Org.Postal.Territory');
@@ -285,7 +286,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//18
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('text');
 		$entity->setValue('');
 		$entity->setName('Org.Contact.Name');
@@ -295,7 +296,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//19
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('string');
 		$entity->setValue('');
 		$entity->setName('Org.Contact.Phone');
@@ -306,7 +307,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//20
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('string');
 		$entity->setValue('');
 		$entity->setName('Org.Contact.Facsimile');
@@ -316,7 +317,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//21
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('string');
 		$entity->setValue('');
 		$entity->setName('Org.Contact.Email');
@@ -326,7 +327,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//22
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('text');
 		$entity->setValue('');
 		$entity->setName('Org.Physical.Address.1');
@@ -336,7 +337,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//23
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('text');
 		$entity->setValue('');
 		$entity->setName('Org.Physical.Address.2');
@@ -346,7 +347,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//24
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('text');
 		$entity->setValue('');
 		$entity->setName('Org.Physical.Locality');
@@ -356,7 +357,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//25
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('string');
 		$entity->setValue('');
 		$entity->setName('Org.Physical.Postcode');
@@ -366,7 +367,7 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//26
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('string');
 		$entity->setValue('');
 		$entity->setName('Org.Physical.Territory');
@@ -377,12 +378,42 @@ class Update_0_0_02 implements UpdateInterface
 
 		$this->sm->saveSetting($entity);
 		//27
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new Setting();
 		$entity->setType('text');
 		$entity->setValue('Symfony\Component\Form\Extension\Core\Type\CountryType');
 		$entity->setName('CountryType');
 		$entity->setDisplayName('Country Type Form Handler');
 		$entity->setDescription("Determines how the country details are obtained and stored in the database.");
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+
+		$this->sm->saveSetting($entity);
+		//28
+		$entity = new Setting();
+		$entity->setType('string');
+		$entity->setValue('Monday');
+		$entity->setName('firstDayofWeek');
+		$entity->setDisplayName('First Day of Week');
+		$entity->setDescription('The first day of the week for display purposes.  Monday or Sunday, defaults to Monday.');
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+
+		$this->sm->saveSetting($entity);
+		//29
+		$entity = new Setting();
+		$entity->setType('array');
+		$entity->setValue(
+			Yaml::dump(
+				array(
+					'Mon' => 'Monday',
+					'Tue' => 'Tuesday',
+					'Wed' => 'Wednesday',
+					'Thu' => 'Thursday',
+					'Fri' => 'Friday',
+				)
+			)
+		);
+		$entity->setName('schoolWeek');
+		$entity->setDisplayName('Days in the School Week');
+		$entity->setDescription('Defines the list of days that school would normally be open.');
 		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
 		$this->sm->saveSetting($entity);

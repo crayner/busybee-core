@@ -1,6 +1,8 @@
 <?php
 namespace Busybee\InstituteBundle\Service\WidgetService;
 
+use Busybee\SystemBundle\Setting\SettingManager ;
+
 /**
  * Represents a calendar for specified year
  * @author tfox
@@ -17,7 +19,7 @@ class Calendar {
 	
 	/**
 	 * Year for calendar
-	 * @var int
+	 * @var datetime
 	 */
 	protected $year;
 		
@@ -49,6 +51,8 @@ class Calendar {
 	
 	protected $parameters;
 	
+	private $sm;
+	
 	public function generate($year)
 	{
 		$this->year = $year;
@@ -59,63 +63,67 @@ class Calendar {
 		$oneDayInterval = new \DateInterval('P1D');
 		
 		//Calculate first and last days of year
-		$firstYearDate = \DateTime::createFromFormat('d.m.Y H:i:s', sprintf('01.01.%s 00:00:00', $year));
+		$firstYearDate = \DateTime::createFromFormat('d.m.Y H:i:s', sprintf('01.%s 00:00:00', $year->getFirstDay()->format('m.Y')));
 		$lastYearDate = clone $firstYearDate;
 		$lastYearDate->add(new \DateInterval('P1Y'));
 		$lastYearDate->sub($oneDayInterval);
 		
 		//Calculate first and last days in calendar.
-		//It's monday on the 1st week and sunday on the last week
+		//It's monday on the 1st week and sunday on the last week. or Sunday and Saturday
 		$firstDate = clone $firstYearDate;
 		$lastDate = clone $lastYearDate;		
 		
-		while($firstDate->format('N') != 1) {
+		while($firstDate->format('N') != $this->getFirstDayofWeek()) {
 			$firstDate->sub($oneDayInterval);
 		}
-		while($lastDate->format('N') != 7) {
+		while($lastDate->format('N') != $this->getLastDayofWeek()) {
 			$lastDate->add($oneDayInterval);
 		}
-		
+
 		//Build calendar
 		$dateIterator = clone $firstDate;
 		$currentWeek = null;
 		$currentMonth = null;
 		while($dateIterator <= $lastDate) {
 			$currentDate = clone $dateIterator;
-			$day = new $this->dayModel($currentDate);
+			$day = new $this->dayModel($currentDate, $this->sm);
 			$this->addDay($day);
 			
-			//Calculate month and week numbers
-			$monthNumber = $currentDate->format('n');
-			$monthYear = $currentDate->format('Y');
-			$weekNumber = (int)$currentDate->format('W');
+			if (is_null($currentWeek))
+				$currentWeek = new $this->weekModel($this, $day);
+			else
+				$currentWeek->addDay($day);
 			
-			if($monthYear >= $this->year) {				
-					
-				//Add a day to month
-				if(is_null($currentMonth)) {
-					$currentMonth = new $this->monthModel($this);
-				} else if($currentMonth->getNumber() != $monthNumber) {
-					$this->addMonth($currentMonth);
-					$currentMonth = new $this->monthModel($this);
+			if ($currentDate >= $firstYearDate && $currentDate <= $lastYearDate)
+			{
+				if (is_null($currentMonth))
+				{
+					$currentMonth = new $this->monthModel($this, $day);
+				} 
+				elseif ($day->isInMonth($currentMonth))
+				{
+					$currentMonth->addDay($day);
+					if ($currentDate == $lastYearDate)
+						$this->addMonth($currentMonth);
 				}
-				$currentMonth->addDay($day);
+				elseif (! $day->isInMonth($currentMonth))
+				{
+					if (count($currentWeek->getDays()) > 1)
+						$currentMonth->addWeek($currentWeek);
+					$this->addMonth($currentMonth);
+					$currentMonth = new $this->monthModel($this, $day);
+				}
+				
+				if (count($currentWeek->getDays()) == 7)
+				{
+					$this->addWeek($currentWeek);
+					$currentMonth->addWeek($currentWeek);
+					$currentWeek = null ;
+				}
 			}
-
-			
-			//Add a day to week
-			if(is_null($currentWeek)) {
-				$currentWeek = new $this->weekModel($this);
-			} else if($currentWeek->getNumber() != $weekNumber) {
-				$this->addWeek($currentWeek);
-				$currentWeek = new $this->weekModel($this);
-			}
-			$currentWeek->addDay($day);
-			
 			$dateIterator->add($oneDayInterval);
-		}		
-		$this->addWeek($currentWeek);
-
+		}
+		
 		$this->initNames();
 	}
 	
@@ -135,6 +143,15 @@ class Calendar {
 		$this->weekShortNames = array(
 			'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
 		);
+		if ($this->sm->get('firstDayofWeek') === 'Sunday')
+		{
+			$this->weekFullNames = array(
+				'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+			);
+			$this->weekShortNames = array(
+				'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
+			);
+		}
 		
 		
 	}
@@ -272,5 +289,24 @@ class Calendar {
 	{
 		return key_exists($key, $this->parameters) ? $this->parameters[$key] : null;
 	}
-	
+
+	public function __construct(SettingManager $sm)
+	{
+		$this->sm = $sm ;
+	}
+
+	public function getFirstDayofWeek()
+	{
+		return $this->sm->get('firstDayofWeek', 'Monday') == 'Sunday' ? 7 : 1 ;
+	}
+
+	public function getLastDayofWeek()
+	{
+		return $this->sm->get('firstDayofWeek', 'Monday') == 'Sunday' ? 6 : 7 ;
+	}
+
+	public function getSM()
+	{
+		return $this->sm ;
+	}
 }

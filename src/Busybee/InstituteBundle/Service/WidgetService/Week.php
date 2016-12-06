@@ -1,24 +1,28 @@
 <?php
 namespace Busybee\InstituteBundle\Service\WidgetService;
 
+use Busybee\SystemBundle\Setting\SettingManager ;
+use Busybee\InstituteBundle\Service\WidgetService\Calendar ;
+use Busybee\InstituteBundle\Service\WidgetService\Day ;
+
 class Week {
 	protected $calendar;
 	protected $days;
-	
+	protected $weekNumber = null;
 	protected $parameters;
 	
-	public function __construct($calendar)
+	public function __construct(Calendar $calendar, Day $day)
 	{
 		$this->parameters = array();
 		$this->calendar = $calendar;
 		$this->days = array();
+		$this->addDay($day);
+		$this->weekNumber = $day->getWeekNumber();
 	}
 	
 	public function getNumber()
 	{
-		$lastDay = $this->days[count($this->days) - 1];
-		$lastDate = $lastDay->getDate();
-		return (int)$lastDate->format('W');
+		return (int)$this->weekNumber ;
 	}
 	
 	public function addDay($day)

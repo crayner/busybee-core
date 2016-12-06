@@ -1,17 +1,22 @@
 <?php
 namespace Busybee\InstituteBundle\Service\WidgetService;
 
+use Busybee\InstituteBundle\Service\WidgetService\Calendar ;
+use Busybee\InstituteBundle\Service\WidgetService\Day ;
+
 class Month {
 	protected $calendar;
 	protected $days;
+	protected $weeks;
 	
 	protected $parameters;
 	
-	public function __construct($calendar)
+	public function __construct(Calendar $calendar, Day $day)
 	{
 		$this->parameters = array();
 		$this->calendar = $calendar;
 		$this->days = array();
+		$this->addDay($day);
 	}
 	
 	public function getNumber()
@@ -29,6 +34,16 @@ class Month {
 	public function getDays()
 	{
 		return $this->days;
+	}
+	
+	public function addWeek($week)
+	{
+		$this->weeks[] = $week;
+	}
+	
+	public function getWeeks()
+	{
+		return $this->weeks;
 	}
 	
 	public function getYear()
@@ -66,7 +81,7 @@ class Month {
 		return $this->getLastDay()->getDate();
 	}
 	
-	public function getWeeks()
+	public function get_Weeks()
 	{
 		$_this = $this;
 		$weeks = array_filter($this->calendar->getWeeks(), function($week) use($_this) {

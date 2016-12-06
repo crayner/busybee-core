@@ -149,8 +149,10 @@ a {
 	border-right: 1px solid #ddd;
 }
 div.calendarMonth {
-    border: 1px solid #444;
+	border: 1px solid #444;
+    padding: 10px;
     border-radius: 15px;
+    margin: 0;
 }
 div.calendarMonth>table {
     width: 100%;
@@ -163,4 +165,22 @@ tr.calendarWeek>td {
 }
 div.calendarMonth th {
 	text-align: center ;
+}
+.dayBold {
+	font-weight: bold;
+}
+.termBreak {
+	background-color: rgba(128,128,0,0.5);
+}
+.isClosed {
+	background-color: lightsalmon ;
+	background-image: url(../img/isClosed.png);
+	background-repeat: repeat ;
+	font-weight: bold;
+}
+.isSpecial {
+	background-color: cyan ;
+	background-image: url(../img/isSpecial.png);
+	background-repeat: repeat ;
+	font-weight: bold;
 }

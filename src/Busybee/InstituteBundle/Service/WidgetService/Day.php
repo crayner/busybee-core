@@ -1,15 +1,30 @@
 <?php
 namespace Busybee\InstituteBundle\Service\WidgetService;
 
+use Busybee\SystemBundle\Setting\SettingManager ;
+
 class Day {
 	protected $date;
 	
 	protected $parameters;
 	
-	public function __construct(\DateTime $date)
+	private $firstDayofWeek;
+	
+	private $lastDayofWeek;
+	
+	private $weekNumber = null ;
+	
+	protected $sm ;
+	
+	public function __construct(\DateTime $date, SettingManager $sm)
 	{
 		$this->parameters = array();
 		$this->date = $date;
+		$this->day = $date->format('D jS M Y');
+		$this->sm = $sm ;
+		$this->firstDayofWeek = $this->sm->get('firstDayofWeek', 'Monday') == 'Sunday' ? 7 : 1 ;
+		$this->lastDayofWeek = $this->sm->get('firstDayofWeek', 'Monday') == 'Sunday' ? 6 : 7 ;
+		$this->weekNumber = $this->getWeekNumber();
 	}
 	
 	public function getDate()
@@ -24,12 +39,13 @@ class Day {
 	
 	public function isFirstInWeek()
 	{
-		return $this->date->format('N') == 1;
+
+		return $this->date->format('N') == $this->firstDayofWeek;
 	}
 	
 	public function isLastInWeek()
 	{
-		return $this->date->format('N') == 7;
+		return $this->date->format('N') == $this->lastDayofWeek;
 	}
 	
 	public function isInWeek($week)
@@ -56,5 +72,19 @@ class Day {
 	public function getParameter($key)
 	{
 		return key_exists($key, $this->parameters) ? $this->parameters[$key] : null;
+	}
+	
+	public function getWeekNumber()
+	{
+		if (! is_null($this->weekNumber))
+			return $this->weekNumber;
+		$date = clone $this->date ;
+		if ($this->sm->get('firstDayofWeek') === 'Monday')
+			return (int)$date->format('W');
+
+		//  First day of week is Sunday ...
+		$oneDayInterval = new \DateInterval('P1D');
+		$date->add($oneDayInterval);
+		return (int)$date->format('W');
 	}
 }

@@ -108,6 +108,10 @@ class CalendarController extends Controller
 	
         $now = new \DateTime();
 		
+		$sm = $this->get('setting.manager');
+		
+		$firstDayofWeek = $sm->get('firstDayofWeek', 'Monday');
+		
 		$repo = $this->get('year.repository');
 		
 		$year = $repo->find($id);
@@ -126,31 +130,13 @@ class CalendarController extends Controller
          * To set default classes null should be passed as argument
          */
         $service->setModels(null, $monthModelClass, null, $dayModelClass);
-        $calendar = $service->generateCalendar($year->getFirstDay()->format('Y')); //Generate a calendar for specified year
-        /*
-         * Get the 26th of December and make it hodiday.
-         * Function setIsHoliday is defined in a class which 
-         * extends default \TFox\CalendarBundle\Service\WidgetService\Day class
-         */
-        $calendar->getDay('01.01')->setIsHoliday(true);
-        $calendar->getDay('25.04')->setIsHoliday(true);
-        $calendar->getDay('13.06')->setIsHoliday(true);
-        $calendar->getDay('25.12')->setIsHoliday(true);
-        $calendar->getDay('26.12')->setIsHoliday(true);
-        $calendar->getDay('26.01')->setIsHoliday(true);
-        $calendar->getDay('27.12')->setIsHoliday(true);
-        $calendar->getDay('15.04')->setIsHoliday(true);
-        $calendar->getDay('17.04')->setIsHoliday(true);
-        $calendar->getDay('18.04')->setIsHoliday(true);
-        $calendar->getDay('03.10')->setIsHoliday(true);
+        $calendar = $service->generateCalendar($year); //Generate a calendar for specified year
 
-        /*
-         * Another way to pass additional parametes without extension of default model
-         * Sets the parameter 'today' for current day
-         */
-//        $calendar->getDay($now->format('d.m'))->setParameter('today', 1);
+		$cm = $this->get('calendar.manager') ;
+		
+		$cm->setCalendarDays($year, $calendar);
 
-        /*
+		/*
          * Pass calendar to Twig
          */
 		return $this->render('BusybeeInstituteBundle:Calendar:yearCalendar.html.twig', 

@@ -83,3 +83,10 @@ services:
             - "BusybeeInstituteBundle:SpecialDay"
     calendar.widget:
         class: Busybee\InstituteBundle\Service\WidgetService
+        arguments:
+            - '@setting.manager'
+    calendar.manager:
+        class: Busybee\InstituteBundle\Model\CalendarManager
+        arguments:
+            - '@setting.manager'
+            - '@year.repository'
