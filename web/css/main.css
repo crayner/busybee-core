@@ -160,27 +160,37 @@ div.calendarMonth>table {
 tr.calendarWeek>td {
 	border: 1px solid black;
     height: 2em;
-	width: 2.6em ;
+	min-width: 30px ;
     text-align: center;
+}
+tr.calendarWeek {
+	border: 1px solid black;
 }
 div.calendarMonth th {
 	text-align: center ;
 }
 .dayBold {
 	font-weight: bold;
+	font-size: 85% ;
 }
 .termBreak {
 	background-color: rgba(128,128,0,0.5);
+	text-align: center ;
 }
 .isClosed {
 	background-color: lightsalmon ;
 	background-image: url(../img/isClosed.png);
 	background-repeat: repeat ;
 	font-weight: bold;
+	text-align: center ;
 }
 .isSpecial {
 	background-color: cyan ;
 	background-image: url(../img/isSpecial.png);
 	background-repeat: repeat ;
 	font-weight: bold;
+	text-align: center ;
+}
+td.noBorder {
+    border: none!important;
 }

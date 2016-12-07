@@ -24,15 +24,19 @@ class CalendarManager
 	
 	public function setTermBreaks()
 	{
-		$oneDayInterval = new \DateInterval('P1D');
-		$currentDate = $this->year->getFirstDay();
-		
-		while ($currentDate <= $this->year->getLastDay())
+		foreach ($this->calendar->getMonths() as $monthKey=>$month)
 		{
-			// School Day ?
-			$this->calendar->getDay($currentDate->format('d.m'))->setTermBreak($this->isTermBreak($currentDate));	
+			foreach($month->getWeeks() as $weekKey=>$week)
+			{
+				foreach($week->getDays() as $dayKey=>$day) 
+				{
+					// School Day ?
+					$break = $this->isTermBreak($day->getDate());
+					$this->calendar->getDay($day->getDate()->format('d.m'))->setTermBreak($break);
+					$day->setTermBreak($break);
+				}
+			}
 
-			$currentDate->add($oneDayInterval);
 		}
 	}
 	
@@ -44,7 +48,7 @@ class CalendarManager
 		foreach($this->year->getTerms() as $term)
 			if ($currentDate >= $term->getFirstDay() && $currentDate <= $term->getLastDay())
 				return false ;
-				
+
 		return true ;
 	}
 

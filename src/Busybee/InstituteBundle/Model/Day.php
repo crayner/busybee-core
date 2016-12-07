@@ -8,10 +8,10 @@ class Day extends \Busybee\InstituteBundle\Service\WidgetService\Day
 	
     private $special = false;
 	
-    private $prompt;
-	
 	private $termBreak = false ;
 
+    private $prompt = null ;
+	
     public function isClosed()
     {
         return $this->closed;

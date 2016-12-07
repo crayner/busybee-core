@@ -8,14 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>{% block title %}Busybee - {% endblock title %}</title>
 
-{% block stylesheets %}
-	<link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
-	<link href="{{ asset('css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />
-	<link href="{{ asset('css/bootstrap-submenu.min.css') }}" type="text/css" rel="stylesheet" />
-	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
-	<link href="{{ asset('css/glyphicons-halflings.css') }}" type="text/css" rel="stylesheet" />
-	<link href="{{ asset('css/main.css') }}" type="text/css" rel="stylesheet" />
-{% endblock stylesheets %}
+{% block stylesheets %}{% include 'BusybeeHomeBundle:Default:style.html.twig' %}{% endblock stylesheets %}
 
 </head>
 

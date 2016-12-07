@@ -8,6 +8,7 @@ use Busybee\InstituteBundle\Form\YearType ;
 use Busybee\InstituteBundle\Entity\Year ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 
+
 class CalendarController extends Controller
 {
     public function yearsAction()
@@ -115,6 +116,7 @@ class CalendarController extends Controller
 		$repo = $this->get('year.repository');
 		
 		$year = $repo->find($id);
+		$years = $repo->findBy(array(), array('name'=>'ASC'));
 		
         $service = $this->get('calendar.widget'); //calling a calendar service
 
@@ -143,7 +145,62 @@ class CalendarController extends Controller
 			array(
 				'calendar'	=> $calendar,
 				'year'		=> $year,
+				'years' 	=> $years,
 			)
 		);
 	}
+
+    public function printCalendarAction($id)
+    {
+		$this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page!');
+	
+        $now = new \DateTime();
+		
+		$sm = $this->get('setting.manager');
+		
+		$firstDayofWeek = $sm->get('firstDayofWeek', 'Monday');
+		
+		$repo = $this->get('year.repository');
+		
+		$year = $repo->find($id);
+		
+        $service = $this->get('calendar.widget'); //calling a calendar service
+
+        //Defining a custom classes for rendering of months and days
+        $dayModelClass = '\Busybee\InstituteBundle\Model\Day';
+        $monthModelClass = '\Busybee\InstituteBundle\Model\Month';
+        /*
+         * Set model classes for calendar. Arguments:
+         * 1. For the whole calendar (watch $calendar variable). Default: \TFox\CalendarBundle\Service\WidgetService\Calendar
+         * 2. Month. Default: \TFox\CalendarBundle\Service\WidgetService\Month
+         * 3. Week. Default: '\TFox\CalendarBundle\Service\WidgetService\Week
+         * 4. Day. Default: '\TFox\CalendarBundle\Service\WidgetService\Day'
+         * To set default classes null should be passed as argument
+         */
+        $service->setModels(null, $monthModelClass, null, $dayModelClass);
+        $calendar = $service->generateCalendar($year); //Generate a calendar for specified year
+
+		$cm = $this->get('calendar.manager') ;
+		
+		$cm->setCalendarDays($year, $calendar);
+
+		/*
+         * Pass calendar to Twig
+         */
+		$content = $this->render('BusybeeInstituteBundle:Calendar:calendarView.pdf.twig', 
+			array(
+				'calendar'	=> $calendar,
+				'year'		=> $year,
+			)
+		);
+
+		return $content ;
+	}
+
+    public function calendarChangeAction(Request $request)
+    {
+		$id = $request->get('id');
+		
+		return new RedirectResponse($this->generateUrl('year_calendar', array('id' => $id)));
+    }
 }

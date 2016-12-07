@@ -38,6 +38,10 @@ year:
 calendar:
     title: Define Calendars
     description: Create and modify calendar definitions.
+    generate:
+        title: Generate Calendar
+        description: ''
+        print: Print Calendar
     status:
         past: Past
         current: Current

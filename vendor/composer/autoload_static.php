@@ -9,8 +9,8 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
     public static $files = array (
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
-        'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
+        'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -215,6 +215,20 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
                 0 => __DIR__ . '/..' . '/sensiolabs/security-checker',
             ),
         ),
+        'H' => 
+        array (
+            'HTML2PDF' => 
+            array (
+                0 => __DIR__ . '/..' . '/ensepar/html2pdf',
+            ),
+        ),
+        'E' => 
+        array (
+            'Ensepar\\Html2pdfBundle' => 
+            array (
+                0 => __DIR__ . '/..' . '/ensepar/html2pdf-bundle',
+            ),
+        ),
         'D' => 
         array (
             'Doctrine\\ORM\\' => 
@@ -268,7 +282,11 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Locale' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/Locale.php',
         'NumberFormatter' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/NumberFormatter.php',
         'ParseError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ParseError.php',
+        'QRcode' => __DIR__ . '/..' . '/ensepar/tcpdf/qrcode.php',
         'SqlFormatter' => __DIR__ . '/..' . '/jdorn/sql-formatter/lib/SqlFormatter.php',
+        'TCPDF' => __DIR__ . '/..' . '/ensepar/tcpdf/tcpdf.php',
+        'TCPDF2DBarcode' => __DIR__ . '/..' . '/ensepar/tcpdf/2dbarcodes.php',
+        'TCPDFBarcode' => __DIR__ . '/..' . '/ensepar/tcpdf/barcodes.php',
         'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
     );
 

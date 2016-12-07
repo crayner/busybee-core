@@ -19,3 +19,4 @@
 *.php~
 /src/Busybee/Plugin/
 *.tmp
+Thumbs.db

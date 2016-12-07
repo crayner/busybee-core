@@ -104,7 +104,12 @@ class Calendar {
 				{
 					$currentMonth->addDay($day);
 					if ($currentDate == $lastYearDate)
+					{
+						$currentMonth->addWeek($currentWeek);
+						$this->addWeek($currentWeek);
 						$this->addMonth($currentMonth);
+						if (count($currentWeek->getDays()) == 7) $currentWeek = null;
+					}
 				}
 				elseif (! $day->isInMonth($currentMonth))
 				{
@@ -114,7 +119,7 @@ class Calendar {
 					$currentMonth = new $this->monthModel($this, $day);
 				}
 				
-				if (count($currentWeek->getDays()) == 7)
+				if (!is_null($currentWeek) && count($currentWeek->getDays()) == 7)
 				{
 					$this->addWeek($currentWeek);
 					$currentMonth->addWeek($currentWeek);
@@ -123,7 +128,6 @@ class Calendar {
 			}
 			$dateIterator->add($oneDayInterval);
 		}
-		
 		$this->initNames();
 	}
 	
