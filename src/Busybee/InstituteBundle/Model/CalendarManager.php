@@ -60,15 +60,17 @@ class CalendarManager
 	
 	public function setClosedDays()
 	{
-		foreach($this->year->getSpecialDays() as $specialDay)
-			if ($specialDay->getType() == 'closure')
-				$this->calendar->getDay($specialDay->getDay()->format('d.m'))->setClosed(true, $specialDay->getName());
+		if (! is_null($this->year->getSpecialDays()))
+			foreach($this->year->getSpecialDays() as $specialDay)
+				if ($specialDay->getType() == 'closure')
+					$this->calendar->getDay($specialDay->getDay()->format('d.m'))->setClosed(true, $specialDay->getName());
 	}
 	
 	public function setSpecialDays()
 	{
-		foreach($this->year->getSpecialDays() as $specialDay)
-			if ($specialDay->getType() != 'closure')
-				$this->calendar->getDay($specialDay->getDay()->format('d.m'))->setSpecial(true, $specialDay->getName());
+		if (! is_null($this->year->getSpecialDays()))
+			foreach($this->year->getSpecialDays() as $specialDay)
+				if ($specialDay->getType() != 'closure')
+					$this->calendar->getDay($specialDay->getDay()->format('d.m'))->setSpecial(true, $specialDay->getName());
 	}
 }

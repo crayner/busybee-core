@@ -41,6 +41,7 @@ class CalendarController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
+
 			$em = $this->get('doctrine')->getManager();
 			$em->persist($year);
 			$em->flush();
@@ -201,6 +202,18 @@ class CalendarController extends Controller
     {
 		$id = $request->get('id');
 		
+		if (empty($id)) {
+			$repo = $this->get('year.repository');
+			$year = $repo->createQueryBuilder('y')
+				->where('y.firstDay LIKE :now')
+				->setParameter('now', date('Y').'%')
+				->setMaxResults(1)
+				->getQuery()
+				->getResult();
+			if (is_array($year)) $year = reset($year);
+			$id = $year->getId();
+		}
+
 		return new RedirectResponse($this->generateUrl('year_calendar', array('id' => $id)));
     }
 }

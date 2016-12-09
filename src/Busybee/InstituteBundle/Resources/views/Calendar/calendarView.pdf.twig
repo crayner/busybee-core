@@ -7,8 +7,8 @@
 	{% include 'BusybeeInstituteBundle:Calendar:style.html.twig' %}
 	
 	{% set row = 1 %}
-	<h3 style="text-align: center; ">{{ year.name }}</h3>
-	<table class="calendarBody">
+	<h3 style="text-align: center; ">{{ get_setting('Org.Name') }} {{ year.name }}</h3>
+	<table class="calendarBody" style="">
 	<tbody>
 	{% for month in calendar.months %} 
 		{% if row == 1 %}<tr>

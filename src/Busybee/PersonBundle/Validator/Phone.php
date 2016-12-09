@@ -16,7 +16,6 @@ class Phone extends Constraint
 	{
 		parent::__construct();
 		$this->addImplicitGroupName('Default');
-		$this->addImplicitGroupName('SettingList');
 		return $this ;
 	}
 }

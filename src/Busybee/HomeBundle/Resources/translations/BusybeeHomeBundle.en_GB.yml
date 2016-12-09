@@ -89,6 +89,7 @@ menu:
     calendar:
         manage: Calendar
         years: Years
+        view: Display Calendar
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

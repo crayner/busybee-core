@@ -56,8 +56,3 @@ Busybee\InstituteBundle\Entity\Term:
             joinColumn:
                 name: year_id
                 referencedColumnName: id
-    oneToMany:
-        specialDays:
-            targetEntity: Busybee\InstituteBundle\Entity\SpecialDay
-            mappedBy: term
-            cascade: [persist, remove]

@@ -79,7 +79,8 @@ calendar:
     term:
         title: "Manage Terms in %year%"
     specialDay:
-        title: Manage Special Days
+        title: "Manage Special Days in %year%"
+        add: Add Special Day
 term:
     add: Add Term
     help:

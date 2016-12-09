@@ -313,4 +313,3 @@ class Campus
         return $this->modifiedBy;
     }
 }
-

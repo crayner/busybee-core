@@ -7,6 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml ;
 use Symfony\Component\Form\FormError ;
 use InvalidArgumentException ;
+use Busybee\FormBundle\Type\ImageType ;
+use Busybee\FormBundle\Type\YamlArrayType ;
+use Symfony\Component\HttpFoundation\RedirectResponse ;
+
 
 class SettingController extends Controller
 {
@@ -71,12 +75,41 @@ class SettingController extends Controller
 			'label' => 'system.setting.label.value',
 		);
 
+		$constraints = array();
+		if (! is_null($setting->getValidator()))
+			$constraints[] = $this->get($setting->getValidator());
+		switch ($setting->getType()) 
+		{
+			case 'array':
+				$constraints[] = new \Busybee\HomeBundle\Validator\Yaml();
+				break ;
+			case 'twig':
+				$constraints[] = new \Busybee\HomeBundle\Validator\Twig();
+				break ;
+			case 'regex':
+				$constraints[] = new \Busybee\HomeBundle\Validator\Regex();
+				break ;
+		}
+			
+		if (count($constraints) > 0) $options['constraints'] = $constraints;
+
 		switch ($setting->getType()) 
 		{
 			case 'boolean':
 				$form->add('value', 'Busybee\FormBundle\Type\YesNoType', array_merge($options, array(
-							'data' => $sm->get($setting->getName()),
-							'help' => 'system.setting.help.boolean'
+							'data' 			=> $sm->get($setting->getName()),
+							'help' 			=> 'system.setting.help.boolean',
+						)
+					)
+				);
+				break ;
+			case 'image':
+				$form->add('value', ImageType::class, array_merge($options, array(
+							'data' 	=> $sm->get($setting->getName()),
+							'attr'	=> array(
+								'help' => 'system.setting.help.image',
+								'imageClass' => 'imageWidth200',
+							),
 						)
 					)
 				);
@@ -87,8 +120,11 @@ class SettingController extends Controller
 								'help' => 'system.setting.help.array',
 								'rows' => 8,
 							),
-							'constraints' => array(
-								new \Busybee\HomeBundle\Validator\Yaml(),
+							'constraints' => array_merge(
+								$constraints, 
+								array(
+									new \Busybee\HomeBundle\Validator\Yaml(),
+								)
 							),
 						)
 					)
@@ -100,8 +136,11 @@ class SettingController extends Controller
 								'help' => 'system.setting.help.twig',
 								'rows' => 5,
 							),
-							'constraints' => array(
-								new \Busybee\HomeBundle\Validator\Twig(),
+							'constraints' => array_merge(
+								$constraints, 
+								array(
+									new \Busybee\HomeBundle\Validator\Twig(),
+								)
 							),
 						)
 					)
@@ -110,33 +149,42 @@ class SettingController extends Controller
 			case 'string':
 				if (is_null($setting->getChoice()))
 					$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', array_merge($options, array(
-							'attr' => array(
-								'maxLength' => 25,
-							),
+								'attr' => array(
+									'maxLength' => 25,
+								),
+								'constraints' => $constraints,
+							)
 						)
-					)
-				);
-				else 
-				{
+					);
+					else 
 					$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array_merge($options, array(
-						'choices' => $sm->getChoices($setting->getChoice())
-					))); 
-				}
+								'choices' => $sm->getChoices($setting->getChoice()),
+								'constraints' => $constraints,
+							)
+						)
+					); 
 				break ;
 			case 'regex':
 				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array_merge($options, array(
 							'attr' => array(
 								'rows' => 5,
 							),
-							'constraints' => array(
-								new \Busybee\HomeBundle\Validator\Regex(),
+							'constraints' => array_merge(
+								$constraints, 
+								array(
+									new \Busybee\HomeBundle\Validator\Regex(),
+								)
 							),
 						)
 					)
 				); 
 				break ;
 			case 'text':
-				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', array_merge($options, array())); 
+				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', array_merge($options, array(
+							'constraints' => $constraints,
+						)
+					)
+				); 
 				break ;
 			default:
 				dump($setting);
@@ -144,16 +192,19 @@ class SettingController extends Controller
 		}
 
 		$form->handleRequest($request);
+
 		if (! $valid)
 		{
 			$form->get('value')->addError(new FormError($errorMsg));
 		}
-		
+
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			$em = $this->get('doctrine')->getManager();
 			$em->persist($setting);
 			$em->flush();
+			if ($setting->getType() == 'image')
+				return new RedirectResponse($this->generateUrl('setting_edit', array('id' => $id)));
 		} 
 
         return $this->render('SystemBundle:Setting:edit.html.twig', array(

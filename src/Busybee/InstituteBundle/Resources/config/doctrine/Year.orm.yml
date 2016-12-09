@@ -47,3 +47,7 @@ Busybee\InstituteBundle\Entity\Year:
             targetEntity: Busybee\InstituteBundle\Entity\Term
             mappedBy: year
             cascade: [persist, remove]
+        specialDays:
+            targetEntity: Busybee\InstituteBundle\Entity\SpecialDay
+            mappedBy: year
+            cascade: [persist, remove]

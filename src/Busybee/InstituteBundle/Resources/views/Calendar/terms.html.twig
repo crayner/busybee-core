@@ -7,12 +7,7 @@
 <div class="panel panel-primary busybee-panel">
 	<div class="panel-heading">
 		<h3 class="panel-title">{{ 'calendar.term.title'|trans({'%year%': form.name.vars.value}) }}
-		<button title="{{ 'calendar.year.return'|trans}}" type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('calendar_years') }}','_self')" style="float: right"></button>
-		{% if id != 'Add' %}
-			<button title="{{ 'year.add.title'|trans}}" type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('year_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
-		{% endif %}
-		<button title="{{ 'form.reset.button'|trans({}, 'BusybeeHomeBundle') }}" type="button" onClick="location.href='{{ path('year_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
-		<button title="{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}" type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
+		{% include 'BusybeeInstituteBundle:Calendar:calendarMenu.html.twig' %}
 		</h3>
 	</div>
 	<div class="panel-body">
@@ -23,6 +18,7 @@
 		{% endfor %}
 		{% include 'BusybeeInstituteBundle:Calendar:term.html.twig' with {'form': form.terms.vars.prototype} %}
 		<p class="alert alert-info">{{ 'calendar.help.terms'|trans }}</p>
+		{% include 'BusybeeInstituteBundle:Calendar:calendarMenu.html.twig' %}
 	</div>
 </div>
 

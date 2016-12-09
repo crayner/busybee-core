@@ -112,12 +112,6 @@ services:
             - { name: doctrine.event_listener, event: postLoad }
             - { name: doctrine.event_listener, event: postUpdate }
             - { name: doctrine.event_listener, event: postRemove }
-    person.form.phoneType:
-        class: Busybee\PersonBundle\Form\PhoneType
-        arguments:
-            - '@setting.manager'
-        tags: 
-            - { name: form.type }    
     person.form.personType:
         class: Busybee\PersonBundle\Form\PersonType
         arguments:
@@ -144,3 +138,9 @@ services:
             - '@setting.manager'
         tags:
             - { name: validator.constraint_validator, alias: calendar_status_validator }
+    person.form.type.phone:
+        class: Busybee\PersonBundle\Form\PhoneType
+        arguments:
+            - '@setting.manager'
+        tags: 
+            - { name: form.type }    

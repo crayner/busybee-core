@@ -5,19 +5,21 @@ parameters:
         14:
             name: Manage School Settings
             label: menu.site.institute.manage
-            role: ROLE_REGISTRAR
+            role: ROLE_USER
             node: 1
             order: 14
             menu: 14
         140:
             label: menu.facility.manage
             name: Facility Management
+            role: ROLE_REGISTRAR
             node: 14
             order: 140
             menu: 140
         1400:
             label: menu.campus.manage
             name: Campus Management
+            role: ROLE_REGISTRAR
             node: 140
             order: 1400
             route: campus_manage
@@ -30,6 +32,14 @@ parameters:
         1410:
             label: menu.calendar.years
             name: Years
+            role: ROLE_REGISTRAR
             node: 141
             order: 1410
             route: calendar_years
+        1411:
+            label: menu.calendar.view
+            name: Years
+            role: ROLE_USER
+            node: 141
+            order: 1411
+            route: year_calendar_change

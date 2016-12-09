@@ -8,3 +8,23 @@ services:
             - '@translator'
         tags:
             - { name: twig.extension }
+    form.type.image:
+        class: Busybee\FormBundle\Type\ImageType
+        arguments:
+            - '@image.uploader'
+        tags: 
+            - { name: form.type }    
+    image.uploader:
+        class: Busybee\FormBundle\Model\ImageUploader
+        arguments:
+            - "%upload_path%"
+    validator.logo:
+        class: Busybee\FormBundle\Validator\Constraints\LogoValidator
+        tags:
+            - { name: validator.constraint_validator, alias: logo_validator }
+    validator.background.image:
+        class: Busybee\FormBundle\Validator\BackgroundImage
+    validator.background.image.constraint:
+        class: Busybee\FormBundle\Validator\Constraints\BackgroundImageValidator
+        tags:
+            - { name: validator.constraint_validator, alias: background_image_validator }

@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType ;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType ;
 use Doctrine\ORM\EntityManager as ObjectManager;
-use Busybee\InstituteBundle\Form\DataTransformer\TermTransformer ;
+use Busybee\InstituteBundle\Form\DataTransformer\YearTransformer ;
 
 class SpecialDayType extends AbstractType
 {
@@ -118,10 +118,10 @@ class SpecialDayType extends AbstractType
 					'placeholder'	=> array('hour' => 'specialDay.hour', 'minute' => 'specialDay.minute'),
 				)
 			)
-			->add('term', HiddenType::class)
+			->add('year', HiddenType::class)
         ;
-        $builder->get('term')
-            ->addModelTransformer(new TermTransformer($this->manager));
+        $builder->get('year')
+            ->addModelTransformer(new YearTransformer($this->manager));
     }
     
     /**

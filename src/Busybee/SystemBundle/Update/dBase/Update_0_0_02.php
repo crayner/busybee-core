@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml ;
 use Busybee\SystemBundle\Entity\Setting ;
 
 /**
- * Update 0.0.00
+ * Update 0.0.02
  *
  * @version	23rd October 2016
  * @since	23rd October 2016
@@ -27,7 +27,7 @@ class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	= 29 ;
+	private $count	= 31 ;
 	
 	/**
 	 * Constructor
@@ -303,7 +303,7 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setDisplayName('Organisation Contact Phone Number');
 		$entity->setDescription("The phone number of the person to contact in this organisation.");
 		$entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
-		$entity->setValidator('phone');
+		$entity->setValidator('phone.validator');
 
 		$this->sm->saveSetting($entity);
 		//20
@@ -415,6 +415,39 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setDisplayName('Days in the School Week');
 		$entity->setDescription('Defines the list of days that school would normally be open.');
 		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+
+		$this->sm->saveSetting($entity);
+		//30
+		$entity = new Setting();
+		$entity->setType('image');
+		$entity->setValue('img/bee.png');
+		$entity->setName('Org.Logo');
+		$entity->setDisplayName('Organisation Logo');
+		$entity->setDescription('The organisation Logo');
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+		$entity->setValidator('validator.logo');
+
+		$this->sm->saveSetting($entity);
+		//31
+		$entity = new Setting();
+		$entity->setType('image');
+		$entity->setValue('img/bee-transparent.png');
+		$entity->setName('Org.Logo.Transparent');
+		$entity->setDisplayName('Organisation Transparent Logo');
+		$entity->setDescription('The organisation Logo in a transparent form.  Recommended to be 80% opacity. Only PNG or GIF image formats support transparency.');
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+		$entity->setValidator('validator.logo');
+
+		$this->sm->saveSetting($entity);
+		//32
+		$entity = new Setting();
+		$entity->setType('image');
+		$entity->setValue('img/backgroundPage.jpg');
+		$entity->setName('Background.Image');
+		$entity->setDisplayName('Background Image');
+		$entity->setDescription('Change the background displayed for the site.  The image needs to be a minimum of 1200px width.  You can load an image of 1M size, but the smaller the size the better.');
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+		$entity->setValidator('validator.background.image');
 
 		$this->sm->saveSetting($entity);
 		

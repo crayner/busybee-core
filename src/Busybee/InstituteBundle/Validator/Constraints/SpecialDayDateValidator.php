@@ -59,6 +59,10 @@ class SpecialDayDateValidator extends ConstraintValidatorBase
 					return ;
 				}
 			}
+			if ($key =='__name__' && empty($day->getName()))
+				unset($value[$key]);
 		}
+
+		return $value ;
     }
 }

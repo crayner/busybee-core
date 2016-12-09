@@ -35,10 +35,10 @@ setting_upload:
     path:     /setting/upload/
     defaults: { _controller: SystemBundle:Setting:upload }
 setting_edit:
-    path:     /setting/edit/{id}
+    path:     /setting/{id}/edit/
     defaults: { _controller: SystemBundle:Setting:edit }
 setting_edit_name:
-    path:     /setting/editName/{name}
+    path:     /setting/{name}/editName/
     defaults: { _controller: SystemBundle:Setting:editName }
 plugin_manage:
     path:     /plugin/manage/

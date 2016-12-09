@@ -1,5 +1,6 @@
 # System Bundle
 parameters:
+    kernel_root_dir: '%kernel.root_dir%'
     version:
         system: '0.0.03'
         database: '0.0.03'

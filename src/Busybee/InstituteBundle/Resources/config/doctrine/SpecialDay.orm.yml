@@ -7,9 +7,6 @@ Busybee\InstituteBundle\Entity\SpecialDay:
             fields: [day]
             errorPath: day
             message: 'Each date must be unique to the Special Day record.'
-    uniqueConstraints:
-        day:
-            columns: [ day ]
     id:
         id:
             type: integer
@@ -58,9 +55,9 @@ Busybee\InstituteBundle\Entity\SpecialDay:
             joinColumns:
                 modifiedBy:
                     referencedColumnName: id
-        term:
-            targetEntity: Busybee\InstituteBundle\Entity\Term
+        year:
+            targetEntity: Busybee\InstituteBundle\Entity\Year
             inversedBy: specialDays
             joinColumn:
-                name: term_id
+                name: year_id
                 referencedColumnName: id

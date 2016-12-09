@@ -69,6 +69,14 @@ class SettingManager
 			case 'string':
 				return strval(mb_substr($this->setting->getValue(), 0, 25));
 				break;
+			case 'image':
+				$value = $this->setting->getValue();
+				$appPath = $this->container->getParameter('kernel_root_dir');
+				$webPath = realpath($appPath . '/../web/');
+				if (! file_exists($webPath.'/'.$value))
+					$value = $default;
+				return $value ;
+				break;
 			case 'twig':
 				return $this->container->get('twig')->createTemplate($this->setting->getValue())->render($options);
 				break;
@@ -141,7 +149,7 @@ class SettingManager
 				$value =  strval(mb_substr($value, 0, 25));
 				break;
 			case 'regex':
-				$test = preg_match($value, 'qwlrfhfriwegtiwebnf934htr 5965tb');
+				$test = preg_match($value, 'qwlrfhfri$wegtiwebnf934htr 5965tb');
 				break;
 			case 'text':
 				break ;

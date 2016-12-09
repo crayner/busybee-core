@@ -106,6 +106,7 @@ class FormErrorsExtension extends \Twig_Extension
         }
         return $return;
     }
+
     public function getName()
     {
         return 'all_form_errors_extension';

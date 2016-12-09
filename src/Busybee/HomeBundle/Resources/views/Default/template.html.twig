@@ -22,7 +22,7 @@
 	
 		{% block titleContainer %}
 		<div class="jumbotron">
-			<img src="{{ asset('img/bee.png') }}" alt="Busybee" id="bee-logo" />
+			<img src="{{ asset(get_setting('Org.Logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo" />
 			<h1>{{ get_setting('Organisation.Name') }}</h1>
 			<h2>{% block headerTitle %}Busybee{% endblock headerTitle %}</h2>
 			<p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>

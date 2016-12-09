@@ -2,7 +2,6 @@
 body {
 	padding-top: 55px;
 	padding-bottom: 30px;
-	background-image: url(../img/backgroundPage.jpg) ;
 }
 
 .theme-dropdown .dropdown-menu {
@@ -193,4 +192,15 @@ div.calendarMonth th {
 }
 td.noBorder {
     border: none!important;
+}
+.calendarBody {
+	background-position: center  ;
+	background-repeat: no-repeat ;
+	background-size: 400px ;
+	border: none ;
+}
+img.imageWidth200 {
+	float: right;
+	margin-left: 6px;
+	width: 200px;
 }

@@ -1,7 +1,7 @@
 {% extends 'bootstrap_3_layout.html.twig' %}
 
 {% block form_label -%}
-	{% if 'image' in block_prefixes and data.pathname is defined and data.pathname is not empty %}<img src="{{ asset( data.pathname|slice(7) ) }}" class="{{ attr.imageClass }}" />{% endif %}
+	{% if 'image' in block_prefixes and data.pathname is defined and data.pathname is not empty %}<img src="{{ asset( data.pathname ) }}" class="{{ attr.imageClass }}" />{% endif %}
     {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
     {{- parent() -}}
 {%- endblock form_label %}

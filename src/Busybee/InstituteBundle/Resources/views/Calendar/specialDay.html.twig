@@ -7,7 +7,7 @@
 
 		<div class="panel panel-info busybee-panel">
 			<div class="panel-heading">
-				<h3 class="panel-title">{% if form.name.vars.value is empty %}{{ 'term.add'|trans}}{% else %}{{ form.name.vars.value }}{% endif %}
+				<h3 class="panel-title">{% if form.name.vars.value is empty %}{{ 'calendar.specialDay.add'|trans}}{% else %}{{ form.name.vars.value }}{% endif %}
 				{% if form.vars.value.id is defined %}
 					<button title='{{ 'specialDay.delete.title'|trans}}' type="button" class="halflings halflings-erase btn btn-danger" onclick="confirmDayDelete('{{ path('specialday_delete', {'id': form.vars.value.id, 'year': id}) }}')" style="float: right ; "></button>
 				{% endif %}
@@ -26,7 +26,7 @@
 							{{ form_row(form.name) }}
 						</div>
 						<div class="col-sm-5 well">
-							{{ form_row(form.term) }}
+							{{ form_row(form.year, {'value': id}) }}
 							{{ form_row(form.description) }}
 						</div>
 					</div>

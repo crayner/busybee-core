@@ -3,6 +3,7 @@
 namespace Busybee\InstituteBundle\Entity;
 
 use Busybee\InstituteBundle\Model\Year as YearModel ;
+use Doctrine\Common\Collections\ArrayCollection ;
 
 /**
  * Year
@@ -262,15 +263,7 @@ class Year extends YearModel
      */
     private $terms;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->terms = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
+     /**
      * Add term
      *
      * @param \Busybee\InstituteBundle\Entity\Term $term
@@ -314,8 +307,73 @@ class Year extends YearModel
 		$iterator->uasort(function ($a, $b) {
 			return ($a->getFirstDay() < $b->getFirstDay()) ? -1 : 1;
 		});
-		$this->terms = new \Doctrine\Common\Collections\ArrayCollection(iterator_to_array($iterator));
+		$this->terms = new ArrayCollection(iterator_to_array($iterator));
 		$this->termsSorted = true ;
 		return $this->terms;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $specialDays;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->specialDays = new ArrayCollection();
+        $this->terms = new ArrayCollection();
+    }
+
+    /**
+     * Add specialDay
+     *
+     * @param \Busybee\InstituteBundle\Entity\SpecialDay $specialDay
+     *
+     * @return Term
+     */
+    public function addSpecialDay(\Busybee\InstituteBundle\Entity\SpecialDay $specialDay)
+    {
+		if (! is_null($specialDay->getName()))
+        	$this->specialDays[] = $specialDay;
+
+        return $this;
+    }
+
+    /**
+     * Remove specialDay
+     *
+     * @param \Busybee\InstituteBundle\Entity\SpecialDay $specialDay
+     */
+    public function removeSpecialDay(\Busybee\InstituteBundle\Entity\SpecialDay $specialDay)
+    {
+        $this->specialDays->removeElement($specialDay);
+    }
+
+
+    /**
+     * @var boolean
+     */
+    private $specialDaysSorted = false;
+
+    /**
+     * Get specialDays
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSpecialDays()
+    {
+		if (count($this->specialDays) == 0 || $this->specialDaysSorted)
+        	return $this->specialDays;
+			
+		$iterator = $this->specialDays->getIterator();
+		$iterator->uasort(function ($a, $b) {
+			return ($a->getDay() < $b->getDay()) ? -1 : 1;
+		});
+		$this->specialDays = new ArrayCollection(iterator_to_array($iterator));
+		$this->specialDaysSorted = true ;
+
+        return $this->specialDays;
     }
 }

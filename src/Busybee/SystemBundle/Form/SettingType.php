@@ -71,10 +71,13 @@ class SettingType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Busybee\SystemBundle\Entity\Setting',
-			'translation_domain' => 'BusybeeSystemBundle',
-        ));
+        $resolver->setDefaults(
+			array(
+				'data_class' => 'Busybee\SystemBundle\Entity\Setting',
+				'translation_domain' => 'BusybeeSystemBundle',
+				'validation_groups' => array('Default'),
+			)
+		);
     }
 
     /**
