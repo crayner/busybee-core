@@ -3,7 +3,7 @@
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
 {% set row = 1 %}
-<div class="calendarBody" style="background-image: url({{ asset(get_setting('Org.Logo.Transparent', '../web/img/bee-transparent.png')|slice(7)) }})">
+<div class="calendarBody" style="background-image: url({{ asset(get_setting('Org.Logo.Transparent', 'img/bee-transparent.png')) }});">
 	<h3 style="text-align: center; ">{{ get_setting('Org.Name') }} {{ year.name }}
 		{% if years|length > 0 %}
 			<select name='year' id='year' style="float: left">

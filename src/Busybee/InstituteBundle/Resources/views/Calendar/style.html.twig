@@ -32,7 +32,7 @@
 	background-position: center  ;
 	background-repeat: no-repeat ;
 	background-size: 400px ;
-	background-image: url({{ absolute_url(asset('img/bee-transparent.png')) }}) ;
+	background-image: url({{ absolute_url(asset(get_setting('Org.Logo.Transparent', 'img/bee-transparent.png'))) }}) ;
 	border: none ;
 }
 .calendarWeek>td {
@@ -54,5 +54,9 @@
 .dayBold {
 	font-weight: bold;
 	font-size: 12px;
+}
+th {
+	max-height: 35px;
+	height: 35px;
 }
 </style>

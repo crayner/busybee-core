@@ -79,10 +79,7 @@ monolog:
             type:  stream
             path:  '%kernel.logs_dir%/%kernel.environment%_doctrine.log'
             channels: ['doctrine']
-ensepar_html2pdf:
-    orientation: P
-    format: A4
-    lang: en
-    unicode: true
-    encoding: UTF-8
-    margin: [10,15,10,15]
+core23_dompdf:
+    defaults:
+        dpi: 150
+        defaultPaperSize: A4

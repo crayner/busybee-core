@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request ;
 use Busybee\InstituteBundle\Form\YearType ;
 use Busybee\InstituteBundle\Entity\Year ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
-
+use Symfony\Component\HttpFoundation\Response ;
 
 class CalendarController extends Controller
 {
@@ -139,6 +139,13 @@ class CalendarController extends Controller
 		
 		$cm->setCalendarDays($year, $calendar);
 
+		$content = $this->render('BusybeeInstituteBundle:Calendar:calendarView.pdf.twig', 
+			array(
+				'calendar'	=> $calendar,
+				'year'		=> $year,
+			)
+		);
+		
 		/*
          * Pass calendar to Twig
          */
@@ -188,14 +195,21 @@ class CalendarController extends Controller
 		/*
          * Pass calendar to Twig
          */
-		$content = $this->render('BusybeeInstituteBundle:Calendar:calendarView.pdf.twig', 
+		$content = $this->renderView('BusybeeInstituteBundle:Calendar:calendarView.pdf.twig', 
 			array(
 				'calendar'	=> $calendar,
 				'year'		=> $year,
 			)
 		);
 
-		return $content ;
+		$dompdf = $this->get('dompdf')->createDompdf();
+		$dompdf->set_paper('a4', 'landscape');
+        $dompdf->loadHtml($content);
+        $dompdf->render();
+		$headers = array(
+			'Content-type' => 'application/pdf'
+		);
+        return new Response($dompdf->output(), 200, $headers);
 	}
 
     public function calendarChangeAction(Request $request)

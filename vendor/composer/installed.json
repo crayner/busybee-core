@@ -1452,114 +1452,6 @@
         ]
     },
     {
-        "name": "sensio/distribution-bundle",
-        "version": "v5.0.14",
-        "version_normalized": "5.0.14.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-            "reference": "e64947de9ebc37732a62f5115164484a9bee7fa6"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/e64947de9ebc37732a62f5115164484a9bee7fa6",
-            "reference": "e64947de9ebc37732a62f5115164484a9bee7fa6",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.9",
-            "sensiolabs/security-checker": "~3.0|~4.0",
-            "symfony/class-loader": "~2.3|~3.0",
-            "symfony/config": "~2.3|~3.0",
-            "symfony/dependency-injection": "~2.3|~3.0",
-            "symfony/filesystem": "~2.3|~3.0",
-            "symfony/http-kernel": "~2.3|~3.0",
-            "symfony/process": "~2.3|~3.0"
-        },
-        "time": "2016-10-30 23:18:01",
-        "type": "symfony-bundle",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Sensio\\Bundle\\DistributionBundle\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Base bundle for Symfony Distributions",
-        "keywords": [
-            "configuration",
-            "distribution"
-        ]
-    },
-    {
-        "name": "sensio/generator-bundle",
-        "version": "v3.1.1",
-        "version_normalized": "3.1.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-            "reference": "0d3c9c4864142dc6a368fa0d952a8b83215e8740"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/0d3c9c4864142dc6a368fa0d952a8b83215e8740",
-            "reference": "0d3c9c4864142dc6a368fa0d952a8b83215e8740",
-            "shasum": ""
-        },
-        "require": {
-            "symfony/console": "~2.7|~3.0",
-            "symfony/framework-bundle": "~2.7|~3.0",
-            "symfony/process": "~2.7|~3.0",
-            "symfony/yaml": "~2.7|~3.0"
-        },
-        "require-dev": {
-            "doctrine/orm": "~2.4",
-            "symfony/doctrine-bridge": "~2.7|~3.0",
-            "twig/twig": "~1.18"
-        },
-        "time": "2016-11-07 19:48:31",
-        "type": "symfony-bundle",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.1.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Sensio\\Bundle\\GeneratorBundle\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "This bundle generates code for you"
-    },
-    {
         "name": "doctrine/data-fixtures",
         "version": "v1.2.2",
         "version_normalized": "1.2.2.0",
@@ -2540,37 +2432,153 @@
         ]
     },
     {
-        "name": "ensepar/tcpdf",
-        "version": "5.0.003",
-        "version_normalized": "5.0.003.0",
+        "name": "sensio/distribution-bundle",
+        "version": "v5.0.15",
+        "version_normalized": "5.0.15.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/OwlyCode/tcpdf.git",
-            "reference": "ae578409e9454fdf6c794cce6f063b0c95bfa518"
+            "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
+            "reference": "d294b0665cf09c799e9c1993d5c776a5bf55cb85"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/OwlyCode/tcpdf/zipball/ae578409e9454fdf6c794cce6f063b0c95bfa518",
-            "reference": "ae578409e9454fdf6c794cce6f063b0c95bfa518",
+            "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/d294b0665cf09c799e9c1993d5c776a5bf55cb85",
+            "reference": "d294b0665cf09c799e9c1993d5c776a5bf55cb85",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.9",
+            "sensiolabs/security-checker": "~3.0|~4.0",
+            "symfony/class-loader": "~2.3|~3.0",
+            "symfony/config": "~2.3|~3.0",
+            "symfony/dependency-injection": "~2.3|~3.0",
+            "symfony/filesystem": "~2.3|~3.0",
+            "symfony/http-kernel": "~2.3|~3.0",
+            "symfony/process": "~2.3|~3.0"
+        },
+        "time": "2016-12-06 07:29:27",
+        "type": "symfony-bundle",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Sensio\\Bundle\\DistributionBundle\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Base bundle for Symfony Distributions",
+        "keywords": [
+            "configuration",
+            "distribution"
+        ]
+    },
+    {
+        "name": "sensio/generator-bundle",
+        "version": "v3.1.2",
+        "version_normalized": "3.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
+            "reference": "ec278c0bd530edf155c4a00900577b5cb80f559e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/ec278c0bd530edf155c4a00900577b5cb80f559e",
+            "reference": "ec278c0bd530edf155c4a00900577b5cb80f559e",
+            "shasum": ""
+        },
+        "require": {
+            "symfony/console": "~2.7|~3.0",
+            "symfony/framework-bundle": "~2.7|~3.0",
+            "symfony/process": "~2.7|~3.0",
+            "symfony/yaml": "~2.7|~3.0",
+            "twig/twig": "^1.28.2|^2.0"
+        },
+        "require-dev": {
+            "doctrine/orm": "~2.4",
+            "symfony/doctrine-bridge": "~2.7|~3.0"
+        },
+        "time": "2016-12-05 16:01:19",
+        "type": "symfony-bundle",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Sensio\\Bundle\\GeneratorBundle\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "This bundle generates code for you"
+    },
+    {
+        "name": "tecnickcom/tcpdf",
+        "version": "6.2.12",
+        "version_normalized": "6.2.12.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/tecnickcom/TCPDF.git",
+            "reference": "2f732eaa91b5665274689b1d40b285a7bacdc37f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/2f732eaa91b5665274689b1d40b285a7bacdc37f",
+            "reference": "2f732eaa91b5665274689b1d40b285a7bacdc37f",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2013-09-12 17:00:40",
+        "time": "2015-09-12 10:08:34",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
             "classmap": [
                 "fonts",
-                "config/lang",
                 "config",
-                "2dbarcodes.php",
-                "barcodes.php",
-                "htmlcolors.php",
-                "qrcode.php",
+                "include",
                 "tcpdf.php",
-                "unicode_data.php"
+                "tcpdf_parser.php",
+                "tcpdf_import.php",
+                "tcpdf_barcodes_1d.php",
+                "tcpdf_barcodes_2d.php",
+                "include/tcpdf_colors.php",
+                "include/tcpdf_filters.php",
+                "include/tcpdf_font_data.php",
+                "include/tcpdf_fonts.php",
+                "include/tcpdf_images.php",
+                "include/tcpdf_static.php",
+                "include/barcodes/datamatrix.php",
+                "include/barcodes/pdf417.php",
+                "include/barcodes/qrcode.php"
             ]
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -2582,103 +2590,47 @@
                 "name": "Nicola Asuni",
                 "email": "info@tecnick.com",
                 "homepage": "http://nicolaasuni.tecnick.com"
-            },
-            {
-                "name": "Tristan Maindron",
-                "email": "tmaindron@gmail.com",
-                "homepage": "http://www.github.com/OwlyCode"
             }
         ],
-        "description": "TCPDF is a PHP class for generating PDF documents.",
+        "description": "TCPDF is a PHP class for generating PDF documents and barcodes.",
         "homepage": "http://www.tcpdf.org/",
         "keywords": [
+            "PDFD32000-2008",
             "TCPDF",
-            "pdf"
-        ],
-        "abandoned": "tecnickcom/tcpdf"
+            "barcodes",
+            "datamatrix",
+            "pdf",
+            "pdf417",
+            "qrcode"
+        ]
     },
     {
-        "name": "ensepar/html2pdf",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
+        "name": "whiteoctober/tcpdf-bundle",
+        "version": "1.0.2",
+        "version_normalized": "1.0.2.0",
+        "target-dir": "WhiteOctober/TCPDFBundle",
         "source": {
             "type": "git",
-            "url": "https://github.com/OwlyCode/html2pdf.git",
-            "reference": "b53a27430cc35b29bbe2faaa55ed4a7d5c156cd3"
+            "url": "https://github.com/whiteoctober/WhiteOctoberTCPDFBundle.git",
+            "reference": "e134861af736518ca24f4eab69699073460e4c08"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/OwlyCode/html2pdf/zipball/b53a27430cc35b29bbe2faaa55ed4a7d5c156cd3",
-            "reference": "b53a27430cc35b29bbe2faaa55ed4a7d5c156cd3",
+            "url": "https://api.github.com/repos/whiteoctober/WhiteOctoberTCPDFBundle/zipball/e134861af736518ca24f4eab69699073460e4c08",
+            "reference": "e134861af736518ca24f4eab69699073460e4c08",
             "shasum": ""
         },
         "require": {
-            "ensepar/tcpdf": "5.0.003",
-            "php": ">=5.2"
-        },
-        "time": "2013-09-13 12:23:43",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "HTML2PDF": "."
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "LGPL"
-        ],
-        "authors": [
-            {
-                "name": "Spipu",
-                "homepage": "http://sourceforge.net/users/spipu",
-                "role": "Developer"
-            },
-            {
-                "name": "OwlyCode",
-                "homepage": "http://www.github.com/OwlyCode",
-                "role": "Developer"
-            }
-        ],
-        "description": "Unofficial fork of 'html2pdf' with Composer support. (Fixed composer dependency problem)",
-        "homepage": "https://github.com/jwronsky/html2pdf",
-        "keywords": [
-            "html",
-            "html2pdf",
-            "pdf"
-        ],
-        "abandoned": "spipu/html2pdf"
-    },
-    {
-        "name": "ensepar/html2pdf-bundle",
-        "version": "v2.0.0",
-        "version_normalized": "2.0.0.0",
-        "target-dir": "Ensepar/Html2pdfBundle",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/OwlyCode/EnseparHtml2pdfBundle.git",
-            "reference": "25666fa8349b55acb2f958f45eb96fd74f9f058b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/OwlyCode/EnseparHtml2pdfBundle/zipball/25666fa8349b55acb2f958f45eb96fd74f9f058b",
-            "reference": "25666fa8349b55acb2f958f45eb96fd74f9f058b",
-            "shasum": ""
-        },
-        "require": {
-            "ensepar/html2pdf": "1.0.1",
             "php": ">=5.3.2",
-            "symfony/symfony": ">=2.0"
+            "symfony/framework-bundle": ">=2.0",
+            "tecnickcom/tcpdf": "*"
         },
-        "require-dev": {
-            "sensio/framework-extra-bundle": "~3.0"
-        },
-        "time": "2014-10-25 18:03:13",
+        "time": "2015-09-18 08:47:03",
         "type": "symfony-bundle",
         "installation-source": "dist",
         "autoload": {
             "psr-0": {
-                "Ensepar\\Html2pdfBundle": ""
+                "WhiteOctober\\TCPDFBundle": ""
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -2687,16 +2639,208 @@
         ],
         "authors": [
             {
-                "name": "Tristan Maindron",
-                "email": "tmaindron@gmail.com"
+                "name": "Rich Sage",
+                "email": "rich.sage@gmail.com"
             }
         ],
-        "description": "Use HTML2PDF as a Symfony2 Service",
-        "homepage": "https://github.com/OwlyCode/EnseparHtml2pdfBundle",
+        "description": "A bundle to easily integrate TCPDF into Symfony2",
+        "homepage": "https://github.com/whiteoctober/WhiteOctoberTCPDFBundle",
         "keywords": [
             "TCPDF",
-            "html2pdf",
             "pdf"
+        ]
+    },
+    {
+        "name": "phenx/php-svg-lib",
+        "version": "0.1",
+        "version_normalized": "0.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PhenX/php-svg-lib.git",
+            "reference": "b419766515b3426c6da74b0e29e93d71c4f17099"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PhenX/php-svg-lib/zipball/b419766515b3426c6da74b0e29e93d71c4f17099",
+            "reference": "b419766515b3426c6da74b0e29e93d71c4f17099",
+            "shasum": ""
+        },
+        "time": "2015-05-06 18:49:49",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Svg\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Ménager",
+                "email": "fabien.menager@gmail.com"
+            }
+        ],
+        "description": "A library to read, parse and export to PDF SVG files.",
+        "homepage": "https://github.com/PhenX/php-svg-lib"
+    },
+    {
+        "name": "phenx/php-font-lib",
+        "version": "0.4",
+        "version_normalized": "0.4.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PhenX/php-font-lib.git",
+            "reference": "b8af0cacdc3cbf1e41a586fcb78f506f4121a088"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PhenX/php-font-lib/zipball/b8af0cacdc3cbf1e41a586fcb78f506f4121a088",
+            "reference": "b8af0cacdc3cbf1e41a586fcb78f506f4121a088",
+            "shasum": ""
+        },
+        "time": "2015-05-06 20:02:39",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "FontLib\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Ménager",
+                "email": "fabien.menager@gmail.com"
+            }
+        ],
+        "description": "A library to read, parse, export and make subsets of different types of font files.",
+        "homepage": "https://github.com/PhenX/php-font-lib"
+    },
+    {
+        "name": "dompdf/dompdf",
+        "version": "v0.7.0",
+        "version_normalized": "0.7.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dompdf/dompdf.git",
+            "reference": "5c98652b1a5beb7e3cc8ec35419b2828dd63ab14"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/dompdf/dompdf/zipball/5c98652b1a5beb7e3cc8ec35419b2828dd63ab14",
+            "reference": "5c98652b1a5beb7e3cc8ec35419b2828dd63ab14",
+            "shasum": ""
+        },
+        "require": {
+            "ext-dom": "*",
+            "ext-gd": "*",
+            "ext-mbstring": "*",
+            "phenx/php-font-lib": "0.4.*",
+            "phenx/php-svg-lib": "0.1.*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7.*"
+        },
+        "time": "2016-05-11 00:36:29",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-develop": "0.7-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Dompdf\\": "src/"
+            },
+            "classmap": [
+                "lib/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL-2.1"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Ménager",
+                "email": "fabien.menager@gmail.com"
+            },
+            {
+                "name": "Brian Sweeney",
+                "email": "eclecticgeek@gmail.com"
+            },
+            {
+                "name": "Gabriel Bull",
+                "email": "me@gabrielbull.com"
+            }
+        ],
+        "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
+        "homepage": "https://github.com/dompdf/dompdf"
+    },
+    {
+        "name": "core23/dompdf-bundle",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/core23/DompdfBundle.git",
+            "reference": "80fa6966906b8ad69ce5bab45fd8c6522e505577"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/core23/DompdfBundle/zipball/80fa6966906b8ad69ce5bab45fd8c6522e505577",
+            "reference": "80fa6966906b8ad69ce5bab45fd8c6522e505577",
+            "shasum": ""
+        },
+        "require": {
+            "dompdf/dompdf": "^0.7",
+            "php": "^5.6 || ^7.0",
+            "symfony/framework-bundle": "^2.7 || ^3.0"
+        },
+        "require-dev": {
+            "symfony/phpunit-bridge": "^2.7 || ^3.0"
+        },
+        "time": "2016-06-26 18:10:35",
+        "type": "symfony-bundle",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Core23\\DompdfBundle\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Christian Gripp",
+                "email": "mail@core23.de"
+            }
+        ],
+        "description": "This bundle provides a wrapper for using dompdf inside symfony.",
+        "homepage": "https://core23.de",
+        "keywords": [
+            "bundle",
+            "dompdf",
+            "pdf",
+            "symfony"
         ]
     }
 ]

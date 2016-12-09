@@ -1,19 +1,84 @@
 {# src/Busybee/InstituteBundle/Resources/views/Calendar/calendarView.pdf.twig #}
-
 {% trans_default_domain "BusybeeInstituteBundle" %}
-
-
+<style>
+.days>td {
+	border: 1px solid #333;
+}
+.termBreak {
+	background-color: rgba(128,128,0,0.5);
+	text-align: center;
+}
+.isClosed {
+	background-color: lightsalmon ;
+	background-image: url({{ asset('img/isClosed.png') }});
+	background-repeat: repeat ;
+	font-weight: bold;
+	text-align: center;
+}
+.isSpecial {
+	background-color: cyan ;
+	background-image: url({{ asset('img/isSpecial.png') }});
+	background-repeat: repeat ;
+	font-weight: bold;
+	text-align: center;
+}
+.calendarMonth {
+	border: 1px solid #333;
+	border-radius: 12px;
+}
+.monthView {
+	width: 100%
+}
+.text-right {
+	text-align: right;
+}
+.calendarBody {
+	background-position: center  ;
+	background-repeat: no-repeat ;
+	background-size: 400px ;
+	background-image: url({{ asset(get_setting('Org.Logo.Transparent', 'img/bee-transparent.png')) }}) ;
+	border: none ;
+	margin: 0 auto ;
+}
+.calendarWeek>td {
+	border: 1px solid #333;
+	text-align: center;
+	font-size: 10px ;
+	width: 12.5%;
+}
+.noBorder {
+	border: none!important ;
+}
+.dayDescription {
+	border: 1px solid #333 ;
+	border-radius: 12px ;
+	padding: 8px 5px ;
+	font-size: 10px ;
+}
+.dayBold {
+	font-weight: bold;
+	font-size: 12px;
+}
+th {
+	max-height: 25px;
+	height: 25px;
+}
+tr {
+	vertical-align: top ;
+}
+#page {
+	text-align: center ;
+}
+</style>
 <div id="page">
-	{% include 'BusybeeInstituteBundle:Calendar:style.html.twig' %}
-	
 	{% set row = 1 %}
 	<h3 style="text-align: center; ">{{ get_setting('Org.Name') }} {{ year.name }}</h3>
-	<table class="calendarBody" style="">
+	<table class="calendarBody">
 	<tbody>
 	{% for month in calendar.months %} 
 		{% if row == 1 %}<tr>
 		{% endif %}
-			<td class="col-sm-3 col-md-3 calendarMonth">
+			<td class="calendarMonth">
 				<table class="monthView">
 					<thead>
 					<tr>
@@ -65,9 +130,7 @@
 		{% endif %}
 		{% set row = row + 1 %}
 	{% endfor %}
-	
 	{% set row = 1 %}
-	
 	{% for day in year.specialDays %}
 	{% if row == 1 %}<tr>{% endif %}
 	<td class="dayDescription">
@@ -80,9 +143,6 @@
 	{% set row = row + 1 %}
 	{% endfor %}
 	{% if row > 1 %}</tr>{% endif %}
-
-
-
 	<tr>
 		<td class="termBreak dayDescription">
 			Term Break
@@ -98,13 +158,11 @@
 		</td>
 	</tr>
 	</tbody></table>
-
-
 </div>
-{% include 'BusybeeHomeBundle:Default:scripts.html.twig' %}
+{#{% include 'BusybeeHomeBundle:Default:scripts.html.twig' %}
 <script type="text/javascript">
 	$(document).ready(function(){
 		window.print();
 		window.close();
 	});
-</script>	
+</script>	#}

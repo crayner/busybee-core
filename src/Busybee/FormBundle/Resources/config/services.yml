@@ -19,6 +19,8 @@ services:
         arguments:
             - "%upload_path%"
     validator.logo:
+        class: Busybee\FormBundle\Validator\Logo
+    validator.logo.constraint:
         class: Busybee\FormBundle\Validator\Constraints\LogoValidator
         tags:
             - { name: validator.constraint_validator, alias: logo_validator }
