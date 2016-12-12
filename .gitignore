@@ -10,9 +10,10 @@
 !var/logs/.gitkeep
 !/var/sessions
 /var/sessions/*
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
+!/var/sessions/.gitkeep
+!/var/SymfonyRequirements.php
 /vendor/
+!/vendor/composer/
 /web/bundles/
 /web/uploads/
 !/web/uploads/database/
@@ -20,3 +21,4 @@
 /src/Busybee/Plugin/
 *.tmp
 Thumbs.db
+.idea/
