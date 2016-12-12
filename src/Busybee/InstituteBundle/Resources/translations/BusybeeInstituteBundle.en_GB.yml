@@ -119,6 +119,8 @@ specialDay:
     delete:
         title: Delete Special Day.
         confirm: Are you sure you want to delete this Special Day?
+    copy:
+        title: Copy Special Day to next Year
 Sun: Sun
 Mon: Mon
 Tue: Tue

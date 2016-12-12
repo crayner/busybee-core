@@ -90,3 +90,12 @@ services:
         arguments:
             - '@setting.manager'
             - '@year.repository'
+            - '@doctrine.orm.entity_manager'
+    calendar.extension:
+        class: Busybee\InstituteBundle\Model\CalendarExtension
+        arguments:
+            - '@setting.manager'
+            - '@calendar.manager'
+            - '@my_service_container'
+        tags:
+            - { name: twig.extension }

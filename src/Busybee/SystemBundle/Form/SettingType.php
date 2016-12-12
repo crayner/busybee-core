@@ -6,26 +6,34 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Busybee\SystemBundle\Form\DataTransformer\SettingNameTransformer ;
+use Busybee\SystemBundle\Repository\SettingRepository ;
 
 class SettingType extends AbstractType
 {
+	private $repo ;
+	
+	public function __construct(SettingRepository $repo)
+	{
+		$this->repo = $repo ;
+	}
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-			->add('type', 'Symfony\Component\Form\Extension\Core\Type\HiddenType',
-				array (
-				)
-			)
-			->add('name', null, 
+			->add('type', 'Symfony\Component\Form\Extension\Core\Type\HiddenType')
+			->add('name', 'Symfony\Component\Form\Extension\Core\Type\HiddenType')
+			->add('nameSelect', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
 				array(
 					'label' => 'system.setting.label.name',
-					'disabled' => true,
+					'choices' => $this->getSettingNameChoices(),
 					'attr' => array(
 						'help' => 'system.setting.help.name',
-					)
+					),
+					'mapped'	=> false,
+					'data'	=> $options['data']->getNameSelect(),
 				)
 			)
 			->add('displayName', null, 
@@ -33,6 +41,7 @@ class SettingType extends AbstractType
 					'label' => 'system.setting.label.displayName',
 					'attr' => array(
 						'help' => 'system.setting.help.displayName',
+						'class' => 'changeSetting',
 					)
 				)
 			)
@@ -42,6 +51,7 @@ class SettingType extends AbstractType
 					'attr' => array(
 						'help' => 'system.setting.help.description',
 						'rows' => '5',
+						'class' => 'changeSetting',
 					)
 				)
 			)
@@ -88,5 +98,12 @@ class SettingType extends AbstractType
         return 'setting';
     }
 
-
+	private function getSettingNameChoices()
+	{
+		$names = array();
+		$settings = $this->repo->findBy(array(), array('name'=>'ASC'));
+		foreach($settings as $setting)
+			$names[$setting->getName()] = $setting->getId();
+		return $names ;
+	}
 }

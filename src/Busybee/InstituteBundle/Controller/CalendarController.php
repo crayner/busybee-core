@@ -6,8 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\HttpFoundation\Request ;
 use Busybee\InstituteBundle\Form\YearType ;
 use Busybee\InstituteBundle\Entity\Year ;
+use Busybee\InstituteBundle\Entity\SpecialDay ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Symfony\Component\HttpFoundation\Response ;
+use DateTime ;
 
 class CalendarController extends Controller
 {
@@ -158,6 +160,10 @@ class CalendarController extends Controller
 		);
 	}
 
+    /**
+     * @param $id
+     * @return Response
+     */
     public function printCalendarAction($id)
     {
 		$this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page!');
@@ -212,22 +218,66 @@ class CalendarController extends Controller
         return new Response($dompdf->output(), 200, $headers);
 	}
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function calendarChangeAction(Request $request)
     {
-		$id = $request->get('id');
-		
-		if (empty($id)) {
-			$repo = $this->get('year.repository');
-			$year = $repo->createQueryBuilder('y')
-				->where('y.firstDay LIKE :now')
-				->setParameter('now', date('Y').'%')
-				->setMaxResults(1)
-				->getQuery()
-				->getResult();
-			if (is_array($year)) $year = reset($year);
-			$id = $year->getId();
-		}
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
 
-		return new RedirectResponse($this->generateUrl('year_calendar', array('id' => $id)));
+        $id = $request->get('id');
+
+        if (empty($id)) {
+            $repo = $this->get('year.repository');
+            $year = $repo->createQueryBuilder('y')
+                ->where('y.firstDay LIKE :now')
+                ->setParameter('now', date('Y').'%')
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getResult();
+            if (is_array($year)) $year = reset($year);
+            $id = $year->getId();
+        }
+
+        return new RedirectResponse($this->generateUrl('year_calendar', array('id' => $id)));
+    }
+
+    /**
+     * @param $day
+     * @param $id
+     * @return RedirectResponse|Response
+     */
+    public function copySpecialDayAction($day, $id, Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+
+        $cm = $this->get('calendar.manager');
+
+        $day = new DateTime($day);
+
+        if ($cm->testNextYear($day)) {
+            $nextYear = $cm->getNextYear($day);
+            $currentDay = $this->get('specialday.repository')->findOneBy(array('day' => $day));
+
+            $oneYear = new \DateInterval('P1Y');
+
+            $newDay =  new SpecialDay();
+            $newDay->setName($currentDay->getName());
+            $newDay->setYear($nextYear);
+            $newDay->setType($currentDay->getType());
+            $newDay->setOpen($currentDay->getOpen());
+            $newDay->setClose($currentDay->getClose());
+            $newDay->setStart($currentDay->getStart());
+            $newDay->setFinish($currentDay->getFinish());
+            $newDay->setDay($currentDay->getDay()->add($oneYear));
+
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($newDay);
+            $em->flush();
+
+        }
+
+        return new RedirectResponse('year_edit', array('id'=>$id));
     }
 }

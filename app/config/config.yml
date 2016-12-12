@@ -45,6 +45,8 @@ twig:
         - bootstrap_3_layout.html.twig
         - 'BusybeeFormBundle:Template:bootstrap.html.twig'
 #        - bootstrap_3_horizontal_layout.html.twig 
+    date:
+        timezone: '%timezone%'
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"

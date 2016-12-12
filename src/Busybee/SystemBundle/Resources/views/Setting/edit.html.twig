@@ -14,6 +14,7 @@
 	<div class="row">
 		<div class="col-sm-6 well">
 			{{ form_row(form.name) }}
+			{{ form_row(form.nameSelect) }}
 		</div>
 		<div class="col-sm-6 well">
 			{{ form_row(form.displayName) }}
@@ -52,6 +53,14 @@
 		if ( $(".fadeAlert").length ) {
  	   		$(".fadeAlert").fadeOut(3000);
 		}
-
+		$('.changeSetting').change(function($e) {
+			$("#setting_nameSelect").prop('disabled', true);
+		});
+		$('#setting_nameSelect').change(function($e) {
+			var id  = $("#setting_nameSelect").val();
+			var url = "{{ path('setting_edit', {'id': '_id'}) }}";
+			url = url.replace("_id", id);
+			window.open(url, '_self');
+		});
 	</script>
 {% endblock javascripts %}

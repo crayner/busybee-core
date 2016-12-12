@@ -83,6 +83,9 @@ class SettingManager
 			case 'boolean':
 				return (bool) $this->setting->getValue();
 				break;
+			case 'time':
+				return $this->setting->getValue();
+				break;
 			case 'array':
 				return Yaml::parse($this->setting->getValue());
 				break;

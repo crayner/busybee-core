@@ -450,6 +450,50 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setValidator('validator.background.image');
 
 		$this->sm->saveSetting($entity);
+		//33
+		$entity = new Setting();
+		$entity->setType('time');
+		$entity->setValue('07:45');
+		$entity->setName('SchoolDay.Open');
+		$entity->setDisplayName('School Day Open Time');
+		$entity->setDescription('At what time are students allowed on campus?');
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+		$entity->setValidator(null);
+
+		$this->sm->saveSetting($entity);
+		//34
+		$entity = new Setting();
+		$entity->setType('time');
+		$entity->setValue('08:45');
+		$entity->setName('SchoolDay.Begin');
+		$entity->setDisplayName('School Day Instruction Start Time');
+		$entity->setDescription('The time that teaching starts. Students would normally be considered late after this time.');
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+		$entity->setValidator(null);
+
+		$this->sm->saveSetting($entity);
+		//35
+		$entity = new Setting();
+		$entity->setType('time');
+		$entity->setValue('15:00');
+		$entity->setName('SchoolDay.Finish');
+		$entity->setDisplayName('School Day Instruction Finish Time');
+		$entity->setDescription('The time students are released for the day.');
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+		$entity->setValidator(null);
+
+		$this->sm->saveSetting($entity);
+		//36
+		$entity = new Setting();
+		$entity->setType('time');
+		$entity->setValue('17:00');
+		$entity->setName('SchoolDay.Close');
+		$entity->setDisplayName('School Day Close Time');
+		$entity->setDescription('The time the doors of the campus normally close, all after school and school activities finished.');
+		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+		$entity->setValidator(null);
+
+		$this->sm->saveSetting($entity);
 		
 		return true ;
 	}

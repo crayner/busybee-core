@@ -74,6 +74,7 @@ class SettingController extends Controller
 		$options = array(
 			'label' => 'system.setting.label.value',
 		);
+		$attr = array('class' => 'changeSetting');
 
 		$constraints = array();
 		if (! is_null($setting->getValidator()))
@@ -106,9 +107,11 @@ class SettingController extends Controller
 			case 'image':
 				$form->add('value', ImageType::class, array_merge($options, array(
 							'data' 	=> $sm->get($setting->getName()),
-							'attr'	=> array(
-								'help' => 'system.setting.help.image',
-								'imageClass' => 'imageWidth200',
+							'attr'	=> array_merge($attr, 
+								array(
+									'help' => 'system.setting.help.image',
+									'imageClass' => 'imageWidth200',
+								)
 							),
 						)
 					)
@@ -116,9 +119,11 @@ class SettingController extends Controller
 				break ;
 			case 'array':
 				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array_merge($options, array(
-							'attr' => array(
-								'help' => 'system.setting.help.array',
-								'rows' => 8,
+							'attr'	=> array_merge($attr, 
+								array(
+									'help' => 'system.setting.help.array',
+									'rows' => 8,
+								)
 							),
 							'constraints' => array_merge(
 								$constraints, 
@@ -132,9 +137,11 @@ class SettingController extends Controller
 				break ;
 			case 'twig':
 				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array_merge($options, array(
-							'attr' => array(
-								'help' => 'system.setting.help.twig',
-								'rows' => 5,
+							'attr'	=> array_merge($attr, 
+								array(
+									'help' => 'system.setting.help.twig',
+									'rows' => 5,
+								)
 							),
 							'constraints' => array_merge(
 								$constraints, 
@@ -149,10 +156,12 @@ class SettingController extends Controller
 			case 'string':
 				if (is_null($setting->getChoice()))
 					$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', array_merge($options, array(
-								'attr' => array(
+							'attr'	=> array_merge($attr, 
+								array(
 									'maxLength' => 25,
-								),
-								'constraints' => $constraints,
+								)
+							),
+							'constraints' => $constraints,
 							)
 						)
 					);
@@ -160,14 +169,17 @@ class SettingController extends Controller
 					$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array_merge($options, array(
 								'choices' => $sm->getChoices($setting->getChoice()),
 								'constraints' => $constraints,
+								'attr' => $attr,
 							)
 						)
 					); 
 				break ;
 			case 'regex':
 				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', array_merge($options, array(
-							'attr' => array(
-								'rows' => 5,
+							'attr'	=> array_merge($attr, 
+								array(
+									'rows' => 5,
+								)
 							),
 							'constraints' => array_merge(
 								$constraints, 
@@ -182,9 +194,19 @@ class SettingController extends Controller
 			case 'text':
 				$form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', array_merge($options, array(
 							'constraints' => $constraints,
+							'attr'	=> $attr,
 						)
 					)
 				); 
+				break ;
+			case 'time':
+				$form->add('value', 'Busybee\FormBundle\Type\TimeType', array_merge($options, array(
+							'data' 			=> $sm->get($setting->getName()),
+							'constraints' => $constraints,
+							'attr'	=> $attr,
+						)
+					)
+				);
 				break ;
 			default:
 				dump($setting);

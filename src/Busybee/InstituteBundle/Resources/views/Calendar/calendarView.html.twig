@@ -38,14 +38,10 @@
 							{{ week.number }}
 						</td>
 						{% for day in week.days %}
-							{% set class = '' %}
-							{% if day.isWeekEnd %}{% set class = 'dayBold'|trim %}{% endif %}
-							{% if day.isTermBreak %}{% set class = 'termBreak'|trim %}{% endif %}
-							{% if day.isClosed %}{% set class = 'isClosed'|trim %}{% set title = day.prompt %}{% endif %}
-							{% if day.isSpecial %}{% set class = 'isSpecial'|trim %}{% set title = day.prompt %}{% endif %}
+							
 							{% if day.inMonth(month) %}
-							<td{% if class is not empty %} class="{{ class }}"{% endif %}>
-								<span{% if title is defined %} title="{{ title }}"{% endif %}>{{ day.date | date('j') }}</span>
+							<td{{ get_dayClass(day)|raw }}{% if day.prompt is not empty %} title="{{ day.prompt }}"{% endif %}>
+								{{ day.date | date('j') }}
 							</td>
 							{% else %}
 							<td class="noBorder">

@@ -9,4 +9,9 @@ class SettingModel
 		$this->setCreatedBy(null);
 		$this->setModifiedBy(null);
 	}
+	
+	public function getNameSelect()
+	{
+		return $this->getId();
+	}
 }

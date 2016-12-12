@@ -270,13 +270,13 @@ class Calendar {
 			throw new \Exception(sprintf('Class %s not found.', $this->dayModel));
 	}
 	
-	public function getDay($param)
+	public function getDay($param)  
 	{
 		if(is_int($param)) {
 			return key_exists($param, $this->days) ? $this->days[$param] : null;
 		} elseif(is_string($param)) {
 			foreach($this->days as $day) {
-				$date = $day->getDate()->format('d.m');
+				$date = $day->getDate()->format('d.m.Y');
 				if($date == $param)
 					return $day;
 			}

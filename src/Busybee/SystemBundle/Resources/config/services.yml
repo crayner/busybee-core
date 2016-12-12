@@ -113,3 +113,9 @@ services:
             - '@setting.manager'
         tags: 
             - { name: form.type }    
+    system.SettingType:
+        class: Busybee\SystemBundle\Form\SettingType
+        arguments:
+            - '@setting.repository'
+        tags: 
+            - { name: form.type }    

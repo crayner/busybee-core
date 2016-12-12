@@ -364,9 +364,12 @@ class Year extends YearModel
      */
     public function getSpecialDays()
     {
-		if (count($this->specialDays) == 0 || $this->specialDaysSorted)
+        if (count($this->specialDays) == 0)
+            return null ;
+
+        if ($this->specialDaysSorted)
         	return $this->specialDays;
-			
+
 		$iterator = $this->specialDays->getIterator();
 		$iterator->uasort(function ($a, $b) {
 			return ($a->getDay() < $b->getDay()) ? -1 : 1;
