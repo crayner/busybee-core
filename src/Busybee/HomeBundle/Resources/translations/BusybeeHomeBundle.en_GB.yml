@@ -90,6 +90,10 @@ menu:
         manage: Calendar
         years: Years
         view: Display Calendar
+    groups:
+        manage: Manage Groups
+        year:
+            manage: Manage Year Groups
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

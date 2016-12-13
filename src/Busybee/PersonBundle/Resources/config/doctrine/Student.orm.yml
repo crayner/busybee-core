@@ -1,0 +1,36 @@
+Busybee\PersonBundle\Entity\Student:
+    type: entity
+    table: person_student
+    repositoryClass: Busybee\PersonBundle\Repository\StudentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        lastModified:
+            type: datetime
+            nullable: true 
+        createdOn:
+            type: datetime
+            nullable: true 
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+                    nullable: true
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id
+                    nullable: true
+    oneToOne:
+        person:
+            targetEntity: Busybee\PersonBundle\Entity\Person
+            joinColumn:
+                name: person_id
+                referencedColumn: id

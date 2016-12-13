@@ -5,12 +5,7 @@ namespace Busybee\PersonBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Busybee\PersonBundle\Entity\Person ;
-use Busybee\PersonBundle\Entity\Address ;
-use Busybee\PersonBundle\Entity\Locality ;
-use Busybee\PersonBundle\Entity\Image ;
-use Busybee\PersonBundle\Entity\Phone ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
-use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\PersonBundle\Form\PersonType ;
 
 
@@ -62,9 +57,7 @@ class PersonController extends Controller
 			$em->detach($address);
 		}
 		
-		$setting = $this->get('setting.manager') ;
-		
-		$formDefinition = $this->get('my_service_container')->getParameter('person');
+		$formDefinition = $this->get('service_container')->getParameter('person');
 		
 		unset($formDefinition['person'], $formDefinition['contact'], $formDefinition['address1'], $formDefinition['address2']);
 

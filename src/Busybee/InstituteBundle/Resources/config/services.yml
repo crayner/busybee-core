@@ -4,9 +4,22 @@ parameters:
         calendar.status.past: past
         calendar.status.current: current
         calendar.status.future: future
+    studentYearPagination:
+        alias: s
+        sortBy:
+            Sequence:
+                s.sequence: ASC
+            Name:
+                s.name: ASC
+            Short Name:
+                s.nameShort: ASC
+        limit: '25'
+        searchList:
+            - s.name
+            - s.shortName
 services:
     campus.repository:
-        class: Busybee\InstituteBundle\Entity\CampusRepository
+        class: Busybee\InstituteBundle\Repository\CampusRepository
         factory: 
             - "@doctrine"
             - getRepository 
@@ -99,3 +112,16 @@ services:
             - '@my_service_container'
         tags:
             - { name: twig.extension }
+    studentYear.pagination:
+        class: Busybee\InstituteBundle\Model\StudentYearPagination
+        arguments:
+            - '%studentYearPagination%'
+            - '@studentYear.repository'
+            - '@my_service_container'
+    studentYear.repository:
+        class: Busybee\InstituteBundle\Repository\StudentYearRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeInstituteBundle:StudentYear"

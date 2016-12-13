@@ -1,0 +1,43 @@
+Busybee\InstituteBundle\Entity\StudentYear:
+    type: entity
+    table: student_year
+    repositoryClass: Busybee\InstituteBundle\Repository\StudentYearRepository
+    uniqueConstraints:
+        name:
+            columns: [ name ]
+        nameShort:
+            columns: [ nameShort ]
+        sequence:
+            columns: [ sequence ]
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '15'
+        nameShort:
+            type: string
+            length: '4'
+        sequence:
+            type: integer
+            length: '3'
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+                    
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id
+

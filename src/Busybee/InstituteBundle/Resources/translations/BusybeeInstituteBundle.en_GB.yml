@@ -141,3 +141,31 @@ October: October
 November: November
 December: December
 Wk: Wk
+groups:
+    years:
+        title: Student Year Groups
+        description: Forms, Years, Groups of students.
+        name: Student Year Name
+        nameShort: Student Short Year Name
+        sequence: Sequence
+        actions: Actions
+    year:
+        title: Student Group Year
+        add:
+            title: Add Student Year
+            description: Add Student Year Detail
+        edit:
+            title: Edit Student Year
+            description: Modify Student Year Detail
+        label:
+            name: Year Name
+            nameShort: Year Short Name
+            sequence: Order Sequence
+        help:
+            name: (Must be Unique)
+            nameShort: (Must be Unique)
+            sequence: (Must be Unique) Use to determine where a student will continue education after a year migration.
+        unique:
+            sequence: The sequence must be unique!
+            name: The year name must be unique!
+            nameShort: The year short name must be unique!

@@ -1,9 +1,3 @@
-staff_manage:
-    path:     /staff/
-    defaults: { _controller: BusybeePersonBundle:Staff:index }
-staff_edit:
-    path:     /staff/edit/{id}
-    defaults: { _controller: BusybeePersonBundle:Staff:edit }
 person_manage:
     path:     /
     defaults: { _controller: BusybeePersonBundle:Person:index }

@@ -1,18 +1,18 @@
 <?php
-namespace Busybee\PersonBundle\Model;
+namespace Busybee\InstituteBundle\Model;
 
 use Busybee\PaginationBundle\Model\PaginationManager ;
 
-class StaffPagination extends PaginationManager
+class StudentYearPagination extends PaginationManager
 {
 
 	/**
 	 * build Query
 	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
+	 * @version	13th December 2016
+	 * @since	13th December 2016
 	 * @param	boolean		$count
-	 * @return	query
+	 * @return	\Busybee\PaginationBundle\Model\query
 	 */
 	public function buildQuery($count = false)
 	{
