@@ -1,0 +1,6 @@
+Busybee\InstituteBundle\Entity\Year:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [name]
+            errorPath: name
+            message: 'The Year Name must be unique.'
