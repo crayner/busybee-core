@@ -17,6 +17,15 @@ parameters:
         searchList:
             - s.name
             - s.shortName
+    campusResourcePagination:
+        alias: r
+        sortBy:
+            Name:
+                r.name: ASC
+        limit: '25'
+        searchList:
+            - r.name
+            - r.comment
 services:
     campus.repository:
         class: Busybee\InstituteBundle\Repository\CampusRepository
@@ -125,3 +134,23 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeeInstituteBundle:StudentYear"
+    campusResource.pagination:
+        class: Busybee\InstituteBundle\Model\StudentYearPagination
+        arguments:
+            - '%campusResourcePagination%'
+            - '@campusResource.repository'
+            - '@my_service_container'
+    campusResource.repository:
+        class: Busybee\InstituteBundle\Repository\CampusResourceRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeInstituteBundle:CampusResource"
+    form.CampusResourceType:
+        class: Busybee\InstituteBundle\Form\CampusResourceType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }

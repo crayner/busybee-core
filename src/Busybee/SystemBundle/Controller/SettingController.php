@@ -99,7 +99,9 @@ class SettingController extends Controller
 			case 'boolean':
 				$form->add('value', 'Busybee\FormBundle\Type\YesNoType', array_merge($options, array(
 							'data' 			=> $sm->get($setting->getName()),
-							'help' 			=> 'system.setting.help.boolean',
+                            'attr'          => array(
+							    'help' 			=> 'system.setting.help.boolean',
+                            )
 						)
 					)
 				);

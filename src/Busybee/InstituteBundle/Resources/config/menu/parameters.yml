@@ -23,6 +23,14 @@ parameters:
             node: 140
             order: 1400
             route: campus_manage
+        1401:
+            label: menu.campus.resources
+            name: Campus Resource Management
+            role: ROLE_REGISTRAR
+            node: 140
+            order: 1401
+            route: campus_resource_manage
+            translate: BusybeeInstituteBundle
         141:
             label: menu.calendar.manage
             name: Calendar Management

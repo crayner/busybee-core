@@ -132,15 +132,15 @@ services:
             - '@locality.repository'
         tags: 
             - { name: form.type }
-    person.phone.validator:
-        class: Busybee\PersonBundle\Validator\Constraints\PhoneValidator
-        arguments:
-            - '@setting.manager'
-        tags:
-            - { name: validator.constraint_validator, alias: calendar_status_validator }
     person.form.type.phone:
         class: Busybee\PersonBundle\Form\PhoneType
         arguments:
             - '@setting.manager'
         tags: 
             - { name: form.type }    
+    person.phone.validator:
+        class: Busybee\PersonBundle\Validator\Constraints\PhoneValidator
+        arguments:
+            - '@setting.manager'
+        tags:
+            - { name: validator.constraint_validator, alias: phone_validator }

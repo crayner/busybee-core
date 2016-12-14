@@ -29,7 +29,7 @@ busybee_security_user_register:
     path:     /user/register
     defaults: { _controller: BusybeeSecurityBundle:User:register }
 busybee_security_user_edit:
-    path:     /user/edit/{id}
+    path:     /user/{id}/edit/
     defaults: { _controller: BusybeeSecurityBundle:User:edit }
 busybee_security_user_list: 
     path:     /user/list

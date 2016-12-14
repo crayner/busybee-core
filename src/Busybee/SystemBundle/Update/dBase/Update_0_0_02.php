@@ -27,7 +27,7 @@ class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	= 31 ;
+	private $count	= 37 ;
 	
 	/**
 	 * Constructor
@@ -494,7 +494,31 @@ class Update_0_0_02 implements UpdateInterface
 		$entity->setValidator(null);
 
 		$this->sm->saveSetting($entity);
-		
+        //37
+        $entity = new Setting();
+        $entity->setType('array');
+        $entity->setValue("Classroom: Classroom
+Hall: Hall
+Laboratory: Laboratory
+Library: Library
+Office: Office
+Outdoor: Outdoor
+Meeting Room: Meeting Room
+Performance: Performance
+Staffroom: Staffroom
+Storage: Storage
+Study: Study
+Undercover: Undercover
+Other: Other
+"       );
+        $entity->setName('Campus.Resource.Type');
+        $entity->setDisplayName('Type of Campus Resource');
+        $entity->setDescription('Campus resources are spaces used with the Campus, such as classrooms and Storage Rooms.');
+        $entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+        $entity->setValidator(null);
+
+        $this->sm->saveSetting($entity);
+
 		return true ;
 	}
 	

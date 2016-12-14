@@ -34,3 +34,9 @@ groups_years:
 student_year_edit:
     path:     /student/{id}/year/
     defaults: { _controller: BusybeeInstituteBundle:Year:edit }
+campus_resource_manage:
+    path:     /campus/resource/
+    defaults: { _controller: BusybeeInstituteBundle:Campus:resource }
+campus_resource_edit:
+    path:     /campus/resource/{id}/edit/
+    defaults: { _controller: BusybeeInstituteBundle:Campus:editResource }

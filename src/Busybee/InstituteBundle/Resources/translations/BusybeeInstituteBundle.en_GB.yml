@@ -18,6 +18,46 @@ campus:
         country: ''
     placeholder:
         locations: Select a Location
+    resources:
+        title: Manage Campus Resources
+        description: Add, modify and remove Campus Resources (Rooms and Spaces.)
+        name: Campus Resource
+        comment: Comment
+    resource:
+        add:
+            title: Add Campus Resource
+        edit:
+            title: Edit Campus Resource
+        title: Manage Campus Resource
+        description: Add, Modify Campus Resource details.
+        label:
+            staff1: Home Room Teacher
+            staff2: Home Room Teacher (2)
+            type: Campus Resource Type
+            name: Campus Resource Name
+            campus: Campus Name
+            capacity: Capacity of Resource.
+            studentComputers: Available Student Computers
+            computer: Staff Use Computer?
+            projector: Projector supplied?
+            tv: Television supplied?
+            dvd: DVD Player supplied?
+            hifi: Sound System supplied?
+            speakers: Speakers supplied?
+            iwb: Interactive Whiteboard?
+            phoneint: Internal Phone Extension
+            phoneext: External Phone Number
+            comment: Comment
+        help:
+            staff: ''
+            campus: (Required) The Campus on which this resource exists.
+            capacity: Number of people that this space is designed to hold.
+        placeholder:
+            staff: Select a Home Room Teacher
+            type: Select a Campus Resource Type
+            campus: Select a Campus
+            changeRecord: Edit another Resource
+
 '': ""
 years:
     title: Adademic Year Definitions
@@ -169,3 +209,6 @@ groups:
             sequence: The sequence must be unique!
             name: The year name must be unique!
             nameShort: The year short name must be unique!
+menu:
+    campus:
+        resources: Campus Resources

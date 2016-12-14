@@ -2,10 +2,11 @@
 
 namespace Busybee\PersonBundle\Entity;
 
+use Busybee\PersonBundle\Model\Staff as StaffModel ;
 /**
  * Staff
  */
-class Staff
+class Staff extends StaffModel
 {
     /**
      * @var integer

@@ -204,3 +204,10 @@ img.imageWidth200 {
 	margin-left: 6px;
 	width: 200px;
 }
+.changeRecord {
+	float: right;
+	width: 300px;
+	margin-top: -25px;
+	height: 28px;
+	font-weight: normal ;
+}

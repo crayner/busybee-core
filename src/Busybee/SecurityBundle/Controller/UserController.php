@@ -547,13 +547,9 @@ class UserController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($user);
 		$em->flush();
-		$enabled = 'disabled';
-		$status = 'warning';
-		if ($user->getEnabled())
-		{ 
-			$enabled = 'enabled';
-			$status = 'success';
-		}
+		$enabled = $user->getEnabled() ? 'enabled' : 'disabled' ;
+		$status = $user->getEnabled() ? 'success' : 'warning';
+
 		return new JsonResponse(
 			array('message' => $this->get('translator')->trans('The user %user% was '.$enabled, array('%user%' => $user->formatName()), 'BusybeeSecurityBundle'), 'status' => $status), 
 			200
