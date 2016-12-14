@@ -198,7 +198,7 @@ class UserController extends Controller
             return $event->getResponse();
         }
 
-        /** @var $formFactory \Busybee\SecurityBundle\Form\Factory\FactoryInterface */
+        /** @var $formFactory Factory\FactoryInterface */
         $form = $this->createForm( 'Busybee\SecurityBundle\Form\UserType', $user);
         $form->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
 					'label'					=> 'form.cancel', 
