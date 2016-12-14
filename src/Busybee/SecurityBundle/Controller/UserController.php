@@ -4,9 +4,6 @@ namespace Busybee\SecurityBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Busybee\SecurityBundle\Form\UserType;
-use Busybee\SecurityBundle\Form\RegisterType;
-use Busybee\SecurityBundle\Form\ResetType;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Busybee\SecurityBundle\Event\FormEvent;
 use Busybee\SecurityBundle\Event\GetResponseUserEvent;
@@ -96,8 +93,6 @@ class UserController extends Controller
 
 				$dispatcher->dispatch(BusybeeSecurityEvents::REGISTRATION_SUCCESS, $event);
 				
-				$repository = $this->get('busybee_security.user_provider.username');
-				
 				$user->setPlainPassword($request->request->get('password1'));
 				
 				$userManager->updateUser($user);
@@ -145,22 +140,6 @@ class UserController extends Controller
 				'password' => $password,
             ));
     }
-    /**
-     * @return array
-     */
-    private function getGroupList()
-    {
-		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
-        $groupRepo = $this->getDoctrine()
-            ->getRepository('BusybeeSecurityBundle:Group');
-
-        $groupList = $groupRepo->findAll();
-        $x = array();
-        foreach($groupList as $q=>$group) {
-            $x[$group->getId()] = $group->getGroupname();
-        }
-        return $x;
-    }    
 
     /**
      * Tell the user his account is now confirmed
@@ -198,7 +177,6 @@ class UserController extends Controller
             return $event->getResponse();
         }
 
-        /** @var $formFactory Factory\FactoryInterface */
         $form = $this->createForm( 'Busybee\SecurityBundle\Form\UserType', $user);
         $form->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
 					'label'					=> 'form.cancel', 
@@ -282,19 +260,6 @@ class UserController extends Controller
 				'config' => $config,
 			)
 		);
-    }
-    /**
-     * @retrun array
-     */
-    private function userRoleList() 
-    { 
-		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
-        $roleHierarchy = $this->get('security.role_hierarchy');
-        $roleList = array();
-        foreach($roleHierarchy->getHierarchy() as $role => $w)
-            if ($this->get('security.authorization_checker')->isGranted($role))
-                $roleList[$role] = $role;
-        return $roleList;
     }
 
     /**
@@ -468,8 +433,8 @@ class UserController extends Controller
     public function createAction($personID) {
     
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
-		$personRepo = $this->get('busybee_people.repository');
-		$person = $personRepo->find($personID);
+
+		$person = $this->get('person.repository')->find($personID);
         if (empty($person->getUser())) {
 			$userManager = $this->get('busybee_security.user_manager');
 			$user = $userManager->createUser();        
@@ -487,7 +452,7 @@ class UserController extends Controller
 
 		}
 		
-        return new RedirectResponse($this->generateUrl('busybee_people_manage',
+        return new RedirectResponse($this->generateUrl('person_manage',
 				array('personID' => $person->getId())
 			)
 		);
@@ -503,7 +468,7 @@ class UserController extends Controller
 
         if (empty($email)) {
             // the user does not come from the sendEmail action
-            return new RedirectResponse($this->generateUrl('busybee_user_resetting_request'));
+            return new RedirectResponse($this->generateUrl('busybee_security_resetting_request'));
         }
 		
 		
