@@ -42,7 +42,6 @@ Busybee\InstituteBundle\Entity\Campus:
             joinColumns:
                 createdBy:
                     referencedColumnName: id
-                    
         modifiedBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             nullable: true

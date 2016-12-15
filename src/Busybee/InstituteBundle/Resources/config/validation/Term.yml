@@ -5,6 +5,11 @@ Busybee\InstituteBundle\Entity\Term:
             errorPath: name
             message: 'The Term Name must be unique within the year.'
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [shortName, year]
-            errorPath: shortName
+            fields: [nameShort, year]
+            errorPath: nameShort
             message: 'The term Short Name must be unique within the year.'
+    properties:
+        name:
+            - NotBlank: ~
+        nameShort:
+            - NotBlank: ~

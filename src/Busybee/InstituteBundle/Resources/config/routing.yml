@@ -40,3 +40,9 @@ campus_resource_manage:
 campus_resource_edit:
     path:     /campus/resource/{id}/edit/
     defaults: { _controller: BusybeeInstituteBundle:Campus:editResource }
+home_room_manage:
+    path:     /homeroom/manage/
+    defaults: { _controller: BusybeeInstituteBundle:HomeRoom:index }
+home_room_edit:
+    path:     /homeroom/{id}/edit/
+    defaults: { _controller: BusybeeInstituteBundle:HomeRoom:edit }

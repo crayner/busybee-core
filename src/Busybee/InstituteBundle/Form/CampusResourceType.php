@@ -224,9 +224,11 @@ class CampusResourceType extends AbstractType
                     'choice_label' => 'name',
                     'choice_value' => 'id',
                     'mapped' => false,
+                    'required' => false,
                     'placeholder' => 'campus.resource.placeholder.changeRecord',
                 )
-            );
+            )
+        ;
 
         $builder->get('campus')->addModelTransformer(new CampusTransformer($this->manager));
         $builder->get('staff1')->addModelTransformer(new StaffTransformer($this->manager));

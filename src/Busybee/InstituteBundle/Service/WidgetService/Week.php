@@ -96,10 +96,10 @@ class Week {
 		return $fullNames[$this->getNumber() - 1];
 	}
 	
-	public function getShortName()
+	public function getnameShort()
 	{
-		$shortNames = $this->calendar->getWeekShortNames();
-		return $shortNames[$this->getNumber() - 1];
+		$nameShorts = $this->calendar->getWeeknameShorts();
+		return $nameShorts[$this->getNumber() - 1];
 	}
 	
 	public function setParameter($key, $value)

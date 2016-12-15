@@ -41,11 +41,11 @@ class Calendar {
 	 */
 	protected $days;
 	
-	protected $monthShortNames;
+	protected $monthnameShorts;
 	
 	protected $monthFullNames;
 	
-	protected $weekShortNames;
+	protected $weeknameShorts;
 	
 	protected $weekFullNames;
 	
@@ -137,14 +137,14 @@ class Calendar {
 			'January', 'February', 'March', 'April', 'May', 'June',
 			'July', 'August', 'September', 'October', 'November', 'December'
 		);
-		$this->monthShortNames = array(
+		$this->monthnameShorts = array(
 			'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
 			'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 		);
 		$this->weekFullNames = array(
 			'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
 		);
-		$this->weekShortNames = array(
+		$this->weeknameShorts = array(
 			'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
 		);
 		if ($this->sm->get('firstDayofWeek') === 'Sunday')
@@ -152,7 +152,7 @@ class Calendar {
 			$this->weekFullNames = array(
 				'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 			);
-			$this->weekShortNames = array(
+			$this->weeknameShorts = array(
 				'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
 			);
 		}
@@ -220,9 +220,9 @@ class Calendar {
 		return $this->monthFullNames;
 	}
 	
-	public function getMonthShortNames()
+	public function getMonthnameShorts()
 	{
-		return $this->monthShortNames;
+		return $this->monthnameShorts;
 	}
 	
 	public function getWeekFullNames()
@@ -230,9 +230,9 @@ class Calendar {
 		return $this->weekFullNames;
 	}
 	
-	public function getWeekShortNames()
+	public function getWeeknameShorts()
 	{
-		return $this->weekShortNames;
+		return $this->weeknameShorts;
 	}
 
 	public function setMonthFullNames($arg)
@@ -240,9 +240,9 @@ class Calendar {
 		$this->monthFullNames = $arg;
 	}
 	
-	public function setMonthShortNames($arg)
+	public function setMonthnameShorts($arg)
 	{
-		$this->monthShortNames = $arg;
+		$this->monthnameShorts = $arg;
 	}
 	
 	public function setWeekFullNames($arg)
@@ -250,9 +250,9 @@ class Calendar {
 		$this->weekFullNames = $arg;
 	}
 	
-	public function setWeekShortNames($arg)
+	public function setWeeknameShorts($arg)
 	{
-		$this->weekShortNames = $arg;
+		$this->weeknameShorts = $arg;
 	}
 	
 	public function setModels($monthModel, $weekModel, $dayModel)

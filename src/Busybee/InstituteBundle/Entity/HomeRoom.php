@@ -2,12 +2,10 @@
 
 namespace Busybee\InstituteBundle\Entity;
 
-use Busybee\InstituteBundle\Model\Term as TermModel ;
-
 /**
- * Term
+ * HomeRoom
  */
-class Term extends TermModel 
+class HomeRoom
 {
     /**
      * @var integer
@@ -25,14 +23,9 @@ class Term extends TermModel
     private $nameShort;
 
     /**
-     * @var \DateTime
+     * @var string
      */
-    private $firstDay;
-
-    /**
-     * @var \DateTime
-     */
-    private $lastDay;
+    private $website;
 
     /**
      * @var \DateTime
@@ -57,7 +50,27 @@ class Term extends TermModel
     /**
      * @var \Busybee\InstituteBundle\Entity\Year
      */
-    private $year;
+    private $schoolYear;
+
+    /**
+     * @var \Busybee\PersonBundle\Entity\Staff
+     */
+    private $tutor1;
+
+    /**
+     * @var \Busybee\PersonBundle\Entity\Staff
+     */
+    private $tutor2;
+
+    /**
+     * @var \Busybee\PersonBundle\Entity\Staff
+     */
+    private $tutor3;
+
+    /**
+     * @var \Busybee\InstituteBundle\Entity\CampusResource
+     */
+    private $campusResource;
 
 
     /**
@@ -75,7 +88,7 @@ class Term extends TermModel
      *
      * @param string $name
      *
-     * @return Term
+     * @return HomeRoom
      */
     public function setName($name)
     {
@@ -99,9 +112,9 @@ class Term extends TermModel
      *
      * @param string $nameShort
      *
-     * @return Term
+     * @return HomeRoom
      */
-    public function setnameShort($nameShort)
+    public function setNameShort($nameShort)
     {
         $this->nameShort = $nameShort;
 
@@ -113,57 +126,33 @@ class Term extends TermModel
      *
      * @return string
      */
-    public function getnameShort()
+    public function getNameShort()
     {
         return $this->nameShort;
     }
 
     /**
-     * Set firstDay
+     * Set website
      *
-     * @param \DateTime $firstDay
+     * @param string $website
      *
-     * @return Term
+     * @return HomeRoom
      */
-    public function setFirstDay($firstDay)
+    public function setWebsite($website)
     {
-        $this->firstDay = $firstDay;
+        $this->website = $website;
 
         return $this;
     }
 
     /**
-     * Get firstDay
+     * Get website
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getFirstDay()
+    public function getWebsite()
     {
-        return $this->firstDay;
-    }
-
-    /**
-     * Set lastDay
-     *
-     * @param \DateTime $lastDay
-     *
-     * @return Term
-     */
-    public function setLastDay($lastDay)
-    {
-        $this->lastDay = $lastDay;
-
-        return $this;
-    }
-
-    /**
-     * Get lastDay
-     *
-     * @return \DateTime
-     */
-    public function getLastDay()
-    {
-        return $this->lastDay;
+        return $this->website;
     }
 
     /**
@@ -171,7 +160,7 @@ class Term extends TermModel
      *
      * @param \DateTime $lastModified
      *
-     * @return Term
+     * @return HomeRoom
      */
     public function setLastModified($lastModified)
     {
@@ -195,7 +184,7 @@ class Term extends TermModel
      *
      * @param \DateTime $createdOn
      *
-     * @return Term
+     * @return HomeRoom
      */
     public function setCreatedOn($createdOn)
     {
@@ -219,7 +208,7 @@ class Term extends TermModel
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Term
+     * @return HomeRoom
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -243,7 +232,7 @@ class Term extends TermModel
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Term
+     * @return HomeRoom
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -263,26 +252,123 @@ class Term extends TermModel
     }
 
     /**
-     * Set year
+     * Set schoolYear
      *
-     * @param \Busybee\InstituteBundle\Entity\Year $year
+     * @param \Busybee\InstituteBundle\Entity\Year $schoolYear
      *
-     * @return Term
+     * @return HomeRoom
      */
-    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+    public function setSchoolYear(\Busybee\InstituteBundle\Entity\Year $schoolYear = null)
     {
-        $this->year = $year;
+        $this->schoolYear = $schoolYear;
 
         return $this;
     }
 
     /**
-     * Get year
+     * Get schoolYear
      *
      * @return \Busybee\InstituteBundle\Entity\Year
      */
-    public function getYear()
+    public function getSchoolYear()
     {
-        return $this->year;
+        return $this->schoolYear;
+    }
+
+    /**
+     * Set tutor1
+     *
+     * @param \Busybee\PersonBundle\Entity\Staff $tutor1
+     *
+     * @return HomeRoom
+     */
+    public function setTutor1(\Busybee\PersonBundle\Entity\Staff $tutor1 = null)
+    {
+        $this->tutor1 = $tutor1;
+
+        return $this;
+    }
+
+    /**
+     * Get tutor1
+     *
+     * @return \Busybee\PersonBundle\Entity\Staff
+     */
+    public function getTutor1()
+    {
+        return $this->tutor1;
+    }
+
+    /**
+     * Set tutor2
+     *
+     * @param \Busybee\PersonBundle\Entity\Staff $tutor2
+     *
+     * @return HomeRoom
+     */
+    public function setTutor2(\Busybee\PersonBundle\Entity\Staff $tutor2 = null)
+    {
+        $this->tutor2 = $tutor2;
+
+        return $this;
+    }
+
+    /**
+     * Get tutor2
+     *
+     * @return \Busybee\PersonBundle\Entity\Staff
+     */
+    public function getTutor2()
+    {
+        return $this->tutor2;
+    }
+
+    /**
+     * Set tutor3
+     *
+     * @param \Busybee\PersonBundle\Entity\Staff $tutor3
+     *
+     * @return HomeRoom
+     */
+    public function setTutor3(\Busybee\PersonBundle\Entity\Staff $tutor3 = null)
+    {
+        $this->tutor3 = $tutor3;
+
+        return $this;
+    }
+
+    /**
+     * Get tutor3
+     *
+     * @return \Busybee\PersonBundle\Entity\Staff
+     */
+    public function getTutor3()
+    {
+        return $this->tutor3;
+    }
+
+    /**
+     * Set campusResource
+     *
+     * @param \Busybee\InstituteBundle\Entity\CampusResource $campusResource
+     *
+     * @return HomeRoom
+     */
+    public function setCampusResource(\Busybee\InstituteBundle\Entity\CampusResource $campusResource = null)
+    {
+        $this->campusResource = $campusResource;
+
+        return $this;
+    }
+
+    /**
+     * Get campusResource
+     *
+     * @return \Busybee\InstituteBundle\Entity\CampusResource
+     */
+    public function getCampusResource()
+    {
+        return $this->campusResource;
     }
 }
+

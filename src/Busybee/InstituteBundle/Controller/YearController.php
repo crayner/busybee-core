@@ -29,7 +29,6 @@ class YearController extends Controller
         $form = $this->createForm(StudentYearType::class, $year);
 
         $form->handleRequest($request);
-        dump($form);
 
         if ($form->isSubmitted() && $form->isValid())
         {

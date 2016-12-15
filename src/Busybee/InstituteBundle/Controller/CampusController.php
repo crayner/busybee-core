@@ -53,7 +53,6 @@ class CampusController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
 
-
         $up = $this->get('campusResource.pagination');
 
         $up->injectRequest($request);

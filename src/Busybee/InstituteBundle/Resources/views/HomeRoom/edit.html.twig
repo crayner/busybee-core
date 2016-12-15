@@ -1,0 +1,108 @@
+{# src/Busybee/InstituteBundle/Resources/views/CampusresourceEdit.html.twig #}
+
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'homeroom.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'homeroom.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'homeroom.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+{{ form_start(form) }}
+<div class="panel panel-primary busybee-panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ 'homeroom.edit.title'|trans}}
+			<button title='{{ 'homeroom.title'|trans}}' type="button" class="formChanged halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('home_room_manage') }}','_self')" style="float: right"></button>
+            {%  if id != 'Add' %}
+				<button title="{{ 'homeroom.add.title'|trans}}" type="button" style="float: right;" class="formChanged halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('home_room_edit', {'id': 'Add'}) }}','_self')"></button>
+			{% endif %}
+			<button title="{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}" type="submit" style="float: right;" class="halflings halflings-save btn btn-success"></button>
+			{{ form_row(form.changeRecord) }}
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-4 col-md-4 well">
+                {{ form_row(form.name) }}
+			</div>
+			<div class="col-sm-4 col-md-4 well">
+                {{ form_row(form.nameShort) }}
+			</div>
+			<div class="col-sm-4 col-md-4 well">
+                {% if form.campusResource.vars.value is empty %}
+                    {% set data = form.campusResource.vars.data %}
+                {% else %}
+                    {% set data = form.campusResource.vars.value  %}
+                {% endif %}
+                {{ form_row(form.campusResource, {'value': data }) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4 col-md-4 well">
+				{% if form.tutor1.vars.value is empty %}
+					{% set data = form.tutor1.vars.data %}
+				{% else %}
+					{% set data = form.tutor1.vars.value  %}
+				{% endif %}
+                {{ form_row(form.tutor1, {'value': data }) }}
+			</div>
+			<div class="col-sm-4 col-md-4 well">
+                {% if form.tutor2.vars.value is empty %}
+                    {% set data = form.tutor2.vars.data %}
+                {% else %}
+                    {% set data = form.tutor2.vars.value  %}
+                {% endif %}
+                {{ form_row(form.tutor2, {'value': data }) }}
+			</div>
+			<div class="col-sm-4 col-md-4 well">
+                {% if form.tutor3.vars.value is empty %}
+                    {% set data = form.tutor3.vars.data %}
+                {% else %}
+                    {% set data = form.tutor3.vars.value  %}
+                {% endif %}
+                {{ form_row(form.tutor3, {'value': data }) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4 col-md-4 well">
+                {% if form.schoolYear.vars.value is empty %}
+                    {% set data = form.schoolYear.vars.data %}
+                {% else %}
+                    {% set data = form.schoolYear.vars.value  %}
+                {% endif %}
+                {{ form_row(form.schoolYear, {'value': data }) }}
+			</div>
+			<div class="col-sm-4 col-md-4 well">
+				{{ form_row(form.website) }}
+ 			</div>
+			<div class="col-sm-4 col-md-4 well">
+				<div class="form-group text-right">
+                    {{ form_widget(form.save) }}
+                    {{ form_widget(form.cancel) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+	<script>
+        $('.yes-no').checkboxpicker({
+            iconCls: 'glyphicons'
+        });
+        $('.monitorChange').change(function($e) {
+            $('.formChanged').prop('disabled', true);
+        });
+        $('.changeRecord').change(function($e) {
+            var path = '{{ path('home_room_edit', {'id': '__id__'}) }}';
+            var id = $(this).val();
+            window.open(path.replace('__id__', id),'_self');
+        });
+
+	</script>
+{% endblock javascripts %}

@@ -30,18 +30,6 @@ Busybee\InstituteBundle\Entity\Year:
         createdOn:
             type: datetime
             nullable: true 
-    manyToOne:
-        createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
-            joinColumns:
-                createdBy:
-                    referencedColumnName: id
-                    
-        modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
-            joinColumns:
-                modifiedBy:
-                    referencedColumnName: id
     oneToMany:
         terms:
             targetEntity: Busybee\InstituteBundle\Entity\Term
@@ -51,3 +39,14 @@ Busybee\InstituteBundle\Entity\Year:
             targetEntity: Busybee\InstituteBundle\Entity\SpecialDay
             mappedBy: year
             cascade: [persist, remove]
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

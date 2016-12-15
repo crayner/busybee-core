@@ -1,0 +1,25 @@
+Busybee\InstituteBundle\Entity\HomeRoom:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [tutor1, schoolYear]
+            errorPath: tutor1
+            message: homeroom.unique
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [ schoolYear, campusResource ]
+            errorPath: campusResource
+            message: homeroom.unique
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [ schoolYear, name ]
+            errorPath: name
+            message: homeroom.unique
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [ schoolYear, nameShort ]
+            errorPath: nameShort
+            message: homeroom.unique
+    properties:
+        name:
+            - NotBlank: ~
+        nameShort:
+            - NotBlank: ~
+        website:
+            - Url: ~

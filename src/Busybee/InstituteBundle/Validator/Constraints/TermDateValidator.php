@@ -18,7 +18,7 @@ class TermDateValidator extends ConstraintValidatorBase
 		
 		foreach($value as $key=>$term)
 		{
-			if (empty($term->getName()) || empty($term->getShortName()))
+			if (empty($term->getName()) || empty($term->getnameShort()))
 			{
 				$value->remove($key);
 				$constraint->year->removeTerm($term);

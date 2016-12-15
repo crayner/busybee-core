@@ -34,7 +34,6 @@ Busybee\InstituteBundle\Entity\StudentYear:
             joinColumns:
                 createdBy:
                     referencedColumnName: id
-                    
         modifiedBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:

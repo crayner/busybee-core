@@ -12,8 +12,9 @@
 {{ form_start(form) }}
 <div class="panel panel-primary busybee-panel">
 	<div class="panel-heading">
-		<h3 class="panel-title">{{ 'campus.resource.title'|trans}}{%  if id != 'Add' %}
-				<button title='{{ 'campus.resources.title'|trans}}' type="button" class="formChanged halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('campus_resource_manage') }}','_self')" style="float: right"></button>
+		<h3 class="panel-title">{{ 'campus.resource.title'|trans}}
+			<button title='{{ 'campus.resources.title'|trans}}' type="button" class="formChanged halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('campus_resource_manage') }}','_self')" style="float: right"></button>
+			{%  if id != 'Add' %}
 			<button title="{{ 'campus.resource.add.title'|trans}}" type="button" style="float: right;" class="formChanged halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('campus_resource_edit', {'id': 'Add'}) }}','_self')"></button>{% endif %}
 			<button title="{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}" type="submit" style="float: right;" class="halflings halflings-save btn btn-success"></button>
 			{{ form_row(form.changeRecord) }}

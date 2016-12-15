@@ -44,6 +44,12 @@ Busybee\InstituteBundle\Entity\SpecialDay:
             type: datetime
             nullable: true 
     manyToOne:
+        year:
+            targetEntity: Busybee\InstituteBundle\Entity\Year
+            inversedBy: specialDays
+            joinColumn:
+                name: year_id
+                referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
@@ -55,9 +61,3 @@ Busybee\InstituteBundle\Entity\SpecialDay:
             joinColumns:
                 modifiedBy:
                     referencedColumnName: id
-        year:
-            targetEntity: Busybee\InstituteBundle\Entity\Year
-            inversedBy: specialDays
-            joinColumn:
-                name: year_id
-                referencedColumnName: id

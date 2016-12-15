@@ -11,8 +11,6 @@ use Busybee\InstituteBundle\Validator\CalendarStatus ;
 use Busybee\InstituteBundle\Validator\CalendarDate ;
 use Busybee\InstituteBundle\Validator\TermDate ;
 use Busybee\InstituteBundle\Validator\SpecialDayDate ;
-use Busybee\InstituteBundle\Form\TermType ;
-use Busybee\InstituteBundle\Form\SpecialDayType ;
 
 class YearType extends AbstractType
 {
@@ -112,7 +110,8 @@ class YearType extends AbstractType
 					'mapped'		=> true,
 				)
 			)
-			;
+        ;
+
     }
     
     /**
@@ -124,7 +123,7 @@ class YearType extends AbstractType
 			array(
 				'data_class' 			=> 'Busybee\InstituteBundle\Entity\Year',
 				'translation_domain' 	=> 'BusybeeInstituteBundle',
-			)
+            )
 		);
     }
 

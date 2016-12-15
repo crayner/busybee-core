@@ -6,16 +6,16 @@ Busybee\InstituteBundle\Entity\Term:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
             fields: [name, year]
             errorPath: name
-            message: 'The Term Name must be unique within the year.'
+            message: 'term.unique'
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [shortName, year]
-            errorPath: shortName
-            message: 'The term Short Name must be unique within the year.'
+            fields: [nameShort, year]
+            errorPath: nameShort
+            message: 'term.unique'
     uniqueConstraints:
         name_year:
             columns: [ name, year_id ]
-        shortName_year:
-            columns: [ shortName, year_id ]
+        nameShort_year:
+            columns: [ nameShort, year_id ]
     id:
         id:
             type: integer
@@ -25,7 +25,7 @@ Busybee\InstituteBundle\Entity\Term:
         name:
             type: string
             length: '100'
-        shortName:
+        nameShort:
             type: string
             length: '6'
         firstDay:
@@ -39,20 +39,19 @@ Busybee\InstituteBundle\Entity\Term:
             type: datetime
             nullable: true 
     manyToOne:
-        createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
-            joinColumns:
-                createdBy:
-                    referencedColumnName: id
-                    
-        modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
-            joinColumns:
-                modifiedBy:
-                    referencedColumnName: id
         year:
             targetEntity: Busybee\InstituteBundle\Entity\Year
             inversedBy: terms
             joinColumn:
                 name: year_id
                 referencedColumnName: id
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

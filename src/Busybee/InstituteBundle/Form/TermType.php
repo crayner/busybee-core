@@ -49,11 +49,11 @@ class TermType extends AbstractType
 					'required'	=> false,
 				)
 			)
-			->add('shortName', null,
+			->add('nameShort', null,
 				array(
-					'label'		=>	'term.label.shortName',
+					'label'		=>	'term.label.nameShort',
 					'attr'		=> array(
-						'help'		=> 'term.help.shortName',
+						'help'		=> 'term.help.nameShort',
 					),
 					'required'	=> false,
 				)
@@ -92,6 +92,7 @@ class TermType extends AbstractType
 				'data_class' => 'Busybee\InstituteBundle\Entity\Term',
 				'translation_domain'	=> 'BusybeeInstituteBundle',
 				'year_data'	=> null,
+                'error_bubbling' => true,
 			)
 		);
     }

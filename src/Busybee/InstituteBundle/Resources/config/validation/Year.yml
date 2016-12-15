@@ -4,3 +4,8 @@ Busybee\InstituteBundle\Entity\Year:
             fields: [name]
             errorPath: name
             message: 'The Year Name must be unique.'
+    properties:
+        terms:
+            - Valid: ~
+        specialDays:
+            - Valid: ~

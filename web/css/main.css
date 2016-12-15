@@ -27,7 +27,6 @@ body {
 	font-size: 85% ;
 	color: #3DB3D7;
 	text-align: justify ;
-	display: block;
 }
 @media screen and (min-width: 768px) {
 	.dropdown:hover>.dropdown-menu {
@@ -210,4 +209,13 @@ img.imageWidth200 {
 	margin-top: -25px;
 	height: 28px;
 	font-weight: normal ;
+}
+.halflings.x075 {
+	font-size: 9px;
+}
+.field-required {
+	font-style: italic;
+	font-size: 85% ;
+	color: indianred;
+	text-align: justify ;
 }

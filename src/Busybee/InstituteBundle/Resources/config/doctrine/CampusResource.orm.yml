@@ -55,17 +55,6 @@ Busybee\InstituteBundle\Entity\CampusResource:
         createdOn:
             type: datetime
     manyToOne:
-        createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
-            joinColumns:
-                createdBy:
-                    referencedColumnName: id
-                    
-        modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
-            joinColumns:
-                modifiedBy:
-                    referencedColumnName: id
         campus:
             targetEntity: Busybee\InstituteBundle\Entity\Campus
             joinColumns:
@@ -80,4 +69,14 @@ Busybee\InstituteBundle\Entity\CampusResource:
             targetEntity: Busybee\PersonBundle\Entity\Staff
             joinColumns:
                 staff2:
+                    referencedColumnName: id
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
                     referencedColumnName: id
