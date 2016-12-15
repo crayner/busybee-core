@@ -11,9 +11,12 @@
 					{% if form.vars.value.id is defined %}
 						{%  if test_nextYear(form.vars.value) %}
 							{% set day = form.vars.value.getDay|date('Y-m-d') %}
-							<button title='{{ 'specialDay.copy.title'|trans}}' type="button" class="halflings halflings-copy btn btn-primary" onclick="window.open('{{ path('specialday_copy', {'day': day, 'id': id}) }}','_self')" style="float: right ; "></button>
+							<button title="{{ 'specialDay.copy.title'|trans}}" type="button" class="halflings halflings-copy btn btn-primary" onclick="window.open('{{ path('specialday_copy', {'day': day, 'id': id}) }}','_self')" style="float: right ; "></button>
 						{%  endif %}
-						<button title='{{ 'specialDay.delete.title'|trans}}' type="button" class="halflings halflings-erase btn btn-danger" onclick="confirmDayDelete('{{ path('specialday_delete', {'id': form.vars.value.id, 'year': id}) }}')" style="float: right ; "></button>
+						<button title="{{ 'specialDay.delete.title'|trans}}" type="button" class="halflings halflings-erase btn btn-danger" onclick="confirmDayDelete('{{ path('specialday_delete', {'id': form.vars.value.id, 'year': id}) }}')" style="float: right ; "></button>
+						<button title="{{ 'specialDay.add.title'|trans}}" type="button" class="halflings halflings-plus-sign btn btn-info addSpecialDayButton"style="float: right ; "></button>
+                    {% else %}
+						<button title="{{ 'specialDay.delete.title'|trans}}" type="button" class="halflings halflings-erase btn btn-danger" id="deleteSpecialDayButton"style="float: right ; "></button>
 					{% endif %}
 					<button title="{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}" type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
 				</h3>

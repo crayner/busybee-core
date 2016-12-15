@@ -78,6 +78,7 @@ year:
 calendar:
     title: Define Calendars
     description: Create and modify calendar definitions.
+    success: The calendar was successfully saved.
     generate:
         title: Generate Calendar
         description: ''
@@ -137,7 +138,7 @@ specialDay:
         day: (Must be Unique)
         type: "Closed: No attendance required. Change Timing: Alter opening hours."
         name: Usually the name of the public holiday.
-        description: "Can be empty."
+        description: ''
         open: Campus open time
         start: ""
         finish: ""
@@ -159,8 +160,11 @@ specialDay:
     delete:
         title: Delete Special Day.
         confirm: Are you sure you want to delete this Special Day?
+    add:
+        title: Add Special Day
     copy:
         title: Copy Special Day to next Year
+        success: The Special Day was copied successfully.
 Sun: Sun
 Mon: Mon
 Tue: Tue

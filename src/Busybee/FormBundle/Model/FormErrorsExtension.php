@@ -19,11 +19,18 @@ class FormErrorsExtension extends \Twig_Extension
      * @var FormErrorsParser
      */
     private $parser;
+
     /**
      * @var Translator
      */
     private $trans ;
-	
+
+    /**
+     * FormErrorsExtension constructor.
+     * @param \Busybee\FormBundle\Model\FormErrorsParser $parser
+     * @param $trans
+     * @throws \Exception
+     */
     public function __construct(FormErrorsParser $parser, $trans)
     {
         $this->parser = $parser;
@@ -32,6 +39,7 @@ class FormErrorsExtension extends \Twig_Extension
 		else
 			throw new \Exception('Invalid Translator Supplied.');
     }
+
     /**
      * {@inheritdoc}
      */

@@ -16,7 +16,8 @@
 				{% include 'BusybeeInstituteBundle:Calendar:term.html.twig' with {'form': term} %}
 			{% endif %}
 		{% endfor %}
-		{% include 'BusybeeInstituteBundle:Calendar:term.html.twig' with {'form': form.terms.vars.prototype} %}
+{#		<div id="termProtoType" data-prototype="{% filter escape %}{{ include 'BusybeeInstituteBundle:Calendar:term.html.twig' with {'form': form.terms.vars.prototype} }}{% endfilter %}"></div> #}
+		<div id="termProtoType"></div>
 		<p class="alert alert-info">{{ 'calendar.help.terms'|trans }}</p>
 		{% include 'BusybeeInstituteBundle:Calendar:calendarMenu.html.twig' %}
 	</div>

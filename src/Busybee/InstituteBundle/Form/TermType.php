@@ -46,7 +46,6 @@ class TermType extends AbstractType
 					'attr'		=> array(
 						'help'		=> 'term.help.name',
 					),
-					'required'	=> false,
 				)
 			)
 			->add('nameShort', null,
@@ -55,7 +54,6 @@ class TermType extends AbstractType
 					'attr'		=> array(
 						'help'		=> 'term.help.nameShort',
 					),
-					'required'	=> false,
 				)
 			)
 			->add('firstDay', null, 

@@ -65,7 +65,6 @@ class SpecialDayType extends AbstractType
 					'attr'		=>	array(
 						'help'		=> 'specialDay.help.name',
 					),
-					'required'	=> false,
 				)
 			)
 			->add('description', null,

@@ -16,7 +16,7 @@
 				{% include 'BusybeeInstituteBundle:Calendar:specialDay.html.twig' with {'form': specialDay, 'key': specialKey} %}
 			{% endif %}
 		{% endfor %}
-		{% include 'BusybeeInstituteBundle:Calendar:specialDay.html.twig' with {'form': form.specialDays.vars.prototype, 'key': '__name__'} %}
+		<div id="specialDayProtoType"></div>
 		{% if 'calendar.help.specialDays'|trans is not empty %}
 			<p class="alert alert-info">{{ 'calendar.help.specialDays'|trans }}</p>
 		{% endif %}

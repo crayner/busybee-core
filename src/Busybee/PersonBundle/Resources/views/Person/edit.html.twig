@@ -218,7 +218,7 @@
 
 
 		});
-		$('#addPhoneForm').hide();
+		$('#addPhoneForm').fadeOut(500);
 
 		$('.deletePhoneButton').click(function(e) {
 			e.preventDefault();
@@ -227,7 +227,7 @@
 
 			$('#phone_' + id.substring(12)).remove();
 			
-			$('#addPhoneButton').hide();
+			$('#addPhoneButton').fadeOut(500);
 		});
 		
 		if ( $(".fadeAlert").length ) {

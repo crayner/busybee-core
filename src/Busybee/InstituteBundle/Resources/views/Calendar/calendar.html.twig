@@ -2,9 +2,13 @@
 
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
+{% set flashClass = 'fadeAlert' %}
+{% set transDomain = 'BusybeeInstituteBundle' %}
+
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
 
 {% block title %}{{ parent() }}{{ 'calendar.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'calendar.title'|trans }}{% endblock headerTitle %}
@@ -55,7 +59,7 @@
 		{% include 'BusybeeInstituteBundle:Calendar:specialDay.js.twig' with {'name': specialDay.vars.name} %}
 	{% endfor %}
 	{% include 'BusybeeInstituteBundle:Calendar:specialDay.js.twig' with {'name': '__name__'} %}
-	<script>
+    <script type="text/javascript">
 		function confirmDayDelete(delUrl) {
 			if (confirm("{{ 'specialDay.delete.confirm'|trans }}")) {
 				document.location = delUrl;
@@ -66,8 +70,43 @@
 				document.location = delUrl;
 			}
 		}
+
 		if ( $(".fadeAlert").length ) {
  	   		$(".fadeAlert").fadeOut(3000);
 		}
-	</script>
+
+        $(".addTermButton").click(function() {
+
+            var content = '{% spaceless %}{% include 'BusybeeInstituteBundle:Calendar:term.html.twig' with {'form': form.terms.vars.prototype} %}{% endspaceless %}';
+
+            $('#termProtoType').html(content);
+
+            $('.addTermButton').prop('disabled', true);
+
+        });
+
+        $("#termProtoType").on("click", "#deleteTermButton", function(){
+
+            $('#termProtoType').html("");
+
+            $('.addTermButton').prop('disabled', false);
+        })
+
+        $(".addSpecialDayButton").click(function() {
+
+            var content = '{% spaceless %}{% include 'BusybeeInstituteBundle:Calendar:specialDay.html.twig' with {'form': form.specialDays.vars.prototype, 'key': '__name__'} %}{% endspaceless %}';
+
+            $('#specialDayProtoType').html(content);
+
+            $('.addSpecialDayButton').prop('disabled', true);
+
+        });
+
+        $("#specialDayProtoType").on("click", "#deleteSpecialDayButton", function(){
+
+            $('#specialDayProtoType').html("");
+
+            $('.addSpecialDayButton').prop('disabled', false);
+        })
+    </script>
 {% endblock javascripts %}

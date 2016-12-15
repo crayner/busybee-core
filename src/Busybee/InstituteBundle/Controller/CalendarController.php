@@ -43,12 +43,16 @@ class CalendarController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-dump($form);
             $em = $this->get('doctrine')->getManager();
 			$em->persist($year);
 			$em->flush();
 
-			return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'calendar.success')
+            ;
+
+            return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
 		} 
 		
 		return $this->render('BusybeeInstituteBundle:Calendar:calendar.html.twig', 
@@ -275,8 +279,13 @@ dump($form);
             $em->persist($newDay);
             $em->flush();
 
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'specialDay.copy.success')
+            ;
+
         }
 
-        return new RedirectResponse('year_edit', array('id'=>$id));
+        return new RedirectResponse($this->generateUrl('year_edit', array('id'=>$id)));
     }
 }
