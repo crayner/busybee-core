@@ -55,7 +55,6 @@ class PersonType extends AbstractType
 					'attr'	=> array(
 						'class' => 'beeSurname',
 					),
-					'constraints' => array(new Assert\NotBlank(array('groups' => 'person_form'))),
 				)
 			)
 			->add('firstName', null, array(
@@ -63,7 +62,6 @@ class PersonType extends AbstractType
 					'attr'	=> array(
 						'class' => 'beeFirstName',
 					),
-					'constraints' => array(new Assert\NotBlank(array('groups'=>'person_form'))),
 				)
 			)
 			->add('preferredName', null, array(
@@ -80,7 +78,6 @@ class PersonType extends AbstractType
 						'help' => 'person.help.officialName',
 						'class' => 'beeOfficialName',
 					),
-					'constraints' => array(new Assert\NotBlank(array('groups'=>'person_form'))),
 				)
 			)
 			->add('gender', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
@@ -89,7 +86,6 @@ class PersonType extends AbstractType
 					'attr'	=> array(
 						'class' => 'beeGender',
 					),
-					'constraints' => array(new Assert\Choice(array('groups'=>'person_form', 'choices' => $this->sm->get('Person.GenderList')))),
 				)
 			)
 			->add('dob', 'Symfony\Component\Form\Extension\Core\Type\BirthdayType', array(
@@ -98,19 +94,16 @@ class PersonType extends AbstractType
 					'attr'	=> array(
 						'class' => 'beeDob',
 					),
-					'constraints' => array(new Assert\Date(array('groups'=>'person_form'))),
 				)
 			)
 			->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
 					'label' => 'person.label.email',
 					'required' => false,
-					'constraints' => array(new Assert\Email(array('groups'=>'person_form', 'checkMX' => true))),
 				)
 			)
 			->add('email2', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
 					'label' => 'person.label.email2',
 					'required' => false,
-					'constraints' => array(new Assert\Email(array('groups'=>'person_form', 'checkMX' => true))),
 				)
 			)
 			->add('photo', 'Busybee\FormBundle\Type\ImageType', array(
@@ -120,28 +113,11 @@ class PersonType extends AbstractType
 					),
 					'label' => 'person.label.photo',
 					'required' => false,
-					'constraints' => array(
-						new Assert\Image(
-							array(
-								'groups' => 'person_form', 
-								'maxSize' => '200k',
-								'minWidth' => '350',
-								'maxWidth' => '450',
-								'minHeight' => '400',
-								'maxHeight' => '500',
-								'allowPortrait' => true,
-								'allowLandscape' => false,
-								'minRatio' => '0.75',
-								'maxRatio' => '0.9',
-							)
-						)
-					),
 				)
 			)
-			->add('website', 'Symfony\Component\Form\Extension\Core\Type\UrlType', array(
+			->add('website', null, array(
 					'label' => 'person.label.website',
 					'required' => false,
-					'constraints' => array(new Assert\Url(array('groups'=>'person_form'))),
 				)
 			)
 			->add('address1', HiddenType::class)

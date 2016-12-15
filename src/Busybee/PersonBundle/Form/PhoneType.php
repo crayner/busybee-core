@@ -11,7 +11,7 @@ use Busybee\PersonBundle\Form\DataTransformer\PhoneTransformer ;
 class PhoneType extends AbstractType
 {
 	/**
-	 * @var	Busybee\SystemBundle\Setting\SettingManager 
+	 * @var SettingManager
 	 */
 	private $sm ;
 	
@@ -42,12 +42,6 @@ class PhoneType extends AbstractType
 						'readonly' => 'readonly',
 						'help'	=> 'person.help.phone.number',					
 					),
-					'constraints' => array(new \Busybee\PersonBundle\Validator\Phone(
-							array(
-								'groups' => 'person_form',
-							)
-						)
-					),
 				)
 			)
 			->add('countryCode', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
@@ -70,7 +64,6 @@ class PhoneType extends AbstractType
 			array(
 				'data_class' => 'Busybee\PersonBundle\Entity\Phone',
 				'translation_domain' => 'BusybeePersonBundle',
-				'validation_groups' => array('person_form'),
 			)
 		);
     }

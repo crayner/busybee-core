@@ -1,0 +1,14 @@
+Busybee\PersonBundle\Entity\Phone:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [phoneNumber]
+            errorPath: phoneNumber
+    properties:
+        phoneNumber:
+            - Busybee\PersonBundle\Validator\Phone: ~
+        phoneType:
+            - Choice:
+                choices: { callback: getPhoneTypes }
+        countryCode:
+            - Choice:
+                choices: { callback: getCountryCodes }

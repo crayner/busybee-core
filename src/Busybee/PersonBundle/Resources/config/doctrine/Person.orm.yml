@@ -40,8 +40,8 @@ Busybee\PersonBundle\Entity\Person:
             length: '65'
             nullable: true
         website:
-            type: string
-            length: '150'
+            type: url
+            length: '200'
             nullable: true
         photo:
             type: string
@@ -53,28 +53,6 @@ Busybee\PersonBundle\Entity\Person:
         createdOn:
             type: datetime
             nullable: true 
-    properties:
-        email:
-            - Email: ~
-        email2:
-            - Email: ~
-        surname:
-            - NotBlank: ~
-        website:
-            - Url: ~
-        gender:
-            - Choice: 
-                choices: { callback: getGenders }
-        photo:
-            - Image:
-                maxSize: 200k
-                minWidth: '350'
-                maxWidth: '450'
-                minHeight: '400'
-                maxHeight: '500'
-                allowPortrait: false
-                minRatio: '0.8'
-                maxRatio: '0.9'
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
