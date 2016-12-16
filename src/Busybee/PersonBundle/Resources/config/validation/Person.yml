@@ -2,10 +2,10 @@ Busybee\PersonBundle\Entity\Person:
     properties:
         email:
             - Email:
-              checkMX: true
+                  checkMX: true
         email2:
             - Email:
-              checkMX: true
+                  checkMX: true
         surname:
             - NotBlank: ~
         firstName:
@@ -17,17 +17,16 @@ Busybee\PersonBundle\Entity\Person:
         dob:
             - Date: ~
         gender:
-            - Choice:
-                choices: { callback: getGenders }
+            - \Busybee\FormBundle\Validator\SettingChoice:
+                name: 'Person.GenderList'
+        title:
+            - \Busybee\FormBundle\Validator\SettingChoice:
+                name: 'Person.TitleList'
         photo:
-            - Image:
-                maxSize: 200k
-                minWidth: '350'
-                maxWidth: '450'
-                minHeight: '400'
-                maxHeight: '500'
-                allowPortrait: false
-                minRatio: '0.8'
-                maxRatio: '0.9'
+            - \Busybee\PersonBundle\Validator\PersonImage: ~
         phone:
+            - Valid: ~
+        address1:
+            - Valid: ~
+        address2:
             - Valid: ~

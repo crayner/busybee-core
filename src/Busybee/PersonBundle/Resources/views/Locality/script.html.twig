@@ -3,6 +3,8 @@
 {% trans_default_domain "BusybeePersonBundle" %}
 
 {% set altSuffix = 'address2' %}
+{% if classSuffix is not defined %}{% set classSuffix = 'address1' %}{% endif %}
+
 {% if classSuffix == 'address2' %}{% set altSuffix = 'address1' %}{% endif %}
 
 	<script>
@@ -54,3 +56,4 @@
 			});
 		});
 	</script>
+

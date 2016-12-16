@@ -36,3 +36,9 @@ services:
             - '%timezone%'
         tags: 
             - { name: form.type }
+    validator.setting.constraint:
+        class: Busybee\FormBundle\Validator\Constraints\SettingChoiceValidator
+        arguments:
+            - '@setting.manager'
+        tags:
+            - { name: validator.constraint_validator, alias: setting_validator }

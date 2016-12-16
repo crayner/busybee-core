@@ -2,17 +2,15 @@ Busybee\PersonBundle\Entity\Address:
     type: entity
     table: address
     repositoryClass: Busybee\PersonBundle\Repository\AddressRepository
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields:
+    uniqueConstraints:
+        address:
+            columns:
                 - buildingType
                 - buildingNumber
                 - streetNumber
                 - propertyName
                 - streetName
                 - locality
-            errorPath: streetName
-            message: 'error.unique.address'
     id:
         id:
             type: integer

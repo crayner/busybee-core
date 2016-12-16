@@ -2,12 +2,12 @@
 
 namespace Busybee\PersonBundle\Form ;
 
+use Busybee\SecurityBundle\Form\ResetType;
 use Symfony\Component\Form\AbstractType ;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
-use Symfony\Component\Intl\Locale\Locale ;
-use Symfony\Component\Form\FormEvent ;
-use Symfony\Component\Form\FormEvents ;
 use Busybee\SystemBundle\Setting\SettingManager ;
 use Busybee\PersonBundle\Repository\LocalityRepository ;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType ;
@@ -16,11 +16,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType ;
 class LocalityType extends AbstractType
 {
 	/**
-	 * @var	Busybee\SystemBundle\Setting\SettingManager 
+	 * @var	SettingManager
 	 */
 	private $sm ;
 	/**
-	 * @var	Busybee\PersonBundle\Repository\LocalityRepository 
+	 * @var LocalityRepository
 	 */
 	private $lr ;
 	
@@ -41,38 +41,35 @@ class LocalityType extends AbstractType
         $builder
 			->add('locality', null, array(
 					'label' => 'locality.label.locality',
-					'required' => false,
 					'attr' => array(
-						'class' => 'beeLocality'.$options['classSuffix'],
+						'class' => 'beeLocality monitorChange',
+                        'help' => 'locality.help.locality',
 					),
 				)
 			)
 			->add('territory', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
 					'label' => 'locality.label.territory',
-					'required' => false,
 					'attr' => array(
-						'class' => 'beeTerritory'.$options['classSuffix'],
+						'class' => 'beeTerritory monitorChange',
 					),
 					'choices' => $this->sm->get('Address.TerritoryList'),
 				)
 			)
 			->add('postCode', null, array(
 					'label' => 'locality.label.postcode',
-					'required' => false,
 					'attr' => array(
-						'class' => 'beePostCode'.$options['classSuffix'],
+						'class' => 'beePostCode monitorChange',
 					),
 				)
 			)
 			->add('country', 'Symfony\Component\Form\Extension\Core\Type\CountryType', array(
 					'label' => 'locality.label.country',
-					'required' => false,
 					'attr' => array(
-						'class' => 'beeCountry'.$options['classSuffix'],
+						'class' => 'beeCountry monitorChange',
 					),
 				)
 			)
-			->add('localityList', EntityType::class, 
+			->add('localityList', EntityType::class,
 				array(
 					'class' => 'BusybeePersonBundle:Locality',
 					'label' => 'locality.label.choice',
@@ -81,19 +78,44 @@ class LocalityType extends AbstractType
 					'required' => false,
 					'attr' => array(
 						'help' => 'locality.help.choice',
-						'class' => 'beeLocalityList'.$options['classSuffix'],
+						'class' => 'beeLocalityList formChanged',
 					),
 					'mapped' => false,
 					'translation_domain' => 'BusybeePersonBundle',
+                    'query_builder' => function (LocalityRepository $lr) {
+                        return $lr->createQueryBuilder('l')
+                            ->orderBy('l.locality', 'ASC')
+                            ->addOrderBy('l.postCode', 'ASC')
+                            ;
+                    },
 				)
 			)
-			->add('save', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
-					'label'					=> 'locality.label.save', 
-					'attr' 					=> array(
-						'class' 				=> 'beeLocalitySave'.$options['classSuffix'].' btn btn-info glyphicons glyphicons-plus-sign',
-					),
-				)
-			)
+            ->add('save', SubmitType::class, array(
+                    'label'					=> 'form.save',
+                    'attr' 					=> array(
+                        'class' 				=> 'beeLocalitySave btn btn-success glyphicons glyphicons-plus-sign',
+                    ),
+                    'translation_domain' => 'BusybeeHomeBundle',
+                )
+            )
+            ->add('close', ButtonType::class, array(
+                    'label'					=> 'form.close',
+                    'attr' 					=> array(
+                        'class' 				=> 'formChanged beeLocalitySave btn btn-warning glyphicons glyphicons-folder-closed',
+                        'onclick'               => "window.close()",
+                    ),
+                    'translation_domain'    => 'BusybeeHomeBundle',
+                )
+            )
+            ->add('reset', ResetType::class, array(
+                    'label'					=> 'form.reset',
+                    'attr' 					=> array(
+                        'class' 				=> 'beeLocalitySave btn btn-info glyphicons glyphicons-refresh',
+                    ),
+                    'translation_domain' => 'BusybeeHomeBundle',
+                    'mapped'            => false,
+                )
+            )
 		;
     }
     
@@ -108,7 +130,7 @@ class LocalityType extends AbstractType
 				'translation_domain' => 'BusybeePersonBundle',
 				'allow_extra_fields' => true,
 				'classSuffix'	=> null,
-			)
+                'csrf_protection' => false,			)
 		);
     }
 

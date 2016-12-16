@@ -3,6 +3,7 @@
 namespace Busybee\PersonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Busybee\PersonBundle\Entity\Person ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
@@ -29,6 +30,11 @@ class PersonController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function editAction(Request $request, $id)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
@@ -102,21 +108,40 @@ class PersonController extends Controller
 
 		$form->handleRequest($request);
 
+        $validator = $this->get('validator');
+
 		if ($form->isSubmitted() && $form->isValid())
 		{
+		    $ok = true ;
 			foreach($formDefinition as $defined)
 			{
 				$req = isset($defined['request']['post']) ? $defined['request']['post'] : null ;
 				if (! is_null($req) && isset($person->$req))
 				{
-					$em->persist($person->$req);
+                    $entity = $person->$req;
+                    $errors = $validator->validate($entity);
+                    if (count($errors) > 0)
+                    {
+                        foreach($errors as $w){
+                            $subForm = $form->get($req);
+                            $field = $w->getConstraint()->errorPath;
+                            if (null !== $subForm->get($field))
+                                $subForm->get($field)->addError(new FormError($w->getMessage(), $w->getParameters()));
+                        }
+                        $ok = false ;
+                    }
+					if ($ok) {
+                        $em->persist($person->$req);
+                    }
 				}
 			}
-			$em->persist($person);
-			$em->flush();
-			$id = $person->getId();
+			if ($ok) {
+                $em->persist($person);
+                $em->flush();
+                $id = $person->getId();
 
-			return new RedirectResponse($this->generateUrl('person_edit', array('id' => $id)));
+                return new RedirectResponse($this->generateUrl('person_edit', array('id' => $id)));
+            }
 		} 
 
 		$editOptions['id'] = $id;

@@ -1,0 +1,10 @@
+<script type="text/javascript">
+    $(".monitorChange").change(function(e) {
+        $(".formChanged").prop("disabled", true);
+    });
+    $(".changeRecord").change(function(e) {
+        var path = "{{ path(route, {'id': '__id__'}) }}";
+        var id = $(this).val();
+        window.open(path.replace('__id__', id),'_self');
+    });
+</script>

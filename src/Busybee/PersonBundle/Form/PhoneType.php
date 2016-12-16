@@ -2,6 +2,8 @@
 
 namespace Busybee\PersonBundle\Form;
 
+use Busybee\PersonBundle\Events\PhoneSubscriber;
+use Busybee\PersonBundle\Repository\PhoneRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -10,17 +12,24 @@ use Busybee\PersonBundle\Form\DataTransformer\PhoneTransformer ;
 
 class PhoneType extends AbstractType
 {
-	/**
-	 * @var SettingManager
-	 */
-	private $sm ;
-	
-	/**
+    /**
+     * @var SettingManager
+     */
+    private $sm ;
+
+    /**
+     * @var PhoneRepository
+     */
+    private $pr ;
+
+
+    /**
 	 * Construct
 	 */
-	public function __construct(SettingManager $sm)
+	public function __construct(SettingManager $sm, PhoneRepository $pr)
 	{
 		$this->sm = $sm ;
+		$this->pr = $pr;
 	}
 
     /**
@@ -53,6 +62,7 @@ class PhoneType extends AbstractType
 			);
         $builder->get('phoneNumber')
             ->addModelTransformer(new PhoneTransformer());
+        $builder->addEventSubscriber(new PhoneSubscriber($this->pr));
     }
     
     /**

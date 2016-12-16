@@ -2,7 +2,9 @@
 
 namespace Busybee\PersonBundle\Controller ;
 
+use Busybee\PersonBundle\Form\LocalityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request ;
 use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\PersonBundle\Entity\Locality ;
@@ -16,102 +18,51 @@ class LocalityController extends Controller
 		$locality = new Locality();
 		$lr = $this->get('locality.repository');
 		if ($id !== 'Add')
-			$locality = $lr->findOneBy(array('id' => $id));
+			$locality = $lr->find($id);
+
 		$locality->injectRepository($lr);
-        $form = $this->createForm('Busybee\PersonBundle\Form\LocalityType', $locality);
+
+        $form = $this->createForm(LocalityType::class, $locality);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($locality);
+            $em->flush();
+        }
 
         return $this->render('BusybeePersonBundle:Locality:index.html.twig',
 			array('id' => $id, 'form' => $form->createView())			
 		);
     }
 
-    public function editAction(Request $request)
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function deleteAction($id = 0)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
-		
-		$id = $request->request->get('id');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
 
-		$entity = $id > 0 ? $this->get('locality.repository')->findOneBy(array('id' => $id)) : new Locality();	
-		$entity->injectRepository($this->get('locality.repository')) ;
-		$valid = true;
+        if ($id > 0 && $entity = $this->get('locality.repository')->find($id))
+        {
+            $entity->injectRepository($this->get('locality.repository'));
+            $sess = $this->get('session');
+            $flash = $sess->getFlashBag();
+            if ($entity->canDelete())
+            {
+                $em = $this->get('doctrine')->getManager();
+                $em->remove($entity);
+                $em->flush();
+                $flash->add('success', 'locality.delete.success');
+            } else
+            {
+                $flash->add('warning', 'locality.delete.notAllowed');
+            }
+        }
 
-		$locality = $request->request->get('locality');		
-		if (empty($locality)) 
-			$valid = false;
-		else
-			$entity->setLocality($locality);
-
-		$entity->setTerritory($request->request->get('territory'));
-		$entity->setPostCode($request->request->get('postCode'));
-		$entity->setCountry($request->request->get('country'));
-		
-		if ($valid)
-		{
-			$message = $this->get('translator')->trans('locality.edit.success', array(), 'BusybeePersonBundle');
-			$status = 'success';
-			$em = $this->getDoctrine()->getManager();
-            
-            $em->persist($entity);
-            $em->flush();
-			$id = $entity->getId();
-		} else {
-			$message = $this->get('translator')->trans('locality.edit.failure', array(), 'BusybeePersonBundle');
-			$status = 'danger';
-		}
-
-		$list = $entity->getRepository()->getLocalityChoices();
-		$localityOptions = '<option value="">'.$this->get('translator')->trans('locality.placeholder.choice', array(), 'BusybeePersonBundle').'</option>';
-		foreach($list as $name=>$value) {
-			$localityOptions .= '<option value="'.$value.'">'.$name.'</option>';	
-		}
-	
-
-		return new JsonResponse(
-			array(
-				'message' => $message,
-				'status' => $status,
-				'id' => $id,
-				'locality' => $entity->getLocality(),
-				'territory' => $entity->getTerritory(),
-				'country' => $entity->getCountry(),
-				'postCode' => $entity->getPostCode(),
-				'options' => $localityOptions,
-			),
-			200
-		);
-    }
-
-    public function fetchAction(Request $request)
-    {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
-		
-		$id = $request->request->get('id');
-
-		$locality = $id > 0 ? $this->get('locality.repository')->findOneBy(array('id' => $id)) : new Locality();	
-		
-		$address = $this->get('address.repository')->findBy(array('locality'=>$id), array('propertyName'=>'ASC', 'streetName'=>'ASC'));
-		$addressList = array();
-		if (is_array($address))
-			foreach($address as $xx)
-			{
-				$x = array();
-				$x['label'] = $this->get('address.manager')->getAddressListLabel($xx);
-				$x['value'] = $xx->getId();
-				$addressList[] = $x;
-			}
-
-		$addressDisabled = empty($address) ? 'true' : 'false';
-
-		return new JsonResponse(
-			array(
-				'locality' => $locality->getLocality(),
-				'territory' => $locality->getTerritory(),
-				'country' => $locality->getCountry(),
-				'postCode' => $locality->getPostCode(),
-				'addressList' => $addressList,
-				'addressDisabled' => $addressDisabled,
-			),
-			200
-		);
+        return new RedirectResponse($this->get('router')->generate('locality_manage', array('id' => 'Add')));
     }
 }

@@ -11,11 +11,4 @@ class Phone extends Constraint
 	{
 		return 'phone_validator' ; 
 	}
-	
-	public function __construct()
-	{
-		parent::__construct();
-		$this->addImplicitGroupName('Default');
-		return $this ;
-	}
 }

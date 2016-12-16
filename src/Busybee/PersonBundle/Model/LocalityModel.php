@@ -2,6 +2,7 @@
 
 namespace Busybee\PersonBundle\Model ;
 
+use Busybee\PersonBundle\Entity\Address;
 use Symfony\Component\Intl\Intl ;
 
 /**
@@ -89,5 +90,24 @@ abstract class LocalityModel
     public function getFullLocality()
     {
         return trim($this->getLocality().' '.$this->getTerritory().' '. $this->getPostCode().' '.$this->getCountryName());
+    }
+
+    /**
+     * can Delete
+     *
+     * @return boolean
+     */
+    public function canDelete()
+    {
+        $x = $this->repo->createQueryBuilder('e')
+            ->from('\Busybee\PersonBundle\Entity\Address', 'a')
+            ->select('COUNT(a.id)')
+            ->where('a.locality = :localityID')
+            ->setParameter('localityID', $this->getId())
+            ->getQuery()
+            ->getSingleScalarResult();
+        if (empty($x))
+            return true ;
+        return false ;
     }
 }

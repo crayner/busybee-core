@@ -6,14 +6,16 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
-{% block title %}{{ parent() }}{{ 'person.locality.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'person.locality.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'person.locality.description'|trans }}{% endblock headerLead %}
+{%  block menuContainer %}{%  endblock menuContainer %}
 
+{% block title %}{{ parent() }}{{ 'locality.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'locality.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'locality.description'|trans }}{% endblock headerLead %}
 
+{%  block titleContainer %}{% endblock titleContainer %}
 
 {% block contentContainer %}
-{{ form_start(form, {'action': path('locality_edit', {'id': id}), 'method': 'POST'}) }}
+{{ form_start(form, {'action': path('locality_manage', {'id': id}), 'method': 'POST'}) }}
 	<div class="container-fluid">
 		<div class='row' id="localityMessage" style="display: none;">
 		</div>
@@ -26,5 +28,16 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	{% include 'BusybeePersonBundle:Locality:script.html.twig' %}
+	{% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'locality_manage'} %}
+	<script type="text/javascript">
+		$('.beeLocalityList').change(function() {
+
+		    var route = "{{ path('locality_manage', {'id': '__id__'}) }}";
+		    var id = $(this).val();
+			if (id == '') {
+			    id = 'Add';
+            }
+		    window.open(route.replace("__id__", id),"_self");
+		});
+	</script>
 {% endblock javascripts %}

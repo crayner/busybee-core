@@ -1,0 +1,20 @@
+Busybee\PersonBundle\Entity\Address:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - buildingType
+                - buildingNumber
+                - streetNumber
+                - propertyName
+                - streetName
+                - locality
+            errorPath: streetName
+            message: 'address.unique'
+    properties:
+        buildingType:
+            - \Busybee\FormBundle\Validator\SettingChoice:
+                name: 'Address.BuildingType'
+        locality:
+            - Valid: ~
+        streetName:
+            - NotBlank: ~

@@ -47,7 +47,6 @@ class PersonType extends AbstractType
 						'class' => 'beeTitle',
 					),
 					'required' => false,
-					'constraints' => array(new Assert\Choice(array('groups' => 'person_form', 'choices' => $this->sm->get('Person.TitleList')))),
 				)
 			)
 			->add('surname', null, array(
@@ -178,7 +177,6 @@ class PersonType extends AbstractType
 			array(
 				'data_class' 			=> 'Busybee\PersonBundle\Entity\Person',
 				'translation_domain'	=> 'BusybeePersonBundle',
-				'validation_groups'		=> array('person_form'),
 				'allow_extra_fields' 	=> true,
 			)
 		);

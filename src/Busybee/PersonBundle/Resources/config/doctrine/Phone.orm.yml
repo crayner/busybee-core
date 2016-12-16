@@ -15,7 +15,6 @@ Busybee\PersonBundle\Entity\Phone:
         phoneNumber:
             type: string
             length: '20'
-            unique: true
         countryCode:
             type: string
             length: '6'

@@ -3,19 +3,24 @@
 {% trans_default_domain "BusybeePersonBundle" %}
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
-
+{% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert'} %}
 	<div class="panel panel-info busybee-panel">
 		<div class="panel-heading">
 			<h3 class="panel-title">{{ 'locality.title'|trans}}</h3>
 		</div>
 		<div class="panel-body">
 			<div class='row'>
-				<div class='col-sm-8 well'>
+				<div class='col-sm-7 well'>
 					{{ form_row(form.localityList, {'value': form.vars.value.id|trim }) }}
 				</div>
-				<div class='col-sm-4 well'>
+				<div class='col-sm-5 well'>
 					<div class='form-widget text-right'>
-						{{ form_widget(form.save) }}
+                        {{ form_widget(form.save) }}
+                        {{ form_widget(form.reset) }}
+                        {{ form_widget(form.close) }}
+						{% if form.vars.value.canDelete() and id != 'Add' %}
+							<button type="button" onclick="window.open('{{ path('locality_delete', {'id': id}) }}','_self')" class="btn btn-danger glyphicons glyphicons-delete">{{ 'form.delete'|trans({}, 'BusybeeHomeBundle') }}</button>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -33,11 +38,7 @@
 				</div>
 				<div class='col-sm-6 well'>
 					{{ form_row(form.country) }}
-				</div>
-			</div>
-			<div class='row'>
-				<div class="col-sm-12 alert alert-info">
-					{{ 'address.help.manage'|trans }}
+
 				</div>
 			</div>
 		</div>

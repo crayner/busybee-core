@@ -95,7 +95,7 @@ class AddressController extends Controller
 		
 		$id = $request->request->get('id');
 
-		$entity = $id > 0 ? $this->get('address.repository')->findOneById($id) : new Address();	
+		$entity = $id > 0 ? $this->get('address.repository')->find($id) : new Address();
 		$entity->injectRepository($this->get('address.repository')) ;
 
 		$entity->localityRecord = $this->get('locality.repository')->findOneById($request->request->get('locality_id'));
@@ -110,11 +110,6 @@ class AddressController extends Controller
 			$valid = false;
 		}
 
-		$streetName = $request->request->get('streetName');		
-		if (empty($streetName)) 
-			$valid = false;
-		else
-			$entity->setStreetName($streetName);
 
 		$entity->setPropertyName((empty($request->request->get('propertyName')) ? null : $request->request->get('propertyName')));
 		$entity->setStreetNumber((empty($request->request->get('streetNumber')) ? null : $request->request->get('streetNumber')));
@@ -139,7 +134,21 @@ class AddressController extends Controller
 				$valid = false ;
 		}
 
-		if ($valid)
+        $streetName = $request->request->get('streetName');
+        if (empty($streetName)) {
+            $valid = false;
+            $entity = new Address() ;
+            $errors = array();
+        }
+        else{
+            $entity->setStreetName($streetName);
+		    $errors = $this->get('validator')->validate($entity);
+        }
+        dump($entity);
+        dump($errors);
+        dump($request);
+
+		if ($valid && count($errors) == 0)
 		{
 			$message = $this->get('translator')->trans('address.edit.success', array(), 'BusybeePersonBundle');
 			$status = 'success';

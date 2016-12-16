@@ -37,6 +37,7 @@
 				url: '{{ path('address_edit') }}',	
 				data: {
 					'id': $('.beeAddressValue{{ classSuffix }}').val(),
+                    '_token': '{{ form._token.vars.value }}',
 					'propertyName': $('.beePropertyName{{ classSuffix }}').val(),
 					'streetName': $('.beeStreetName{{ classSuffix }}').val(),
 					'streetNumber': $('.beeStreetNumber{{ classSuffix }}').val(),

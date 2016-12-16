@@ -136,6 +136,7 @@ services:
         class: Busybee\PersonBundle\Form\PhoneType
         arguments:
             - '@setting.manager'
+            - '@phone.repository'
         tags: 
             - { name: form.type }    
     person.phone.validator:
@@ -144,3 +145,11 @@ services:
             - '@setting.manager'
         tags:
             - { name: validator.constraint_validator, alias: phone_validator }
+    person.manager:
+        class: Busybee\PersonBundle\Model\PersonManager
+        arguments:
+            - '@setting.manager'
+    person.image.validator:
+        class: Busybee\PersonBundle\Validator\Constraints\PersonImageValidator
+        tags:
+            - { name: validator.constraint_validator, alias: person_image_validator }

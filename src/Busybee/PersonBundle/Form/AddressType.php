@@ -3,6 +3,7 @@
 namespace Busybee\PersonBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Intl\Locale\Locale ;
@@ -78,6 +79,7 @@ class AddressType extends AbstractType
 					),
 				)
 			)
+            ->add('id', HiddenType::class)
 			->add('addressList', AutoCompleteType::class, 
 				array(
 					'class' => 'Busybee\PersonBundle\Entity\Address',

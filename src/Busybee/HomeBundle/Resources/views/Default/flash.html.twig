@@ -1,38 +1,42 @@
 {% if transDomain is defined %}
     {% trans_default_domain transDomain %}
 {% endif %}
-
+{%  if flashClass is defined %}
+    {% set flashClass = " " ~ flashClass %}
+{% else %}
+    {% set flashClass = "" %}
+{% endif %}
 {% for flashMessage in app.session.flashbag.get('error') %}
 
-<div class="alert alert-danger {{ flashClass }}" role="alert">
+<div class="alert alert-danger{{ flashClass }}" role="alert">
 	{{ flashMessage|trans }}
 </div>
 
 {% endfor %}
 {% for flashMessage in app.session.flashbag.get('danger') %}
 
-<div class="alert alert-danger {{ flashClass }}" role="alert">
+<div class="alert alert-danger{{ flashClass }}" role="alert">
 	{{ flashMessage|trans }}
 </div>
 
 {% endfor %}
 {% for flashMessage in app.session.flashbag.get('warning') %}
 
-<div class="alert alert-warning {{ flashClass }}" role="alert">
+<div class="alert alert-warning{{ flashClass }}" role="alert">
 	{{ flashMessage|trans }}
 </div>
 
 {% endfor %}
 {% for flashMessage in app.session.flashbag.get('info') %}
 
-<div class="alert alert-info {{ flashClass }}" role="alert">
+<div class="alert alert-info{{ flashClass }}" role="alert">
 	{{ flashMessage|trans }}
 </div>
 
 {% endfor %}
 {% for flashMessage in app.session.flashbag.get('success') %}
 
-<div class="alert alert-success {{ flashClass }}" role="alert">
+<div class="alert alert-success{{ flashClass }}" role="alert">
 	{{ flashMessage|trans }}
 </div>
 

@@ -92,6 +92,7 @@ address:
 locality:
     help:
         choice: Select a locality or add a new locality below.
+        locality: The locality details must be unique.
     placeholder:
         choice: Select Locality (Clear Data)
     label:
@@ -105,6 +106,8 @@ locality:
         failure: The locality was not saved.
         success:  The locality saved successfully.
     title: Locality
+    description: Manage location Details (Suburbs, Towns, Region.)
+    unique: The locality must be unique.
 address2:
     title: Alternate Address
 Title: Title

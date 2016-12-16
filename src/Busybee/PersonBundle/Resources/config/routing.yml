@@ -11,14 +11,11 @@ address_check:
     path:     /address/
     defaults: { _controller: BusybeePersonBundle:Address:check }
 locality_manage:
-    path:     /locality/{id}
+    path:     /locality/{id}/manage/
     defaults: { _controller: BusybeePersonBundle:Locality:index }
-locality_edit:
-    path:     /locality/edit/
-    defaults: { _controller: BusybeePersonBundle:Locality:edit }
-locality_fetch:
-    path:     /locality/fetch/
-    defaults: { _controller: BusybeePersonBundle:Locality:fetch }
+locality_delete:
+    path:     /locality/{id}/dlete/
+    defaults: { _controller: BusybeePersonBundle:Locality:delete }
 address_manage:
     path:     /address/{id}
     defaults: { _controller: BusybeePersonBundle:Address:index }

@@ -101,17 +101,9 @@
     {{ parent() }}
 	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
 	<script>
-        $('.yes-no').checkboxpicker({
-            iconCls: 'glyphicons'
+        $(".yes-no").checkboxpicker({
+            iconCls: "glyphicons"
         });
-        $('.monitorChange').change(function($e) {
-            $('.formChanged').prop('disabled', true);
-        });
-        $('.changeRecord').change(function($e) {
-            var path = '{{ path('campus_resource_edit', {'id': '__id__'}) }}';
-            var id = $(this).val();
-            window.open(path.replace('__id__', id),'_self');
-        });
-
 	</script>
+	{% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'campus_resource_edit'} %}
 {% endblock javascripts %}

@@ -40,7 +40,7 @@ Busybee\PersonBundle\Entity\Person:
             length: '65'
             nullable: true
         website:
-            type: url
+            type: string
             length: '200'
             nullable: true
         photo:
