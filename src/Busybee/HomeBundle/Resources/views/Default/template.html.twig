@@ -29,11 +29,13 @@
 		</div>
 		{% endblock titleContainer %}
 
-		{{ include('BusybeeHomeBundle:Default:flash.html.twig') }}
-	
+
 		<div class="container-fluid" id="contentContainer">
 		{% block contentContainer %}
-	
+		{% block flashMessages %}
+        {% include 'BusybeeHomeBundle:Default:flash.html.twig' %}
+		{% endblock flashMessages %}
+
 		{{ include('BusybeeHomeBundle:Default:buttons.html.twig') }}
 	
 		{{ include('BusybeeHomeBundle:Default:tables.html.twig') }}

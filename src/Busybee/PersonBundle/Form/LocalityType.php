@@ -53,6 +53,7 @@ class LocalityType extends AbstractType
 						'class' => 'beeTerritory monitorChange',
 					),
 					'choices' => $this->sm->get('Address.TerritoryList'),
+                    'placeholder' => 'locality.placeholder.territory',
 				)
 			)
 			->add('postCode', null, array(

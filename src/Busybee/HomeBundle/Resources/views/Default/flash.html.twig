@@ -1,6 +1,7 @@
-{% if transDomain is defined %}
-    {% trans_default_domain transDomain %}
+{% if transDomain is not defined %}
+    {% set transDomain = 'BusybeeHomeBundle' %}
 {% endif %}
+   {% trans_default_domain transDomain %}
 {%  if flashClass is defined %}
     {% set flashClass = " " ~ flashClass %}
 {% else %}

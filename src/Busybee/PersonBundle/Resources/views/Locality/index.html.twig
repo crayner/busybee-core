@@ -15,20 +15,22 @@
 {%  block titleContainer %}{% endblock titleContainer %}
 
 {% block contentContainer %}
-{{ form_start(form, {'action': path('locality_manage', {'id': id}), 'method': 'POST'}) }}
-	<div class="container-fluid">
-		<div class='row' id="localityMessage" style="display: none;">
+	{% block flashMessages %}{% include '@BusybeeHome/Default/flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}{% endblock flashMessages %}
+	{{ form_start(form, {'action': path('locality_manage', {'id': id}), 'method': 'POST'}) }}
+		<div class="container-fluid">
+			<div class='row' id="localityMessage" style="display: none;">
+			</div>
 		</div>
-	</div>
-	<div id="localityContent">
-		{% include 'BusybeePersonBundle:Locality:edit.html.twig' %}
-	</div>
-{{ form_end(form) }}
+		<div id="localityContent">
+			{% include 'BusybeePersonBundle:Locality:edit.html.twig' %}
+		</div>
+	{{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
 	{{ parent() }}
-	{% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'locality_manage'} %}
+    {% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'locality_manage'} %}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
 	<script type="text/javascript">
 		$('.beeLocalityList').change(function() {
 

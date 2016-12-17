@@ -3,7 +3,7 @@
 {% trans_default_domain "BusybeePersonBundle" %}
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
-{% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert'} %}
+{% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
 	<div class="panel panel-info busybee-panel">
 		<div class="panel-heading">
 			<h3 class="panel-title">{{ 'locality.title'|trans}}</h3>
@@ -29,7 +29,7 @@
 					{{ form_row(form.locality) }}
 				</div>
 				<div class='col-sm-6 well'>
-					{{ form_row(form.territory) }}
+                    {{ form_row(form.territory) }}
 				</div>
 			</div>
 			<div class='row'>
@@ -37,8 +37,11 @@
 					{{ form_row(form.postCode) }}
 				</div>
 				<div class='col-sm-6 well'>
-					{{ form_row(form.country) }}
-
+                    {% if form.territory.vars.value is empty %}
+                        {{ form_row(form.country, {'value': get_parameter('country')}) }}
+                    {% else %}
+                        {{ form_row(form.country) }}
+                    {% endif %}
 				</div>
 			</div>
 		</div>

@@ -95,6 +95,7 @@ locality:
         locality: The locality details must be unique.
     placeholder:
         choice: Select Locality (Clear Data)
+        territory: Select a Territory
     label:
         choice: Choose Existing Locality
         locality: Town, Suburb or City
@@ -108,6 +109,10 @@ locality:
     title: Locality
     description: Manage location Details (Suburbs, Towns, Region.)
     unique: The locality must be unique.
+    save:
+        success: The locality saved successfully.
+    delete:
+        success: The locality was deleted.
 address2:
     title: Alternate Address
 Title: Title

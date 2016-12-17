@@ -6,7 +6,6 @@ use Busybee\PersonBundle\Form\LocalityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request ;
-use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\PersonBundle\Entity\Locality ;
 
 class LocalityController extends Controller
@@ -31,6 +30,11 @@ class LocalityController extends Controller
             $em = $this->get('doctrine')->getManager();
             $em->persist($locality);
             $em->flush();
+
+            $sess =$request->getSession();
+            $sess->getFlashBag()->add('success', 'locality.save.success');
+
+            return new RedirectResponse($this->get('router')->generate('locality_manage', array('id' => $locality->getId())));
         }
 
         return $this->render('BusybeePersonBundle:Locality:index.html.twig',
@@ -42,24 +46,24 @@ class LocalityController extends Controller
      * @param int $id
      * @return RedirectResponse
      */
-    public function deleteAction($id = 0)
+    public function deleteAction($id = 0, Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
 
         if ($id > 0 && $entity = $this->get('locality.repository')->find($id))
         {
             $entity->injectRepository($this->get('locality.repository'));
-            $sess = $this->get('session');
-            $flash = $sess->getFlashBag();
+            $sess = $request->getSession();
             if ($entity->canDelete())
             {
                 $em = $this->get('doctrine')->getManager();
                 $em->remove($entity);
                 $em->flush();
-                $flash->add('success', 'locality.delete.success');
+
+                $sess->getFlashBag()->add('success', 'locality.delete.success');
             } else
             {
-                $flash->add('warning', 'locality.delete.notAllowed');
+                $sess->getFlashBag()->add('warning', 'locality.delete.notAllowed');
             }
         }
 
