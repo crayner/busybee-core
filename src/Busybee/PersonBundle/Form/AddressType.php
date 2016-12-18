@@ -2,31 +2,41 @@
 
 namespace Busybee\PersonBundle\Form;
 
+use Busybee\PersonBundle\Entity\Locality;
+use Busybee\PersonBundle\Repository\LocalityRepository;
+use Busybee\SecurityBundle\Form\DataTransformer\EntityToIntTransformer;
+use Busybee\SecurityBundle\Form\ResetType;
+use Doctrine\ORM\EntityManager;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Intl\Locale\Locale ;
 use Busybee\SystemBundle\Setting\SettingManager;
-use Busybee\FormBundle\Type\AutoCompleteType ;
-use Busybee\PersonBundle\Entity\Address ;
-use Busybee\PersonBundle\Entity\Locality ;
-use Doctrine\Common\Persistence\ObjectManager;
-use Busybee\PersonBundle\Form\DataTransformer\AddressTransformer ;
+
+
 
 class AddressType extends AbstractType
 {
-	/**
-	 * @var	Busybee\SystemBundle\Setting\SettingManager 
-	 */
-	private $sm ;
-	
+    /**
+     * @var	SettingManager
+     */
+    private $sm ;
+    /**
+     * @var	EntityManager
+     */
+    private $em ;
+
 	/**
 	 * Construct
 	 */
-	public function __construct(SettingManager $sm)
+	public function __construct(SettingManager $sm, EntityManager $em)
 	{
 		$this->sm = $sm ;
+		$this->lr = $em->getRepository('BusybeePersonBundle:Locality') ;
+		$this->em = $em;
 	}
 
     /**
@@ -34,14 +44,16 @@ class AddressType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-		$builder
-			->add('buildingType', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+        $builder
+			->add('buildingType', ChoiceType::class,
+                array(
 					'label' => 'address.label.buildingType',
 					'attr' => array(
 						'help' => 'address.help.buildingType',
-						'class' => 'beeBuildingType'.$options['classSuffix'],
+						'class' => 'beeBuildingType monitorChange',
 					),
 					'choices' => $this->sm->get('Address.BuildingType'),
+                    'required'  =>  false,
 				)
 			)
 			->add('buildingNumber', null, array(
@@ -49,7 +61,7 @@ class AddressType extends AbstractType
 					'attr' => array(
 						'help' => 'address.help.buildingNumber',
 						'maxLength' => 10,
-						'class' => 'beeBuildingNumber'.$options['classSuffix'],
+						'class' => 'beeBuildingNumber monitorChange',
 					),
 				)
 			)
@@ -58,7 +70,7 @@ class AddressType extends AbstractType
 					'attr' => array(
 						'help' => 'address.help.streetNumber',
 						'maxLength' => 10,
-						'class' => 'beeStreetNumber'.$options['classSuffix'],
+						'class' => 'beeStreetNumber monitorChange',
 					),
 				)
 			)
@@ -66,7 +78,7 @@ class AddressType extends AbstractType
 					'label' => 'address.label.propertyName',
 					'attr' => array(
 						'help' => 'address.help.propertyName',
-						'class' => 'beePropertyName'.$options['classSuffix'],
+						'class' => 'beePropertyName monitorChange',
 					),
 					'required' => false,
 				)
@@ -75,62 +87,61 @@ class AddressType extends AbstractType
 					'label' => 'address.label.streetName',
 					'attr' => array(
 						'help' => 'address.help.streetName',
-						'class' => 'beeStreetName'.$options['classSuffix'],
+						'class' => 'beeStreetName monitorChange',
 					),
 				)
 			)
-            ->add('id', HiddenType::class)
-			->add('addressList', AutoCompleteType::class, 
-				array(
-					'class' => 'Busybee\PersonBundle\Entity\Address',
-					'label' => 'address.label.choice',
-					'choice_label' => 'singleLineAddress',
-					'empty_data'  => null,
-					'required' => false,
-					'attr' => array(
-						'help' => 'address.help.choice',
-						'class' => 'beeAddressList'.$options['classSuffix'],
-					),
-					'mapped' => false,
-					'hidden' => array(
-						'name' => 'person['.$options['classSuffix'].']',
-						'value' => ($options['data'] instanceof Address && $options['data']->getId() > 0 ? $options['data']->getId() : 0),
-						'class' => 'beeAddressValue'.$options['classSuffix'],
-					),
-				)
-			)
-			->add('save', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
-					'label'					=> 'address.label.save', 
-					'attr' 					=> array(
-						'class' 				=> 'beeAddressSave'.$options['classSuffix'].' btn btn-primary glyphicons glyphicons-plus-sign',
-						'style'					=>	'width: 146px;',
-					),
-				)
-			)
-			->add('clear', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
-					'label'					=> 'address.label.clear', 
-					'attr' 					=> array(
-						'class' 				=> 'beeAddressClear'.$options['classSuffix'].' btn btn-warning glyphicons glyphicons-restart',
-						'style'					=>	'width: 146px;',
-					),
-				)
-			)
+            ->add('locality', EntityType::class,
+                array(
+                    'class' => Locality::class,
+                    'label' => 'address.label.locality',
+                    'choice_label'	=> 'fullLocality',
+                    'placeholder' => 'address.placeholder.locality',
+                    'attr' => array(
+                        'help' => 'address.help.locality',
+                        'class' => 'beeLocality formChanged',
+                        'style' => 'width: 75%'
+                    ),
+                    'query_builder' => function (LocalityRepository $lr) {
+                        return $lr->createQueryBuilder('l')
+                            ->orderBy('l.locality', 'ASC')
+                            ->addOrderBy('l.postCode', 'ASC')
+                        ;
+                    },
+                )
+            )
+            ->add('save', SubmitType::class, array(
+                    'label'					=> 'form.save',
+                    'attr' 					=> array(
+                        'class' 				=> 'beeAddressSave btn btn-success glyphicons glyphicons-plus-sign',
+                    ),
+                    'translation_domain' => 'BusybeeHomeBundle',
+                )
+            )
+            ->add('close', ButtonType::class, array(
+                    'label'					=> 'form.close',
+                    'attr' 					=> array(
+                        'class' 				=> 'formChanged beeAddressSave btn btn-warning glyphicons glyphicons-folder-closed',
+                        'onclick'               => "window.close()",
+                    ),
+                    'translation_domain'    => 'BusybeeHomeBundle',
+                )
+            )
+            ->add('reset', ResetType::class, array(
+                    'label'					=> 'form.reset',
+                    'attr' 					=> array(
+                        'class' 				=> 'beeAddressSave btn btn-info glyphicons glyphicons-refresh',
+                    ),
+                    'translation_domain' => 'BusybeeHomeBundle',
+                    'mapped'            => false,
+                )
+            )
 		;
-		if ($options['data'] instanceof Address) {
-			$builder->add('locality', 'Busybee\PersonBundle\Form\LocalityType',
-				array(
-						'data' => $options['data']->getLocality(),
-						'classSuffix' => $options['classSuffix'],
-				)
-			);
-		} else {
-			$builder->add('locality', 'Busybee\PersonBundle\Form\LocalityType', 
-				array(
-						'data' => new Locality(),
-						'classSuffix' => $options['classSuffix'],
-				)
-			);
-		}
+
+		$transformer = new EntityToIntTransformer($this->em);
+		$transformer->setEntityClass(Locality::class);
+        $transformer->setEntityRepository($this->em->getRepository(Locality::class));
+		$builder->get('locality')->addModelTransformer($transformer);
     }
     
     /**
@@ -142,7 +153,6 @@ class AddressType extends AbstractType
 				'data_class' 			=> 'Busybee\PersonBundle\Entity\Address',
 				'translation_domain' 	=> 'BusybeePersonBundle',
 				'classSuffix'			=> null,
-				'validation_groups' 	=> array('person_form'),
 				'allow_extra_fields' 	=> true,
 			)
 		);

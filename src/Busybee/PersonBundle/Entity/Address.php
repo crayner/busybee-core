@@ -200,34 +200,6 @@ class Address extends AddressModel
     }
 	
     /**
-     * @var integer
-     */
-    private $locality;
-
-    /**
-     * Get locality
-     *
-     * @return integer
-     */
-    public function getLocality()
-    {
-        return $this->locality;
-    }
-
-    /**
-     * Set locality
-     *
-     * @param integer $locality
-     *
-     * @return Address
-     */
-    public function setLocality($locality)
-    {
-        $this->locality = $locality;
-
-        return $this;
-    }
-    /**
      * @var string
      */
     private $buildingType;
@@ -315,4 +287,33 @@ class Address extends AddressModel
         return $this->streetNumber;
     }
 
+    /**
+     * @var \Busybee\PersonBundle\Entity\Locality
+     */
+    private $locality;
+
+
+    /**
+     * Set locality
+     *
+     * @param \Busybee\PersonBundle\Entity\Locality $locality
+     *
+     * @return Address
+     */
+    public function setLocality(\Busybee\PersonBundle\Entity\Locality $locality = null)
+    {
+        $this->locality = $locality;
+
+        return $this;
+    }
+
+    /**
+     * Get locality
+     *
+     * @return \Busybee\PersonBundle\Entity\Locality
+     */
+    public function getLocality()
+    {
+        return $this->locality;
+    }
 }

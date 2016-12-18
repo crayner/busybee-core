@@ -123,6 +123,7 @@ services:
         class: Busybee\PersonBundle\Form\AddressType
         arguments:
             - '@setting.manager'
+            - '@doctrine.orm.entity_manager'
         tags: 
             - { name: form.type }
     person.form.localityType:
@@ -153,3 +154,9 @@ services:
         class: Busybee\PersonBundle\Validator\Constraints\PersonImageValidator
         tags:
             - { name: validator.constraint_validator, alias: person_image_validator }
+    form.select.locality.type:
+        class: Busybee\PersonBundle\Form\SelectLocalityType
+        arguments:
+            - '@locality.repository'
+        tags:
+            - { name: form.type }

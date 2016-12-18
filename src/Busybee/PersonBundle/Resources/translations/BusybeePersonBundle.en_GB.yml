@@ -73,6 +73,7 @@ address:
         buildingType: Type of Building
         buildingNumber: Building Number
         streetNumber: Street Number
+        locality: Address Locality
     help:
         propertyName: Property or Building Name
         streetName: ''
@@ -81,13 +82,16 @@ address:
         buildingType: ''
         buildingNumber: The building identifier within the complex.
         streetNumber: ''
+        locality: Select a locality for the address, or use the controils to create a new locality.
     placeholder:
         choice: Choose Existing Address (Clear Data)
+        locality: Select Locality
     test:
         empty: Address is not valid.  It is empty.
-    title: Address
+    title: Manage Address
     edit:
         failure: The address was not saved.
+    save:
         success: The address was saved successfully.
 locality:
     help:
@@ -113,6 +117,8 @@ locality:
         success: The locality saved successfully.
     delete:
         success: The locality was deleted.
+    add: Add Locality
+    refresh: Refresh Locality List
 address2:
     title: Alternate Address
 Title: Title

@@ -4,69 +4,57 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
-	<div class="panel panel-primary busybee-panel">
-		<div class="panel-heading">
-			{% if addressTitle is not defined %}{% set addressTitle = 'address.title' %}{% endif %}
-			<h3 class="panel-title">{{ addressTitle|trans}}
-			<button title='{{ 'person.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('person_manage') }}','_self')" style="float: right"></button>
-		{% if id != 'Add' %}
-			<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
-		{% endif %}
-		<button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button" onClick="location.href='{{ path('person_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
-		<button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}' type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
-
-			</h3>
-		</div>
-		<div class="panel-body">
-			<div class="container-fluid">
-				<div class='row'>
-					<div class='col-sm-6 well'>
-						{{ form_row(form.addressList, {'value': addressLabel|trim}) }}
-					</div>
-					<div class='col-sm-6 well'>
-						<div class='form-group text-right'>
-							{{ form_widget(form.save) }}
-							{{ form_widget(form.clear) }}
-						</div>
+{% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
+<div class="panel panel-primary busybee-panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ 'address.title'|trans}}</h3>
+	</div>
+	<div class="panel-body">
+		<div class="container-fluid">
+			<div class='row'>
+				<div class='col-sm-6 well'>
+					<div class='form-group text-right'>
+						{{ form_widget(form.save) }}
+						{{ form_widget(form.close) }}
+						{{ form_widget(form.reset) }}
+						{% if form.vars.value.canDelete() and id != 'Add' %}
+							<button type="button" onclick="window.open('{{ path('address_delete', {'id': id}) }}','_self')" class="btn btn-danger glyphicons glyphicons-delete">{{ 'form.delete'|trans({}, 'BusybeeHomeBundle') }}</button>
+						{% endif %}
 					</div>
 				</div>
-				<div class='row'>
-					<div class='col-sm-6 well'>
-						<div class='form-group' id="addressDisplay{{ classSuffix }}">
-							{{ address|raw }}
-						</div>
-					</div>
-					<div class='col-sm-6 well'>
-						{{ form_row(form.propertyName) }}
-					</div>
-				</div>
-				<div class='row'>
-					<div class='col-sm-2 well'>
-						{{ form_row(form.buildingType) }}
-					</div>
-					<div class='col-sm-2 well'>
-						{{ form_row(form.buildingNumber) }}
-					</div>
-					<div class='col-sm-2 well'>
-						{{ form_row(form.streetNumber) }}
-					</div>
-					<div class='col-sm-6 well'>
-						{{ form_row(form.streetName) }}
-					</div>
-				</div>
-				<div class='row'>
-					<div class="col-sm-12 alert alert-info">
-                        {{ 'address.help.manage'|trans }}
-					</div>
+				<div class='col-sm-6 well'>
+					{{ form_row(form.propertyName) }}
 				</div>
 			</div>
-			<div class="container-fluid">
-				<div class='row' id="localityMessage{{ classSuffix }}" style="display: none;">
+			<div class='row'>
+				<div class='col-sm-2 well'>
+					{{ form_row(form.buildingType) }}
+				</div>
+				<div class='col-sm-2 well'>
+					{{ form_row(form.buildingNumber) }}
+				</div>
+				<div class='col-sm-2 well'>
+					{{ form_row(form.streetNumber) }}
+				</div>
+				<div class='col-sm-6 well'>
+					{{ form_row(form.streetName) }}
 				</div>
 			</div>
-			<div id="localityContent">
-				{% include 'BusybeePersonBundle:Locality:edit.html.twig' with {'form': form.locality, 'classSuffix': classSuffix } %}
+			<div class='row'>
+				<div class='col-sm-6 well'>
+					<div class="alert alert-info">
+						{{ 'address.help.manage'|trans }}
+					</div>
+				</div>
+				<div class='col-sm-6 well'>
+					<span>
+						<button title="{{ 'locality.refresh'|trans }}" id="refreshAddressLocality" type="button" class="btn btn-info halflings halflings-refresh" style="float: right; " ></button>
+						<button title="{{ 'locality.add'|trans }}" id="addAddressLocality" type="button" class="btn btn-primary halflings halflings-plus-sign" style="float: right; " ></button>
+						{{ form_row(form.locality, {'value': form.locality.vars.data}) }}
+					</span>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
 

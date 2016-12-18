@@ -8,50 +8,50 @@
 {% if classSuffix == 'address2' %}{% set altSuffix = 'address1' %}{% endif %}
 
 	<script>
-		$('.beeLocalityList{{ classSuffix }}').change(function() {
+		$('.beeLocalityList').change(function() {
 		  	$.ajax({
-				url: '{{ path('locality_fetch') }}',	
+				url: "{{ path('locality_manage', {'id': 'Add'}) }}",
 				data: {'id': $(this).val()},
-				type: 'POST',
+				type: "POST",
 				success: function(data) {
-					$('.beeLocality{{ classSuffix }}').val(data.locality);
-					$('.beeTerritory{{ classSuffix }}').val(data.territory);
-					$('.beeCountry{{ classSuffix }}').val(data.country);
-					$('.beePostCode{{ classSuffix }}').val(data.postCode);
-					$('.beeAddressList{{ classSuffix }}').autocomplete( "option", "source", data.addressList );
+					$('.beeLocality').val(data.locality);
+					$('.beeTerritory').val(data.territory);
+					$('.beeCountry').val(data.country);
+					$('.beePostCode').val(data.postCode);
+					$('.beeAddressList').autocomplete( "option", "source", data.addressList );
 					if (data.addressDisabled == 'true') {
-						$('.beeAddressList{{ classSuffix }}').autocomplete( 'disable' );
-						$('.beeAddressList{{ classSuffix }}').prop('disabled', true);
+						$('.beeAddressList').autocomplete( 'disable' );
+						$('.beeAddressList').prop('disabled', true);
 					} else {
-						$('.beeAddressList{{ classSuffix }}').prop('disabled', false);
-						$('.beeAddressList{{ classSuffix }}').autocomplete( 'enable' );
+						$('.beeAddressList').prop('disabled', false);
+						$('.beeAddressList').autocomplete( 'enable' );
 					}
-					$('.beeAddressList{{ classSuffix }}').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: '', value: 0}});
+					$('.beeAddressList').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: '', value: 0}});
 				}
 			});
 		});
-		$('.beeLocalitySave{{ classSuffix }}').click(function() {
+		$('.beeLocalitySave').click(function() {
 			$.ajax({
-				url: '{{ path('locality_edit') }}',	
+                url: "{{ path('locality_manage', {'id': 'Add'}) }}",
 				data: {
-					'id': $('.beeLocalityList{{ classSuffix }}').val(),
-					'locality': $('.beeLocality{{ classSuffix }}').val(),
-					'territory': $('.beeTerritory{{ classSuffix }}').val(),
-					'country': $('.beeCountry{{ classSuffix }}').val(),
-					'postCode': $('.beePostCode{{ classSuffix }}').val()
+					'id': $('.beeLocalityList').val(),
+					'locality': $('.beeLocality').val(),
+					'territory': $('.beeTerritory').val(),
+					'country': $('.beeCountry').val(),
+					'postCode': $('.beePostCode').val()
 				},
 				type: 'POST',
 				success: function(data) {
-					$('.beeLocality{{ classSuffix }}').val(data.locality);
-					$('.beeTerritory{{ classSuffix }}').val(data.territory);
-					$('.beeCountry{{ classSuffix }}').val(data.country);
-					$('.beePostCode{{ classSuffix }}').val(data.postCode);
-					$(".beeLocalityList{{ classSuffix }}").html(data.options);
-					$(".beeLocalityList{{ classSuffix }}").val(data.id);
-					$('#localityMessage{{ classSuffix }}').show()
-					$('#localityMessage{{ classSuffix }}').removeClass().addClass('row alert alert-' + data.status);
-					$('#localityMessage{{ classSuffix }}').html(data.message);
-					$('#localityMessage{{ classSuffix }}').fadeOut(3000);
+					$('.beeLocality').val(data.locality);
+					$('.beeTerritory').val(data.territory);
+					$('.beeCountry').val(data.country);
+					$('.beePostCode').val(data.postCode);
+					$(".beeLocalityList").html(data.options);
+					$(".beeLocalityList").val(data.id);
+					$('#localityMessage').show()
+					$('#localityMessage').removeClass().addClass('row alert alert-' + data.status);
+					$('#localityMessage').html(data.message);
+					$('#localityMessage').fadeOut(3000);
 				}
 			});
 		});

@@ -3,6 +3,7 @@
 namespace Busybee\PersonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\PersonBundle\Entity\Address ;
@@ -41,12 +42,29 @@ class AddressController extends Controller
 		$address = new Address();
 		$repo = $this->get('address.repository');
 		if ($id !== 'Add')
-			$address = $repo->findOneBy(array('id' => $id));
+			$address = $repo->find($id);
+
 		$address->injectRepository($this->get('address.repository'));
-		$address->localityRecord = $this->get('locality.repository')->setAddressLocality($address->getLocality());
 
         $form = $this->createForm(AddressType::class, $address);
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            dump($form);
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($address);
+            $em->flush();
+
+            $id = $address->getId();
+
+            $sess = $request->getSession();
+            $sess->getFlashBag()->add('success', 'address.save.success');
+
+            return new RedirectResponse($this->get('router')->generate('address_manage', array('id' => $id)));
+        }
+dump($form);
         return $this->render('BusybeePersonBundle:Address:index.html.twig',
 			array('id' => $id, 'form' => $form->createView())			
 		);

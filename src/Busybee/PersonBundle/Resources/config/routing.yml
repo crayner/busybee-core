@@ -17,8 +17,11 @@ locality_delete:
     path:     /locality/{id}/dlete/
     defaults: { _controller: BusybeePersonBundle:Locality:delete }
 address_manage:
-    path:     /address/{id}
+    path:     /address/{id}/edit/
     defaults: { _controller: BusybeePersonBundle:Address:index }
+address_delete:
+    path:     /address/{id}/delete/
+    defaults: { _controller: BusybeePersonBundle:Address:delete}
 address_edit:
     path:     /address/edit/
     defaults: { _controller: BusybeePersonBundle:Address:edit }

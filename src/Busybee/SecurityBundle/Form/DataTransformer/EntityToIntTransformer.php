@@ -27,15 +27,15 @@ class EntityToIntTransformer implements DataTransformerInterface
     /**
      * @param mixed $entity
      *
-     * @return integer
+     * @return string
      */
     public function transform($entity)
     {
-        if (null === $entity ||!$entity instanceof $this->entityClass) {
+        if (null === $entity || ! $entity instanceof $this->entityClass) {
             return '';
         }
  
-        return $entity->getId();
+        return strval($entity->getId());
     }
  
     /**
@@ -47,18 +47,21 @@ class EntityToIntTransformer implements DataTransformerInterface
      */
     public function reverseTransform($id)
     {
+ dump($id);
         if (!$id) {
             return null;
         }
  
-        $entity = $this->om->getRepository($this->entityRepository)->findOneBy(array("id" => $id));
+        $entity = $this->entityRepository->find($id);
  
         if (null === $entity) {
-            throw new TransformationFailedException(sprintf(
-                'A %s with id "%s" does not exist!',
-                $this->entityType,
-                $id
-            ));
+            throw new TransformationFailedException(
+                sprintf(
+                    'A %s with id "%s" does not exist!',
+                    $this->entityType,
+                    $id
+                )
+            );
         }
  
         return $entity;
@@ -78,5 +81,4 @@ class EntityToIntTransformer implements DataTransformerInterface
     {
         $this->entityRepository = $entityRepository;
     }
- 
 }

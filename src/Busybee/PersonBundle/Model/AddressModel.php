@@ -89,4 +89,25 @@ abstract class AddressModel
 		
 		return $this;
     }
+
+    /**
+     * can Delete
+     *
+     * @return boolean
+     */
+    public function canDelete()
+    {
+        $x = $this->repo->createQueryBuilder('e')
+            ->from('\Busybee\PersonBundle\Entity\Person', 'p')
+            ->select('COUNT(p.id)')
+            ->where('p.address1 = :address1')
+            ->orWhere('p.address2 = :address2')
+            ->setParameter('address1', $this->getId())
+            ->setParameter('address2', $this->getId())
+            ->getQuery()
+            ->getSingleScalarResult();
+        if (empty($x))
+            return true ;
+        return false ;
+    }
 }
