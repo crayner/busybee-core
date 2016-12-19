@@ -32,13 +32,14 @@ class AddressSubscriber implements EventSubscriberInterface
         if (empty($data['streetNumber']) && intval($data['streetName']) > 0)
         {
             $num = intval($data['streetName']);
-            $data['streetNumber'] = $num;
+            $data['streetNumber'] = strval($num);
             $data['streetName'] = trim(str_replace($num, '', $data['streetName']));
         }
+        $data['propertyName'] = empty($data['propertyName']) ? '' : $data['propertyName'] ;
+        $data['streetNumber'] = empty($data['streetNumber']) ? '' : $data['streetNumber'] ;
+        $data['buildingType'] = empty($data['buildingType']) ? '' : $data['buildingType'] ;
+        $data['buildingNumber'] = empty($data['buildingNumber']) ? '' : $data['buildingNumber'] ;
 
         $event->setData($data);
-        dump($data);
-dump($form);
-
     }
 }

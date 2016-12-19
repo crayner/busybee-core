@@ -6,7 +6,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Doctrine\Common\Persistence\ObjectManager;
  
-class EntityToIntTransformer implements DataTransformerInterface
+class EntityToStringTransformer implements DataTransformerInterface
 {
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
@@ -27,15 +27,15 @@ class EntityToIntTransformer implements DataTransformerInterface
     /**
      * @param mixed $entity
      *
-     * @return integer
+     * @return string
      */
     public function transform($entity)
     {
         if (null === $entity || ! $entity instanceof $this->entityClass) {
-            return 0;
+            return '';
         }
  
-        return $entity->getId();
+        return strval($entity->getId());
     }
  
     /**
@@ -74,10 +74,11 @@ class EntityToIntTransformer implements DataTransformerInterface
     public function setEntityClass($entityClass)
     {
         $this->entityClass = $entityClass;
+        $this->setEntityRepository($entityClass);
     }
  
-    public function setEntityRepository($entityRepository)
+    public function setEntityRepository($entityClass)
     {
-        $this->entityRepository = $entityRepository;
+        $this->entityRepository = $this->om->getRepository($entityClass);
     }
 }

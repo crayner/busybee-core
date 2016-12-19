@@ -98,12 +98,14 @@ address:
         failure: The address was not saved.
     save:
         success: The address was saved successfully.
+        failure: The address was not saved.
     action:
         save: Save Address
         delete: Delete Address
         close: Close Address Window
         reset: Reset Address Form
         add: Add New Address
+    unique: The address already exists in the database.
 locality:
     help:
         choice: Select a locality or add a new locality below.

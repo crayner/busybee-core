@@ -6,7 +6,7 @@ use Busybee\FormBundle\Type\AutoCompleteType;
 use Busybee\PersonBundle\Entity\Locality;
 use Busybee\PersonBundle\Events\AddressSubscriber;
 use Busybee\PersonBundle\Repository\LocalityRepository;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToIntTransformer;
+use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\SecurityBundle\Form\ResetType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -65,6 +65,7 @@ class AddressType extends AbstractType
 						'maxLength' => 10,
 						'class' => 'beeBuildingNumber monitorChange',
 					),
+                    'required' => false,
 				)
 			)
 			->add('streetNumber', null, array(
@@ -74,6 +75,7 @@ class AddressType extends AbstractType
 						'maxLength' => 10,
 						'class' => 'beeStreetNumber monitorChange',
 					),
+                    'required' => false,
 				)
 			)
 			->add('propertyName', null, array(
@@ -158,9 +160,9 @@ class AddressType extends AbstractType
             )
 		;
 
-		$transformer = new EntityToIntTransformer($this->em);
+		$transformer = new EntityToStringTransformer($this->em);
 		$transformer->setEntityClass(Locality::class);
-        $transformer->setEntityRepository($this->em->getRepository(Locality::class));
+
 		$builder->get('locality')->addModelTransformer($transformer);
         $builder->addEventSubscriber(new AddressSubscriber() );
 

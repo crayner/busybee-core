@@ -64,7 +64,7 @@ class Address extends AddressModel
      */
     public function setPropertyName($propertyName)
     {
-        $this->propertyName = empty($propertyName) ? null : $propertyName ;
+        $this->propertyName = empty($propertyName) || is_null($propertyName) ? "" : $propertyName ;
 
         return $this;
     }
@@ -76,7 +76,7 @@ class Address extends AddressModel
      */
     public function getPropertyName()
     {
-        return $this->propertyName;
+        return empty($this->propertyName) ? "" : $this->propertyName ;
     }
 
     /**
@@ -225,7 +225,7 @@ class Address extends AddressModel
     public function setBuildingType($buildingType)
     {
 
-        $this->buildingType = empty($buildingType) ? null : $buildingType;
+        $this->buildingType = empty($buildingType) ? '' : $buildingType;
 
         return $this;
     }
@@ -237,7 +237,7 @@ class Address extends AddressModel
      */
     public function getBuildingType()
     {
-        return $this->buildingType;
+        return $this->buildingType ;
     }
 
     /**
@@ -249,7 +249,7 @@ class Address extends AddressModel
      */
     public function setBuildingNumber($buildingNumber)
     {
-        $this->buildingNumber = empty($buildingNumber) ? null : $buildingNumber ;
+        $this->buildingNumber = empty($buildingNumber) || is_null($buildingNumber) ? '' : $buildingNumber ;
 
         return $this;
     }
@@ -261,7 +261,7 @@ class Address extends AddressModel
      */
     public function getBuildingNumber()
     {
-        return $this->buildingNumber;
+        return empty($this->buildingNumber) ? "" : $this->buildingNumber ;
     }
 
     /**
@@ -273,7 +273,7 @@ class Address extends AddressModel
      */
     public function setStreetNumber($streetNumber)
     {
-        $this->streetNumber = empty($streetNumber) ? null : $streetNumber;
+        $this->streetNumber = empty($streetNumber) ? '' : $streetNumber;
 
         return $this;
     }

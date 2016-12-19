@@ -57,10 +57,8 @@ class AddressController extends Controller
         $form = $this->createForm(AddressType::class, $address);
 
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid())
         {
-            dump($form);
             $em = $this->get('doctrine')->getManager();
             $em->persist($address);
             $em->flush();
@@ -71,6 +69,10 @@ class AddressController extends Controller
             $sess->getFlashBag()->add('success', 'address.save.success');
 
             return new RedirectResponse($this->get('router')->generate('address_manage', array('id' => $id)));
+        } elseif ($form->isSubmitted())
+        {
+            $sess = $request->getSession();
+            $sess->getFlashBag()->add('danger', 'address.save.failure');
         }
 
         return $this->render('BusybeePersonBundle:Address:index.html.twig',
