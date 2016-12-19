@@ -64,7 +64,7 @@ class Address extends AddressModel
      */
     public function setPropertyName($propertyName)
     {
-        $this->propertyName = $propertyName;
+        $this->propertyName = empty($propertyName) ? null : $propertyName ;
 
         return $this;
     }
@@ -224,7 +224,8 @@ class Address extends AddressModel
      */
     public function setBuildingType($buildingType)
     {
-        $this->buildingType = $buildingType;
+
+        $this->buildingType = empty($buildingType) ? null : $buildingType;
 
         return $this;
     }
@@ -248,7 +249,7 @@ class Address extends AddressModel
      */
     public function setBuildingNumber($buildingNumber)
     {
-        $this->buildingNumber = $buildingNumber;
+        $this->buildingNumber = empty($buildingNumber) ? null : $buildingNumber ;
 
         return $this;
     }
@@ -272,7 +273,7 @@ class Address extends AddressModel
      */
     public function setStreetNumber($streetNumber)
     {
-        $this->streetNumber = $streetNumber;
+        $this->streetNumber = empty($streetNumber) ? null : $streetNumber;
 
         return $this;
     }

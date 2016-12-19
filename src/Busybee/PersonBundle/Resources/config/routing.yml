@@ -13,8 +13,14 @@ address_check:
 locality_manage:
     path:     /locality/{id}/manage/
     defaults: { _controller: BusybeePersonBundle:Locality:index }
+locality_fetch:
+    path:     /locality/fetch/
+    defaults: { _controller: BusybeePersonBundle:Locality:fetch }
+address_fetch_list:
+    path:     /locality/fetch/list/
+    defaults: { _controller: BusybeePersonBundle:Address:fetchList }
 locality_delete:
-    path:     /locality/{id}/dlete/
+    path:     /locality/{id}/delete/
     defaults: { _controller: BusybeePersonBundle:Locality:delete }
 address_manage:
     path:     /address/{id}/edit/

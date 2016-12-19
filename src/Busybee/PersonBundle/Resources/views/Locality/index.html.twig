@@ -15,7 +15,6 @@
 {%  block titleContainer %}{% endblock titleContainer %}
 
 {% block contentContainer %}
-	{% block flashMessages %}{% include '@BusybeeHome/Default/flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}{% endblock flashMessages %}
 	{{ form_start(form, {'action': path('locality_manage', {'id': id}), 'method': 'POST'}) }}
 		<div class="container-fluid">
 			<div class='row' id="localityMessage" style="display: none;">

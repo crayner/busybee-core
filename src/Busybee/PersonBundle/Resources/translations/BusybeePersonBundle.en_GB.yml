@@ -74,9 +74,14 @@ address:
         buildingNumber: Building Number
         streetNumber: Street Number
         locality: Address Locality
+        edit: Existing Address List.
+    delete:
+        success: The address was deleted.
+        notAllowed: The address is in use and was not deleted.
     help:
         propertyName: Property or Building Name
         streetName: ''
+        edit: Choosing an existing address allows an edit of that address.
         choice: Use an existing address or create a new address using the form below.  To select an exising address, start typing the name.  The field will start a search after two characters are entered.  The choice only works when a locality is selected.
         manage: "To reduce the amount of typing required, the system allows for addresses to be entered only once.  To select an existing address, select the locality in which the address is located.  If the locality does not exist, then clear the locality selector, enter the new details and save the new locality. Once a locality is selected, you can start typing the name of the street in the address search box.  All matching addresses are presented for selection (limited to the first 20.) To create a new address, clear the address, select the appropriate locality, enter the new address details then save the address. Save the person record (green button) to save the address to the person."
         buildingType: ''
@@ -93,6 +98,12 @@ address:
         failure: The address was not saved.
     save:
         success: The address was saved successfully.
+    action:
+        save: Save Address
+        delete: Delete Address
+        close: Close Address Window
+        reset: Reset Address Form
+        add: Add New Address
 locality:
     help:
         choice: Select a locality or add a new locality below.
@@ -117,8 +128,14 @@ locality:
         success: The locality saved successfully.
     delete:
         success: The locality was deleted.
+        notAllowed: The locality is in use and was not deleted.
     add: Add Locality
     refresh: Refresh Locality List
+    action:
+        save: Save Locality
+        delete: Delete Locaity
+        reset: Reset Locality Form
+        close: Close Locality Form
 address2:
     title: Alternate Address
 Title: Title

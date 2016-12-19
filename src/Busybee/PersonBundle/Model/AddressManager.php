@@ -89,7 +89,7 @@ class AddressManager
 		
 		return $this->sm->get('Address.Format', null, $data);
 	}
-	
+
 	/**
 	 * get Address List Label
 	 *
@@ -101,14 +101,15 @@ class AddressManager
     public function getAddressListLabel($address)
     {
 		if ($address instanceof Address)
-			$data = array('propertyName' => $address->getPropertyName(), 'streetName' => $address->getStreetName(), 'buildingType' => $address->getBuildingType(), 
-				'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber());
+			$data = array('propertyName' => $address->getPropertyName(), 'streetName' => $address->getStreetName(), 'buildingType' => $address->getBuildingType(),
+				'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber(), 'locality' => $address->getLocality()->getLocality());
 		else
-			$data = array('propertyName' => null, 'streetName' => null, 'buildingType' => null, 
-				'buildingNumber' => null, 'streetNumber' => null);
+			$data = array('propertyName' => null, 'streetName' => null, 'buildingType' => null,
+				'buildingNumber' => null, 'streetNumber' => null, 'locality' => null);
 
 		return trim($this->sm->get('Address.ListLabel', null, $data));
 	}
+
 	/**
 	 * get Address List
 	 *

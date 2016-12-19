@@ -2,7 +2,9 @@
 
 namespace Busybee\PersonBundle\Form;
 
+use Busybee\FormBundle\Type\AutoCompleteType;
 use Busybee\PersonBundle\Entity\Locality;
+use Busybee\PersonBundle\Events\AddressSubscriber;
 use Busybee\PersonBundle\Repository\LocalityRepository;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToIntTransformer;
 use Busybee\SecurityBundle\Form\ResetType;
@@ -99,8 +101,7 @@ class AddressType extends AbstractType
                     'placeholder' => 'address.placeholder.locality',
                     'attr' => array(
                         'help' => 'address.help.locality',
-                        'class' => 'beeLocality formChanged',
-                        'style' => 'width: 75%'
+                        'class' => 'beeLocality monitorChange',
                     ),
                     'query_builder' => function (LocalityRepository $lr) {
                         return $lr->createQueryBuilder('l')
@@ -136,12 +137,33 @@ class AddressType extends AbstractType
                     'mapped'            => false,
                 )
             )
+            ->add('addressList', AutoCompleteType::class,
+                array(
+                    'class' => 'Busybee\PersonBundle\Entity\Address',
+                    'label' => 'address.label.edit',
+                    'choice_label' => 'singleLineAddress',
+                    'empty_data'  => null,
+                    'required' => false,
+                    'attr' => array(
+                        'help' => 'address.help.edit',
+                        'class' => 'beeAddressList formChanged',
+                    ),
+                    'mapped' => false,
+                    'hidden' => array(
+                        'name' => "address_list_id",
+                        'value' => ($options['data'] instanceof Address && $options['data']->getId() > 0 ? $options['data']->getId() : 0),
+                        'class' => 'beeAddressValue',
+                    ),
+                )
+            )
 		;
 
 		$transformer = new EntityToIntTransformer($this->em);
 		$transformer->setEntityClass(Locality::class);
         $transformer->setEntityRepository($this->em->getRepository(Locality::class));
 		$builder->get('locality')->addModelTransformer($transformer);
+        $builder->addEventSubscriber(new AddressSubscriber() );
+
     }
     
     /**

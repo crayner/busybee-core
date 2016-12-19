@@ -71,7 +71,7 @@ class Update_0_0_02 implements UpdateInterface
 		// 2
 		$entity = new Setting();
 		$entity->setType('twig');
-		$entity->setValue("{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }}");
+		$entity->setValue("{% if buildingType is not empty %}{{ buildingType }} {% endif %}{% if buildingNumber is not empty %}{{ buildingNumber}}/{% endif %}{% if streetNumber is not empty %}{{ streetNumber}} {% endif %}{{ streetName }} {{ locality }}");
 		$entity->setName('Address.ListLabel');
 		$entity->setDisplayName('Address Label List');
 		$entity->setDescription('A template to convert the entity values into a string label for autocomplete.');

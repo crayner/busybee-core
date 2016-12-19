@@ -4,12 +4,18 @@ namespace Busybee\PersonBundle\Controller ;
 
 use Busybee\PersonBundle\Form\LocalityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request ;
 use Busybee\PersonBundle\Entity\Locality ;
 
 class LocalityController extends Controller
 {
+    /**
+     * @param $id
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction($id, Request $request)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
@@ -46,7 +52,7 @@ class LocalityController extends Controller
      * @param int $id
      * @return RedirectResponse
      */
-    public function deleteAction($id = 0, Request $request)
+    public function deleteAction($id, Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
 
@@ -68,5 +74,34 @@ class LocalityController extends Controller
         }
 
         return new RedirectResponse($this->get('router')->generate('locality_manage', array('id' => 'Add')));
+    }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function fetchAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+
+        $localities = $this->get('locality.repository')->findBy(array(), array('locality' => 'ASC', 'postCode' => 'ASC'));
+        $localities = is_array($localities) ? $localities : array() ;
+
+        $options = array();
+        $option = array('value'=>"","text" => $this->get('translator')->trans('address.placeholder.locality', array(), 'BusybeePersonBundle'));
+        $options[] = $option;
+        foreach($localities as $locality)
+        {
+            $option = array('value'=>strval($locality->getId()),"text" => $locality->getFullLocality());
+            $options[] = $option;
+        }
+
+        return new JsonResponse(
+            array(
+                'options' => $options,
+            ),
+            200
+        );
     }
 }

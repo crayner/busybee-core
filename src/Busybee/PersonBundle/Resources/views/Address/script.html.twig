@@ -2,92 +2,50 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
+	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 	<script>
-		$( '.beeAddressList' ).on( "autocompleteselect", function( event, ui ) {
-			if (! ui.item.stopFetch) {
-				$.ajax({
-					url: '{{ path('address_fetch') }}',	
-					data: {'id': ui.item.value},
-					type: 'POST',
-					success: function(data) {
-						$('.beePropertyName').val(data.propertyName);
-						$('.beeStreetName').val(data.streetName);
-						$('.beeStreetNumber').val(data.streetNumber);
-						$('.beeBuildingType').val(data.buildingType);
-						$('.beeBuildingNumber').val(data.buildingNumber);
-						$('.beeAddressValue').val(data.id);
-						$('.beeAddressList').val(data.addressListLabel);
-						$('#addressDisplay').html(data.address);
-						if (data.id > 0)
-						{
-							$('.beeAddressList').autocomplete( "option", "disabled", true );
-							$('.beeAddressList').autocomplete( 'disable' );
-							$('.beeAddressList').prop('disabled', true);
-						}
-					}
-				});
-			}
-		});
-		
-		$('.beeAddressSave').click(function() {
-			$.ajax({
-				url: '{{ path('address_edit') }}',	
-				data: {
-					'id': $('.beeAddressValue').val(),
-                    '_token': '{{ form._token.vars.value }}',
-					'propertyName': $('.beePropertyName').val(),
-					'streetName': $('.beeStreetName').val(),
-					'streetNumber': $('.beeStreetNumber').val(),
-					'buildingType': $('.beeBuildingType').val(),
-					'buildingNumber': $('.beeBuildingNumber').val(),
-					'locality_id': $('.beeLocalityList').val()
-				},
-				type: 'POST',
-				success: function(data) {
-					$('.beePropertyName').val(data.propertyName);
-					$('.beeStreetName').val(data.streetName);
-					$('.beeStreetNumber').val(data.streetNumber),
-					$('.beeBuildingType').val(data.buildingType),
-					$('.beeBuildingNumber').val(data.buildingNumber),
-					$('#addressDisplay').html(data.address);
-					$('.beeAddressList').autocomplete( "option", "source", data.addressList );
-					$('.beeAddressList').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: data.addressListLabel, value: data.id}});
-					if (data.addressDisabled == 'true') {
-						$('.beeAddressList').autocomplete( "option", "disabled", true );
-						$('.beeAddressList').autocomplete( 'disable' );
-						$('.beeAddressList').prop('disabled', true);
-					} else {
-						$('.beeAddressList').autocomplete( "option", "disabled", false );
-						$('.beeAddressList').prop('disabled', false);
-						$('.beeAddressList').autocomplete( 'enable' );
-					}
-					$('#addressMessage').show()
-					$('#addressMessage').removeClass().addClass('row alert alert-' + data.status);
-					$('#addressMessage').html(data.message);
-					$('#addressMessage').fadeOut(3000);
-				}
-			});
-		});
-		$('.beeAddressClear').click(function() {
-			$('.beePropertyName').val('');
-			$('.beeStreetName').val('');
-			$('.beeStreetNumber').val('');
-			$('.beeBuildingType').val('');
-			$('.beeBuildingNumber').val('');
-			$('.beeLocality').val('');
-			$('.beeTerritory').val('');
-			$('.beeCountry').val('');
-			$('.beePostCode').val('');
-			$('.beeLocalityList').val('');
-			$('.beeAddressValue').val('');
-			$('.beeAddressList').val('');
-			$('#addressDisplay').html("<pre> </pre>");
-			$('.beeAddressList').autocomplete( "option", "disabled", true );
-			$('.beeAddressList').autocomplete( 'disable' );
-			$('.beeAddressList').prop('disabled', true);
-		});
-		$("#addAddressLocality").click(function(e){
+		$("#refreshAddressLocality").click(function(e){
+		    $.ajax({
+		        url: "{{ path('locality_fetch') }}",
+				type: "POST",
+				success: function(data){
+					var id = $("#address_locality").val();
+					$("#address_locality").empty();
 
-		    window.open("{{ path('locality_manage', {'id': 'Add'}) }}","Locality","width=820,height=600");
+                    options = data.options; // Or whatever source information you're working with
+ 					for (index = 0; index < options.length; ++index) {
+                        option = options[index];
+
+                        $("#address_locality").append('<option value=' + option.value + '>' + option.text + '</option>');
+                    }
+                    $("#address_locality").val(id);
+				}
+			})
 		})
-	</script>
+
+        $("#addAddressLocality").click(function(e){
+
+            window.open("{{ path('locality_manage', {'id': 'Add'}) }}","Locality","width=820,height=600");
+        })
+
+        $( document ).ready(function() {
+            $.ajax({
+                url: '{{ path('address_fetch_list') }}',
+                type: 'POST',
+                success: function (data) {
+                    $('.beeAddressList').autocomplete({
+                        source: data.addressList,
+                        minLength: 2,
+                        delay: 250,
+                        disabled: false,
+                    });
+                }
+            });
+        });
+
+        $( "#address_addressList" ).on( "autocompleteselect", function( event, ui ) {
+            var id = ui.item.value;
+            var route = "{{ path('address_manage', {'id': '__id__'}) }}";
+            window.open(route.replace('__id__', id),"_self");
+        } );
+    </script>

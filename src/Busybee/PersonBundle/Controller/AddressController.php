@@ -12,6 +12,10 @@ use Busybee\PersonBundle\Form\AddressType ;
 
 class AddressController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function checkAction(Request $request)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
@@ -34,8 +38,12 @@ class AddressController extends Controller
 	
     }
 
-
-    public function indexAction($id, Request $request)
+    /**
+     * @param string $id
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction($id = 'Add', Request $request)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
 		
@@ -64,12 +72,16 @@ class AddressController extends Controller
 
             return new RedirectResponse($this->get('router')->generate('address_manage', array('id' => $id)));
         }
-dump($form);
+
         return $this->render('BusybeePersonBundle:Address:index.html.twig',
 			array('id' => $id, 'form' => $form->createView())			
 		);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function fetchAction(Request $request)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
@@ -107,6 +119,10 @@ dump($form);
 		);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function editAction(Request $request)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
@@ -116,7 +132,7 @@ dump($form);
 		$entity = $id > 0 ? $this->get('address.repository')->find($id) : new Address();
 		$entity->injectRepository($this->get('address.repository')) ;
 
-		$entity->localityRecord = $this->get('locality.repository')->findOneById($request->request->get('locality_id'));
+		$entity->localityRecord = $this->get('locality.repository')->find($request->request->get('locality_id'));
 
 		$valid = true;
 
@@ -206,5 +222,62 @@ dump($form);
 			),
 			200
 		);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function fetchListAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
+
+        $addresses = $this->get('address.repository')->findBy(array(), array('propertyName'=>'ASC', 'streetName'=>'ASC', 'streetNumber'=> 'ASC'));
+        $addressList = array();
+        $am = $this->get('address.manager');
+        if (is_array($addresses))
+            foreach($addresses as $xx)
+            {
+                $x = array();
+                $x['label'] = $am->getAddressListLabel($xx);
+                $x['value'] = $xx->getId();
+                $addressList[] = $x;
+            }
+
+        return new JsonResponse(
+            array(
+                'addressList' => $addressList,
+            ),
+            200
+        );
+    }
+
+
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function deleteAction($id, Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+
+        if ($id > 0 && $entity = $this->get('address.repository')->find($id))
+        {
+            $entity->injectRepository($this->get('address.repository'));
+            $sess = $request->getSession();
+            if ($entity->canDelete())
+            {
+                $em = $this->get('doctrine')->getManager();
+                $em->remove($entity);
+                $em->flush();
+
+                $sess->getFlashBag()->add('success', 'address.delete.success');
+            } else
+            {
+                $sess->getFlashBag()->add('warning', 'address.delete.notAllowed');
+            }
+        }
+
+        return new RedirectResponse($this->get('router')->generate('address_manage', array('id' => 'Add')));
     }
 }

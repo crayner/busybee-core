@@ -6,6 +6,13 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:AutoComplete:style.html.twig' %}
+{% endblock stylesheets %}
+
+{% block title %}{{ parent() }}{{ 'address.title'|trans }}{% endblock title %}
+
 {% block menuContainer %}{% endblock %}
 {% block titleContainer %}{% endblock %}
 
@@ -26,4 +33,5 @@
 	{{ parent() }}
 	{% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
 	{% include 'BusybeePersonBundle:Address:script.html.twig' %}
+	{% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'address_manage'} %}
 {% endblock javascripts %}
