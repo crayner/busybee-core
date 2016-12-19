@@ -52,7 +52,6 @@ class EntityToStringTransformer implements DataTransformerInterface
         }
  
         $entity = $this->entityRepository->find($id);
- 
         if (null === $entity) {
             throw new TransformationFailedException(
                 sprintf(
@@ -62,7 +61,7 @@ class EntityToStringTransformer implements DataTransformerInterface
                 )
             );
         }
- 
+
         return $entity;
     }
  

@@ -2,10 +2,10 @@ person_manage:
     path:     /
     defaults: { _controller: BusybeePersonBundle:Person:index }
 person_edit:
-    path:     /edit/{id}
+    path:     /{id}/edit/
     defaults: { _controller: BusybeePersonBundle:Person:edit }
 person_save:
-    path:     /save/{id}
+    path:     /{id}/save/
     defaults: { _controller: BusybeePersonBundle:Person:save }
 address_check:
     path:     /address/
@@ -34,9 +34,6 @@ address_edit:
 address_fetch:
     path:     /address/fetch/
     defaults: { _controller: BusybeePersonBundle:Address:fetch }
-address_fetch_search:
-    path:     /address/search/{id}
-    defaults: { _controller: BusybeePersonBundle:Address:search }
 phone_fetch:
     path:     /phone/fetch/
     defaults: { _controller: BusybeePersonBundle:Phone:fetch }

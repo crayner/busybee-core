@@ -43,26 +43,6 @@ class PersonController extends Controller
 		
 		$em = $this->get('doctrine')->getManager();
 
-		$address = $person->getAddress1();
-		if (! is_null($address))
-		{
-			$address->getStreetName();
-			$locality = $address->getLocality();
-			$locality->getTerritory();
-			$em->detach($locality);
-			$em->detach($address);
-		}
-
-		$address = $person->getAddress2();
-		if (! is_null($address))
-		{
-			$address->getStreetName();
-			$locality = $address->getLocality();
-			$locality->getTerritory();
-			$em->detach($locality);
-			$em->detach($address);
-		}
-		
 		$formDefinition = $this->get('service_container')->getParameter('person');
 		
 		unset($formDefinition['person'], $formDefinition['contact'], $formDefinition['address1'], $formDefinition['address2']);
@@ -90,22 +70,6 @@ class PersonController extends Controller
 				$editOptions['script'][] = $extra['script'];
 		}
 
-		if (! empty($request->get('person')))
-		{
-			$data = $request->get('person');
-			$data['address1'] = ! empty($data['address1']) ? $data['address1'] : null ;
-			$data['address2'] = ! empty($data['address2']) ? $data['address2'] : null ;
-			
-			unset($data['fullAddress1'], $data['fullAddress2']);
-
-			$form->get('fullAddress1')->setData($this->get('address.repository')->find($data['address1']));
-			$form->get('fullAddress2')->setData($this->get('address.repository')->find($data['address2']));
-
-			$request->request->set('person', $data);
-		}
-
-		$form->setData($person);
-
 		$form->handleRequest($request);
 
         $validator = $this->get('validator');
@@ -113,7 +77,7 @@ class PersonController extends Controller
 		if ($form->isSubmitted() && $form->isValid())
 		{
 		    $ok = true ;
-			foreach($formDefinition as $defined)
+            foreach($formDefinition as $defined)
 			{
 				$req = isset($defined['request']['post']) ? $defined['request']['post'] : null ;
 				if (! is_null($req) && isset($person->$req))

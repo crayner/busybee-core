@@ -8,11 +8,3 @@ parameters:
         contact:
             label: person.tab.contact
             include: 'BusybeePersonBundle:Person:contact.html.twig'
-        address1:
-            label: person.tab.address1
-            include: 'BusybeePersonBundle:Address:address1.html.twig'
-            message: addressMessageaddress1
-        address2:
-            label: person.tab.address2
-            include: 'BusybeePersonBundle:Address:address2.html.twig'
-            message: addressMessageaddress2

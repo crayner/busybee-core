@@ -75,6 +75,8 @@ address:
         streetNumber: Street Number
         locality: Address Locality
         edit: Existing Address List.
+        address1: Physical Address
+        address2: Postal or Alternate Address
     delete:
         success: The address was deleted.
         notAllowed: The address is in use and was not deleted.
@@ -88,6 +90,8 @@ address:
         buildingNumber: The building identifier within the complex.
         streetNumber: ''
         locality: Select a locality for the address, or use the controils to create a new locality.
+        address1: The address can be left blank in which case the family address is used.
+        address2: ''
     placeholder:
         choice: Choose Existing Address (Clear Data)
         locality: Select Locality

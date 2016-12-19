@@ -67,16 +67,14 @@ Busybee\PersonBundle\Entity\Person:
         address1:
             targetEntity: Busybee\PersonBundle\Entity\Address
             nullable: true
-            joinColumn:
+            joinColumns:
                 address1:
-                    name: address1
                     referencedColumnName: id
         address2:
             targetEntity: Busybee\PersonBundle\Entity\Address
             nullable: true
-            joinColumn:
+            joinColumns:
                 address2:
-                    name: address2
                     referencedColumnName: id
     manyToMany:
         phone:

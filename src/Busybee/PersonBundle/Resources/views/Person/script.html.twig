@@ -1,0 +1,63 @@
+{# src/Busybee/PersonBundle/Resources/views/Person/script.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+	<script>
+
+        $( document ).ready(function() {
+            $.ajax({
+                url: '{{ path('address_fetch_list') }}',
+                type: 'POST',
+                success: function (data) {
+                    $('.beeAddressList').autocomplete({
+                        source: data.addressList,
+                        minLength: 2,
+                        delay: 250,
+                        disabled: false,
+                    });
+                    {% if form.address1.vars.value > 0 %}
+                    var add_label = "";
+                    var add_value = 0;
+                    for (var i=0; i<data.addressList.length; i++){
+                        var x = data.addressList[i];
+                        if (x['value'] == {{ form.address1.vars.value }}){
+                            add_label = x['label'];
+                            add_value = x['value'];
+                            break ;
+                        }
+                    }
+                    $("#person_address1_list").data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: add_label, value: add_value}});
+                    {% endif %}
+                    {% if form.address2.vars.value > 0 %}
+                    var add_label = "";
+                    var add_value = 0;
+                    for (var i=0; i<data.addressList.length; i++){
+                        var x = data.addressList[i];
+                        if (x['value'] == {{ form.address2.vars.value }}){
+                            add_label = x['label'];
+                            add_value = x['value'];
+                            break ;
+                        }
+                    }
+                    $("#person_address2_list").data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: add_label, value: add_value}});
+                    {% endif %}
+                }
+            });
+        });
+
+        $( "#person_address1_list" ).on( "autocompleteselect", function( event, ui ) {
+            event.preventDefault();
+            var id = ui.item.value;
+            var label = ui.item.label;
+            $("#person_address1").val(id);
+            $("#person_address1_list").val(label);
+        } );
+        $( "#person_address2_list" ).on( "autocompleteselect", function( event, ui ) {
+            event.preventDefault();
+            var id = ui.item.value;
+            var label = ui.item.label;
+            $("#person_address2").val(id);
+            $("#person_address2_list").val(label);
+        } );
+    </script>

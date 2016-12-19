@@ -2,6 +2,11 @@
 
 namespace Busybee\PersonBundle\Form ;
 
+use Busybee\FormBundle\Type\AutoCompleteType;
+use Busybee\PersonBundle\Entity\Address;
+use Busybee\PersonBundle\Events\PersonSubscriber;
+use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
@@ -119,22 +124,58 @@ class PersonType extends AbstractType
 					'required' => false,
 				)
 			)
-			->add('address1', HiddenType::class)
-			->add('address2', HiddenType::class)
-			->add('fullAddress1', AddressType::class, array(
-					'data' => $options['data']->getAddress1(),
-					'required' => false,
-					'classSuffix' => 'address1',
-					'mapped' => false,
-				)
-			)
-			->add('fullAddress2', AddressType::class, array(
-					'data' => $options['data']->getAddress2(),
-					'required' => false,
-					'classSuffix' => 'address2',
-					'mapped' => false,
-				)
-			)
+            ->add('address1', HiddenType::class,
+                array(
+                    'error_mapping' => array(
+                        '.' => 'address1_list'
+                    )
+                )
+            )
+			->add('address1_list', AutoCompleteType::class,
+                array(
+                    'class' => 'Busybee\PersonBundle\Entity\Address',
+                    'label' => 'address.label.address1',
+                    'choice_label' => 'singleLineAddress',
+                    'empty_data'  => null,
+                    'required' => false,
+                    'attr' => array(
+                        'help' => 'address.help.address1',
+                        'class' => 'beeAddressList formChanged',
+                    ),
+                    'mapped' => false,
+                    'hidden' => array(
+                        'name' => "address1_stuff",
+                        'value' => 0,
+                        'class' => '',
+                    ),
+                )
+            )
+            ->add('address2', HiddenType::class,
+                array(
+                    'error_mapping' => array(
+                        '.' => 'address2_list'
+                    )
+                )
+            )
+            ->add('address2_list', AutoCompleteType::class,
+                array(
+                    'class' => 'Busybee\PersonBundle\Entity\Address',
+                    'label' => 'address.label.address2',
+                    'choice_label' => 'singleLineAddress',
+                    'empty_data'  => null,
+                    'required' => false,
+                    'attr' => array(
+                        'help' => 'address.help.address2',
+                        'class' => 'beeAddressList formChanged',
+                    ),
+                    'mapped' => false,
+                    'hidden' => array(
+                        'name' => "address2_stuff",
+                        'value' => 0,
+                        'class' => '',
+                    ),
+                )
+            )
 			->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
 					'label' 				=> 'form.save',
 					'translation_domain' 	=> 'BusybeeHomeBundle',
@@ -162,10 +203,15 @@ class PersonType extends AbstractType
 				)
 			)
 		;
-        $builder->get('address1')
-            ->addModelTransformer(new AddressTransformer($this->manager));
-        $builder->get('address2')
-            ->addModelTransformer(new AddressTransformer($this->manager));
+        $transformer = new EntityToStringTransformer($this->manager);
+        $transformer->setEntityClass(Address::class);
+        $builder->get('address1')->addModelTransformer($transformer);
+
+        $transformer2 = new EntityToStringTransformer($this->manager);
+        $transformer2->setEntityClass(Address::class);
+        $builder->get('address2')->addModelTransformer($transformer2);
+
+        $builder->addEventSubscriber(new PersonSubscriber());
     }
     
     /**
@@ -177,7 +223,7 @@ class PersonType extends AbstractType
 			array(
 				'data_class' 			=> 'Busybee\PersonBundle\Entity\Person',
 				'translation_domain'	=> 'BusybeePersonBundle',
-				'allow_extra_fields' 	=> true,
+				'allow_extra_fields' 	=> false,
 			)
 		);
     }
