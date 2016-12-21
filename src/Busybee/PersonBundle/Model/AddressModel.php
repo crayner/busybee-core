@@ -18,11 +18,21 @@ abstract class AddressModel
 	 */
 	protected $repo;
 
-	/**
-	 * @var	array
-	 */
-	protected $buildingTypeList;
-	
+    /**
+     * @var	array
+     */
+    protected $buildingTypeList;
+
+    /**
+     * @var	array
+     */
+    protected $address1_list = array();
+
+    /**
+     * @var	array
+     */
+    protected $address2_list = array();
+
 	/**
      * inject Repo
      *
@@ -71,11 +81,13 @@ abstract class AddressModel
 	/**
      * get BuildingType List
      *
-     * @return array
+     * @return string
      */
     public function getSingleLineAddress()
     {
-        return $this->getStreetName();
+        $x = $this->getStreetName();
+
+        return $x;
     }
 
 	/**

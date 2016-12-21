@@ -57,6 +57,7 @@ class AddressController extends Controller
         $form = $this->createForm(AddressType::class, $address);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid())
         {
             $em = $this->get('doctrine')->getManager();
@@ -80,180 +81,36 @@ class AddressController extends Controller
 		);
     }
 
+
     /**
+     * @param int $id
      * @param Request $request
      * @return JsonResponse
      */
     public function fetchAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
-		
-		$id = $request->request->get('id');
-
-		$address = $id > 0 ? $this->get('address.repository')->findOneBy(array('id' => $id)) : new Address();
-		$address->localityRecord = $this->get('locality.repository')->setAddressLocality($address->getLocality());
-		
-		$list = $this->get('locality.repository')->getLocalityChoices();
-		$localityOptions = '<option value="">'.$this->get('translator')->trans('locality.placeholder.choice', array(), 'BusybeePersonBundle').'</option>';
-		foreach($list as $name=>$value) {
-			$localityOptions .= '<option value="'.$value.'">'.$name.'</option>';	
-		}
-
-		return new JsonResponse(
-			array(
-				'propertyName' => $address->getPropertyName(),
-				'streetName' => $address->getStreetName(),
-				'streetNumber' => $address->getStreetNumber(),
-				'buildingType' => $address->getBuildingType(),
-				'buildingNumber' => $address->getBuildingNumber(),
-				'locality_id' => is_null($address->getLocality()) ? 0 : (is_int($address->getLocality()) ? $address->getLocality() : $address->getLocality()->getId()),
-				'territory' => $address->localityRecord->getTerritory(),
-				'locality' => $address->localityRecord->getLocality(),
-				'country' => $address->localityRecord->getCountry(),
-				'postCode' => $address->localityRecord->getPostCode(),
-				'options' => $localityOptions,
-				'address' => $this->get('address.manager')->formatAddress($address),
-				'addressListLabel' => $this->get('address.manager')->getAddressListLabel($address),
-				'addressDisabled' => 'true',
-				'id' => $address->getId(),
-			),
-			200
-		);
-    }
-
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function editAction(Request $request)
-    {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
-		
-		$id = $request->request->get('id');
-
-		$entity = $id > 0 ? $this->get('address.repository')->find($id) : new Address();
-		$entity->injectRepository($this->get('address.repository')) ;
-
-		$entity->localityRecord = $this->get('locality.repository')->find($request->request->get('locality_id'));
-
-		$valid = true;
-
-		if ($entity->localityRecord instanceof Locality) 
-			$entity->setLocality($entity->localityRecord);
-		else
-		{
-			$entity->setLocality(null);
-			$valid = false;
-		}
-
-
-		$entity->setPropertyName((empty($request->request->get('propertyName')) ? null : $request->request->get('propertyName')));
-		$entity->setStreetNumber((empty($request->request->get('streetNumber')) ? null : $request->request->get('streetNumber')));
-		if (empty($entity->getStreetNumber()) && intval($entity->getStreetName()) > 0)
-		{
-			$num = strval(intval($entity->getStreetName()));
-			$entity->setStreetNumber($num);
-			$entity->setStreetName(trim(str_replace($num, '', $entity->getStreetName())));
-		}
-		$entity->setBuildingType((empty($request->request->get('buildingType')) ? null : $request->request->get('buildingType')));
-		$entity->setBuildingNumber((empty($request->request->get('buildingNumber')) ? null : $request->request->get('buildingNumber')));
-		
-		$addressList =$this->get('address.manager')->getAddressList($request->request->get('locality_id'));
-		$al = array();
-		foreach($addressList as $detail)
-			$al[$detail['value']] = $detail['label'] ;
-			
-		if (in_array($this->get('address.manager')->getAddressListLabel($entity), $al))
-		{
-			$value = array_search($this->get('address.manager')->getAddressListLabel($entity), $al);
-			if ($value !== $entity->getId())
-				$valid = false ;
-		}
-
-        $streetName = $request->request->get('streetName');
-        if (empty($streetName)) {
-            $valid = false;
-            $entity = new Address() ;
-            $errors = array();
-        }
-        else{
-            $entity->setStreetName($streetName);
-		    $errors = $this->get('validator')->validate($entity);
-        }
-        dump($entity);
-        dump($errors);
-        dump($request);
-
-		if ($valid && count($errors) == 0)
-		{
-			$message = $this->get('translator')->trans('address.edit.success', array(), 'BusybeePersonBundle');
-			$status = 'success';
-			$em = $this->getDoctrine()->getManager();
-            
-            $em->persist($entity);
-            $em->flush();
-			$id = $entity->getId();
-			$saved = true ;
-		} else {
-			$message = $this->get('translator')->trans('address.edit.failure', array(), 'BusybeePersonBundle');
-			$status = 'danger';
-			$saved = false ;
-		}
-
-		$addressList =$this->get('address.manager')->getAddressList($request->request->get('locality_id'));
-
-		$addressDisabled = empty($addressList) || $saved ? 'true' : 'false';
-
-		$formattedAddress = $this->get('address.manager')->formatAddress($entity);
-
-		return new JsonResponse(
-			array(
-				'message' => $message,
-				'status' => $status,
-				'id' => $id,
-				'locality' => $entity->getLocality(),
-				'propertyName' => $entity->getPropertyName(),
-				'streetName' => $entity->getStreetName(),
-				'streetNumber' => $entity->getStreetNumber(),
-				'buildingType' => $entity->getBuildingType(),
-				'buildingNumber' => $entity->getBuildingNumber(),
-				'address' => $formattedAddress,
-				'addressListLabel' => $this->get('address.manager')->getAddressListLabel($entity),
-				'addressList' => $addressList,
-				'addressDisabled' => $addressDisabled,
-			),
-			200
-		);
-    }
-
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function fetchListAction(Request $request)
-    {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
 
         $addresses = $this->get('address.repository')->findBy(array(), array('propertyName'=>'ASC', 'streetName'=>'ASC', 'streetNumber'=> 'ASC'));
-        $addressList = array();
+        $addresses = is_array($addresses) ? $addresses : array() ;
+
+        $options = array();
+        $option = array('value'=>"","label" => $this->get('translator')->trans('person.placeholder.address', array(), 'BusybeePersonBundle'));
+        $options[] = $option;
         $am = $this->get('address.manager');
-        if (is_array($addresses))
-            foreach($addresses as $xx)
-            {
-                $x = array();
-                $x['label'] = $am->getAddressListLabel($xx);
-                $x['value'] = $xx->getId();
-                $addressList[] = $x;
-            }
+        foreach($addresses as $address)
+        {
+            $option = array('value'=>strval($address->getId()), "label" => $am->getAddressListLabel($address));
+            $options[] = $option;
+        }
 
         return new JsonResponse(
             array(
-                'addressList' => $addressList,
+                'options' => $options,
             ),
             200
         );
     }
-
 
     /**
      * @param int $id

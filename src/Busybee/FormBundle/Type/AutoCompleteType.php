@@ -4,8 +4,7 @@ namespace Busybee\FormBundle\Type ;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType ;
-use Symfony\Component\Form\FormView ;
-use Symfony\Component\Form\FormInterface ;
+
 
 class AutoCompleteType extends AbstractType
 {
@@ -14,17 +13,11 @@ class AutoCompleteType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
+/*		$resolver->setRequired(
 			array(
-				'mapped'	=> false,
-				'hidden'	=> array(),
+				'name',
 			)
-		)
-		->setRequired(
-			array(
-				'hidden',
-			)
-		);
+		); */
     }
 
     public function getBlockPrefix()
@@ -36,16 +29,4 @@ class AutoCompleteType extends AbstractType
     {
         return EntityType::class;
     }
-
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
-        parent::buildView($view, $form, $options);
-
-        $view->vars = array_merge($view->vars, 
-			array(
-				'hidden' => $options['hidden']
-			)
-		);
-    }
-
 }

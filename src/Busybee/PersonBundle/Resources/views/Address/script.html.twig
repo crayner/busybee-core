@@ -30,20 +30,20 @@
 
         $( document ).ready(function() {
             $.ajax({
-                url: '{{ path('address_fetch_list') }}',
+                url: '{{ path('address_fetch') }}',
                 type: 'POST',
                 success: function (data) {
-                    $('.beeAddressList').autocomplete({
-                        source: data.addressList,
+                    $( "#address_addressList_list" ).autocomplete({
+                        source: data.options,
                         minLength: 2,
                         delay: 250,
-                        disabled: false,
+                        disabled: false
                     });
                 }
             });
         });
 
-        $( "#address_addressList" ).on( "autocompleteselect", function( event, ui ) {
+        $( "#address_addressList_list" ).on( "autocompleteselect", function( event, ui ) {
             var id = ui.item.value;
             var route = "{{ path('address_manage', {'id': '__id__'}) }}";
             window.open(route.replace('__id__', id),"_self");

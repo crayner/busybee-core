@@ -4,10 +4,10 @@ namespace Busybee\FormBundle\Type ;
 
 use Busybee\FormBundle\Form\DataTransformer\YesNoTransformer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Component\Form\FormInterface ;
-use Symfony\Component\Form\FormView ;
 
 class YesNoType extends AbstractType
 {
@@ -35,7 +35,7 @@ class YesNoType extends AbstractType
      */
     public function getParent()
     {
-        return 'Symfony\Component\Form\Extension\Core\Type\CheckboxType';
+        return CheckboxType::class;
     }
 
     /**

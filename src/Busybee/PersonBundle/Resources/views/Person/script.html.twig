@@ -3,47 +3,43 @@
 {% trans_default_domain "BusybeePersonBundle" %}
 
 	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-	<script>
+    <script>
+        $(".addPersonAddress").click(function(e){
 
-        $( document ).ready(function() {
+            window.open("{{ path('address_manage', {'id': 'Add'}) }}","Address","width=820,height=600");
+        });
+
+        $(".refreshPersonAddress").click(function() {
             $.ajax({
-                url: '{{ path('address_fetch_list') }}',
-                type: 'POST',
-                success: function (data) {
-                    $('.beeAddressList').autocomplete({
-                        source: data.addressList,
-                        minLength: 2,
-                        delay: 250,
-                        disabled: false,
-                    });
-                    {% if form.address1.vars.value > 0 %}
-                    var add_label = "";
-                    var add_value = 0;
-                    for (var i=0; i<data.addressList.length; i++){
-                        var x = data.addressList[i];
-                        if (x['value'] == {{ form.address1.vars.value }}){
-                            add_label = x['label'];
-                            add_value = x['value'];
-                            break ;
+                url: "{{ path('address_fetch') }}",
+                type: "POST",
+                success: function(data){
+                    var id1 = $("#person_address1").val();
+                    var id2 = $("#person_address2").val();
+                    $(".beeAddressList").empty();
+
+                    options = data.options; // Or whatever source information you're working with
+                    var label1 = "";
+                    var label2 = "";
+                    for (index = 0; index < options.length; ++index) {
+                        option = options[index];
+
+                        $(".beeAddressList").append('<option value=' + option.value + '>' + option.label + '</option>');
+
+                        if (option.value == id1)
+                        {
+                            label1 = option.label ;
+                        }
+                        if (option.value == id2)
+                        {
+                            label2 = option.label ;
                         }
                     }
-                    $("#person_address1_list").data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: add_label, value: add_value}});
-                    {% endif %}
-                    {% if form.address2.vars.value > 0 %}
-                    var add_label = "";
-                    var add_value = 0;
-                    for (var i=0; i<data.addressList.length; i++){
-                        var x = data.addressList[i];
-                        if (x['value'] == {{ form.address2.vars.value }}){
-                            add_label = x['label'];
-                            add_value = x['value'];
-                            break ;
-                        }
-                    }
-                    $("#person_address2_list").data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{label: add_label, value: add_value}});
-                    {% endif %}
+
+                    $("#person_address1_list").val(label1);
+                    $("#person_address2_list").val(label2)
                 }
-            });
+            })
         });
 
         $( "#person_address1_list" ).on( "autocompleteselect", function( event, ui ) {
@@ -53,6 +49,7 @@
             $("#person_address1").val(id);
             $("#person_address1_list").val(label);
         } );
+
         $( "#person_address2_list" ).on( "autocompleteselect", function( event, ui ) {
             event.preventDefault();
             var id = ui.item.value;
@@ -60,4 +57,111 @@
             $("#person_address2").val(id);
             $("#person_address2_list").val(label);
         } );
+
+        $( document ).ready(function() {
+            $.ajax({
+                url: '{{ path('address_fetch') }}',
+                type: 'POST',
+                success: function (data) {
+                    $('.beeAddressList').autocomplete({
+                        source: data.options,
+                        minLength: 2,
+                        delay: 250,
+                        disabled: false
+                    });
+                    var id1 = $("#person_address1").val();
+                    var id2 = $("#person_address2").val();
+
+                    options = data.options; // Or whatever source information you're working with
+                    var label1 = "";
+                    var label2 = "";
+                    for (index = 0; index < options.length; ++index) {
+                        option = options[index];
+
+                        if (option.value == id1)
+                        {
+                            label1 = option.label ;
+                        }
+                        if (option.value == id2)
+                        {
+                            label2 = option.label ;
+                        }
+                    }
+
+                    $("#person_address1_list").val(label1);
+                    $("#person_address2_list").val(label2)
+                }
+            });
+        });
+
+        $("#erasePersonAddress1").click(function() {
+            $("#person_address1").val("");
+            $("#person_address1_list").val("{{ 'person.placeholder.address'|trans }}");
+        });
+
+        $("#erasePersonAddress2").click(function() {
+            $("#person_address2").val("");
+            $("#person_address2_list").val("{{ 'person.placeholder.address'|trans }}");
+        });
+
+        $( "#person_address1_list" ).on( "focus", function() {
+            $("#person_address1_list").val("");
+        } );
+
+        $( "#person_address2_list" ).on( "focus", function() {
+            $("#person_address2_list").val("");
+        } );
+
+        $('#addPhoneButton').click(function(e) {
+
+            e.preventDefault();
+
+            var $collectionHolder  = $('.phoneNumberList');
+
+            $collectionHolder.data('index', $collectionHolder.find('.phoneNumber').length);
+
+            var index = $collectionHolder.data('index');
+
+            var prototype = $collectionHolder.data('prototype');
+
+            var newForm = prototype.replace(/__name__/g, index);
+
+            $('.phoneNumberList').append(newForm);
+
+            $('#person_phone_' + index + '_phoneNumber').autocomplete({
+                source: '{{ path('phone_fetch') }}',
+                minLength: 4,
+                delay: 250,
+                focus: function(event, ui) {
+                    // prevent autocomplete from updating the textbox
+                    event.preventDefault();
+                    // manually update the textbox
+                    $(this).val(ui.item.label);
+                },
+                select: function(event, ui) {
+                    // prevent autocomplete from updating the textbox
+                    event.preventDefault();
+                    // manually update the textbox and hidden field
+                    $(this).val(ui.item.label);
+                }
+            });
+            $('#person_phone_' + index + '_phoneNumber').prop('readonly', false);
+
+            $collectionHolder.data('index', index + 1);
+
+            $('.deletePhoneButton').hide();
+
+
+        });
+        $('#addPhoneForm').fadeOut(500);
+
+        $('.deletePhoneButton').click(function(e) {
+            e.preventDefault();
+
+            var id = $(this).attr('id');
+
+            $('#phone_' + id.substring(12)).remove();
+
+            $('#addPhoneButton').fadeOut(500);
+        });
     </script>

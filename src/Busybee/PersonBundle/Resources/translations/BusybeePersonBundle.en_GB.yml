@@ -42,11 +42,15 @@ person:
         photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 
         phone:
             number: Any character but a number is ignored. The display can be altered in the settings.
+        address1: The address can be left blank in which case the family address is used.  Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
+        address2: Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
     tab:
         person: Person
         address1: Address
         address2: Alt Address
         contact: Contact
+    placeholder:
+        address: Start typing any address.
     add:
         title: Add Person
         description: ''
@@ -90,8 +94,6 @@ address:
         buildingNumber: The building identifier within the complex.
         streetNumber: ''
         locality: Select a locality for the address, or use the controils to create a new locality.
-        address1: The address can be left blank in which case the family address is used.
-        address2: ''
     placeholder:
         choice: Choose Existing Address (Clear Data)
         locality: Select Locality
@@ -110,6 +112,9 @@ address:
         reset: Reset Address Form
         add: Add New Address
     unique: The address already exists in the database.
+    add: Add Address
+    refresh: Refresh Address Lists
+    erase: Erase Address
 locality:
     help:
         choice: Select a locality or add a new locality below.

@@ -90,6 +90,9 @@
 
 {%- block auto_complete_widget -%}
 	{%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
-	<input type="hidden" class="{{ hidden.class }}" value="{{ hidden.value }}" name="{{ hidden.name }}" />
-    <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+	<input type="hidden" id="{{ id }}" value="{{ value }}" name="{{ full_name }}" />
+    {% set id = id ~ '_list' %}
+    {% set full_name = full_name|replace({(name): name ~ '_list'}) %}
+    {% set name = name|replace({(name): name ~ '_list'}) %}
+    <input type="text" {{ block('widget_attributes') }} />
 {%- endblock auto_complete_widget -%}

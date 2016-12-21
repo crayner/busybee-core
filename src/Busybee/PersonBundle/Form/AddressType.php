@@ -3,6 +3,7 @@
 namespace Busybee\PersonBundle\Form;
 
 use Busybee\FormBundle\Type\AutoCompleteType;
+use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Entity\Locality;
 use Busybee\PersonBundle\Events\AddressSubscriber;
 use Busybee\PersonBundle\Repository\LocalityRepository;
@@ -151,19 +152,11 @@ class AddressType extends AbstractType
                         'class' => 'beeAddressList formChanged',
                     ),
                     'mapped' => false,
-                    'hidden' => array(
-                        'name' => "address_list_id",
-                        'value' => ($options['data'] instanceof Address && $options['data']->getId() > 0 ? $options['data']->getId() : 0),
-                        'class' => 'beeAddressValue',
-                    ),
                 )
             )
 		;
 
-		$transformer = new EntityToStringTransformer($this->em);
-		$transformer->setEntityClass(Locality::class);
-
-		$builder->get('locality')->addModelTransformer($transformer);
+		$builder->get('locality')->addModelTransformer(new EntityToStringTransformer($this->em, Locality::class));
         $builder->addEventSubscriber(new AddressSubscriber() );
 
     }

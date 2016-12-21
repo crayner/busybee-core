@@ -30,7 +30,7 @@ services:
         class: Busybee\FormBundle\Validator\Constraints\BackgroundImageValidator
         tags:
             - { name: validator.constraint_validator, alias: background_image_validator }
-    form.timeType:
+    form.time.type:
         class: Busybee\FormBundle\Type\TimeType
         arguments:
             - '%timezone%'

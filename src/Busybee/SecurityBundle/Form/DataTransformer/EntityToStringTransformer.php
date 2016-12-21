@@ -19,9 +19,10 @@ class EntityToStringTransformer implements DataTransformerInterface
     /**
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, $entityClass)
     {
         $this->om = $om;
+        $this->setEntityClass($entityClass);
     }
  
     /**

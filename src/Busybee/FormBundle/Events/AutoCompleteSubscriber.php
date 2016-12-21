@@ -29,6 +29,7 @@ class PersonSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
 
+dump($data);
 
         $event->setData($data);
     }

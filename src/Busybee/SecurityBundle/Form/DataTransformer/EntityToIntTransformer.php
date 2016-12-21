@@ -19,9 +19,10 @@ class EntityToIntTransformer implements DataTransformerInterface
     /**
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, $entityClass)
     {
         $this->om = $om;
+        $this->setEntityClass($entityClass);
     }
  
     /**
@@ -70,14 +71,15 @@ class EntityToIntTransformer implements DataTransformerInterface
     {
         $this->entityType = $entityType;
     }
- 
+
     public function setEntityClass($entityClass)
     {
         $this->entityClass = $entityClass;
+        $this->setEntityRepository($entityClass);
     }
- 
-    public function setEntityRepository($entityRepository)
+
+    public function setEntityRepository($entityClass)
     {
-        $this->entityRepository = $entityRepository;
+        $this->entityRepository = $this->om->getRepository($entityClass);
     }
 }

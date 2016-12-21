@@ -285,7 +285,7 @@ class Address extends AddressModel
      */
     public function getStreetNumber()
     {
-        return $this->streetNumber;
+        return empty($this->streetNumber) ? "" : $this->streetNumber ;
     }
 
     /**

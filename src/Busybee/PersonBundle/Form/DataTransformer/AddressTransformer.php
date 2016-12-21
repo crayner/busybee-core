@@ -30,14 +30,12 @@ class AddressTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a string to an Address Object
-     *
-     * @param  string $data
-     * @return Object
+     * @param mixed $data
+     * @return Address|null|object
      */
     public function reverseTransform($data)
     {
-		if (is_null($data))
+		if (empty($data))
 			return null;
         $address = $this->manager
             ->getRepository('BusybeePersonBundle:Address')
@@ -49,7 +47,7 @@ class AddressTransformer implements DataTransformerInterface
             // causes a validation error
             // this message is not shown to the user
             // see the invalid_message option
-            throw new TransformationFailedException('This message is 0verwritten by the validation message. ' . __FILE__ . __LINE__);
+            throw new TransformationFailedException('This message is over written by the validation message. ' . __FILE__ . __LINE__);
         }
 
         return $address;
