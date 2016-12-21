@@ -9,8 +9,7 @@ namespace Busybee\FormBundle\Model ;
 use Busybee\FormBundle\Model\FormErrorsParser;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\Translation\DataCollectorTranslator as Translator;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 
 class FormErrorsExtension extends \Twig_Extension
@@ -31,10 +30,10 @@ class FormErrorsExtension extends \Twig_Extension
      * @param $trans
      * @throws \Exception
      */
-    public function __construct(FormErrorsParser $parser, $trans)
+    public function __construct(FormErrorsParser $parser, Translator $trans)
     {
         $this->parser = $parser;
-		if ($trans instanceof Translator || $trans instanceof TranslatorInterface)
+		if ($trans instanceof Translator || $trans instanceof Translator)
 			$this->trans = $trans ;
 		else
 			throw new \Exception('Invalid Translator Supplied.');

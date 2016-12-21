@@ -2,7 +2,7 @@
 
 namespace Busybee\PersonBundle\Model ;
 
-use Symfony\Component\Translation\DataCollectorTranslator as Translator;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Busybee\SystemBundle\Setting\SettingManager ;
 use Busybee\PersonBundle\Repository\AddressRepository ;
 use Busybee\PersonBundle\Entity\Address ;
@@ -22,12 +22,12 @@ class AddressManager
 	private $trans ;
 
 	/**
-	 * @var	Busybee\SystemBundle\Setting\SettingManager 
+	 * @var SettingManager
 	 */
 	private $sm ;
 
 	/**
-	 * @var	Busybee\PersonBundle\Repository\AddressRepository
+	 * @var	AddressRepository
 	 */
 	private $ar ;
 
