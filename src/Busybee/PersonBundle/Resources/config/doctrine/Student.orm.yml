@@ -9,6 +9,10 @@ Busybee\PersonBundle\Entity\Student:
             generator:
                 strategy: AUTO
     fields:
+        startAtSchool:
+            type: datetime
+        startAtThisSchool:
+            type: datetime
         lastModified:
             type: datetime
             nullable: true 

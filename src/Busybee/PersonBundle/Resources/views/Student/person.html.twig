@@ -18,9 +18,15 @@
 	<div class="panel-body">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-4 col-sm-offset-8 well">
+				<div class="col-sm-4 well">
                     {{ form_row(form.person) }}
 					<span><button type="button" title="{{ 'person.title.add'|trans }}" onclick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')" style="float: right;" class="formChanged btn btn-primary halflings-plus-sign halflings"></button></span>
+				</div>
+				<div class="col-sm-4 well">
+                    {{ form_row(form.startAtSchool) }}
+				</div>
+				<div class="col-sm-4 well">
+                    {{ form_row(form.startAtThisSchool) }}
 				</div>
 			</div>
 		</div>

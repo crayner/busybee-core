@@ -169,5 +169,62 @@ class Student extends StudentModel
     {
         return $this->modifiedBy;
     }
-}
+    /**
+     * @var \DateTime
+     */
+    private $startAtSchool;
 
+    /**
+     * @var \DateTime
+     */
+    private $startAtThisSchool;
+
+
+    /**
+     * Set startAtSchool
+     *
+     * @param \DateTime $startAtSchool
+     *
+     * @return Student
+     */
+    public function setStartAtSchool($startAtSchool)
+    {
+        $this->startAtSchool = $startAtSchool;
+
+        return $this;
+    }
+
+    /**
+     * Get startAtSchool
+     *
+     * @return \DateTime
+     */
+    public function getStartAtSchool()
+    {
+        return $this->startAtSchool;
+    }
+
+    /**
+     * Set startAtThisSchool
+     *
+     * @param \DateTime $startAtThisSchool
+     *
+     * @return Student
+     */
+    public function setStartAtThisSchool($startAtThisSchool)
+    {
+        $this->startAtThisSchool = $startAtThisSchool;
+
+        return $this;
+    }
+
+    /**
+     * Get startAtThisSchool
+     *
+     * @return \DateTime
+     */
+    public function getStartAtThisSchool()
+    {
+        return $this->startAtThisSchool;
+    }
+}

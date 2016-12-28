@@ -84,8 +84,12 @@ student:
         person: Select a Person
     label:
         person: Personal Details
+        startAtSchool: School Started on
+        startAtThisSchool: Enrolled at this School on
     help:
         person: The personal details of this student.
+        startAtSchool: Capture the date the student first started school.
+        startAtThisSchool: The date the student started at this school.
     person:
         title: Personal Details
     description: Add or Modify Student Details

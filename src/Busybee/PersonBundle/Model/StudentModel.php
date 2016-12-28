@@ -25,4 +25,13 @@ abstract class StudentModel
 	{
 		return $this->getSurname().': '.$this->getFirstName().' ('.$this->getPreferredName().')';
 	}
+
+    /**
+     * Student constructor.
+     */
+    public function __construct()
+    {
+        $this->setStartAtThisSchool(new \DateTime('now'));
+        $this->setStartAtSchool(new \DateTime('now'));
+    }
 }
