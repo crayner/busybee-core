@@ -76,6 +76,8 @@ menu:
             manage: Manage People
         staff: 
             manage: Manage Staff
+        student:
+            manage: Manage Students
     Site: System
     Misc: Miscellaneous
     templateDesign: Template Design 

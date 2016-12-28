@@ -2,10 +2,12 @@
 
 namespace Busybee\PersonBundle\Entity;
 
+use Busybee\PersonBundle\Model\StudentModel;
+
 /**
  * Student
  */
-class Student
+class Student extends StudentModel
 {
     /**
      * @var integer

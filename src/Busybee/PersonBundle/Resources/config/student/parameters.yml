@@ -1,10 +1,7 @@
 # Student
 parameters:
-    student: ~
-#        person:
-#            label: person.tab.person
-#            include: 'BusybeePersonBundle:Person:person.html.twig'
-#            message: personMessage
-#        contact:
-#            label: person.tab.contact
-#            include: 'BusybeePersonBundle:Person:contact.html.twig'
+    student:
+        person:
+            label: student.tab.person
+            include: 'BusybeePersonBundle:Student:person.html.twig'
+            message: studentMessage

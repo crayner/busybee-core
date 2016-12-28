@@ -1,0 +1,3 @@
+Busybee\PersonBundle\Entity\Student:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: person

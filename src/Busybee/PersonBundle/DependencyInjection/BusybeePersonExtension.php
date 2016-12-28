@@ -32,6 +32,6 @@ class BusybeePersonExtension extends Extension
 		
 		$container = $this->buildMenu(__DIR__, $container);
         $container = $this->personTabs(__DIR__, $container);
-//        $container = $this->studentTabs(__DIR__, $container);
+        $container = $this->studentTabs(__DIR__, $container);
     }
 }

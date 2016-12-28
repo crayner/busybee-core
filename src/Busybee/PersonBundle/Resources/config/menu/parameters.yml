@@ -16,3 +16,11 @@ parameters:
             parameters: []
             node: 2
             order: 20
+        21:
+            label: menu.people.student.manage
+            name: Manage Students
+            route: student_manage
+            role: ROLE_REGISTRAR
+            parameters: []
+            node: 2
+            order: 21

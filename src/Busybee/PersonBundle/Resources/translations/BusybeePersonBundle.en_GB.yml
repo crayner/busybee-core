@@ -55,6 +55,8 @@ person:
         title: Add Person
         description: ''
         phone: Add Phone
+    title:
+        add: Add Person
     edit: 
         title: Edit Person
         description: ''
@@ -66,6 +68,28 @@ person:
         list: is not a valid selection.
         empty: can not be empty.
         notFound: "A person record of %number% does not exist"
+    student:
+        title: Student Management
+        description: Student selection
+student:
+    title:
+        list: Student List
+        add: Add Student
+        edit: Edit Student
+    actions: Actions
+    tab:
+        client: AVETMISS Client
+        person: Student
+    placeholder:
+        person: Select a Person
+    label:
+        person: Personal Details
+    help:
+        person: The personal details of this student.
+    person:
+        title: Personal Details
+    description: Add or Modify Student Details
+    return: Manage Students
 address:
     label:
         propertyName: Building / Property Name

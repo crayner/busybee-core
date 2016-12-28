@@ -37,3 +37,9 @@ address_fetch:
 phone_fetch:
     path:     /phone/fetch/
     defaults: { _controller: BusybeePersonBundle:Phone:fetch }
+student_manage:
+    path:     /student/
+    defaults: { _controller: BusybeePersonBundle:Student:index }
+student_edit:
+    path:     /student/{id}/edit/
+    defaults: { _controller: BusybeePersonBundle:Student:edit }

@@ -45,9 +45,36 @@ parameters:
             - p.surname
             - p.firstName
             - p.email
+    studentPagination:
+        alias: s
+        sortBy:
+            Family Name:
+                p.surname: ASC
+                p.firstName: ASC
+            Given Name:
+                p.firstName: ASC
+                p.surname: ASC
+            Email:
+                p.email: ASC
+                p.surname: ASC
+                p.firstName: ASC
+        limit: '10'
+        searchList:
+            - p.surname
+            - p.firstName
+            - p.email
+        join:
+            s.person:
+                alias: p
+                type: leftJoin
+        select:
+            - p.surname
+            - p.firstName
+            - s.id
+            - p.email
 services:
     person.repository:
-        class: Busybee\PersonBundle\Entity\Repository\PersonRepository
+        class: Busybee\PersonBundle\Repository\PersonRepository
         factory: 
             - "@doctrine"
             - 'getRepository' 
@@ -60,12 +87,19 @@ services:
             - '@person.repository'
             - '@my_service_container'
     staff.repository:
-        class: Busybee\PersonBundle\Entity\Repository\StaffRepository
+        class: Busybee\PersonBundle\Repository\StaffRepository
         factory: 
             - "@doctrine"
             - 'getRepository' 
         arguments: 
             - "BusybeePersonBundle:Staff"
+    student.repository:
+        class: Busybee\PersonBundle\Repository\StudentRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeePersonBundle:Student"
     staff.pagination:
         class: Busybee\PersonBundle\Model\StaffPagination
         arguments: 
@@ -79,21 +113,21 @@ services:
             - '@setting.manager'
             - '@address.repository'
     locality.repository:
-        class: Busybee\PersonBundle\Entity\Repository\LocalityRepository
+        class: Busybee\PersonBundle\Repository\LocalityRepository
         factory: 
             - "@doctrine"
             - 'getRepository' 
         arguments: 
             - "BusybeePersonBundle:Locality"
     address.repository:
-        class: Busybee\PersonBundle\Entity\Repository\AddressRepository
+        class: Busybee\PersonBundle\Repository\AddressRepository
         factory: 
             - "@doctrine"
             - 'getRepository' 
         arguments: 
             - "BusybeePersonBundle:Address"
     phone.repository:
-        class: Busybee\PersonBundle\Entity\Repository\PhoneRepository
+        class: Busybee\PersonBundle\Repository\PhoneRepository
         factory: 
             - "@doctrine"
             - 'getRepository' 
@@ -160,3 +194,9 @@ services:
             - '@locality.repository'
         tags:
             - { name: form.type }
+    student.pagination:
+        class: Busybee\PersonBundle\Model\StudentPagination
+        arguments:
+            - '%studentPagination%'
+            - '@student.repository'
+            - '@my_service_container'
