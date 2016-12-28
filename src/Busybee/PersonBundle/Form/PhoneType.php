@@ -48,8 +48,7 @@ class PhoneType extends AbstractType
 				array(
 					'label' => 'person.label.phone.number',
 					'attr'	=> array(
-						'readonly' => 'readonly',
-						'help'	=> 'person.help.phone.number',					
+						'help'	=> 'person.help.phone.number',
 					),
 				)
 			)

@@ -2,7 +2,11 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form
+	"BusybeeFormBundle:Template:jquery.collection.html.twig"
+	"BusybeePersonBundle:Form:phoneCollection.html.twig"
+	"BusybeeFormBundle:Template:bootstrap.html.twig"
+%}
 
 <div class="panel panel-primary busybee-panel">
 	<div class="panel-heading">
@@ -21,33 +25,11 @@
 				<div class="col-sm-6">
 					<div class="panel panel-info busybee-panel">
 						<div class="panel-heading">
-							<h3 class="panel-title">{{ form_label(form.phone) }}
-								<button title='{{ 'contact.phone.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-info" id="addPhoneButton" style="float: right"></button>
-							</h3>
+							<h3 class="panel-title">{{ form_label(form.phone) }}</h3>
 						</div>
-						<div class="panel-body phoneNumberList" data-prototype="{% filter escape %}{{ include('BusybeePersonBundle:Person:phoneProtoType.html.twig') }}{% endfilter %}">
-							<p class="alert alert-warning">{{ 'contact.phone.saveWarning'|trans }}</p>
-							{% for phone in form.phone %}
-								<div class="well phoneNumber" id="phone_{{ phone.vars.value.id }}">
-									<div class="row">
-										<div class="col-sm-6">
-											{{ form_row(phone.phoneType) }}
-										</div>
-										<div class="col-sm-6">
-											{{ form_row(phone.countryCode) }}
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-sm-10">
-											<br/>{{ form_row(phone.phoneNumber, {'value': get_setting('Phone.Display', null, {'phone': phone.phoneNumber.vars.value}) } ) }}
-										</div>
-										<div class="col-sm-2 text-center">
-											<br />
-											<button title='{{ 'contact.phone.delete'|trans}}' type="button" class="halflings halflings-remove-sign btn btn-warning deletePhoneButton" id="deletePhone_{{ phone.vars.value.id }}" style="float: right"></button>
-										</div>
-									</div>
-								</div>
-							{% endfor %}
+						<div class="panel-body">
+							<p class="alert alert-warning">{{ 'phone.save'|trans  }}</p>
+							{{ form_widget(form.phone) }}
 						</div>
 					</div>
 				</div>

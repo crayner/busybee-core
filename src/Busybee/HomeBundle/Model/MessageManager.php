@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\HomeBundle\Model ;
 
-use Symfony\Component\Translation\DataCollectorTranslator as Translator ;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Symfony\Component\Translation\Loader\YamlFileLoader ;
 
 class MessageManager

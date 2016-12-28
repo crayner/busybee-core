@@ -6,6 +6,7 @@ use Busybee\FormBundle\Type\AutoCompleteType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Events\PersonSubscriber;
 use Symfony\Component\Form\AbstractType ;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -146,12 +147,20 @@ class PersonType extends AbstractType
                     'data' => $options['data']->getAddress2(),
                 )
             )
-			->add('phone', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', array(
+			->add('phone', CollectionType::class, array(
 					'label'					=> 'person.label.phones', 
-					'entry_type'			=> 'Busybee\PersonBundle\Form\PhoneType',
+					'entry_type'			=> PhoneType::class,
 					'allow_add'				=> true,
 					'by_reference'			=> false,
 					'allow_delete'			=> true,
+                    'attr'                  => array(
+                        'class'                 => 'phoneNumberList'
+                    ),
+                    'prototype'             => array(
+                        'attr'                  => array(
+                            'readonly'              => false,
+                        ),
+                    )
 				)
 			)
 		;

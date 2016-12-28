@@ -24,11 +24,13 @@ class SettingManager
 	private	$container ;
 	private	$setting ;
 	private	$currentUser ;
+	private $settings ;
 
     public function __construct(Container $container)
     {
         $this->container = $container;
         $this->repo = $this->container->get('system.setting.repository');
+        $this->settings = array();
     }
 
 	/**
@@ -43,23 +45,24 @@ class SettingManager
 	 */
     public function getSetting($name, $default = null, $options = array())
     {
-        try{
-			$this->setting = $this->repo->findOneByName($name);
-		} catch (\Exception $e) {
-			return $default;
-		}
-		if (is_null($this->setting) || is_null($this->setting->getName()))
-		{
-			if (false === strpos($name, '.'))
-				return $default;
-			$name = explode('.', $name);
-			$last = end($name);
-			array_pop($name);
-			$value = $this->getSetting(implode('.', $name), $default, $options);
-			if (is_array($value) && isset($value[$last]))
-				return $value[$last];
-			return $default;
-		}
+        try {
+            $this->setting = $this->repo->findOneByName($name);
+        } catch (\Exception $e) {
+            return $default;
+        }
+        if (is_null($this->setting) || is_null($this->setting->getName())) {
+            if (false === strpos($name, '.'))
+                return $default;
+            $name = explode('.', $name);
+            $last = end($name);
+            array_pop($name);
+            $value = $this->getSetting(implode('.', $name), $default, $options);
+            if (is_array($value) && isset($value[$last]))
+                return $value[$last];
+            return $default;
+        }
+
+
 		switch ($this->setting->getType())
 		{
 			case 'regex':

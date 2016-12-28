@@ -1,0 +1,10 @@
+# Student
+parameters:
+    student: ~
+#        person:
+#            label: person.tab.person
+#            include: 'BusybeePersonBundle:Person:person.html.twig'
+#            message: personMessage
+#        contact:
+#            label: person.tab.contact
+#            include: 'BusybeePersonBundle:Person:contact.html.twig'

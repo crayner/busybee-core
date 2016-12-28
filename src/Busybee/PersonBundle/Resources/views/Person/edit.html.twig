@@ -53,6 +53,7 @@
 {% block javascripts %}
 	{{ parent() }}
     {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+    {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
     {% include 'BusybeePersonBundle:Person:script.html.twig' %}
     {% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'address_manage'} %}
 {% endblock javascripts %}

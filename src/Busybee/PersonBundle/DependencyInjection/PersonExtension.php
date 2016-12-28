@@ -23,6 +23,8 @@ trait PersonExtension
 		
 		$container->getParameterBag()
 			->set('person', $this->personTabMerge($person, $newContainer->getParameterBag()->get('person')));
+
+		return $container ;
     }
 	
 	protected function personTabMerge($a1, $a2)

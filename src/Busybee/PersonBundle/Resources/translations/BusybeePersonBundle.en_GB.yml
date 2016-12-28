@@ -161,3 +161,5 @@ contact:
         saveWarning: Additions and removal of numbers are NOT saved until the person is saved.  Use the green Save button to save the person, or the light blue Cancel button to restore changes.  Each phone number is only stored once.
 people:
     title: People
+phone:
+    save: Changes in phone details are only recorded when the entire form is saved.
