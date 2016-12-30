@@ -8,19 +8,19 @@ parameters:
             order: 2
             menu: 2
     items:
-        20:
+        21:
             label: menu.people.person.manage
             name: Manage People
             route: person_manage
             role: ROLE_REGISTRAR
             parameters: []
             node: 2
-            order: 20
-        21:
+            order: 21
+        22:
             label: menu.people.student.manage
             name: Manage Students
             route: student_manage
             role: ROLE_REGISTRAR
             parameters: []
             node: 2
-            order: 21
+            order: 22

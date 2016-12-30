@@ -57,11 +57,11 @@ person:
         phone: Add Phone
     title:
         add: Add Person
+        manage: Personal Details
     edit: 
         title: Edit Person
         description: ''
-    title: Person
-    save: 
+    save:
         success: "Success: The details of the person where successfully saved."
         error: 'An error occurred'
     error:
@@ -184,7 +184,7 @@ Female: Female
 Other: Other
 contact:
     phone:
-        delete: Delete Phone
+        remove: Remove Phone
         add: Add Phone
         saveWarning: Additions and removal of numbers are NOT saved until the person is saved.  Use the green Save button to save the person, or the light blue Cancel button to restore changes.  Each phone number is only stored once.
 people:

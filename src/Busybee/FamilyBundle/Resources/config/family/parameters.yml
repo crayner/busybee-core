@@ -1,0 +1,10 @@
+# Person
+parameters:
+    family:
+        details:
+            label: family.tab.details
+            include: 'BusybeeFamilyBundle:Family:details.html.twig'
+            message: personMessage
+        contacts:
+            label: family.tab.contacts
+            include: 'BusybeeFamilyBundle:Family:contacts.html.twig'

@@ -1,0 +1,11 @@
+# Family
+parameters:
+    items:
+        20:
+            label: menu.people.family.manage
+            name: Manage Families
+            route: family_manage
+            role: ROLE_REGISTRAR
+            parameters: []
+            node: 2
+            order: 20

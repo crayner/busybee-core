@@ -4,8 +4,5 @@ namespace Busybee\PersonBundle\Model ;
 
 class Staff
 {
-    public function getFormatName()
-    {
-        return $this->getPerson()->getFormatName();
-    }
+    use \Busybee\PersonBundle\Model\FormatNameExtension ;
 }

@@ -5,6 +5,7 @@ namespace Busybee\PersonBundle\Form ;
 use Busybee\FormBundle\Type\AutoCompleteType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Events\PersonSubscriber;
+use Busybee\PersonBundle\Model\PhotoUploader;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface ;
@@ -20,19 +21,25 @@ class PersonType extends AbstractType
 	 * @var	SettingManager
 	 */
 	private $sm ;
-	
-	/**
-	 * @var	ObjectManager
-	 */
-	private $manager ;
-	
+
+    /**
+     * @var	ObjectManager
+     */
+    private $manager ;
+
+    /**
+     * @var	PhotoLoader
+     */
+    private $photoLoader ;
+
 	/**
 	 * Construct
 	 */
-	public function __construct(SettingManager $sm, ObjectManager $manager)
+	public function __construct(SettingManager $sm, ObjectManager $manager, PhotoUploader $photoLoader)
 	{
 		$this->sm = $sm ;
 		$this->manager = $manager ;
+		$this->photoLoader = $photoLoader;
 	}
 
     /**
@@ -164,7 +171,7 @@ class PersonType extends AbstractType
 				)
 			)
 		;
-        $builder->addEventSubscriber(new PersonSubscriber());
+        $builder->addEventSubscriber(new PersonSubscriber($this->photoLoader) );
     }
     
     /**

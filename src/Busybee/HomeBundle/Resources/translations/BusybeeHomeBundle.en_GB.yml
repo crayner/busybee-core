@@ -78,6 +78,8 @@ menu:
             manage: Manage Staff
         student:
             manage: Manage Students
+        family:
+            manage: Manage Families
     Site: System
     Misc: Miscellaneous
     templateDesign: Template Design 

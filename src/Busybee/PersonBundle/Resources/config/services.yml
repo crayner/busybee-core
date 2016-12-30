@@ -100,12 +100,6 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeePersonBundle:Student"
-    staff.pagination:
-        class: Busybee\PersonBundle\Model\StaffPagination
-        arguments: 
-            - '%staffPagination%'
-            - '@staff.repository'
-            - '@my_service_container'
     address.manager:
         class: Busybee\PersonBundle\Model\AddressManager
         arguments:
@@ -151,6 +145,7 @@ services:
         arguments:
             - '@setting.manager'
             - '@doctrine.orm.entity_manager'
+            - '@person.uploader.photo'
         tags: 
             - { name: form.type }
     person.form.addressType:

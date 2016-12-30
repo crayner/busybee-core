@@ -1,8 +1,7 @@
 {# src/Busybee/PersonBundle/Resources/views/Person/script.html.twig #}
 
-{% trans_default_domain "BusybeePersonBundle" %}
+{% trans_default_domain "BusybeeFamilyBundle" %}
 
-	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script type="text/javascript">
         $(".addPersonAddress").click(function(e){
 
@@ -14,8 +13,8 @@
                 url: "{{ path('address_fetch') }}",
                 type: "POST",
                 success: function(data){
-                    var id1 = $("#person_address1").val();
-                    var id2 = $("#person_address2").val();
+                    var id1 = $("#family_address1").val();
+                    var id2 = $("#family_address2").val();
                     $(".beeAddressList").empty();
 
                     options = data.options; // Or whatever source information you're working with
@@ -36,26 +35,26 @@
                         }
                     }
 
-                    $("#person_address1_list").val(label1);
-                    $("#person_address2_list").val(label2)
+                    $("#family_address1_list").val(label1);
+                    $("#family_address2_list").val(label2)
                 }
             })
         });
 
-        $( "#person_address1_list" ).on( "autocompleteselect", function( event, ui ) {
+        $( "#family_address1_list" ).on( "autocompleteselect", function( event, ui ) {
             event.preventDefault();
             var id = ui.item.value;
             var label = ui.item.label;
-            $("#person_address1").val(id);
-            $("#person_address1_list").val(label);
+            $("#family_address1").val(id);
+            $("#family_address1_list").val(label);
         } );
 
-        $( "#person_address2_list" ).on( "autocompleteselect", function( event, ui ) {
+        $( "#family_address2_list" ).on( "autocompleteselect", function( event, ui ) {
             event.preventDefault();
             var id = ui.item.value;
             var label = ui.item.label;
-            $("#person_address2").val(id);
-            $("#person_address2_list").val(label);
+            $("#family_address2").val(id);
+            $("#family_address2_list").val(label);
         } );
 
         $( document ).ready(function() {
@@ -69,8 +68,8 @@
                         delay: 250,
                         disabled: false
                     });
-                    var id1 = $("#person_address1").val();
-                    var id2 = $("#person_address2").val();
+                    var id1 = $("#family_address1").val();
+                    var id2 = $("#family_address2").val();
 
                     options = data.options; // Or whatever source information you're working with
                     var label1 = "";
@@ -88,38 +87,48 @@
                         }
                     }
 
-                    $("#person_address1_list").val(label1);
-                    $("#person_address2_list").val(label2)
+                    $("#family_address1_list").val(label1);
+                    $("#family_address2_list").val(label2)
                 }
             });
 
         });
 
         $("#erasePersonAddress1").click(function() {
-            $("#person_address1").val("");
-            $("#person_address1_list").val("{{ 'person.placeholder.address'|trans }}");
+            $("#family_address1").val("");
+            $("#family_address1_list").val("{{ 'person.placeholder.address'|trans }}");
         });
 
         $("#erasePersonAddress2").click(function() {
-            $("#person_address2").val("");
-            $("#person_address2_list").val("{{ 'person.placeholder.address'|trans }}");
+            $("#family_address2").val("");
+            $("#family_address2_list").val("{{ 'person.placeholder.address'|trans }}");
         });
 
-        $( "#person_address1_list" ).on( "focus", function() {
-            $("#person_address1_list").val("");
+        $( "#family_address1_list" ).on( "focus", function() {
+            $("#family_address1_list").val("");
         } );
 
-        $( "#person_address2_list" ).on( "focus", function() {
-            $("#person_address2_list").val("");
+        $( "#family_address2_list" ).on( "focus", function() {
+            $("#family_address2_list").val("");
         } );
 
         $(".phoneNumberList").collection({
-            'name_prefix': '{{ form.phone.vars.full_name }}',
-            'allow_up': false,
-            'allow_down': false,
-            'add': '<button title="{{ 'contact.phone.add'|trans}}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
-            'remove': '<button title="{{ 'contact.phone.delete'|trans}}" type="button" class="halflings halflings-remove-sign btn btn-warning" style="float: right;"></button>',
+            name_prefix: '{{ form.phone.vars.full_name }}',
+            allow_up: false,
+            allow_down: false,
+            add: '<button title="{{ 'contact.phone.add'|trans({}, 'BusybeePersonBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+            remove: '<button title="{{ 'contact.phone.remove'|trans({}, 'BusybeePersonBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
             add_at_the_end: true
+        });
+
+        $(".emergencyList").collection({
+            name_prefix: '{{ form.emergencyContact.vars.full_name }}',
+            allow_up: false,
+            allow_down: false,
+            add: '<button title="{{ 'family.emergencyContact.add'|trans}}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+            remove: '<button title="{{ 'family.emergencyContact.remove'|trans}}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+            add_at_the_end: true,
+            max: 4
         });
 
 

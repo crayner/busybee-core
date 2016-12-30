@@ -22,30 +22,12 @@ class PersonListener
     {
         $entity = $args->getEntity();
 
-		$this->checkPreferredName($entity);
-		$this->checkAddresses($entity);
-
-        $this->uploadFile($entity);
     }
 
     public function preUpdate(PreUpdateEventArgs $args)
     {
         $entity = $args->getEntity();
 
-		$this->checkPreferredName($entity);
-		$this->checkAddresses($entity);
-
-        $this->uploadFile($entity);
-    }
-
-    private function uploadFile($entity)
-    {
-        // upload only works for Person entities
-        if ($entity instanceof Person)
-        {
-			$fileName = $this->uploader->upload($entity);
-			$entity->setPhoto($fileName);
-		}
     }
 
     public function postLoad(LifecycleEventArgs $args)
@@ -79,40 +61,4 @@ class PersonListener
 		}
     }
 
-    private function checkPreferredName($entity)
-    {
-        // preferred name in Person Entity
-        if ($entity instanceof Person)
-        {
-			if (empty($entity->getPreferredName()))
-				$entity->setPreferredName($entity->getFirstName());
-		}
-    }
-
-    private function checkAddresses($entity)
-    {
-        // preferred name in Person Entity
-        if ($entity instanceof Person)
-        {
-			$address1 = $entity->getAddress1();
-			$address2 = $entity->getAddress2();
-			
-			if (is_null($address1) && is_null($address2)) return ;
-			
-			if (is_null($address1) && ! is_null($address2))
-			{
-				$entity->setAddress1($address2);
-				$entity->setAddress2(null);
-				return ;
-			}
-			if (is_null($address2)) return ;
-
-			
-			if ($address1->getId() == $address2->getId())
-			{
-				$entity->setAddress2(null);
-				return ;
-			}
-		}
-    }
 }

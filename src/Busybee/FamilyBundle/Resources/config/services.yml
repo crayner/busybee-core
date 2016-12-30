@@ -1,0 +1,27 @@
+# FamilyBundle
+parameters:
+   familyPagination:
+        alias: f
+        sortBy:
+            Family Name:
+                f.name: ASC
+        limit: '10'
+        searchList:
+            - f.name
+        select:
+            - f.name
+            - f.id
+services:
+    family.repository:
+        class: Busybee\FamilyBundle\Repository\FamilyRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeFamilyBundle:Family"
+    family.pagination:
+        class: Busybee\FamilyBundle\Model\FamilyPagination
+        arguments:
+            - '%familyPagination%'
+            - '@family.repository'
+            - '@my_service_container'

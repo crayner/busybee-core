@@ -8,6 +8,11 @@ use Symfony\Component\Config\FileLocator;
 
 trait MenuExtension
 {
+    /**
+     * @param $dir
+     * @param ContainerBuilder $container
+     * @return ContainerBuilder
+     */
     public function buildMenu($dir, ContainerBuilder $container)
     {
 		if (is_dir($dir . '/../Resources/config/menu') && is_file($dir . '/../Resources/config/menu/parameters.yml'))
@@ -24,7 +29,7 @@ trait MenuExtension
 				$menu = array();
 			
 			$container->getParameterBag()
-				->set('nodes', $this->arrayMerge($menu, $newContainer->getParameterBag()->get('nodes')));
+				->set('nodes', $this->arrayMerge($menu, $newContainer->getParameterBag()->has('nodes') ? $newContainer->getParameterBag()->get('nodes') : array()));
 	
 			if ($container->getParameterBag()->has('items')) 
 			{
@@ -34,13 +39,19 @@ trait MenuExtension
 				$menu = array();
 			
 			$container->getParameterBag()
-				->set('items', $this->arrayMerge($menu, $newContainer->getParameterBag()->get('items')));
+				->set('items', $this->arrayMerge($menu, $newContainer->getParameterBag()->has('items') ? $newContainer->getParameterBag()->get('items') : array()));
 				
 		}
+
 		return $container ;
     }
-	
-	protected function arrayMerge($a1, $a2)
+
+    /**
+     * @param $a1
+     * @param $a2
+     * @return mixed
+     */
+    protected function arrayMerge($a1, $a2)
 	{
 		foreach($a2 as $q=>$w)
 			if (! array_key_exists($q, $a1))

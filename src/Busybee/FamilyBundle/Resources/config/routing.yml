@@ -1,0 +1,6 @@
+family_manage:
+    path:     /
+    defaults: { _controller: BusybeeFamilyBundle:Family:index }
+family_edit:
+    path:     /{id}/
+    defaults: { _controller: BusybeeFamilyBundle:Family:edit }

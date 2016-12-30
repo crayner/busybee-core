@@ -4,10 +4,8 @@ namespace Busybee\PaginationBundle\Model ;
 
 use Symfony\Component\HttpFoundation\Request ;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
-use Symfony\Component\Form\FormInterface ;
 use Doctrine\ORM\EntityRepository ;
 use stdClass ;
-use Busybee\PaginationBundle\Form\PaginationType ;
 
 /**
  * Pagination Manager

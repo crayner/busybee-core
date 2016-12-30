@@ -1,0 +1,32 @@
+family:
+    title:
+        manage: Family Search and Select
+        title: Manage Families
+        name: Family Name
+        add: New Family
+        edit: Modify Family
+        details: Family Details
+        contacts: Family Contacts
+    description: Search and select families.
+    actions: Actions
+    tab:
+        details: Details
+        contacts: Contacts
+    label:
+        name: Family Name
+        careGiver1: Primary Care Giver (1)
+        careGiver2: Primary Care Giver (2)
+        emergencyContacts: Emergency Contacts
+        emergencyContact: Emergency Contact
+    help:
+        name: The family name, if left blank, will be a combination of the caregivers names.  The family name must be unique.
+        careGiver1: Select the primary care giver for the family.
+        careGiver2: Select the alternate care giver for the family.  This is a recommended, but not required field.
+        emergencyContacts: You can select up to 4 Emergency contacts as required for each family.  It is recommended that you request at least 2 emergency contacts.
+    placeholder:
+        careGiver1: Select the primary care giver.
+        careGiver2: Select the alternate care giver.
+        emergencyContact: Select an Emergency Contact.
+    emergencyContact:
+        add: Add Emmergency Contact
+        remove: Remove Emergency Contact
