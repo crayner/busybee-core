@@ -43,3 +43,9 @@ student_manage:
 student_edit:
     path:     /student/{id}/edit/
     defaults: { _controller: BusybeePersonBundle:Student:edit }
+person_toggle_caregiver:
+    path:     /careGiver/{id}/toggle/
+    defaults: { _controller: BusybeePersonBundle:CareGiver:toggle }
+person_toggle_student:
+    path:     /student/{id}/toggle/
+    defaults: { _controller: BusybeePersonBundle:Student:toggle }

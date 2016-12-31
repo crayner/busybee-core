@@ -12,12 +12,18 @@
 
 {% block contentContainer %}
 	{% include 'PaginationBundle:Default:index.html.twig' %}
+
 	<div class="panel panel-primary busybee-panel">
 		<div class="panel-heading">
 			<h3 class="panel-title">{{ 'people.title'|trans}}</h3>
 		</div>
 		<div class="panel-body">
 			<div class="container-fluid well">
+				<div class="row">
+					<div class="col-md-12 col-sm-12" id="peopleError">
+
+					</div>
+				</div>
 				<div class="row row-header">
 					<div class="col-sm-2 col-md-2" style="display: inline-block;">
 						{% if pagination.getSortByName == 'Family Name' %}
@@ -33,15 +39,15 @@
 							{{ 'person.givenName'|trans }}
 						{% endif %}
 					</div>
-					<div class="col-sm-5 hidden-sm hidden-xs" style="display: inline-block;">
-						{% if pagination.getSortByName == 'Email' %}
+					<div class="col-md-3 hidden-sm hidden-xs" style="display: inline-block;">
+                        {% if pagination.getSortByName == 'Email' %}
 							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.email'|trans }}
-						{% else %}
-							{{ 'person.email'|trans }}
-						{% endif %}
+                        {% else %}
+                            {{ 'person.email'|trans }}
+                        {% endif %}
 					</div>
-					<div class="col-sm-3 col-md-3 withAdd">
-						<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'person.actions'|trans }} 
+					<div class="col-md-5 hidden-sm hidden-xs" style="display: inline-block;">
+						<button title='{{ 'person.title.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'person.actions'|trans }}
 					</div>
 				</div>
 			{% for person in pagination.getResult %}
@@ -52,11 +58,22 @@
 					<div class="col-sm-2 col-md-2 form-inline">
 						{{ person.firstName }}
 					</div>
-					<div class="col-sm-5 hidden-sm hidden-xs form-inline">
-						{{ person.email }}
+					<div class="col-md-3 hidden-sm hidden-xs" style="display: inline-block;">
+                        {{ person.email }}
 					</div>
-					<div class="col-sm-3 col-md-3 form-inline">
-						<button title='{{ 'person.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('person_edit', {'id': person.id}) }}','_self')"></button>
+					<div class="col-sm-5 col-md-5 form-inline">
+
+						<button title='{{ 'person.title.edit'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('person_edit', {'id': person.id}) }}','_self')"></button>
+                        {% if isCareGiver(person) %}
+							<button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-ok btn btn-success" ></button>
+                        {% else %}
+							<button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-remove  btn btn-danger"></button>
+                        {% endif %}
+                        {% if isStudent(person) %}
+							<button id="studentToggle{{ person.id }}" title='{{ 'person.student.toggle'|trans}}' type="button" class="studentToggle halflings halflings-ok  btn btn-success"></button>
+                        {% else %}
+							<button id="studentToggle{{ person.id }}" title='{{ 'person.student.toggle'|trans}}' type="button" class="studentToggle halflings halflings-remove  btn btn-danger"></button>
+                        {% endif %}
 					</div>
 				</div>
 			{% endfor %}
@@ -65,4 +82,50 @@
 	</div>
 {% endblock contentContainer %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+	<script type="text/javascript">
+        $(".careGiverToggle").on('click', function() {
+            var id = $(this).prop('id');
+            id = id.substring(15);
+            var route = "{{ path('person_toggle_caregiver', {'id': '__id__'}) }}";
+            route = route.replace('__id__', id);
+            $.ajax({
+                url: route,
+                type: "POST",
+                success: function(data){
+                    $("#peopleError").html(data.message);
+                    if (data.status == "removed"){
+                        $("#careGiverToggle" + id).removeClass().addClass("careGiverToggle halflings halflings-remove btn btn-danger");
+                    }
+                    if (data.status == "added"){
+                        $("#careGiverToggle" + id).removeClass().addClass("careGiverToggle halflings halflings-ok btn btn-success");
+                    }
+                    $(".fadeAlert").fadeOut(5000);
+                }
+            })
+        })
+        $(".studentToggle").on('click', function() {
+            var id = $(this).prop('id');
+            id = id.substring(13);
+            var route = "{{ path('person_toggle_student', {'id': '__id__'}) }}";
+            route = route.replace('__id__', id);
+            $.ajax({
+                url: route,
+                type: "POST",
+                success: function(data){
+                    $("#peopleError").html(data.message);
+                    if (data.status == "removed"){
+                        $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-remove btn btn-danger");
+                    }
+                    if (data.status == "added"){
+                        $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-ok btn btn-success");
+                    }
+                    $(".fadeAlert").fadeOut(5000);
+                }
+            })
+        })
+	</script>
+{% endblock javascripts %}
 

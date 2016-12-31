@@ -179,6 +179,7 @@ services:
         class: Busybee\PersonBundle\Model\PersonManager
         arguments:
             - '@setting.manager'
+            - '@doctrine.orm.entity_manager'
     person.image.validator:
         class: Busybee\PersonBundle\Validator\Constraints\PersonImageValidator
         tags:
@@ -195,3 +196,17 @@ services:
             - '%studentPagination%'
             - '@student.repository'
             - '@my_service_container'
+    person.extension:
+        class: Busybee\PersonBundle\Model\PersonExtension
+        arguments:
+            - '@setting.manager'
+            - '@person.manager'
+        tags:
+            - { name: twig.extension }
+    caregiver.repository:
+        class: Busybee\PersonBundle\Repository\CareGiverRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeePersonBundle:CareGiver"

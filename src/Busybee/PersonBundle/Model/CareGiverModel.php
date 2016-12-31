@@ -2,7 +2,6 @@
 
 namespace Busybee\PersonBundle\Model ;
 
-
 /**
  * Care Giver Model
  *
@@ -13,4 +12,14 @@ namespace Busybee\PersonBundle\Model ;
 abstract class CareGiverModel
 {
 	use \Busybee\PersonBundle\Model\FormatNameExtension ;
+
+    /**
+     * @return bool
+     */
+    public function canDelete()
+    {
+        //Place rules here to stop delete
+
+        return true ;
+    }
 }

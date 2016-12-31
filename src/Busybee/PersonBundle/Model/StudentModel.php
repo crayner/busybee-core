@@ -2,7 +2,6 @@
 
 namespace Busybee\PersonBundle\Model ;
 
-
 /**
  * Student Model
  *
@@ -21,5 +20,14 @@ abstract class StudentModel
     {
         $this->setStartAtThisSchool(new \DateTime('now'));
         $this->setStartAtSchool(new \DateTime('now'));
+    }
+
+    /**
+     * @return bool
+     */
+    public function canDelete()
+    {
+        //Place rules here to stop delete
+        return true ;
     }
 }

@@ -44,14 +44,14 @@ services:
         tags:
             - { name: doctrine.event_subscriber }    
     system.setting.repository:
-        class: Busybee\SystemBundle\Entity\SettingRepository
+        class: Busybee\SystemBundle\Repository\SettingRepository
         factory: 
             - "@doctrine"
             - getRepository 
         arguments: 
             - "SystemBundle:Setting"
     setting.repository:
-        class: Busybee\SystemBundle\Entity\SettingRepository
+        class: Busybee\SystemBundle\Repository\SettingRepository
         factory: 
             - "@doctrine"
             - getRepository 

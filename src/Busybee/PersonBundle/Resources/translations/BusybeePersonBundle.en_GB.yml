@@ -20,7 +20,8 @@ person:
     familyName: Family Name
     givenName: Given Name
     email: Email
-    contact: Contact Details
+    contact:
+        title: "Contact Details: %name%"
     label:
         surname: Family Name
         firstName: Given Name
@@ -55,9 +56,13 @@ person:
         title: Add Person
         description: ''
         phone: Add Phone
+    manage:
+        title: "Personal Details: %name%"
     title:
         add: Add Person
         manage: Personal Details
+        category: Category
+        edit: Edit Person
     edit: 
         title: Edit Person
         description: ''
@@ -71,6 +76,9 @@ person:
     student:
         title: Student Management
         description: Student selection
+        toggle: Student Status
+    caregiver:
+        toggle: Care Giver Status
 student:
     title:
         list: Student List
@@ -94,6 +102,12 @@ student:
         title: Personal Details
     description: Add or Modify Student Details
     return: Manage Students
+    toggle:
+        personMissing: The person to toggle student status was not found.
+        addSuccess: The %name% was set as a Student.
+        removeSuccess: "The %name% was removed as a Student."
+        removeRestricted: %name% is set as a student, and the status is locked by the system.
+        addRestricted: "%name% is status locked and was not set as a Student."
 address:
     label:
         propertyName: Building / Property Name
@@ -191,3 +205,10 @@ people:
     title: People
 phone:
     save: Changes in phone details are only recorded when the entire form is saved.
+caregiver:
+    toggle:
+        personMissing: The person to toggle care giver status was not found.
+        addSuccess: "%name% was set as a Care Giver."
+        addRestricted: "%name% is status locked and was not set as a Care Giver."
+        removeSuccess: "%name% was removed as a Care Giver."
+        removeRestricted: "%name% is locked by the system as a Care Giver."

@@ -2,10 +2,12 @@
 
 namespace Busybee\PersonBundle\Controller;
 
+use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Entity\Student;
 use Busybee\PersonBundle\Form\StudentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 
@@ -132,4 +134,65 @@ class StudentController extends Controller
     {
 		return $this->get('address.manager')->formatAddress($address);
 	}
+    public function toggleAction($id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+
+        $person = $this->get('person.repository')->find($id);
+
+        $student = $this->get('student.repository')->findOneByPerson($id);
+
+        if (!$person instanceof Person)
+            return new JsonResponse(
+                array(
+                    'message' => '<div class="alert alert-danger fadeAlert">'.$this->get('translator')->trans('student.toggle.personMissing', array(), 'BusybeePersonBundle').'</div>',
+                    'status' => 'failed'
+                ),
+                200
+            );
+        $em = $this->get('doctrine')->getManager();
+        if ($student instanceof Student) {
+            if ($this->get('person.manager')->canDeleteStudent($person, $this->getParameter('student'))) {
+                $this->get('person.manager')->deleteStudent($person, $this->getParameter('student'));
+                return new JsonResponse(
+                    array(
+                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('student.toggle.removeSuccess', array('%name%' => $student->getFormatName()), 'BusybeePersonBundle') . '</div>',
+                        'status' => 'removed',
+                    ),
+                    200
+                );
+            } else {
+                return new JsonResponse(
+                    array(
+                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('student.toggle.removeRestricted', array('%name%' => $student->getFormatName()), 'BusybeePersonBundle') . '</div>',
+                        'status' => 'falied',
+                    ),
+                    200
+                );
+            }
+        } else {
+            $student = new Student();
+            $student->setPerson($person);
+            if ($this->get('person.manager')->canBeStudent($person)) {
+                $em->persist($student);
+                $em->flush();
+                return new JsonResponse(
+                    array(
+                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('student.toggle.addSuccess', array('%name%' => $student->getFormatName()), 'BusybeePersonBundle') . '</div>',
+                        'status' => 'added',
+                    ),
+                    200
+                );
+            } else {
+                return new JsonResponse(
+                    array(
+                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('student.toggle.addRestricted', array('%name%' => $person->getFormatName()), 'BusybeePersonBundle') . '</div>',
+                        'status' => 'failed',
+                    ),
+                    200
+                );
+
+            }
+        }
+    }
 }

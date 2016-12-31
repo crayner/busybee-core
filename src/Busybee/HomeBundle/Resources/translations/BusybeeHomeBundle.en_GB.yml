@@ -23,7 +23,6 @@ form:
     save_and_add: Save&Add 
     upload: Upload
     close: Close
-    reset: Refresh
     student:
         save:
             success: The student record was saved.

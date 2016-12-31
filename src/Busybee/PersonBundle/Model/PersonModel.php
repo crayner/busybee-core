@@ -2,9 +2,6 @@
 
 namespace Busybee\PersonBundle\Model ;
 
-use Busybee\PersonBundle\Entity\Address ;
-use Busybee\PersonBundle\Entity\Locality ;
-
 /**
  * Address Model
  *
@@ -127,4 +124,5 @@ abstract class PersonModel
 	{
 		return $this->getSurname().': '.$this->getFirstName().' ('.$this->getPreferredName().')';
 	}
+
 }
