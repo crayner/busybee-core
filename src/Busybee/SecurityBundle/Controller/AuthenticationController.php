@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 
@@ -99,9 +98,9 @@ class AuthenticationController extends Controller
     {
         // Replace these with your token settings
         // Create a project at https://console.developers.google.com/
-        $google = $this->getParameter('google');
-        $clientId     = $google['client_id'];
-        $clientSecret = $google['client_secret'];
+        $google         = $this->getParameter('google');
+        $clientId       = $google['client_id'];
+        $clientSecret   = $google['client_secret'];
 
         // Change this if you are not using the built-in PHP server
         $redirectUri  = $this->generateUrl('google_oauth', array(), UrlGeneratorInterface::ABSOLUTE_URL);
@@ -122,7 +121,7 @@ class AuthenticationController extends Controller
         if (!empty($get->get('error'))) {
 
             // Got an error, probably user denied access
-            exit('Got error: ' . htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8'));
+            throw new AuthenticationException(htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8'));
 
         } elseif (empty($get->get('code'))) {
             // If we don't have an authorization code then get one
@@ -135,7 +134,7 @@ class AuthenticationController extends Controller
 
             // State is invalid, possible CSRF attack in progress
             $session->remove('oauth2state');
-            exit('Invalid state');
+            throw new AuthenticationException($this->get('translator')->trans('google.invalid.state', array(), 'BusybeeSecurityBundle'));
 
         } else {
 
@@ -150,12 +149,10 @@ class AuthenticationController extends Controller
                 // We got an access token, let's now get the owner details
                 $ownerDetails = $provider->getResourceOwner($token);
 
-                // Use these details to create a new profile
-
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
 
                 // Failed to get user details
-                exit('Something went wrong: ' . $e->getMessage());
+                throw new AuthenticationException($this->get('translator')->trans('google.invalid.user', array('%message%' => $e->getMessage()), 'BusybeeSecurityBundle'));
 
             }
 
@@ -169,6 +166,9 @@ class AuthenticationController extends Controller
             echo $token->getExpires();
         }
         $user = $this->get('user.repository')->findOneByEmail($ownerDetails->getEmail());
+
+        if (empty($user))
+            throw new AuthenticationException($this->get('translator')->trans('google.notAvailable', array('%email%' => $ownerDetails->getEmail(), '%name%' => $ownerDetails->getName()), 'BusybeeSecurityBundle'));
 
         // Here, "default" is the name of the firewall in your security.yml
         $token = new UsernamePasswordToken($user, null, "default", $user->getRoles());
