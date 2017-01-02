@@ -4,6 +4,7 @@ namespace Busybee\FamilyBundle\Controller;
 
 use Busybee\FamilyBundle\Form\FamilyType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class FamilyController extends Controller
@@ -40,8 +41,6 @@ class FamilyController extends Controller
 
         $family = $this->get('family.repository')->find($id);
 
-        $editOptions = array();
-
         $form = $this->createForm(FamilyType::class, $family);
 
         $form->handleRequest($request);
@@ -58,6 +57,7 @@ class FamilyController extends Controller
 
         }
 
+        $editOptions = array();
         $editOptions['id'] = $id;
         $editOptions['form'] = $form->createView();
         $editOptions['fullForm'] = $form;

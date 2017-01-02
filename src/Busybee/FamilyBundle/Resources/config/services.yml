@@ -25,3 +25,23 @@ services:
             - '%familyPagination%'
             - '@family.repository'
             - '@my_service_container'
+    form.family.type:
+        class: Busybee\FamilyBundle\Form\FamilyType
+        arguments:
+            - '@family.manager'
+        tags:
+            - { name: form.type }
+    form.emergency.contact.type:
+        class: Busybee\FamilyBundle\Form\EmergencyContactType
+        tags:
+            - { name: form.type }
+    family.manager:
+        class: Busybee\FamilyBundle\Model\FamilyManager
+        arguments:
+            - '@setting.manager'
+            - '@doctrine.orm.entity_manager'
+            - '@person.manager'
+    form.student.type:
+        class: Busybee\FamilyBundle\Form\StudentType
+        tags:
+            - { name: form.type }

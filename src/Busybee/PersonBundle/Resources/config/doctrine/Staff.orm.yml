@@ -17,23 +17,19 @@ Busybee\PersonBundle\Entity\Staff:
             length: '100'
         lastModified:
             type: datetime
-            nullable: true 
         createdOn:
             type: datetime
-            nullable: true 
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 created_by:
                     referencedColumnName: id
-                    nullable: true
         modifiedBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 modified_by:
                     referencedColumnName: id
-                    nullable: true
     oneToOne:
         person:
             targetEntity: Busybee\PersonBundle\Entity\Person

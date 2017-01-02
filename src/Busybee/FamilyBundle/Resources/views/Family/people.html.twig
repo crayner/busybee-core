@@ -1,0 +1,61 @@
+{# src/Busybee/FamilyBundle/Resources/views/Family/details.html.twig #}
+
+{% trans_default_domain "BusybeeFamilyBundle" %}
+
+{% form_theme form
+	"BusybeeFormBundle:Template:jquery.collection.html.twig"
+	"BusybeeFamilyBundle:Family:emergencyContactCollection.html.twig"
+	"BusybeeFamilyBundle:Family:studentCollection.html.twig"
+	"BusybeePersonBundle:Form:phoneCollection.html.twig"
+	"BusybeeFormBundle:Template:bootstrap.html.twig"
+%}
+
+<div class="panel panel-primary busybee-panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ 'family.title.people'|trans({'%name%': form.name.vars.value}) }}
+		<button title="{{ 'family.return'|trans}}" type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('family_manage') }}','_self')" style="float: right"></button>
+		{% if id != 'Add' %}
+			<button title="{{ 'family.title.add'|trans}}" type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('family_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
+		{% endif %}
+		<button title="{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}" type="button" onClick="location.href='{{ path('family_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+		<button title="{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}" type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="panel panel-info busybee-panel">
+						<div class="panel-heading">
+							<h3 class="panel-title">{{ form_label(form.student) }}</h3>
+						</div>
+						<div class="panel-body">
+                            {% if form.student.vars.attr.help is not empty %}
+								<p class="alert alert-warning">{{ form.student.vars.attr.help|trans }}</p>
+                            {% endif %}
+                            {{ form_widget(form.student) }}
+                            {% do form.student.setRendered() %}
+						</div>
+					</div>
+				</div>
+				{% do form.phone.setRendered %}
+				<div class="col-sm-6">
+					<div class="panel panel-info busybee-panel">
+						<div class="panel-heading">
+							<h3 class="panel-title">{{ form_label(form.emergencyContact) }}</h3>
+						</div>
+						<div class="panel-body">
+                            {% if form.emergencyContact.vars.attr.help is not empty %}
+								<p class="alert alert-warning">{{ form.emergencyContact.vars.attr.help|trans }}</p>
+                            {% endif %}
+                            {{ form_widget(form.emergencyContact) }}
+                            {% do form.emergencyContact.setRendered() %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

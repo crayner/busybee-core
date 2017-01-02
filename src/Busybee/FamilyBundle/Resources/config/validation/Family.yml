@@ -13,3 +13,5 @@ Busybee\FamilyBundle\Entity\Family:
             - Valid: ~
         emergencyContact:
             - Valid: ~
+        student:
+            - Valid: ~

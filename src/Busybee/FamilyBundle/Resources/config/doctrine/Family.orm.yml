@@ -39,6 +39,17 @@ Busybee\FamilyBundle\Entity\Family:
                 inverseJoinColumns:
                     emergency_contact_id:
                         referencedColumnName: id
+        student:
+            targetEntity: Busybee\PersonBundle\Entity\Student
+            cascade: [ 'persist' ]
+            joinTable:
+                name: family_student
+                joinColumns:
+                    family_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    student_id:
+                        referencedColumnName: id
     manyToOne:
         careGiver1:
             targetEntity: Busybee\PersonBundle\Entity\CareGiver

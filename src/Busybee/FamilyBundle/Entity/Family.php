@@ -3,6 +3,7 @@
 namespace Busybee\FamilyBundle\Entity;
 
 use Busybee\FamilyBundle\Model\FamilyModel;
+use Busybee\PersonBundle\Entity\CareGiver;
 
 /**
  * Family
@@ -68,6 +69,10 @@ class Family extends FamilyModel
      * @var \Doctrine\Common\Collections\Collection
      */
     private $emergencyContact;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $student;
 
     /**
      * Constructor
@@ -89,6 +94,16 @@ class Family extends FamilyModel
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -103,13 +118,13 @@ class Family extends FamilyModel
     }
 
     /**
-     * Get name
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getName()
+    public function getLastModified()
     {
-        return $this->name;
+        return $this->lastModified;
     }
 
     /**
@@ -127,13 +142,13 @@ class Family extends FamilyModel
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -151,33 +166,9 @@ class Family extends FamilyModel
     }
 
     /**
-     * Get createdOn
-     *
-     * @return \DateTime
-     */
-    public function getCreatedOn()
-    {
-        return $this->createdOn;
-    }
-
-    /**
-     * Set careGiver1
-     *
-     * @param \Busybee\PersonBundle\Entity\Person $careGiver1
-     *
-     * @return Family
-     */
-    public function setCareGiver1(\Busybee\PersonBundle\Entity\Person $careGiver1 = null)
-    {
-        $this->careGiver1 = $careGiver1;
-
-        return $this;
-    }
-
-    /**
      * Get careGiver1
      *
-     * @return \Busybee\PersonBundle\Entity\Person
+     * @return \Busybee\PersonBundle\Entity\CareGiver
      */
     public function getCareGiver1()
     {
@@ -185,15 +176,15 @@ class Family extends FamilyModel
     }
 
     /**
-     * Set careGiver2
+     * Set careGiver1
      *
-     * @param \Busybee\PersonBundle\Entity\Person $careGiver2
+     * @param \Busybee\PersonBundle\Entity\CareGiver $careGiver1
      *
      * @return Family
      */
-    public function setCareGiver2(\Busybee\PersonBundle\Entity\Person $careGiver2 = null)
+    public function setCareGiver1(\Busybee\PersonBundle\Entity\CareGiver $careGiver1 = null)
     {
-        $this->careGiver2 = $careGiver2;
+        $this->careGiver1 = $careGiver1;
 
         return $this;
     }
@@ -201,11 +192,35 @@ class Family extends FamilyModel
     /**
      * Get careGiver2
      *
-     * @return \Busybee\PersonBundle\Entity\Person
+     * @return \Busybee\PersonBundle\Entity\CareGiver
      */
     public function getCareGiver2()
     {
         return $this->careGiver2;
+    }
+
+    /**
+     * Set careGiver2
+     *
+     * @param \Busybee\PersonBundle\Entity\CareGiver $careGiver2
+     *
+     * @return Family
+     */
+    public function setCareGiver2(\Busybee\PersonBundle\Entity\CareGiver $careGiver2 = null)
+    {
+        $this->careGiver2 = $careGiver2;
+
+        return $this;
+    }
+
+    /**
+     * Get address1
+     *
+     * @return \Busybee\PersonBundle\Entity\Address
+     */
+    public function getAddress1()
+    {
+        return $this->address1;
     }
 
     /**
@@ -223,13 +238,13 @@ class Family extends FamilyModel
     }
 
     /**
-     * Get address1
+     * Get address2
      *
      * @return \Busybee\PersonBundle\Entity\Address
      */
-    public function getAddress1()
+    public function getAddress2()
     {
-        return $this->address1;
+        return $this->address2;
     }
 
     /**
@@ -247,13 +262,13 @@ class Family extends FamilyModel
     }
 
     /**
-     * Get address2
+     * Get createdBy
      *
-     * @return \Busybee\PersonBundle\Entity\Address
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getAddress2()
+    public function getCreatedBy()
     {
-        return $this->address2;
+        return $this->createdBy;
     }
 
     /**
@@ -271,13 +286,13 @@ class Family extends FamilyModel
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -292,16 +307,6 @@ class Family extends FamilyModel
         $this->modifiedBy = $modifiedBy;
 
         return $this;
-    }
-
-    /**
-     * Get modifiedBy
-     *
-     * @return \Busybee\SecurityBundle\Entity\User
-     */
-    public function getModifiedBy()
-    {
-        return $this->modifiedBy;
     }
 
     /**
@@ -341,13 +346,20 @@ class Family extends FamilyModel
     /**
      * Add emergencyContact
      *
-     * @param \Busybee\PersonBundle\Entity\Person $emergencyContact
+     * @param array | \Busybee\PersonBundle\Entity\CareGiver $emergencyContact
      *
      * @return Family
      */
-    public function addEmergencyContact(\Busybee\PersonBundle\Entity\Person $emergencyContact)
+    public function addEmergencyContact($emergencyContact)
     {
-        $this->emergencyContact[] = $emergencyContact;
+        if (is_array($emergencyContact)) {
+            $this->emergencyContact = array();
+            foreach ($emergencyContact as $contact)
+                $this->addEmergencyContact($contact);
+        }
+
+        if ($emergencyContact instanceof CareGiver)
+            $this->emergencyContact[] = $emergencyContact;
 
         return $this;
     }
@@ -355,9 +367,9 @@ class Family extends FamilyModel
     /**
      * Remove emergencyContact
      *
-     * @param \Busybee\PersonBundle\Entity\Person $emergencyContact
+     * @param \Busybee\PersonBundle\Entity\CareGiver $emergencyContact
      */
-    public function removeEmergencyContact(\Busybee\PersonBundle\Entity\Person $emergencyContact)
+    public function removeEmergencyContact(\Busybee\PersonBundle\Entity\CareGiver $emergencyContact)
     {
         $this->emergencyContact->removeElement($emergencyContact);
     }
@@ -371,5 +383,38 @@ class Family extends FamilyModel
     {
         return $this->emergencyContact;
     }
-}
 
+    /**
+     * Add student
+     *
+     * @param \Busybee\PersonBundle\Entity\Student $student
+     *
+     * @return Family
+     */
+    public function addStudent(\Busybee\PersonBundle\Entity\Student $student)
+    {
+        $this->student[] = $student;
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \Busybee\PersonBundle\Entity\Student $student
+     */
+    public function removeStudent(\Busybee\PersonBundle\Entity\Student $student)
+    {
+        $this->student->removeElement($student);
+    }
+
+    /**
+     * Get student
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudent()
+    {
+        return $this->student;
+    }
+}

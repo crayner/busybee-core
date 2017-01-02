@@ -8,7 +8,7 @@ use Busybee\SystemBundle\Setting\SettingManager ;
 class PersonExtension extends \Twig_Extension
 {
     /**
-     * @var Setting Manager
+     * @var SettingManager
      */
     private $sm ;
 	
@@ -31,6 +31,7 @@ class PersonExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('isCareGiver', array($this, 'isCareGiver')),
             new \Twig_SimpleFunction('isStudent', array($this, 'isStudent')),
+            new \Twig_SimpleFunction('isStaff', array($this, 'isStaff')),
         );
     }
 
@@ -42,6 +43,7 @@ class PersonExtension extends \Twig_Extension
     {
         return $this->pm->isCareGiver($person);
     }
+
     /**
      * @param Person $person
      * @return mixed
@@ -49,6 +51,15 @@ class PersonExtension extends \Twig_Extension
     public function isStudent(Person $person)
     {
         return $this->pm->isStudent($person);
+    }
+
+    /**
+     * @param Person $person
+     * @return mixed
+     */
+    public function isStaff(Person $person)
+    {
+        return $this->pm->isStaff($person);
     }
 
     /**

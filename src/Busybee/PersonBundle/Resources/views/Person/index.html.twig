@@ -74,6 +74,11 @@
                         {% else %}
 							<button id="studentToggle{{ person.id }}" title='{{ 'person.student.toggle'|trans}}' type="button" class="studentToggle halflings halflings-remove  btn btn-danger"></button>
                         {% endif %}
+                        {% if isStaff(person) %}
+							<button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-ok  btn btn-success"></button>
+                        {% else %}
+							<button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-remove  btn btn-danger"></button>
+                        {% endif %}
 					</div>
 				</div>
 			{% endfor %}
@@ -105,7 +110,7 @@
                     $(".fadeAlert").fadeOut(5000);
                 }
             })
-        })
+        });;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         $(".studentToggle").on('click', function() {
             var id = $(this).prop('id');
             id = id.substring(13);
@@ -121,6 +126,26 @@
                     }
                     if (data.status == "added"){
                         $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-ok btn btn-success");
+                    }
+                    $(".fadeAlert").fadeOut(5000);
+                }
+            })
+        });;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        $(".staffToggle").on('click', function() {
+            var id = $(this).prop('id');
+            id = id.substring(11);
+            var route = "{{ path('person_toggle_staff', {'id': '__id__'}) }}";
+            route = route.replace('__id__', id);
+            $.ajax({
+                url: route,
+                type: "POST",
+                success: function(data){
+                    $("#peopleError").html(data.message);
+                    if (data.status == "removed"){
+                        $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-remove btn btn-danger");
+                    }
+                    if (data.status == "added"){
+                        $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-ok btn btn-success");
                     }
                     $(".fadeAlert").fadeOut(5000);
                 }

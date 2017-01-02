@@ -2,10 +2,15 @@
 
 namespace Busybee\FamilyBundle\Form;
 
+use Busybee\FamilyBundle\Events\FamilySubscriber;
+use Busybee\FamilyBundle\Model\FamilyManager;
 use Busybee\FormBundle\Type\AutoCompleteType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Entity\CareGiver;
+use Busybee\PersonBundle\Entity\Student;
 use Busybee\PersonBundle\Form\PhoneType;
+use Busybee\PersonBundle\Repository\CareGiverRepository;
+use Busybee\PersonBundle\Repository\StudentRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -14,6 +19,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FamilyType extends AbstractType
 {
+    /**
+     * @var FamilyManager
+     */
+    private $fm;
+
+    public function __construct(FamilyManager $fm)
+    {
+        $this->fm = $fm;
+    }
     /**
      * {@inheritdoc}
      */
@@ -35,7 +49,15 @@ class FamilyType extends AbstractType
                     ),
                     'class' => CareGiver::class,
                     'choice_label' => 'formatName',
-                    'placeholder' => 'family.placeholder.careGiver1'
+                    'placeholder' => 'family.placeholder.careGiver1',
+                    'query_builder' => function (CareGiverRepository $cgr ) {
+                        return $cgr->createQueryBuilder('c')
+                            ->join('c.person', 'p')
+                            ->where('c.person IS NOT NULL')
+                            ->orderBy('p.surname')
+                            ->addOrderBy('p.firstName')
+                        ;
+                    }
                 )
             )
             ->add('careGiver2', EntityType::class, array(
@@ -47,6 +69,14 @@ class FamilyType extends AbstractType
                     'choice_label' => 'formatName',
                     'placeholder' => 'family.placeholder.careGiver2',
                     'required' => false,
+                    'query_builder' => function (CareGiverRepository $cgr ) {
+                        return $cgr->createQueryBuilder('c')
+                            ->join('c.person', 'p')
+                            ->where('c.person IS NOT NULL')
+                            ->orderBy('p.surname')
+                            ->addOrderBy('p.firstName')
+                            ;
+                    }
                 )
             )
             ->add('address1', AutoCompleteType::class,
@@ -88,17 +118,26 @@ class FamilyType extends AbstractType
                     'attr'                  => array(
                         'class'                 => 'phoneNumberList'
                     ),
-                    'prototype'             => array(
-                        'attr'                  => array(
-                            'readonly'              => false,
-                        ),
-                    ),
                     'translation_domain' => 'BusybeePersonBundle',
                 )
             )
             ->add('emergencyContact', CollectionType::class, array(
                     'label'					=> 'family.label.emergencyContacts',
                     'entry_type'			=> EmergencyContactType::class,
+                    'entry_options'         => array(
+                        'translation_domain' => 'BusybeeFamilyBundle',
+                        'class' => CareGiver::class,
+                        'choice_label' => 'formatName',
+                        'query_builder' => function (CareGiverRepository $cgr ) {
+                            return $cgr->createQueryBuilder('c')
+                                ->join('c.person', 'p')
+                                ->where('c.person IS NOT NULL')
+                                ->orderBy('p.surname')
+                                ->addOrderBy('p.firstName')
+                                ;
+                        },
+                        'placeholder' => 'family.placeholder.emergencyContact',
+                    ),
                     'allow_add'				=> true,
                     'by_reference'			=> false,
                     'allow_delete'			=> true,
@@ -109,7 +148,35 @@ class FamilyType extends AbstractType
                     'required'              => false,
                 )
             )
+            ->add('student', CollectionType::class, array(
+                    'label'					=> 'family.label.students',
+                    'entry_type'			=> StudentType::class,
+                    'entry_options'         => array(
+                        'translation_domain' => 'BusybeeFamilyBundle',
+                        'class' => Student::class,
+                        'choice_label' => 'formatName',
+                        'query_builder' => function (StudentRepository $sr ) {
+                            return $sr->createQueryBuilder('s')
+                                ->join('s.person', 'p')
+                                ->where('s.person IS NOT NULL')
+                                ->orderBy('p.surname')
+                                ->addOrderBy('p.firstName')
+                                ;
+                        },
+                        'placeholder' => 'family.placeholder.student',
+                    ),
+                    'allow_add'				=> true,
+                    'by_reference'			=> false,
+                    'allow_delete'			=> true,
+                    'attr'                  => array(
+                        'class'                 => 'studentList',
+                        'help'                  => 'family.help.students',
+                    ),
+                    'required'              => false,
+                )
+            )
         ;
+        $builder->addEventSubscriber(new FamilySubscriber($this->fm));
     }
     
     /**

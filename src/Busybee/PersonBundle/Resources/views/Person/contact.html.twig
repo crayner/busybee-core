@@ -30,10 +30,10 @@
 						<div class="panel-body">
 							<p class="alert alert-warning">{{ 'phone.save'|trans  }}</p>
 							{{ form_widget(form.phone) }}
+                            {% do form.phone.setRendered %}
 						</div>
 					</div>
 				</div>
-{% do form.phone.setRendered %}
 				<div class="col-sm-6">
 					<div class="row">
 						<div class="col-sm-12 well">

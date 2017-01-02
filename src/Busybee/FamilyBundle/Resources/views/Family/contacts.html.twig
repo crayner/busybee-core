@@ -11,12 +11,12 @@
 
 <div class="panel panel-primary busybee-panel">
 	<div class="panel-heading">
-		<h3 class="panel-title">{{ 'family.title.contacts'|trans}}
-		<button title='{{ 'person.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('person_manage') }}','_self')" style="float: right"></button>
+		<h3 class="panel-title">{{ 'family.title.contacts'|trans({'%name%': form.name.vars.value}) }}
+		<button title='{{ 'family.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('family_manage') }}','_self')" style="float: right"></button>
 		{% if id != 'Add' %}
-			<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
+			<button title='{{ 'family.title.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('family_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
 		{% endif %}
-		<button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button" onClick="location.href='{{ path('person_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+		<button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button" onClick="location.href='{{ path('family_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
 		<button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}' type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
 		</h3>
 	</div>
@@ -34,32 +34,28 @@
 						</div>
 					</div>
 				</div>
-{% do form.phone.setRendered %}
+				{% do form.phone.setRendered %}
 				<div class="col-sm-6">
 					<div class="row">
 						<div class="col-sm-12 well">
-							{{ form_row(form.careGiver1) }}
+                            {{ form_row(form.address1) }}
+							<span>
+								<button title="{{ 'address.erase'|trans({}, 'BusybeePersonBundle') }}" id="erasePersonAddress1" type="button" class="btn btn-danger halflings halflings-erase" style="float: right; " ></button>
+								<button title="{{ 'address.refresh'|trans({}, 'BusybeePersonBundle') }}" id="refreshPersonAddress1" type="button" class="refreshPersonAddress btn btn-info halflings halflings-refresh" style="float: right; " ></button>
+								<button title="{{ 'address.add'|trans({}, 'BusybeePersonBundle') }}" id="addPersonAddress1" type="button" class="addPersonAddress  btn btn-primary halflings halflings-plus-sign" style="float: right; " ></button>
+							</span><br/>
+                            {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12 well">
-                            {{ form_row(form.careGiver2) }}
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="panel panel-info busybee-panel">
-						<div class="panel-heading">
-							<h3 class="panel-title">{{ form_label(form.emergencyContact) }}</h3>
-						</div>
-						<div class="panel-body">
-							{% if form.emergencyContact.vars.attr.help is not empty %}
-								<p class="alert alert-warning">{{ form.emergencyContact.vars.attr.help|trans }}</p>
-							{% endif %}
-                            {{ form_widget(form.emergencyContact) }}
-							{% do form.emergencyContact.setRendered() %}
+                            {{ form_row(form.address2) }}
+							<span>
+								<button title="{{ 'address.erase'|trans({}, 'BusybeePersonBundle') }}" id="erasePersonAddress2" type="button" class="btn btn-danger halflings halflings-erase" style="float: right; " ></button>
+								<button title="{{ 'address.refresh'|trans({}, 'BusybeePersonBundle') }}" id="refreshPersonAddress2" type="button" class="refreshPersonAddress btn btn-info halflings halflings-refresh" style="float: right; " ></button>
+								<button title="{{ 'address.add'|trans({}, 'BusybeePersonBundle') }}" id="addPersonAddress2" type="button" class="addPersonAddress  btn btn-primary halflings halflings-plus-sign" style="float: right; " ></button>
+							</span><br/>
+                            {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
 						</div>
 					</div>
 				</div>

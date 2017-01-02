@@ -17,7 +17,7 @@
         <div class="panel-body">
  			<div class="container-fluid well">
 				<div class="row row-header">
-					<div class="col-sm-2 col-md-2" style="display: inline-block;">
+					<div class="col-sm-9 col-md-9" style="display: inline-block;">
 						{% if pagination.getSortByName == 'Family Name' %}
 							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'family.title.name'|trans }}
 						{% else %}
@@ -30,7 +30,7 @@
 				</div>
 			{% for family in pagination.getResult %}
                 <div class="row row-striped">
-                    <div class="col-sm-2 col-md-2 form-inline">
+                    <div class="col-sm-9 col-md-9 form-inline">
                         {{ family.name }}
                     </div>
                     <div class="col-sm-3 col-md-3 form-inline">

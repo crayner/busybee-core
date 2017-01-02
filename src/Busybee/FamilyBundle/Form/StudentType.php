@@ -5,14 +5,14 @@ namespace Busybee\FamilyBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 
-class EmergencyContactType extends AbstractType
+class StudentType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function getBlockPrefix()
     {
-        return 'emergencyContact';
+        return 'student';
     }
 
     /**

@@ -163,11 +163,6 @@ class PersonType extends AbstractType
                     'attr'                  => array(
                         'class'                 => 'phoneNumberList'
                     ),
-                    'prototype'             => array(
-                        'attr'                  => array(
-                            'readonly'              => false,
-                        ),
-                    )
 				)
 			)
 		;

@@ -2,6 +2,8 @@
 
 namespace Busybee\PersonBundle\Model ;
 
+use Busybee\PersonBundle\Entity\Person;
+
 /**
  * Address Model
  *
@@ -9,6 +11,7 @@ namespace Busybee\PersonBundle\Model ;
  * @since	31st October 2016
  * @author	Craig Rayner
  */
+
 abstract class PersonModel
 {
 	/**
@@ -72,18 +75,6 @@ abstract class PersonModel
 	}
 
 	/**
-	 * get Titles
-	 *
-	 * @version	4th November 2016
-	 * @since	4th November 2016
-	 * @return 	array
-	 */
-	public function getTitleList()
-	{
-		return $this->titleList ;
-	}
-
-	/**
 	 * set Gender List
 	 *
 	 * @version	4th November 2016
@@ -94,8 +85,20 @@ abstract class PersonModel
 	public function setGenderList($list)
 	{
 		$this->genderList = $list ;
-		
+
 		return $this ;
+	}
+
+	/**
+	 * get Titles
+	 *
+	 * @version	4th November 2016
+	 * @since	4th November 2016
+	 * @return 	array
+	 */
+	public function getTitleList()
+	{
+		return $this->titleList ;
 	}
 
 	/**
@@ -118,11 +121,29 @@ abstract class PersonModel
 	 *
 	 * @version	21st November 2016
 	 * @since	21st November 2016
+     * @param   array   $options
 	 * @return 	string
 	 */
-	public function getFormatName()
+	public function getFormatName($options = array())
 	{
-		return $this->getSurname().': '.$this->getFirstName().' ('.$this->getPreferredName().')';
-	}
+        /**
+         *
+         * Options
+         *
+         * surnameFirst boolean default = true
+         * preferredOnly boolean default = false
+         */
 
+        $options['surnameFirst'] = ! isset($options['surnameFirst']) ? true : false ;
+        $options['preferredOnly'] = ! isset($options['preferredOnly']) ? false : true ;
+
+        if ($options['surnameFirst']) {
+            if ($options['preferredOnly'])
+                return $this->getSurname() . ': ' . $this->getPreferredName();
+            return $this->getSurname() . ': ' . $this->getFirstName() . ' (' . $this->getPreferredName() . ')';
+        }
+        if ($options['preferredOnly'])
+            return $this->getPreferredName(). ' ' . $this->getSurname();
+        return $this->getFirstName() . ' (' . $this->getPreferredName() . ') ' . $this->getSurname();
+	}
 }

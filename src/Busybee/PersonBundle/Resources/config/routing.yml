@@ -4,9 +4,6 @@ person_manage:
 person_edit:
     path:     /{id}/edit/
     defaults: { _controller: BusybeePersonBundle:Person:edit }
-person_save:
-    path:     /{id}/save/
-    defaults: { _controller: BusybeePersonBundle:Person:save }
 address_check:
     path:     /address/
     defaults: { _controller: BusybeePersonBundle:Address:check }
@@ -16,9 +13,6 @@ locality_manage:
 locality_fetch:
     path:     /locality/fetch/
     defaults: { _controller: BusybeePersonBundle:Locality:fetch }
-address_fetch_list:
-    path:     /locality/fetch/list/
-    defaults: { _controller: BusybeePersonBundle:Address:fetchList }
 locality_delete:
     path:     /locality/{id}/delete/
     defaults: { _controller: BusybeePersonBundle:Locality:delete }
@@ -28,9 +22,6 @@ address_manage:
 address_delete:
     path:     /address/{id}/delete/
     defaults: { _controller: BusybeePersonBundle:Address:delete}
-address_edit:
-    path:     /address/edit/
-    defaults: { _controller: BusybeePersonBundle:Address:edit }
 address_fetch:
     path:     /address/fetch/
     defaults: { _controller: BusybeePersonBundle:Address:fetch }
@@ -49,3 +40,6 @@ person_toggle_caregiver:
 person_toggle_student:
     path:     /student/{id}/toggle/
     defaults: { _controller: BusybeePersonBundle:Student:toggle }
+person_toggle_staff:
+    path:     /staff/{id}/toggle/
+    defaults: { _controller: BusybeePersonBundle:Staff:toggle }

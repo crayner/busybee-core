@@ -1,0 +1,22 @@
+{% trans_default_domain "BusybeeFamilyBundle" %}
+
+
+{% block student_label %}{% endblock %}
+{% block student_errors %}{% endblock %}
+
+
+{% block student_widget %}
+	<div class="well familyStudent">
+		<div class="row">
+			<div class="col-sm-9">
+				{{ form_row(form) }}
+			</div>
+			<div class="col-sm-3 collection-actions">
+				<span>
+					<button title="{{ 'family.student.remove'|trans}}" type="button" class="collection-remove collection-action halflings halflings-erase btn btn-warning" style="float: right;"></button>
+					<button title="{{ 'family.studentContact.add'|trans}}" type="button" class="halflings halflings-plus-sign btn btn-primary collection-add collection-action" style="float: right;"></button>
+				</span>
+			</div>
+		</div>
+	</div>
+{% endblock student_widget %}

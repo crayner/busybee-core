@@ -4,6 +4,7 @@ namespace Busybee\PersonBundle\Model;
 
 use Busybee\PersonBundle\Entity\CareGiver;
 use Busybee\PersonBundle\Entity\Person;
+use Busybee\PersonBundle\Entity\Staff;
 use Busybee\PersonBundle\Entity\Student;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\ORM\EntityManager;
@@ -50,6 +51,18 @@ class PersonManager
      * @param Person $person
      * @return bool
      */
+    public function canBeStudent(Person $person)
+    {
+        //plcae rules here to stop new student.
+        if ($this->isCareGiver($person) || $this->isStaff($person))
+            return false ;
+        return true ;
+    }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
     public function isCareGiver(Person $person)
     {
         $carer = $this->em->getRepository(CareGiver::class)->findOneByPerson($person->getId());
@@ -62,45 +75,12 @@ class PersonManager
      * @param Person $person
      * @return bool
      */
-    public function isStudent(Person $person)
+    public function isStaff(Person $person)
     {
-        $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
-        if ($student instanceof Student)
+        $staff = $this->em->getRepository(Staff::class)->findOneByPerson($person->getId());
+        if ($staff instanceof Staff)
             return true ;
         return false ;
-    }
-
-    /**
-     * @param Person $person
-     * @return bool
-     */
-    public function canBeStudent(Person $person)
-    {
-        //plcae rukles here to stop new student.
-        if ($this->isCareGiver($person))
-            return false ;
-        return true ;
-    }
-
-    /**
-     * @param Person $person
-     * @param array $parameters
-     * @return bool
-     */
-    public function canDeleteStudent(Person $person, $parameters)
-    {
-        //Place rules here to stop delete .
-        if (is_array($parameters))
-            foreach($parameters as $data)
-                if (isset($data['data']['name']) && isset($data['entity']['name']))
-                {
-                    $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
-                    $client = $this->em->getRepository($data['entity']['name'])->findOneByStudent($student->getId());
-
-                    if (is_object($client) && $client->getId() > 0)
-                        return false ;
-                }
-        return $student->canDelete() ;
     }
 
     /**
@@ -125,6 +105,39 @@ class PersonManager
 
     /**
      * @param Person $person
+     * @param array $parameters
+     * @return bool
+     */
+    public function canDeleteStudent(Person $person, $parameters)
+    {
+        //Place rules here to stop delete .
+        $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
+        if (is_array($parameters))
+            foreach($parameters as $data)
+                if (isset($data['data']['name']) && isset($data['entity']['name']))
+                {
+                    $client = $this->em->getRepository($data['entity']['name'])->findOneByStudent($student->getId());
+
+                    if (is_object($client) && $client->getId() > 0)
+                        return false ;
+                }
+        return $student->canDelete() ;
+    }
+
+    /**
+     * @param Person $person
+     */
+    public function deleteCareGiver(Person $person)
+    {
+        if ($this->canDeleteCareGiver($person)) {
+            $careGiver = $this->em->getRepository(CareGiver::class)->findOneByPerson($person->getId());
+            $this->em->remove($careGiver);
+            $this->em->flush();
+        }
+    }
+
+    /**
+     * @param Person $person
      * @return bool
      */
     public function canDeleteCareGiver(Person $person)
@@ -139,17 +152,6 @@ class PersonManager
 
     /**
      * @param Person $person
-     */
-    public function deleteCareGiver(Person $person)
-    {
-        if ($this->canDeleteCareGiver($person)) {
-            $careGiver = $this->em->getRepository(CareGiver::class)->findOneByPerson($person->getId());
-            $this->em->remove($careGiver);
-            $this->em->flush();
-        }
-    }
-    /**
-     * @param Person $person
      * @return bool
      */
     public function canBeCareGiver(Person $person)
@@ -158,5 +160,55 @@ class PersonManager
         if ($this->isStudent($person))
             return false ;
         return true ;
+    }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
+    public function isStudent(Person $person)
+    {
+        $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
+        if ($student instanceof Student)
+            return true ;
+        return false ;
+    }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
+    public function canBeStaff(Person $person)
+    {
+        //plcae rules here to stop new student.
+        if ($this->isStudent($person))
+            return false ;
+        return true ;
+    }
+
+    /**
+     * @param Person $person
+     */
+    public function deleteStaff(Person $person)
+    {
+        if ($this->canDeleteStaff($person)) {
+            $staff = $this->em->getRepository(Staff::class)->findOneByPerson($person->getId());
+            $this->em->remove($staff);
+            $this->em->flush();
+        }
+    }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
+    public function canDeleteStaff(Person $person)
+    {
+        //Place rules here to stop delete .
+        $staff = $this->em->getRepository(Staff::class)->findOneByPerson($person->getId());
+        if (is_null($staff))
+            return false ;
+
+        return $staff->canDelete() ;
     }
 }

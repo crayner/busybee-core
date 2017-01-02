@@ -21,4 +21,6 @@
 /src/Busybee/Plugin/
 *.tmp
 Thumbs.db
+
+# PHPStorm
 .idea/

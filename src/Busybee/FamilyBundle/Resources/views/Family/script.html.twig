@@ -3,7 +3,7 @@
 {% trans_default_domain "BusybeeFamilyBundle" %}
 
     <script type="text/javascript">
-        $(".addPersonAddress").click(function(e){
+        $(".addPersonAddress").click(function(){
 
             window.open("{{ path('address_manage', {'id': 'Add'}) }}","Address","width=820,height=600");
         });
@@ -106,11 +106,11 @@
 
         $( "#family_address1_list" ).on( "focus", function() {
             $("#family_address1_list").val("");
-        } );
+        });
 
         $( "#family_address2_list" ).on( "focus", function() {
             $("#family_address2_list").val("");
-        } );
+        });
 
         $(".phoneNumberList").collection({
             name_prefix: '{{ form.phone.vars.full_name }}',
@@ -125,10 +125,19 @@
             name_prefix: '{{ form.emergencyContact.vars.full_name }}',
             allow_up: false,
             allow_down: false,
-            add: '<button title="{{ 'family.emergencyContact.add'|trans}}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
-            remove: '<button title="{{ 'family.emergencyContact.remove'|trans}}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+            add: '<button title="{{ 'family.emergencyContact.add'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+            remove: '<button title="{{ 'family.emergencyContact.remove'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
             add_at_the_end: true,
             max: 4
+        });
+
+        $(".studentList").collection({
+            name_prefix: '{{ form.student.vars.full_name }}',
+            allow_up: false,
+            allow_down: false,
+            add: '<button title="{{ 'family.student.add'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+            remove: '<button title="{{ 'family.student.remove'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+            add_at_the_end: true
         });
 
 

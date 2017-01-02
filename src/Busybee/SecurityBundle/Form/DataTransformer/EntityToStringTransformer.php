@@ -25,6 +25,17 @@ class EntityToStringTransformer implements DataTransformerInterface
         $this->setEntityClass($entityClass);
     }
  
+    public function setEntityClass($entityClass)
+    {
+        $this->entityClass = $entityClass;
+        $this->setEntityRepository($entityClass);
+    }
+ 
+    public function setEntityRepository($entityClass)
+    {
+        $this->entityRepository = $this->om->getRepository($entityClass);
+    }
+ 
     /**
      * @param mixed $entity
      *
@@ -35,7 +46,7 @@ class EntityToStringTransformer implements DataTransformerInterface
         if (null === $entity || ! $entity instanceof $this->entityClass) {
             return '';
         }
- 
+
         return strval($entity->getId());
     }
  
@@ -51,7 +62,7 @@ class EntityToStringTransformer implements DataTransformerInterface
         if (!$id) {
             return null;
         }
- 
+
         $entity = $this->entityRepository->find($id);
         if (null === $entity) {
             throw new TransformationFailedException(
@@ -69,16 +80,5 @@ class EntityToStringTransformer implements DataTransformerInterface
     public function setEntityType($entityType)
     {
         $this->entityType = $entityType;
-    }
- 
-    public function setEntityClass($entityClass)
-    {
-        $this->entityClass = $entityClass;
-        $this->setEntityRepository($entityClass);
-    }
- 
-    public function setEntityRepository($entityClass)
-    {
-        $this->entityRepository = $this->om->getRepository($entityClass);
     }
 }

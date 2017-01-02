@@ -2,7 +2,6 @@
 
 namespace Busybee\PersonBundle\Events ;
 
-use Busybee\InstituteBundle\Repository\CampusResourceRepository;
 use Busybee\PersonBundle\Entity\Phone;
 use Busybee\PersonBundle\Repository\PhoneRepository;
 use Symfony\Component\Form\FormEvent;
@@ -23,8 +22,8 @@ class PhoneSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        // Tells the dispatcher that you want to listen on the form.pre_set_data
-        // event and that the preSetData method should be called.
+        // Tells the dispatcher that you want to listen on the form.pre_submit
+        // event and that the preSubmit method should be called.
         return array(FormEvents::PRE_SUBMIT => 'preSubmit');
     }
 

@@ -10,6 +10,7 @@ person:
             description: ''
         type:
             label: Type of Staff
+        toggle: Staff Menber Status
     actions: Actions
     return: Manage People
     dob:
@@ -212,3 +213,10 @@ caregiver:
         addRestricted: "%name% is status locked and was not set as a Care Giver."
         removeSuccess: "%name% was removed as a Care Giver."
         removeRestricted: "%name% is locked by the system as a Care Giver."
+staff:
+    toggle:
+        personMissing: The person to toggle staff status was not found.
+        addSuccess: The %name% was set as a Staff Member.
+        removeSuccess: "The %name% was removed as a Staff Membert."
+        removeRestricted: %name% is set as a staff member, and the status is locked by the system.
+        addRestricted: "%name% is status locked and was not set as a Staff Member."
