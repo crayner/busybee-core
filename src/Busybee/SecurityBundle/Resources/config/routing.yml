@@ -69,3 +69,6 @@ busybee_user_toggleEnabled:
 busybee_user_toggle_enabled:
     path:     /user/toggleEnabled/{id}
     defaults: { _controller: BusybeeSecurityBundle:User:toggleEnabled }
+google_oauth:
+    path:     /oauth2callback/
+    defaults: { _controller: BusybeeSecurityBundle:Authentication:google}

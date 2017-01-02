@@ -10,6 +10,8 @@ return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Svg\\' => array($vendorDir . '/phenx/php-svg-lib/src'),
     'SensioLabs\\Security' => array($vendorDir . '/sensiolabs/security-checker'),
+    'SecurityLib' => array($vendorDir . '/ircmaxell/security-lib/lib'),
+    'RandomLib' => array($vendorDir . '/ircmaxell/random-lib/lib'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src'),
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/lib'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),

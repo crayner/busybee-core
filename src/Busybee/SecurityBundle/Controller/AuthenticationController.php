@@ -11,8 +11,11 @@
 
 namespace Busybee\SecurityBundle\Controller;
 
+use League\OAuth2\Client\Provider\Google ;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -86,6 +89,34 @@ class AuthenticationController extends Controller
     public function logoutAction()
     {
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function googleAction(Request $request)
+    {
+        // Replace these with your token settings
+        // Create a project at https://console.developers.google.com/
+        $google = $this->getParameter('Google');
+        $clientId     = $google['client_id'];
+        $clientSecret = $google['client_secret'];
+dump($request);
+        // Change this if you are not using the built-in PHP server
+        $redirectUri  = $this->generateUrl('google_oauth', array(), UrlGeneratorInterface::ABSOLUTE_URL);
+dump($redirectUri);
+
+        // Start the session
+        if (! $this->container->get('session')->isStarted())
+        {
+            $session = new Session();
+            $session->start();
+        }
+
+        // Initialize the provider
+        $provider = new Google(compact('clientId', 'clientSecret', 'redirectUri'));
+
+dump($provider);
     }
 
 }
