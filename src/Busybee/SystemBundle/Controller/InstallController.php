@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request ;
 use Symfony\Component\Security\Csrf\CsrfToken ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Doctrine\DBAL\DBALException ;
-use Busybee\SystemBundle\EventListener\EmailListener ;
 use Doctrine\ORM\EntityManager ;
 use Doctrine\ORM\Tools\SchemaTool ;
 use Busybee\SecurityBundle\Entity\User ;
@@ -17,7 +16,6 @@ use Busybee\SecurityBundle\Entity\Role ;
 use Busybee\SecurityBundle\Entity\Group ;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class InstallController extends Controller
 {
@@ -513,19 +511,6 @@ class InstallController extends Controller
 	}
 
   /**
-     * Helper method to return an already existing Group from the database, else create and return a new one
-     *
-     * @param string        $name
-     * @param ObjectManager $newEm
-     *
-     * @return Group
-     */
-    protected function findOrCreateGroup($name, $newEm)
-    {
-        return $newEm->getRepository('BusybeeSecurityBundle:Group')->findOneBy(['groupname' => $name]) ?: new Group($name);
-    }
-	
-  /**
      * Helper method to return an already existing Role from the database, else create and return a new one
      *
      * @param string        $name
@@ -536,6 +521,19 @@ class InstallController extends Controller
     protected function findOrCreateRole($role, $newEm)
     {
         return $newEm->getRepository('BusybeeSecurityBundle:Role')->findOneBy(['role' => $role]) ?: new Role($role);
+    }
+	
+  /**
+     * Helper method to return an already existing Group from the database, else create and return a new one
+     *
+     * @param string        $name
+     * @param ObjectManager $newEm
+     *
+     * @return Group
+     */
+    protected function findOrCreateGroup($name, $newEm)
+    {
+        return $newEm->getRepository('BusybeeSecurityBundle:Group')->findOneBy(['groupname' => $name]) ?: new Group($name);
     }
 
   /**

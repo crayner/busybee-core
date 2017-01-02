@@ -12,6 +12,9 @@
 		</div>
 		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 		<button type="submit" class="btn btn-success">{{ 'Sign In'|trans }}</button>
+		{% if get_parameter('google.oauth') == 'on' %}
+			<a href="{{ path('google_oauth') }}" title="{{ 'google.oauth'|trans }}"><img src="{{ asset('img/Google_icon_2015.png') }}" width="35" /></a>
+		{% endif %}
 	</form>  
 {% elseif is_granted('ROLE_USER') %}
 	<ul class="nav navbar-nav navbar-right">

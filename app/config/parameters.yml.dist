@@ -40,3 +40,7 @@ parameters:
         specials: 0
     upload_path: '../web/uploads/%current_year%/%current_month%'
     timezone: UTC
+    google:
+        oauth: off
+        client_id: ''
+        client_secret: ''
