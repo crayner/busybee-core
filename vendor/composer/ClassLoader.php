@@ -55,6 +55,7 @@ class ClassLoader
     private $classMap = array();
     private $classMapAuthoritative = false;
     private $missingClasses = array();
+    private $apcuPrefix;
 
     public function getPrefixes()
     {
@@ -230,6 +231,17 @@ class ClassLoader
     }
 
     /**
+     * Can be used to check if the autoloader uses the include path to check
+     * for classes.
+     *
+     * @return bool
+     */
+    public function getUseIncludePath()
+    {
+        return $this->useIncludePath;
+    }
+
+    /**
      * Turns on searching the include path for class files.
      *
      * @param bool $useIncludePath
@@ -240,14 +252,13 @@ class ClassLoader
     }
 
     /**
-     * Can be used to check if the autoloader uses the include path to check
-     * for classes.
+     * Should class lookup fail if not found in the current class map?
      *
      * @return bool
      */
-    public function getUseIncludePath()
+    public function isClassMapAuthoritative()
     {
-        return $this->useIncludePath;
+        return $this->classMapAuthoritative;
     }
 
     /**
@@ -262,13 +273,23 @@ class ClassLoader
     }
 
     /**
-     * Should class lookup fail if not found in the current class map?
+     * The APCu prefix in use, or null if APCu caching is not enabled.
      *
-     * @return bool
+     * @return string|null
      */
-    public function isClassMapAuthoritative()
+    public function getApcuPrefix()
     {
-        return $this->classMapAuthoritative;
+        return $this->apcuPrefix;
+    }
+
+    /**
+     * APCu prefix to use to cache found/not-found classes, if the extension is enabled.
+     *
+     * @param string|null $apcuPrefix
+     */
+    public function setApcuPrefix($apcuPrefix)
+    {
+        $this->apcuPrefix = function_exists('apcu_fetch') && ini_get('apc.enabled') ? $apcuPrefix : null;
     }
 
     /**
@@ -313,11 +334,6 @@ class ClassLoader
      */
     public function findFile($class)
     {
-        // work around for PHP 5.3.0 - 5.3.2 https://bugs.php.net/50731
-        if ('\\' == $class[0]) {
-            $class = substr($class, 1);
-        }
-
         // class map lookup
         if (isset($this->classMap[$class])) {
             return $this->classMap[$class];
@@ -325,12 +341,22 @@ class ClassLoader
         if ($this->classMapAuthoritative || isset($this->missingClasses[$class])) {
             return false;
         }
+        if (null !== $this->apcuPrefix) {
+            $file = apcu_fetch($this->apcuPrefix.$class, $hit);
+            if ($hit) {
+                return $file;
+            }
+        }
 
         $file = $this->findFileWithExtension($class, '.php');
 
         // Search for Hack files if we are running on HHVM
         if (false === $file && defined('HHVM_VERSION')) {
             $file = $this->findFileWithExtension($class, '.hh');
+        }
+
+        if (null !== $this->apcuPrefix) {
+            apcu_add($this->apcuPrefix.$class, $file);
         }
 
         if (false === $file) {
