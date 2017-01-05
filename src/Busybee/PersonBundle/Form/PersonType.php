@@ -3,17 +3,12 @@
 namespace Busybee\PersonBundle\Form ;
 
 use Busybee\FormBundle\Type\AutoCompleteType;
-use Busybee\FormBundle\Type\YesNoType;
 use Busybee\PersonBundle\Entity\Address;
-use Busybee\PersonBundle\Entity\Staff;
 use Busybee\PersonBundle\Events\PersonSubscriber;
-use Busybee\PersonBundle\Form\DataTransformer\PersonTypeBooleanTransformer;
 use Busybee\PersonBundle\Model\PhotoUploader;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -171,20 +166,9 @@ class PersonType extends AbstractType
                     ),
                 )
             )
-            ->add('staff', HiddenType::class)
-            ->add('staffQuestion', YesNoType::class, array(
-                    'label'					=> 'person.label.staff',
-                    'attr'                  => array(
-                        'help'                  => 'person.help.staff',
-                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
-                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
-                    ),
-                    'mapped'                => false,
-                )
-            )
+            ->add('staff', StaffType::class)
 		;
-        $builder->get('staff')->addModelTransformer(new EntityToStringTransformer($this->manager, Staff::class));
-        $builder->addEventSubscriber(new PersonSubscriber($this->photoLoader, $this->manager));
+        $builder->addEventSubscriber(new PersonSubscriber());
     }
     
     /**

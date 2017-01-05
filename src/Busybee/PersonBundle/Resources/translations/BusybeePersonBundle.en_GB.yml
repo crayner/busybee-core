@@ -1,6 +1,6 @@
 person:
     staff:
-        title: Staff Management
+        title: 'Staff Member: %name%'
         description: Select and manage staff
         edit: 
             title: Edit Staff Member
@@ -39,7 +39,10 @@ person:
             type: Type of Phone
             number: Phone Number
             country: Country Code
-        staff: Staff Member
+        staff:
+            question: 'Staff Member ?'
+            type: Staff Category
+            jobTitle: Position Title
     help:
         officialName: This is the name recorded on official documents. e.g. birth certificates and passports.
         photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 
@@ -47,14 +50,18 @@ person:
             number: Any character but a number is ignored. The display can be altered in the settings.
         address1: The address can be left blank in which case the family address is used.  Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
         address2: Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
-        staff: ''
+        staff:
+            question: ''
     tab:
         person: Person
         address1: Address
         address2: Alt Address
         contact: Contact
+        staff: Staff
     placeholder:
         address: Start typing any address.
+        staff:
+            type: Select Position Category
     add:
         title: Add Person
         description: ''

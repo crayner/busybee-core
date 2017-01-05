@@ -210,3 +210,10 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeePersonBundle:CareGiver"
+    form.person.staff.type:
+        class: Busybee\PersonBundle\Form\StaffType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }

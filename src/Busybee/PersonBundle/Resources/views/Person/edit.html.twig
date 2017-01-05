@@ -61,5 +61,31 @@
         $(".yes-no").checkboxpicker({
             iconCls: "halflings"
         });
+        $('#person_staff_question').checkboxpicker().on('change', function() {
+            var checked = $('#person_staff_question').prop('checked');
+            if (checked)
+			{
+                $('#person_staff_type').prop('disabled', false);
+                $('#person_staff_jobTitle').prop('disabled', false);
+				$('#person_staff_person').prop('disabled', false);
+			} else {
+                $('#person_staff_type').prop('disabled', true);
+                $('#person_staff_jobTitle').prop('disabled', true);
+                $('#person_staff_person').prop('disabled', true);
+			}
+        });
+        $(document).ready(function(){
+            var checked = $('#person_staff_question').prop('checked');
+            if (checked)
+            {
+                $('#person_staff_type').prop('disabled', false);
+                $('#person_staff_jobTitle').prop('disabled', false);
+                $('#person_staff_person').prop('disabled', false);
+            } else {
+                $('#person_staff_type').prop('disabled', true);
+                $('#person_staff_jobTitle').prop('disabled', true);
+                $('#person_staff_person').prop('disabled', true);
+            }
+		});
 	</script>
 {% endblock javascripts %}

@@ -8,3 +8,7 @@ parameters:
         contact:
             label: person.tab.contact
             include: 'BusybeePersonBundle:Person:contact.html.twig'
+        staff:
+            label: person.tab.staff
+            include: BusybeePersonBundle:Person:staff.html.twig
+            message: staffMessage

@@ -9,7 +9,7 @@ class Staff
     public function __construct()
     {
         $this->setType('Unknown');
-        $this->setJobTitle('Unknown');
+        $this->setJobTitle('Not available');
     }
 
     public function canDelete()

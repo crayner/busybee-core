@@ -42,3 +42,7 @@ services:
             - '@setting.manager'
         tags:
             - { name: validator.constraint_validator, alias: setting_validator }
+    validator.blank.or.valid.constraint:
+        class: Busybee\FormBundle\Validator\Constraints\BlankOrValidValidator
+        tags:
+            - { name: validator.constraint_validator, alias: blank_or_valid_validator }

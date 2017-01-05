@@ -93,3 +93,4 @@ Busybee\PersonBundle\Entity\Person:
             targetEntity: Busybee\PersonBundle\Entity\Staff
             cascade: [persist, remove]
             mappedBy: person
+            nullable: true

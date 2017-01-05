@@ -1,12 +1,14 @@
-{# src/Busybee/PersonBundle/Resources/views/Person/person.html.twig #}
+{# src/Busybee/PersonBundle/Resources/views/Form/staff.html.twig #}
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form
+	"BusybeeFormBundle:Template:bootstrap.html.twig"
+%}
 
 <div class="panel panel-primary busybee-panel">
 	<div class="panel-heading">
-		<h3 class="panel-title">{{ 'person.manage.title'|trans({'%name%': form.vars.value.formatName})}}
+		<h3 class="panel-title">{{ 'person.staff.title'|trans({'%name%': form.vars.value.formatName})}}
 		<button title='{{ 'person.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('person_manage') }}','_self')" style="float: right"></button>
 		{% if id != 'Add' %}
 			<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
@@ -18,35 +20,24 @@
 	<div class="panel-body">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-4 well">
-					{{ form_row(form.surname) }}
+				<div class="col-sm-6 well">
+                    {{ form_widget(form.staff.person) }}
+                    {{ form_row(form.staff.type) }}
 				</div>
-				<div class="col-sm-4 well">
-					{{ form_row(form.firstName) }}
-				</div>
-				<div class="col-sm-4 well">
-					{{ form_row(form.photo) }}
+				<div class="col-sm-6 well">
+                    {{ form_row(form.staff.jobTitle) }}
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-4 well">
-					{{ form_row(form.preferredName) }}
-				</div>
-				<div class="col-sm-4 well">
-					{{ form_row(form.officialName) }}
-				</div>
-				<div class="col-sm-4 well">
-					{{ form_row(form.dob) }}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-offset-8 col-sm-2 well">
-					{{ form_row(form.title) }}
-				</div>
-				<div class="col-sm-2 well">
-					{{ form_row(form.gender) }}
+				<div class="col-sm-offset-9 col-sm-3 well">
+					{% if form.staff.vars.value is empty or form.staff.vars.value.getId() is empty %}
+						{{ form_row(form.staff.question) }}
+					{% else %}
+                    	{{ form_row(form.staff.question, {'checked': 'checked'}) }}
+					{% endif %}
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+

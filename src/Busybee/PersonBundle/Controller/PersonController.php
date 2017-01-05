@@ -2,6 +2,7 @@
 
 namespace Busybee\PersonBundle\Controller;
 
+use Busybee\PersonBundle\Entity\Staff;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,10 +78,17 @@ class PersonController extends Controller
 		if ($form->isSubmitted() && $form->isValid())
 		{
 		    $ok = true ;
+		    dump($person);
+            $personData = $request->request->get('person');
+            dump($personData);
+
+            if (! isset($personData['staff']['question']) && $person->getStaff() instanceof Staff && $person->getStaff()->getId() === null)
+                    $person->setStaff(null);
+
             foreach($formDefinition as $defined)
 			{
-				$req = isset($defined['request']['post']) ? $defined['request']['post'] : null ;
-				if (! is_null($req) && isset($person->$req))
+                $req = isset($defined['request']['post']) ? $defined['request']['post'] : null ;
+                if (! is_null($req) && isset($person->$req))
 				{
                     $entity = $person->$req;
                     $errors = $validator->validate($entity);
@@ -99,6 +107,9 @@ class PersonController extends Controller
                     }
 				}
 			}
+			if ($person->getStaff() instanceof Staff)
+			    $person->getStaff()->setPerson($person);
+
 			if ($ok) {
                 $em->persist($person);
                 $em->flush();
@@ -107,6 +118,7 @@ class PersonController extends Controller
                 return new RedirectResponse($this->generateUrl('person_edit', array('id' => $id)));
             }
 		} 
+
 
 		$editOptions['id'] = $id;
 		$editOptions['form'] = $form->createView();
