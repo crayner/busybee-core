@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PersonSubscriber implements EventSubscriberInterface
+class Person_Subscriber implements EventSubscriberInterface
 {
     /**
      * @return array
@@ -26,11 +26,5 @@ class PersonSubscriber implements EventSubscriberInterface
      */
     public function preSubmit(FormEvent $event)
     {
-        $data = $event->getData();
-        $form = $event->getForm();
-
-dump($data);
-
-        $event->setData($data);
     }
 }

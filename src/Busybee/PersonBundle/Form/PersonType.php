@@ -3,11 +3,17 @@
 namespace Busybee\PersonBundle\Form ;
 
 use Busybee\FormBundle\Type\AutoCompleteType;
+use Busybee\FormBundle\Type\YesNoType;
 use Busybee\PersonBundle\Entity\Address;
+use Busybee\PersonBundle\Entity\Staff;
 use Busybee\PersonBundle\Events\PersonSubscriber;
+use Busybee\PersonBundle\Form\DataTransformer\PersonTypeBooleanTransformer;
 use Busybee\PersonBundle\Model\PhotoUploader;
+use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Symfony\Component\Form\AbstractType ;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -28,7 +34,7 @@ class PersonType extends AbstractType
     private $manager ;
 
     /**
-     * @var	PhotoLoader
+     * @var	PhotoUpLoader
      */
     private $photoLoader ;
 
@@ -47,7 +53,7 @@ class PersonType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+        $builder->add('title', ChoiceType::class, array(
 					'label' => 'person.label.title',
 					'choices' => $this->sm->get('Person.TitleList'),
 					'attr'	=> array(
@@ -86,7 +92,7 @@ class PersonType extends AbstractType
 					),
 				)
 			)
-			->add('gender', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
+			->add('gender', ChoiceType::class, array(
 					'choices' => $this->sm->get('Person.GenderList'),
 					'label' => 'person.label.gender',
 					'attr'	=> array(
@@ -154,19 +160,31 @@ class PersonType extends AbstractType
                     'data' => $options['data']->getAddress2(),
                 )
             )
-			->add('phone', CollectionType::class, array(
-					'label'					=> 'person.label.phones', 
-					'entry_type'			=> PhoneType::class,
-					'allow_add'				=> true,
-					'by_reference'			=> false,
-					'allow_delete'			=> true,
+            ->add('phone', CollectionType::class, array(
+                    'label'					=> 'person.label.phones',
+                    'entry_type'			=> PhoneType::class,
+                    'allow_add'				=> true,
+                    'by_reference'			=> false,
+                    'allow_delete'			=> true,
                     'attr'                  => array(
                         'class'                 => 'phoneNumberList'
                     ),
-				)
-			)
+                )
+            )
+            ->add('staff', HiddenType::class)
+            ->add('staffQuestion', YesNoType::class, array(
+                    'label'					=> 'person.label.staff',
+                    'attr'                  => array(
+                        'help'                  => 'person.help.staff',
+                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
+                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                    ),
+                    'mapped'                => false,
+                )
+            )
 		;
-        $builder->addEventSubscriber(new PersonSubscriber($this->photoLoader) );
+        $builder->get('staff')->addModelTransformer(new EntityToStringTransformer($this->manager, Staff::class));
+        $builder->addEventSubscriber(new PersonSubscriber($this->photoLoader, $this->manager));
     }
     
     /**

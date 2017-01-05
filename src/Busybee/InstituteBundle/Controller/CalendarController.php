@@ -211,10 +211,13 @@ class CalendarController extends Controller
 			)
 		);
 
+        /**
+         * @todo Remove this constaint on render when PHP 7.1 compatible
+         */
 		$dompdf = $this->get('dompdf')->createDompdf();
-		$dompdf->set_paper('a4', 'landscape');
+		$dompdf->setPaper('a4', 'landscape');
         $dompdf->loadHtml($content);
-        $dompdf->render();
+        @$dompdf->render();
 		$headers = array(
 			'Content-type' => 'application/pdf'
 		);

@@ -60,6 +60,16 @@ class Staff extends StaffModel
     }
 
     /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Set type
      *
      * @param string $type
@@ -74,13 +84,13 @@ class Staff extends StaffModel
     }
 
     /**
-     * Get type
+     * Get jobTitle
      *
      * @return string
      */
-    public function getType()
+    public function getJobTitle()
     {
-        return $this->type;
+        return $this->jobTitle;
     }
 
     /**
@@ -98,13 +108,13 @@ class Staff extends StaffModel
     }
 
     /**
-     * Get jobTitle
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getJobTitle()
+    public function getLastModified()
     {
-        return $this->jobTitle;
+        return $this->lastModified;
     }
 
     /**
@@ -122,13 +132,13 @@ class Staff extends StaffModel
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -146,13 +156,13 @@ class Staff extends StaffModel
     }
 
     /**
-     * Get createdOn
+     * Get person
      *
-     * @return \DateTime
+     * @return \Busybee\PersonBundle\Entity\Person
      */
-    public function getCreatedOn()
+    public function getPerson()
     {
-        return $this->createdOn;
+        return $this->person;
     }
 
     /**
@@ -170,13 +180,13 @@ class Staff extends StaffModel
     }
 
     /**
-     * Get person
+     * Get createdBy
      *
-     * @return \Busybee\PersonBundle\Entity\Person
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getPerson()
+    public function getCreatedBy()
     {
-        return $this->person;
+        return $this->createdBy;
     }
 
     /**
@@ -194,13 +204,13 @@ class Staff extends StaffModel
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -216,15 +226,4 @@ class Staff extends StaffModel
 
         return $this;
     }
-
-    /**
-     * Get modifiedBy
-     *
-     * @return \Busybee\SecurityBundle\Entity\User
-     */
-    public function getModifiedBy()
-    {
-        return $this->modifiedBy;
-    }
 }
-

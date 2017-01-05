@@ -88,3 +88,8 @@ Busybee\PersonBundle\Entity\Person:
                 inverseJoinColumns:
                     phone_id:
                         referencedColumnName: id
+    oneToOne:
+        staff:
+            targetEntity: Busybee\PersonBundle\Entity\Staff
+            cascade: [persist, remove]
+            mappedBy: person

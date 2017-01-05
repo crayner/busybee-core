@@ -1,0 +1,8 @@
+Busybee\PersonBundle\Entity\Staff:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: person
+    properties:
+        type:
+            - NotBlank: ~
+        jobTitle:
+            - NotBlank: ~

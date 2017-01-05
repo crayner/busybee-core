@@ -12,79 +12,97 @@ use Doctrine\Common\Collections\ArrayCollection ;
 class Person extends PersonModel
 {
     /**
+     * @var string
+     */
+    protected $oldPhoto;
+    /**
      * @var integer
      */
     private $id;
-
     /**
      * @var string
      */
     private $title;
-
     /**
      * @var string
      */
     private $surname;
-
     /**
      * @var string
      */
     private $firstName;
-
     /**
      * @var string
      */
     private $preferredName;
-
     /**
      * @var string
      */
     private $officialName;
-
     /**
      * @var string
      */
     private $gender;
-
     /**
      * @var \DateTime
      */
     private $dob;
-
     /**
      * @var string
      */
     private $email;
-
     /**
      * @var string
      */
     private $email2;
-
     /**
      * @var string
      */
     private $website;
-
     /**
      * @var \DateTime
      */
     private $lastModified;
-
     /**
      * @var \DateTime
      */
     private $createdOn;
-
     /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $createdBy;
-
     /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+    /**
+     * @var string
+     */
+    private $photo;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $phone;
+    /**
+     * @var \Busybee\PersonBundle\Entity\Address
+     */
+    private $address1;
+    /**
+     * @var \Busybee\PersonBundle\Entity\Address
+     */
+    private $address2;
+    /**
+     * @var \busybee\PersonBundle\Entity\Staff
+     */
+    private $staff;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->phone = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -94,6 +112,16 @@ class Person extends PersonModel
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -111,13 +139,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get title
+     * Get surname
      *
      * @return string
      */
-    public function getTitle()
+    public function getSurname()
     {
-        return $this->title;
+        return $this->surname;
     }
 
     /**
@@ -135,13 +163,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get surname
+     * Get firstName
      *
      * @return string
      */
-    public function getSurname()
+    public function getFirstName()
     {
-        return $this->surname;
+        return $this->firstName;
     }
 
     /**
@@ -159,13 +187,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get firstName
+     * Get preferredName
      *
      * @return string
      */
-    public function getFirstName()
+    public function getPreferredName()
     {
-        return $this->firstName;
+        return $this->preferredName;
     }
 
     /**
@@ -183,13 +211,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get preferredName
+     * Get officialName
      *
      * @return string
      */
-    public function getPreferredName()
+    public function getOfficialName()
     {
-        return $this->preferredName;
+        return $this->officialName;
     }
 
     /**
@@ -207,13 +235,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get officialName
+     * Get gender
      *
      * @return string
      */
-    public function getOfficialName()
+    public function getGender()
     {
-        return $this->officialName;
+        return $this->gender;
     }
 
     /**
@@ -231,13 +259,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get gender
+     * Get dob
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getGender()
+    public function getDob()
     {
-        return $this->gender;
+        return $this->dob;
     }
 
     /**
@@ -255,13 +283,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get dob
+     * Get email
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getDob()
+    public function getEmail()
     {
-        return $this->dob;
+        return $this->email;
     }
 
     /**
@@ -279,13 +307,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get email
+     * Get email2
      *
      * @return string
      */
-    public function getEmail()
+    public function getEmail2()
     {
-        return $this->email;
+        return $this->email2;
     }
 
     /**
@@ -303,13 +331,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get email2
+     * Get website
      *
      * @return string
      */
-    public function getEmail2()
+    public function getWebsite()
     {
-        return $this->email2;
+        return $this->website;
     }
 
     /**
@@ -327,13 +355,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get website
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getWebsite()
+    public function getLastModified()
     {
-        return $this->website;
+        return $this->lastModified;
     }
 
     /**
@@ -351,13 +379,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -375,13 +403,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -399,13 +427,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -423,24 +451,14 @@ class Person extends PersonModel
     }
 
     /**
-     * Get modifiedBy
+     * Get photo
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return string
      */
-    public function getModifiedBy()
+    public function getPhoto()
     {
-        return $this->modifiedBy;
+        return $this->photo;
     }
-
-    /**
-     * @var string
-     */
-    private $photo;
-
-    /**
-     * @var string
-     */
-    protected $oldPhoto;
 
     /**
      * Set photo
@@ -467,29 +485,6 @@ class Person extends PersonModel
 			$this->photo = $photo ;
 		}
         return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $phone;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->phone = new ArrayCollection();
     }
 
     /**
@@ -527,14 +522,14 @@ class Person extends PersonModel
     }
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Address
+     * Get address1
+     *
+     * @return \Busybee\PersonBundle\Entity\Address
      */
-    private $address1;
-
-    /**
-     * @var \Busybee\PersonBundle\Entity\Address
-     */
-    private $address2;
+    public function getAddress1()
+    {
+        return $this->address1;
+    }
 
     /**
      * Set address1
@@ -551,13 +546,13 @@ class Person extends PersonModel
     }
 
     /**
-     * Get address1
+     * Get address2
      *
      * @return \Busybee\PersonBundle\Entity\Address
      */
-    public function getAddress1()
+    public function getAddress2()
     {
-        return $this->address1;
+        return $this->address2;
     }
 
     /**
@@ -575,12 +570,26 @@ class Person extends PersonModel
     }
 
     /**
-     * Get address2
+     * Get staff
      *
-     * @return \Busybee\PersonBundle\Entity\Address
+     * @return \busybee\PersonBundle\Entity\Staff
      */
-    public function getAddress2()
+    public function getStaff()
     {
-        return $this->address2;
+        return $this->staff;
+    }
+
+    /**
+     * Set staff
+     *
+     * @param \busybee\PersonBundle\Entity\Staff $staff
+     *
+     * @return Person
+     */
+    public function setStaff(\busybee\PersonBundle\Entity\Staff $staff = null)
+    {
+        $this->staff = $staff;
+
+        return $this;
     }
 }

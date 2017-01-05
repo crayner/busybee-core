@@ -30,3 +30,5 @@ Busybee\PersonBundle\Entity\Person:
             - Valid: ~
         address2:
             - Valid: ~
+        staff:
+            - Valid: ~

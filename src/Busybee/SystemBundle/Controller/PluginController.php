@@ -14,7 +14,7 @@ class PluginController extends Controller
 		$pm = $this->get('plugin.manager');
 		
 		$pm->managePlugins();		
-dump($pm);
+
         return $this->render('SystemBundle:Plugin:manage.html.twig');
 	}
 

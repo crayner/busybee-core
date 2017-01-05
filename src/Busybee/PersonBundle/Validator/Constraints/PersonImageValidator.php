@@ -14,7 +14,6 @@ class PersonImageValidator extends ImageValidator
      */
     public function validate($value, Constraint $constraint)
     {
-dump($value);
         if (empty($value))
             return ;
 

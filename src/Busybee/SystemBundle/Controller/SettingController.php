@@ -211,8 +211,7 @@ class SettingController extends Controller
 				);
 				break ;
 			default:
-				dump($setting);
-				die();
+				throw new InvalidArgumentException(sprintf("The setting type %s has not been defined.", $setting->getType()));
 		}
 
 		$form->handleRequest($request);

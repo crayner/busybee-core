@@ -56,4 +56,10 @@
     {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
     {% include 'BusybeePersonBundle:Person:script.html.twig' %}
     {% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'person_manage'} %}
+	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+	<script>
+        $(".yes-no").checkboxpicker({
+            iconCls: "halflings"
+        });
+	</script>
 {% endblock javascripts %}

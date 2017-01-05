@@ -38,7 +38,8 @@ person:
         phone:
             type: Type of Phone
             number: Phone Number
-            country: Country Code 
+            country: Country Code
+        staff: Staff Member
     help:
         officialName: This is the name recorded on official documents. e.g. birth certificates and passports.
         photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 
@@ -46,6 +47,7 @@ person:
             number: Any character but a number is ignored. The display can be altered in the settings.
         address1: The address can be left blank in which case the family address is used.  Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
         address2: Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
+        staff: ''
     tab:
         person: Person
         address1: Address

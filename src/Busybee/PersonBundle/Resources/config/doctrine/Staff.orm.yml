@@ -33,8 +33,6 @@ Busybee\PersonBundle\Entity\Staff:
     oneToOne:
         person:
             targetEntity: Busybee\PersonBundle\Entity\Person
-            joinColumn:
-                name: person_id
-                referencedColumn: id
-                
+            inversedBy: staff
+
             

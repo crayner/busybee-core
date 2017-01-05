@@ -34,7 +34,6 @@ class AuthenticationListener implements EventSubscriberInterface
         if (! $event->getUser()->isEnabled()) {
             return;
         }
-dump($this);
 
         try {
             $this->loginManager->loginUser($this->firewallName, $event->getUser(), $event->getResponse());

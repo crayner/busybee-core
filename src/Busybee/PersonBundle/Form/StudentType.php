@@ -20,7 +20,6 @@ class StudentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $now = new \DateTime('now');
-        dump($options['data']->getStartAtSchool()->format('Y-m-d'));
         $builder->add('person', EntityType::class, array(
                     'label' => 'student.label.person',
                     'attr' => array (
