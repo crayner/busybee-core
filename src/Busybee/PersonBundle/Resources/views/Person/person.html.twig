@@ -40,7 +40,24 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-offset-8 col-sm-2 well">
+				{% set offset = 8 %}
+                {% if form.vars.value.id is not null and canBeStaff(form.vars.value) %}
+					<div class="col-sm-2 well">
+						{% if form.staff.vars.value is empty or form.staff.vars.value.getId() is empty %}
+							{{ form_row(form.staffQuestion) }}
+						{% else %}
+							{% set attributes = {'checked': 'checked'} %}
+							{% if not canDeleteStaff(form.vars.value) %}
+								{% set attributes = attributes|merge({'disabled': 'disabled'}) %}
+							{% endif %}
+							{{ form_row(form.staffQuestion, attributes) }}
+						{% endif %}
+						{% set offset = offset - 2 %}
+					</div>
+                {% else %}
+                    {% do form.staffQuestion.setRendered() %}
+                {% endif %}
+				<div class="col-sm-offset-{{ offset }} col-sm-2 well">
 					{{ form_row(form.title) }}
 				</div>
 				<div class="col-sm-2 well">

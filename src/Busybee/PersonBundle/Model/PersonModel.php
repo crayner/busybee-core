@@ -133,6 +133,7 @@ abstract class PersonModel
          * surnameFirst boolean default = true
          * preferredOnly boolean default = false
          */
+        if (empty($this->getSurname())) return '';
 
         $options['surnameFirst'] = ! isset($options['surnameFirst']) ? true : false ;
         $options['preferredOnly'] = ! isset($options['preferredOnly']) ? false : true ;

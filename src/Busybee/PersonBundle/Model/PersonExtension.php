@@ -32,12 +32,14 @@ class PersonExtension extends \Twig_Extension
             new \Twig_SimpleFunction('isCareGiver', array($this, 'isCareGiver')),
             new \Twig_SimpleFunction('isStudent', array($this, 'isStudent')),
             new \Twig_SimpleFunction('isStaff', array($this, 'isStaff')),
+            new \Twig_SimpleFunction('canBeStaff', array($this, 'canBeStaff')),
+            new \Twig_SimpleFunction('canDeleteStaff', array($this, 'canDeleteStaff')),
         );
     }
 
     /**
      * @param Person $person
-     * @return mixed
+     * @return bool
      */
     public function isCareGiver(Person $person)
     {
@@ -46,7 +48,7 @@ class PersonExtension extends \Twig_Extension
 
     /**
      * @param Person $person
-     * @return mixed
+     * @return bool
      */
     public function isStudent(Person $person)
     {
@@ -55,11 +57,29 @@ class PersonExtension extends \Twig_Extension
 
     /**
      * @param Person $person
-     * @return mixed
+     * @return bool
      */
     public function isStaff(Person $person)
     {
         return $this->pm->isStaff($person);
+    }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
+    public function canBeStaff(Person $person)
+    {
+        return $this->pm->canBeStaff($person);
+    }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
+    public function canDeleteStaff(Person $person)
+    {
+        return $this->pm->canDeleteStaff($person);
     }
 
     /**

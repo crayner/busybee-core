@@ -28,15 +28,6 @@
                     {{ form_row(form.staff.jobTitle) }}
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-sm-offset-9 col-sm-3 well">
-					{% if form.staff.vars.value is empty or form.staff.vars.value.getId() is empty %}
-						{{ form_row(form.staff.question) }}
-					{% else %}
-                    	{{ form_row(form.staff.question, {'checked': 'checked'}) }}
-					{% endif %}
-				</div>
-			</div>
 		</div>
 	</div>
 </div>

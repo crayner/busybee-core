@@ -12,72 +12,72 @@
 
 </head>
 
-<body>
-	
-	{% block menuContainer %}
-	{{ include('BusybeeHomeBundle:Menu:main-menu.html.twig') }}
-	{% endblock menuContainer %}
-	
-    <div class="container theme-showcase" role="main">
-	
-		{% block titleContainer %}
-		<div class="jumbotron">
-			<img src="{{ asset(get_setting('Org.Logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo" />
-			<h2>{% block headerTitle %}Busybee - {{ get_setting('Org.Name') }}{% endblock headerTitle %}</h2>
-			<p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
-		</div>
-		{% endblock titleContainer %}
+	<body>
+
+		{% block menuContainer %}
+		{{ include('BusybeeHomeBundle:Menu:main-menu.html.twig') }}
+		{% endblock menuContainer %}
+
+		<div class="container theme-showcase" role="main">
+
+			{% block titleContainer %}
+			<div class="jumbotron">
+				<img src="{{ asset(get_setting('Org.Logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo" />
+				<h2>{% block headerTitle %}Busybee - {{ get_setting('Org.Name') }}{% endblock headerTitle %}</h2>
+				<p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
+			</div>
+			{% endblock titleContainer %}
 
 
-		<div class="container-fluid" id="contentContainer">
-		{% block flashMessages %}
-			{% include 'BusybeeHomeBundle:Default:flash.html.twig' %}
-		{% endblock flashMessages %}
-		{% block contentContainer %}
+			<div class="container-fluid" id="contentContainer">
+			{% block flashMessages %}
+				{% include 'BusybeeHomeBundle:Default:flash.html.twig' %}
+			{% endblock flashMessages %}
+			{% block contentContainer %}
 
-		{{ include('BusybeeHomeBundle:Default:buttons.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:tables.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:thumbnails.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:labels.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:badges.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:dropdowns.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:navs.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:navBars.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:alerts.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:progressBars.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:listGroups.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:panels.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:wells.html.twig') }}
-	
-		{{ include('BusybeeHomeBundle:Default:carousel.html.twig') }}
-	
-		{% endblock contentContainer %}
-		</div>
-    </div> <!-- /container -->
+			{{ include('BusybeeHomeBundle:Default:buttons.html.twig') }}
 
-    <div class="container theme-showcase" id="footerContainer">
-		{% block footerContainer %}
-			{{ include('BusybeeHomeBundle:Default:footer.html.twig') }}
-		{% endblock footerContainer %}
-    </div> <!-- /container footer -->
+			{{ include('BusybeeHomeBundle:Default:tables.html.twig') }}
 
+			{{ include('BusybeeHomeBundle:Default:thumbnails.html.twig') }}
 
-{% block javascripts %}
-	{% include "BusybeeHomeBundle:Default:scripts.html.twig" %}
-{% endblock javascripts %}
+			{{ include('BusybeeHomeBundle:Default:labels.html.twig') }}
+
+			{{ include('BusybeeHomeBundle:Default:badges.html.twig') }}
+
+			{{ include('BusybeeHomeBundle:Default:dropdowns.html.twig') }}
+
+			{{ include('BusybeeHomeBundle:Default:navs.html.twig') }}
+
+			{{ include('BusybeeHomeBundle:Default:navBars.html.twig') }}
+
+			{{ include('BusybeeHomeBundle:Default:alerts.html.twig') }}
+
+			{{ include('BusybeeHomeBundle:Default:progressBars.html.twig') }}
+
+			{{ include('BusybeeHomeBundle:Default:listGroups.html.twig') }}
+
+			{{ include('BusybeeHomeBundle:Default:panels.html.twig') }}
+
+			{{ include('BusybeeHomeBundle:Default:wells.html.twig') }}
+
+			{{ include('BusybeeHomeBundle:Default:carousel.html.twig') }}
+
+			{% endblock contentContainer %}
+			</div>
+		</div> <!-- /container -->
+
+		<div class="container theme-showcase" id="footerContainer">
+			{% block footerContainer %}
+				{{ include('BusybeeHomeBundle:Default:footer.html.twig') }}
+			{% endblock footerContainer %}
+		</div> <!-- /container footer -->
 
 
-</body>
+	{% block javascripts %}
+		{% include "BusybeeHomeBundle:Default:scripts.html.twig" %}
+	{% endblock javascripts %}
+
+
+	</body>
 </html>

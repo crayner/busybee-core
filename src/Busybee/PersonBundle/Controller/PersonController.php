@@ -78,12 +78,9 @@ class PersonController extends Controller
 		if ($form->isSubmitted() && $form->isValid())
 		{
 		    $ok = true ;
-		    dump($person);
             $personData = $request->request->get('person');
-            dump($personData);
 
-            if (! isset($personData['staff']['question']) && $person->getStaff() instanceof Staff && $person->getStaff()->getId() === null)
-                    $person->setStaff(null);
+dump($person);
 
             foreach($formDefinition as $defined)
 			{

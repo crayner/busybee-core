@@ -2,8 +2,6 @@
 
 namespace Busybee\SystemBundle\Model ;
 
-use Busybee\FormBundle\Model\FormErrorsParser ;
-use Symfony\Component\Form\FormError ;
 use Symfony\Component\Form\FormInterface ;
 use Busybee\SystemBundle\Setting\SettingManager ;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
@@ -11,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
 class SettingExtension extends \Twig_Extension
 {
     /**
-     * @var Setting Manager
+     * @var SettingManager
      */
     private $sm ;
 	
@@ -42,20 +40,21 @@ class SettingExtension extends \Twig_Extension
     }
 
     /**
-     * Main Twig extension. Call this in Twig to get formatted output of your form errors.
-     * Note that you have to provide form as Form object, not FormView.
-     * 
-     * @param   FormInterface  $form
-     * @param   string         $tag    The html tag, in which all errors will be packed. If you provide 'li',
-     *                                 'ul' wrapper will be added
-     * @param   string         $class  Class of each error. Default is none.
-     * @return  string
+     * @param $name
+     * @param null $default
+     * @param array $options
+     * @return mixed
      */
     public function getSetting($name, $default = null, $options = array())
     {
         return $this->sm->get($name, $default, $options);
     }
 
+    /**
+     * @param $name
+     * @param null $default
+     * @return mixed
+     */
     public function getParameter($name, $default = null)
     {
         if (strpos($name, '.') === false)
@@ -72,26 +71,44 @@ class SettingExtension extends \Twig_Extension
 		return $value;
     }
 
+    /**
+     * @return mixed
+     */
     public function getMenu()
     {
         return $this->container->get('menu.manager')->getMenu();
     }
 
+    /**
+     * @param $node
+     * @return mixed
+     */
     public function getMenuItems($node)
     {
         return $this->container->get('menu.manager')->getMenuItems($node);
     }
 
+    /**
+     * @param $test
+     * @return bool
+     */
     public function testMenuItem($test)
     {
         return $this->container->get('menu.manager')->testMenuItem($test);
     }
 
+    /**
+     * @param $menu
+     * @return bool
+     */
     public function menuRequired($menu)
     {	
 		return $this->container->get('menu.manager')->menuRequired($menu);
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'system_twig_extension';

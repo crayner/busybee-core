@@ -219,3 +219,6 @@ img.imageWidth200 {
 	color: indianred;
 	text-align: justify ;
 }
+ul.nav li.disabled {
+	display: none ;
+}

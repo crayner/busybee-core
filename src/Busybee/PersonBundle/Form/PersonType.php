@@ -3,8 +3,10 @@
 namespace Busybee\PersonBundle\Form ;
 
 use Busybee\FormBundle\Type\AutoCompleteType;
+use Busybee\FormBundle\Type\YesNoType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Events\PersonSubscriber;
+use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\PersonBundle\Model\PhotoUploader;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,16 +14,15 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Component\Validator\Constraints as Assert;
-use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager ;
 
 
 class PersonType extends AbstractType
 {
 	/**
-	 * @var	SettingManager
+	 * @var	PersonManager
 	 */
-	private $sm ;
+	private $personManager ;
 
     /**
      * @var	ObjectManager
@@ -36,9 +37,9 @@ class PersonType extends AbstractType
 	/**
 	 * Construct
 	 */
-	public function __construct(SettingManager $sm, ObjectManager $manager, PhotoUploader $photoLoader)
+	public function __construct(PersonManager $sm, ObjectManager $manager, PhotoUploader $photoLoader)
 	{
-		$this->sm = $sm ;
+		$this->personManager = $sm ;
 		$this->manager = $manager ;
 		$this->photoLoader = $photoLoader;
 	}
@@ -50,7 +51,7 @@ class PersonType extends AbstractType
     {
         $builder->add('title', ChoiceType::class, array(
 					'label' => 'person.label.title',
-					'choices' => $this->sm->get('Person.TitleList'),
+					'choices' => $this->personManager->getSettingManager()->get('Person.TitleList'),
 					'attr'	=> array(
 						'class' => 'beeTitle',
 					),
@@ -88,7 +89,7 @@ class PersonType extends AbstractType
 				)
 			)
 			->add('gender', ChoiceType::class, array(
-					'choices' => $this->sm->get('Person.GenderList'),
+					'choices' => $this->personManager->getSettingManager()->get('Person.GenderList'),
 					'label' => 'person.label.gender',
 					'attr'	=> array(
 						'class' => 'beeGender',
@@ -166,9 +167,19 @@ class PersonType extends AbstractType
                     ),
                 )
             )
-            ->add('staff', StaffType::class)
+            ->add('staffQuestion', YesNoType::class, array(
+                    'label'					=> 'person.label.staff.question',
+                    'attr'                  => array(
+                        'help'                  => 'person.help.staff.question',
+                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
+                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                    ),
+                    'mapped'                => false,
+                )
+            )
 		;
-        $builder->addEventSubscriber(new PersonSubscriber());
+
+        $builder->addEventSubscriber(new PersonSubscriber($this->personManager, $this->manager));
     }
     
     /**

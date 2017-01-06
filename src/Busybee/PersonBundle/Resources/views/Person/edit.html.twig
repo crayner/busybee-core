@@ -26,7 +26,9 @@
 		{% for name,tab in tabs %}
 			{% set translation = 'BusybeePersonBundle' %}
 			{% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
-			<li><a href="#{{ name }}" role="tab" data-toggle="tab">{{ tab.label|trans({}, translation) }}</a></li>
+            {% set disabled = '' %}
+            {% if name == 'staff' and form.staff.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
+			<li{{ disabled }}><a href="#{{ name }}" role="tab" data-toggle="tab">{{ tab.label|trans({}, translation) }}</a></li>
 		{% endfor %}
 	</ul>
 	{% set active = ' active' %}
@@ -34,6 +36,11 @@
 		{% for name,tab in tabs %}
 			{% set translation = 'BusybeePersonBundle' %}
 			{% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
+            {% if name == 'staff' and form.staff.person is not defined %}
+                <div class="tab-pane" id="{{ name }}" >
+                    {%  include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.staff.title'|trans({'%name%': form.vars.value.formatName}) }  %}
+                </div>
+            {% else %}
 			<div class="tab-pane{{ active }}" id="{{ name }}" >
 				{% if tab.message is defined %}
 				<div class="container-fluid">
@@ -43,6 +50,7 @@
 				{% endif %}
 				{% include(tab.include) %}
 			</div>
+            {% endif %}
 			{% set active = '' %}
 		{% endfor %}
 	</div>
@@ -61,31 +69,22 @@
         $(".yes-no").checkboxpicker({
             iconCls: "halflings"
         });
-        $('#person_staff_question').checkboxpicker().on('change', function() {
-            var checked = $('#person_staff_question').prop('checked');
-            if (checked)
-			{
-                $('#person_staff_type').prop('disabled', false);
-                $('#person_staff_jobTitle').prop('disabled', false);
-				$('#person_staff_person').prop('disabled', false);
+        $('#person_staffQuestion').checkboxpicker().on('change', function() {
+            var checked = $('#person_staffQuestion').prop('checked');
+            if (checked) {
+                $('.staffMember').prop('disabled', false);
 			} else {
-                $('#person_staff_type').prop('disabled', true);
-                $('#person_staff_jobTitle').prop('disabled', true);
-                $('#person_staff_person').prop('disabled', true);
+                $('.staffMember').prop('disabled', true);
 			}
         });
         $(document).ready(function(){
-            var checked = $('#person_staff_question').prop('checked');
-            if (checked)
-            {
-                $('#person_staff_type').prop('disabled', false);
-                $('#person_staff_jobTitle').prop('disabled', false);
-                $('#person_staff_person').prop('disabled', false);
+            var checked = $('#person_staffQuestion').prop('checked');
+            if (checked) {
+                $('.staffMember').prop('disabled', false);
             } else {
-                $('#person_staff_type').prop('disabled', true);
-                $('#person_staff_jobTitle').prop('disabled', true);
-                $('#person_staff_person').prop('disabled', true);
+                $('.staffMember').prop('disabled', true);
             }
+
 		});
 	</script>
 {% endblock javascripts %}

@@ -143,10 +143,10 @@ services:
     person.form.personType:
         class: Busybee\PersonBundle\Form\PersonType
         arguments:
-            - '@setting.manager'
+            - '@person.manager'
             - '@doctrine.orm.entity_manager'
             - '@person.uploader.photo'
-        tags: 
+        tags:
             - { name: form.type }
     person.form.addressType:
         class: Busybee\PersonBundle\Form\AddressType

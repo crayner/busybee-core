@@ -14,7 +14,7 @@ class PersonManager
     /**
      * @var SettingManager
      */
-    private static $sm;
+    private $sm;
 
     /**
      * @var EntityManager
@@ -27,7 +27,7 @@ class PersonManager
      */
     public function __construct(SettingManager $sm, EntityManager $em)
     {
-        self::$sm = $sm ;
+        $this->sm = $sm ;
         $this->em = $em ;
     }
 
@@ -210,5 +210,9 @@ class PersonManager
             return false ;
 
         return $staff->canDelete() ;
+    }
+    public function getSettingManager()
+    {
+        return $this->sm ;
     }
 }

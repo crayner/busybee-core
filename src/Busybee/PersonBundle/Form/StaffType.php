@@ -41,25 +41,26 @@ class StaffType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('person', HiddenType::class)
+            ->add('person', HiddenType::class, array(
+                    'attr'  =>  array(
+                        'class' => 'staffMember',
+                    )
+                )
+            )
             ->add('type', ChoiceType::class, array(
                     'label' => 'person.label.staff.type',
                     'choices' => $this->sm->get('Staff.Categories'),
                     'placeholder' => 'person.placeholder.staff.type',
+                    'attr'  =>  array(
+                        'class' => 'staffMember',
+                    )
                 )
             )
             ->add('jobTitle', null, array(
                     'label' => 'person.label.staff.jobTitle',
-                )
-            )
-            ->add('question', YesNoType::class, array(
-                    'label'					=> 'person.label.staff.question',
-                    'attr'                  => array(
-                        'help'                  => 'person.help.staff.question',
-                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
-                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
-                    ),
-                    'mapped'                => false,
+                    'attr'  =>  array(
+                        'class' => 'staffMember',
+                    )
                 )
             )
         ;
