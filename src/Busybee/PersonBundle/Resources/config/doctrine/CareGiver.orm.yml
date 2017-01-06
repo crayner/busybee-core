@@ -24,8 +24,7 @@ Busybee\PersonBundle\Entity\CareGiver:
             joinColumns:
                 modified_by:
                     referencedColumnName: id
+    oneToOne:
         person:
             targetEntity: Busybee\PersonBundle\Entity\Person
-            joinColumns:
-                person_id:
-                    referencedColumn: id
+            inversedBy: caregiver

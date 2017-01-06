@@ -2,8 +2,12 @@
 
 namespace Busybee\PersonBundle\Events ;
 
+use Busybee\PersonBundle\Entity\CareGiver;
 use Busybee\PersonBundle\Entity\Staff;
+use Busybee\PersonBundle\Entity\Student;
+use Busybee\PersonBundle\Form\CareGiverType;
 use Busybee\PersonBundle\Form\StaffType;
+use Busybee\PersonBundle\Form\StudentType;
 use Busybee\PersonBundle\Model\PersonManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -24,14 +28,21 @@ class PersonSubscriber implements EventSubscriberInterface
     private $om ;
 
     /**
+     * @var array
+     */
+    private $parameters ;
+
+    /**
      * PersonSubscriber constructor.
      * @param PersonManager $pm
      * @param ObjectManager $om
+     * @param $parameters
      */
-    public function __construct(PersonManager $pm, ObjectManager $om)
+    public function __construct(PersonManager $pm, ObjectManager $om, $parameters)
     {
         $this->personManager = $pm;
         $this->om = $om ;
+        $this->parameters = $parameters;
     }
     /**
      * @return array
@@ -60,6 +71,20 @@ class PersonSubscriber implements EventSubscriberInterface
             $form->add('staff', StaffType::class);
         else
             $form->add('staff', HiddenType::class);
+
+        if ($person->getCareGiver() === null || $person->getCareGiver()->getId() === null)
+            $form->add('careGiver', HiddenType::class);
+        elseif ($this->personManager->canBeStaff($person))
+            $form->add('careGiver', CareGiverType::class);
+        else
+            $form->add('careGiver', HiddenType::class);
+
+        if ($person->getStudent() === null || $person->getStudent()->getId() === null)
+            $form->add('student', HiddenType::class);
+        elseif ($this->personManager->canBeStudent($person))
+            $form->add('student', StudentType::class);
+        else
+            $form->add('student', HiddenType::class);
     }
     /**
      * @param FormEvent $event
@@ -69,13 +94,14 @@ class PersonSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
         $person = $form->getData();
+        $flush = false ;
 
-        if (isset($data['staff']) && $data['staff'] === '' && isset($data['staffQuestion']) && $data['staffQuestion'] === '1')
+        if (isset($data['staffQuestion']) && $data['staffQuestion'] === '1' && ! $person->getStaff() instanceof Staff && $this->personManager->canBeStaff($person))
         {
             $data['staff'] = array();
             $data['staff']['type'] = 'Unknown';
             $data['staff']['jobTitle'] = 'Not Specified';
-            $data['staff']['person'] = $form->getData();
+            $data['staff']['person'] = $form->getData()->getId();
             $form->remove('staff');
             $form->add('staff', StaffType::class);
         }
@@ -86,8 +112,52 @@ class PersonSubscriber implements EventSubscriberInterface
             $form->remove('staff');
             $form->add('staff', HiddenType::class);
             $this->om->remove($form->get('staff')->getData());
-            $this->om->flush();
+            $flush = true ;
         }
+
+        if (isset($data['careGiverQuestion']) && $data['careGiverQuestion'] === '1' && ! $person->getCareGiver() instanceof CareGiver && $this->personManager->canBeCareGiver($person))
+        {
+            $data['careGiver'] = array();
+            $data['careGiver']['person'] = $form->getData()->getId();
+            $form->remove('careGiver');
+            $form->add('careGiver', CareGiverType::class);
+        }
+
+        if ($form->get('careGiver')->getData() instanceof CareGiver && ! isset($data['careGiver']) && $this->personManager->canDeleteCareGiver($person))
+        {
+            $data['careGiver'] = "";
+            $form->remove('careGiver');
+            $form->add('careGiver', HiddenType::class);
+            $this->om->remove($form->get('careGiver')->getData());
+            $flush = true;
+        }
+        if ( isset($data['studentQuestion']) && $data['studentQuestion'] === '1' && ! $person->getStudent() instanceof Student && $this->personManager->canBeStudent($person))
+        {
+            $data['student'] = array();
+            $data['student']['startAtSchool'] = array();
+            $data['student']['startAtSchool']['year'] = date('Y');
+            $data['student']['startAtSchool']['month'] = date('n');
+            $data['student']['startAtSchool']['day'] = date('j');
+            $data['student']['startAtThisSchool'] = array();
+            $data['student']['startAtThisSchool']['year'] = date('Y');
+            $data['student']['startAtThisSchool']['month'] = date('n');
+            $data['student']['startAtThisSchool']['day'] = date('j');
+            $data['student']['person'] = $form->getData()->getId();
+            $form->remove('student');
+            $form->add('student', StudentType::class);
+        }
+
+        if ($form->get('student')->getData() instanceof Student  && ! isset($data['studentQuestion']) && $this->personManager->canDeleteStudent($person, $this->parameters))
+        {
+            $data['student'] = "";
+            $form->remove('student');
+            $form->add('student', HiddenType::class);
+            $this->om->remove($form->get('student')->getData());
+            $flush = true ;
+        }
+
+        if ($flush)
+            $this->om->flush();
 
         $event->setData($data);
     }

@@ -7,12 +7,11 @@ use Busybee\SecurityBundle\Form\DataTransformer\EntityToIntTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class StaffType extends AbstractType
+class CareGiverType extends AbstractType
 {
     /**
      * @var ObjectManager
@@ -33,7 +32,6 @@ class StaffType extends AbstractType
         $this->manager = $manager ;
         $this->sm = $sm ;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -42,23 +40,7 @@ class StaffType extends AbstractType
         $builder
             ->add('person', HiddenType::class, array(
                     'attr'  =>  array(
-                        'class' => 'staffMember',
-                    )
-                )
-            )
-            ->add('type', ChoiceType::class, array(
-                    'label' => 'person.label.staff.type',
-                    'choices' => $this->sm->get('Staff.Categories'),
-                    'placeholder' => 'person.placeholder.staff.type',
-                    'attr'  =>  array(
-                        'class' => 'staffMember',
-                    )
-                )
-            )
-            ->add('jobTitle', null, array(
-                    'label' => 'person.label.staff.jobTitle',
-                    'attr'  =>  array(
-                        'class' => 'staffMember',
+                        'class' => 'careGiver',
                     )
                 )
             )
@@ -73,7 +55,7 @@ class StaffType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Busybee\PersonBundle\Entity\Staff',
+            'data_class' => 'Busybee\PersonBundle\Entity\CareGiver',
             'translation_domain' => 'BusybeePersonBundle',
         ));
     }
@@ -83,6 +65,6 @@ class StaffType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'staff';
+        return 'care_giver';
     }
 }

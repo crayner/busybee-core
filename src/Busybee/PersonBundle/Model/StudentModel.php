@@ -18,8 +18,8 @@ abstract class StudentModel
      */
     public function __construct()
     {
-        $this->setStartAtThisSchool(new \DateTime('now'));
-        $this->setStartAtSchool(new \DateTime('now'));
+        $this->setStartAtThisSchool(new \DateTime());
+        $this->setStartAtSchool(new \DateTime());
     }
 
     /**

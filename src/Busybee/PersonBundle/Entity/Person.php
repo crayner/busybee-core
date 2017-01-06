@@ -95,6 +95,14 @@ class Person extends PersonModel
      * @var \busybee\PersonBundle\Entity\Staff
      */
     private $staff;
+    /**
+     * @var \Busybee\PersonBundle\Entity\CareGiver
+     */
+    private $caregiver;
+    /**
+     * @var \Busybee\PersonBundle\Entity\Student
+     */
+    private $student;
 
     /**
      * Constructor
@@ -589,6 +597,54 @@ class Person extends PersonModel
     public function setStaff(\busybee\PersonBundle\Entity\Staff $staff = null)
     {
         $this->staff = $staff;
+
+        return $this;
+    }
+
+    /**
+     * Get caregiver
+     *
+     * @return \Busybee\PersonBundle\Entity\CareGiver
+     */
+    public function getCaregiver()
+    {
+        return $this->caregiver;
+    }
+
+    /**
+     * Set caregiver
+     *
+     * @param \Busybee\PersonBundle\Entity\CareGiver $caregiver
+     *
+     * @return Person
+     */
+    public function setCaregiver(\Busybee\PersonBundle\Entity\CareGiver $caregiver = null)
+    {
+        $this->caregiver = $caregiver;
+
+        return $this;
+    }
+
+    /**
+     * Get student
+     *
+     * @return \Busybee\PersonBundle\Entity\Student
+     */
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
+    /**
+     * Set student
+     *
+     * @param \Busybee\PersonBundle\Entity\Student $student
+     *
+     * @return Person
+     */
+    public function setStudent(\Busybee\PersonBundle\Entity\Student $student = null)
+    {
+        $this->student = $student;
 
         return $this;
     }

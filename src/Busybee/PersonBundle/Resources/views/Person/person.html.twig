@@ -43,19 +43,51 @@
 				{% set offset = 8 %}
                 {% if form.vars.value.id is not null and canBeStaff(form.vars.value) %}
 					<div class="col-sm-2 well">
-						{% if form.staff.vars.value is empty or form.staff.vars.value.getId() is empty %}
-							{{ form_row(form.staffQuestion) }}
-						{% else %}
-							{% set attributes = {'checked': 'checked'} %}
-							{% if not canDeleteStaff(form.vars.value) %}
-								{% set attributes = attributes|merge({'disabled': 'disabled'}) %}
-							{% endif %}
-							{{ form_row(form.staffQuestion, attributes) }}
-						{% endif %}
-						{% set offset = offset - 2 %}
+                        {% if form.staff.vars.value is empty or form.staff.vars.value.getId() is empty %}
+                            {{ form_row(form.staffQuestion) }}
+                        {% else %}
+                            {% set attributes = {'checked': 'checked'} %}
+                            {% if not canDeleteStaff(form.vars.value) %}
+                                {% set attributes = attributes|merge({'disabled': 'disabled'}) %}
+                            {% endif %}
+                            {{ form_row(form.staffQuestion, attributes) }}
+                        {% endif %}
+                        {% set offset = offset - 2 %}
 					</div>
                 {% else %}
                     {% do form.staffQuestion.setRendered() %}
+                {% endif %}
+                {% if form.vars.value.id is not null and canBeCareGiver(form.vars.value) %}
+					<div class="col-sm-2 well">
+                        {% if form.careGiver.vars.value is empty or form.careGiver.vars.value.getId() is empty %}
+                            {{ form_row(form.careGiverQuestion) }}
+                        {% else %}
+                            {% set attributes = {'checked': 'checked'} %}
+                            {% if not canDeleteCareGiver(form.vars.value) %}
+                                {% set attributes = attributes|merge({'disabled': 'disabled'}) %}
+                            {% endif %}
+                            {{ form_row(form.careGiverQuestion, attributes) }}
+                        {% endif %}
+                        {% set offset = offset - 2 %}
+					</div>
+                {% else %}
+                    {% do form.careGiverQuestion.setRendered() %}
+                {% endif %}
+                {% if form.vars.value.id is not null and canBeStudent(form.vars.value) %}
+					<div class="col-sm-2 well">
+                        {% if form.student.vars.value is empty or form.student.vars.value.getId() is empty %}
+                            {{ form_row(form.studentQuestion) }}
+                        {% else %}
+                            {% set attributes = {'checked': 'checked'} %}
+                            {% if not canDeleteStudent(form.vars.value, get_parameter('person')) %}
+                                {% set attributes = attributes|merge({'disabled': 'disabled'}) %}
+                            {% endif %}
+                            {{ form_row(form.studentQuestion, attributes) }}
+                        {% endif %}
+                        {% set offset = offset - 2 %}
+					</div>
+                {% else %}
+                    {% do form.studentQuestion.setRendered() %}
                 {% endif %}
 				<div class="col-sm-offset-{{ offset }} col-sm-2 well">
 					{{ form_row(form.title) }}

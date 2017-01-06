@@ -146,6 +146,7 @@ services:
             - '@person.manager'
             - '@doctrine.orm.entity_manager'
             - '@person.uploader.photo'
+            - '%person%'
         tags:
             - { name: form.type }
     person.form.addressType:
@@ -184,12 +185,6 @@ services:
         class: Busybee\PersonBundle\Validator\Constraints\PersonImageValidator
         tags:
             - { name: validator.constraint_validator, alias: person_image_validator }
-    form.select.locality.type:
-        class: Busybee\PersonBundle\Form\SelectLocalityType
-        arguments:
-            - '@locality.repository'
-        tags:
-            - { name: form.type }
     student.pagination:
         class: Busybee\PersonBundle\Model\StudentPagination
         arguments:
@@ -212,6 +207,20 @@ services:
             - "BusybeePersonBundle:CareGiver"
     form.person.staff.type:
         class: Busybee\PersonBundle\Form\StaffType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }
+    form.person.care.giver.type:
+        class: Busybee\PersonBundle\Form\CareGiverType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }
+    form.person.student.type:
+        class: Busybee\PersonBundle\Form\StudentType
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@setting.manager'

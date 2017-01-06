@@ -10,15 +10,13 @@ Busybee\PersonBundle\Entity\Student:
                 strategy: AUTO
     fields:
         startAtSchool:
-            type: datetime
+            type: date
         startAtThisSchool:
-            type: datetime
+            type: date
         lastModified:
             type: datetime
-            nullable: true 
         createdOn:
             type: datetime
-            nullable: true 
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
@@ -35,6 +33,4 @@ Busybee\PersonBundle\Entity\Student:
     oneToOne:
         person:
             targetEntity: Busybee\PersonBundle\Entity\Person
-            joinColumn:
-                name: person_id
-                referencedColumn: id
+            inversedBy: student

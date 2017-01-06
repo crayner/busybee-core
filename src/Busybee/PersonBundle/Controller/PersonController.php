@@ -70,17 +70,13 @@ class PersonController extends Controller
 			if (isset($extra['script']))
 				$editOptions['script'][] = $extra['script'];
 		}
-
 		$form->handleRequest($request);
 
         $validator = $this->get('validator');
 
-		if ($form->isSubmitted() && $form->isValid())
+        if ($form->isSubmitted() && $form->isValid())
 		{
 		    $ok = true ;
-            $personData = $request->request->get('person');
-
-dump($person);
 
             foreach($formDefinition as $defined)
 			{

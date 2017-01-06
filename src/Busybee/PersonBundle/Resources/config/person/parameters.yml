@@ -16,3 +16,7 @@ parameters:
             label: person.tab.careGiver
             include: BusybeePersonBundle:Person:careGiver.html.twig
             message: careGiverMessage
+        student:
+            label: person.tab.student
+            include: BusybeePersonBundle:Person:student.html.twig
+            message: studentMessage

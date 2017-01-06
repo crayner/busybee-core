@@ -34,14 +34,20 @@ class PersonType extends AbstractType
      */
     private $photoLoader ;
 
+    /**
+     * @var array
+     */
+    private $parameters ;
+
 	/**
 	 * Construct
 	 */
-	public function __construct(PersonManager $sm, ObjectManager $manager, PhotoUploader $photoLoader)
+	public function __construct(PersonManager $sm, ObjectManager $manager, PhotoUploader $photoLoader, $paramters)
 	{
 		$this->personManager = $sm ;
 		$this->manager = $manager ;
 		$this->photoLoader = $photoLoader;
+		$this->parameters = $paramters ;
 	}
 
     /**
@@ -177,9 +183,29 @@ class PersonType extends AbstractType
                     'mapped'                => false,
                 )
             )
+            ->add('careGiverQuestion', YesNoType::class, array(
+                    'label'					=> 'person.label.careGiver.question',
+                    'attr'                  => array(
+                        'help'                  => 'person.help.careGiver.question',
+                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
+                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                    ),
+                    'mapped'                => false,
+                )
+            )
+            ->add('studentQuestion', YesNoType::class, array(
+                    'label'					=> 'person.label.student.question',
+                    'attr'                  => array(
+                        'help'                  => 'person.help.student.question',
+                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
+                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                    ),
+                    'mapped'                => false,
+                )
+            )
 		;
 
-        $builder->addEventSubscriber(new PersonSubscriber($this->personManager, $this->manager));
+        $builder->addEventSubscriber(new PersonSubscriber($this->personManager, $this->manager, $this->parameters));
     }
     
     /**

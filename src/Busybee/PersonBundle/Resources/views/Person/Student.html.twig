@@ -1,0 +1,34 @@
+{# src/Busybee/PersonBundle/Resources/views/Form/staff.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% form_theme form
+	"BusybeeFormBundle:Template:bootstrap.html.twig"
+%}
+
+<div class="panel panel-primary busybee-panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ 'person.student.title'|trans({'%name%': form.vars.value.formatName})}}
+		<button title='{{ 'person.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('person_manage') }}','_self')" style="float: right"></button>
+		{% if id != 'Add' %}
+			<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
+		{% endif %}
+		<button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button" onClick="location.href='{{ path('person_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+		<button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}' type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6 well">
+                    {{ form_widget(form.student.person) }}
+                    {{ form_row(form.student.startAtSchool) }}
+				</div>
+				<div class="col-sm-6 well">
+                    {{ form_row(form.student.startAtThisSchool) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

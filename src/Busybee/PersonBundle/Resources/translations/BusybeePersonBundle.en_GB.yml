@@ -43,6 +43,10 @@ person:
             question: 'Staff Member ?'
             type: Staff Category
             jobTitle: Position Title
+        careGiver:
+            question: Care Giver ?
+        student:
+            question: Student ?
     help:
         officialName: This is the name recorded on official documents. e.g. birth certificates and passports.
         photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 
@@ -52,12 +56,16 @@ person:
         address2: Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
         staff:
             question: ''
+        careGiver:
+            question: ''
+        student:
+            question: ''
     tab:
         person: Person
-        address1: Address
-        address2: Alt Address
         contact: Contact
         staff: Staff
+        careGiver: Care Giver
+        student: Student
     placeholder:
         address: Start typing any address.
         staff:
@@ -84,11 +92,13 @@ person:
         empty: can not be empty.
         notFound: "A person record of %number% does not exist"
     student:
-        title: Student Management
+        title: 'Student: %name%'
         description: Student selection
         toggle: Student Status
     caregiver:
         toggle: Care Giver Status
+    careGiver:
+        title: 'Care Giver: %name%'
 student:
     title:
         list: Student List

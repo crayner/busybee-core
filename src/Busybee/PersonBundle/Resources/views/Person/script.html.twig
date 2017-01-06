@@ -14,17 +14,17 @@
                 url: "{{ path('address_fetch') }}",
                 type: "POST",
                 success: function(data){
+                    $( "#person_address1_list" ).autocomplete('option', 'source', data.options);
+                    $( "#person_address2_list" ).autocomplete('option', 'source', data.options);
+
                     var id1 = $("#person_address1").val();
                     var id2 = $("#person_address2").val();
-                    $(".beeAddressList").empty();
 
                     options = data.options; // Or whatever source information you're working with
                     var label1 = "";
                     var label2 = "";
                     for (index = 0; index < options.length; ++index) {
                         option = options[index];
-
-                        $(".beeAddressList").append('<option value=' + option.value + '>' + option.label + '</option>');
 
                         if (option.value == id1)
                         {
