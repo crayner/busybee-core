@@ -106,6 +106,7 @@ person:
         title: 'Care Giver: %name%'
     user:
         title: 'User:: %name%'
+        toggle: System User Status
 student:
     title:
         list: Student List

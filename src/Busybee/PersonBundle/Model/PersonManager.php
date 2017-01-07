@@ -266,4 +266,16 @@ class PersonManager
     {
         return $this->sm->getParameter($name);
     }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
+    public function isUser(Person $person)
+    {
+        $user = $this->em->getRepository(User::class)->findOneByPerson($person->getId());
+        if ($user instanceof User)
+            return true ;
+        return false ;
+    }
 }

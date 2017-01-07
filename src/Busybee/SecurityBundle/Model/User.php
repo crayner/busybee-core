@@ -190,7 +190,7 @@ abstract class User implements UserInterface
      */
     public function getChangePassword()
 	{
-		return false ;
+		return $this->credentialsExpired ;
 	}
 
     /**

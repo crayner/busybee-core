@@ -75,9 +75,16 @@
 							<button id="studentToggle{{ person.id }}" title='{{ 'person.student.toggle'|trans}}' type="button" class="studentToggle halflings halflings-remove  btn btn-danger"></button>
                         {% endif %}
                         {% if isStaff(person) %}
-							<button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-ok  btn btn-success"></button>
+                            <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-ok  btn btn-success"></button>
                         {% else %}
-							<button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-remove  btn btn-danger"></button>
+                            <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-remove  btn btn-danger"></button>
+                        {% endif %}
+                        {% if isUser(person) and canDeleteUser(person)  %}
+                            <button id="userToggle{{ person.id }}" title='{{ 'person.user.toggle'|trans}}' type="button" class="userToggle halflings halflings-ok  btn btn-success"></button>
+                        {% elseif canBeUser(person) and not isUser(person) %}
+                            <button id="userToggle{{ person.id }}" title='{{ 'person.user.toggle'|trans}}' type="button" class="userToggle halflings halflings-remove  btn btn-danger"></button>
+                        {% else %}
+                            <button id="userToggle{{ person.id }}" title='{{ 'person.user.toggle'|trans}}' type="button" class="userToggle halflings halflings-ok btn btn-default" disabled></button>
                         {% endif %}
 					</div>
 				</div>
@@ -110,7 +117,7 @@
                     $(".fadeAlert").fadeOut(5000);
                 }
             })
-        });;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        });
         $(".studentToggle").on('click', function() {
             var id = $(this).prop('id');
             id = id.substring(13);
@@ -130,7 +137,7 @@
                     $(".fadeAlert").fadeOut(5000);
                 }
             })
-        });;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        });
         $(".staffToggle").on('click', function() {
             var id = $(this).prop('id');
             id = id.substring(11);
@@ -146,6 +153,26 @@
                     }
                     if (data.status == "added"){
                         $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-ok btn btn-success");
+                    }
+                    $(".fadeAlert").fadeOut(5000);
+                }
+            })
+        });;;;;;;;;;;;;
+        $(".userToggle").on('click', function() {
+            var id = $(this).prop('id');
+            id = id.substring(11);
+            var route = "{{ path('person_toggle_user', {'id': '__id__'}) }}";
+            route = route.replace('__id__', id);
+            $.ajax({
+                url: route,
+                type: "POST",
+                success: function(data){
+                    $("#peopleError").html(data.message);
+                    if (data.status == "removed"){
+                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-remove btn btn-danger");
+                    }
+                    if (data.status == "added"){
+                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-ok btn btn-success");
                     }
                     $(".fadeAlert").fadeOut(5000);
                 }

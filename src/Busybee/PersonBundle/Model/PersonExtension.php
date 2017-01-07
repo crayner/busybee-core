@@ -32,6 +32,7 @@ class PersonExtension extends \Twig_Extension
             new \Twig_SimpleFunction('isCareGiver', array($this, 'isCareGiver')),
             new \Twig_SimpleFunction('isStudent', array($this, 'isStudent')),
             new \Twig_SimpleFunction('isStaff', array($this, 'isStaff')),
+            new \Twig_SimpleFunction('isUser', array($this, 'isUser')),
             new \Twig_SimpleFunction('canBeStaff', array($this, 'canBeStaff')),
             new \Twig_SimpleFunction('canDeleteStaff', array($this, 'canDeleteStaff')),
             new \Twig_SimpleFunction('canBeCareGiver', array($this, 'canBeCareGiver')),
@@ -149,5 +150,14 @@ class PersonExtension extends \Twig_Extension
     public function getName()
     {
         return 'person_twig_extension';
+    }
+
+    /**
+     * @param Person $person
+     * @return mixed
+     */
+    public function isUser(Person $person)
+    {
+        return $this->pm->isUser($person);
     }
 }

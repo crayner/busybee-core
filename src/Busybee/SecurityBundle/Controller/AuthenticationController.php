@@ -175,7 +175,21 @@ class AuthenticationController extends Controller
 
         $this->get('security.token_storage')->setToken($token);
 
-        return new RedirectResponse($this->generateUrl('home_page'));
+        $user->setLastLogin(new \DateTime());
+        $em = $this->get('doctrine')->getManager();
+        $em->persist($user);
+        $em->flush();
+        $route = $this->get('router')->generate('home_page');
+
+        if( $user->getChangePassword() ) {
+
+            $this->session->getFlashBag()->add('warning', $this->get('translator')->trans('password.change.now', array(), 'BusybeeSecurityBundle'));
+
+            $route = $this->get('router')->generate('busybee_security_user_edit');
+
+        }
+
+        return new RedirectResponse($route);
     }
 
 }

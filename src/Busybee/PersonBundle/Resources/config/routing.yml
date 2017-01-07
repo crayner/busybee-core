@@ -43,3 +43,6 @@ person_toggle_student:
 person_toggle_staff:
     path:     /staff/{id}/toggle/
     defaults: { _controller: BusybeePersonBundle:Staff:toggle }
+person_toggle_user:
+    path:     /user/{id}/toggle/
+    defaults: { _controller: BusybeePersonBundle:User:toggle }
