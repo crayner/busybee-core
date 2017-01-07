@@ -14,3 +14,5 @@ Busybee\SecurityBundle\Entity\User:
             - Email: 
                 message: user.error.email.email
                 checkMX: true 
+        locale:
+            - Locale: ~

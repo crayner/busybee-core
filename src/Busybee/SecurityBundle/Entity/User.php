@@ -103,6 +103,22 @@ class User extends UserBase
      * @var \Doctrine\Common\Collections\Collection
      */
     protected $lastModified;
+    /**
+     * @var \DateTime
+     */
+    private $createdOn;
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $createdBy;
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $modifiedBy;
+    /**
+     * @var \Busybee\PersonBundle\Entity\Person
+     */
+    private $person;
 
     /**
      * Constructor
@@ -124,99 +140,13 @@ class User extends UserBase
     }
 
     /**
-     * Set username
+     * Get enabled
      *
-     * @param string $username
-     *
-     * @return User
+     * @return boolean
      */
-    public function setUsername($username)
+    public function getEnabled()
     {
-        $this->username = $username;
-		
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set usernameCanonical
-     *
-     * @param string $usernameCanonical
-     *
-     * @return User
-     */
-    public function setUsernameCanonical($usernameCanonical)
-    {
-        $this->usernameCanonical = $usernameCanonical;
-
-        return $this;
-    }
-
-    /**
-     * Get usernameCanonical
-     *
-     * @return string
-     */
-    public function getUsernameCanonical()
-    {
-        return $this->usernameCanonical;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-			
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set emailCanonical
-     *
-     * @param string $emailCanonical
-     *
-     * @return User
-     */
-    public function setEmailCanonical($emailCanonical)
-    {
-        $this->emailCanonical = $emailCanonical;
-
-        return $this;
-    }
-
-    /**
-     * Get emailCanonical
-     *
-     * @return string
-     */
-    public function getEmailCanonical()
-    {
-        return $this->emailCanonical;
+        return $this->enabled;
     }
 
     /**
@@ -234,13 +164,13 @@ class User extends UserBase
     }
 
     /**
-     * Get enabled
+     * Get locale
      *
-     * @return boolean
+     * @return string
      */
-    public function getEnabled()
+    public function getLocale()
     {
-        return $this->enabled;
+        return $this->locale;
     }
 
     /**
@@ -258,13 +188,13 @@ class User extends UserBase
     }
 
     /**
-     * Get locale
+     * Get password
      *
      * @return string
      */
-    public function getLocale()
+    public function getPassword()
     {
-        return $this->locale;
+        return $this->password;
     }
 
     /**
@@ -282,13 +212,13 @@ class User extends UserBase
     }
 
     /**
-     * Get password
+     * Get lastLogin
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getPassword()
+    public function getLastLogin()
     {
-        return $this->password;
+        return $this->lastLogin;
     }
 
     /**
@@ -306,13 +236,13 @@ class User extends UserBase
     }
 
     /**
-     * Get lastLogin
+     * Get locked
      *
-     * @return \DateTime
+     * @return boolean
      */
-    public function getLastLogin()
+    public function getLocked()
     {
-        return $this->lastLogin;
+        return $this->locked;
     }
 
     /**
@@ -330,13 +260,13 @@ class User extends UserBase
     }
 
     /**
-     * Get locked
+     * Get expired
      *
      * @return boolean
      */
-    public function getLocked()
+    public function getExpired()
     {
-        return $this->locked;
+        return $this->expired;
     }
 
     /**
@@ -354,13 +284,13 @@ class User extends UserBase
     }
 
     /**
-     * Get expired
+     * Get expiresAt
      *
-     * @return boolean
+     * @return \DateTime
      */
-    public function getExpired()
+    public function getExpiresAt()
     {
-        return $this->expired;
+        return $this->expiresAt;
     }
 
     /**
@@ -378,13 +308,13 @@ class User extends UserBase
     }
 
     /**
-     * Get expiresAt
+     * Get confirmationToken
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getExpiresAt()
+    public function getConfirmationToken()
     {
-        return $this->expiresAt;
+        return $this->confirmationToken;
     }
 
     /**
@@ -402,13 +332,13 @@ class User extends UserBase
     }
 
     /**
-     * Get confirmationToken
+     * Get passwordRequestedAt
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getConfirmationToken()
+    public function getPasswordRequestedAt()
     {
-        return $this->confirmationToken;
+        return $this->passwordRequestedAt;
     }
 
     /**
@@ -426,13 +356,13 @@ class User extends UserBase
     }
 
     /**
-     * Get passwordRequestedAt
+     * Get credentialsExpired
      *
-     * @return \DateTime
+     * @return boolean
      */
-    public function getPasswordRequestedAt()
+    public function getCredentialsExpired()
     {
-        return $this->passwordRequestedAt;
+        return $this->credentialsExpired;
     }
 
     /**
@@ -450,13 +380,13 @@ class User extends UserBase
     }
 
     /**
-     * Get credentialsExpired
+     * Get credentialsExpireAt
      *
-     * @return boolean
+     * @return \DateTime
      */
-    public function getCredentialsExpired()
+    public function getCredentialsExpireAt()
     {
-        return $this->credentialsExpired;
+        return $this->credentialsExpireAt;
     }
 
     /**
@@ -471,16 +401,6 @@ class User extends UserBase
         $this->credentialsExpireAt = $credentialsExpireAt;
 
         return $this;
-    }
-
-    /**
-     * Get credentialsExpireAt
-     *
-     * @return \DateTime
-     */
-    public function getCredentialsExpireAt()
-    {
-        return $this->credentialsExpireAt;
     }
 
     /**
@@ -565,6 +485,112 @@ class User extends UserBase
     }
 
     /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get usernameCanonical
+     *
+     * @return string
+     */
+    public function getUsernameCanonical()
+    {
+        return $this->usernameCanonical;
+    }
+
+    /**
+     * Set usernameCanonical
+     *
+     * @param string $usernameCanonical
+     *
+     * @return User
+     */
+    public function setUsernameCanonical($usernameCanonical)
+    {
+        $this->usernameCanonical = $usernameCanonical;
+
+        return $this;
+    }
+
+    /**
+     * Get emailCanonical
+     *
+     * @return string
+     */
+    public function getEmailCanonical()
+    {
+        return $this->emailCanonical;
+    }
+
+    /**
+     * Set emailCanonical
+     *
+     * @param string $emailCanonical
+     *
+     * @return User
+     */
+    public function setEmailCanonical($emailCanonical)
+    {
+        $this->emailCanonical = $emailCanonical;
+
+        return $this;
+    }
+
+    /**
+     * Get lastModified
+     *
+     * @return \DateTime
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
+
+    /**
      * Set lastModified
      *
      * @param \DateTime $lastModified
@@ -579,29 +605,14 @@ class User extends UserBase
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
-    /**
-     * @var \DateTime
-     */
-    private $createdOn;
-
-    /**
-     * @var \Busybee\SecurityBundle\Entity\User
-     */
-    private $createdBy;
-
-    /**
-     * @var \Busybee\SecurityBundle\Entity\User
-     */
-    private $modifiedBy;
-
 
     /**
      * Set createdOn
@@ -618,13 +629,13 @@ class User extends UserBase
     }
 
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -642,13 +653,13 @@ class User extends UserBase
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -666,12 +677,26 @@ class User extends UserBase
     }
 
     /**
-     * Get modifiedBy
+     * Get person
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\PersonBundle\Entity\Person
      */
-    public function getModifiedBy()
+    public function getPerson()
     {
-        return $this->modifiedBy;
+        return $this->person;
+    }
+
+    /**
+     * Set person
+     *
+     * @param \Busybee\PersonBundle\Entity\Person $person
+     *
+     * @return User
+     */
+    public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
+    {
+        $this->person = $person;
+
+        return $this;
     }
 }

@@ -54,33 +54,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     {
         $class = $this->getClass();
         $user = new $class;
-		
-		
         return $user;
-    }
-
-    /**
-     * Finds a user by email
-     *
-     * @param string $email
-     *
-     * @return UserInterface
-     */
-    public function findUserByEmail($email)
-    {
-        return $this->findUserBy(array('emailCanonical' => $this->canonicaliseEmail($email)));
-    }
-
-    /**
-     * Finds a user by username
-     *
-     * @param string $username
-     *
-     * @return UserInterface
-     */
-    public function findUserByUsername($username)
-    {
-        return $this->findUserBy(array('usernameCanonical' => $this->canonicaliseUsername($username)));
     }
 
     /**
@@ -97,6 +71,54 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
         }
 
         return $this->findUserByUsername($usernameOrEmail);
+    }
+
+    /**
+     * Finds a user by email
+     *
+     * @param string $email
+     *
+     * @return UserInterface
+     */
+    public function findUserByEmail($email)
+    {
+        return $this->findUserBy(array('emailCanonical' => $this->canonicaliseEmail($email)));
+    }
+
+    /**
+     * Canonicalises an email
+     *
+     * @param string $email
+     *
+     * @return string
+     */
+    protected function canonicaliseEmail($email)
+    {
+        return $this->emailCanonicaliser->canonicalise($email);
+    }
+
+    /**
+     * Finds a user by username
+     *
+     * @param string $username
+     *
+     * @return UserInterface
+     */
+    public function findUserByUsername($username)
+    {
+        return $this->findUserBy(array('usernameCanonical' => $this->canonicaliseUsername($username)));
+    }
+
+    /**
+     * Canonicalises a username
+     *
+     * @param string $username
+     *
+     * @return string
+     */
+    protected function canonicaliseUsername($username)
+    {
+        return $this->usernameCanonicaliser->canonicalise($username);
     }
 
     /**
@@ -190,30 +212,6 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
             $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
             $user->eraseCredentials();
         }
-    }
-
-    /**
-     * Canonicalises an email
-     *
-     * @param string $email
-     *
-     * @return string
-     */
-    protected function canonicaliseEmail($email)
-    {
-        return $this->emailCanonicaliser->canonicalise($email);
-    }
-
-    /**
-     * Canonicalises a username
-     *
-     * @param string $username
-     *
-     * @return string
-     */
-    protected function canonicaliseUsername($username)
-    {
-        return $this->usernameCanonicaliser->canonicalise($username);
     }
 
     protected function getEncoder(UserInterface $user)

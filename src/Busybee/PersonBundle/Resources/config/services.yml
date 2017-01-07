@@ -226,3 +226,10 @@ services:
             - '@setting.manager'
         tags:
             - { name: form.type }
+    form.person.user.type:
+        class: Busybee\PersonBundle\Form\UserType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }

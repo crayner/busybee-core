@@ -100,8 +100,6 @@ class PersonController extends Controller
                     }
 				}
 			}
-			if ($person->getStaff() instanceof Staff)
-			    $person->getStaff()->setPerson($person);
 
 			if ($ok) {
                 $em->persist($person);

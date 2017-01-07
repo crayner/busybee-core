@@ -29,18 +29,27 @@ user:
         directroles: Allocated Roles 
         password: Password
         password_confirmation: Confirm Password 
-        enabled: Enabled 
+        enabled: User Enabled
+        locale: User Language Location.
+        locked: User Locked
+        expired: User Expired
+        credentials_expired: User Credentials Expired
     help: 
         username: "You can leave the user name blank and the username will default to the email address. The username must not be 'admin'" 
         directroles: Direct Role allocation for a user should not be used unless the user needs a level of access not supplied by group selection.  Direct Roles are combined with the indirect roles inherited from the Groups to which the user belongs.
         email: "Must be unique!  Will be used as the username if the username is left blank."
+        enabled: To remove a user, the user must not be enabled.
+        locked: User has been locked out probably due to incorrect password attempts.
+        expired: The user account has expired due to lack of use.
         groups: Groups are created by you to match a user to groups that provide authority to use the various pages in the site.  Groups are also used by the site to lists groups such as classes and parents of classes.
+        credentials_expired: User Credentials must be changed at the next user logon.
     edit:
         title: Edit User
         description: You are able to change your own details on this page.
         success: The user record was saved successfully.
         error: The user details were NOT saved.
         admin: "The username cannot equal 'admin'."
+        locale: The user locale allows for translation into the users language if available.
     registration:
         title: Register User 
         description: Register a new user. 

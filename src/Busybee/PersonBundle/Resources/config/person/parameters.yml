@@ -20,3 +20,7 @@ parameters:
             label: person.tab.student
             include: BusybeePersonBundle:Person:student.html.twig
             message: studentMessage
+        user:
+            label: person.tab.user
+            include: BusybeePersonBundle:Person:user.html.twig
+            message: userMessage

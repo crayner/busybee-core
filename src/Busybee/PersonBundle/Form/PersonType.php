@@ -203,6 +203,16 @@ class PersonType extends AbstractType
                     'mapped'                => false,
                 )
             )
+            ->add('userQuestion', YesNoType::class, array(
+                    'label'					=> 'person.label.user.question',
+                    'attr'                  => array(
+                        'help'                  => 'person.help.user.question',
+                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
+                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                    ),
+                    'mapped'                => false,
+                )
+            )
 		;
 
         $builder->addEventSubscriber(new PersonSubscriber($this->personManager, $this->manager, $this->parameters));

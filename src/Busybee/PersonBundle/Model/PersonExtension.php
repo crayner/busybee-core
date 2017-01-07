@@ -38,6 +38,8 @@ class PersonExtension extends \Twig_Extension
             new \Twig_SimpleFunction('canDeleteCareGiver', array($this, 'canDeleteCareGiver')),
             new \Twig_SimpleFunction('canBeStudent', array($this, 'canBeStudent')),
             new \Twig_SimpleFunction('canDeleteStudent', array($this, 'canDeleteStudent')),
+            new \Twig_SimpleFunction('canBeUser', array($this, 'canBeUser')),
+            new \Twig_SimpleFunction('canDeleteUser', array($this, 'canDeleteUser')),
         );
     }
 
@@ -121,6 +123,24 @@ class PersonExtension extends \Twig_Extension
     public function canDeleteStudent(Person $person, $parameters)
     {
         return $this->pm->canDeleteStudent($person, $parameters);
+    }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
+    public function canDeleteUser(Person $person)
+    {
+        return $this->pm->canDeleteUser($person);
+    }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
+    public function canBeUser(Person $person)
+    {
+        return $this->pm->canBeUser($person);
     }
 
     /**

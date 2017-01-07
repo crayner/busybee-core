@@ -104,3 +104,8 @@ Busybee\PersonBundle\Entity\Person:
             cascade: [persist, remove]
             mappedBy: person
             nullable: true
+        user:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            cascade: [persist]
+            mappedBy: person
+            nullable: true

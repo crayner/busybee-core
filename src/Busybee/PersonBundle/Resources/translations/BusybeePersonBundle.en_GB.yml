@@ -47,6 +47,8 @@ person:
             question: Care Giver ?
         student:
             question: Student ?
+        user:
+            question: System User ?
     help:
         officialName: This is the name recorded on official documents. e.g. birth certificates and passports.
         photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 
@@ -60,12 +62,15 @@ person:
             question: ''
         student:
             question: ''
+        user:
+            question: Provide access to this system.
     tab:
         person: Person
         contact: Contact
         staff: Staff
         careGiver: Care Giver
         student: Student
+        user: User
     placeholder:
         address: Start typing any address.
         staff:
@@ -99,6 +104,8 @@ person:
         toggle: Care Giver Status
     careGiver:
         title: 'Care Giver: %name%'
+    user:
+        title: 'User:: %name%'
 student:
     title:
         list: Student List

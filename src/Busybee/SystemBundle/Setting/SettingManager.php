@@ -34,6 +34,85 @@ class SettingManager
     }
 
 	/**
+	 * save Setting
+	 *
+	 * @version	21st October 2016
+	 * @since	21st October 2016
+	 * @param	Container
+	 * @return	void
+	 */
+	public function saveSetting(\Busybee\SystemBundle\Entity\Setting $setting)
+	{
+		if (true !== ($response = $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($setting->getRole()->getRole())))
+			return $response;
+
+		$em = $this->container->get('doctrine')->getManager();
+		$em->persist($setting);
+		$em->flush();
+	}
+	
+	/**
+	 * @{inheritdoc}
+	 */
+	public function getCurrentUser()
+	{
+		return $this->currentUser ;
+	}
+
+	/**
+	 * @{inheritdoc}
+	 */
+	public function setCurrentUser(\Busybee\SecurityBundle\Entity\User $user = null)
+	{
+		$this->currentUser = $user;
+
+		return $this ;
+	}
+
+	/**
+	 * set Setting
+	 *
+	 * @version	31st October 2016
+	 * @since	21st October 2016
+	 * @param	string	$name
+	 * @param	mixed	$value
+	 * @return	this
+	 */
+    public function set($name, $value)
+    {
+        return $this->setSetting($name, $value);
+    }
+
+	/**
+	 * get Form Array Data
+	 *
+	 * @version	1st Novenber 2016
+	 * @since	1st Novenber 2016
+	 * @param	string	$name
+	 * @param	mixed	$default
+	 * @param	array	$options
+	 * @return	mixed	Value
+	 */
+    public function getFormArrayData($name, $default = null, $options = array())
+    {
+        $x = $this->getSetting($name, $default, $options);
+		$y = array();
+		foreach($x as $display=>$value)
+		{
+			$w = array();
+			$w['keyValue'] = $value;
+			$w['displayName'] = $display;
+			$y[] = $w;
+		}
+		$w = array();
+		$w['keyValue'] = '';
+		$w['displayName'] = '';
+		$y['new'] = $w;
+
+		return $y;
+    }
+
+	/**
 	 * get Setting
 	 *
 	 * @version	18th November 2016
@@ -97,42 +176,6 @@ class SettingManager
 		}
 		return $this->setting->getValue();
     }
-	
-	/**
-	 * save Setting
-	 *
-	 * @version	21st October 2016
-	 * @since	21st October 2016
-	 * @param	Container	
-	 * @return	void
-	 */
-	public function saveSetting(\Busybee\SystemBundle\Entity\Setting $setting)
-	{
-		if (true !== ($response = $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($setting->getRole()->getRole())))
-			return $response;
-			
-		$em = $this->container->get('doctrine')->getManager();
-		$em->persist($setting);
-		$em->flush();
-	}
-
-	/**
-	 * @{inheritdoc}
-	 */
-	public function getCurrentUser()
-	{
-		return $this->currentUser ;
-	}
-
-	/**
-	 * @{inheritdoc}
-	 */
-	public function setCurrentUser(\Busybee\SecurityBundle\Entity\User $user = null)
-	{
-		$this->currentUser = $user;
-		
-		return $this ;
-	}
 
 	/**
 	 * set Setting
@@ -186,64 +229,6 @@ class SettingManager
     }
 
 	/**
-	 * get Setting
-	 *
-	 * @version	31st October 2016
-	 * @since	20th October 2016
-	 * @param	string	$name
-	 * @param	mixed	$default
-	 * @param	array	$options
-	 * @return	mixed	Value
-	 */
-    public function get($name, $default = null, $options = array())
-    {
-        return $this->getSetting($name, $default, $options);
-    }
-
-	/**
-	 * set Setting
-	 *
-	 * @version	31st October 2016
-	 * @since	21st October 2016
-	 * @param	string	$name
-	 * @param	mixed	$value
-	 * @return	this
-	 */
-    public function set($name, $value)
-    {
-        return $this->setSetting($name, $value);
-    }
-
-	/**
-	 * get Form Array Data
-	 *
-	 * @version	1st Novenber 2016
-	 * @since	1st Novenber 2016
-	 * @param	string	$name
-	 * @param	mixed	$default
-	 * @param	array	$options
-	 * @return	mixed	Value
-	 */
-    public function getFormArrayData($name, $default = null, $options = array())
-    {
-        $x = $this->getSetting($name, $default, $options);
-		$y = array();
-		foreach($x as $display=>$value)
-		{
-			$w = array();
-			$w['keyValue'] = $value;
-			$w['displayName'] = $display;
-			$y[] = $w;
-		}
-		$w = array();
-		$w['keyValue'] = '';
-		$w['displayName'] = '';
-		$y['new'] = $w;
-		
-		return $y;
-    }
-
-	/**
 	 * set Form Array Data
 	 *
 	 * @version	1st Novenber 2016
@@ -279,7 +264,7 @@ class SettingManager
 		while (count($v) > 3)
 			array_pop($v);
 		$v[2]++;
-		if ($v[2] > 99) 
+		if ($v[2] > 99)
 		{
 			$v[2] = 0;
 			$v[1]++;
@@ -325,6 +310,21 @@ class SettingManager
 			$list = $this->get($choice);
 		return $list;
 	}
+
+	/**
+	 * get Setting
+	 *
+	 * @version	31st October 2016
+	 * @since	20th October 2016
+	 * @param	string	$name
+	 * @param	mixed	$default
+	 * @param	array	$options
+	 * @return	mixed	Value
+	 */
+    public function get($name, $default = null, $options = array())
+    {
+        return $this->getSetting($name, $default, $options);
+    }
 	
 	/**
 	 * create Setting
@@ -414,4 +414,13 @@ class SettingManager
 		}
 		return $form ;
 	}
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getParameter($name)
+    {
+        return $this->container->getParameter($name);
+    }
 }

@@ -6,6 +6,7 @@ use Busybee\PersonBundle\Entity\CareGiver;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Entity\Staff;
 use Busybee\PersonBundle\Entity\Student;
+use Busybee\SecurityBundle\Entity\User;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\ORM\EntityManager;
 
@@ -211,8 +212,58 @@ class PersonManager
 
         return $staff->canDelete() ;
     }
+
+    /**
+     * @return SettingManager
+     */
     public function getSettingManager()
     {
         return $this->sm ;
+    }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
+    public function canBeUser(Person $person)
+    {
+        if (empty($person->getEmail()))
+            return false ;
+        return true ;
+    }
+
+    /**
+     * @param Person $person
+     */
+    public function deleteUser(Person $person)
+    {
+        if ($this->canDeleteUser($person)) {
+            $staff = $this->em->getRepository(User::class)->findOneByPerson($person->getId());
+            $this->em->remove($staff);
+            $this->em->flush();
+        }
+    }
+
+    /**
+     * @param Person $person
+     * @return bool
+     */
+    public function canDeleteUser(Person $person)
+    {
+        //Place rules here to stop delete .
+        $user = $this->em->getRepository(User::class)->findOneByPerson($person->getId());
+        if (! $user instanceof User)
+            return false ;
+
+        return $user->canDelete() ;
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getParameter($name)
+    {
+        return $this->sm->getParameter($name);
     }
 }

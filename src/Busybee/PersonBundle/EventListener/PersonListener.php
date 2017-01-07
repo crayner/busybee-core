@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\PersonBundle\EventListener ;
 
+use Busybee\SecurityBundle\Entity\User;
 use Doctrine\ORM\Event\LifecycleEventArgs ;
 use Doctrine\ORM\Event\PreUpdateEventArgs ;
 use Busybee\PersonBundle\Entity\Person ;
@@ -19,7 +20,11 @@ class PersonListener
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-
+        if ($entity instanceof User)
+        {
+            $entity->setUsernameCanonical($entity->getUsername());
+            $entity->setEmailCanonical($entity->getEmail());
+        }
     }
 
     public function preUpdate(PreUpdateEventArgs $args)

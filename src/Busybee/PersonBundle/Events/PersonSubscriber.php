@@ -8,7 +8,9 @@ use Busybee\PersonBundle\Entity\Student;
 use Busybee\PersonBundle\Form\CareGiverType;
 use Busybee\PersonBundle\Form\StaffType;
 use Busybee\PersonBundle\Form\StudentType;
+use Busybee\PersonBundle\Form\UserType;
 use Busybee\PersonBundle\Model\PersonManager;
+use Busybee\SecurityBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormEvent;
@@ -85,6 +87,18 @@ class PersonSubscriber implements EventSubscriberInterface
             $form->add('student', StudentType::class);
         else
             $form->add('student', HiddenType::class);
+
+        if ($person->getUser() === null || $person->getUser()->getId() === null)
+            $form->add('user', HiddenType::class);
+        elseif ($this->personManager->canBeUser($person)) {
+            $form->add('user', UserType::class);
+            if (empty($person->getUser()->getEmail()) || $person->getUser()->getEmail() != $person->getEmail())
+                $person->getUser()->setEmail($person->getEmail());
+        }
+        else
+            $form->add('user', HiddenType::class);
+
+        $event->setData($person);
     }
     /**
      * @param FormEvent $event
@@ -131,6 +145,7 @@ class PersonSubscriber implements EventSubscriberInterface
             $this->om->remove($form->get('careGiver')->getData());
             $flush = true;
         }
+
         if ( isset($data['studentQuestion']) && $data['studentQuestion'] === '1' && ! $person->getStudent() instanceof Student && $this->personManager->canBeStudent($person))
         {
             $data['student'] = array();
@@ -155,6 +170,38 @@ class PersonSubscriber implements EventSubscriberInterface
             $this->om->remove($form->get('student')->getData());
             $flush = true ;
         }
+
+        if (isset($data['userQuestion']) && $data['userQuestion'] === '1' && ! $person->getUser() instanceof User && $this->personManager->canBeUser($person))
+        {
+            $data['user'] = array();
+            $data['user']['person'] = $form->getData()->getId();
+            $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'];
+            $data['user']['username'] = $data['user']['usernameCanonical'] = $data['email'];
+            $data['user']['locale'] = $this->personManager->getParameter('locale');
+            $data['user']['enabled'] = true;
+            $data['user']['locked'] = false;
+            $data['user']['expired'] = false;
+            $data['user']['credentials_expired'] = true;
+            $data['user']['password'] = password_hash(uniqid(), PASSWORD_BCRYPT);
+            $form->remove('user');
+            $form->add('user', UserType::class);
+        }
+
+        if ($form->get('user')->getData() instanceof User)
+        {
+            $data['user']['usernameCanonical'] = $data['user']['username'];
+            $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'];
+        }
+
+        if ($form->get('user')->getData() instanceof User && ! isset($data['user']) && $this->personManager->canDeleteUser($person))
+        {
+            $data['user'] = "";
+            $form->remove('user');
+            $form->add('user', HiddenType::class);
+            $this->om->remove($form->get('user')->getData());
+            $flush = true;
+        }
+
 
         if ($flush)
             $this->om->flush();

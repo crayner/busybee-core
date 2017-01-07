@@ -103,6 +103,10 @@ class Person extends PersonModel
      * @var \Busybee\PersonBundle\Entity\Student
      */
     private $student;
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $user;
 
     /**
      * Constructor
@@ -645,6 +649,30 @@ class Person extends PersonModel
     public function setStudent(\Busybee\PersonBundle\Entity\Student $student = null)
     {
         $this->student = $student;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Busybee\SecurityBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Busybee\SecurityBundle\Entity\User $user
+     *
+     * @return Person
+     */
+    public function setUser(\Busybee\SecurityBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
 
         return $this;
     }

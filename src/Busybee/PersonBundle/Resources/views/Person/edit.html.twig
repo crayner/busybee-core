@@ -30,6 +30,7 @@
             {% if name == 'staff' and form.staff.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
             {% if name == 'careGiver' and form.careGiver.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
             {% if name == 'student' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
+            {% if name == 'user' and form.user.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
 			<li{{ disabled }}><a href="#{{ name }}" role="tab" data-toggle="tab">{{ tab.label|trans({}, translation) }}</a></li>
 		{% endfor %}
 	</ul>
@@ -49,6 +50,10 @@
             {% elseif name == 'student' and form.student.person is not defined %}
                 <div class="tab-pane" id="{{ name }}" >
                     {%  include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) }  %}
+                </div>
+            {% elseif name == 'user' and form.user.person is not defined %}
+                <div class="tab-pane" id="{{ name }}" >
+                    {%  include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.user.title'|trans({'%name%': form.vars.value.formatName}) }  %}
                 </div>
             {% else %}
 			<div class="tab-pane{{ active }}" id="{{ name }}" >
@@ -111,6 +116,14 @@
                 $('#person_careGiverQuestion').prop('disabled', false);
             }
         });
+        $('#person_userQuestion').checkboxpicker().on('change', function() {
+            var checked = $('#person_userQuestion').prop('checked');
+            if (checked) {
+                $('.user').prop('disabled', false);
+            } else {
+                $('.user').prop('disabled', true);
+            }
+        });
         $(document).ready(function(){
             var staff_checked = $('#person_staffQuestion').prop('checked');
             if (staff_checked) {
@@ -129,6 +142,12 @@
                 $('.student').prop('disabled', false);
             } else {
                 $('.student').prop('disabled', true);
+            }
+            var user_checked = $('#person_userQuestion').prop('checked');
+            if (user_checked) {
+                $('.user').prop('disabled', false);
+            } else {
+                $('.user').prop('disabled', true);
             }
 
 		});

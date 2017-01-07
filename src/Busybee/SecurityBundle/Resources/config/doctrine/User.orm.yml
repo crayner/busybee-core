@@ -121,4 +121,8 @@ Busybee\SecurityBundle\Entity\User:
                 inverseJoinColumns:
                     role_id:
                         referencedColumnName: id
+    oneToOne:
+        person:
+            targetEntity: Busybee\PersonBundle\Entity\Person
+            inversedBy: user
 

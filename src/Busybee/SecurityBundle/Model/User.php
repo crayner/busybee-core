@@ -69,18 +69,18 @@ abstract class User implements UserInterface
         return $this->plainPassword;
     }	
 
-	public function getSalt() 
- 	{
-
-		return null;
- 	}
-
 	public function setPlainPassword($password)
 	{
 
 		$this->plainPassword = $password;
 		return $this;
 	}
+
+	public function getSalt()
+ 	{
+
+		return null;
+ 	}
 
 	public function isSuperAdmin()
 	{
@@ -125,10 +125,7 @@ abstract class User implements UserInterface
 
     public function isCredentialsNonExpired()
     {
-
-        if (true === $this->credentialsExpired) 
-            return false;
-		return true;
+		return ! $this->credentialsExpired ;
 	}
 
     public function isEnabled()
@@ -188,18 +185,37 @@ abstract class User implements UserInterface
         ) = $data;
     }
 
-	public function getChangePassword()
+    /**
+     * @return bool
+     */
+    public function getChangePassword()
 	{
 		return false ;
 	}
 
-	public function formatName()
+    /**
+     * @return string
+     */
+    public function formatName()
 	{
 		return $this->getUsername();
 	}
-	
-	public function __toString()
+
+    /**
+     * @return string
+     */
+    public function __toString()
 	{
 		return $this->getId().'-'.$this->getUsername();
 	}
+
+    /**
+     * @return bool
+     */
+    public function canDelete()
+    {
+        if ($this->credentialsExpired || ! $this->enabled || $this->locked)
+            return true ;
+        return false ;
+    }
 }
