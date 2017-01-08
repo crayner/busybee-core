@@ -3,13 +3,13 @@
 namespace Busybee\FamilyBundle\Entity;
 
 use Busybee\FamilyBundle\Model\FamilyModel;
-use Busybee\PersonBundle\Entity\CareGiver;
 
 /**
  * Family
  */
 class Family extends FamilyModel
 {
+
     /**
      * @var integer
      */
@@ -31,12 +31,12 @@ class Family extends FamilyModel
     private $createdOn;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Person
+     * @var \Busybee\PersonBundle\Entity\CareGiver
      */
     private $careGiver1;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Person
+     * @var \Busybee\PersonBundle\Entity\CareGiver
      */
     private $careGiver2;
 
@@ -72,7 +72,7 @@ class Family extends FamilyModel
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $student;
+    private $students;
 
     /**
      * Constructor
@@ -346,20 +346,13 @@ class Family extends FamilyModel
     /**
      * Add emergencyContact
      *
-     * @param array | \Busybee\PersonBundle\Entity\CareGiver $emergencyContact
+     * @param \Busybee\PersonBundle\Entity\CareGiver $emergencyContact
      *
      * @return Family
      */
-    public function addEmergencyContact($emergencyContact)
+    public function addEmergencyContact(\Busybee\PersonBundle\Entity\CareGiver $emergencyContact)
     {
-        if (is_array($emergencyContact)) {
-            $this->emergencyContact = array();
-            foreach ($emergencyContact as $contact)
-                $this->addEmergencyContact($contact);
-        }
-
-        if ($emergencyContact instanceof CareGiver)
-            $this->emergencyContact[] = $emergencyContact;
+        $this->emergencyContact[] = $emergencyContact;
 
         return $this;
     }
@@ -393,7 +386,7 @@ class Family extends FamilyModel
      */
     public function addStudent(\Busybee\PersonBundle\Entity\Student $student)
     {
-        $this->student[] = $student;
+        $this->students[] = $student;
 
         return $this;
     }
@@ -405,16 +398,16 @@ class Family extends FamilyModel
      */
     public function removeStudent(\Busybee\PersonBundle\Entity\Student $student)
     {
-        $this->student->removeElement($student);
+        $this->students->removeElement($student);
     }
 
     /**
-     * Get student
+     * Get students
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getStudent()
+    public function getStudents()
     {
-        return $this->student;
+        return $this->students;
     }
 }

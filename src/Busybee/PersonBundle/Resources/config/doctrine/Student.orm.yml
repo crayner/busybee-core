@@ -17,20 +17,18 @@ Busybee\PersonBundle\Entity\Student:
             type: datetime
         createdOn:
             type: datetime
+    oneToOne:
+        person:
+            targetEntity: Busybee\PersonBundle\Entity\Person
+            inversedBy: student
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 created_by:
                     referencedColumnName: id
-                    nullable: true
         modifiedBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 modified_by:
                     referencedColumnName: id
-                    nullable: true
-    oneToOne:
-        person:
-            targetEntity: Busybee\PersonBundle\Entity\Person
-            inversedBy: student

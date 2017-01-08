@@ -2,6 +2,8 @@
 
 namespace Busybee\PersonBundle\Model ;
 
+use Busybee\FamilyBundle\Repository\FamilyRepository;
+
 /**
  * Student Model
  *
@@ -27,7 +29,20 @@ abstract class StudentModel
      */
     public function canDelete()
     {
-        //Place rules here to stop delete
         return true ;
+    }
+
+    /**
+     * @param FamilyRepository $fr
+     * @return array
+     */
+    public function getFamilies(FamilyRepository $fr)
+    {
+        return $fr->createQueryBuilder('f')
+            ->leftJoin('f.students', 's')
+            ->where('s.id = :studentId')
+            ->setParameter('studentId', $this->getId())
+            ->getQuery()
+            ->getResult();
     }
 }

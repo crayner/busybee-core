@@ -148,7 +148,7 @@ class FamilyType extends AbstractType
                     'required'              => false,
                 )
             )
-            ->add('student', CollectionType::class, array(
+            ->add('students', CollectionType::class, array(
                     'label'					=> 'family.label.students',
                     'entry_type'			=> StudentType::class,
                     'entry_options'         => array(

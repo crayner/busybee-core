@@ -187,7 +187,7 @@ class PersonSubscriber implements EventSubscriberInterface
             $form->add('user', UserType::class);
         }
 
-        if ($form->get('user')->getData() instanceof User)
+        if ($form->get('user')->getData() instanceof User && isset($data['userQuestion']))
         {
             $data['user']['usernameCanonical'] = $data['user']['username'];
             $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'];
@@ -205,6 +205,9 @@ class PersonSubscriber implements EventSubscriberInterface
 
         if ($flush)
             $this->om->flush();
+
+        if (empty($data['preferredName']))
+            $data['preferredName'] = $data['firstName'];
 
         $event->setData($data);
     }

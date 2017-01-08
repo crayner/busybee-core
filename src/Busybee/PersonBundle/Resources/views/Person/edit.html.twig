@@ -45,7 +45,7 @@
                 </div>
             {% elseif name == 'careGiver' and form.careGiver.person is not defined %}
                 <div class="tab-pane" id="{{ name }}" >
-                    {%  include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.careGiver.title'|trans({'%name%': form.vars.value.formatName}) }  %}
+                    {%  include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.caregiver.title'|trans({'%name%': form.vars.value.formatName}) }  %}
                 </div>
             {% elseif name == 'student' and form.student.person is not defined %}
                 <div class="tab-pane" id="{{ name }}" >

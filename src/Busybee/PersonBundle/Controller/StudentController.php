@@ -129,11 +129,6 @@ class StudentController extends Controller
 		return $student ;
 	}
 
-
-    private function formatAddress($address)
-    {
-		return $this->get('address.manager')->formatAddress($address);
-	}
     public function toggleAction($id)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
@@ -171,10 +166,11 @@ class StudentController extends Controller
                 );
             }
         } else {
-            $student = new Student();
-            $student->setPerson($person);
             if ($this->get('person.manager')->canBeStudent($person)) {
-                $em->persist($student);
+                $student = new Student();
+                $student->setPerson($person);
+                $person->setStudent($student);
+                $em->persist($person);
                 $em->flush();
                 return new JsonResponse(
                     array(
@@ -195,4 +191,9 @@ class StudentController extends Controller
             }
         }
     }
+
+    private function formatAddress($address)
+    {
+		return $this->get('address.manager')->formatAddress($address);
+	}
 }

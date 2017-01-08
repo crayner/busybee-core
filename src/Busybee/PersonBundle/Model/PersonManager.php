@@ -2,6 +2,8 @@
 namespace Busybee\PersonBundle\Model;
 
 
+use Busybee\FamilyBundle\Entity\Family;
+use Busybee\InstituteBundle\Entity\CampusResource;
 use Busybee\PersonBundle\Entity\CareGiver;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Entity\Staff;
@@ -91,15 +93,25 @@ class PersonManager
     public function deleteStudent(Person $person, $parameters)
     {
         if ($this->canDeleteStudent($person, $parameters)) {
-            $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
-            if (is_array($parameters))
+            $student = $person->getStudent();
+            $families = $student->getFamilies($this->em->getRepository(Family::class));
+            if (count($families)> 0)
+                foreach ($families as $family)
+                    if ($family instanceof Family) {
+                        $family->removeStudent($student);
+                        $this->em->persist($family);
+                    }
+
+            if (is_array($parameters) && $student instanceof Student)
                 foreach ($parameters as $data)
                     if (isset($data['data']['name']) && isset($data['entity']['name'])) {
                         $client = $this->em->getRepository($data['entity']['name'])->findOneByStudent($student->getId());
                         if (is_object($client))
                             $this->em->remove($client);
                     }
+            $person->setStudent(null);
             $this->em->remove($student);
+            $this->em->persist($person);
             $this->em->flush();
         }
     }
@@ -113,6 +125,11 @@ class PersonManager
     {
         //Place rules here to stop delete .
         $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
+
+        $families = $student->getFamilies($this->em->getRepository(Family::class));
+        if (is_array($families) && count($families) > 0)
+            return false ;
+
         if (is_array($parameters))
             foreach($parameters as $data)
                 if (isset($data['data']['name']) && isset($data['entity']['name']))
@@ -145,8 +162,15 @@ class PersonManager
     {
         //Place rules here to stop delete .
         $careGiver = $this->em->getRepository(CareGiver::class)->findOneByPerson($person->getId());
+
         if (is_null($careGiver))
             return false ;
+
+        $families = $careGiver->getFamilies($this->em->getRepository(Family::class));
+        if (is_array($families) && count($families) > 0)
+            return false ;
+        if (null !== $this->em->getRepository(Family::class)->findOneByCareGiver1($careGiver->getId())) return false ;
+        if (null !== $this->em->getRepository(Family::class)->findOneByCareGiver2($careGiver->getId())) return false ;
 
         return $careGiver->canDelete() ;
     }
@@ -207,8 +231,12 @@ class PersonManager
     {
         //Place rules here to stop delete .
         $staff = $this->em->getRepository(Staff::class)->findOneByPerson($person->getId());
+
         if (is_null($staff))
             return false ;
+
+        if (null !== $this->em->getRepository(CampusResource::class)->findOneByStaff1($staff->getId())) return false ;
+        if (null !== $this->em->getRepository(CampusResource::class)->findOneByStaff2($staff->getId())) return false ;
 
         return $staff->canDelete() ;
     }
@@ -238,8 +266,8 @@ class PersonManager
     public function deleteUser(Person $person)
     {
         if ($this->canDeleteUser($person)) {
-            $staff = $this->em->getRepository(User::class)->findOneByPerson($person->getId());
-            $this->em->remove($staff);
+            $user = $this->em->getRepository(User::class)->findOneByPerson($person->getId());
+            $this->em->remove($user);
             $this->em->flush();
         }
     }

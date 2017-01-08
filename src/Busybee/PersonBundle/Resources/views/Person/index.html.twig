@@ -46,10 +46,30 @@
                             {{ 'person.email'|trans }}
                         {% endif %}
 					</div>
-					<div class="col-md-5 hidden-sm hidden-xs" style="display: inline-block;">
-						<button title='{{ 'person.title.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'person.actions'|trans }}
-					</div>
+                    <div class="col-md-2 col-sm-2" style="display: inline-block;">
+                        <button title='{{ 'person.title.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'person.actions'|trans }}
+                    </div>
+                    <div class="col-md-3 hidden-sm hidden-xs">
+                        {{ 'person.category.title'|trans }}
+                        <div class="row ">
+                            <div class="col-sm-3 text-center">
+                                <span style="font-size: 9px;">{{ 'person.category.staff'|trans }}</span>
+                            </div>
+                            <div class="col-sm-3 text-center">
+                                <span style="font-size: 9px;">{{ 'person.category.student'|trans }}</span>
+                            </div>
+                            <div class="col-sm-3 text-center">
+                                <span style="font-size: 9px;">{{ 'person.category.caregiver'|trans }}</span>
+                            </div>
+                            <div class="col-sm-3 text-center">
+                                <span style="font-size: 9px;">{{ 'person.category.user'|trans }}</span>
+                            </div>
+                        </div>
+                    </div>
 				</div>
+
+
+
 			{% for person in pagination.getResult %}
 				<div class="row row-striped">
 					<div class="col-sm-2 col-md-2 form-inline">
@@ -61,31 +81,57 @@
 					<div class="col-md-3 hidden-sm hidden-xs" style="display: inline-block;">
                         {{ person.email }}
 					</div>
-					<div class="col-sm-5 col-md-5 form-inline">
+					<div class="col-md-2 col-sm-2 form-inline">
 
 						<button title='{{ 'person.title.edit'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('person_edit', {'id': person.id}) }}','_self')"></button>
-                        {% if isCareGiver(person) %}
-							<button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-ok btn btn-success" ></button>
-                        {% else %}
-							<button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-remove  btn btn-danger"></button>
-                        {% endif %}
-                        {% if isStudent(person) %}
-							<button id="studentToggle{{ person.id }}" title='{{ 'person.student.toggle'|trans}}' type="button" class="studentToggle halflings halflings-ok  btn btn-success"></button>
-                        {% else %}
-							<button id="studentToggle{{ person.id }}" title='{{ 'person.student.toggle'|trans}}' type="button" class="studentToggle halflings halflings-remove  btn btn-danger"></button>
-                        {% endif %}
-                        {% if isStaff(person) %}
-                            <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-ok  btn btn-success"></button>
-                        {% else %}
-                            <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-remove  btn btn-danger"></button>
-                        {% endif %}
-                        {% if isUser(person) and canDeleteUser(person)  %}
-                            <button id="userToggle{{ person.id }}" title='{{ 'person.user.toggle'|trans}}' type="button" class="userToggle halflings halflings-ok  btn btn-success"></button>
-                        {% elseif canBeUser(person) and not isUser(person) %}
-                            <button id="userToggle{{ person.id }}" title='{{ 'person.user.toggle'|trans}}' type="button" class="userToggle halflings halflings-remove  btn btn-danger"></button>
-                        {% else %}
-                            <button id="userToggle{{ person.id }}" title='{{ 'person.user.toggle'|trans}}' type="button" class="userToggle halflings halflings-ok btn btn-default" disabled></button>
-                        {% endif %}
+                    </div>
+                    <div class="col-md-3 hidden-sm hidden-xs">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {% if isStaff(person) and canDeleteStaff(person)  %}
+                                    <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-ok  btn btn-success"></button>
+                                {% elseif canBeStaff(person) and not isStaff(person) %}
+                                    <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-remove  btn btn-danger"></button>
+                                {% elseif not isStaff(person) %}
+                                    <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-remove btn btn-default" disabled></button>
+                                {% else %}
+                                    <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-ok btn btn-default" disabled></button>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-3">
+                                {% if isStudent(person) and canDeleteStudent(person, get_parameter('person'))  %}
+                                    <button id="studentToggle{{ person.id }}" title='{{ 'person.student.toggle'|trans}}' type="button" class="studentToggle halflings halflings-ok  btn btn-success"></button>
+                                {% elseif canBeStudent(person) and not isStudent(person) %}
+                                    <button id="studentToggle{{ person.id }}" title='{{ 'person.student.toggle'|trans}}' type="button" class="studentToggle halflings halflings-remove  btn btn-danger"></button>
+                                {% elseif not isStudent(person) %}
+                                    <button id="studentToggle{{ person.id }}" title='{{ 'person.student.toggle'|trans}}' type="button" class="studentToggle halflings halflings-remove btn btn-default" disabled></button>
+                                {% else %}
+                                    <button id="studentToggle{{ person.id }}" title='{{ 'person.student.toggle'|trans}}' type="button" class="studentToggle halflings halflings-ok btn btn-default" disabled></button>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-3">
+                                {% if isCareGiver(person) and canDeleteCareGiver(person)  %}
+                                    <button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-ok  btn btn-success"></button>
+                                {% elseif canBeCareGiver(person) and not isCareGiver(person) %}
+                                    <button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-remove  btn btn-danger"></button>
+                                {% elseif not isCareGiver(person) %}
+                                    <button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-remove btn btn-default" disabled></button>
+                                {% else %}
+                                    <button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-ok btn btn-default" disabled></button>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-3">
+                                {% if isUser(person) and canDeleteUser(person)  %}
+                                    <button id="userToggle{{ person.id }}" title='{{ 'person.user.toggle'|trans}}' type="button" class="userToggle halflings halflings-ok  btn btn-success"></button>
+                                {% elseif canBeUser(person) and not isUser(person) %}
+                                    <button id="userToggle{{ person.id }}" title='{{ 'person.user.toggle'|trans}}' type="button" class="userToggle halflings halflings-remove  btn btn-danger"></button>
+                                {% elseif not isUser(person) %}
+                                    <button id="userToggle{{ person.id }}" title='{{ 'person.user.toggle'|trans}}' type="button" class="userToggle halflings halflings-remove btn btn-default" disabled></button>
+                                {% else %}
+                                    <button id="userToggle{{ person.id }}" title='{{ 'person.user.toggle'|trans}}' type="button" class="userToggle halflings halflings-ok btn btn-default" disabled></button>
+                                {% endif %}
+                            </div>
+                        </div>
 					</div>
 				</div>
 			{% endfor %}
@@ -157,10 +203,10 @@
                     $(".fadeAlert").fadeOut(5000);
                 }
             })
-        });;;;;;;;;;;;;
+        });
         $(".userToggle").on('click', function() {
             var id = $(this).prop('id');
-            id = id.substring(11);
+            id = id.substring(10);
             var route = "{{ path('person_toggle_user', {'id': '__id__'}) }}";
             route = route.replace('__id__', id);
             $.ajax({
@@ -172,7 +218,8 @@
                         $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-remove btn btn-danger");
                     }
                     if (data.status == "added"){
-                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-ok btn btn-success");
+                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-ok btn btn-default");
+                        $("#userToggle" + id).prop('disabled', true);
                     }
                     $(".fadeAlert").fadeOut(5000);
                 }

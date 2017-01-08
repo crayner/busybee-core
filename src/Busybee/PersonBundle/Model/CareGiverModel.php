@@ -2,6 +2,8 @@
 
 namespace Busybee\PersonBundle\Model ;
 
+use Busybee\FamilyBundle\Repository\FamilyRepository;
+
 /**
  * Care Giver Model
  *
@@ -21,5 +23,19 @@ abstract class CareGiverModel
         //Place rules here to stop delete
 
         return true ;
+    }
+
+    /**
+     * @param FamilyRepository $fr
+     * @return array
+     */
+    public function getFamilies(FamilyRepository $fr)
+    {
+        return $fr->createQueryBuilder('f')
+            ->leftJoin('f.emergencyContact', 's')
+            ->where('s.id = :studentId')
+            ->setParameter('studentId', $this->getId())
+            ->getQuery()
+            ->getResult();
     }
 }

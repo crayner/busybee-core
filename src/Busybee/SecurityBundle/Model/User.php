@@ -1,8 +1,6 @@
 <?php
 namespace Busybee\SecurityBundle\Model;
 
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Storage agnostic user object
@@ -12,7 +10,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 abstract class User implements UserInterface
 {
-	protected $plainPassword;
+    use \Busybee\PersonBundle\Model\FormatNameExtension ;
+
+    protected $plainPassword;
 
 	protected $roles;
 	
@@ -22,7 +22,7 @@ abstract class User implements UserInterface
 		$this->setLocked(false);
 		$this->setEnabled(false);
 		$this->setExpired(false);
-		$this->setCredentialsexpired(false);
+		$this->setCredentialsExpired(false);
 		$this->locale = 'en_GB';
 	}
     /**
@@ -196,14 +196,6 @@ abstract class User implements UserInterface
     /**
      * @return string
      */
-    public function formatName()
-	{
-		return $this->getUsername();
-	}
-
-    /**
-     * @return string
-     */
     public function __toString()
 	{
 		return $this->getId().'-'.$this->getUsername();
@@ -214,7 +206,7 @@ abstract class User implements UserInterface
      */
     public function canDelete()
     {
-        if ($this->credentialsExpired || ! $this->enabled || $this->locked)
+        if (! $this->enabled || $this->locked)
             return true ;
         return false ;
     }

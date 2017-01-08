@@ -102,11 +102,16 @@ person:
         toggle: Student Status
     caregiver:
         toggle: Care Giver Status
-    careGiver:
         title: 'Care Giver: %name%'
     user:
         title: 'User:: %name%'
         toggle: System User Status
+    category:
+        title: Category Status
+        staff: Staff
+        caregiver: Care Giver
+        user: User
+        student: Student
 student:
     title:
         list: Student List
@@ -244,6 +249,13 @@ staff:
     toggle:
         personMissing: The person to toggle staff status was not found.
         addSuccess: The %name% was set as a Staff Member.
-        removeSuccess: "The %name% was removed as a Staff Membert."
+        removeSuccess: "The %name% was removed as a Staff Member."
         removeRestricted: %name% is set as a staff member, and the status is locked by the system.
         addRestricted: "%name% is status locked and was not set as a Staff Member."
+user:
+    toggle:
+        personMissing: The person to toggle system user status was not found.
+        addSuccess: The %name% was set as a System User.
+        removeSuccess: "The %name% was removed as a System User."
+        removeRestricted: %name% is set as a System User, and the status is locked by the system.
+        addRestricted: "%name% is status locked and was not set as a System User."

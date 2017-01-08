@@ -3,8 +3,6 @@
 namespace Busybee\PersonBundle\Entity;
 
 use Busybee\PersonBundle\Model\PersonModel ;
-use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\Common\Collections\ArrayCollection ;
 
 /**
  * Person
@@ -12,108 +10,126 @@ use Doctrine\Common\Collections\ArrayCollection ;
 class Person extends PersonModel
 {
     /**
-     * @var string
-     */
-    protected $oldPhoto;
-    /**
      * @var integer
      */
     private $id;
+
     /**
      * @var string
      */
     private $title;
+
     /**
      * @var string
      */
     private $surname;
+
     /**
      * @var string
      */
     private $firstName;
+
     /**
      * @var string
      */
     private $preferredName;
+
     /**
      * @var string
      */
     private $officialName;
+
     /**
      * @var string
      */
     private $gender;
+
     /**
      * @var \DateTime
      */
     private $dob;
+
     /**
      * @var string
      */
     private $email;
+
     /**
      * @var string
      */
     private $email2;
+
     /**
      * @var string
      */
     private $website;
-    /**
-     * @var \DateTime
-     */
-    private $lastModified;
-    /**
-     * @var \DateTime
-     */
-    private $createdOn;
-    /**
-     * @var \Busybee\SecurityBundle\Entity\User
-     */
-    private $createdBy;
-    /**
-     * @var \Busybee\SecurityBundle\Entity\User
-     */
-    private $modifiedBy;
+
     /**
      * @var string
      */
     private $photo;
+
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \DateTime
      */
-    private $phone;
+    private $lastModified;
+
     /**
-     * @var \Busybee\PersonBundle\Entity\Address
+     * @var \DateTime
      */
-    private $address1;
+    private $createdOn;
+
     /**
-     * @var \Busybee\PersonBundle\Entity\Address
-     */
-    private $address2;
-    /**
-     * @var \busybee\PersonBundle\Entity\Staff
+     * @var \Busybee\PersonBundle\Entity\Staff
      */
     private $staff;
+
     /**
      * @var \Busybee\PersonBundle\Entity\CareGiver
      */
     private $caregiver;
+
     /**
      * @var \Busybee\PersonBundle\Entity\Student
      */
     private $student;
+
     /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $user;
 
     /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $createdBy;
+
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $modifiedBy;
+
+    /**
+     * @var \Busybee\PersonBundle\Entity\Address
+     */
+    private $address1;
+
+    /**
+     * @var \Busybee\PersonBundle\Entity\Address
+     */
+    private $address2;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $phone;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->phone = new ArrayCollection();
+        $this->phone = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -287,7 +303,7 @@ class Person extends PersonModel
      *
      * @return Person
      */
-    public function setDob(\DateTime $dob = null)
+    public function setDob($dob)
     {
         $this->dob = $dob;
 
@@ -367,6 +383,30 @@ class Person extends PersonModel
     }
 
     /**
+     * Get photo
+     *
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     *
+     * @return Person
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
      * Get lastModified
      *
      * @return \DateTime
@@ -415,176 +455,9 @@ class Person extends PersonModel
     }
 
     /**
-     * Get createdBy
-     *
-     * @return \Busybee\SecurityBundle\Entity\User
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * Set createdBy
-     *
-     * @param \Busybee\SecurityBundle\Entity\User $createdBy
-     *
-     * @return Person
-     */
-    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    /**
-     * Get modifiedBy
-     *
-     * @return \Busybee\SecurityBundle\Entity\User
-     */
-    public function getModifiedBy()
-    {
-        return $this->modifiedBy;
-    }
-
-    /**
-     * Set modifiedBy
-     *
-     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
-     *
-     * @return Person
-     */
-    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
-    {
-        $this->modifiedBy = $modifiedBy;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
-     * Set photo
-     *
-     * @param	string	$photo
-     *
-     * @return	Person
-     */
-    public function setPhoto($photo = null)
-    {
-		if ($photo instanceof File)
-		{
-			$this->photo = $photo ;
-			return $this ;
-		}
-        if (is_null($photo) && $this->deletePhoto)
-		{
-			$this->oldPhoto = $this->photo;
-			$this->photo = $photo ;
-		}
-		elseif (! is_null($photo) && $this->getPhoto() !== $photo)
-		{
-			$this->oldPhoto = $this->photo;
-			$this->photo = $photo ;
-		}
-        return $this;
-    }
-
-    /**
-     * Add phone
-     *
-     * @param \Busybee\PersonBundle\Entity\Phone $phone
-     *
-     * @return Person
-     */
-    public function addPhone(\Busybee\PersonBundle\Entity\Phone $phone)
-    {
-        $this->phone->add($phone);
-
-        return $this;
-    }
-
-    /**
-     * Remove phone
-     *
-     * @param \Busybee\PersonBundle\Entity\Phone $phone
-     */
-    public function removePhone(\Busybee\PersonBundle\Entity\Phone $phone)
-    {
-        $this->phone->removeElement($phone);
-    }
-
-    /**
-     * Get phone
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * Get address1
-     *
-     * @return \Busybee\PersonBundle\Entity\Address
-     */
-    public function getAddress1()
-    {
-        return $this->address1;
-    }
-
-    /**
-     * Set address1
-     *
-     * @param \Busybee\PersonBundle\Entity\Address $address1
-     *
-     * @return Person
-     */
-    public function setAddress1(\Busybee\PersonBundle\Entity\Address $address1 = null)
-    {
-        $this->address1 = $address1;
-
-        return $this;
-    }
-
-    /**
-     * Get address2
-     *
-     * @return \Busybee\PersonBundle\Entity\Address
-     */
-    public function getAddress2()
-    {
-        return $this->address2;
-    }
-
-    /**
-     * Set address2
-     *
-     * @param \Busybee\PersonBundle\Entity\Address $address2
-     *
-     * @return Person
-     */
-    public function setAddress2(\Busybee\PersonBundle\Entity\Address $address2 = null)
-    {
-        $this->address2 = $address2;
-
-        return $this;
-    }
-
-    /**
      * Get staff
      *
-     * @return \busybee\PersonBundle\Entity\Staff
+     * @return \Busybee\PersonBundle\Entity\Staff
      */
     public function getStaff()
     {
@@ -594,11 +467,11 @@ class Person extends PersonModel
     /**
      * Set staff
      *
-     * @param \busybee\PersonBundle\Entity\Staff $staff
+     * @param \Busybee\PersonBundle\Entity\Staff $staff
      *
      * @return Person
      */
-    public function setStaff(\busybee\PersonBundle\Entity\Staff $staff = null)
+    public function setStaff(\Busybee\PersonBundle\Entity\Staff $staff = null)
     {
         $this->staff = $staff;
 
@@ -675,5 +548,135 @@ class Person extends PersonModel
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return \Busybee\SecurityBundle\Entity\User
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param \Busybee\SecurityBundle\Entity\User $createdBy
+     *
+     * @return Person
+     */
+    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedBy
+     *
+     * @return \Busybee\SecurityBundle\Entity\User
+     */
+    public function getModifiedBy()
+    {
+        return $this->modifiedBy;
+    }
+
+    /**
+     * Set modifiedBy
+     *
+     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     *
+     * @return Person
+     */
+    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+    {
+        $this->modifiedBy = $modifiedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get address1
+     *
+     * @return \Busybee\PersonBundle\Entity\Address
+     */
+    public function getAddress1()
+    {
+        return $this->address1;
+    }
+
+    /**
+     * Set address1
+     *
+     * @param \Busybee\PersonBundle\Entity\Address $address1
+     *
+     * @return Person
+     */
+    public function setAddress1(\Busybee\PersonBundle\Entity\Address $address1 = null)
+    {
+        $this->address1 = $address1;
+
+        return $this;
+    }
+
+    /**
+     * Get address2
+     *
+     * @return \Busybee\PersonBundle\Entity\Address
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
+    }
+
+    /**
+     * Set address2
+     *
+     * @param \Busybee\PersonBundle\Entity\Address $address2
+     *
+     * @return Person
+     */
+    public function setAddress2(\Busybee\PersonBundle\Entity\Address $address2 = null)
+    {
+        $this->address2 = $address2;
+
+        return $this;
+    }
+
+    /**
+     * Add phone
+     *
+     * @param \Busybee\PersonBundle\Entity\Phone $phone
+     *
+     * @return Person
+     */
+    public function addPhone(\Busybee\PersonBundle\Entity\Phone $phone)
+    {
+        $this->phone[] = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Remove phone
+     *
+     * @param \Busybee\PersonBundle\Entity\Phone $phone
+     */
+    public function removePhone(\Busybee\PersonBundle\Entity\Phone $phone)
+    {
+        $this->phone->removeElement($phone);
+    }
+
+    /**
+     * Get phone
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }
