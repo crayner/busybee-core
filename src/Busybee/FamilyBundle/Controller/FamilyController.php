@@ -9,13 +9,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FamilyController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $up = $this->get('family.pagination');
 
@@ -37,7 +39,7 @@ class FamilyController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $family = $this->get('family.repository')->find($id);
 

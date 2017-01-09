@@ -10,7 +10,9 @@ use Doctrine\DBAL\DBALException ;
 
 class DefaultController extends Controller
 {
-	/**
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
+    /**
      * Load fixtures for all bundles
      *
      * @param Kernel $kernel

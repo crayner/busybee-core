@@ -10,7 +10,8 @@ class MenuManager
 	public function __construct(Container $container)
 	{
 		$this->container = $container;
-		
+
+		$this->pageRepository = $this->container->get('security.page.repository');
 		return $this ;
 	}
 	
@@ -42,16 +43,36 @@ class MenuManager
 	public function getMenuItems($node)
 	{
 		$items = $this->container->getParameter('items');
-		$result = array();
+        $result = array();
 		foreach( $items as $w)
 			if ($w['node'] == $node)
 			{
-				if (empty($w['parameters'])) $w['parameters'] = array();
+                $w['parameters'] = ! empty($w['parameters']) ? $w['parameters'] : array() ;
+                if (isset($w['route']))
+                {
+                    $w['role'] = $this->getRouteAccess($w['route'], empty($w['role']) ? null : $w['role']);
+                }
+                if (empty($w['role'])) unset($w['role']);
 				$result[] = $w;
 			}
 		$items = $this->msort($result, 'order');
-		return $items;
+        return $items;
 	}
+
+	private function getRouteAccess($route, $role)
+    {
+        $roles = array();
+        $page = $this->pageRepository->findOneByRoute($route);
+        if (! empty($page))
+        {
+            foreach($page->getRoles() as $role)
+                $roles[] = $role->getRole();
+        }
+        elseif (! empty($role))
+            $roles[] = $role ;
+
+        return $roles;
+    }
 
 	/**
 	 * @return	boolean
@@ -105,10 +126,10 @@ class MenuManager
 			}
 			return $value;
 		}
-		
+
 		if (0 === strpos($value, 'test.'))
 			return $this->container->get($value)->test();
-		
+
 		return $value ;
 	}
 

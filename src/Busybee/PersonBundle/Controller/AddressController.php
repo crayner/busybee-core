@@ -12,13 +12,15 @@ use Busybee\PersonBundle\Form\AddressType ;
 
 class AddressController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     /**
      * @param Request $request
      * @return JsonResponse
      */
     public function checkAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 		
 		$address = array();
 		$address['propertyName'] = $request->request->get('propertyName');
@@ -45,7 +47,7 @@ class AddressController extends Controller
      */
     public function indexAction($id = 'Add', Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, $this->get('translator')->trans('security.denied', array(), 'BusybeeHomeBundle'));
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 		
 		$address = new Address();
 		$repo = $this->get('address.repository');
@@ -89,7 +91,7 @@ class AddressController extends Controller
      */
     public function fetchAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
         $addresses = $this->get('address.repository')->findBy(array(), array('propertyName'=>'ASC', 'streetName'=>'ASC', 'streetNumber'=> 'ASC'));
         $addresses = is_array($addresses) ? $addresses : array() ;
@@ -118,7 +120,7 @@ class AddressController extends Controller
      */
     public function deleteAction($id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
         if ($id > 0 && $entity = $this->get('address.repository')->find($id))
         {

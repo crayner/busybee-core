@@ -11,13 +11,15 @@ use Symfony\Component\HttpFoundation\Request ;
 
 class HomeRoomController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $up = $this->get('HomeRoom.pagination');
 
@@ -35,7 +37,7 @@ class HomeRoomController extends Controller
      */
     public function editAction($id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $entity = new HomeRoom();
 

@@ -9,7 +9,7 @@ class PluginController extends Controller
 {
 	public function managerAction()
 	{
-		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
 		$pm = $this->get('plugin.manager');
 		

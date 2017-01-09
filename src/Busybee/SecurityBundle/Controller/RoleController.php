@@ -22,15 +22,17 @@ use Busybee\SecurityBundle\Entity\Role;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Busybee\SecurityBundle\Event\FilterRoleResponseEvent;
 
-class RoleController extends Controller {
-    
+class RoleController extends Controller
+{
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     /**
      * Show all Roles
      */
     public function listAction()
     {
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_SYSTEM_ADMIN'))) return $response;
-        
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
+
 		$em = $this->getDoctrine()->getManager();
         $roles = $this->get('security.role_hierarchy');
         $childList = $roles->getAssigned();
@@ -50,9 +52,8 @@ class RoleController extends Controller {
      * Edit a Role
      */
     public function editAction(Request $request, $roleName) {
-    
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_SYSTEM_ADMIN'))) return $response;
-   
+
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
         
 		$em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()
@@ -133,9 +134,8 @@ class RoleController extends Controller {
      * Add a new Role
      */
     public function addAction(Request $request) {
-    
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_SYSTEM_ADMIN'))) return $response;
- 
+
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
         
 		$em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()
@@ -197,8 +197,8 @@ class RoleController extends Controller {
      * Delete a Role
      */
     public function deleteAction($roleName) {
-    
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_SYSTEM_ADMIN'))) return $response;
+
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
 
         $repository = $this->getDoctrine()
             ->getRepository('BusybeeSecurityBundle:Role');
@@ -217,9 +217,7 @@ class RoleController extends Controller {
         $url = $this->generateUrl('busybee_security_role_list');
         
         $response = new RedirectResponse($url);
-        
 
-        
         return $response;
     }
         

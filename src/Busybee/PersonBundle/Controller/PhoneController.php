@@ -9,10 +9,15 @@ use Busybee\PersonBundle\Entity\Locality ;
 
 class PhoneController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function fetchAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
 		$start = $request->query->get('term');		
 		$results = $this->get('phone.repository')->createQueryBuilder('p')

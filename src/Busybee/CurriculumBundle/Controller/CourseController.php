@@ -9,7 +9,7 @@ class CourseController extends Controller
 {
     public function indexAction()
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 		
 		$campus = new Program();
 		$id = $request->get('id');   

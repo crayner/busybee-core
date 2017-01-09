@@ -23,7 +23,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse ;
 
 class AuthenticationController extends Controller
 {
-	public function loginAction(Request $request)
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
+    public function loginAction(Request $request)
 	{
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
         $session = $request->getSession();

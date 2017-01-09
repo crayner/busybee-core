@@ -10,9 +10,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
     public function toggleAction($id)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $person = $this->get('person.repository')->find($id);
 

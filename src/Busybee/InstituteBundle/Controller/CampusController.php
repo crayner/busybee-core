@@ -12,13 +12,15 @@ use Busybee\InstituteBundle\Entity\Campus ;
 
 class CampusController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
         $campus = new Campus();
         $id = $request->get('id');
@@ -51,7 +53,7 @@ class CampusController extends Controller
      */
     public function resourceAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
         $up = $this->get('campusResource.pagination');
 
@@ -67,7 +69,7 @@ class CampusController extends Controller
     }
     public function editResourceAction($id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
         $campus = new CampusResource();
 

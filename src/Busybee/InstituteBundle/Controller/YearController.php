@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request ;
 
 class YearController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     /**
      * @param $id
      * @param Request $request
@@ -18,7 +20,7 @@ class YearController extends Controller
      */
     public function editAction($id, Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $year = new StudentYear();
         if (intval($id) > 0)

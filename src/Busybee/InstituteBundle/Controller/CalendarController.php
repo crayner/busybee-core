@@ -13,9 +13,11 @@ use DateTime ;
 
 class CalendarController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     public function yearsAction()
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 		
 		$repo = $this->get('year.repository');
 		
@@ -26,7 +28,7 @@ class CalendarController extends Controller
 
     public function editYearAction($id, Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 		
 		$repo = $this->get('year.repository');
 		
@@ -66,7 +68,7 @@ class CalendarController extends Controller
 
     public function deleteYearAction($id)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 		
 		$repo = $this->get('year.repository');
 		
@@ -81,7 +83,7 @@ class CalendarController extends Controller
 
     public function deleteSpecialDayAction($id, $year)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 		
 		$repo = $this->get('specialDay.repository');
 		
@@ -96,7 +98,7 @@ class CalendarController extends Controller
 
     public function deleteTermAction($id, $year)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 		
 		$repo = $this->get('term.repository');
 		
@@ -111,7 +113,7 @@ class CalendarController extends Controller
 
     public function calendarAction($id)
     {
-		$this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_USER', null, null);
 	
         $now = new \DateTime();
 		
@@ -169,7 +171,7 @@ class CalendarController extends Controller
      */
     public function printCalendarAction($id)
     {
-		$this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_USER', null, null);
 	
         $now = new \DateTime();
 		
@@ -230,7 +232,7 @@ class CalendarController extends Controller
      */
     public function calendarChangeAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $id = $request->get('id');
 
@@ -256,7 +258,7 @@ class CalendarController extends Controller
      */
     public function copySpecialDayAction($day, $id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $cm = $this->get('calendar.manager');
 

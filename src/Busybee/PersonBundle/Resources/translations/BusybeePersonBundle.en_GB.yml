@@ -10,7 +10,7 @@ person:
             description: ''
         type:
             label: Type of Staff
-        toggle: Staff Menber Status
+        toggle: Staff Member Status
     actions: Actions
     return: Manage People
     dob:

@@ -11,6 +11,8 @@ use Busybee\PersonBundle\Entity\Locality ;
 
 class LocalityController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     /**
      * @param $id
      * @param Request $request
@@ -18,7 +20,7 @@ class LocalityController extends Controller
      */
     public function indexAction($id, Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 		
 		$locality = new Locality();
 		$lr = $this->get('locality.repository');
@@ -54,7 +56,7 @@ class LocalityController extends Controller
      */
     public function deleteAction($id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         if ($id > 0 && $entity = $this->get('locality.repository')->find($id))
         {
@@ -83,7 +85,7 @@ class LocalityController extends Controller
      */
     public function fetchAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $localities = $this->get('locality.repository')->findBy(array(), array('locality' => 'ASC', 'postCode' => 'ASC'));
         $localities = is_array($localities) ? $localities : array() ;

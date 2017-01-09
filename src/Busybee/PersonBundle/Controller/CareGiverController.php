@@ -10,9 +10,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CareGiverController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     public function toggleAction($id)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $person = $this->get('person.repository')->find($id);
 

@@ -51,7 +51,7 @@ class SettingController extends Controller
 		$setting = $this->get('setting.repository')->findOneById($id);
 
 		if (is_null($setting)) throw new InvalidArgumentException('The System setting of identifier: '.$id.' was not found');
-		$this->denyAccessUnlessGranted($setting->getRole()->getRole(), null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($setting->getRole()->getRole(), null, null);
 
 		$sm = $this->get('setting.manager');
 

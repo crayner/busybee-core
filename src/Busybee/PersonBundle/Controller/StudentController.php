@@ -14,9 +14,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse ;
 
 class StudentController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 		
 		$up = $this->get('student.pagination');
 		
@@ -39,7 +45,7 @@ class StudentController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
 		$student = $this->getStudent($id);
 		
@@ -131,7 +137,7 @@ class StudentController extends Controller
 
     public function toggleAction($id)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $person = $this->get('person.repository')->find($id);
 
