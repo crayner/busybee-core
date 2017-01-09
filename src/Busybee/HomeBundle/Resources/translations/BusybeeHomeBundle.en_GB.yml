@@ -68,6 +68,8 @@ menu:
             base: Plugin Management
         institute:
             manage: Institute
+        page:
+            roles: Page Roles
     family:
         manage: Manage Family       
     people:

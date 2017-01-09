@@ -108,7 +108,25 @@ security:
     authentication: 
         failure: '%name% at IP:%remoteIP% has failed to authenticate correctly.'
     session:
-        timeout: 'You have been logged out due to inactivity. You have not used the site for %hours% hours : %minutes% minutes.' 
+        timeout: 'You have been logged out due to inactivity. You have not used the site for %hours% hours : %minutes% minutes.'
+    access:
+        denied: Access to this page is denied !
+    page:
+        title: Page Security
+        description: Manage page security options.
+        edit: Edit Page Access
+        route: Route Name
+        path: URL Path
+        missing: 'The page (%id%) was not found.'
+        save:
+            success: Page save success.
+        label:
+            route: Route Name
+            path: URL Path
+            roles: Allowed Roles
+        help:
+            roles: Allow access to this page when the user has any of the selected roles.
+    actions: Actions
 role:
     label:
         name: Role Name

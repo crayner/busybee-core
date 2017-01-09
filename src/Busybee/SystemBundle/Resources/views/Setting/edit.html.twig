@@ -13,8 +13,10 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-6 well">
-			{{ form_row(form.name) }}
-			{{ form_row(form.nameSelect) }}
+			<div class="alert alert-success">
+				{{ form_row(form.name) }}
+				{{ form_row(form.nameSelect) }}
+			</div>
 		</div>
 		<div class="col-sm-6 well">
 			{{ form_row(form.displayName) }}

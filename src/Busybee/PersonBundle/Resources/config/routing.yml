@@ -46,3 +46,6 @@ person_toggle_staff:
 person_toggle_user:
     path:     /user/{id}/toggle/
     defaults: { _controller: BusybeePersonBundle:User:toggle }
+people_import:
+    path:     /import/
+    defaults: { _controller: BusybeePersonBundle:People:import }

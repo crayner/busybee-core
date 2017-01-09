@@ -14,9 +14,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse ;
 
 class SettingController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
 	public function indexAction(Request $request)
 	{
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
 		
 		$up = $this->get('setting.pagination');
 		
@@ -35,6 +37,7 @@ class SettingController extends Controller
 
     public function editNameAction($name, Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
 		$setting = $this->get('setting.repository')->findOneByName($name);
 
 		if (is_null($setting)) throw new InvalidArgumentException('The System setting of name: '.$name.' was not found');
@@ -43,6 +46,8 @@ class SettingController extends Controller
 	
     public function editAction($id, Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
+
 		$setting = $this->get('setting.repository')->findOneById($id);
 
 		if (is_null($setting)) throw new InvalidArgumentException('The System setting of identifier: '.$id.' was not found');
@@ -238,7 +243,7 @@ class SettingController extends Controller
 	}
 	public function uploadAction(Request $request)
 	{
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
 		
 /*		$list = Yaml::parse(file_get_contents(__DIR__.'/../Resources/Defaults/Australia.yml'));
 		$sm = $this->get('setting.manager');

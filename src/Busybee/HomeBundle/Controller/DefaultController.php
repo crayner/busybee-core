@@ -10,46 +10,6 @@ use Doctrine\DBAL\DBALException ;
 
 class DefaultController extends Controller
 {
-    public function indexAction( Request $request )
-    {
-//		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('IS_AUTHENTICATED_FULLY'))) return $response;
-
-		$config = new \stdClass();
-		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
-
-        $setting = $this->get('setting.manager');
-		if (! $setting->getSetting('Installed', false))
-			return new RedirectResponse($this->generateUrl('install_start'));
-			
-		$user = $this->getUser();
-		if (! is_null($user)) 
-		{
-			$encoder = $this->get('security.encoder_factory');
-			$encoder = $encoder->getEncoder($user);
-	
-			// Note the difference
-			if ($user->getUsername() === 'admin') 
-				return new RedirectResponse($this->generateUrl('busybee_security_user_edit'));
-			if ($encoder->isPasswordValid($user->getPassword(), 'p@ssword', $user->getSalt()) || $user->getExpired()) 
-			{
-				$email = null;
-				if (!empty($user))
-					$email = trim($user->getEmail());
-				
-				$config = new \stdClass();
-				$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
-				
-				return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
-					'email' => $email,
-					'config' => $config,
-					'forcePasswordReset' => $user->getExpired(),
-				));
-			}
-		}
-
-		return $this->render('BusybeeHomeBundle::home.html.twig', array('config' => $config));
-    }
-
 	/**
      * Load fixtures for all bundles
      *
@@ -75,5 +35,45 @@ class DefaultController extends Controller
         $purger = new ORMPurger($em);
         $executor = new ORMExecutor($em, $purger);
         $executor->execute($fixtures, true);
+    }
+
+    public function indexAction( Request $request )
+    {
+//		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('IS_AUTHENTICATED_FULLY'))) return $response;
+
+		$config = new \stdClass();
+		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+
+        $setting = $this->get('setting.manager');
+		if (! $setting->getSetting('Installed', false))
+			return new RedirectResponse($this->generateUrl('install_start'));
+
+		$user = $this->getUser();
+		if (! is_null($user))
+		{
+			$encoder = $this->get('security.encoder_factory');
+			$encoder = $encoder->getEncoder($user);
+
+			// Note the difference
+			if ($user->getUsername() === 'admin')
+				return new RedirectResponse($this->generateUrl('security_user_edit'));
+			if ($encoder->isPasswordValid($user->getPassword(), 'p@ssword', $user->getSalt()) || $user->getExpired())
+			{
+				$email = null;
+				if (!empty($user))
+					$email = trim($user->getEmail());
+
+				$config = new \stdClass();
+				$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+
+				return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
+					'email' => $email,
+					'config' => $config,
+					'forcePasswordReset' => $user->getExpired(),
+				));
+			}
+		}
+
+		return $this->render('BusybeeHomeBundle::home.html.twig', array('config' => $config));
     }
 }

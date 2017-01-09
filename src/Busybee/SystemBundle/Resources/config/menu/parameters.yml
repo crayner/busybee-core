@@ -27,22 +27,22 @@ parameters:
             label: menu.site.security.edit
             role: ROLE_USER
             node: 19
-            route: busybee_security_user_edit
+            route: security_user_edit
             parameters:
-                'id': '0'
+                'id': 'self'
             order: 100
         191:
             name: Register User
             label: menu.site.security.register
             grant: ROLE_REGISTRAR
-            route: busybee_security_user_register
+            route: security_user_register
             node: 19
             order: 101
         192:
             name: Current User
             label: menu.site.security.user
             grant: ROLE_REGISTRAR
-            route: busybee_security_user_list
+            route: security_user_list
             node: 19
             order: 102
         120:

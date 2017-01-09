@@ -11,9 +11,9 @@ use Doctrine\ORM\EntityManager;
 
 class loginHandler implements AuthenticationSuccessHandlerInterface {
 
+    private static $key;
     private $router;
     private $container;
-    private static $key;
 
     public function __construct(RouterInterface $router, EntityManager $em, $container) {
 
@@ -38,7 +38,7 @@ class loginHandler implements AuthenticationSuccessHandlerInterface {
 
             $this->session->getFlashBag()->add('warning', 'Your password must be changed now');
 
-            $route = $this->router->generate('busybee_security_user_edit');
+            $route = $this->router->generate('security_user_edit');
 
         }
 

@@ -2,12 +2,12 @@
 
 namespace Busybee\SecurityBundle\Entity;
 
-use Busybee\SecurityBundle\Model\User as UserBase;
+use Busybee\SecurityBundle\Model\User as UserModel;
 use DateTime ;
 /**
  * User
  */
-class User extends UserBase 
+class User extends UserModel
 {
     /**
      * @var integer

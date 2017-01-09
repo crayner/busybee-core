@@ -25,19 +25,19 @@ busybee_security_group_list:
 busybee_security_group_delete: 
     path:     /group/delete/{GroupID}
     defaults: { _controller: BusybeeSecurityBundle:Group:delete }
-busybee_security_user_register:
+security_user_register:
     path:     /user/register
     defaults: { _controller: BusybeeSecurityBundle:User:register }
-busybee_security_user_edit:
+security_user_edit:
     path:     /user/{id}/edit/
     defaults: { _controller: BusybeeSecurityBundle:User:edit }
-busybee_security_user_list: 
+security_user_list:
     path:     /user/list
     defaults: { _controller: BusybeeSecurityBundle:User:list }
-busybee_security_user_reset_request:
+security_user_reset_request:
     path:     /user/request/{id}
     defaults: { _controller: BusybeeSecurityBundle:User:request }
-busybee_security_user_reset_reset:
+security_user_reset_reset:
     path:     /user/reset/{token}
     defaults: { _controller: BusybeeSecurityBundle:User:reset }
 busybee_security_user_reset_send_email:
@@ -64,11 +64,15 @@ busybee_security_createuser:
 busybee_security_user_reset_check_email:
     path:     /checkemail
     defaults: { _controller: BusybeeSecurityBundle:User:checkEmail }
-busybee_user_toggleEnabled:
-    path:     /user/toggleEnabled/
-busybee_user_toggle_enabled:
-    path:     /user/toggleEnabled/{id}
+user_toggle_enabled:
+    path:     /user/{id}/toggleEnabled/
     defaults: { _controller: BusybeeSecurityBundle:User:toggleEnabled }
 google_oauth:
     path:     /oauth2callback/
     defaults: { _controller: BusybeeSecurityBundle:Authentication:google}
+page_list:
+    path:     /page/list/
+    defaults: { _controller: BusybeeSecurityBundle:Page:index}
+page_edit:
+    path:     /page/{id}/edit/
+    defaults: { _controller: BusybeeSecurityBundle:Page:edit}

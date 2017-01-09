@@ -1,0 +1,56 @@
+{# src/Busybee/SecurityBundle/Resources/views/Page/edit.html.twig #}
+
+{% trans_default_domain "BusybeeSecurityBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+
+
+{% block title %}{{ parent() }}{{ 'security.page.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'security.page.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'security.page.description'|trans }}{% endblock headerLead %}
+
+
+
+{% block contentContainer %}
+    {% block flashMessages %}
+        {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeSecurityBundle'} %}
+    {% endblock flashMessages %}
+    {{ form_start(form) }}
+
+    <div class="panel panel-primary busybee-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ 'security.page.title'|trans}}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6 well">
+                    {{ form_row(form.route) }}
+                </div>
+                <div class="col-sm-6 well">
+                    {{ form_row(form.path) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 well">
+                    {{ form_row(form.roles) }}
+                </div>
+                <div class="col-sm-6 well text-right">
+                    <div class="form-group">
+                        {{ form_widget(form.save) }}
+                        {{ form_widget(form.cancel) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+{% endblock javascripts %}
+

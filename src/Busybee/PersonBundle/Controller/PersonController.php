@@ -13,10 +13,12 @@ use Busybee\PersonBundle\Form\PersonType ;
 
 class PersonController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     public function indexAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
-		
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+
 		$up = $this->get('person.pagination');
 		
 		$up->injectRequest($request);
@@ -38,7 +40,7 @@ class PersonController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
 		$person = $this->getPerson($id);
 		

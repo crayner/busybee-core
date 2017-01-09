@@ -86,6 +86,7 @@ person:
         manage: Personal Details
         category: Category
         edit: Edit Person
+        import: Import People
     edit: 
         title: Edit Person
         description: ''

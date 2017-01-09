@@ -19,6 +19,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class InstallController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     public function indexAction()
     {
 		$config = new stdClass();

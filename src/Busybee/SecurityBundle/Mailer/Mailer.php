@@ -39,21 +39,6 @@ class Mailer implements MailerInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function sendResettingEmailMessage(UserInterface $user)
-    {
-        $template = $this->parameters['resetting.template'];
-        $url = $this->router->getContext()->getScheme().'://'.$this->router->getContext()->getHost().$this->router->generate('busybee_security_user_reset_reset', array('token' => $user->getConfirmationToken()), true);
-
-        $rendered = $this->templating->render($template, array(
-            'user' => $user,
-            'confirmationUrl' => $url
-        ));
-        $this->sendEmailMessage($rendered, $this->parameters['from_email']['resetting'], $user->getEmail());
-    }
-
-    /**
      * @param string $renderedTemplate
      * @param string $fromEmail
      * @param string $toEmail
@@ -72,5 +57,20 @@ class Mailer implements MailerInterface
             ->setBody($body);
 
         $this->mailer->send($message);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function sendResettingEmailMessage(UserInterface $user)
+    {
+        $template = $this->parameters['resetting.template'];
+        $url = $this->router->getContext()->getScheme().'://'.$this->router->getContext()->getHost().$this->router->generate('security_user_reset_reset', array('token' => $user->getConfirmationToken()), true);
+
+        $rendered = $this->templating->render($template, array(
+            'user' => $user,
+            'confirmationUrl' => $url
+        ));
+        $this->sendEmailMessage($rendered, $this->parameters['from_email']['resetting'], $user->getEmail());
     }
 }

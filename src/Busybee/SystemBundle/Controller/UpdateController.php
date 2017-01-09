@@ -8,9 +8,12 @@ use Symfony\Component\HttpFoundation\JsonResponse ;
 
 class UpdateController extends Controller
 {
+    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+
     public function indexAction()
     {
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_ADMIN'))) return $response;
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
+
 		$config = new stdClass();
 		$config->signin = null;
 		
@@ -30,7 +33,7 @@ class UpdateController extends Controller
 			$entity->setName('Installed');
 			$entity->setDisplayName('System Installed');
 			$entity->setDescription('A flag showing the system has finished installing.');
-			$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+			$entity->setRole($role->findOneByRole('ROLE_SUPER_ADMIN'));
 	
 			$sm->createSetting($entity);
 		}
@@ -40,9 +43,9 @@ class UpdateController extends Controller
 
     public function databaseAction()
     {
-		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('ROLE_ADMIN'))) return $response;
-		
-		$um = $this->get('system.update.manager');
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
+
+        $um = $this->get('system.update.manager');
 
 		$config = new stdClass();
 		$config->signin = null;

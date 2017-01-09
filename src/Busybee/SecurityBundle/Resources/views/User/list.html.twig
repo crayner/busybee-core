@@ -59,13 +59,13 @@
 				<input type="checkbox" data-off-label="false" data-on-label="false" data-off-icon-cls="halflings-thumbs-down" data-on-icon-cls="halflings-thumbs-up" class="yes-no" value="{{ user.getId }}" {% if user.getEnabled %}checked{% endif %} />
 			</div>
 			<div class="col-sm-5 col-md-2">
-				<button title='{{ 'user.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('busybee_security_user_edit', {'id': user.getId}) }}','_self')"></button>
+				<button title='{{ 'user.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('security_user_edit', {'id': user.getId}) }}','_self')"></button>
 				{% if app.user.getId != user.getId and user.getEnabled %}
 					<button title='{{ 'security.impersonate.title'|trans}}' type="button" class="glyphicons glyphicons-theater btn btn-warning" style="margin: 1px 0 0 0 ; padding: 0 4px;" onClick="window.open('{{ path('home_page') }}?_switch_user={{ user.username }}','_self')"></button>
 				{% else %}
 					<button title='{{ 'security.impersonate.title'|trans}}' type="button" class="glyphicons glyphicons-theater btn btn-default" style="margin: 1px 0 0 0 ; padding: 0 4px;" onClick="window.open('{{ path('home_page') }}?_switch_user={{ user.username }}','_self')" disabled></button>
 				{% endif %}
-				<button title='{{ 'user.reset.title'|trans}}' type="button" class="glyphicons glyphicons-user-key btn btn-warning" style="margin: 1px 0 0 0 ; padding: 0 4px;" onClick="window.open('{{ path('busybee_security_user_reset_request', {'id': user.getId}) }}','_self')"></button>
+				<button title='{{ 'user.reset.title'|trans}}' type="button" class="glyphicons glyphicons-user-key btn btn-warning" style="margin: 1px 0 0 0 ; padding: 0 4px;" onClick="window.open('{{ path('security_user_reset_request', {'id': user.getId}) }}','_self')"></button>
 			</div>
 		</div>
 	{% endfor %}
@@ -78,9 +78,11 @@
 	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
 	<script type="text/javascript">
 		$('.yes-no').checkboxpicker();
-		$('.yes-no').change(function($e) {
+		$('.yes-no').change(function(e) {
+		    var path = "{{ path('user_toggle_enabled', {'id': '__id__'}) }}";
+		    path = path.replace("__id__", this.value);
 			$.ajax({
-				url: "{{ path('busybee_user_toggleEnabled') }}" + this.value,
+				url: path,
 				type: "POST",
 				async: false,
 				datatype: 'json',

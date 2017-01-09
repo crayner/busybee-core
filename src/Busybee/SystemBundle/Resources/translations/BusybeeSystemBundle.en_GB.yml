@@ -36,7 +36,7 @@ system:
             displayName: Setting Display Name 
             upload: Upload Setting File
         help:
-            name: Setting names are set by the program and are not available to change. 
+            name: Setting names are set by the program and are not available to change.  Select the name here to edit that setting.
             description: You can alter the setting decription to better describe the setting.
             boolean: Setting is true or false, Yes or No.
             array: "Setting values for arrays are displayed as a display name: key combination."

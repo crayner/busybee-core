@@ -22,7 +22,20 @@ parameters:
         searchList:
             - a.username
             - a.email
-            
+    pagePagination:
+        alias: p
+        sortBy:
+            Route:
+                p.route: ASC
+                p.path: ASC
+            Path:
+                p.path: ASC
+                p.route: ASC
+        limit: '25'
+        searchList:
+            - p.route
+            - p.path
+
 
 services:
     busybee_security.authentication.login_handler: 
@@ -175,3 +188,16 @@ services:
             - '%userPagination%'
             - '@user.repository'
             - '@service_container'
+    security.page.pagination:
+        class: Busybee\SecurityBundle\Model\PagePagination
+        arguments:
+            - '%pagePagination%'
+            - '@security.page.repository'
+            - '@my_service_container'
+    security.page.repository:
+        class: Busybee\SecurityBundle\Repository\PageRepository
+        factory:
+            - "@doctrine"
+            - getRepository
+        arguments:
+            - "BusybeeSecurityBundle:Page"

@@ -15,7 +15,8 @@
 
 	<div class="panel panel-primary busybee-panel">
 		<div class="panel-heading">
-			<h3 class="panel-title">{{ 'people.title'|trans}}</h3>
+			<h3 class="panel-title">{{ 'people.title'|trans}} <button title='{{ 'person.title.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')" style="float: right;"></button>
+                <button title='{{ 'person.title.import'|trans}}' type="button" class="halflings halflings-import btn btn-primary" onClick="window.open('{{ path('people_import') }}','_self')" style="float: right;"></button> </h3>
 		</div>
 		<div class="panel-body">
 			<div class="container-fluid well">
@@ -46,10 +47,10 @@
                             {{ 'person.email'|trans }}
                         {% endif %}
 					</div>
-                    <div class="col-md-2 col-sm-2" style="display: inline-block;">
-                        <button title='{{ 'person.title.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'person.actions'|trans }}
+                    <div class="col-md-2 col-sm-2 text-center" style="display: inline-block;">
+                       {{ 'person.actions'|trans }}
                     </div>
-                    <div class="col-md-3 hidden-sm hidden-xs">
+                    <div class="col-md-3 hidden-sm hidden-xs text-center">
                         {{ 'person.category.title'|trans }}
                         <div class="row ">
                             <div class="col-sm-3 text-center">
@@ -81,7 +82,7 @@
 					<div class="col-md-3 hidden-sm hidden-xs" style="display: inline-block;">
                         {{ person.email }}
 					</div>
-					<div class="col-md-2 col-sm-2 form-inline">
+					<div class="col-md-2 col-sm-2 text-center form-inline">
 
 						<button title='{{ 'person.title.edit'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('person_edit', {'id': person.id}) }}','_self')"></button>
                     </div>

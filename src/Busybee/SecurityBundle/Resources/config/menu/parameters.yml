@@ -1,4 +1,11 @@
 # Security
 parameters:
     nodes: []
-    items: []
+    items:
+        123:
+            name: Page Roles
+            label: menu.site.page.roles
+            role: ROLE_SYSTEM_ADMIN
+            node: 12
+            route: page_list
+            order: 123
