@@ -49,6 +49,9 @@ form:
     start_search: ""
     next: ""
     prev: ""
+    button:
+        save: ''
+        return: ''
 menu:
     site:
         manage: Configuration

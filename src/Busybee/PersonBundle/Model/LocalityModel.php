@@ -25,20 +25,6 @@ abstract class LocalityModel
 	protected $repo;
 
 	/**
-	 * set classSuffix
-	 *
-	 * @version	31st October 2016
-	 * @since	31st October 2016
-	 * @author	Craig Rayner
-	 */
-	public function setClassSuffix($classSuffix)
-	{
-		$this->classSuffix = $classSuffix;
-		
-		return $this ;
-	}
-
-	/**
 	 * get classSuffix
 	 *
 	 * @version	31st October 2016
@@ -48,6 +34,20 @@ abstract class LocalityModel
 	public function getClassSuffix()
 	{
 		return $this->classSuffix ;
+	}
+
+	/**
+	 * set classSuffix
+	 *
+	 * @version	31st October 2016
+	 * @since	31st October 2016
+	 * @author	Craig Rayner
+	 */
+	public function setClassSuffix($classSuffix)
+	{
+		$this->classSuffix = $classSuffix;
+
+		return $this ;
 	}
 	
 	/**
@@ -72,26 +72,6 @@ abstract class LocalityModel
         return $this->repo ;
     }
 	
-	/**
-     * get Country Name
-     *
-     * @return string
-     */
-    public function getCountryName()
-    {
-        return Intl::getRegionBundle()->getCountryName(strtoupper($this->getCountry()));
-    }
-	
-	/**
-     * get Full Locality
-     *
-     * @return string
-     */
-    public function getFullLocality()
-    {
-        return trim($this->getLocality().' '.$this->getTerritory().' '. $this->getPostCode().' '.$this->getCountryName());
-    }
-
     /**
      * can Delete
      *
@@ -109,5 +89,35 @@ abstract class LocalityModel
         if (empty($x))
             return true ;
         return false ;
+    }
+	
+    /**
+     * get Full Locality
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getFullLocality();
+    }
+
+	/**
+     * get Full Locality
+     *
+     * @return string
+     */
+    public function getFullLocality()
+    {
+        return trim($this->getLocality().' '.$this->getTerritory().' '. $this->getPostCode().' '.$this->getCountryName());
+    }
+
+	/**
+     * get Country Name
+     *
+     * @return string
+     */
+    public function getCountryName()
+    {
+        return Intl::getRegionBundle()->getCountryName(strtoupper($this->getCountry()));
     }
 }

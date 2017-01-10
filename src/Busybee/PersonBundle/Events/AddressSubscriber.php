@@ -39,7 +39,8 @@ class AddressSubscriber implements EventSubscriberInterface
         $data['streetNumber'] = empty($data['streetNumber']) ? '' : $data['streetNumber'] ;
         $data['buildingType'] = empty($data['buildingType']) ? '' : $data['buildingType'] ;
         $data['buildingNumber'] = empty($data['buildingNumber']) ? '' : $data['buildingNumber'] ;
-
+        dump($data['locality']);
+        dump($form->get('locality'));
         $event->setData($data);
     }
 }

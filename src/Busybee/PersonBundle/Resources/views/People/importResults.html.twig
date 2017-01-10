@@ -1,0 +1,35 @@
+{# src/Busybee/PersonBundle/Resources/views/People/importResults.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'people.importresults.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'people.importresults.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'people.importresults.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+	<div class="panel panel-primary busybee-panel">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{ 'people.importresults.title'|trans}}</h3>
+		</div>
+		<div class="panel-body">
+            {% for result in results %}
+                {% if result is not empty %}
+                    {% for alert,message in result %}
+                        {% if alert == 'success' %}
+                            {% set alert = 'success fadeAlert' %}
+                        {% endif %}
+                        <div class="row alert alert-{{ alert }}">{{ message[0]|trans({'%data%': message[1]}) }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+		</div>
+	</div>
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+{% endblock javascripts %}
+

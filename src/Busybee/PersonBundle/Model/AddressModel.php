@@ -34,6 +34,18 @@ abstract class AddressModel
     protected $address2_list = array();
 
 	/**
+     * Construct
+     *
+     * @return Address
+     */
+    public function __construct()
+    {
+		$this->setLocality(new Locality());
+
+		return $this;
+    }
+	
+	/**
      * inject Repo
      *
      * @param \Busybee\PersonBundle\Repository\AddressRepository	$repo
@@ -56,19 +68,6 @@ abstract class AddressModel
     }
 	
 	/**
-     * set BuildingType List
-     *
-	 * @param	array	$list
-     * @return Address
-     */
-    public function setBuildingTypeList($list)
-    {
-        $this->buildingTypeList = $list;
-		
-		return $this ;
-    }
-	
-	/**
      * get BuildingType List
      *
      * @return array
@@ -79,27 +78,26 @@ abstract class AddressModel
     }
 
 	/**
+     * set BuildingType List
+     *
+	 * @param	array	$list
+     * @return Address
+     */
+    public function setBuildingTypeList($list)
+    {
+        $this->buildingTypeList = $list;
+
+		return $this ;
+    }
+
+	/**
      * get BuildingType List
      *
      * @return string
      */
     public function getSingleLineAddress()
     {
-        $x = $this->getStreetName();
-
-        return $x;
-    }
-
-	/**
-     * Construct
-     *
-     * @return Address
-     */
-    public function __construct()
-    {
-		$this->setLocality(new Locality());
-		
-		return $this;
+        return trim($this->getStreetNumber() . ' ' . $this->getStreetName());
     }
 
     /**
@@ -122,4 +120,9 @@ abstract class AddressModel
             return true ;
         return false ;
     }
+    public function __toString()
+    {
+        return $this->getStreetName();
+    }
+
 }

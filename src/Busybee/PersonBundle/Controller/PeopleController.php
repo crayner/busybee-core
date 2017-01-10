@@ -2,75 +2,93 @@
 
 namespace Busybee\PersonBundle\Controller;
 
-use Busybee\PersonBundle\Entity\CareGiver;
-use Busybee\PersonBundle\Entity\Person;
+use Busybee\PersonBundle\Form\ImportType;
+use Busybee\PersonBundle\Form\MatchImportType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class PeopleController extends Controller
 {
     use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
 
-    public function toggleAction($id)
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function importAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
-        $person = $this->get('person.repository')->find($id);
+        $data = new \stdClass();
+        $data->returnURL = $this->generateUrl('home_page');
+        $data->action = $this->generateUrl('people_import_match');
 
-        $careGiver = $this->get('caregiver.repository')->findOneByPerson($id);
+        $form = $this->createForm(ImportType::class, $data);
 
-        if (!$person instanceof Person)
-            return new JsonResponse(
-                array(
-                    'message' => '<div class="alert alert-danger fadeAlert">'.$this->get('translator')->trans('caregiver.toggle.personMissing', array(), 'BusybeePersonBundle').'</div>',
-                    'status' => 'failed'
-                ),
-                200
-            );
-        $em = $this->get('doctrine')->getManager();
-        if ($careGiver instanceof CareGiver)
-        {
-            if ($this->get('person.manager')->canDeleteCareGiver($person)) {
-                $this->get('person.manager')->deleteCareGiver($person);
-                return new JsonResponse(
-                    array(
-                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('caregiver.toggle.removeSuccess', array('%name%' => $careGiver->getFormatName()), 'BusybeePersonBundle') . '</div>',
-                        'status' => 'removed',
-                    ),
-                    200
-                );
-            } else {
-                return new JsonResponse(
-                    array(
-                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('caregiver.toggle.removeRestricted', array('%name%' => $careGiver->getFormatName()), 'BusybeePersonBundle') . '</div>',
-                        'status' => 'failed',
-                    ),
-                    200
-                );
-            }
-        } else {
-            if ($this->get('person.manager')->canBeCareGiver($person)) {
-                $careGiver = new CareGiver();
-                $careGiver->setPerson($person);
-                $em->persist($careGiver);
-                $em->flush();
-                return new JsonResponse(
-                    array(
-                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('caregiver.toggle.addSuccess', array('%name%' => $careGiver->getFormatName()), 'BusybeePersonBundle') . '</div>',
-                        'status' => 'added',
-                    ),
-                    200
-                );
-            } else{
-                return new JsonResponse(
-                    array(
-                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('caregiver.toggle.addRestricted', array('%name%' => $person->getFormatName()), 'BusybeePersonBundle') . '</div>',
-                        'status' => 'failed',
-                    ),
-                    200
-                );
-            }
-        }
+
+        return $this->render('BusybeePersonBundle:People:import.html.twig',
+            array(
+                'form' => $form->createView(),
+            )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function matchAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+
+        $data = array();
+        $data['returnURL'] = $this->generateUrl('people_import');
+
+        $files = $request->files->get('import');
+
+        $file = reset($files);
+
+        $file = $this->get('file.uploader')->upload($file);
+
+        $pm = $this->get('person.manager');
+        $headerNames = $pm->getHeaderNames($file);
+
+        $data['action'] = $this->generateUrl('people_import_data') ;
+        $data['file'] = $file ;
+        $data['fields'] = $headerNames ;
+        $data['headerNames'] = $headerNames ;
+
+        $data['destinationNames'] = $pm->getFieldNames();
+
+        $form = $this->createForm(MatchImportType::class, $data);
+
+        return $this->render('BusybeePersonBundle:People:importMatch.html.twig',
+            array(
+                'form' => $form->createView(),
+            )
+        );
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function dataAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+
+        $import = $request->get('import');
+        $pm = $this->get('person.manager');
+
+        $results = $pm->importPeople($import);
+
+        return $this->render('BusybeePersonBundle:People:importResults.html.twig',
+            array(
+                'results' => $results,
+            )
+        );
+
     }
 }

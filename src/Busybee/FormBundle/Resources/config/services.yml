@@ -46,3 +46,13 @@ services:
         class: Busybee\FormBundle\Validator\Constraints\BlankOrValidValidator
         tags:
             - { name: validator.constraint_validator, alias: blank_or_valid_validator }
+    file.uploader:
+        class: Busybee\FormBundle\Model\FileUpLoad
+        arguments:
+            - "%upload_path%"
+    form.type.csv:
+        class: Busybee\FormBundle\Type\CSVType
+        arguments:
+            - '@file.uploader'
+        tags:
+            - { name: form.type }

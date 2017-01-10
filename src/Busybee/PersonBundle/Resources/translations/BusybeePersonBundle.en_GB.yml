@@ -237,6 +237,28 @@ contact:
         saveWarning: Additions and removal of numbers are NOT saved until the person is saved.  Use the green Save button to save the person, or the light blue Cancel button to restore changes.  Each phone number is only stored once.
 people:
     title: People
+    import:
+        title: Import People
+        description: Import people.
+        label:
+            importFile: Import File
+        success:
+            phone: 'Phone Number added: %data%'
+            locality: 'Locality added %data%'
+            address: 'Address added %data%'
+        warning:
+            locality: 'Locality not correctly formatted: %data%'
+    matchimport:
+        title: Match Import Fields
+        description: Match the source column information with the appropriate destination column.
+        placeholder:
+            destination: Select a destination field
+            source: Select a source field
+        help:
+            help: Match the source to a destination. Any selected source without a selected destination is ignored.
+    importresults:
+        title: People Import Results
+        description: ''
 phone:
     save: Changes in phone details are only recorded when the entire form is saved.
 caregiver:

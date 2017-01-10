@@ -18,6 +18,9 @@
 
 
 {% block contentContainer %}
+	{% block flashMessages %}
+		{%  include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
+	{% endblock flashMessages %}
 {{ form_start(form) }}
 	<div class="container-fluid">
 		<div class="row" id="addressMessage" style="display: none;">

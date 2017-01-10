@@ -1,0 +1,39 @@
+{# src/Busybee/PersonBundle/Resources/views/Person/index.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'people.import.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'people.import.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'people.import.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+	<div class="panel panel-primary busybee-panel">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{ 'people.import.title'|trans}}</h3>
+		</div>
+		<div class="panel-body">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-sm-8 well">
+                    {{ form_row(form.importFile) }}
+                </div>
+                <div class="col-sm-4 well">
+                    <div class="text-right form-group">
+                        {{ form_widget(form.save) }}
+                        {{ form_widget(form.return) }}
+                    </div>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+		</div>
+	</div>
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+{% endblock javascripts %}
+

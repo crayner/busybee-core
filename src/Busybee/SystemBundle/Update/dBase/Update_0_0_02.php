@@ -27,7 +27,7 @@ class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	= 37 ;
+	private $count	= 40 ;
 	
 	/**
 	 * Constructor
@@ -515,6 +515,45 @@ Other: Other
         $entity->setDisplayName('Type of Campus Resource');
         $entity->setDescription('Campus resources are spaces used with the Campus, such as classrooms and Storage Rooms.');
         $entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+        $entity->setValidator(null);
+
+        $this->sm->saveSetting($entity);
+        //38
+        $entity = new Setting();
+        $entity->setType('array');
+        $entity->setValue("Not Specified: Unknown
+Teacher: Teacher
+Ancillary: Ancillary
+Cleaner: Cleaner
+Administrative: Administrative
+"       );
+        $entity->setName('Staff.Categories');
+        $entity->setDisplayName('Staff Categories');
+        $entity->setDescription('List of the staff Categories.');
+        $entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+        $entity->setValidator(null);
+
+        $this->sm->saveSetting($entity);
+        //39
+        $entity = new Setting();
+        $entity->setType('string');
+        $entity->setValue("+61");
+        $entity->setName('Country.Code');
+        $entity->setDisplayName('Phone Country Code');
+        $entity->setDescription('Default phone country code.');
+        $entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+        $entity->setValidator(null);
+
+        $this->sm->saveSetting($entity);
+        //40
+        $entity = new Setting();
+        $entity->setType('array');
+        $entity->setValue("PhoneType: Imported
+CountryCode: AU");
+        $entity->setName('Person.Import');
+        $entity->setDisplayName('Person Import Defaults');
+        $entity->setDescription('Default values added to imported records.');
+        $entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
         $entity->setValidator(null);
 
         $this->sm->saveSetting($entity);

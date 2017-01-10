@@ -49,3 +49,9 @@ person_toggle_user:
 people_import:
     path:     /import/
     defaults: { _controller: BusybeePersonBundle:People:import }
+people_import_match:
+    path:     /import/match/
+    defaults: { _controller: BusybeePersonBundle:People:match }
+people_import_data:
+    path:     /import/data/
+    defaults: { _controller: BusybeePersonBundle:People:data }
