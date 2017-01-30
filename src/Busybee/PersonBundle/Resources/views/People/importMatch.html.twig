@@ -15,17 +15,22 @@
 		</div>
 		<div class="panel-body">
             {{ form_start(form) }}
-            <div class="row">
-                {% set value = 0 %}
-                {% for field in form.fields %}
+            {% set value = 0 %}
+            {% for field in form.fields %}
+                <div class="row">
                     <div class="col-sm-6 well">
                         {{ form_row(field.source, {'value': value|trim}) }}
                         {% set value = value + 1 %}
                     </div>
                     <div class="col-sm-6 well">
-                        {{ form_row(field.destination) }}
+                        {{ form_row(field.destination, {'attr': {'class': 'optionLoader'}}) }}
+                        <div id="{{ field.vars.id }}_options" style="display: none">
+                            {{ dump(field.vars.id) }}
+                        </div>
                     </div>
-                {% endfor %}
+                </div>
+            {% endfor %}
+            <div class="row">
                 <div class="col-sm-8 well">
                     {{ form_row(form.file) }}
                     <div class="alert alert-info">
@@ -47,5 +52,28 @@
 {% block javascripts %}
     {{ parent() }}
     {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+    <script>
+        $(".optionLoader").change( function() {
+            var id = $(this).attr('id');
+            var label = $('#' + id + ' option:selected').text();
+            var name = $(this).attr('name');
+
+            id = id.replace('destination', 'options');
+
+            if (label == 'phone.phoneNumber')
+            {
+                name = name.replace('destination', 'option');
+                var content = '{% include 'BusybeePersonBundle:People:optionPhoneNumber.html.twig' %}';
+                content = content.replace(/__id__/g, id.replace('options', 'option'));
+                content = content.replace('__name__', name);
+                $("#" + id).html(content);
+                $("#" + id).show();
+            }
+            else{
+                $("#" + id).hide(1000);
+            }
+        });
+
+    </script>
 {% endblock javascripts %}
 

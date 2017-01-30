@@ -3,6 +3,7 @@
 namespace Busybee\PersonBundle\Model ;
 
 use Busybee\PersonBundle\Entity\Locality ;
+use Busybee\PersonBundle\Repository\AddressRepository;
 
 /**
  * Address Model
@@ -14,7 +15,7 @@ use Busybee\PersonBundle\Entity\Locality ;
 abstract class AddressModel
 {
 	/**
-	 * @var	\Busybee\PersonBundle\Repository\LocalityRepository
+	 * @var	\Busybee\PersonBundle\Repository\AddressRepository
 	 */
 	protected $repo;
 
@@ -36,7 +37,7 @@ abstract class AddressModel
 	/**
      * Construct
      *
-     * @return Address
+     * @return AddressModel
      */
     public function __construct()
     {
@@ -48,10 +49,10 @@ abstract class AddressModel
 	/**
      * inject Repo
      *
-     * @param \Busybee\PersonBundle\Repository\AddressRepository	$repo
-     * @return this
+     * @param AddressRepository
+     * @return AddressModel
      */
-    public function injectRepository(\Busybee\PersonBundle\Repository\AddressRepository $repo)
+    public function injectRepository(AddressRepository $repo)
     {
         $this->repo = $repo;
 		return $this;
@@ -60,7 +61,7 @@ abstract class AddressModel
 	/**
      * get Repo
      *
-     * @return \Busybee\PersonBundle\Repository\AddressRepository
+     * @return AddressRepository
      */
     public function getRepository()
     {
@@ -81,7 +82,7 @@ abstract class AddressModel
      * set BuildingType List
      *
 	 * @param	array	$list
-     * @return Address
+     * @return AddressModel
      */
     public function setBuildingTypeList($list)
     {
@@ -120,9 +121,15 @@ abstract class AddressModel
             return true ;
         return false ;
     }
+
+    /**
+     * to String
+     *
+     * @return mixed
+     */
     public function __toString()
     {
-        return $this->getStreetName();
+        return $this->getStreetName().' '.$this->getLocality()->__toString();
     }
 
 }

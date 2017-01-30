@@ -1,0 +1,14 @@
+{# src/Busybee/PersonBundle/Resources/views/People/optionPhoneNumber.html.twig #}
+{% trans_default_domain "BusybeePersonBundle" %}
+{% spaceless %}
+<div class="form-group">
+    <select id="__id__" name="__name__" class="form-control">
+        <option value="Imported"></option>
+        {% set types = get_setting('Phone.TypeList') %}
+        {% for value,label in types %}
+            <option value="{{ value }}">{{ label }}</option>
+        {% endfor %}
+    </select>
+    <label for="__id__">{{ 'person.label.phone.type'|trans }}</label>
+</div>
+{% endspaceless %}

@@ -222,3 +222,8 @@ img.imageWidth200 {
 ul.nav li.disabled {
 	display: none ;
 }
+.panel-heading .personIdentifier {
+	font-size: 12px;
+	float: right ;
+	margin-right: 3px;
+}

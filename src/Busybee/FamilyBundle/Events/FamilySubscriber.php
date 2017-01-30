@@ -79,6 +79,19 @@ class FamilySubscriber implements EventSubscriberInterface
                     $students[] = $id;
                 }
 
+        // Address Management
+        dump($data);
+        unset($data['address1_list'], $data['address2_list']);
+        if (! empty($data['address1']) || ! empty($data['address2']))
+        {
+            if ($data['address1'] == $data['address2'])
+                $data['address2'] = "";
+            elseif (empty($data['address1']) && ! empty($data['address2']))
+            {
+                $data['address1'] = $data['address2'];
+                $data['address2'] = "";
+            }
+        }
 
         $event->setData($data);
     }

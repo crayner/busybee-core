@@ -2,7 +2,6 @@
 
 namespace Busybee\PersonBundle\Model ;
 
-use Busybee\PersonBundle\Entity\Address;
 use Symfony\Component\Intl\Intl ;
 
 /**
@@ -54,7 +53,7 @@ abstract class LocalityModel
      * inject Repo
      *
      * @param \Busybee\PersonBundle\Repository\LocalityRepository	$repo
-     * @return this
+     * @return LocalityModel
      */
     public function injectRepository(\Busybee\PersonBundle\Repository\LocalityRepository $repo)
     {
@@ -92,7 +91,7 @@ abstract class LocalityModel
     }
 	
     /**
-     * get Full Locality
+     * to String
      *
      * @return string
      */
@@ -108,7 +107,7 @@ abstract class LocalityModel
      */
     public function getFullLocality()
     {
-        return trim($this->getLocality().' '.$this->getTerritory().' '. $this->getPostCode().' '.$this->getCountryName());
+        return str_replace('  ', ' ', trim($this->getName().' '.$this->getTerritory().' '. $this->getPostCode().' '.$this->getCountryName()));
     }
 
 	/**

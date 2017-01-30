@@ -2,11 +2,11 @@ Busybee\PersonBundle\Entity\Locality:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
-                - locality
+                - name
                 - territory
                 - postCode
                 - country
-            errorPath: locality
+            errorPath: name
             message: 'locality.unique'
     properties:
         territory:

@@ -87,7 +87,7 @@ class LocalityController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-        $localities = $this->get('locality.repository')->findBy(array(), array('locality' => 'ASC', 'postCode' => 'ASC'));
+        $localities = $this->get('locality.repository')->findBy(array(), array('name' => 'ASC', 'postCode' => 'ASC'));
         $localities = is_array($localities) ? $localities : array() ;
 
         $options = array();

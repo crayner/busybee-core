@@ -71,14 +71,14 @@ class AddressManager
 	 *
 	 * @version	8th November 2016
 	 * @since	8th November 2016
-	 * @param	busybee\PersonBundle\Entity\Address	$address
+	 * @param	\Busybee\PersonBundle\Entity\Address	$address
 	 * @return	html string
 	 */
     public function formatAddress($address)
     {
 		if ($address instanceof Address)
 			$data =  array('propertyName' => $address->getPropertyName(), 
-				'streetName' => $address->getStreetName(), 'locality' => $address->getLocality()->getLocality(), 'territory' => $address->getLocality()->getTerritory(), 
+				'streetName' => $address->getStreetName(), 'locality' => $address->getLocality()->getName(), 'territory' => $address->getLocality()->getTerritory(),
 				'postCode' => $address->getLocality()->getPostCode(), 'country' => $address->getLocality()->getCountryName(), 
 				'buildingType' => $address->getBuildingType(), 'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber());
 		else
@@ -91,32 +91,12 @@ class AddressManager
 	}
 
 	/**
-	 * get Address List Label
-	 *
-	 * @version	8th November 2016
-	 * @since	8th November 2016
-	 * @param	busybee\PersonBundle\Entity\Address	$address
-	 * @return	html string
-	 */
-    public function getAddressListLabel($address)
-    {
-		if ($address instanceof Address)
-			$data = array('propertyName' => $address->getPropertyName(), 'streetName' => $address->getStreetName(), 'buildingType' => $address->getBuildingType(),
-				'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber(), 'locality' => $address->getLocality()->getLocality());
-		else
-			$data = array('propertyName' => null, 'streetName' => null, 'buildingType' => null,
-				'buildingNumber' => null, 'streetNumber' => null, 'locality' => null);
-
-		return trim($this->sm->get('Address.ListLabel', null, $data));
-	}
-
-	/**
 	 * get Address List
 	 *
 	 * @version	22nd November 2016
 	 * @since	8th November 2016
 	 * @param	integer	$locality_id
-	 * @return	array	
+	 * @return	array
 	 */
     public function getAddressList($locality_id)
     {
@@ -131,5 +111,25 @@ class AddressManager
 				$addressList[] = $x;
 			}
 		return $addressList ;
+	}
+
+	/**
+	 * get Address List Label
+	 *
+	 * @version	8th November 2016
+	 * @since	8th November 2016
+	 * @param	\Busybee\PersonBundle\Entity\Address	$address
+	 * @return	html string
+	 */
+    public function getAddressListLabel($address)
+    {
+		if ($address instanceof Address)
+			$data = array('propertyName' => $address->getPropertyName(), 'streetName' => $address->getStreetName(), 'buildingType' => $address->getBuildingType(),
+				'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber(), 'locality' => $address->getLocality()->getName());
+		else
+			$data = array('propertyName' => null, 'streetName' => null, 'buildingType' => null,
+				'buildingNumber' => null, 'streetNumber' => null, 'locality' => null);
+
+		return trim($this->sm->get('Address.ListLabel', null, $data));
 	}
 }

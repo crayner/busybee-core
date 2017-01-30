@@ -133,7 +133,8 @@ services:
             - "%upload_path%"
     person.listener:
         class: Busybee\PersonBundle\EventListener\PersonListener
-        arguments: ['@person.uploader.photo']
+        arguments:
+            - '@person.uploader.photo'
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
@@ -181,6 +182,7 @@ services:
         arguments:
             - '@setting.manager'
             - '@doctrine.orm.entity_manager'
+            - '@validator'
     person.image.validator:
         class: Busybee\PersonBundle\Validator\Constraints\PersonImageValidator
         tags:

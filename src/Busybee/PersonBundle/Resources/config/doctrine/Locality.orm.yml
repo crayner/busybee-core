@@ -2,6 +2,13 @@ Busybee\PersonBundle\Entity\Locality:
     type: entity
     table: locality
     repositoryClass: Busybee\PersonBundle\Repository\LocalityRepository
+    uniqueConstraints:
+        locality:
+            columns:
+                - name
+                - territory
+                - postCode
+                - country
     id:
         id:
             type: integer
@@ -9,7 +16,7 @@ Busybee\PersonBundle\Entity\Locality:
             generator:
                 strategy: AUTO
     fields:
-        locality:
+        name:
             type: string
             length: '50'
         territory:

@@ -2,6 +2,11 @@ Busybee\PersonBundle\Entity\Phone:
     type: entity
     table: phone
     repositoryClass: Busybee\PersonBundle\Repository\PhoneRepository
+    uniqueConstraints:
+        phoneNumber:
+            columns:
+                - phoneNumber
+                - countryCode
     id:
         id:
             type: integer

@@ -96,12 +96,12 @@
 
         $("#erasePersonAddress1").click(function() {
             $("#family_address1").val("");
-            $("#family_address1_list").val("{{ 'person.placeholder.address'|trans }}");
+            $("#family_address1_list").val("{{ 'person.placeholder.address'|trans({}, 'BusybeePersonBundle') }}");
         });
 
         $("#erasePersonAddress2").click(function() {
             $("#family_address2").val("");
-            $("#family_address2_list").val("{{ 'person.placeholder.address'|trans }}");
+            $("#family_address2_list").val("{{ 'person.placeholder.address'|trans({}, 'BusybeePersonBundle') }}");
         });
 
         $( "#family_address1_list" ).on( "focus", function() {

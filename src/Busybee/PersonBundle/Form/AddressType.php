@@ -106,7 +106,7 @@ class AddressType extends AbstractType
                     ),
                     'query_builder' => function (LocalityRepository $lr) {
                         return $lr->createQueryBuilder('l')
-                            ->orderBy('l.locality', 'ASC')
+                            ->orderBy('l.name', 'ASC')
                             ->addOrderBy('l.postCode', 'ASC')
                         ;
                     },

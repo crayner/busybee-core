@@ -17,7 +17,7 @@ class Locality extends LocalityModel
     /**
      * @var string
      */
-    private $locality;
+    private $name;
 
     /**
      * @var string
@@ -66,15 +66,15 @@ class Locality extends LocalityModel
     }
 
     /**
-     * Set locality
+     * Set Id
      *
-     * @param string $locality
+     * @param integer $id
      *
      * @return Locality
      */
-    public function setLocality($locality)
+    public function setId($id)
     {
-        $this->locality = $locality;
+        $this->id = $id ;
 
         return $this;
     }
@@ -84,9 +84,33 @@ class Locality extends LocalityModel
      *
      * @return string
      */
-    public function getLocality()
+    public function getName()
     {
-        return $this->locality;
+        return $this->name;
+    }
+
+    /**
+     * Set locality
+     *
+     * @param string $locality
+     *
+     * @return Locality
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get territory
+     *
+     * @return string
+     */
+    public function getTerritory()
+    {
+        return $this->territory;
     }
 
     /**
@@ -104,13 +128,13 @@ class Locality extends LocalityModel
     }
 
     /**
-     * Get territory
+     * Get postCode
      *
      * @return string
      */
-    public function getTerritory()
+    public function getPostCode()
     {
-        return $this->territory;
+        return $this->postCode;
     }
 
     /**
@@ -128,13 +152,13 @@ class Locality extends LocalityModel
     }
 
     /**
-     * Get postCode
+     * Get country
      *
      * @return string
      */
-    public function getPostCode()
+    public function getCountry()
     {
-        return $this->postCode;
+        return $this->country;
     }
 
     /**
@@ -152,13 +176,13 @@ class Locality extends LocalityModel
     }
 
     /**
-     * Get country
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getCountry()
+    public function getLastModified()
     {
-        return $this->country;
+        return $this->lastModified;
     }
 
     /**
@@ -176,13 +200,13 @@ class Locality extends LocalityModel
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -200,13 +224,13 @@ class Locality extends LocalityModel
     }
 
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -224,13 +248,13 @@ class Locality extends LocalityModel
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -245,15 +269,5 @@ class Locality extends LocalityModel
         $this->modifiedBy = $modifiedBy;
 
         return $this;
-    }
-
-    /**
-     * Get modifiedBy
-     *
-     * @return \Busybee\SecurityBundle\Entity\User
-     */
-    public function getModifiedBy()
-    {
-        return $this->modifiedBy;
     }
 }

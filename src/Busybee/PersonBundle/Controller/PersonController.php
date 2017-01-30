@@ -120,6 +120,7 @@ class PersonController extends Controller
 		$editOptions['address2'] = $this->formatAddress($person->getAddress2());
 		$editOptions['addressLabel1'] = $this->get('address.manager')->getAddressListLabel($person->getAddress1());
 		$editOptions['addressLabel2'] = $this->get('address.manager')->getAddressListLabel($person->getAddress2());
+		$editOptions['identifier'] = $person->getIdentifier();
 
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
 			$editOptions	

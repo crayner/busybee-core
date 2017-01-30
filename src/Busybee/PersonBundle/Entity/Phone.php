@@ -2,10 +2,12 @@
 
 namespace Busybee\PersonBundle\Entity;
 
+use Busybee\PersonBundle\Model\PhoneModel;
+
 /**
  * Phone
  */
-class Phone
+class Phone extends PhoneModel
 {
     /**
      * @var integer
@@ -59,6 +61,16 @@ class Phone
     }
 
     /**
+     * Get phoneType
+     *
+     * @return string
+     */
+    public function getPhoneType()
+    {
+        return $this->phoneType;
+    }
+
+    /**
      * Set phoneType
      *
      * @param string $phoneType
@@ -73,13 +85,13 @@ class Phone
     }
 
     /**
-     * Get phoneType
+     * Get phoneNumber
      *
      * @return string
      */
-    public function getPhoneType()
+    public function getPhoneNumber()
     {
-        return $this->phoneType;
+        return $this->phoneNumber;
     }
 
     /**
@@ -97,13 +109,13 @@ class Phone
     }
 
     /**
-     * Get phoneNumber
+     * Get countryCode
      *
      * @return string
      */
-    public function getPhoneNumber()
+    public function getCountryCode()
     {
-        return $this->phoneNumber;
+        return $this->countryCode;
     }
 
     /**
@@ -121,13 +133,13 @@ class Phone
     }
 
     /**
-     * Get countryCode
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getCountryCode()
+    public function getLastModified()
     {
-        return $this->countryCode;
+        return $this->lastModified;
     }
 
     /**
@@ -145,13 +157,13 @@ class Phone
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -169,13 +181,13 @@ class Phone
     }
 
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -193,13 +205,13 @@ class Phone
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -214,15 +226,5 @@ class Phone
         $this->modifiedBy = $modifiedBy;
 
         return $this;
-    }
-
-    /**
-     * Get modifiedBy
-     *
-     * @return \Busybee\SecurityBundle\Entity\User
-     */
-    public function getModifiedBy()
-    {
-        return $this->modifiedBy;
     }
 }

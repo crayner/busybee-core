@@ -39,11 +39,11 @@ class LocalityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-			->add('locality', null, array(
-					'label' => 'locality.label.locality',
+			->add('name', null, array(
+					'label' => 'locality.label.name',
 					'attr' => array(
 						'class' => 'beeLocality monitorChange',
-                        'help' => 'locality.help.locality',
+                        'help' => 'locality.help.name',
 					),
 				)
 			)
@@ -85,7 +85,7 @@ class LocalityType extends AbstractType
 					'translation_domain' => 'BusybeePersonBundle',
                     'query_builder' => function (LocalityRepository $lr) {
                         return $lr->createQueryBuilder('l')
-                            ->orderBy('l.locality', 'ASC')
+                            ->orderBy('l.name', 'ASC')
                             ->addOrderBy('l.postCode', 'ASC')
                             ;
                     },

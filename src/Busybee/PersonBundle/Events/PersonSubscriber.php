@@ -202,6 +202,31 @@ class PersonSubscriber implements EventSubscriberInterface
             $flush = true;
         }
 
+        // Address Management
+        unset($data['address1_list'], $data['address2_list']);
+        if (! empty($data['address1']) || ! empty($data['address2']))
+        {
+            if ($data['address1'] == $data['address2'])
+                $data['address2'] = "";
+            elseif (empty($data['address1']) && ! empty($data['address2']))
+            {
+                $data['address1'] = $data['address2'];
+                $data['address2'] = "";
+            }
+        }
+
+        // Email Management
+        if (! empty($data['email']) || ! empty($data['email2']))
+        {
+            if ($data['email'] == $data['email2'])
+                $data['email2'] = "";
+            elseif (empty($data['email']) && ! empty($data['email2']))
+            {
+                $data['email'] = $data['email2'];
+                $data['email2'] = "";
+            }
+        }
+
 
         if ($flush)
             $this->om->flush();

@@ -20,7 +20,6 @@ person:
         description: Add, modify and manage people data.
     familyName: Family Name
     givenName: Given Name
-    email: Email
     contact:
         title: "Contact Details: %name%"
     label:
@@ -49,6 +48,8 @@ person:
             question: Student ?
         user:
             question: System User ?
+        identifier: 'Id: %identifier%'
+        age: 'Age: %years%.%months%.%days%'
     help:
         officialName: This is the name recorded on official documents. e.g. birth certificates and passports.
         photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 
@@ -194,13 +195,13 @@ address:
 locality:
     help:
         choice: Select a locality or add a new locality below.
-        locality: The locality details must be unique.
+        name: The locality details must be unique.
     placeholder:
         choice: Select Locality (Clear Data)
         territory: Select a Territory
     label:
         choice: Choose Existing Locality
-        locality: Town, Suburb or City
+        name: Town, Suburb or City
         postcode: Post Code
         country: Country
         territory: State, Province or Territory
@@ -246,8 +247,13 @@ people:
             phone: 'Phone Number added: %data%'
             locality: 'Locality added %data%'
             address: 'Address added %data%'
+        duplicate:
+            locality: 'Duplicate locality %data% ignored'
+            address: 'Duplicate address %data% ignored'
         warning:
             locality: 'Locality not correctly formatted: %data%'
+            nodata: 'No data found for import in line %data%'
+            invalid: 'The data is not valid. %data%'
     matchimport:
         title: Match Import Fields
         description: Match the source column information with the appropriate destination column.

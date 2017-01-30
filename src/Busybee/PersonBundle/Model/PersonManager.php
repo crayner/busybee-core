@@ -1,7 +1,6 @@
 <?php
 namespace Busybee\PersonBundle\Model;
 
-
 use Busybee\FamilyBundle\Entity\Family;
 use Busybee\InstituteBundle\Entity\CampusResource;
 use Busybee\PersonBundle\Entity\Address;
@@ -14,7 +13,8 @@ use Busybee\PersonBundle\Entity\Student;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManager ;
+use Symfony\Component\Validator\Validator\ValidatorInterface ;
 
 class PersonManager
 {
@@ -29,13 +29,21 @@ class PersonManager
     private $em;
 
     /**
+     * @var EntityManager
+     */
+    private $validator;
+
+    /**
      * PersonManager constructor.
      * @param SettingManager $sm
      */
-    public function __construct(SettingManager $sm, EntityManager $em)
+    public function __construct(SettingManager $sm, EntityManager $em, ValidatorInterface $validator)
     {
+        ini_set('auto_detect_line_endings', true);
+
         $this->sm = $sm;
         $this->em = $em;
+        $this->validator = $validator ;
     }
 
     /**
@@ -310,42 +318,48 @@ class PersonManager
         return false;
     }
 
+    /**
+     * @param $import
+     * @return array
+     */
     public function importPeople($import)
     {
         $file = $import['file'];
         $this->results = array();
         $fields = $import['fields'];
+        $this->fields = array();
         foreach ($fields as $q => $w)
-            if (empty($w['destination']))
-                unset($fields[$q]);
+            if ($w['destination'] !== "")
+                $this->fields[] = $w;
 
         $destinationFields = $this->getFieldNames();
 
+        $this->addresses = array();;
+        $this->localities = array();
+        $this->phones = array();
+
+        // Handle Localities
         $headers = false;
+        $line = 1;
         if (($handle = fopen($file, "r")) !== false) {
             while (($data = fgetcsv($handle)) !== false) {
                 if ($headers) {
-                    $this->address = null;
-                    $this->locality = null;
-                    $this->phones = null;
-                    foreach ($tables as $table) {
-                        $method = 'import' . ucfirst($table);
-                        $this->results[] = $this->$method($data, $fields, $destinationFields);
-                    }
+                    $this->results[] = $this->importPerson($data, $this->fields, $destinationFields, ++$line);
                 } else {
                     $headers = true;
-                    $tables = array();
-                    foreach ($fields as $q => $w) {
+                    $this->tables = array();
+                    foreach ($this->fields as $q => $w) {
                         $field = $destinationFields[$w['destination']];
                         $table = explode('.', $field);
-                        if (!in_array($table[0], $tables))
-                            $tables[] = $table[0];
+                        if (!in_array($table[0], $this->tables))
+                            $this->tables[] = $table[0];
                     }
                 }
             }
             $this->em->flush();
             fclose($handle);
         }
+
         return $this->results;
     }
 
@@ -388,6 +402,53 @@ class PersonManager
     }
 
     /**
+     * @param $data
+     * @param $fields
+     * @param $destinationFields
+     */
+    private function importPerson($data, $fields, $destinationFields, $line)
+    {
+        if (!in_array('person', $this->tables)) {
+            $result['warning'] = ['people.import.warning.nodata', $line];
+            return $result;
+        }
+        $idKey =  array_search('person.identifier', $destinationFields);
+        if ($idKey !== false)
+        {
+            foreach($fields as $q=>$w)
+                if ($w['destination'] == $idKey)
+                {
+                    $identifier = $data[$w['source']];
+                    break ;
+                }
+
+        }
+        if (empty($identifier))
+            $person = new Person();
+        else
+            $person = $this->em->getRepository(Person::class)->findOneByIdentifier($identifier);
+
+        foreach ($fields as $q => $w) {
+            if (mb_strpos($destinationFields[$w['destination']], 'person.') === 0) {
+                $field = str_replace('person.', '', $destinationFields[$w['destination']]);
+                $method = 'set' . ucfirst($field);
+                if (! empty($data[$w['source']]))
+                    $person->$method($data[$w['source']]);
+            }
+        }
+
+
+        $errors = $this->validator->validate($person);
+        if ($errors->count() > 0) {
+            foreach($errors as $error)
+                $data[] = $error->getPropertyPath() . ': ' . $error->getMessage();
+            $result['warning'] = ['people.import.warning.invalid', implode(', ', $data)];
+        } else
+            $result['success'] = ['I am good', 0];
+        return $result ;
+    }
+
+    /**
      * @param $file
      * @return ArrayCollection
      */
@@ -412,22 +473,23 @@ class PersonManager
      */
     private function importPhone($data, $fields, $destinationFields)
     {
-        $this->phones = array();
         $result = array();
 
         foreach ($fields as $q => $w) {
             if (mb_strpos($destinationFields[$w['destination']], 'phone.') === 0) {
                 $phone = new Phone();
+                $type = $w['option'];
                 $field = str_replace('phone.', '', $destinationFields[$w['destination']]);
                 $method = 'set' . ucfirst($field);
                 $phone->$method(preg_replace('/\D/', '', $data[$w['source']]));
-                $this->phones[] = $phone;
+                $phone->setPhoneType($type);
+                if (! array_key_exists(md5($phone->__toString()), $this->phones))
+                    $this->phones[md5($phone->__toString())] = $phone;
             }
         }
 
         foreach ($this->phones as $q=>$phone)
             if (empty($this->em->getRepository(Phone::class)->findOneByPhoneNumber($phone->getPhoneNumber()))) {
-                $phone->setPhoneType($this->sm->get('Person.Import.PhoneType'));
                 $phone->setCountryCode($this->sm->get('Country.Code'));
                 $this->em->persist($phone);
                 $result['success'] = ['people.import.success.phone', $phone->getPhoneNumber()];
@@ -437,6 +499,12 @@ class PersonManager
         return $result;
     }
 
+    /**
+     * @param $data
+     * @param $fields
+     * @param $destinationFields
+     * @return array
+     */
     private function importAddress($data, $fields, $destinationFields)
     {
         $this->address = null;
@@ -462,8 +530,9 @@ class PersonManager
         {
             if ($this->locality === null)
                 $this->results[] = $this->importLocality($data, $fields, $destinationFields);
+
             $address->setLocality($this->locality);
-            if ($this->locality === null)
+
             if (empty($address->getBuildingType()))
                 $address->setBuildingType($this->sm->get('Person.Import.BuildingType'));
             if (empty($address->getBuildingNumber()))
@@ -476,13 +545,41 @@ class PersonManager
             {
                 $num = intval($address->getStreetName());
                 $address->setStreetNumber(strval($num));
-                $address->setStreetName(trim(str_replace($num, '', $address->getStreetName)));
+                $address->setStreetName(trim(str_replace($num, '', $address->getStreetName())));
             }
 
+            $this->address = $this->em->getRepository(Address::class)->createQueryBuilder('a')
+                ->where('a.buildingType = :buildingType')
+                ->andWhere('a.buildingNumber = :buildingNumber')
+                ->andWhere('a.streetNumber = :streetNumber')
+                ->andWhere('a.propertyName = :propertyName')
+                ->andWhere('a.streetName = :streetName')
+                ->andWhere('a.locality = :locality')
+                ->setParameter('buildingType', $address->getBuildingType())
+                ->setParameter('buildingNumber', $address->getBuildingNumber())
+                ->setParameter('streetNumber', $address->getStreetNumber())
+                ->setParameter('streetName', $address->getStreetName())
+                ->setParameter('propertyName', $address->getPropertyName())
+                ->setParameter('locality', $address->getLocality())
+                ->getQuery()
+                ->getResult(1);
 
-            $this->em->persist($address);
-            $result['success'] = ['people.import.success.address', $address->__toString()];
-            $this->address = $address ;
+
+            if (empty($this->address)) {
+                if (! array_key_exists(md5($address->__toString()), $this->addresses)) {
+                    $this->em->persist($address);
+                    $this->address = $this->addresses[md5($address->__toString())] = $address ;
+                } else {
+                    $address = $this->address = $this->addresses[md5($address->__toString())];
+                    $result['success'] = ['people.import.duplicate.address', $address->__toString()];
+                }
+                $result['success'] = ['people.import.success.address', $address->__toString()];
+            } elseif (is_array($this->address) && ! empty($this->address))
+            {
+                $address = reset($this->address);
+                $this->address = $this->addresses[md5($address->__toString())] = $address ;
+                $result['success'] = ['people.import.duplicate.address', $address->__toString()];
+            }
         }
 
         return $result;
@@ -510,7 +607,7 @@ class PersonManager
             }
         }
 
-        if (empty($locality->getPostCode() || empty($locality->getTerritory()) || empty($locality->getLocality()))) {
+        if (empty($locality->getPostCode() || empty($locality->getTerritory()) || empty($locality->getName()))) {
             $result['warning'] = ['people.import.warning.locality', $locality->__toString()];
             return $result;
         }
@@ -519,22 +616,35 @@ class PersonManager
             return $result;
         }
 
-        if (empty($this->locality = $this->em->getRepository(Locality::class)->createQueryBuilder('l')
+        if (empty($locality->getCountry()))
+            $locality->setCountry($this->sm->get('Person.Import.CountryCode'));
+
+        $this->locality = $this->em->getRepository(Locality::class)->createQueryBuilder('l')
             ->where('l.territory = :territory')
-            ->andWhere('l.locality = :locality')
+            ->andWhere('l.name = :name')
             ->andWhere('l.postCode = :postCode')
+            ->andWhere('l.country = :country')
             ->setParameter('postCode', $locality->getPostCode())
             ->setParameter('territory', $locality->getTerritory())
-            ->setParameter('locality', $locality->getLocality())
+            ->setParameter('name', $locality->getName())
+            ->setParameter('country', $locality->getCountry())
             ->getQuery()
-            ->getFirstResult(1)
-        )
-        ) {
-            if (empty($locality->getCountry()))
-                $locality->setCountry($this->sm->get('Person.Import.CountryCode'));
-            $this->em->persist($locality);
+            ->getResult(1);
+
+        if (empty($this->locality)) {
+            if (! array_key_exists(md5($locality->__toString()), $this->localities)) {
+                $this->em->persist($locality);
+                $this->locality = $this->localities[md5($locality->__toString())] = $locality ;
+            } else {
+                $locality = $this->locality = $this->localities[md5($locality->__toString())];
+                $result['warning'] = ['people.import.duplicate.locality', $locality->__toString()];
+            }
             $result['success'] = ['people.import.success.locality', $locality->__toString()];
-            $this->locality = $locality;
+        } elseif (is_array($this->locality) && ! empty($this->locality))
+        {
+            $locality = reset($this->locality);
+            $this->locality = $this->localities[md5($locality->__toString())] = $locality ;
+            $result['success'] = ['people.import.duplicate.locality', $locality->__toString()];
         }
 
         return $result;

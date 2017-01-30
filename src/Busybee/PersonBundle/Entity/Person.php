@@ -123,6 +123,10 @@ class Person extends PersonModel
      * @var \Doctrine\Common\Collections\Collection
      */
     private $phone;
+    /**
+     * @var string
+     */
+    private $identifier;
 
     /**
      * Constructor
@@ -678,5 +682,29 @@ class Person extends PersonModel
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Get identifier
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * Set identifier
+     *
+     * @param string $identifier
+     *
+     * @return Person
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+
+        return $this;
     }
 }

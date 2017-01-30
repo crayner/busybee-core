@@ -9,6 +9,10 @@ Busybee\PersonBundle\Entity\Person:
             generator:
                 strategy: AUTO
     fields:
+        identifier:
+            type: string
+            length: '10'
+            unique: true
         title:
             type: string
             length: '5'
