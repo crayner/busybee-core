@@ -34,8 +34,55 @@ class PersonManager
     private $validator;
 
     /**
+     * @var array
+     */
+    private $addresses;
+
+    /**
+     * @var array
+     */
+    private $fields;
+
+    /**
+     * @var array
+     */
+    private $phones;
+
+    /**
+     * @var array
+     */
+    private $results;
+
+    /**
+     * @var array
+     */
+    private $localities;
+
+    /**
+     * @var Locality
+     */
+    private $locality;
+
+    /**
+     * @var Address
+     */
+    private $address;
+
+    /**
+     * @var boolean
+     */
+    private $importOk;
+
+    /**
+     * @var string
+     */
+    private $countryCode;
+
+    /**
      * PersonManager constructor.
+     *
      * @param SettingManager $sm
+     * @return void
      */
     public function __construct(SettingManager $sm, EntityManager $em, ValidatorInterface $validator)
     {
@@ -44,6 +91,7 @@ class PersonManager
         $this->sm = $sm;
         $this->em = $em;
         $this->validator = $validator ;
+        $this->countryCode = $this->sm->get('Country.Code');
     }
 
     /**
@@ -334,17 +382,14 @@ class PersonManager
 
         $destinationFields = $this->getFieldNames();
 
-        $this->addresses = array();;
-        $this->localities = array();
-        $this->phones = array();
-
         // Handle Localities
         $headers = false;
         $line = 1;
         if (($handle = fopen($file, "r")) !== false) {
             while (($data = fgetcsv($handle)) !== false) {
                 if ($headers) {
-                    $this->results[] = $this->importPerson($data, $this->fields, $destinationFields, ++$line);
+                    ini_set('max_execution_time', '30');
+                    $this->results = array_merge($this->results, $this->importPerson($data, $this->fields, $destinationFields, ++$line));
                 } else {
                     $headers = true;
                     $this->tables = array();
@@ -356,7 +401,6 @@ class PersonManager
                     }
                 }
             }
-            $this->em->flush();
             fclose($handle);
         }
 
@@ -408,6 +452,10 @@ class PersonManager
      */
     private function importPerson($data, $fields, $destinationFields, $line)
     {
+        $result = array();
+        $this->address = null;
+        $this->locality = null ;
+
         if (!in_array('person', $this->tables)) {
             $result['warning'] = ['people.import.warning.nodata', $line];
             return $result;
@@ -425,8 +473,10 @@ class PersonManager
         }
         if (empty($identifier))
             $person = new Person();
-        else
+        else {
             $person = $this->em->getRepository(Person::class)->findOneByIdentifier($identifier);
+            $person = empty($person) ? new Person() : $person ;
+        }
 
         foreach ($fields as $q => $w) {
             if (mb_strpos($destinationFields[$w['destination']], 'person.') === 0) {
@@ -437,78 +487,50 @@ class PersonManager
             }
         }
 
+        if (empty($person->getPreferredName()))
+            $person->setPreferredName($person->getFirstName());
 
         $errors = $this->validator->validate($person);
         if ($errors->count() > 0) {
             foreach($errors as $error)
                 $data[] = $error->getPropertyPath() . ': ' . $error->getMessage();
             $result['warning'] = ['people.import.warning.invalid', implode(', ', $data)];
-        } else
-            $result['success'] = ['I am good', 0];
+        } else {
+            // Deal with the rest now
+            $this->importOk = true;
+
+            $person = $this->importAddress($data, $this->fields, $destinationFields, $person);
+            $person = $this->importPhone($data, $this->fields, $destinationFields, $person);
+            $errors = $this->validator->validate($person);
+            if ($errors->count() > 0){
+                $this->importOk = false;
+                foreach($errors as $error)
+                    $data[] = $error->getPropertyPath() . ': ' . $error->getMessage();
+                $result['warning'] = ['people.import.warning.invalid', implode(', ', $data)];
+            }
+            if ($this->importOk) {
+                $this->em->persist($person);
+                $this->em->flush();
+                $result['success'] = ['people.import.success.person', $line . ' ' . implode(', ', $data)];
+            } else
+                $result['warning'] = ['people.import.warning.person', $line . ' ' . implode(', ', $data)];
+        }
         return $result ;
-    }
-
-    /**
-     * @param $file
-     * @return ArrayCollection
-     */
-    public function getHeaderNames($file)
-    {
-        $headerNames = new ArrayCollection();
-
-        if (($handle = fopen($file, "r")) !== false) {
-            if (($data = fgetcsv($handle)) !== false) {
-                foreach ($data as $name)
-                    $headerNames->add($name);
-            }
-            fclose($handle);
-        }
-
-        return $headerNames;
-    }
-
-    /**
-     * @param $data
-     * @return array
-     */
-    private function importPhone($data, $fields, $destinationFields)
-    {
-        $result = array();
-
-        foreach ($fields as $q => $w) {
-            if (mb_strpos($destinationFields[$w['destination']], 'phone.') === 0) {
-                $phone = new Phone();
-                $type = $w['option'];
-                $field = str_replace('phone.', '', $destinationFields[$w['destination']]);
-                $method = 'set' . ucfirst($field);
-                $phone->$method(preg_replace('/\D/', '', $data[$w['source']]));
-                $phone->setPhoneType($type);
-                if (! array_key_exists(md5($phone->__toString()), $this->phones))
-                    $this->phones[md5($phone->__toString())] = $phone;
-            }
-        }
-
-        foreach ($this->phones as $q=>$phone)
-            if (empty($this->em->getRepository(Phone::class)->findOneByPhoneNumber($phone->getPhoneNumber()))) {
-                $phone->setCountryCode($this->sm->get('Country.Code'));
-                $this->em->persist($phone);
-                $result['success'] = ['people.import.success.phone', $phone->getPhoneNumber()];
-                $this->phones[$q] = $phone;
-            }
-
-        return $result;
     }
 
     /**
      * @param $data
      * @param $fields
      * @param $destinationFields
-     * @return array
+     * @param Person $person
+     * @return Person
      */
-    private function importAddress($data, $fields, $destinationFields)
+    private function importAddress($data, $fields, $destinationFields, Person $person)
     {
         $this->address = null;
         $result = array();
+        $this->localities = array();
+        $this->addresses = array();
 
         $address = new Address();
 
@@ -525,11 +547,10 @@ class PersonManager
             ->where('l.streetName = :streetName')
             ->setParameter('streetName', $address->getStreetName())
             ->getQuery()
-            ->getFirstResult(1)
+            ->getFirstResult()
         ))
         {
-            if ($this->locality === null)
-                $this->results[] = $this->importLocality($data, $fields, $destinationFields);
+            $this->results[] = $this->importLocality($data, $fields, $destinationFields);
 
             $address->setLocality($this->locality);
 
@@ -560,19 +581,18 @@ class PersonManager
                 ->setParameter('streetNumber', $address->getStreetNumber())
                 ->setParameter('streetName', $address->getStreetName())
                 ->setParameter('propertyName', $address->getPropertyName())
-                ->setParameter('locality', $address->getLocality())
+                ->setParameter('locality', intval($address->getLocality()->getId()))
                 ->getQuery()
                 ->getResult(1);
 
-
             if (empty($this->address)) {
                 if (! array_key_exists(md5($address->__toString()), $this->addresses)) {
-                    $this->em->persist($address);
                     $this->address = $this->addresses[md5($address->__toString())] = $address ;
                 } else {
                     $address = $this->address = $this->addresses[md5($address->__toString())];
                     $result['success'] = ['people.import.duplicate.address', $address->__toString()];
                 }
+
                 $result['success'] = ['people.import.success.address', $address->__toString()];
             } elseif (is_array($this->address) && ! empty($this->address))
             {
@@ -581,8 +601,11 @@ class PersonManager
                 $result['success'] = ['people.import.duplicate.address', $address->__toString()];
             }
         }
+        $person->setAddress1($address);
 
-        return $result;
+        $this->results[] = $result ;
+
+        return $person;
     }
 
     /**
@@ -648,5 +671,77 @@ class PersonManager
         }
 
         return $result;
+    }
+
+    /**
+     * @param $data
+     * @param $fields
+     * @param $destinationFields
+     * @param Person $person
+     * @return Person
+     */
+    private function importPhone($data, $fields, $destinationFields, Person $person)
+    {
+        $result = array();
+        $this->phones = array();
+
+        foreach ($fields as $q => $w) {
+            if (mb_strpos($destinationFields[$w['destination']], 'phone.') === 0) {
+                $phone = new Phone();
+                $type = isset($w['option']) ? $w['option'] : 'Imported';
+                $field = str_replace('phone.', '', $destinationFields[$w['destination']]);
+                $method = 'set' . ucfirst($field);
+                $phone->$method(preg_replace('/\D/', '', $data[$w['source']]));
+                $phone->setPhoneType($type);
+                if (! array_key_exists(md5($phone->__toString()), $this->phones))
+                    $this->phones[md5($phone->__toString())] = $phone;
+            }
+        }
+
+        foreach ($this->phones as $q=>$phone)
+            if (empty($existing = $this->em->getRepository(Phone::class)->findOneByPhoneNumber($phone->getPhoneNumber()))) {
+                $phone->setCountryCode($this->countryCode);
+                $result['success'] = ['people.import.success.phone', $phone->getPhoneNumber()];
+                $this->phones[$q] = $phone;
+            } else {
+                $this->phones[$q] = $existing;
+            }
+
+        $this->results[] = $result;
+
+        foreach($this->phones as $phone) {
+            $person->removePhone($phone);
+            $person->addPhone($phone);
+        }
+
+        return $person;
+    }
+
+    /**
+     * @param $file
+     * @return ArrayCollection
+     */
+    public function getHeaderNames($file)
+    {
+        $headerNames = new ArrayCollection();
+
+        if (($handle = fopen($file, "r")) !== false) {
+            if (($data = fgetcsv($handle)) !== false) {
+                foreach ($data as $name)
+                    $headerNames->add($name);
+            }
+            fclose($handle);
+        }
+
+        return $headerNames;
+    }
+
+    /**
+     * @param Person $person
+     */
+    public function doesThisUserExist(Person $person)
+    {
+        $user = $this->em->getRepository(User::class)->findOneByEmail($person->getEmail());
+        return $user ;
     }
 }

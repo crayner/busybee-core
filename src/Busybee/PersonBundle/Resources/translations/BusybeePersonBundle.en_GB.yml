@@ -18,8 +18,6 @@ person:
     people:
         title: Manage People
         description: Add, modify and manage people data.
-    familyName: Family Name
-    givenName: Given Name
     contact:
         title: "Contact Details: %name%"
     label:
@@ -88,6 +86,10 @@ person:
         category: Category
         edit: Edit Person
         import: Import People
+        familyName: Family Name
+        givenName: Given Name
+        email: E-Mail
+        category: Category Status
     edit: 
         title: Edit Person
         description: ''
@@ -109,7 +111,6 @@ person:
         title: 'User:: %name%'
         toggle: System User Status
     category:
-        title: Category Status
         staff: Staff
         caregiver: Care Giver
         user: User
@@ -247,6 +248,7 @@ people:
             phone: 'Phone Number added: %data%'
             locality: 'Locality added %data%'
             address: 'Address added %data%'
+            person: 'Person imported: %data%'
         duplicate:
             locality: 'Duplicate locality %data% ignored'
             address: 'Duplicate address %data% ignored'
@@ -254,6 +256,9 @@ people:
             locality: 'Locality not correctly formatted: %data%'
             nodata: 'No data found for import in line %data%'
             invalid: 'The data is not valid. %data%'
+        address:
+            label: Store details in Address position?
+            choice: 'Address Store %number%'
     matchimport:
         title: Match Import Fields
         description: Match the source column information with the appropriate destination column.
@@ -261,7 +266,7 @@ people:
             destination: Select a destination field
             source: Select a source field
         help:
-            help: Match the source to a destination. Any selected source without a selected destination is ignored.
+            help: Match the source to a destination. Any source without a selected destination is ignored.
     importresults:
         title: People Import Results
         description: ''

@@ -28,30 +28,30 @@
 				<div class="row row-header">
 					<div class="col-sm-2 col-md-2" style="display: inline-block;">
 						{% if pagination.getSortByName == 'Family Name' %}
-							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.familyName'|trans }}
+							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.familyName'|trans }}
 						{% else %}
-							{{ 'person.familyName'|trans }}
+							{{ 'person.title.familyName'|trans }}
 						{% endif %}
 					</div>
 					<div class="col-sm-2 col-md-2" style="display: inline-block;">
 						{% if pagination.getSortByName == 'Given Name' %}
-							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.givenName'|trans }}
+							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.givenName'|trans }}
 						{% else %}
-							{{ 'person.givenName'|trans }}
+							{{ 'person.title.givenName'|trans }}
 						{% endif %}
 					</div>
 					<div class="col-md-3 hidden-sm hidden-xs" style="display: inline-block;">
                         {% if pagination.getSortByName == 'Email' %}
-							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.email'|trans }}
+							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.email'|trans }}
                         {% else %}
-                            {{ 'person.email'|trans }}
+                            {{ 'person.title.email'|trans }}
                         {% endif %}
 					</div>
                     <div class="col-md-2 col-sm-2 text-center" style="display: inline-block;">
                        {{ 'person.actions'|trans }}
                     </div>
                     <div class="col-md-3 hidden-sm hidden-xs text-center">
-                        {{ 'person.category.title'|trans }}
+                        {{ 'person.title.category'|trans }}
                         <div class="row ">
                             <div class="col-sm-3 text-center">
                                 <span style="font-size: 9px;">{{ 'person.category.staff'|trans }}</span>

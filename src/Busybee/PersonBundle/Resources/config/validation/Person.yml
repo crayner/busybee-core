@@ -12,6 +12,8 @@ Busybee\PersonBundle\Entity\Person:
             - NotBlank: ~
         officialName:
             - NotBlank: ~
+        preferredName:
+            - NotBlank: ~
         website:
             - Url: ~
         dob:
@@ -19,6 +21,7 @@ Busybee\PersonBundle\Entity\Person:
         gender:
             - \Busybee\FormBundle\Validator\SettingChoice:
                 name: 'Person.GenderList'
+            - NotBlank: ~
         title:
             - \Busybee\FormBundle\Validator\SettingChoice:
                 name: 'Person.TitleList'

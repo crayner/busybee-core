@@ -68,9 +68,9 @@ class PersonListener
         $identifier .= mb_substr($entity->getSurname(), 0, 2);
         $name = trim(str_replace($entity->getSurname(), '', $entity->getOfficialName()));
         $name = explode(' ', $name);
-        if ($name[0])
+        if (! empty($name[0]))
             $identifier .= mb_substr($name[0], 0, 1);
-        if ($name[1])
+        if (! empty($name[1]))
             $identifier .= mb_substr($name[1], 0, 1);
         $identifier = str_pad($identifier, 4, '*');
         if ($entity->getDob() instanceof \DateTime)
@@ -90,13 +90,13 @@ class PersonListener
 
         while($notValid)
         {
-            $test = $identifier . str_pad(strval($x), 2, '0', STR_PAD_LEFT);
+            $test = strtoupper($identifier . str_pad(strval($x), 2, '0', STR_PAD_LEFT));
             if ($this->em->getRepository(Person::class)->createQueryBuilder('p')
                     ->select('COUNT(p.id)')
                     ->where('p.identifier = :identifier')
                     ->andWhere('p.id != :id')
                     ->setParameter('identifier', $test)
-                    ->setParameter('id', $id)
+                    ->setParameter('id', intval($id))
                     ->getQuery()
                     ->getSingleScalarResult() > 0)
                 $x++;

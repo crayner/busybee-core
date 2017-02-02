@@ -183,8 +183,17 @@ class PersonSubscriber implements EventSubscriberInterface
             $data['user']['expired'] = false;
             $data['user']['credentials_expired'] = true;
             $data['user']['password'] = password_hash(uniqid(), PASSWORD_BCRYPT);
-            $form->remove('user');
-            $form->add('user', UserType::class);
+            $user = $this->personManager->doesThisUserExist($person);
+            if (is_null($user))
+            {
+                $form->remove('user');
+                $form->add('user', UserType::class);
+            }
+            else
+            {
+
+            }
+
         }
 
         if ($form->get('user')->getData() instanceof User && isset($data['userQuestion']))

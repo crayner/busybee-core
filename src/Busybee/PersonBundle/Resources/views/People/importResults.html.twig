@@ -14,16 +14,14 @@
 			<h3 class="panel-title">{{ 'people.importresults.title'|trans}}</h3>
 		</div>
 		<div class="panel-body">
-            {% for result in results %}
-                {% if result is not empty %}
-                    {% for alert,message in result %}
-                        {% if alert == 'success' %}
-                            {% set alert = 'success fadeAlert' %}
-                        {% endif %}
-                        <div class="row alert alert-{{ alert }}">{{ message[0]|trans({'%data%': message[1]}) }}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
+            {% if results is not empty %}
+            	{% for alert,message in results %}
+					{% if alert == 'success' %}
+						{% set alert = 'success fadeAlert' %}
+					{% endif %}
+					<div class="row alert alert-{{ alert }}">{{ message[0]|trans({'%data%': message[1]}) }}</div>
+                {% endfor %}
+            {% endif %}
 		</div>
 	</div>
 {% endblock contentContainer %}

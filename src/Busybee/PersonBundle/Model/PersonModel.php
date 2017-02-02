@@ -29,6 +29,11 @@ abstract class PersonModel
 	 */
 	protected $titleList;
 
+	public function __construct()
+    {
+        $this->setGender('U');
+    }
+
 	/**
 	 * delete Photo
 	 *
@@ -39,7 +44,7 @@ abstract class PersonModel
 	public function deletePhoto()
 	{
 		$this->deletePhoto = true ;
-		
+
 		return $this ;
 	}
 
@@ -57,7 +62,7 @@ abstract class PersonModel
 			//  Delete old photo file
 			$w = $this->oldPhoto;
 			if (file_exists($w))
-				unlink($w);				
+				unlink($w);
 		}
 		return $this ;
 	}
@@ -112,7 +117,7 @@ abstract class PersonModel
 	public function setTitleList($list)
 	{
 		$this->titleList  = $list;
-		
+
 		return $this;
 	}
 

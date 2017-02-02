@@ -25,7 +25,6 @@
                     <div class="col-sm-6 well">
                         {{ form_row(field.destination, {'attr': {'class': 'optionLoader'}}) }}
                         <div id="{{ field.vars.id }}_options" style="display: none">
-                            {{ dump(field.vars.id) }}
                         </div>
                     </div>
                 </div>
@@ -71,6 +70,7 @@
             }
             else{
                 $("#" + id).hide(1000);
+                $("#" + id).html('&nbsp;');
             }
         });
 

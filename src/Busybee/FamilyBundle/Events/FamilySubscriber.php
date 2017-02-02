@@ -60,7 +60,7 @@ class FamilySubscriber implements EventSubscriberInterface
         if (empty($data['name']))
             $data['name'] = $this->fm->generateFamilyName($data);
 
-        if (is_array($data['emergencyContact']))
+        if (isset($data['emergencyContact']) && is_array($data['emergencyContact']))
             foreach($data['emergencyContact'] as $key=>$id)
                 if (in_array($id, $ec))
                 {
@@ -69,8 +69,8 @@ class FamilySubscriber implements EventSubscriberInterface
                     $ec[] = $id;
                 }
 
-        $students = array();
-        if (is_array($data['students']))
+        $students = array();F
+        if (isset($data['students']) && is_array($data['students']))
             foreach($data['students'] as $key=>$id)
                 if (in_array($id, $students))
                 {

@@ -134,6 +134,7 @@ class Person extends PersonModel
     public function __construct()
     {
         $this->phone = new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
     }
 
     /**

@@ -43,7 +43,22 @@ class Address extends AddressModel
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
-
+    /**
+     * @var string
+     */
+    private $buildingType;
+    /**
+     * @var string
+     */
+    private $buildingNumber;
+    /**
+     * @var string
+     */
+    private $streetNumber;
+    /**
+     * @var \Busybee\PersonBundle\Entity\Locality
+     */
+    private $locality;
 
     /**
      * Get id
@@ -53,6 +68,16 @@ class Address extends AddressModel
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get propertyName
+     *
+     * @return string
+     */
+    public function getPropertyName()
+    {
+        return empty($this->propertyName) ? "" : $this->propertyName ;
     }
 
     /**
@@ -70,13 +95,13 @@ class Address extends AddressModel
     }
 
     /**
-     * Get propertyName
+     * Get streetName
      *
      * @return string
      */
-    public function getPropertyName()
+    public function getStreetName()
     {
-        return empty($this->propertyName) ? "" : $this->propertyName ;
+        return $this->streetName;
     }
 
     /**
@@ -94,13 +119,13 @@ class Address extends AddressModel
     }
 
     /**
-     * Get streetName
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getStreetName()
+    public function getLastModified()
     {
-        return $this->streetName;
+        return $this->lastModified;
     }
 
     /**
@@ -118,13 +143,13 @@ class Address extends AddressModel
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -140,15 +165,15 @@ class Address extends AddressModel
 
         return $this;
     }
-
+	
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -166,13 +191,13 @@ class Address extends AddressModel
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -190,30 +215,16 @@ class Address extends AddressModel
     }
 
     /**
-     * Get modifiedBy
+     * Get buildingType
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return string
      */
-    public function getModifiedBy()
+    public function getBuildingType()
     {
-        return $this->modifiedBy;
+        if (empty($this->buildingType))
+            $this->buildingType = '';
+        return empty($this->buildingType) ? "" :  $this->buildingType;
     }
-	
-    /**
-     * @var string
-     */
-    private $buildingType;
-
-    /**
-     * @var string
-     */
-    private $buildingNumber;
-
-    /**
-     * @var string
-     */
-    private $streetNumber;
-
 
     /**
      * Set buildingType
@@ -231,13 +242,13 @@ class Address extends AddressModel
     }
 
     /**
-     * Get buildingType
+     * Get buildingNumber
      *
      * @return string
      */
-    public function getBuildingType()
+    public function getBuildingNumber()
     {
-        return $this->buildingType ;
+        return empty($this->buildingNumber) ? "" : $this->buildingNumber ;
     }
 
     /**
@@ -255,13 +266,13 @@ class Address extends AddressModel
     }
 
     /**
-     * Get buildingNumber
+     * Get streetNumber
      *
      * @return string
      */
-    public function getBuildingNumber()
+    public function getStreetNumber()
     {
-        return empty($this->buildingNumber) ? "" : $this->buildingNumber ;
+        return empty($this->streetNumber) ? "" : $this->streetNumber ;
     }
 
     /**
@@ -279,20 +290,14 @@ class Address extends AddressModel
     }
 
     /**
-     * Get streetNumber
+     * Get locality
      *
-     * @return string
+     * @return \Busybee\PersonBundle\Entity\Locality
      */
-    public function getStreetNumber()
+    public function getLocality()
     {
-        return empty($this->streetNumber) ? "" : $this->streetNumber ;
+        return $this->locality;
     }
-
-    /**
-     * @var \Busybee\PersonBundle\Entity\Locality
-     */
-    private $locality;
-
 
     /**
      * Set locality
@@ -306,15 +311,5 @@ class Address extends AddressModel
         $this->locality = $locality;
 
         return $this;
-    }
-
-    /**
-     * Get locality
-     *
-     * @return \Busybee\PersonBundle\Entity\Locality
-     */
-    public function getLocality()
-    {
-        return $this->locality;
     }
 }
