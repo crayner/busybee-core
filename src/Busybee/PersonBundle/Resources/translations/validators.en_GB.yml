@@ -1,0 +1,4 @@
+person:
+    validator:
+        email:
+            unique: "%string% is already allocated within the database.  Not unique."

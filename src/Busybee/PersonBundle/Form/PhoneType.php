@@ -86,5 +86,13 @@ class PhoneType extends AbstractType
         return 'phone';
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'phone';
+    }
+
 
 }

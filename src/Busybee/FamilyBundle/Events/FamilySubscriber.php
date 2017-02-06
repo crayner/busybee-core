@@ -69,7 +69,7 @@ class FamilySubscriber implements EventSubscriberInterface
                     $ec[] = $id;
                 }
 
-        $students = array();F
+        $students = array();
         if (isset($data['students']) && is_array($data['students']))
             foreach($data['students'] as $key=>$id)
                 if (in_array($id, $students))

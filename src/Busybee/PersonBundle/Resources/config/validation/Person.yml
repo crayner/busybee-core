@@ -3,9 +3,13 @@ Busybee\PersonBundle\Entity\Person:
         email:
             - Email:
                   checkMX: true
+            - Busybee\PersonBundle\Validator\PersonEmail:
+                errorPath: email
         email2:
             - Email:
                   checkMX: true
+            - Busybee\PersonBundle\Validator\PersonEmail:
+                errorPath: email2
         surname:
             - NotBlank: ~
         firstName:

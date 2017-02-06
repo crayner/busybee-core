@@ -76,80 +76,11 @@
 {% block javascripts %}
 	{{ parent() }}
     {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
-    {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
     <script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+    {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
     {% include 'BusybeePersonBundle:Person:script.html.twig' %}
     {% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'person_manage'} %}
 	<script>
-        $(".yes-no").checkboxpicker({
-            iconCls: "halflings"
-        });
-        $('#person_staffQuestion').checkboxpicker().on('change', function() {
-            var checked = $('#person_staffQuestion').prop('checked');
-            if (checked) {
-                $('.staffMember').prop('disabled', false);
-                $('#person_studentQuestion').prop('disabled', true);
-            } else {
-                $('.staffMember').prop('disabled', true);
-                $('#person_studentQuestion').prop('disabled', false);
-            }
-        });
-        $('#person_careGiverQuestion').checkboxpicker().on('change', function() {
-            var checked = $('#person_careGiverQuestion').prop('checked');
-            if (checked) {
-                $('.careGiver').prop('disabled', false);
-                $('#person_studentQuestion').prop('disabled', true);
-            } else {
-                $('.careGiver').prop('disabled', true);
-                $('#person_studentQuestion').prop('disabled', false);
-            }
-        });
-        $('#person_studentQuestion').checkboxpicker().on('change', function() {
-            var checked = $('#person_studentQuestion').prop('checked');
-            if (checked) {
-                $('.student').prop('disabled', false);
-                $('#person_staffQuestion').prop('disabled', true);
-                $('#person_careGiverQuestion').prop('disabled', true);
-            } else {
-                $('.student').prop('disabled', true);
-                $('#person_staffQuestion').prop('disabled', false);
-                $('#person_careGiverQuestion').prop('disabled', false);
-            }
-        });
-        $('#person_userQuestion').checkboxpicker().on('change', function() {
-            var checked = $('#person_userQuestion').prop('checked');
-            if (checked) {
-                $('.user').prop('disabled', false);
-            } else {
-                $('.user').prop('disabled', true);
-            }
-        });
-        $(document).ready(function(){
-            var staff_checked = $('#person_staffQuestion').prop('checked');
-            if (staff_checked) {
-                $('.staffMember').prop('disabled', false);
-            } else {
-                $('.staffMember').prop('disabled', true);
-            }
-            var careGiver_checked = $('#person_careGiverQuestion').prop('checked');
-            if (careGiver_checked) {
-                $('.careGiver').prop('disabled', false);
-            } else {
-                $('.careGiver').prop('disabled', true);
-            }
-            var student_checked = $('#person_studentQuestion').prop('checked');
-            if (student_checked) {
-                $('.student').prop('disabled', false);
-            } else {
-                $('.student').prop('disabled', true);
-            }
-            var user_checked = $('#person_userQuestion').prop('checked');
-            if (user_checked) {
-                $('.user').prop('disabled', false);
-            } else {
-                $('.user').prop('disabled', true);
-            }
 
-		});
 	</script>
 {% endblock javascripts %}
