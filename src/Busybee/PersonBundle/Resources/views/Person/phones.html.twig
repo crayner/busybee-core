@@ -1,0 +1,21 @@
+{# src/Busybee/PersonBundle/Resources/views/Form/person.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% form_theme form
+	"BusybeeFormBundle:Template:jquery.collection.html.twig"
+	"BusybeePersonBundle:Form:phoneCollection.html.twig"
+	"BusybeeFormBundle:Template:bootstrap.html.twig"
+%}
+
+
+<div class="panel panel-info busybee-panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ form_label(form.phone) }}</h3>
+	</div>
+	<div class="panel-body">
+		<p class="alert alert-warning">{{ 'phone.save'|trans  }}</p>
+		{{ form_widget(form.phone) }}
+	</div>
+</div>
+{% do form.phone.setRendered %}
