@@ -8,7 +8,7 @@ use Busybee\SystemBundle\Entity\Setting ;
 /**
  * Update 0.0.02
  *
- * @version	23rd October 2016
+ * @version	7th February 2017
  * @since	23rd October 2016
  * @author	Craig Rayner
  */
@@ -555,6 +555,28 @@ CountryCode: AU");
         $entity->setDescription('Default values added to imported records.');
         $entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
         $entity->setValidator(null);
+
+        $this->sm->saveSetting($entity);
+        //40
+        $entity = new Setting();
+        $entity->setType('twig');
+        $entity->setValue("
+{% set start = phoneNumber|slice(0,2) %}
+{% set len = phoneNumber|length %}
+{% if start in [02,03,07,08,09] and countryCode == '+61' %}
+	<strong>{{ phoneType }}:</strong> ({{ phoneNumber|slice(0,2)}}) {{ phoneNumber|slice(2,4)}} {{ phoneNumber|slice(6,4)}}
+{% elseif start in [18,13,04] and len == 10 and countryCode == '+61' %}
+	<strong>{{ phoneType }}:</strong> {{ phoneNumber|slice(0,4)}} {{ phoneNumber|slice(4,3)}} {{ phoneNumber|slice(7,3)}}
+{% elseif start in [13] and len == 6 and countryCode == '+61' %}
+	<strong>{{ phoneType }}:</strong> {{ phoneNumber|slice(0,2)}} {{ phoneNumber|slice(2)}}
+{% else %}
+	<strong>{{ phoneType }}:</strong> {{ countryCode }} {{ phoneNumber }}
+{% endif %}
+");
+        $entity->setName('Phone.Format');
+        $entity->setDisplayName('Phone Full Display Format');
+        $entity->setDescription("A template to convert phone numbers into full display version.");
+        $entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
 
         $this->sm->saveSetting($entity);
 

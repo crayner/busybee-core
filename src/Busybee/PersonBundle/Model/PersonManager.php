@@ -744,4 +744,89 @@ class PersonManager
         $user = $this->em->getRepository(User::class)->findOneByEmail($person->getEmail());
         return $user ;
     }
+
+    /**
+     * @param Person $person
+     * @return ArrayCollection
+     */
+    public function getAddresses(Person $person)
+    {
+        $families = $this->getFamilies($person);
+        $addresses = new ArrayCollection();
+        foreach($families as $family)
+        {
+            $address = $family->getAddress1();
+            if (! is_null($address) && ! $addresses->contains($address))
+                $addresses->add($address);
+            $address = $family->getAddress2();
+            if (! is_null($address) && ! $addresses->contains($address))
+                $addresses->add($address);
+        }
+
+        return $addresses;
+    }
+
+    /**
+     * @param Person $person
+     * @return ArrayCollection
+     */
+    public function getFamilies(Person $person)
+    {
+        $families = new ArrayCollection();
+        $careGiver = $this->em->getRepository(CareGiver::class)->findOneByPerson($person);
+        if (!is_null($careGiver)) {
+            $xx = $this->em->getRepository(Family::class)->createQueryBuilder('f')
+                ->where('f.careGiver1 = :careGiver')
+                ->orWhere('f.careGiver2 = :careGiver')
+                ->setParameter('careGiver', $careGiver->getId())
+                ->getQuery()
+                ->getResult();
+            if (!empty($xx) && is_array($xx))
+                foreach ($xx as $family)
+                    if (!$families->contains($family))
+                        $families->add($family);
+            $xx = $this->em->getRepository(Family::class)->createQueryBuilder('f')
+                ->leftJoin('f.emergencyContact', 'c')
+                ->where('c.id = :careGiverID')
+                ->setParameter('careGiverID', $careGiver->getId())
+                ->getQuery()
+                ->getResult();
+            if (!empty($xx) && is_array($xx))
+                foreach ($xx as $family)
+                    if (!$families->contains($family))
+                        $families->add($family);
+        }
+        $student = $this->em->getRepository(Student::class)->findOneByPerson($person);
+        if (!is_null($student)) {
+            $xx = $this->em->getRepository(Family::class)->createQueryBuilder('f')
+                ->leftJoin('f.student', 's')
+                ->where('s.id = :studentID')
+                ->setParameter('studentID', $student->getId())
+                ->getQuery()
+                ->getResult();
+            if (!empty($xx) && is_array($xx))
+                foreach ($xx as $family)
+                    if (!$families->contains($family))
+                        $families->add($family);
+        }
+        return $families;
+    }
+
+    /**
+     * @param Person $person
+     * @return ArrayCollection
+     */
+    public function getPhones(Person $person)
+    {
+        $families = $this->getFamilies($person);
+        $phones = new ArrayCollection();
+
+        foreach($families as $family)
+        {
+            foreach($family->getPhone() as $phone)
+                if (!$phones->contains($phone)) $phones->add($phone);
+        }
+
+        return $phones;
+    }
 }

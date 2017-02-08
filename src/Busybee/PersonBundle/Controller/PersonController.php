@@ -72,6 +72,7 @@ class PersonController extends Controller
 			if (isset($extra['script']))
 				$editOptions['script'][] = $extra['script'];
 		}
+
 		$form->handleRequest($request);
 
         $validator = $this->get('validator');
@@ -121,6 +122,8 @@ class PersonController extends Controller
 		$editOptions['addressLabel1'] = $this->get('address.manager')->getAddressListLabel($person->getAddress1());
 		$editOptions['addressLabel2'] = $this->get('address.manager')->getAddressListLabel($person->getAddress2());
 		$editOptions['identifier'] = $person->getIdentifier();
+        $editOptions['addresses'] = $this->get('person.manager')->getAddresses($person);
+        $editOptions['phones'] = $this->get('person.manager')->getPhones($person);
 
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
 			$editOptions	

@@ -198,6 +198,8 @@ services:
         arguments:
             - '@setting.manager'
             - '@person.manager'
+            - '@address.manager'
+            - '@phone.manager'
         tags:
             - { name: twig.extension }
     caregiver.repository:
@@ -241,3 +243,9 @@ services:
             entityManager: "@doctrine.orm.entity_manager"
         tags:
             - { name: validator.constraint_validator, alias: person_email_validator }
+    phone.manager:
+        class: Busybee\PersonBundle\Model\PhoneManager
+        arguments:
+            - '@translator'
+            - '@setting.manager'
+            - '@phone.repository'

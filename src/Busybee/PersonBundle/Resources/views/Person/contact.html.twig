@@ -32,28 +32,7 @@
                             {{ form_row(form.website) }}
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-sm-12 well">
-                            {{ form_row(form.address1) }}
-							<span>
-								<button title="{{ 'address.erase'|trans }}" id="erasePersonAddress1" type="button" class="btn btn-danger halflings halflings-erase" style="float: right; " ></button>
-								<button title="{{ 'address.refresh'|trans }}" id="refreshPersonAddress1" type="button" class="refreshPersonAddress btn btn-info halflings halflings-refresh" style="float: right; " ></button>
-								<button title="{{ 'address.add'|trans }}" id="addPersonAddress1" type="button" class="addPersonAddress  btn btn-primary halflings halflings-plus-sign" style="float: right; " ></button>
-							</span><br/>
-                            {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12 well">
-                            {{ form_row(form.address2) }}
-							<span>
-								<button title="{{ 'address.erase'|trans }}" id="erasePersonAddress2" type="button" class="btn btn-danger halflings halflings-erase" style="float: right; " ></button>
-								<button title="{{ 'address.refresh'|trans }}" id="refreshPersonAddress2" type="button" class="refreshPersonAddress btn btn-info halflings halflings-refresh" style="float: right; " ></button>
-								<button title="{{ 'address.add'|trans }}" id="addPersonAddress2" type="button" class="addPersonAddress  btn btn-primary halflings halflings-plus-sign" style="float: right; " ></button>
-							</span><br/>
-                            {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
-						</div>
-					</div>
+					{% include 'BusybeePersonBundle:Person:addresses.html.twig' %}
 				</div>
 			</div>
 		</div>

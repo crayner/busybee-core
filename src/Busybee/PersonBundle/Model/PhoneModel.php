@@ -20,4 +20,13 @@ abstract class PhoneModel
     {
         return trim($this->getCountryCode() . ' ' . $this->getPhoneNumber());
     }
+    /**
+     * to String
+     *
+     * @return string
+     */
+    public function displayNumber()
+    {
+        return trim($this->getPhoneType().": ". $this->getCountryCode() . ' ' . $this->getPhoneNumber(), ' :');
+    }
 }

@@ -2,7 +2,9 @@
 
 namespace Busybee\PersonBundle\Model ;
 
+use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Entity\Person;
+use Busybee\PersonBundle\Entity\Phone;
 use Busybee\SystemBundle\Setting\SettingManager ;
 
 class PersonExtension extends \Twig_Extension
@@ -16,11 +18,31 @@ class PersonExtension extends \Twig_Extension
      * @var PersonManager
      */
     private $pm ;
-	
-    public function __construct(SettingManager $sm, PersonManager $pm)
+
+    /**
+     * @var AddressManager
+     */
+    private $am ;
+
+    /**
+     * @var PhoneManager
+     */
+    private $phoneManager;
+
+    /**
+     * PersonExtension constructor.
+     *
+     * @param SettingManager $sm
+     * @param PersonManager $pm
+     * @param AddressManager $am
+     * @param PhoneManager $phoneManager
+     */
+    public function __construct(SettingManager $sm, PersonManager $pm, AddressManager $am, PhoneManager $phoneManager)
     {
         $this->sm = $sm;
         $this->pm = $pm;
+        $this->am = $am ;
+        $this->phoneManager = $phoneManager;
     }
 
     /**
@@ -41,6 +63,8 @@ class PersonExtension extends \Twig_Extension
             new \Twig_SimpleFunction('canDeleteStudent', array($this, 'canDeleteStudent')),
             new \Twig_SimpleFunction('canBeUser', array($this, 'canBeUser')),
             new \Twig_SimpleFunction('canDeleteUser', array($this, 'canDeleteUser')),
+            new \Twig_SimpleFunction('formatAddress', array($this, 'formatAddress')),
+            new \Twig_SimpleFunction('formatPhone', array($this, 'formatPhone')),
         );
     }
 
@@ -159,5 +183,23 @@ class PersonExtension extends \Twig_Extension
     public function isUser(Person $person)
     {
         return $this->pm->isUser($person);
+    }
+
+    /**
+     * @param Address $address
+     * @return html
+     */
+    public function formatAddress(Address $address)
+    {
+        return $this->am->formatAddress($address);
+    }
+
+    /**
+     * @param Phone $phone
+     * @return html
+     */
+    public function formatPhone(Phone $phone)
+    {
+        return $this->phoneManager->formatPhone($phone);
     }
 }

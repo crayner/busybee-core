@@ -173,6 +173,7 @@ class PersonSubscriber implements EventSubscriberInterface
 
         if (isset($data['userQuestion']) && $data['userQuestion'] === '1' && ! $person->getUser() instanceof User && $this->personManager->canBeUser($person))
         {
+            $user = $this->personManager->doesThisUserExist($person);
             $data['user'] = array();
             $data['user']['person'] = $form->getData()->getId();
             $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'];
@@ -183,23 +184,38 @@ class PersonSubscriber implements EventSubscriberInterface
             $data['user']['expired'] = false;
             $data['user']['credentials_expired'] = true;
             $data['user']['password'] = password_hash(uniqid(), PASSWORD_BCRYPT);
-            $user = $this->personManager->doesThisUserExist($person);
+            if ($user instanceof User){
+                $data['user'] = array();
+                $data['user']['person'] = $form->getData()->getId();
+                $data['user']['email'] = $data['user']['emailCanonical'] = $user->getEmail();
+                $data['user']['username'] = $data['user']['usernameCanonical'] = $user->getEmail();
+                $data['user']['locale'] = $user->getLocale();
+                $data['user']['enabled'] = $user->getEnabled();
+                $data['user']['locked'] = $user->getLocked();
+                $data['user']['expired'] = $user->getExpired();
+                $data['user']['credentials_expired'] = $user->getCredentialsExpired();
+                $data['user']['password'] = $user->getPassword();
+                $person->setUser($user);
+                $form->remove('user');
+                $form->add('user', UserType::class);
+            }
             if (is_null($user))
             {
                 $form->remove('user');
                 $form->add('user', UserType::class);
             }
-            else
-            {
-
-            }
 
         }
 
-        if ($form->get('user')->getData() instanceof User && isset($data['userQuestion']))
-        {
-            $data['user']['usernameCanonical'] = $data['user']['username'];
-            $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'];
+        if ($form->get('user')->getData() instanceof User && isset($data['userQuestion'])) {
+            $user = $this->personManager->doesThisUserExist($person);
+            if (!empty($user) && $user instanceof User) {
+                $data['user']['usernameCanonical'] = $data['user']['username'] = $user->getUsername();
+                $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'] = $user->getEmail();
+            } else {
+                $data['user']['usernameCanonical'] = $data['user']['username'];
+                $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'];
+            }
         }
 
         if ($form->get('user')->getData() instanceof User && ! isset($data['user']) && $this->personManager->canDeleteUser($person))
@@ -207,8 +223,10 @@ class PersonSubscriber implements EventSubscriberInterface
             $data['user'] = "";
             $form->remove('user');
             $form->add('user', HiddenType::class);
-            $this->om->remove($form->get('user')->getData());
-            $flush = true;
+            if ($form->get('user')->getData()->getId() !== 1) {
+                $this->om->remove($form->get('user')->getData());
+                $flush = true;
+            }
         }
 
         // Address Management
