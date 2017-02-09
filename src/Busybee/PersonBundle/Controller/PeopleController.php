@@ -80,13 +80,13 @@ class PeopleController extends Controller
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
         $import = $request->get('import');
-        $pm = $this->get('person.manager');
 
-        $results = $pm->importPeople($import);
+        $results = $this->get('person.manager')->importPeople($import, $request->getSession());
 
         return $this->render('BusybeePersonBundle:People:importResults.html.twig',
             array(
-                'results' => $results,
+                'results'   => $results,
+                'import'    => $import,
             )
         );
 

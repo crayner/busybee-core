@@ -1,15 +1,14 @@
 <?php
 namespace Busybee\SystemBundle\Setting ;
 
+use Busybee\SecurityBundle\Entity\User;
+use Busybee\SystemBundle\Entity\Setting;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\Yaml\Yaml ;
 use Twig_Error_Syntax ;
 use Twig_Error_Runtime ;
-use Symfony\Component\Form\Extension\Core\Type\NumberType ;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType ;
-use Symfony\Component\Validator\Constraints\Length ;
 use Busybee\PersonBundle\Validator\Phone ;
-use Busybee\CampusBundle\Validator\InstituteName ;
 
 /**
  * Setting Manager
@@ -41,7 +40,7 @@ class SettingManager
 	 * @param	Container
 	 * @return	void
 	 */
-	public function saveSetting(\Busybee\SystemBundle\Entity\Setting $setting)
+	public function saveSetting(Setting $setting)
 	{
 		if (true !== ($response = $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($setting->getRole()->getRole())))
 			return $response;
@@ -62,7 +61,7 @@ class SettingManager
 	/**
 	 * @{inheritdoc}
 	 */
-	public function setCurrentUser(\Busybee\SecurityBundle\Entity\User $user = null)
+	public function setCurrentUser(User $user = null)
 	{
 		$this->currentUser = $user;
 
@@ -144,7 +143,8 @@ class SettingManager
 
 		switch ($this->setting->getType())
 		{
-			case 'regex':
+            case 'system':
+		    case 'regex':
 			case 'text':
 				return $this->setting->getValue();
 				break;
@@ -200,7 +200,8 @@ class SettingManager
 			case 'regex':
 				$test = preg_match($value, 'qwlrfhfri$wegtiwebnf934htr 5965tb');
 				break;
-			case 'text':
+            case 'text':
+            case 'system':
 				break ;
 			case 'twig':
 				try {
@@ -331,10 +332,10 @@ class SettingManager
 	 *
 	 * @version	21st October 2016
 	 * @since	21st October 2016
-	 * @param	Container	
+	 * @param	Setting
 	 * @return	SettingManager
 	 */
-	public function createSetting(\Busybee\SystemBundle\Entity\Setting $setting)
+	public function createSetting(Setting $setting)
 	{
 		$em = $this->container->get('doctrine')->getManager();
 		$em->persist($setting);
@@ -356,7 +357,7 @@ class SettingManager
 	}
 
 	/**
-	 * Buold Form
+	 * Build Form
 	 *
 	 * @version	30th November 2016
 	 * @since	30th November 2016
@@ -422,5 +423,29 @@ class SettingManager
     public function getParameter($name)
     {
         return $this->container->getParameter($name);
+    }
+
+    /**
+     * delete Setting
+     *
+     * @version	21st October 2016
+     * @since	21st October 2016
+     * @param	Setting/String
+     * @return	SettingManager
+     */
+    public function deleteSetting($setting)
+    {
+        if (! $setting instanceof Setting)
+        {
+            $this->get($setting); // if setting is a string then it is a name of a setting to remove.
+            if ($this->setting instanceof Setting)
+                $setting = $this->setting;
+            else
+                return $this;
+        }
+        $em = $this->container->get('doctrine')->getManager();
+        $em->remove($setting);
+        $em->flush();
+        return $this ;
     }
 }

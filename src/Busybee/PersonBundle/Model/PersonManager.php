@@ -10,7 +10,9 @@ use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Entity\Phone;
 use Busybee\PersonBundle\Entity\Staff;
 use Busybee\PersonBundle\Entity\Student;
+use Busybee\SecurityBundle\Entity\Role;
 use Busybee\SecurityBundle\Entity\User;
+use Busybee\SystemBundle\Entity\Setting;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager ;
@@ -67,6 +69,11 @@ class PersonManager
      * @var Address
      */
     private $address;
+
+    /**
+     * @var array
+     */
+    private $tables;
 
     /**
      * @var boolean
@@ -382,14 +389,28 @@ class PersonManager
 
         $destinationFields = $this->getFieldNames();
 
-        // Handle Localities
         $headers = false;
         $line = 1;
+        $offset = empty($import['offset']) ? 0 : intval($import['offset']);
+
         if (($handle = fopen($file, "r")) !== false) {
             while (($data = fgetcsv($handle)) !== false) {
                 if ($headers) {
-                    ini_set('max_execution_time', '30');
-                    $this->results = array_merge($this->results, $this->importPerson($data, $this->fields, $destinationFields, ++$line));
+                    if ($line >= $offset) {
+                        ini_set('max_execution_time', '10');
+                        $result =  $this->importPerson($data, $this->fields, $destinationFields, ++$line);
+                        if (! empty($result))  $this->results[] = $result ;
+
+                        if ($line >= $offset + 200) {
+
+                            $this->results[] = ['limit' => ['people.import.limit.message', $line]];  // Return the offset to the form.
+                            return $this->results;
+                        }
+                    } else {
+                        ini_set('max_execution_time', '10');
+                        $line++;
+                    }
+
                 } else {
                     $headers = true;
                     $this->tables = array();
@@ -403,7 +424,7 @@ class PersonManager
             }
             fclose($handle);
         }
-
+        $this->results[] = ['info' => ['people.import.complete.message', $line]];  // All done message.
         return $this->results;
     }
 

@@ -38,6 +38,12 @@ class MatchImportType extends AbstractType
                     ),
                 )
             )
+            ->add('offset', HiddenType::class,
+                array(
+                    'data'      => '0',
+                    'mapped'    => false,
+                )
+            )
             ->add('save', SubmitType::class, array(
                     'label'					=> 'form.button.save',
                     'attr' 					=> array(

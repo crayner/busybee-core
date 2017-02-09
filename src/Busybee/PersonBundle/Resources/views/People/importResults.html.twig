@@ -15,11 +15,30 @@
 		</div>
 		<div class="panel-body">
             {% if results is not empty %}
-            	{% for alert,message in results %}
-					{% if alert == 'success' %}
-						{% set alert = 'success fadeAlert' %}
-					{% endif %}
-					<div class="row alert alert-{{ alert }}">{{ message[0]|trans({'%data%': message[1]}) }}</div>
+				{% for stuff in results %}
+					{% if stuff|length > 0 %}
+						{% for alert,message in stuff %}
+                            {% if alert == 'success' %}
+								<div class="row alert alert-success fadeAlert">{{ message[0]|trans({'%data%': message[1]}) }}</div>
+                            {% elseif alert == 'limit' %}
+								<form role="form">
+									<input type="hidden" name="import[file]" value="{{ import.file }}" />
+									<input type="hidden" name="import[_token]" value="{{ import._token }}" />
+									<input type="hidden" name="import[offset]" value="{{ message[1] }}" />
+									{% for index,field in import.fields %}
+										{% for name,value in field %}
+											<input type="hidden" name="import[fields][{{ index }}][{{ name }}]" value="{{ value }}" />
+										{% endfor %}
+									{% endfor %}
+								<p class="alert alert-info">
+									<button type="submit" class="btn btn-primary" style="float: right; margin-left: 5px;" title="{{ 'people.import.limit.numbers'|trans }}" >{{ 'people.import.limit.reload'|trans }}</button>{{ message[0]|trans({'%data%': message[1]}) }}
+								</p>
+								</form>
+							{% else %}
+								<div class="row alert alert-{{ alert }}">{{ message[0]|trans({'%data%': message[1]}) }}</div>
+                            {% endif %}
+						{% endfor %}
+                    {% endif %}
                 {% endfor %}
             {% endif %}
 		</div>

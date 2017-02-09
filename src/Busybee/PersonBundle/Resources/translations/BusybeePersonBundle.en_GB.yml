@@ -259,6 +259,12 @@ people:
         address:
             label: Store details in Address position?
             choice: 'Address Store %number%'
+        limit:
+            numbers: 200 records loaded.
+            reload: Load next batch of records.
+            message: 'The file had too many records for the system to handle all at once.  Please load the next group (200 maximum) records now.  %data% records have already been loaded.'
+        complete:
+            message: 'Import has been completed. %data% records have been loaded.'
     matchimport:
         title: Match Import Fields
         description: Match the source column information with the appropriate destination column.
