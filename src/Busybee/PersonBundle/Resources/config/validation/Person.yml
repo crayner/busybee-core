@@ -1,4 +1,6 @@
 Busybee\PersonBundle\Entity\Person:
+    constraints:
+        - Busybee\PersonBundle\Validator\PersonName: ~
     properties:
         email:
             - Email:

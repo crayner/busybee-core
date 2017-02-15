@@ -83,13 +83,13 @@ person:
     title:
         add: Add Person
         manage: Personal Details
-        category: Category
         edit: Edit Person
         import: Import People
         familyName: Family Name
         givenName: Given Name
         email: E-Mail
         category: Category Status
+        photo: Photo
     edit: 
         title: Edit Person
         description: ''
@@ -140,9 +140,9 @@ student:
     return: Manage Students
     toggle:
         personMissing: The person to toggle student status was not found.
-        addSuccess: The %name% was set as a Student.
+        addSuccess: 'The %name% was set as a Student.'
         removeSuccess: "The %name% was removed as a Student."
-        removeRestricted: %name% is set as a student, and the status is locked by the system.
+        removeRestricted: '%name% is set as a student, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a Student."
 address:
     label:
@@ -256,6 +256,7 @@ people:
             locality: 'Locality not correctly formatted: %data%'
             nodata: 'No data found for import in line %data%'
             invalid: 'The data is not valid. %data%'
+            person: 'Something went wrong with %data%'
         address:
             label: Store details in Address position?
             choice: 'Address Store %number%'
@@ -265,6 +266,8 @@ people:
             message: 'The file had too many records for the system to handle all at once.  Please load the next group (200 maximum) records now.  %data% records have already been loaded.'
         complete:
             message: 'Import has been completed. %data% records have been loaded.'
+        missing:
+            locality: 'The address %name% was missing the locality.'
     matchimport:
         title: Match Import Fields
         description: Match the source column information with the appropriate destination column.
@@ -288,14 +291,14 @@ caregiver:
 staff:
     toggle:
         personMissing: The person to toggle staff status was not found.
-        addSuccess: The %name% was set as a Staff Member.
+        addSuccess: 'The %name% was set as a Staff Member.'
         removeSuccess: "The %name% was removed as a Staff Member."
-        removeRestricted: %name% is set as a staff member, and the status is locked by the system.
+        removeRestricted: '%name% is set as a staff member, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a Staff Member."
 user:
     toggle:
         personMissing: The person to toggle system user status was not found.
-        addSuccess: The %name% was set as a System User.
+        addSuccess: 'The %name% was set as a System User.'
         removeSuccess: "The %name% was removed as a System User."
-        removeRestricted: %name% is set as a System User, and the status is locked by the system.
+        removeRestricted: '%name% is set as a System User, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a System User."

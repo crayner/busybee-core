@@ -5,7 +5,6 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface ;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\HttpFoundation\JsonResponse ;
@@ -40,6 +39,11 @@ class Authorisation extends AuthorizationChecker
 		$this->ip = $container->get('request_stack')->getCurrentRequest()->server->get('REMOTE_ADDR');
 	}
 	
+	public function redirectAuthorisation($role)
+	{
+		return $this->checkAuthorisation($role);
+	}
+	
 	/**
 	 * @return true or a response.
 	 */
@@ -63,7 +67,7 @@ class Authorisation extends AuthorizationChecker
 			$url = $this->router->generate('busybee_security_login');
 			$this->session->set('_url', $url);
             $this->response = new RedirectResponse($url);
-            return $this->response;            
+            return $this->response;
 		}
 		else
 		{
@@ -92,13 +96,8 @@ class Authorisation extends AuthorizationChecker
 					$this->translator->trans('security.authorisation.not_valid', array(), 'BusybeeSecurityBundle')
 				);
             $this->response = new RedirectResponse($url);
-            return $this->response;            
-        }    
-	}
-	
-	public function redirectAuthorisation($role)
-	{
-		return $this->checkAuthorisation($role);
+            return $this->response;
+        }
 	}
 	
 	public function ajaxAuthorisation($role, $request)

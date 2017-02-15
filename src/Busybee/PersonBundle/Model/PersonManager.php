@@ -56,11 +56,6 @@ class PersonManager
     private $results;
 
     /**
-     * @var array
-     */
-    private $localities;
-
-    /**
      * @var Locality
      */
     private $locality;
@@ -424,7 +419,8 @@ class PersonManager
             }
             fclose($handle);
         }
-        $this->results[] = ['info' => ['people.import.complete.message', $line]];  // All done message.
+        $this->results[] = ['info' => ['people.import.complete.message', --$line]];  // All done message.
+        unlink($import['file']);
         return $this->results;
     }
 
@@ -477,7 +473,7 @@ class PersonManager
         $this->address = null;
         $this->locality = null ;
 
-        if (!in_array('person', $this->tables)) {
+        if (! in_array('person', $this->tables)) {
             $result['warning'] = ['people.import.warning.nodata', $line];
             return $result;
         }
@@ -508,26 +504,31 @@ class PersonManager
             }
         }
 
-        if (empty($person->getPreferredName()))
-            $person->setPreferredName($person->getFirstName());
-
         $errors = $this->validator->validate($person);
+
         if ($errors->count() > 0) {
+            $xx = '';
             foreach($errors as $error)
-                $data[] = $error->getPropertyPath() . ': ' . $error->getMessage();
-            $result['warning'] = ['people.import.warning.invalid', implode(', ', $data)];
+                $xx .= '%newline%' . $error->getPropertyPath() . ': ' . $error->getMessage();
+            $data[] = $xx;
+            $result['warning'] = ['people.import.warning.invalid', $line . ' ' .implode(', ', $data)];
         } else {
             // Deal with the rest now
             $this->importOk = true;
 
             $person = $this->importAddress($data, $this->fields, $destinationFields, $person);
             $person = $this->importPhone($data, $this->fields, $destinationFields, $person);
+
             $errors = $this->validator->validate($person);
+
             if ($errors->count() > 0){
                 $this->importOk = false;
-                foreach($errors as $error)
-                    $data[] = $error->getPropertyPath() . ': ' . $error->getMessage();
-                $result['warning'] = ['people.import.warning.invalid', implode(', ', $data)];
+                $xx = '';
+                foreach($errors as $error) {
+                    $xx .= '%newline%' . $error->getPropertyPath() . ': ' . $error->getMessage();
+                }
+                $data[] = $xx;
+                $result['warning'] = ['people.import.warning.invalid', $line . ' ' . implode(', ', $data)];
             }
             if ($this->importOk) {
                 $this->em->persist($person);
@@ -549,9 +550,11 @@ class PersonManager
     private function importAddress($data, $fields, $destinationFields, Person $person)
     {
         $this->address = null;
+        $this->locality = null;
         $result = array();
-        $this->localities = array();
         $this->addresses = array();
+
+        if (! in_array('address', $this->tables)) return $person;
 
         $address = new Address();
 
@@ -569,9 +572,15 @@ class PersonManager
             ->setParameter('streetName', $address->getStreetName())
             ->getQuery()
             ->getFirstResult()
-        ))
-        {
+        )) {
             $this->results[] = $this->importLocality($data, $fields, $destinationFields);
+
+            if (is_null($this->locality)) {
+                $this->address = null;
+                $result['warning'] = ['people.import.missing.locality', $address->__toString()];
+                $this->results[] = $result;
+                return $person;
+            }
 
             $address->setLocality($this->locality);
 
@@ -583,8 +592,7 @@ class PersonManager
                 $address->setPropertyName($this->sm->get('Person.Import.PropertyName'));
             if (empty($address->getStreetNumber()))
                 $address->setStreetNumber($this->sm->get('Person.Import.StreetNumber'));
-            if (empty($address->getStreetNumber()) && intval($address->getStreetName()) > 0)
-            {
+            if (empty($address->getStreetNumber()) && intval($address->getStreetName()) > 0) {
                 $num = intval($address->getStreetName());
                 $address->setStreetNumber(strval($num));
                 $address->setStreetName(trim(str_replace($num, '', $address->getStreetName())));
@@ -606,22 +614,18 @@ class PersonManager
                 ->getQuery()
                 ->getResult(1);
 
-            if (empty($this->address)) {
-                if (! array_key_exists(md5($address->__toString()), $this->addresses)) {
-                    $this->address = $this->addresses[md5($address->__toString())] = $address ;
-                } else {
-                    $address = $this->address = $this->addresses[md5($address->__toString())];
-                    $result['success'] = ['people.import.duplicate.address', $address->__toString()];
-                }
+            if (!empty($this->address) && is_array($this->address))
+                $this->address = reset($this->address);
 
+            if (empty($this->address)) {
+                $this->address = $address;
                 $result['success'] = ['people.import.success.address', $address->__toString()];
-            } elseif (is_array($this->address) && ! empty($this->address))
-            {
-                $address = reset($this->address);
-                $this->address = $this->addresses[md5($address->__toString())] = $address ;
+            } else {
+                $address = $this->address;
                 $result['success'] = ['people.import.duplicate.address', $address->__toString()];
             }
         }
+
         $person->setAddress1($address);
 
         $this->results[] = $result ;
@@ -642,7 +646,6 @@ class PersonManager
         $result = array();
 
         $locality = new Locality();
-
         foreach ($fields as $q => $w) {
             if (mb_strpos($destinationFields[$w['destination']], 'locality.') === 0) {
                 $field = str_replace('locality.', '', $destinationFields[$w['destination']]);
@@ -650,12 +653,12 @@ class PersonManager
                 $locality->$method($data[$w['source']]);
             }
         }
-
         if (empty($locality->getPostCode() || empty($locality->getTerritory()) || empty($locality->getName()))) {
             $result['warning'] = ['people.import.warning.locality', $locality->__toString()];
             return $result;
         }
-        if (!in_array($locality->getTerritory(), $this->sm->get('Address.TerritoryList'))) {
+
+        if (! in_array($locality->getTerritory(), $this->sm->get('Address.TerritoryList'))) {
             $result['warning'] = ['people.import.warning.locality', $locality->__toString()];
             return $result;
         }
@@ -675,19 +678,14 @@ class PersonManager
             ->getQuery()
             ->getResult(1);
 
+        if (! empty($this->locality) && is_array($this->locality))
+            $this->locality = reset($this->locality);
+
         if (empty($this->locality)) {
-            if (! array_key_exists(md5($locality->__toString()), $this->localities)) {
-                $this->em->persist($locality);
-                $this->locality = $this->localities[md5($locality->__toString())] = $locality ;
-            } else {
-                $locality = $this->locality = $this->localities[md5($locality->__toString())];
-                $result['warning'] = ['people.import.duplicate.locality', $locality->__toString()];
-            }
+            $this->locality = $locality ;
             $result['success'] = ['people.import.success.locality', $locality->__toString()];
-        } elseif (is_array($this->locality) && ! empty($this->locality))
-        {
-            $locality = reset($this->locality);
-            $this->locality = $this->localities[md5($locality->__toString())] = $locality ;
+        } else {
+            $locality = $this->locality ;
             $result['success'] = ['people.import.duplicate.locality', $locality->__toString()];
         }
 

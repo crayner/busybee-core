@@ -36,6 +36,7 @@ class PersonListener
             $entity->setEmailCanonical($entity->getEmail());
         } elseif ($entity instanceof Person)
         {
+
             $this->em = $args->getEntityManager();
             $entity = $this->setIdentifierValue($entity);
         }
@@ -113,25 +114,8 @@ class PersonListener
         if ($entity instanceof Person)
         {
             $this->em = $args->getEntityManager();
-            $entity = $this->modifyIdentifierValue($entity);
+            $entity = $this->setIdentifierValue($entity);
         }
-    }
-
-    /**
-     * @param $entity
-     * @return mixed
-     */
-    private function modifyIdentifierValue($entity)
-    {
-        $identifier = $this->createIdentifierValue($entity);
-
-        $x = $this->createIdentityKey($identifier, $entity->getId());
-
-        $identifier .= str_pad(strval($x), 2, '0', STR_PAD_LEFT);
-
-        $entity->setIdentifier(strtoupper($identifier));
-
-        return $entity;
     }
 
     public function postLoad(LifecycleEventArgs $args)
@@ -163,5 +147,22 @@ class PersonListener
 		{
 			$entity->removePhotoFile();
 		}
+    }
+
+    /**
+     * @param $entity
+     * @return mixed
+     */
+    private function modifyIdentifierValue($entity)
+    {
+        $identifier = $this->createIdentifierValue($entity);
+
+        $x = $this->createIdentityKey($identifier, $entity->getId());
+
+        $identifier .= str_pad(strval($x), 2, '0', STR_PAD_LEFT);
+
+        $entity->setIdentifier(strtoupper($identifier));
+
+        return $entity;
     }
 }

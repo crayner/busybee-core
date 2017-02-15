@@ -35,7 +35,7 @@
 								</p>
 								</form>
 							{% else %}
-								<div class="row alert alert-{{ alert }}">{{ message[0]|trans({'%data%': message[1]}) }}</div>
+								<div class="row alert alert-{{ alert }}">{{ message[0]|trans({'%data%': message[1]})|replace({'%newline%': '<br />'})|raw }}</div>
                             {% endif %}
 						{% endfor %}
                     {% endif %}

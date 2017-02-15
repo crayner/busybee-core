@@ -10,6 +10,8 @@ use Busybee\PersonBundle\Form\StaffType;
 use Busybee\PersonBundle\Form\StudentType;
 use Busybee\PersonBundle\Form\UserType;
 use Busybee\PersonBundle\Model\PersonManager;
+use Busybee\SecurityBundle\Entity\Group;
+use Busybee\SecurityBundle\Entity\Role;
 use Busybee\SecurityBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -185,6 +187,7 @@ class PersonSubscriber implements EventSubscriberInterface
             $data['user']['credentials_expired'] = true;
             $data['user']['password'] = password_hash(uniqid(), PASSWORD_BCRYPT);
             if ($user instanceof User){
+                $user->getRoles();
                 $data['user'] = array();
                 $data['user']['person'] = $form->getData()->getId();
                 $data['user']['email'] = $data['user']['emailCanonical'] = $user->getEmail();
@@ -195,21 +198,29 @@ class PersonSubscriber implements EventSubscriberInterface
                 $data['user']['expired'] = $user->getExpired();
                 $data['user']['credentials_expired'] = $user->getCredentialsExpired();
                 $data['user']['password'] = $user->getPassword();
+                $data['user']['directroles'] = array();
+                if (is_array($roles = $user->getRoles()))
+                    foreach($roles as $role)
+                    {
+                        $data['user']['directroles'][] = $this->om->getRepository(Role::class)->findOneByRole($role)->getId();
+                    }
+                $data['user']['groups'] = array();
+                if (is_array($groups = $user->getGroups()))
+                    foreach($groups as $group)
+                    {
+                        $data['user']['groups'][] = $this->om->getRepository(Group::class)->findOneByGroupName($group)->getId();
+                    }
                 $person->setUser($user);
-                $form->remove('user');
-                $form->add('user', UserType::class);
             }
-            if (is_null($user))
-            {
-                $form->remove('user');
-                $form->add('user', UserType::class);
-            }
+
+            $form->remove('user');
+            $form->add('user', UserType::class);
 
         }
 
         if ($form->get('user')->getData() instanceof User && isset($data['userQuestion'])) {
             $user = $this->personManager->doesThisUserExist($person);
-            if (!empty($user) && $user instanceof User) {
+            if ($user instanceof User) {
                 $data['user']['usernameCanonical'] = $data['user']['username'] = $user->getUsername();
                 $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'] = $user->getEmail();
             } else {

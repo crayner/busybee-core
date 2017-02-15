@@ -152,4 +152,41 @@ abstract class PersonModel
             return $this->getPreferredName(). ' ' . $this->getSurname();
         return $this->getFirstName() . ' (' . $this->getPreferredName() . ') ' . $this->getSurname();
 	}
+
+    /**
+     * @param string $float
+     * @return string
+     */
+    public function getPhoto75($float = 'none')
+    {
+        $photo = '';
+        if (! empty($this->getPhoto()->getPathName())) {
+            $div = getimagesize($this->getPhoto()->getPathName());
+            $xx = $div[0] / 75;
+
+            $hh = intval($div[1] / $xx);
+
+            $photo = '<img src="/' . $this->getPhoto()->getPathName() . '" width="75" height="'.$hh.'" style="width: 75px; height: '.$hh.'px; float: ' . $float . '" />';
+        }
+        return $photo;
+    }
+
+    /**
+     * @param string $float
+     * @return string
+     */
+    public function getPhoto250($float = 'none')
+    {
+        $photo = '';
+        dump(getcwd());
+        if (! empty($this->getPhoto()->getPathName())) {
+            $div = getimagesize($this->getPhoto()->getPathName());
+            $xx = $div[0] / 250;
+
+            $hh = intval($div[1] / $xx);
+
+            $photo = '<img src="/' . $this->getPhoto()->getPathName() . '" width="250" height="'.$hh.'" style="width: 25opx; height: '.$hh.'px; float: ' . $float . '" />';
+        }
+        return $photo;
+    }
 }

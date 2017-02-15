@@ -8,6 +8,7 @@ class SettingChoice extends Choice
     public $name ;
     public $strict = true ;
     public $choices = array();
+    public $message = 'setting.choice.invalid';
 
 	public function validatedBy()
 	{

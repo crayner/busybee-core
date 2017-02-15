@@ -17,40 +17,33 @@ use stdClass ;
 abstract class PaginationManager
 {
 	/**
-	 * @var array
-	 */
-	private $initialSettings ;
-
-	/**
-	 * @var Doctrine\ORM\EntityRepository
+	 * @var EntityRepository
 	 */
 	protected $repository ;
-
 	/**
-	 * @var Doctrine\ORM\EntityManager
+	 * @var EntityManager
 	 */
 	protected $manager ;
-
 	/**
-	 * @var Doctrine\ORM\EntityManager
+	 * @var EntityManager
 	 */
 	protected $container ;
-
-	/**
-	 * @var 
-	 */
-	private $form ;
-
 	/**
 	 * @var Query
 	 */
 	protected $query ;
-
 	/**
 	 * @var Result
 	 */
 	protected $result;
-
+	/**
+	 * @var array
+	 */
+	private $initialSettings ;
+	/**
+	 * @var
+	 */
+	private $form ;
 	/**
 	 * @var stdClass
 	 */
@@ -122,8 +115,8 @@ abstract class PaginationManager
 	 * @version	25th October 2016
 	 * @since	25th October 2016
 	 * @param	array	$pagination  Pagination Settings from Parameters
-	 * @param	Doctrine\ORM\EntityRepository	$repository
-	 * @param	Doctrine\ORM\EntityManager	$manager
+	 * @param	EntityRepository	$repository
+	 * @param	EntityManager	$manager
 	 * @return	void
 	 */
 	public function __construct($pagination, EntityRepository $repository, Container $container)
@@ -157,22 +150,6 @@ abstract class PaginationManager
 	}
 	
 	/**
-	 * initiate Query
-	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
-	 * @param	boolean		$count
-	 * @return	Query
-	 */
-	protected function initiateQuery($count = false)
-	{
-		$this->query = $this->repository->createQueryBuilder($this->getAlias());
-		if ($count)
-			$this->query->select('COUNT('.$this->getAlias().')');
-		return $this->query ;
-	}
-	
-	/**
 	 * get Data Set
 	 *
 	 * @version	25th October 2016
@@ -191,39 +168,89 @@ abstract class PaginationManager
 	}
 	
 	/**
-	 * set Sort By
+	 * get Total
 	 *
 	 * @version	25th October 2016
 	 * @since	25th October 2016
-	 * @param	array/string	$sortBy
+	 * @param	boolean		$count
+	 * @return	query
+	 */
+	public function getTotal()
+	{
+		$this->total = intval($this->buildQuery(true)
+				->getQuery()
+				->getSingleScalarResult());
+		return $this->total;
+	}
+	
+	/**
+	 * set Total
+	 *
+	 * @version	25th October 2016
+	 * @since	25th October 2016
+	 * @param	integer		$total
 	 * @return	this
 	 */
-	public function setSortBy($sortBy)
+	public function setTotal($total)
 	{
-		if (is_array($sortBy))
-		{
-			reset($sortBy);
-			$sortBy = key($sortBy);
-		}
-		if (array_key_exists($sortBy, $this->setting->sortBy))
-			$this->sortBy = $sortBy ;
-		else {
-			reset($this->setting->sortBy);
-			$this->sortBy = key($this->setting->sortBy);
-		}
+		$this->total = intval($total) > 0 ? 0 : intval($total) ;
+		return $this;
+	}
+	
+	/**
+	 * get Limit
+	 *
+	 * @version	25th October 2016
+	 * @since	25th October 2016
+	 * @param	integer		$limit
+	 * @return	this
+	 */
+	public function getLimit()
+	{
+		$this->limit = intval($this->limit) < 10 ? 10 : intval($this->limit);
+		return $this->limit ;
+	}
+	
+	/**
+	 * set Limit
+	 *
+	 * @version	25th October 2016
+	 * @since	25th October 2016
+	 * @param	integer		$limit
+	 * @return	this
+	 */
+	public function setLimit($limit)
+	{
+		$limit = intval($limit);
+		$this->limit = $limit < 10 ? 10 : $limit ;
 		return $this ;
 	}
 	
 	/**
-	 * get Sort By
+	 * get OffSet
 	 *
 	 * @version	25th October 2016
 	 * @since	25th October 2016
-	 * @return	array
+	 * @return	integer
 	 */
-	public function getSortBy()
+	public function getOffSet()
 	{
-		return $this->setting->sortBy[$this->sortBy] ;
+		if (empty($this->offSet)) $this->offSet = 0;
+		return $this->offSet;
+	}
+	
+	/**
+	 * set OffSet
+	 *
+	 * @version	25th October 2016
+	 * @since	25th October 2016
+	 ^ @param	integer		$offSet
+	 * @return	integer
+	 */
+	public function setOffSet($offSet)
+	{
+		$this->offSet = empty($offSet) ? 0 : intval($offSet);
+		return $this ;
 	}
 	
 	/**
@@ -256,88 +283,19 @@ abstract class PaginationManager
 		}
 		return $this ;
 	}
-	
-	/**
-	 * set Limit
-	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
-	 * @param	integer		$limit
-	 * @return	this
-	 */
-	public function setLimit($limit)
-	{
-		$limit = intval($limit);
-		$this->limit = $limit < 10 ? 10 : $limit ;
-		return $this ;
-	}
-	
-	/**
-	 * get Limit
-	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
-	 * @param	integer		$limit
-	 * @return	this
-	 */
-	public function getLimit()
-	{
-		$this->limit = intval($this->limit) < 10 ? 10 : intval($this->limit);
-		return $this->limit ;
-	}
-	
-	/**
-	 * set Search List
-	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
-	 * @param	array	$searchList
-	 * @return	this
-	 */
-	public function setSearchList($searchList)
-	{
-		$this->searchList = is_array($searchList) ? $searchList : array();
-		return $this ;
-	}
-
-	/** 
-	 * get Search List
-	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
-	 * @return	this
-	 */
-	public function getSearchList()
-	{
-		return $this->searchList = is_array($this->searchList) ? $this->searchList : array() ;
-	}
-	
-	/**
-	 * set Search
-	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
-	 * @param	array	$searchList
-	 * @return	this
-	 */
-	public function setSearch($search)
-	{
-		$this->search = filter_var($search);
-		return $this ;
-	}
 
 	/**
-	 * get Search
+	 * get Sort By
 	 *
 	 * @version	25th October 2016
 	 * @since	25th October 2016
-	 * @return	string
+	 * @return	array
 	 */
-	public function getSearch()
+	public function getSortBy()
 	{
-		return $x = empty($this->search) ? '' : '%'.$this->search.'%' ;
+		return $this->setting->sortBy[$this->sortBy] ;
 	}
-
+	
 	/**
 	 * set Search Where
 	 *
@@ -359,45 +317,54 @@ abstract class PaginationManager
 	}
 
 	/**
-	 * get Total
+	 * get Search
 	 *
 	 * @version	25th October 2016
 	 * @since	25th October 2016
-	 * @param	boolean		$count
-	 * @return	query
+	 * @return	string
 	 */
-	public function getTotal()
+	public function getSearch()
 	{
-		$this->total = intval($this->buildQuery(true)
-				->getQuery()
-				->getSingleScalarResult());
-		return $this->total;
+		return $x = empty($this->search) ? '' : '%'.$this->search.'%' ;
 	}
 
 	/**
-	 * get OffSet
+	 * set Search
 	 *
 	 * @version	25th October 2016
 	 * @since	25th October 2016
-	 * @return	integer
+	 * @param	array	$searchList
+	 * @return	this
 	 */
-	public function getOffSet()
+	public function setSearch($search)
 	{
-		if (empty($this->offSet)) $this->offSet = 0;
-		return $this->offSet;
+		$this->search = filter_var($search);
+		return $this ;
 	}
 
 	/**
-	 * set OffSet
+	 * get Search List
 	 *
 	 * @version	25th October 2016
 	 * @since	25th October 2016
-	 ^ @param	integer		$offSet
-	 * @return	integer
+	 * @return	this
 	 */
-	public function setOffSet($offSet)
+	public function getSearchList()
 	{
-		$this->offSet = empty($offSet) ? 0 : intval($offSet);
+		return $this->searchList = is_array($this->searchList) ? $this->searchList : array() ;
+	}
+
+	/**
+	 * set Search List
+	 *
+	 * @version	25th October 2016
+	 * @since	25th October 2016
+	 * @param	array	$searchList
+	 * @return	this
+	 */
+	public function setSearchList($searchList)
+	{
+		$this->searchList = is_array($searchList) ? $searchList : array();
 		return $this ;
 	}
 
@@ -415,6 +382,62 @@ abstract class PaginationManager
 	}
 
 	/**
+	 * get Sort List
+	 *
+	 * @version	25th October 2016
+	 * @since	25th October 2016
+	 * @return	array
+	 */
+	public function getSortList()
+	{
+		$sortByList = array();
+		if (! empty($this->setting->sortBy) && is_array($this->setting->sortBy))
+			foreach($this->setting->sortBy as $name=>$w)
+				$sortByList[$name] = $name;
+		return $sortByList;
+	}
+
+    /**
+     * inject Request
+     *
+     * @version    25th October 2016
+     * @since    25th October 2016
+     * @param Request $request
+     * @return this
+     */
+	public function injectRequest(Request $request, $currentSearch = null)
+	{
+		$this->getForm()->handleRequest($request);
+		if (! $this->form->isSubmitted())
+		{
+			$this->post = false;
+            $this->resetPagination();
+			if (! empty($currentSearch)) {
+                $this->setSearch($currentSearch);
+                $this->form['currentSearch']->setData($currentSearch);
+            }
+            $this->getTotal();
+		} else {
+			$this->post = true;
+			$this->setSearch($this->form['currentSearch']->getData());
+			$this->setLastSearch($this->form['lastSearch']->getData());
+			$this->setTotal($this->form['total']->getData());
+			$this->setOffSet($this->form['offSet']->getData());
+			if ($this->getSearch() !== $this->getLastSearch() || $this->form['limit']->getData() !== $this->form['lastLimit']->getData())
+				$this->resetPagination();
+			$this->setSearch($this->form['currentSearch']->getData());
+			$this->setLastSearch($this->form['lastSearch']->getData());
+			$this->setLimit($this->form['limit']->getData());
+			$this->setLastLimit($this->form['lastLimit']->getData());
+			$this->setSortBy($this->form['currentSort']->getData());
+			$this->getTotal();
+			$this->managePost();
+		}
+		$this->form = $this->getForm()->createView();
+		return $this;
+	}
+
+	/**
 	 * get Form
 	 *
 	 * @version	25th October 2016
@@ -427,19 +450,18 @@ abstract class PaginationManager
 	}
 
 	/**
-	 * get Sort List
+	 * Reset Pagination
 	 *
 	 * @version	25th October 2016
 	 * @since	25th October 2016
-	 * @return	array
+	 * @return	this
 	 */
-	public function getSortList()
+	private function resetPagination()
 	{
-		$sortByList = array();
-		if (! empty($this->setting->sortBy) && is_array($this->setting->sortBy)) 
-			foreach($this->setting->sortBy as $name=>$w)
-				$sortByList[$name] = $name;
-		return $sortByList;
+		$this->setPagination($this->initialSettings);
+		$this->total = 0;
+		$this->offSet = 0;
+		return $this ;
 	}
 
 	/**
@@ -470,52 +492,26 @@ abstract class PaginationManager
 	}
 
 	/**
-	 * inject Request
+	 * set Sort By
 	 *
 	 * @version	25th October 2016
 	 * @since	25th October 2016
+	 * @param	array/string	$sortBy
 	 * @return	this
 	 */
-	public function injectRequest(Request $request)
+	public function setSortBy($sortBy)
 	{
-		$this->getForm()->handleRequest($request);
-		if (! $this->form->isSubmitted())
+		if (is_array($sortBy))
 		{
-			$this->post = false;
-			$this->resetPagination();
-			$this->getTotal();
-		} else {
-			$this->post = true;
-			$this->setSearch($this->form['currentSearch']->getData());
-			$this->setLastSearch($this->form['lastSearch']->getData());
-			$this->setTotal($this->form['total']->getData());
-			$this->setOffSet($this->form['offSet']->getData());
-			if ($this->getSearch() !== $this->getLastSearch() || $this->form['limit']->getData() !== $this->form['lastLimit']->getData())
-				$this->resetPagination();
-			$this->setSearch($this->form['currentSearch']->getData());
-			$this->setLastSearch($this->form['lastSearch']->getData());
-			$this->setLimit($this->form['limit']->getData());
-			$this->setLastLimit($this->form['lastLimit']->getData());
-			$this->setSortBy($this->form['currentSort']->getData());
-			$this->getTotal();
-			$this->managePost();
+			reset($sortBy);
+			$sortBy = key($sortBy);
 		}
-		$this->form = $this->getForm()->createView();
-		return $this;
-	}
-
-	/**
-	 * Reset Pagination
-	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
-	 * @return	this
-	 */
-	private function resetPagination()
-	{
-		$this->setPagination($this->initialSettings);
-		$this->total = 0;
-		$this->offSet = 0;
+		if (array_key_exists($sortBy, $this->setting->sortBy))
+			$this->sortBy = $sortBy ;
+		else {
+			reset($this->setting->sortBy);
+			$this->sortBy = key($this->setting->sortBy);
+		}
 		return $this ;
 	}
 
@@ -551,35 +547,6 @@ abstract class PaginationManager
 	}
 
 	/**
-	 * set Total
-	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
-	 * @param	integer		$total
-	 * @return	this
-	 */
-	public function setTotal($total)
-	{
-		$this->total = intval($total) > 0 ? 0 : intval($total) ;
-		return $this;
-	}
-
-	/**
-	 * get Next
-	 *
-	 * @version	25th October 2016
-	 * @since	25th October 2016
-	 * @return	this
-	 */
-	private function getNext()
-	{
-		$offSet = $this->getOffSet();
-		if ($this->getOffSet() + $this->getLimit() < $this->getTotal())
-			$offSet = $this->getOffSet() + $this->getLimit();
-		$this->checkOffSet($offSet) ;
-	}
-
-	/**
 	 * get Prev
 	 *
 	 * @version	25th October 2016
@@ -610,6 +577,21 @@ abstract class PaginationManager
 	}
 
 	/**
+	 * get Next
+	 *
+	 * @version	25th October 2016
+	 * @since	25th October 2016
+	 * @return	this
+	 */
+	private function getNext()
+	{
+		$offSet = $this->getOffSet();
+		if ($this->getOffSet() + $this->getLimit() < $this->getTotal())
+			$offSet = $this->getOffSet() + $this->getLimit();
+		$this->checkOffSet($offSet) ;
+	}
+
+	/**
 	 * get Current Page
 	 *
 	 * @version	25th October 2016
@@ -632,7 +614,7 @@ abstract class PaginationManager
 	{
 		return $this->pages;
 	}
-	
+
 	/**
 	 * get Result
 	 *
@@ -643,6 +625,20 @@ abstract class PaginationManager
 	public function getResult()
 	{
 		return $this->result;
+	}
+	
+	/**
+	 * get Last Limit
+	 *
+	 * @version	25th October 2016
+	 * @since	25th October 2016
+	 * @param	integer		$limit
+	 * @return	this
+	 */
+	public function getLastLimit()
+	{
+		$this->lastLimit = intval($this->lastLimit) < 10 ? 10 : intval($this->lastLimit);
+		return $this->lastLimit ;
 	}
 	
 	/**
@@ -661,30 +657,19 @@ abstract class PaginationManager
 	}
 	
 	/**
-	 * get Last Limit
+	 * initiate Query
 	 *
 	 * @version	25th October 2016
 	 * @since	25th October 2016
-	 * @param	integer		$limit
-	 * @return	this
+	 * @param	boolean		$count
+	 * @return	Query
 	 */
-	public function getLastLimit()
+	protected function initiateQuery($count = false)
 	{
-		$this->lastLimit = intval($this->lastLimit) < 10 ? 10 : intval($this->lastLimit);
-		return $this->lastLimit ;
-	}
-	
-	/**
-	 * set Join
-	 *
-	 * @version	27th October 2016
-	 * @since	27th October 2016
-	 * @return	this
-	 */
-	private function setJoin($join)
-	{
-		$this->join = $join;
-		return $this ;
+		$this->query = $this->repository->createQueryBuilder($this->getAlias());
+		if ($count)
+			$this->query->select('COUNT('.$this->getAlias().')');
+		return $this->query ;
 	}
 	
 	/**
@@ -694,10 +679,9 @@ abstract class PaginationManager
 	 * @since	27th October 2016
 	 * @return	this
 	 */
-	private function setSelect($select)
+	public function getAlias()
 	{
-		$this->select = $select;
-		return $this ;
+		return $this->alias ;
 	}
 	
 	/**
@@ -734,15 +718,15 @@ abstract class PaginationManager
 	}
 	
 	/**
-	 * set Alias
+	 * set Join
 	 *
 	 * @version	27th October 2016
 	 * @since	27th October 2016
 	 * @return	this
 	 */
-	private function setAlias($alias)
+	private function setJoin($join)
 	{
-		$this->alias = $alias;
+		$this->join = $join;
 		return $this ;
 	}
 	
@@ -753,8 +737,22 @@ abstract class PaginationManager
 	 * @since	27th October 2016
 	 * @return	this
 	 */
-	public function getAlias()
+	private function setSelect($select)
 	{
-		return $this->alias ;
+		$this->select = $select;
+		return $this ;
+	}
+	
+	/**
+	 * set Alias
+	 *
+	 * @version	27th October 2016
+	 * @since	27th October 2016
+	 * @return	this
+	 */
+	private function setAlias($alias)
+	{
+		$this->alias = $alias;
+		return $this ;
 	}
 }

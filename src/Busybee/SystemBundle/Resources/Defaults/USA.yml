@@ -89,6 +89,7 @@ settings:
         'Home': 'Home'
         'Cell': 'Mobile'
         'Work': 'Work'
+        'Imported': 'Imported'
     Phone.CountryList:
         'USA +1': 1'
     Phone.Validation: "/(^(1300|1800|1900|1902)[0-9]{6}$)|(^0[2|3|4|7|8]{1}[0-9]{8}$)|(^13[0-9]{4}$)/"
@@ -99,4 +100,4 @@ settings:
         ({{ phone|slice(0,2)}}) {{ phone|slice(2,4)}} {{ phone|slice(6,4)}}{% elseif start in [18,13,04] and len == 10 %}
         {{ phone|slice(0,4)}} {{ phone|slice(4,3)}} {{ phone|slice(7,3)}}{% elseif start in [13] and len == 6 %}
         {{ phone|slice(0,4)}} {{ phone|slice(4,3)}}{% else %}{{ phone }}{% endif %}
-    
+    Country.Code: '+1'

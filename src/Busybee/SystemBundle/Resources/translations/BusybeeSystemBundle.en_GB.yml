@@ -188,6 +188,6 @@ plugin:
         description: Plugins available on the system but not installed or requiring update.
 upload:
     error:
-        fileNameMatch: The file name (%name%) does not match the file data.
+        fileNameMatch: 'The file name (%name%) does not match the file data.'
         settingsMissing: "No settings have been defined in the file.  The file nust contain the name of the file (name:) and the settings: to be set."
     success: '%count% Settings were correctly uploaded.'

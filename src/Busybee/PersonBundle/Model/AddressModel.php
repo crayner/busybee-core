@@ -98,7 +98,7 @@ abstract class AddressModel
      */
     public function getSingleLineAddress()
     {
-        return trim($this->getStreetNumber() . ' ' . $this->getStreetName());
+        return trim($this->getStreetNumber() . ' ' . $this->getStreetName() . ' ' . $this->getLocality()->getName());
     }
 
     /**

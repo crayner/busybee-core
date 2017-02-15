@@ -9,6 +9,7 @@ Busybee\SecurityBundle\Entity\User:
             fields: [email]
             errorPath: email
             message: user.error.email.unique
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: person
     properties:
         email:
             - Email: 

@@ -6,11 +6,11 @@
 
 <div class="panel-heading">
 	<h3 class="panel-title">{{ 'person.manage.title'|trans({'%name%': form.vars.value.formatName})}}
-		<button title='{{ 'person.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('person_manage') }}','_self')" style="float: right"></button>
+		<button title='{{ 'person.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('person_manage', {'currentSearch': currentSearch}) }}','_self')" style="float: right"></button>
 		{% if id != 'Add' %}
-			<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
+			<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add', 'currentSearch': currentSearch}) }}','_self')" style="float: right"></button>
 		{% endif %}
-		<button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button" onClick="location.href='{{ path('person_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+		<button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button" onClick="location.href='{{ path('person_edit', {'id': id, 'currentSearch': currentSearch}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
 		<button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}' type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
 		{% if form.dob.vars.data is not empty %}
             {% set difference = date('now').diff(date(form.dob.vars.data)) %}

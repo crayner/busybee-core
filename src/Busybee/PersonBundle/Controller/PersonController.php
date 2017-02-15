@@ -2,7 +2,6 @@
 
 namespace Busybee\PersonBundle\Controller;
 
-use Busybee\PersonBundle\Entity\Staff;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,14 +14,19 @@ class PersonController extends Controller
 {
     use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
 
-    public function indexAction(Request $request)
+    /**
+     * @param Request $request
+     * @param null $currentSearch
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction(Request $request, $currentSearch = null)
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
 		$up = $this->get('person.pagination');
-		
-		$up->injectRequest($request);
-		
+
+		$up->injectRequest($request, $currentSearch);
+
 		$up->getDataSet();
 
         return $this->render('BusybeePersonBundle:Person:index.html.twig', 
@@ -38,11 +42,11 @@ class PersonController extends Controller
      * @param $id
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $id, $currentSearch)
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$person = $this->getPerson($id);
+		$person = $this->getPerson($id, $currentSearch);
 		
 		$em = $this->get('doctrine')->getManager();
 
@@ -73,6 +77,9 @@ class PersonController extends Controller
 				$editOptions['script'][] = $extra['script'];
 		}
 
+
+		dump($request);
+		dump($currentSearch);
 		$form->handleRequest($request);
 
         $validator = $this->get('validator');
@@ -109,7 +116,7 @@ class PersonController extends Controller
                 $em->flush();
                 $id = $person->getId();
 
-                return new RedirectResponse($this->generateUrl('person_edit', array('id' => $id)));
+                return new RedirectResponse($this->generateUrl('person_edit', array('id' => $id, 'currentSearch' => $currentSearch)));
             }
 		} 
 
@@ -124,6 +131,7 @@ class PersonController extends Controller
 		$editOptions['identifier'] = $person->getIdentifier();
         $editOptions['addresses'] = $this->get('person.manager')->getAddresses($person);
         $editOptions['phones'] = $this->get('person.manager')->getPhones($person);
+        $editOptions['currentSearch'] = $currentSearch;
 
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
 			$editOptions	
@@ -131,12 +139,12 @@ class PersonController extends Controller
     }
 
 
-    private function getPerson($id)
+    private function getPerson($id, $currentSearch)
     {
 		$person = new Person();
 		if ($id !== 'Add')
 			$person = $this->get('person.repository')->findOneById($id);
-		$person->cancelURL = $this->generateUrl('person_edit', array('id' => $id));
+		$person->cancelURL = $this->generateUrl('person_edit', array('id' => $id, 'currentSearch' => $currentSearch));
 
 		return $person ;
 	}

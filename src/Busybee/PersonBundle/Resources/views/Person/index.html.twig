@@ -11,11 +11,10 @@
 
 
 {% block contentContainer %}
-	{% include 'PaginationBundle:Default:index.html.twig' %}
-
+	{% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('person_manage') } } %}
 	<div class="panel panel-primary busybee-panel">
 		<div class="panel-heading">
-			<h3 class="panel-title">{{ 'people.title'|trans}} <button title='{{ 'person.title.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')" style="float: right;"></button>
+			<h3 class="panel-title">{{ 'people.title'|trans}} <button title='{{ 'person.title.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''}) }) }}','_self')" style="float: right;"></button>
                 <button title='{{ 'person.title.import'|trans}}' type="button" class="halflings halflings-import btn btn-primary" onClick="window.open('{{ path('people_import') }}','_self')" style="float: right;"></button> </h3>
 		</div>
 		<div class="panel-body">
@@ -26,6 +25,9 @@
 					</div>
 				</div>
 				<div class="row row-header">
+                    <div class="col-md-1 hidden-sm hidden-xs">
+                        {{ 'person.title.photo'|trans }}
+                    </div>
 					<div class="col-sm-2 col-md-2" style="display: inline-block;">
 						{% if pagination.getSortByName == 'Family Name' %}
 							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.familyName'|trans }}
@@ -40,7 +42,7 @@
 							{{ 'person.title.givenName'|trans }}
 						{% endif %}
 					</div>
-					<div class="col-md-3 hidden-sm hidden-xs" style="display: inline-block;">
+					<div class="col-md-2 hidden-sm hidden-xs" style="display: inline-block;">
                         {% if pagination.getSortByName == 'Email' %}
 							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.email'|trans }}
                         {% else %}
@@ -73,18 +75,21 @@
 
 			{% for person in pagination.getResult %}
 				<div class="row row-striped">
+                    <div class="col-md-1 hidden-sm hidden-xs">
+                        {{ person.getPhoto75('left')|raw }}
+                    </div>
 					<div class="col-sm-2 col-md-2 form-inline">
 						{{ person.surname }}
 					</div>
 					<div class="col-sm-2 col-md-2 form-inline">
 						{{ person.firstName }}
 					</div>
-					<div class="col-md-3 hidden-sm hidden-xs" style="display: inline-block;">
+					<div class="col-md-2 hidden-sm hidden-xs" style="display: inline-block;">
                         {{ person.email }}
 					</div>
 					<div class="col-md-2 col-sm-2 text-center form-inline">
 
-						<button title='{{ 'person.title.edit'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('person_edit', {'id': person.id}) }}','_self')"></button>
+						<button title='{{ 'person.title.edit'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('person_edit', {'id': person.id, 'currentSearch': pagination.search|replace({'%': ''}) }) }}', '_self')"></button>
                     </div>
                     <div class="col-md-3 hidden-sm hidden-xs">
                         <div class="row">

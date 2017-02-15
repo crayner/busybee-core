@@ -6,7 +6,11 @@
 
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
-{{ form_start(form) }}
+{% if form_array is not defined  %}
+	{% set form_array = [] %}
+{% endif %}
+
+{{ form_start(form, form_array) }}
 
 <div class="container-fluid well">
 	<div class="row">

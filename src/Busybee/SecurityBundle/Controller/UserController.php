@@ -455,7 +455,10 @@ class UserController extends Controller
 		}
 		
         return new RedirectResponse($this->generateUrl('person_manage',
-				array('personID' => $person->getId())
+				array(
+				    'personID'      => $person->getId(),
+                    'currentSearch' => '',
+                )
 			)
 		);
 		
