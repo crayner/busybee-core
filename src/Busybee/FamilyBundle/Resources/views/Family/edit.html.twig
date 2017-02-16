@@ -20,7 +20,15 @@
 
 {% block contentContainer %}
 {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
-{{ form_start(form) }}
+
+    {% set form_path = [] %}
+    {% set form_path = form_path|merge({'id': id}) %}
+    {% if currentSearch is not empty %}
+        {% set form_path = form_path|merge({'currentSearch': currentSearch}) %}
+    {% endif %}
+    {{ form_start(form, {'action': path('family_edit', form_path)}) }}
+
+
 <div id="familyTabs">
 	<ul class="nav nav-tabs" role="tablist">
 		{% for name,tab in tabs %}

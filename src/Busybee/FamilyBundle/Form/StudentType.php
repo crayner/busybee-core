@@ -16,7 +16,15 @@ class StudentType extends AbstractType
     }
 
     /**
-     * @return mixed
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'student';
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getParent()
     {

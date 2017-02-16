@@ -13,15 +13,16 @@ class FamilyController extends Controller
 
     /**
      * @param Request $request
+     * @param null $currentSearch
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $currentSearch = null)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $up = $this->get('family.pagination');
 
-        $up->injectRequest($request);
+        $up->injectRequest($request, $currentSearch);
 
         $up->getDataSet();
 
@@ -35,9 +36,10 @@ class FamilyController extends Controller
     /**
      * @param Request $request
      * @param $id
+     * @param null $currentSearch
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $id, $currentSearch = null)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
@@ -55,7 +57,7 @@ class FamilyController extends Controller
             $em->flush();
             $id = $family->getId();
 
-            return new RedirectResponse($this->generateUrl('family_edit', array('id' => $id)));
+            return new RedirectResponse($this->generateUrl('family_edit', array('id' => $id, 'currentSearch' => $currentSearch)));
 
         }
 
@@ -63,6 +65,7 @@ class FamilyController extends Controller
         $editOptions['id'] = $id;
         $editOptions['form'] = $form->createView();
         $editOptions['fullForm'] = $form;
+        $editOptions['currentSearch'] = $currentSearch;
 
         return $this->render('BusybeeFamilyBundle:Family:edit.html.twig',
             $editOptions

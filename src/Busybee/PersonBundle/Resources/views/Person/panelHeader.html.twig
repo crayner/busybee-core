@@ -4,8 +4,12 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
+{% if header is not defined %}
+    {% set header = 'person.manage.title' %}
+{% endif %}
+
 <div class="panel-heading">
-	<h3 class="panel-title">{{ 'person.manage.title'|trans({'%name%': form.vars.value.formatName})}}
+    <h3 class="panel-title">{{ header|trans({'%name%': form.vars.value.formatName}) }}
 		<button title='{{ 'person.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('person_manage', {'currentSearch': currentSearch}) }}','_self')" style="float: right"></button>
 		{% if id != 'Add' %}
 			<button title='{{ 'person.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('person_edit', {'id': 'Add', 'currentSearch': currentSearch}) }}','_self')" style="float: right"></button>

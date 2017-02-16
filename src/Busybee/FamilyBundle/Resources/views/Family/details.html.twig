@@ -9,16 +9,7 @@
 %}
 
 <div class="panel panel-primary busybee-panel">
-	<div class="panel-heading">
-		<h3 class="panel-title">{{ 'family.title.details'|trans({'%name%': form.name.vars.value}) }}
-		<button title='{{ 'family.return'|trans}}' type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('family_manage') }}','_self')" style="float: right"></button>
-		{% if id != 'Add' %}
-			<button title='{{ 'family.title.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('family_edit', {'id': 'Add'}) }}','_self')" style="float: right"></button>
-		{% endif %}
-		<button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button" onClick="location.href='{{ path('family_edit', {'id': id}) }}'" class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
-		<button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}' type="submit" class="halflings halflings-save btn btn-success" style="float: right"></button>
-		</h3>
-	</div>
+    {% include "BusybeeFamilyBundle:Family:panelHeader.html.twig" %}
 	<div class="panel-body">
 		<div class="container-fluid">
 			<div class="row">

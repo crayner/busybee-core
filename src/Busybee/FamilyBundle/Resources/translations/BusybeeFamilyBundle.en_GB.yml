@@ -6,7 +6,7 @@ family:
         add: New Family
         edit: Modify Family
         details: "Family Details: %name%"
-        contacts: "Family Contacts: %name%"
+        contacts: "Family Contact Details: %name%"
         people: "Members of Family: %name%"
     description: Search and select families.
     actions: Actions

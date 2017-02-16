@@ -90,7 +90,6 @@ class FamilyType extends AbstractType
                         'help' => 'person.help.address1',
                         'class' => 'beeAddressList formChanged',
                     ),
-                    'data' => $options['data']->getAddress1(),
                     'translation_domain' => 'BusybeePersonBundle',
                 )
             )
@@ -105,7 +104,6 @@ class FamilyType extends AbstractType
                         'help' => 'person.help.address2',
                         'class' => 'beeAddressList formChanged',
                     ),
-                    'data' => $options['data']->getAddress2(),
                     'translation_domain' => 'BusybeePersonBundle',
                 )
             )
@@ -133,8 +131,7 @@ class FamilyType extends AbstractType
                                 ->join('c.person', 'p')
                                 ->where('c.person IS NOT NULL')
                                 ->orderBy('p.surname')
-                                ->addOrderBy('p.firstName')
-                                ;
+                                ->addOrderBy('p.firstName');
                         },
                         'placeholder' => 'family.placeholder.emergencyContact',
                     ),
@@ -160,8 +157,7 @@ class FamilyType extends AbstractType
                                 ->join('s.person', 'p')
                                 ->where('s.person IS NOT NULL')
                                 ->orderBy('p.surname')
-                                ->addOrderBy('p.firstName')
-                                ;
+                                ->addOrderBy('p.firstName');
                         },
                         'placeholder' => 'family.placeholder.student',
                     ),

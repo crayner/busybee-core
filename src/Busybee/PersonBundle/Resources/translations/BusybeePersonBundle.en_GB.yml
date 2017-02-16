@@ -1,6 +1,6 @@
 person:
     staff:
-        title: 'Staff Member: %name%'
+        title: 'Staff Details: %name%'
         description: Select and manage staff
         edit: 
             title: Edit Staff Member
@@ -101,14 +101,14 @@ person:
         empty: can not be empty.
         notFound: "A person record of %number% does not exist"
     student:
-        title: 'Student: %name%'
+        title: 'Student Details: %name%'
         description: Student selection
         toggle: Student Status
     caregiver:
         toggle: Care Giver Status
-        title: 'Care Giver: %name%'
+        title: 'Care Giver Details: %name%'
     user:
-        title: 'User:: %name%'
+        title: 'User Details: %name%'
         toggle: System User Status
     category:
         staff: Staff
@@ -302,3 +302,4 @@ user:
         removeSuccess: "The %name% was removed as a System User."
         removeRestricted: '%name% is set as a System User, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a System User."
+Linked Phone Numbers: ~

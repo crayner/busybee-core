@@ -16,6 +16,14 @@ class EmergencyContactType extends AbstractType
     }
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'emergencyContact';
+    }
+
+    /**
      * @return mixed
      */
     public function getParent()

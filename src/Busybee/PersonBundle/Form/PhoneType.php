@@ -2,6 +2,7 @@
 
 namespace Busybee\PersonBundle\Form;
 
+use Busybee\PersonBundle\Entity\Phone;
 use Busybee\PersonBundle\Events\PhoneSubscriber;
 use Busybee\PersonBundle\Repository\PhoneRepository;
 use Symfony\Component\Form\AbstractType;
@@ -25,13 +26,13 @@ class PhoneType extends AbstractType
 
 
     /**
-	 * Construct
-	 */
-	public function __construct(SettingManager $sm, PhoneRepository $pr)
-	{
-		$this->sm = $sm ;
-		$this->pr = $pr;
-	}
+     * Construct
+     */
+    public function __construct(SettingManager $sm, PhoneRepository $pr)
+    {
+        $this->sm = $sm;
+        $this->pr = $pr;
+    }
 
     /**
      * {@inheritdoc}
@@ -39,43 +40,43 @@ class PhoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-			->add('phoneType', ChoiceType::class,
-				array(
-					'label' => 'person.label.phone.type',
-					'choices' => $this->sm->get('Phone.TypeList'),
+            ->add('phoneType', ChoiceType::class,
+                array(
+                    'label' => 'person.label.phone.type',
+                    'choices' => $this->sm->get('Phone.TypeList'),
                 )
-			)
-			->add('phoneNumber', null, 
-				array(
-					'label' => 'person.label.phone.number',
-					'attr'	=> array(
-						'help'	=> 'person.help.phone.number',
-					),
-				)
-			)
-			->add('countryCode', ChoiceType::class,
-				array(
-					'label' => 'person.label.phone.country',
-					'required' => false,
-					'choices' => $this->sm->get('Phone.CountryList'),
-				)
-			);
+            )
+            ->add('phoneNumber', null,
+                array(
+                    'label' => 'person.label.phone.number',
+                    'attr' => array(
+                        'help' => 'person.help.phone.number',
+                    ),
+                )
+            )
+            ->add('countryCode', ChoiceType::class,
+                array(
+                    'label' => 'person.label.phone.country',
+                    'required' => false,
+                    'choices' => $this->sm->get('Phone.CountryList'),
+                )
+            );
         $builder->get('phoneNumber')
             ->addModelTransformer(new PhoneTransformer());
         $builder->addEventSubscriber(new PhoneSubscriber($this->pr));
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-			array(
-				'data_class' => 'Busybee\PersonBundle\Entity\Phone',
-				'translation_domain' => 'BusybeePersonBundle',
-			)
-		);
+            array(
+                'data_class' => Phone::class,
+                'translation_domain' => 'BusybeePersonBundle',
+            )
+        );
     }
 
     /**

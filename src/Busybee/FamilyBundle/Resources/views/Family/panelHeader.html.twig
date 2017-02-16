@@ -1,0 +1,28 @@
+{# src/Busybee/FamilyBundle/Resources/views/Family/panelHeader.html.twig #}
+
+{% trans_default_domain "BusybeeFamilyBundle" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+{% if header is not defined %}
+    {% set header = 'family.title.details' %}
+{% endif %}
+
+<div class="panel-heading">
+    <h3 class="panel-title">{{ header|trans({'%name%': form.name.vars.value}) }}
+        <button title='{{ 'family.return'|trans }}' type="button" class="halflings halflings-hand-left btn btn-primary"
+                onClick="window.open('{{ path('family_manage', {'currentSearch': currentSearch}) }}','_self')"
+                style="float: right"></button>
+        {% if id != 'Add' %}
+            <button title='{{ 'family.title.add'|trans }}' type="button"
+                    class="halflings halflings-plus-sign btn btn-primary"
+                    onClick="window.open('{{ path('family_edit', {'id': 'Add', 'currentSearch': currentSearch}) }}','_self')"
+                    style="float: right"></button>
+        {% endif %}
+        <button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button"
+                onClick="location.href='{{ path('family_edit', {'id': id, 'currentSearch': currentSearch}) }}'"
+                class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+        <button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle') }}' type="submit"
+                class="halflings halflings-save btn btn-success" style="float: right"></button>
+    </h3>
+</div>

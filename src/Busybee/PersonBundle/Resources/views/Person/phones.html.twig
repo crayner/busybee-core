@@ -16,10 +16,10 @@
 	<div class="panel-body">
 		<p class="alert alert-warning">{{ 'phone.save'|trans  }}</p>
         {% if phones is defined %}
-					<p class="alert alert-info"><strong>{{ 'Linked Phone Numbers'|trans }}</strong><br/>
-                    {% for phone in phones %}
-						{{ formatPhone(phone)|raw }}<br />
-                    {% endfor %}</p>
+			<p class="alert alert-info"><strong>{{ 'Linked Phone Numbers'|trans }}</strong><br/>
+                {% for phone in phones %}
+                    {{ formatPhone(phone)|raw }}<br/>
+                {% endfor %}</p>
         {% endif %}
 		{{ form_widget(form.phone) }}
 	</div>

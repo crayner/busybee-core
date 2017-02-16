@@ -1,6 +1,6 @@
 family_manage:
-    path:     /
-    defaults: { _controller: BusybeeFamilyBundle:Family:index }
+    path:     /manage/{currentSearch}
+    defaults: { _controller: BusybeeFamilyBundle:Family:index, currentSearch: null }
 family_edit:
-    path:     /{id}/
-    defaults: { _controller: BusybeeFamilyBundle:Family:edit }
+    path:     /{id}/edit/{currentSearch}
+    defaults: { _controller: BusybeeFamilyBundle:Family:edit, currentSearch: null }

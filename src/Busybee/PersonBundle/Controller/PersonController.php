@@ -78,8 +78,6 @@ class PersonController extends Controller
 		}
 
 
-		dump($request);
-		dump($currentSearch);
 		$form->handleRequest($request);
 
         $validator = $this->get('validator');

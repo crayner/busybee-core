@@ -9,7 +9,7 @@
 {% block headerLead %}{{ 'family.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-	{% include 'PaginationBundle:Default:index.html.twig' %}
+    {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('family_manage') } } %}
     <div class="panel panel-primary busybee-panel">
         <div class="panel-heading">
             <h3 class="panel-title">{{ 'family.title.manage'|trans}}</h3>
@@ -25,7 +25,9 @@
 						{% endif %}
 					</div>
 					<div class="col-sm-3 col-md-3 withAdd">
-						<button title='{{ 'family.title.add'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('family_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'family.actions'|trans }}
+                        <button title='{{ 'family.title.add'|trans }}' type="button"
+                                class="halflings halflings-plus-sign btn btn-primary"
+                                onClick="window.open('{{ path('family_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''}) }) }}','_self')"></button> {{ 'family.actions'|trans }}
 					</div>
 				</div>
 			{% for family in pagination.getResult %}
@@ -34,7 +36,9 @@
                         {{ family.name }}
                     </div>
                     <div class="col-sm-3 col-md-3 form-inline">
-                        <button title='{{ 'family.title.edit'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('family_edit', {'id': family.id}) }}','_self')"></button>
+                        <button title='{{ 'family.title.edit'|trans }}' type="button"
+                                class="halflings halflings-edit btn btn-warning"
+                                onClick="window.open('{{ path('family_edit', {'id': family.id, 'currentSearch': pagination.search|replace({'%': ''})}) }}','_self')"></button>
                     </div>
                 </div>
 			{% endfor %}
