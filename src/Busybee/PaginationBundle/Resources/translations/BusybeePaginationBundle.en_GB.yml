@@ -8,7 +8,7 @@ pagination:
     sort: ''
     limit: ''
     startSearch: ''
-    figures: 'Page %current% of %pages%. Total Records: %total%'  
+    figures: 'Records %first% to %last% of %total%. %pages% Pages'
     next: ''
     prev: ''
 Family Name: Family Name
