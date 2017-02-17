@@ -16,6 +16,7 @@ class CSVType extends AbstractType
 	{
         $this->loader = $loader;
 	}
+
     /**
      * {@inheritdoc}
      */

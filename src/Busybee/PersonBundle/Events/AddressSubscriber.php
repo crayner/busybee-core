@@ -2,9 +2,6 @@
 
 namespace Busybee\PersonBundle\Events ;
 
-use Busybee\InstituteBundle\Repository\CampusResourceRepository;
-use Busybee\PersonBundle\Entity\Phone;
-use Busybee\PersonBundle\Repository\PhoneRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

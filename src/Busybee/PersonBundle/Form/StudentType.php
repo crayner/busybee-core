@@ -2,6 +2,7 @@
 
 namespace Busybee\PersonBundle\Form;
 
+use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
@@ -65,10 +66,29 @@ class StudentType extends AbstractType
                     ),
                 )
             )
-        ;
+            ->add('lastAtThisSchool', DateType::class, array(
+                    'years' => range(date('Y', strtotime('-5 years')), date('Y', strtotime('+18 months'))),
+                    'label' => 'student.label.lastAtThisSchool',
+                    'attr' => array(
+                        'help' => 'student.help.lastAtThisSchool',
+                        'class' => 'student',
+                    ),
+                    'required' => false,
+                )
+            )
+            ->add('status', SettingChoiceType::class, array(
+                    'label' => 'student.label.status',
+                    'settingName' => 'Student.Status.List',
+                    'attr' => array(
+                        'help' => 'student.help.status',
+                        'class' => 'student',
+                    ),
+                    'required' => true,
+                )
+            );
         $builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->manager, Person::class));
     }
-    
+
     /**
      * {@inheritdoc}
      */

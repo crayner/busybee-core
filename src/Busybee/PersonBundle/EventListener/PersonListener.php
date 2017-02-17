@@ -1,8 +1,8 @@
 <?php
 namespace Busybee\PersonBundle\EventListener ;
 
+use Busybee\PersonBundle\Entity\Student;
 use Busybee\SecurityBundle\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Mapping\ContainerAwareEntityListenerResolver;
 use Doctrine\ORM\Event\LifecycleEventArgs ;
 use Doctrine\ORM\Event\PreUpdateEventArgs ;
 use Busybee\PersonBundle\Entity\Person ;
@@ -11,16 +11,14 @@ use Symfony\Component\HttpFoundation\File\File ;
 
 class PersonListener
 {
-    private $uploader;
-
     private $em ;
+
     /**
      * PersonListener constructor.
      * @param PhotoUploader $uploader
      */
-    public function __construct(PhotoUploader $uploader)
+    public function __construct()
     {
-        $this->uploader = $uploader;
         $this->em = null ;
     }
 
@@ -30,15 +28,16 @@ class PersonListener
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof User)
-        {
+        if ($entity instanceof User) {
             $entity->setUsernameCanonical($entity->getUsername());
             $entity->setEmailCanonical($entity->getEmail());
-        } elseif ($entity instanceof Person)
-        {
+        } elseif ($entity instanceof Person) {
 
             $this->em = $args->getEntityManager();
             $entity = $this->setIdentifierValue($entity);
+        } elseif ($entity instanceof Student) {
+            if (empty($entity->getStatus()))
+                $entity->setStatus('Future');
         }
     }
 
@@ -89,8 +88,7 @@ class PersonListener
         $x = 0;
         $notValid = true ;
 
-        while($notValid)
-        {
+        while($notValid) {
             $test = strtoupper($identifier . str_pad(strval($x), 2, '0', STR_PAD_LEFT));
             if ($this->em->getRepository(Person::class)->createQueryBuilder('p')
                     ->select('COUNT(p.id)')
@@ -111,42 +109,41 @@ class PersonListener
     public function preUpdate(PreUpdateEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Person)
-        {
+        if ($entity instanceof Person) {
             $this->em = $args->getEntityManager();
             $entity = $this->setIdentifierValue($entity);
+        } elseif ($entity instanceof Student) {
+            if (empty($entity->getStatus()))
+                $entity->setStatus('Future');
         }
     }
 
     public function postLoad(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Person)
-		{
-			$file = file_exists($entity->getPhoto()) ? $entity->getPhoto() : null ;
-			$file = is_null($file) ? new File(null, false) : new File($file, true);
-			$entity->setPhoto($file);
-		}
+        if ($entity instanceof Person) {
+            $file = file_exists($entity->getPhoto()) ? $entity->getPhoto() : null ;
+            $file = is_null($file) ? new File(null, false) : new File($file, true);
+            $entity->setPhoto($file);
+        }
     }
 
     public function postUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
-        if ($entity instanceof Person)
-		{
-			$entity->removePhotoFile();
-		}
+        if ($entity instanceof Person) {
+            $entity->removePhotoFile();
+        }
     }
 
     public function postRemove(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
-        if ($entity instanceof Person)
-		{
-			$entity->removePhotoFile();
-		}
+        if ($entity instanceof Person) {
+            $entity->removePhotoFile();
+        }
     }
 
     /**

@@ -163,7 +163,12 @@ class PersonSubscriber implements EventSubscriberInterface
             $form->remove('student');
             $form->add('student', StudentType::class);
         }
-
+        if ($person->getStudent() instanceof Student) {
+            $start = $data['student']['startAtSchool'];
+            $startHere = $data['student']['startAtThisSchool'];
+            if ($start['year'] . $start['month'] . $start['day'] > $startHere['year'] . $startHere['month'] . $startHere['day'])
+                $data['student']['startAtSchool'] = $startHere;
+        }
         if ($form->get('student')->getData() instanceof Student  && ! isset($data['studentQuestion']) && $this->personManager->canDeleteStudent($person, $this->parameters))
         {
             $data['student'] = "";

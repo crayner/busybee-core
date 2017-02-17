@@ -818,7 +818,7 @@ class PersonManager
         $student = $this->em->getRepository(Student::class)->findOneByPerson($person);
         if (!is_null($student)) {
             $xx = $this->em->getRepository(Family::class)->createQueryBuilder('f')
-                ->leftJoin('f.student', 's')
+                ->leftJoin('f.students', 's')
                 ->where('s.id = :studentID')
                 ->setParameter('studentID', $student->getId())
                 ->getQuery()

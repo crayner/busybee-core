@@ -36,7 +36,7 @@ services:
             - '%timezone%'
         tags: 
             - { name: form.type }
-    validator.setting.constraint:
+    validator.setting.choice.constraint:
         class: Busybee\FormBundle\Validator\Constraints\SettingChoiceValidator
         arguments:
             - '@setting.manager'
@@ -54,5 +54,11 @@ services:
         class: Busybee\FormBundle\Type\CSVType
         arguments:
             - '@file.uploader'
+        tags:
+            - { name: form.type }
+    form.type.setting:
+        class: Busybee\FormBundle\Type\SettingChoiceType
+        arguments:
+            - '@setting.manager'
         tags:
             - { name: form.type }

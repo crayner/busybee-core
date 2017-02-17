@@ -133,8 +133,6 @@ services:
             - "%upload_path%"
     person.listener:
         class: Busybee\PersonBundle\EventListener\PersonListener
-        arguments:
-            - '@person.uploader.photo'
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }

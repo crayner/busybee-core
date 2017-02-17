@@ -13,6 +13,12 @@ Busybee\PersonBundle\Entity\Student:
             type: date
         startAtThisSchool:
             type: date
+        lastAtThisSchool:
+            type: date
+            nullable: true
+        status:
+            type: string
+            length: '32'
         lastModified:
             type: datetime
         createdOn:

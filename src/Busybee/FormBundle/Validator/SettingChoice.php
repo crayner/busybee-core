@@ -7,7 +7,7 @@ class SettingChoice extends Choice
 {
     public $name ;
     public $strict = true ;
-    public $choices = array();
+    public $choices = array();  // Add additional choices not found in the setting.
     public $message = 'setting.choice.invalid';
 
 	public function validatedBy()

@@ -128,12 +128,16 @@ student:
         person: Select a Person
     label:
         person: Personal Details
-        startAtSchool: School Started on
-        startAtThisSchool: Enrolled at this School on
+        startAtSchool: 'First attended school on:'
+        startAtThisSchool: 'First day at this school:'
+        lastAtThisSchool: 'Last day at this school:'
+        status: Status of the Student
     help:
         person: The personal details of this student.
         startAtSchool: Capture the date the student first started school.
         startAtThisSchool: The date the student started at this school.
+        lastAtThisSchool: The date the student last attended this school.
+        status: ''
     person:
         title: Personal Details
     description: Add or Modify Student Details

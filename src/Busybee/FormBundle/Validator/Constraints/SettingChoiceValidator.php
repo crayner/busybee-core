@@ -8,7 +8,19 @@ use Busybee\SystemBundle\Setting\SettingManager ;
 
 class SettingChoiceValidator extends ChoiceValidator
 {
-	private $sm;
+    /**
+     * @var SettingManager
+     */
+    private $sm;
+
+    /**
+     * SettingValidator constructor.
+     * @param SettingManager $sm
+     */
+    public function __construct(SettingManager $sm)
+    {
+        $this->sm = $sm;
+    }
 
     /**
      * @param mixed $value
@@ -19,17 +31,8 @@ class SettingChoiceValidator extends ChoiceValidator
         if (empty($value))
             return ;
 
-        $constraint->choices = $this->sm->get($constraint->name);
+        $constraint->choices = array_merge($constraint->choices, $this->sm->get($constraint->name));
 
 		parent::validate($value, $constraint);
-    }
-
-    /**
-     * SettingValidator constructor.
-     * @param SettingManager $sm
-     */
-    public function __construct(SettingManager $sm)
-    {
-        $this->sm = $sm ;
     }
 }

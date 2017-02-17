@@ -3,6 +3,7 @@
 namespace Busybee\PersonBundle\Entity;
 
 use Busybee\PersonBundle\Model\StudentModel;
+use Busybee\SecurityBundle\Entity\User;
 
 /**
  * Student
@@ -39,6 +40,23 @@ class Student extends StudentModel
      */
     private $modifiedBy;
 
+    /**
+     * @var \DateTime
+     */
+    private $lastAtThisSchool;
+
+    /**
+     * @var string
+     */
+    private $status;
+    /**
+     * @var \DateTime
+     */
+    private $startAtSchool;
+    /**
+     * @var \DateTime
+     */
+    private $startAtThisSchool;
 
     /**
      * Get id
@@ -48,6 +66,16 @@ class Student extends StudentModel
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get lastModified
+     *
+     * @return \DateTime
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
     }
 
     /**
@@ -65,13 +93,13 @@ class Student extends StudentModel
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -89,33 +117,9 @@ class Student extends StudentModel
     }
 
     /**
-     * Get createdOn
-     *
-     * @return \DateTime
-     */
-    public function getCreatedOn()
-    {
-        return $this->createdOn;
-    }
-
-    /**
-     * Set person
-     *
-     * @param \Busybee\PersonBundle\Entity\Person $person
-     *
-     * @return Student
-     */
-    public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
-    {
-        $this->person = $person;
-
-        return $this;
-    }
-
-    /**
      * Get person
      *
-     * @return \Busybee\PersonBundle\Entity\Person
+     * @return Person
      */
     public function getPerson()
     {
@@ -123,15 +127,15 @@ class Student extends StudentModel
     }
 
     /**
-     * Set createdBy
+     * Set person
      *
-     * @param \Busybee\SecurityBundle\Entity\User $createdBy
+     * @param Person $person
      *
      * @return Student
      */
-    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+    public function setPerson(Person $person = null)
     {
-        $this->createdBy = $createdBy;
+        $this->person = $person;
 
         return $this;
     }
@@ -147,15 +151,15 @@ class Student extends StudentModel
     }
 
     /**
-     * Set modifiedBy
+     * Set createdBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
      * @return Student
      */
-    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+    public function setCreatedBy(User $createdBy = null)
     {
-        $this->modifiedBy = $modifiedBy;
+        $this->createdBy = $createdBy;
 
         return $this;
     }
@@ -169,16 +173,30 @@ class Student extends StudentModel
     {
         return $this->modifiedBy;
     }
-    /**
-     * @var \DateTime
-     */
-    private $startAtSchool;
 
     /**
-     * @var \DateTime
+     * Set modifiedBy
+     *
+     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     *
+     * @return Student
      */
-    private $startAtThisSchool;
+    public function setModifiedBy(User $modifiedBy = null)
+    {
+        $this->modifiedBy = $modifiedBy;
 
+        return $this;
+    }
+
+    /**
+     * Get startAtSchool
+     *
+     * @return \DateTime
+     */
+    public function getStartAtSchool()
+    {
+        return $this->startAtSchool;
+    }
 
     /**
      * Set startAtSchool
@@ -195,13 +213,13 @@ class Student extends StudentModel
     }
 
     /**
-     * Get startAtSchool
+     * Get startAtThisSchool
      *
      * @return \DateTime
      */
-    public function getStartAtSchool()
+    public function getStartAtThisSchool()
     {
-        return $this->startAtSchool;
+        return $this->startAtThisSchool;
     }
 
     /**
@@ -219,12 +237,50 @@ class Student extends StudentModel
     }
 
     /**
-     * Get startAtThisSchool
+     * Get lastAtThisSchool
      *
      * @return \DateTime
      */
-    public function getStartAtThisSchool()
+    public function getLastAtThisSchool()
     {
-        return $this->startAtThisSchool;
+        return $this->lastAtThisSchool;
+    }
+
+    /**
+     * Set lastAtThisSchool
+     *
+     * @param \DateTime $lastAtThisSchool
+     *
+     * @return Student
+     */
+    public function setLastAtThisSchool($lastAtThisSchool)
+    {
+        $this->lastAtThisSchool = $lastAtThisSchool;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Student
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }

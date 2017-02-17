@@ -6,3 +6,8 @@ Busybee\PersonBundle\Entity\Student:
             - Date: ~
         startAtThisSchool:
             - Date: ~
+        lastAtThisSchool:
+            - Date: ~
+        status:
+            - Busybee\FormBundle\Validator\SettingChoice:
+                name: 'Student.Status.List'
