@@ -3,6 +3,7 @@
 namespace Busybee\PersonBundle\Model ;
 
 use Busybee\PersonBundle\Entity\Person;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Address Model
@@ -14,11 +15,6 @@ use Busybee\PersonBundle\Entity\Person;
 
 abstract class PersonModel
 {
-	/**
-	 * @var	boolean
-	 */
-	protected $deletePhoto = false;
-
 	/**
 	 * @var	array
 	 */
@@ -33,39 +29,6 @@ abstract class PersonModel
     {
         $this->setGender('U');
     }
-
-	/**
-	 * delete Photo
-	 *
-	 * @version	4th November 2016
-	 * @since	4th November 2016
-	 * @return 	Person
-	 */
-	public function deletePhoto()
-	{
-		$this->deletePhoto = true ;
-
-		return $this ;
-	}
-
-	/**
-	 * delete Photo
-	 *
-	 * @version	4th November 2016
-	 * @since	4th November 2016
-	 * @return 	Person
-	 */
-	public function removePhotoFile()
-	{
-		if (isset($this->oldPhoto) && ! is_null($this->oldPhoto))
-		{
-			//  Delete old photo file
-			$w = $this->oldPhoto;
-			if (file_exists($w))
-				unlink($w);
-		}
-		return $this ;
-	}
 
 	/**
 	 * get Gender List
@@ -160,13 +123,24 @@ abstract class PersonModel
     public function getPhoto75($float = 'none')
     {
         $photo = '';
-        if (! empty($this->getPhoto()->getPathName())) {
+
+        if (empty($this->getPhoto())) return $this->getIdentifier();
+
+        if ($this->getPhoto() instanceof File && !empty($this->getPhoto()->getPathName())) {
             $div = getimagesize($this->getPhoto()->getPathName());
             $xx = $div[0] / 75;
 
             $hh = intval($div[1] / $xx);
 
-            $photo = '<img src="/' . $this->getPhoto()->getPathName() . '" width="75" height="'.$hh.'" style="width: 75px; height: '.$hh.'px; float: ' . $float . '" />';
+            $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto()->getPathName() . '" width="75" height="' . $hh . '" style="width: 75px; height: ' . $hh . 'px; float: ' . $float . '" />';
+
+        } elseif (is_string($this->getPhoto())) {
+            $div = getimagesize($this->getPhoto());
+            $xx = $div[0] / 75;
+
+            $hh = intval($div[1] / $xx);
+
+            $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto() . '" width="75" height="' . $hh . '" style="width: 75px; height: ' . $hh . 'px; float: ' . $float . '" />';
         }
         return $photo;
     }
@@ -178,14 +152,23 @@ abstract class PersonModel
     public function getPhoto250($float = 'none')
     {
         $photo = '';
-        dump(getcwd());
-        if (! empty($this->getPhoto()->getPathName())) {
+
+        if (empty($this->getPhoto())) return $this->getIdentifier();
+
+        if ($this->getPhoto() instanceof File && !empty($this->getPhoto()->getPathName())) {
             $div = getimagesize($this->getPhoto()->getPathName());
             $xx = $div[0] / 250;
 
             $hh = intval($div[1] / $xx);
 
-            $photo = '<img src="/' . $this->getPhoto()->getPathName() . '" width="250" height="'.$hh.'" style="width: 25opx; height: '.$hh.'px; float: ' . $float . '" />';
+            $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto()->getPathName() . '" width="250" height="' . $hh . '" style="width: 25opx; height: ' . $hh . 'px; float: ' . $float . '" />';
+        } elseif (is_string($this->getPhoto())) {
+            $div = getimagesize($this->getPhoto());
+            $xx = $div[0] / 250;
+
+            $hh = intval($div[1] / $xx);
+
+            $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto() . '" width="250" height="' . $hh . '" style="width: 250px; height: ' . $hh . 'px; float: ' . $float . '" />';
         }
         return $photo;
     }

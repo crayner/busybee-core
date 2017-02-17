@@ -3,14 +3,19 @@
 namespace Busybee\PersonBundle\Form ;
 
 use Busybee\FormBundle\Type\AutoCompleteType;
+use Busybee\FormBundle\Type\ImageType;
+use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\FormBundle\Type\YesNoType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Events\PersonSubscriber;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\PersonBundle\Model\PhotoUploader;
 use Symfony\Component\Form\AbstractType ;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -55,9 +60,9 @@ class PersonType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', ChoiceType::class, array(
+        $builder->add('title', SettingChoiceType::class, array(
 					'label' => 'person.label.title',
-					'choices' => $this->personManager->getSettingManager()->get('Person.TitleList'),
+                'settingName' => 'Person.TitleList',
 					'attr'	=> array(
 						'class' => 'beeTitle',
 					),
@@ -94,15 +99,15 @@ class PersonType extends AbstractType
 					),
 				)
 			)
-			->add('gender', ChoiceType::class, array(
-					'choices' => $this->personManager->getSettingManager()->get('Person.GenderList'),
+            ->add('gender', SettingChoiceType::class, array(
+                    'settingName' => 'Person.GenderList',
 					'label' => 'person.label.gender',
 					'attr'	=> array(
 						'class' => 'beeGender',
 					),
 				)
 			)
-			->add('dob', 'Symfony\Component\Form\Extension\Core\Type\BirthdayType', array(
+            ->add('dob', BirthdayType::class, array(
 					'label' => 'person.dob.label',
 					'required' => false,
 					'attr'	=> array(
@@ -110,17 +115,17 @@ class PersonType extends AbstractType
 					),
 				)
 			)
-			->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
+            ->add('email', EmailType::class, array(
 					'label' => 'person.label.email',
 					'required' => false,
 				)
 			)
-			->add('email2', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
+            ->add('email2', EmailType::class, array(
 					'label' => 'person.label.email2',
 					'required' => false,
 				)
 			)
-			->add('photo', 'Busybee\FormBundle\Type\ImageType', array(
+            ->add('photo', ImageType::class, array(
 					'attr' => array(
 						'help' => 'person.help.photo' ,
 						'imageClass' => 'headShot75',
@@ -129,7 +134,7 @@ class PersonType extends AbstractType
 					'required' => false,
 				)
 			)
-			->add('website', null, array(
+            ->add('website', UrlType::class, array(
 					'label' => 'person.label.website',
 					'required' => false,
 				)
@@ -145,7 +150,6 @@ class PersonType extends AbstractType
                         'help' => 'person.help.address1',
                         'class' => 'beeAddressList formChanged',
                     ),
-                    'data' => $options['data']->getAddress1(),
                 )
             )
             ->add('address2', AutoCompleteType::class,
@@ -159,7 +163,6 @@ class PersonType extends AbstractType
                         'help' => 'person.help.address2',
                         'class' => 'beeAddressList formChanged',
                     ),
-                    'data' => $options['data']->getAddress2(),
                 )
             )
             ->add('phone', CollectionType::class, array(

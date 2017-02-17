@@ -32,7 +32,6 @@ class PersonListener
             $entity->setUsernameCanonical($entity->getUsername());
             $entity->setEmailCanonical($entity->getEmail());
         } elseif ($entity instanceof Person) {
-
             $this->em = $args->getEntityManager();
             $entity = $this->setIdentifierValue($entity);
         } elseif ($entity instanceof Student) {
@@ -121,29 +120,16 @@ class PersonListener
     public function postLoad(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Person) {
-            $file = file_exists($entity->getPhoto()) ? $entity->getPhoto() : null ;
-            $file = is_null($file) ? new File(null, false) : new File($file, true);
-            $entity->setPhoto($file);
-        }
     }
 
     public function postUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-
-        if ($entity instanceof Person) {
-            $entity->removePhotoFile();
-        }
     }
 
     public function postRemove(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-
-        if ($entity instanceof Person) {
-            $entity->removePhotoFile();
-        }
     }
 
     /**

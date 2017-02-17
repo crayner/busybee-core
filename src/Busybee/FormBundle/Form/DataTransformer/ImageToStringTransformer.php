@@ -7,9 +7,16 @@ use Busybee\FormBundle\Model\ImageUploader ;
 
 class ImageToStringTransformer implements DataTransformerInterface
 {
+    /**
+     * @var ImageUploader
+     */
     private $uploader;
-	
-	public function __construct(ImageUploader $uploader)
+
+    /**
+     * ImageToStringTransformer constructor.
+     * @param ImageUploader $uploader
+     */
+    public function __construct(ImageUploader $uploader)
 	{
         $this->uploader = $uploader;
 	}
@@ -21,7 +28,7 @@ class ImageToStringTransformer implements DataTransformerInterface
      */
     public function transform($data)
     {
-		$file = file_exists($data) ? $data : null ;
+        $file = file_exists($data) ? $data : null;
 		$file = is_null($file) ? new File(null, false) : new File($file, true) ;
 		return $file ;
     }
@@ -35,11 +42,11 @@ class ImageToStringTransformer implements DataTransformerInterface
      */
     public function reverseTransform($data)
     {
-       if ($data instanceof File)
-	   {
-		   $data = $this->uploader->upload($data);
-	   }
-	   return $data;
+        dump($data);
+        if ($data instanceof File) {
+            $data = $this->uploader->upload($data);
+        }
+        return $data;
     }
 
     private function uploadFile($entity)

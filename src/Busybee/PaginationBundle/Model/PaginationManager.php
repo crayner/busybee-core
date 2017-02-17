@@ -519,9 +519,10 @@ abstract class PaginationManager
      */
     public function managePost()
     {
-        if ($this->form->get('prev')->isClicked())
+        $data = $this->form->getExtraData();
+        if (array_key_exists('prev', $data))
             $this->getPrev();
-        if ($this->form->get('next')->isClicked())
+        if (array_key_exists('next', $data))
             $this->getNext();
         // if ajax is used then ....
         switch ($this->control) {

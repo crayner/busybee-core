@@ -110,10 +110,9 @@ class PersonSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
         $person = $form->getData();
-        $flush = false ;
+        $flush = false;
 
-        if (isset($data['staffQuestion']) && $data['staffQuestion'] === '1' && ! $person->getStaff() instanceof Staff && $this->personManager->canBeStaff($person))
-        {
+        if (isset($data['staffQuestion']) && $data['staffQuestion'] === '1' && !$person->getStaff() instanceof Staff && $this->personManager->canBeStaff($person)) {
             $data['staff'] = array();
             $data['staff']['type'] = 'Unknown';
             $data['staff']['jobTitle'] = 'Not Specified';
@@ -122,25 +121,22 @@ class PersonSubscriber implements EventSubscriberInterface
             $form->add('staff', StaffType::class);
         }
 
-        if ($form->get('staff')->getData() instanceof Staff  && ! isset($data['staff']) && $this->personManager->canDeleteStaff($person))
-        {
+        if ($form->get('staff')->getData() instanceof Staff && !isset($data['staff']) && $this->personManager->canDeleteStaff($person)) {
             $data['staff'] = "";
             $form->remove('staff');
             $form->add('staff', HiddenType::class);
             $this->om->remove($form->get('staff')->getData());
-            $flush = true ;
+            $flush = true;
         }
 
-        if (isset($data['careGiverQuestion']) && $data['careGiverQuestion'] === '1' && ! $person->getCareGiver() instanceof CareGiver && $this->personManager->canBeCareGiver($person))
-        {
+        if (isset($data['careGiverQuestion']) && $data['careGiverQuestion'] === '1' && !$person->getCareGiver() instanceof CareGiver && $this->personManager->canBeCareGiver($person)) {
             $data['careGiver'] = array();
             $data['careGiver']['person'] = $form->getData()->getId();
             $form->remove('careGiver');
             $form->add('careGiver', CareGiverType::class);
         }
 
-        if ($form->get('careGiver')->getData() instanceof CareGiver && ! isset($data['careGiver']) && $this->personManager->canDeleteCareGiver($person))
-        {
+        if ($form->get('careGiver')->getData() instanceof CareGiver && !isset($data['careGiver']) && $this->personManager->canDeleteCareGiver($person)) {
             $data['careGiver'] = "";
             $form->remove('careGiver');
             $form->add('careGiver', HiddenType::class);
@@ -148,8 +144,7 @@ class PersonSubscriber implements EventSubscriberInterface
             $flush = true;
         }
 
-        if ( isset($data['studentQuestion']) && $data['studentQuestion'] === '1' && ! $person->getStudent() instanceof Student && $this->personManager->canBeStudent($person))
-        {
+        if (isset($data['studentQuestion']) && $data['studentQuestion'] === '1' && !$person->getStudent() instanceof Student && $this->personManager->canBeStudent($person)) {
             $data['student'] = array();
             $data['student']['startAtSchool'] = array();
             $data['student']['startAtSchool']['year'] = date('Y');
@@ -169,17 +164,15 @@ class PersonSubscriber implements EventSubscriberInterface
             if ($start['year'] . $start['month'] . $start['day'] > $startHere['year'] . $startHere['month'] . $startHere['day'])
                 $data['student']['startAtSchool'] = $startHere;
         }
-        if ($form->get('student')->getData() instanceof Student  && ! isset($data['studentQuestion']) && $this->personManager->canDeleteStudent($person, $this->parameters))
-        {
+        if ($form->get('student')->getData() instanceof Student && !isset($data['studentQuestion']) && $this->personManager->canDeleteStudent($person, $this->parameters)) {
             $data['student'] = "";
             $form->remove('student');
             $form->add('student', HiddenType::class);
             $this->om->remove($form->get('student')->getData());
-            $flush = true ;
+            $flush = true;
         }
 
-        if (isset($data['userQuestion']) && $data['userQuestion'] === '1' && ! $person->getUser() instanceof User && $this->personManager->canBeUser($person))
-        {
+        if (isset($data['userQuestion']) && $data['userQuestion'] === '1' && !$person->getUser() instanceof User && $this->personManager->canBeUser($person)) {
             $user = $this->personManager->doesThisUserExist($person);
             $data['user'] = array();
             $data['user']['person'] = $form->getData()->getId();
@@ -191,7 +184,7 @@ class PersonSubscriber implements EventSubscriberInterface
             $data['user']['expired'] = false;
             $data['user']['credentials_expired'] = true;
             $data['user']['password'] = password_hash(uniqid(), PASSWORD_BCRYPT);
-            if ($user instanceof User){
+            if ($user instanceof User) {
                 $user->getRoles();
                 $data['user'] = array();
                 $data['user']['person'] = $form->getData()->getId();
@@ -205,14 +198,12 @@ class PersonSubscriber implements EventSubscriberInterface
                 $data['user']['password'] = $user->getPassword();
                 $data['user']['directroles'] = array();
                 if (is_array($roles = $user->getRoles()))
-                    foreach($roles as $role)
-                    {
+                    foreach ($roles as $role) {
                         $data['user']['directroles'][] = $this->om->getRepository(Role::class)->findOneByRole($role)->getId();
                     }
                 $data['user']['groups'] = array();
                 if (is_array($groups = $user->getGroups()))
-                    foreach($groups as $group)
-                    {
+                    foreach ($groups as $group) {
                         $data['user']['groups'][] = $this->om->getRepository(Group::class)->findOneByGroupName($group)->getId();
                     }
                 $person->setUser($user);
@@ -234,8 +225,7 @@ class PersonSubscriber implements EventSubscriberInterface
             }
         }
 
-        if ($form->get('user')->getData() instanceof User && ! isset($data['user']) && $this->personManager->canDeleteUser($person))
-        {
+        if ($form->get('user')->getData() instanceof User && !isset($data['user']) && $this->personManager->canDeleteUser($person)) {
             $data['user'] = "";
             $form->remove('user');
             $form->add('user', HiddenType::class);
@@ -247,29 +237,30 @@ class PersonSubscriber implements EventSubscriberInterface
 
         // Address Management
         unset($data['address1_list'], $data['address2_list']);
-        if (! empty($data['address1']) || ! empty($data['address2']))
-        {
+        if (!empty($data['address1']) || !empty($data['address2'])) {
             if ($data['address1'] == $data['address2'])
                 $data['address2'] = "";
-            elseif (empty($data['address1']) && ! empty($data['address2']))
-            {
+            elseif (empty($data['address1']) && !empty($data['address2'])) {
                 $data['address1'] = $data['address2'];
                 $data['address2'] = "";
             }
         }
 
         // Email Management
-        if (! empty($data['email']) || ! empty($data['email2']))
-        {
+        if (!empty($data['email']) || !empty($data['email2'])) {
             if ($data['email'] == $data['email2'])
                 $data['email2'] = "";
-            elseif (empty($data['email']) && ! empty($data['email2']))
-            {
+            elseif (empty($data['email']) && !empty($data['email2'])) {
                 $data['email'] = $data['email2'];
                 $data['email2'] = "";
             }
         }
 
+
+        //photo management
+        if (is_null($data['photo'])) {
+            $data['photo'] = $form->get('photo')->getNormData();
+        }
 
         if ($flush)
             $this->om->flush();

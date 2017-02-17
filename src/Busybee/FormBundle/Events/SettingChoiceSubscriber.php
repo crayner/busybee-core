@@ -58,6 +58,8 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
             $newOptions['attr'] = $options['attr'];
         if (isset($options['required']))
             $newOptions['required'] = $options['required'];
+        if (isset($options['translation_domain']))
+            $newOptions['translation_domain'] = $options['translation_domain'];
 
         //  Now replace the existing setting form element with a straight Choice
         $form->getParent()->add($name, ChoiceType::class, $newOptions);
