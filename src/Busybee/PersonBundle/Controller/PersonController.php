@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Busybee\PersonBundle\Entity\Person ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Busybee\PersonBundle\Form\PersonType ;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class PersonController extends Controller
@@ -35,7 +36,6 @@ class PersonController extends Controller
         	)
 		);
     }
-
 
     /**
      * @param Request $request
@@ -143,6 +143,7 @@ class PersonController extends Controller
 		if ($id !== 'Add')
 			$person = $this->get('person.repository')->findOneById($id);
 		$person->cancelURL = $this->generateUrl('person_edit', array('id' => $id, 'currentSearch' => $currentSearch));
+        $person->deletePhoto = $this->generateUrl('person_photo_remove', ['id' => $person->getId(), 'currentSearch' => $currentSearch]);
 
 		return $person ;
 	}
@@ -152,4 +153,25 @@ class PersonController extends Controller
     {
 		return $this->get('address.manager')->formatAddress($address);
 	}
+
+    public function removePhotoAction($id, $currentSearch)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $person = $this->getPerson($id, $currentSearch);
+
+        $em = $this->get('doctrine')->getManager();
+
+        $photo = $person->getPhoto();
+
+        $person->setPhoto(null);
+
+        if (file_exists($photo))
+            unlink($photo);
+
+        $em->persist($person);
+        $em->flush();
+
+        return new Response("<script>window.close();</script>");
+    }
 }

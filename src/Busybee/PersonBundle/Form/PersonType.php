@@ -47,12 +47,12 @@ class PersonType extends AbstractType
 	/**
 	 * Construct
 	 */
-	public function __construct(PersonManager $sm, ObjectManager $manager, PhotoUploader $photoLoader, $paramters)
+    public function __construct(PersonManager $sm, ObjectManager $manager, PhotoUploader $photoLoader, $parameters)
 	{
 		$this->personManager = $sm ;
 		$this->manager = $manager ;
 		$this->photoLoader = $photoLoader;
-		$this->parameters = $paramters ;
+        $this->parameters = $parameters;
 	}
 
     /**
@@ -132,6 +132,7 @@ class PersonType extends AbstractType
 					),
 					'label' => 'person.label.photo',
 					'required' => false,
+                    'deletePhoto' => $options['data']->deletePhoto,
 				)
 			)
             ->add('website', UrlType::class, array(

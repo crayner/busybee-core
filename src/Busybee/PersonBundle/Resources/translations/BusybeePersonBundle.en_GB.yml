@@ -307,3 +307,5 @@ user:
         removeRestricted: '%name% is set as a System User, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a System User."
 Linked Phone Numbers: ~
+delete:
+    photo: Delete Photo

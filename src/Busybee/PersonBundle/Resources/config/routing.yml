@@ -55,3 +55,6 @@ people_import_match:
 people_import_data:
     path:     /import/data/
     defaults: { _controller: BusybeePersonBundle:People:data }
+person_photo_remove:
+    path:     /photo/{id}/remove/{currentSearch}
+    defaults: { _controller: BusybeePersonBundle:Person:removePhoto, currentSearch: null }
