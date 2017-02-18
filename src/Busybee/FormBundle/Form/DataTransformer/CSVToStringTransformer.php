@@ -44,7 +44,6 @@ class CSVToStringTransformer implements DataTransformerInterface
     private function uploadFile($entity)
     {
         // upload only works for Person entities
-        dump($entity);
         $fileName = $this->loader->upload($entity);
 		return $fileName ;
     }

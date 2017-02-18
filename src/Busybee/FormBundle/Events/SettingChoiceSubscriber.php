@@ -45,7 +45,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
     public function preSetData(FormEvent $event)
     {
         $form = $event->getForm();
-//        dump($form->get($form->getName())->getConfig()->getOptions());
+
         $options = $form->getConfig()->getOptions();
         $name = $form->getName();
         $choices = $this->settingManager->get($options['settingName']);

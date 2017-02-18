@@ -42,7 +42,6 @@ class ImageToStringTransformer implements DataTransformerInterface
      */
     public function reverseTransform($data)
     {
-        dump($data);
         if ($data instanceof File) {
             $data = $this->uploader->upload($data);
         }

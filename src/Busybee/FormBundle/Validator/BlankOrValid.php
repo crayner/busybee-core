@@ -13,8 +13,6 @@ class BlankOrValid extends Constraint
      */
     public function __construct($options = null)
     {
-        dump($options);
-
         if (is_null($options)) return ;
 
         if (is_array($options) && array_key_exists('groups', $options)) {

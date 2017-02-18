@@ -80,7 +80,6 @@ class FamilySubscriber implements EventSubscriberInterface
                 }
 
         // Address Management
-        dump($data);
         unset($data['address1_list'], $data['address2_list']);
         if (! empty($data['address1']) || ! empty($data['address2']))
         {
