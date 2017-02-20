@@ -1,7 +1,7 @@
-Busybee\PersonBundle\Entity\CareGiver:
+Busybee\FamilyBundle\Entity\FamilyCareGiver:
     type: entity
-    table: person_care_giver
-    repositoryClass: Busybee\PersonBundle\Repository\CareGiverRepository
+    table: family_caregiver
+    repositoryClass: Busybee\FamilyBundle\Repository\FamilyCareGiverRepository
     id:
         id:
             type: integer
@@ -9,15 +9,14 @@ Busybee\PersonBundle\Entity\CareGiver:
             generator:
                 strategy: AUTO
     fields:
+        contactOrder:
+            type: integer
+            length: '3'
+            name: contact_order
         lastModified:
             type: datetime
         createdOn:
             type: datetime
-    oneToMany:
-        careGiverFamily:
-            targetEntity: Busybee\FamilyBundle\Entity\FamilyCareGiver
-            cascade: [ 'all' ]
-            mappedBy: careGiver
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
@@ -29,7 +28,13 @@ Busybee\PersonBundle\Entity\CareGiver:
             joinColumns:
                 modified_by:
                     referencedColumnName: id
-    oneToOne:
-        person:
-            targetEntity: Busybee\PersonBundle\Entity\Person
-            inversedBy: caregiver
+        family:
+            targetEntity: Busybee\FamilyBundle\Entity\Family
+            joinColumn:
+                name: family_id
+                referencedColumnName: id
+        careGiver:
+            targetEntity: Busybee\PersonBundle\Entity\CareGiver
+            joinColumn:
+                name: caregiver_id
+                referencedColumnName: id

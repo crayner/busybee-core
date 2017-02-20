@@ -21,7 +21,7 @@
                             {% if alert == 'success' %}
 								<div class="row alert alert-success fadeAlert">{{ message[0]|trans({'%data%': message[1]}) }}</div>
                             {% elseif alert == 'limit' %}
-								<form role="form">
+								<form role="form" method="post">
 									<input type="hidden" name="import[file]" value="{{ import.file }}" />
 									<input type="hidden" name="import[_token]" value="{{ import._token }}" />
 									<input type="hidden" name="import[offset]" value="{{ message[1] }}" />

@@ -48,6 +48,8 @@ person:
             question: System User ?
         identifier: 'Id: %identifier%'
         age: 'Age: %years%.%months%.%days%'
+        dob:
+            format: DoB Format
     help:
         officialName: This is the name recorded on official documents. e.g. birth certificates and passports.
         photo: Passport style photo, 350px to 400px width by 450px to 500 px height. 

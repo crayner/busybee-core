@@ -1,19 +1,21 @@
 <?php
 
-namespace Busybee\PersonBundle\Entity;
-
-use Busybee\FamilyBundle\Entity\FamilyCareGiver;
-use Busybee\PersonBundle\Model\CareGiverModel;
+namespace Busybee\FamilyBundle\Entity;
 
 /**
- * Care Giver
+ * FamilyCareGiver
  */
-class CareGiver extends CareGiverModel
+class FamilyCareGiver
 {
     /**
      * @var integer
      */
     private $id;
+
+    /**
+     * @var integer
+     */
+    private $contactOrder;
 
     /**
      * @var \DateTime
@@ -36,21 +38,15 @@ class CareGiver extends CareGiverModel
     private $modifiedBy;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Person
+     * @var \Busybee\FamilyBundle\Entity\Family
      */
-    private $person;
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $careGiverFamily;
+    private $family;
 
     /**
-     * Constructor
+     * @var \Busybee\PersonBundle\Entity\CareGiver
      */
-    public function __construct()
-    {
-        $this->careGiverFamily = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $careGiver;
+
 
     /**
      * Get id
@@ -60,6 +56,30 @@ class CareGiver extends CareGiverModel
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get contactOrder
+     *
+     * @return integer
+     */
+    public function getContactOrder()
+    {
+        return $this->contactOrder;
+    }
+
+    /**
+     * Set contactOrder
+     *
+     * @param integer $contactOrder
+     *
+     * @return FamilyCareGiver
+     */
+    public function setContactOrder($contactOrder)
+    {
+        $this->contactOrder = $contactOrder;
+
+        return $this;
     }
 
     /**
@@ -77,7 +97,7 @@ class CareGiver extends CareGiverModel
      *
      * @param \DateTime $lastModified
      *
-     * @return CareGiver
+     * @return FamilyCareGiver
      */
     public function setLastModified($lastModified)
     {
@@ -101,7 +121,7 @@ class CareGiver extends CareGiverModel
      *
      * @param \DateTime $createdOn
      *
-     * @return CareGiver
+     * @return FamilyCareGiver
      */
     public function setCreatedOn($createdOn)
     {
@@ -125,7 +145,7 @@ class CareGiver extends CareGiverModel
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return CareGiver
+     * @return FamilyCareGiver
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -149,7 +169,7 @@ class CareGiver extends CareGiverModel
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return CareGiver
+     * @return FamilyCareGiver
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -159,60 +179,50 @@ class CareGiver extends CareGiverModel
     }
 
     /**
-     * Get person
+     * Get family
      *
-     * @return \Busybee\PersonBundle\Entity\Person
+     * @return \Busybee\FamilyBundle\Entity\Family
      */
-    public function getPerson()
+    public function getFamily()
     {
-        return $this->person;
+        return $this->family;
     }
 
     /**
-     * Set person
+     * Set family
      *
-     * @param \Busybee\PersonBundle\Entity\Person $person
+     * @param \Busybee\FamilyBundle\Entity\Family $family
      *
-     * @return CareGiver
+     * @return FamilyCareGiver
      */
-    public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
+    public function setFamily(\Busybee\FamilyBundle\Entity\Family $family = null)
     {
-        $this->person = $person;
+        $this->family = $family;
 
         return $this;
     }
 
     /**
-     * Add careGiverFamily
+     * Get careGiver
      *
-     * @param FamilyCareGiver $careGiverFamily
-     *
-     * @return CareGiver
+     * @return \Busybee\PersonBundle\Entity\CareGiver
      */
-    public function addCareGiverFamily(FamilyCareGiver $careGiverFamily)
+    public function getCareGiver()
     {
-        $this->careGiverFamily[] = $careGiverFamily;
+        return $this->careGiver;
+    }
+
+    /**
+     * Set careGiver
+     *
+     * @param \Busybee\PersonBundle\Entity\CareGiver $careGiver
+     *
+     * @return FamilyCareGiver
+     */
+    public function setCareGiver(\Busybee\PersonBundle\Entity\CareGiver $careGiver = null)
+    {
+        $this->careGiver = $careGiver;
 
         return $this;
-    }
-
-    /**
-     * Remove careGiverFamily
-     *
-     * @param FamilyCareGiver $careGiverFamily
-     */
-    public function removeCareGiverFamily(FamilyCareGiver $careGiverFamily)
-    {
-        $this->careGiverFamily->removeElement($careGiverFamily);
-    }
-
-    /**
-     * Get careGiverFamily
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCareGiverFamily()
-    {
-        return $this->careGiverFamily;
     }
 }

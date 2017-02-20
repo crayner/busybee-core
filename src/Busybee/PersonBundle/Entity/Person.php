@@ -144,7 +144,7 @@ class Person extends PersonModel
      */
     public function getId()
     {
-        return $this->id;
+        return is_null($this->id) ? 0 : $this->id;
     }
 
     /**

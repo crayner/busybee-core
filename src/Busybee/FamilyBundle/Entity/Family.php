@@ -73,6 +73,10 @@ class Family extends FamilyModel
      * @var \Doctrine\Common\Collections\Collection
      */
     private $students;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $familyCareGiver;
 
     /**
      * Constructor
@@ -409,5 +413,39 @@ class Family extends FamilyModel
     public function getStudents()
     {
         return $this->students;
+    }
+
+    /**
+     * Add familyCareGiver
+     *
+     * @param FamilyCareGiver $familyCareGiver
+     *
+     * @return Family
+     */
+    public function addFamilyCareGiver(FamilyCareGiver $familyCareGiver)
+    {
+        $this->familyCareGiver[] = $familyCareGiver;
+
+        return $this;
+    }
+
+    /**
+     * Remove familyCareGiver
+     *
+     * @param FamilyCareGiver $familyCareGiver
+     */
+    public function removeFamilyCareGiver(FamilyCareGiver $familyCareGiver)
+    {
+        $this->familyCareGiver->removeElement($familyCareGiver);
+    }
+
+    /**
+     * Get familyCareGiver
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFamilyCareGiver()
+    {
+        return $this->familyCareGiver;
     }
 }

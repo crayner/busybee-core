@@ -16,6 +16,7 @@ use Busybee\SystemBundle\Entity\Setting;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager ;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Validator\ValidatorInterface ;
 
 class PersonManager
@@ -500,9 +501,18 @@ class PersonManager
                 $field = str_replace('person.', '', $destinationFields[$w['destination']]);
                 $method = 'set' . ucfirst($field);
                 if (! empty($data[$w['source']]))
-                    $person->$method($data[$w['source']]);
+                    $person->$method(strtoupper($data[$w['source']]) == 'NULL' ? null : trim($data[$w['source']]));
+                if ($field == 'dob' && !empty($data[$w['source']]) && strtoupper($data[$w['source']]) != 'NULL') {
+                    $dd = new \DateTime();
+
+                    $dt = $dd->createFromFormat($w['option'] . ' H:i:s', $data[$w['source']] . ' 00:00:00');
+
+                    if ($dt->format($w['option']) == $data[$w['source']])
+                        $person->$method($dt);
+                }
             }
         }
+
 
         $errors = $this->validator->validate($person);
 

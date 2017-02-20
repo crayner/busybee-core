@@ -16,6 +16,11 @@ Busybee\FamilyBundle\Entity\Family:
             type: datetime
         createdOn:
             type: datetime
+    oneToMany:
+        familyCareGiver:
+            targetEntity: Busybee\FamilyBundle\Entity\FamilyCareGiver
+            cascade: [ 'all' ]
+            mappedBy: family
     manyToMany:
         phone:
             targetEntity: Busybee\PersonBundle\Entity\Phone

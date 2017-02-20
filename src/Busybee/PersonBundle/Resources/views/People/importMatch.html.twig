@@ -68,6 +68,14 @@
                 $("#" + id).html(content);
                 $("#" + id).show();
             }
+            else if (label == 'person.dob') {
+                name = name.replace('destination', 'option');
+                var content = '{% include 'BusybeePersonBundle:People:optionDoB.html.twig' %}';
+                content = content.replace(/__id__/g, id.replace('options', 'option'));
+                content = content.replace('__name__', name);
+                $("#" + id).html(content);
+                $("#" + id).show();
+            }
             else{
                 $("#" + id).hide(1000);
                 $("#" + id).html('&nbsp;');
