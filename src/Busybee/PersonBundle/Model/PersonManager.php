@@ -815,22 +815,6 @@ class PersonManager
 
     /**
      * @param Person $person
-     */
-    public function deleteStudent($person)
-    {
-        if ($this->canDeleteStudent($person, array())) {
-            $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
-            if ($student instanceof Student)
-                $this->em->remove($student);
-            $person->setStudentQuestion(false);
-            $person->setStudent(null);
-            $this->em->persist($person);
-            $this->em->flush();
-        }
-    }
-
-    /**
-     * @param Person $person
      * @return bool
      */
     public function createStaff(Person $person)

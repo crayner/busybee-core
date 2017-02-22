@@ -1,7 +1,7 @@
 <?php
-namespace Busybee\PersonBundle\Form\DataTransformer;
+namespace Busybee\StaffBundle\Form\DataTransformer;
 
-use Busybee\PersonBundle\Entity\Staff;
+use Busybee\StaffBundle\Entity\Staff;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;

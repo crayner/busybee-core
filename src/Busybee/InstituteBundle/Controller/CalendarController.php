@@ -245,7 +245,14 @@ class CalendarController extends Controller
                 ->getQuery()
                 ->getResult();
             if (is_array($year)) $year = reset($year);
-            $id = $year->getId();
+            if ($year instanceof Year)
+                $id = $year->getId();
+            else {
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('warning', 'year.current.missing');
+                return new RedirectResponse($this->generateUrl('year_edit', array('id' => 'Add')));
+            }
         }
 
         return new RedirectResponse($this->generateUrl('year_calendar', array('id' => $id)));

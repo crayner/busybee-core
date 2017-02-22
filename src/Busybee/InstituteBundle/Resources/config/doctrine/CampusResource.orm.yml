@@ -61,12 +61,12 @@ Busybee\InstituteBundle\Entity\CampusResource:
                 campus:
                     referencedColumnName: id
         staff1:
-            targetEntity: Busybee\PersonBundle\Entity\Staff
+            targetEntity: Busybee\StaffBundle\Entity\Staff
             joinColumns:
                 staff1:
                     referencedColumnName: id
         staff2:
-            targetEntity: Busybee\PersonBundle\Entity\Staff
+            targetEntity: Busybee\StaffBundle\Entity\Staff
             joinColumns:
                 staff2:
                     referencedColumnName: id

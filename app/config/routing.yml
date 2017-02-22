@@ -18,9 +18,9 @@ busybee_curriculum:
     resource: "@BusybeeCurriculumBundle/Resources/config/routing.yml"
     prefix:   /curriculum/
 
-#busybee_institute:
-#    resource: "@BusybeeInstituteBundle/Resources/config/routing.yml"
-#    prefix:   /institute/
+busybee_institute:
+    resource: "@BusybeeInstituteBundle/Resources/config/routing.yml"
+    prefix:   /institute/
 
 busybee_staff:
     resource: "@BusybeeStaffBundle/Resources/config/routing.yml"

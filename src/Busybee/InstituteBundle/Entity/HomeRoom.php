@@ -1,6 +1,7 @@
 <?php
-
 namespace Busybee\InstituteBundle\Entity;
+
+use Busybee\StaffBundle\Entity\Staff;
 
 /**
  * HomeRoom
@@ -53,17 +54,17 @@ class HomeRoom
     private $schoolYear;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Staff
+     * @var Staff
      */
     private $tutor1;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Staff
+     * @var Staff
      */
     private $tutor2;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Staff
+     * @var Staff
      */
     private $tutor3;
 
@@ -84,6 +85,16 @@ class HomeRoom
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -98,13 +109,13 @@ class HomeRoom
     }
 
     /**
-     * Get name
+     * Get nameShort
      *
      * @return string
      */
-    public function getName()
+    public function getNameShort()
     {
-        return $this->name;
+        return $this->nameShort;
     }
 
     /**
@@ -122,13 +133,13 @@ class HomeRoom
     }
 
     /**
-     * Get nameShort
+     * Get website
      *
      * @return string
      */
-    public function getNameShort()
+    public function getWebsite()
     {
-        return $this->nameShort;
+        return $this->website;
     }
 
     /**
@@ -146,13 +157,13 @@ class HomeRoom
     }
 
     /**
-     * Get website
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getWebsite()
+    public function getLastModified()
     {
-        return $this->website;
+        return $this->lastModified;
     }
 
     /**
@@ -170,13 +181,13 @@ class HomeRoom
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -194,13 +205,13 @@ class HomeRoom
     }
 
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -218,13 +229,13 @@ class HomeRoom
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -242,13 +253,13 @@ class HomeRoom
     }
 
     /**
-     * Get modifiedBy
+     * Get schoolYear
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\InstituteBundle\Entity\Year
      */
-    public function getModifiedBy()
+    public function getSchoolYear()
     {
-        return $this->modifiedBy;
+        return $this->schoolYear;
     }
 
     /**
@@ -266,33 +277,9 @@ class HomeRoom
     }
 
     /**
-     * Get schoolYear
-     *
-     * @return \Busybee\InstituteBundle\Entity\Year
-     */
-    public function getSchoolYear()
-    {
-        return $this->schoolYear;
-    }
-
-    /**
-     * Set tutor1
-     *
-     * @param \Busybee\PersonBundle\Entity\Staff $tutor1
-     *
-     * @return HomeRoom
-     */
-    public function setTutor1(\Busybee\PersonBundle\Entity\Staff $tutor1 = null)
-    {
-        $this->tutor1 = $tutor1;
-
-        return $this;
-    }
-
-    /**
      * Get tutor1
      *
-     * @return \Busybee\PersonBundle\Entity\Staff
+     * @return Staff
      */
     public function getTutor1()
     {
@@ -300,15 +287,15 @@ class HomeRoom
     }
 
     /**
-     * Set tutor2
+     * Set tutor1
      *
-     * @param \Busybee\PersonBundle\Entity\Staff $tutor2
+     * @param Staff $tutor1
      *
      * @return HomeRoom
      */
-    public function setTutor2(\Busybee\PersonBundle\Entity\Staff $tutor2 = null)
+    public function setTutor1(Staff $tutor1 = null)
     {
-        $this->tutor2 = $tutor2;
+        $this->tutor1 = $tutor1;
 
         return $this;
     }
@@ -316,7 +303,7 @@ class HomeRoom
     /**
      * Get tutor2
      *
-     * @return \Busybee\PersonBundle\Entity\Staff
+     * @return Staff
      */
     public function getTutor2()
     {
@@ -324,15 +311,15 @@ class HomeRoom
     }
 
     /**
-     * Set tutor3
+     * Set tutor2
      *
-     * @param \Busybee\PersonBundle\Entity\Staff $tutor3
+     * @param Staff $tutor2
      *
      * @return HomeRoom
      */
-    public function setTutor3(\Busybee\PersonBundle\Entity\Staff $tutor3 = null)
+    public function setTutor2(Staff $tutor2 = null)
     {
-        $this->tutor3 = $tutor3;
+        $this->tutor2 = $tutor2;
 
         return $this;
     }
@@ -340,11 +327,35 @@ class HomeRoom
     /**
      * Get tutor3
      *
-     * @return \Busybee\PersonBundle\Entity\Staff
+     * @return Staff
      */
     public function getTutor3()
     {
         return $this->tutor3;
+    }
+
+    /**
+     * Set tutor3
+     *
+     * @param Staff $tutor3
+     *
+     * @return HomeRoom
+     */
+    public function setTutor3(Staff $tutor3 = null)
+    {
+        $this->tutor3 = $tutor3;
+
+        return $this;
+    }
+
+    /**
+     * Get campusResource
+     *
+     * @return \Busybee\InstituteBundle\Entity\CampusResource
+     */
+    public function getCampusResource()
+    {
+        return $this->campusResource;
     }
 
     /**
@@ -359,16 +370,6 @@ class HomeRoom
         $this->campusResource = $campusResource;
 
         return $this;
-    }
-
-    /**
-     * Get campusResource
-     *
-     * @return \Busybee\InstituteBundle\Entity\CampusResource
-     */
-    public function getCampusResource()
-    {
-        return $this->campusResource;
     }
 }
 

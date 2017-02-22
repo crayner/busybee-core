@@ -41,3 +41,7 @@ Busybee\PersonBundle\Entity\Person:
             - Valid: ~
         user:
             - Valid: ~
+        student:
+            - Valid: ~
+        staff:
+            - Valid: ~

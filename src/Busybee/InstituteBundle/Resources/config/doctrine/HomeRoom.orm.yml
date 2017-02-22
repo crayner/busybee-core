@@ -39,17 +39,17 @@ Busybee\InstituteBundle\Entity\HomeRoom:
                 schoolYear:
                     referencedColumnName: id
         tutor1:
-            targetEntity: Busybee\PersonBundle\Entity\Staff
+            targetEntity: Busybee\StaffBundle\Entity\Staff
             joinColumns:
                 tutor1:
                     referencedColumnName: id
         tutor2:
-            targetEntity: Busybee\PersonBundle\Entity\Staff
+            targetEntity: Busybee\StaffBundle\Entity\Staff
             joinColumns:
                 tutor2:
                     referencedColumnName: id
         tutor3:
-            targetEntity: Busybee\PersonBundle\Entity\Staff
+            targetEntity: Busybee\StaffBundle\Entity\Staff
             joinColumns:
                 tutor3:
                     referencedColumnName: id

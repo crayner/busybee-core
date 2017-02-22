@@ -4,6 +4,7 @@ namespace Busybee\PersonBundle\Model;
 
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Entity\User;
+use Busybee\StaffBundle\Entity\Staff;
 use Doctrine\Common\CommonException;
 
 trait FormatNameExtension
@@ -29,6 +30,12 @@ trait FormatNameExtension
                 return $person->getFormatName($options);
             else
                 return $this->getUsername();
+        }
+
+        if ($this instanceof Staff) {
+            $person = $this->getPerson();
+            if ($person instanceof Person)
+                return $person->getFormatName($options);
         }
 
         throw new CommonException('The record ' . __CLASS__ . ' does not have a valid person.');

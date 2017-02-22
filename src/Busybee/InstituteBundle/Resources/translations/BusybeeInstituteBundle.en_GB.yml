@@ -75,6 +75,8 @@ year:
         title: Edit Year
     calendar:
         button: Generate Calendar
+    current:
+        missing: No current calendar is available.
 calendar:
     title: Define Calendars
     description: Create and modify calendar definitions.

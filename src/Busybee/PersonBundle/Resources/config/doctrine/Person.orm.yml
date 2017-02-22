@@ -57,9 +57,6 @@ Busybee\PersonBundle\Entity\Person:
         studentQuestion:
             type: boolean
             name: student_question
-        careGiverQuestion:
-            type: boolean
-            name: care_giver_question
         lastModified:
             type: datetime
             nullable: true 

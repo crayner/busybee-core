@@ -2,6 +2,8 @@
 
 namespace Busybee\InstituteBundle\Entity;
 
+use Busybee\StaffBundle\Entity\Staff;
+
 /**
  * CampusResource
  */
@@ -108,12 +110,12 @@ class CampusResource
     private $campus;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Staff
+     * @var Staff
      */
     private $staff1;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Staff
+     * @var Staff
      */
     private $staff2;
 
@@ -126,6 +128,16 @@ class CampusResource
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -143,13 +155,13 @@ class CampusResource
     }
 
     /**
-     * Get name
+     * Get type
      *
      * @return string
      */
-    public function getName()
+    public function getType()
     {
-        return $this->name;
+        return $this->type;
     }
 
     /**
@@ -167,13 +179,13 @@ class CampusResource
     }
 
     /**
-     * Get type
+     * Get capacity
      *
-     * @return string
+     * @return integer
      */
-    public function getType()
+    public function getCapacity()
     {
-        return $this->type;
+        return $this->capacity;
     }
 
     /**
@@ -191,13 +203,13 @@ class CampusResource
     }
 
     /**
-     * Get capacity
+     * Get computer
      *
-     * @return integer
+     * @return boolean
      */
-    public function getCapacity()
+    public function getComputer()
     {
-        return $this->capacity;
+        return $this->computer;
     }
 
     /**
@@ -215,13 +227,13 @@ class CampusResource
     }
 
     /**
-     * Get computer
+     * Get studentComputers
      *
-     * @return boolean
+     * @return integer
      */
-    public function getComputer()
+    public function getStudentComputers()
     {
-        return $this->computer;
+        return $this->studentComputers;
     }
 
     /**
@@ -239,13 +251,13 @@ class CampusResource
     }
 
     /**
-     * Get studentComputers
+     * Get projector
      *
-     * @return integer
+     * @return boolean
      */
-    public function getStudentComputers()
+    public function getProjector()
     {
-        return $this->studentComputers;
+        return $this->projector;
     }
 
     /**
@@ -263,13 +275,13 @@ class CampusResource
     }
 
     /**
-     * Get projector
+     * Get tv
      *
      * @return boolean
      */
-    public function getProjector()
+    public function getTv()
     {
-        return $this->projector;
+        return $this->tv;
     }
 
     /**
@@ -287,13 +299,13 @@ class CampusResource
     }
 
     /**
-     * Get tv
+     * Get dvd
      *
      * @return boolean
      */
-    public function getTv()
+    public function getDvd()
     {
-        return $this->tv;
+        return $this->dvd;
     }
 
     /**
@@ -311,13 +323,13 @@ class CampusResource
     }
 
     /**
-     * Get dvd
+     * Get hifi
      *
      * @return boolean
      */
-    public function getDvd()
+    public function getHifi()
     {
-        return $this->dvd;
+        return $this->hifi;
     }
 
     /**
@@ -335,13 +347,13 @@ class CampusResource
     }
 
     /**
-     * Get hifi
+     * Get speakers
      *
      * @return boolean
      */
-    public function getHifi()
+    public function getSpeakers()
     {
-        return $this->hifi;
+        return $this->speakers;
     }
 
     /**
@@ -359,13 +371,13 @@ class CampusResource
     }
 
     /**
-     * Get speakers
+     * Get iwb
      *
      * @return boolean
      */
-    public function getSpeakers()
+    public function getIwb()
     {
-        return $this->speakers;
+        return $this->iwb;
     }
 
     /**
@@ -383,13 +395,13 @@ class CampusResource
     }
 
     /**
-     * Get iwb
+     * Get phoneInt
      *
-     * @return boolean
+     * @return string
      */
-    public function getIwb()
+    public function getPhoneInt()
     {
-        return $this->iwb;
+        return $this->phoneInt;
     }
 
     /**
@@ -407,13 +419,13 @@ class CampusResource
     }
 
     /**
-     * Get phoneInt
+     * Get phoneExt
      *
      * @return string
      */
-    public function getPhoneInt()
+    public function getPhoneExt()
     {
-        return $this->phoneInt;
+        return $this->phoneExt;
     }
 
     /**
@@ -431,13 +443,13 @@ class CampusResource
     }
 
     /**
-     * Get phoneExt
+     * Get comment
      *
      * @return string
      */
-    public function getPhoneExt()
+    public function getComment()
     {
-        return $this->phoneExt;
+        return $this->comment;
     }
 
     /**
@@ -455,13 +467,13 @@ class CampusResource
     }
 
     /**
-     * Get comment
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getComment()
+    public function getLastModified()
     {
-        return $this->comment;
+        return $this->lastModified;
     }
 
     /**
@@ -479,13 +491,13 @@ class CampusResource
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -503,13 +515,13 @@ class CampusResource
     }
 
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -527,13 +539,13 @@ class CampusResource
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -551,13 +563,13 @@ class CampusResource
     }
 
     /**
-     * Get modifiedBy
+     * Get campus
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\InstituteBundle\Entity\Campus
      */
-    public function getModifiedBy()
+    public function getCampus()
     {
-        return $this->modifiedBy;
+        return $this->campus;
     }
 
     /**
@@ -575,33 +587,9 @@ class CampusResource
     }
 
     /**
-     * Get campus
-     *
-     * @return \Busybee\InstituteBundle\Entity\Campus
-     */
-    public function getCampus()
-    {
-        return $this->campus;
-    }
-
-    /**
-     * Set staff1
-     *
-     * @param \Busybee\PersonBundle\Entity\Staff $staff1
-     *
-     * @return CampusResource
-     */
-    public function setStaff1(\Busybee\PersonBundle\Entity\Staff $staff1 = null)
-    {
-        $this->staff1 = $staff1;
-
-        return $this;
-    }
-
-    /**
      * Get staff1
      *
-     * @return \Busybee\PersonBundle\Entity\Staff
+     * @return Staff
      */
     public function getStaff1()
     {
@@ -609,15 +597,15 @@ class CampusResource
     }
 
     /**
-     * Set staff2
+     * Set staff1
      *
-     * @param \Busybee\PersonBundle\Entity\Staff $staff2
+     * @param Staff $staff1
      *
      * @return CampusResource
      */
-    public function setStaff2(\Busybee\PersonBundle\Entity\Staff $staff2 = null)
+    public function setStaff1(Staff $staff1 = null)
     {
-        $this->staff2 = $staff2;
+        $this->staff1 = $staff1;
 
         return $this;
     }
@@ -625,10 +613,24 @@ class CampusResource
     /**
      * Get staff2
      *
-     * @return \Busybee\PersonBundle\Entity\Staff
+     * @return Staff
      */
     public function getStaff2()
     {
         return $this->staff2;
+    }
+
+    /**
+     * Set staff2
+     *
+     * @param Staff $staff2
+     *
+     * @return CampusResource
+     */
+    public function setStaff2(Staff $staff2 = null)
+    {
+        $this->staff2 = $staff2;
+
+        return $this;
     }
 }

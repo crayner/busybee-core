@@ -3,9 +3,11 @@
 namespace Busybee\InstituteBundle\Form;
 
 use Busybee\FormBundle\Type\YesNoType;
+use Busybee\InstituteBundle\Entity\CampusResource;
 use Busybee\InstituteBundle\Form\DataTransformer\CampusTransformer;
-use Busybee\PersonBundle\Form\DataTransformer\StaffTransformer;
+use Busybee\StaffBundle\Form\DataTransformer\StaffTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\StaffBundle\Entity\Staff;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType ;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\Common\Persistence\ObjectManager ;
@@ -152,7 +154,7 @@ class CampusResourceType extends AbstractType
             )
             ->add('staff1', EntityType::class,
                 array(
-                    'class' => 'Busybee\PersonBundle\Entity\Staff',
+                    'class' => Staff::class,
                     'choice_label' => 'formatName',
                     'choice_value' => 'id',
                     'label' => 'campus.resource.label.staff1',
@@ -181,7 +183,7 @@ class CampusResourceType extends AbstractType
             )
             ->add('staff2', EntityType::class,
                 array(
-                    'class' => 'Busybee\PersonBundle\Entity\Staff',
+                    'class' => Staff::class,
                     'choice_label' => 'formatName',
                     'choice_value' => 'id',
                     'label' => 'campus.resource.label.staff2',
@@ -220,7 +222,7 @@ class CampusResourceType extends AbstractType
                     'attr' => array(
                         'class' => 'formChanged changeRecord',
                     ),
-                    'class' => 'Busybee\InstituteBundle\Entity\CampusResource',
+                    'class' => CampusResource::class,
                     'choice_label' => 'name',
                     'choice_value' => 'id',
                     'mapped' => false,
