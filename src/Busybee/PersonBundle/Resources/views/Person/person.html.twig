@@ -47,7 +47,7 @@
 					</div>
                 {% else %}
                     {% do form.staffQuestion.setRendered() %}
-                {% endif %}
+                {% endif %} {#
                 {% if form.vars.value.id is not null and canBeCareGiver(form.vars.value) %}
 					<div class="col-sm-2 well">
                         {% if form.careGiver.vars.value is empty or form.careGiver.vars.value.getId() is empty %}
@@ -63,7 +63,7 @@
 					</div>
                 {% else %}
                     {% do form.careGiverQuestion.setRendered() %}
-                {% endif %}
+                {% endif %} #}
                 {% if form.vars.value.id is not null and canBeStudent(form.vars.value) %}
 					<div class="col-sm-2 well">
                         {% if form.student.vars.value is empty or form.student.vars.value.getId() is empty %}
@@ -96,7 +96,8 @@
                 {% else %}
                     {% do form.userQuestion.setRendered() %}
                 {% endif %}
-				<div class="col-sm-offset-{{ offset }} col-sm-2 well">
+
+                <div class="col-sm-offset-{{ offset }} col-sm-2 well">
 					{{ form_row(form.title) }}
 				</div>
 				<div class="col-sm-2 well">

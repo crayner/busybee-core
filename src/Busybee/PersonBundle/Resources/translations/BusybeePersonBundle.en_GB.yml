@@ -32,14 +32,12 @@ person:
         website: Personal Web Site
         title: Personal Title
         phones: Phone Details
+        staff:
+            question: Staff Member?
         phone:
             type: Type of Phone
             number: Phone Number
             country: Country Code
-        staff:
-            question: 'Staff Member ?'
-            type: Staff Category
-            jobTitle: Position Title
         careGiver:
             question: Care Giver ?
         student:

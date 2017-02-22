@@ -3,6 +3,9 @@
 namespace Busybee\PersonBundle\Entity;
 
 use Busybee\PersonBundle\Model\PersonModel ;
+use Busybee\SecurityBundle\Entity\User;
+use Busybee\StaffBundle\Entity\Staff;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Person
@@ -80,32 +83,17 @@ class Person extends PersonModel
     private $createdOn;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Staff
-     */
-    private $staff;
-
-    /**
-     * @var \Busybee\PersonBundle\Entity\CareGiver
-     */
-    private $caregiver;
-
-    /**
-     * @var \Busybee\PersonBundle\Entity\Student
-     */
-    private $student;
-
-    /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var User
      */
     private $user;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var  User
      */
     private $createdBy;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var User
      */
     private $modifiedBy;
 
@@ -129,11 +117,35 @@ class Person extends PersonModel
     private $identifier;
 
     /**
+     * @var boolean
+     */
+    private $staffQuestion;
+
+    /**
+     * @var boolean
+     */
+    private $studentQuestion;
+
+    /**
+     * @var boolean
+     */
+    private $careGiverQuestion;
+
+    /**
+     * @var Staff
+     */
+    private $staff;
+    /**
+     * @var \Busybee\StudentBundle\Entity\Student
+     */
+    private $student;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->phone = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->phone = new ArrayCollection();
         parent::__construct();
     }
 
@@ -452,7 +464,7 @@ class Person extends PersonModel
      *
      * @return Person
      */
-    public function setCreatedOn($createdOn)
+    public function setCreatedOn(\DateTime $createdOn = null)
     {
         $this->createdOn = $createdOn;
 
@@ -460,81 +472,9 @@ class Person extends PersonModel
     }
 
     /**
-     * Get staff
-     *
-     * @return \Busybee\PersonBundle\Entity\Staff
-     */
-    public function getStaff()
-    {
-        return $this->staff;
-    }
-
-    /**
-     * Set staff
-     *
-     * @param \Busybee\PersonBundle\Entity\Staff $staff
-     *
-     * @return Person
-     */
-    public function setStaff(\Busybee\PersonBundle\Entity\Staff $staff = null)
-    {
-        $this->staff = $staff;
-
-        return $this;
-    }
-
-    /**
-     * Get caregiver
-     *
-     * @return \Busybee\PersonBundle\Entity\CareGiver
-     */
-    public function getCaregiver()
-    {
-        return $this->caregiver;
-    }
-
-    /**
-     * Set caregiver
-     *
-     * @param \Busybee\PersonBundle\Entity\CareGiver $caregiver
-     *
-     * @return Person
-     */
-    public function setCaregiver(\Busybee\PersonBundle\Entity\CareGiver $caregiver = null)
-    {
-        $this->caregiver = $caregiver;
-
-        return $this;
-    }
-
-    /**
-     * Get student
-     *
-     * @return \Busybee\PersonBundle\Entity\Student
-     */
-    public function getStudent()
-    {
-        return $this->student;
-    }
-
-    /**
-     * Set student
-     *
-     * @param \Busybee\PersonBundle\Entity\Student $student
-     *
-     * @return Person
-     */
-    public function setStudent(\Busybee\PersonBundle\Entity\Student $student = null)
-    {
-        $this->student = $student;
-
-        return $this;
-    }
-
-    /**
      * Get user
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -544,11 +484,11 @@ class Person extends PersonModel
     /**
      * Set user
      *
-     * @param \Busybee\SecurityBundle\Entity\User $user
+     * @param User $user
      *
      * @return Person
      */
-    public function setUser(\Busybee\SecurityBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -558,7 +498,7 @@ class Person extends PersonModel
     /**
      * Get createdBy
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return User
      */
     public function getCreatedBy()
     {
@@ -568,11 +508,11 @@ class Person extends PersonModel
     /**
      * Set createdBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $createdBy
+     * @param User $createdBy
      *
      * @return Person
      */
-    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+    public function setCreatedBy(User $createdBy = null)
     {
         $this->createdBy = $createdBy;
 
@@ -582,7 +522,7 @@ class Person extends PersonModel
     /**
      * Get modifiedBy
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return User
      */
     public function getModifiedBy()
     {
@@ -592,11 +532,11 @@ class Person extends PersonModel
     /**
      * Set modifiedBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     * @param User $modifiedBy
      *
      * @return Person
      */
-    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+    public function setModifiedBy(User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
 
@@ -705,6 +645,126 @@ class Person extends PersonModel
     public function setIdentifier($identifier)
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    /**
+     * Get staffQuestion
+     *
+     * @return boolean
+     */
+    public function getStaffQuestion()
+    {
+        return $this->staffQuestion;
+    }
+
+    /**
+     * Set staffQuestion
+     *
+     * @param boolean $staffQuestion
+     *
+     * @return Person
+     */
+    public function setStaffQuestion($staffQuestion)
+    {
+        $this->staffQuestion = $staffQuestion;
+
+        return $this;
+    }
+
+    /**
+     * Get studentQuestion
+     *
+     * @return boolean
+     */
+    public function getStudentQuestion()
+    {
+        return $this->studentQuestion;
+    }
+
+    /**
+     * Set studentQuestion
+     *
+     * @param boolean $studentQuestion
+     *
+     * @return Person
+     */
+    public function setStudentQuestion($studentQuestion)
+    {
+        $this->studentQuestion = $studentQuestion;
+
+        return $this;
+    }
+
+    /**
+     * Get careGiverQuestion
+     *
+     * @return boolean
+     */
+    public function getCareGiverQuestion()
+    {
+        return $this->careGiverQuestion;
+    }
+
+    /**
+     * Set careGiverQuestion
+     *
+     * @param boolean $careGiverQuestion
+     *
+     * @return Person
+     */
+    public function setCareGiverQuestion($careGiverQuestion)
+    {
+        $this->careGiverQuestion = $careGiverQuestion;
+
+        return $this;
+    }
+
+    /**
+     * Get staff
+     *
+     * @return Staff
+     */
+    public function getStaff()
+    {
+        return $this->staff;
+    }
+
+    /**
+     * Set staff
+     *
+     * @param Staff $staff
+     *
+     * @return Person
+     */
+    public function setStaff(Staff $staff = null)
+    {
+        $this->staff = $staff;
+
+        return $this;
+    }
+
+    /**
+     * Get student
+     *
+     * @return \Busybee\StudentBundle\Entity\Student
+     */
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
+    /**
+     * Set student
+     *
+     * @param \Busybee\StudentBundle\Entity\Student $student
+     *
+     * @return Person
+     */
+    public function setStudent(\Busybee\StudentBundle\Entity\Student $student = null)
+    {
+        $this->student = $student;
 
         return $this;
     }

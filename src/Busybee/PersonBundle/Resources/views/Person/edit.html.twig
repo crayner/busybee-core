@@ -17,7 +17,6 @@
 {% block headerLead %}{% if id == 'Add' %}{{ 'person.people.description'|trans }}{% else %}{{ 'person.people.description'|trans }}{% endif %}{% endblock headerLead %}
 
 {% set tabs = get_parameter('person') %}
-
 {% block contentContainer %}
 {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
 {% set form_path = [] %}

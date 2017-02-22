@@ -1,0 +1,15 @@
+services:
+    student.repository:
+        class: Busybee\StudentBundle\Repository\StudentRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeStudentBundle:Student"
+    form.person.student.type:
+        class: Busybee\StudentBundle\Form\StudentType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }

@@ -1,0 +1,31 @@
+{# src/Busybee/StudentBundle/Resources/views/Person/student.html.twig #}
+
+{% trans_default_domain "BusybeeStudentBundle" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+<div class="panel panel-primary busybee-panel">
+    {% include "BusybeePersonBundle:Person:panelHeader.html.twig"  with {'header': 'person.student.title'} %}
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_widget(form.student.person) }}
+                    {{ form_row(form.student.startAtSchool) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.student.startAtThisSchool) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.student.lastAtThisSchool) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.student.status) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

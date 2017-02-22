@@ -74,7 +74,7 @@ class PersonExtension extends \Twig_Extension
      */
     public function isCareGiver(Person $person)
     {
-        return $this->pm->isCareGiver($person);
+        return $this->pm->isCareGiver();
     }
 
     /**

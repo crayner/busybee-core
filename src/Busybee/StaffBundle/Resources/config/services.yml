@@ -1,0 +1,15 @@
+services:
+    staff.repository:
+        class: Busybee\StaffBundle\Repository\StaffRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeStaffBundle:Staff"
+    form.person.staff.type:
+        class: Busybee\StaffBundle\Form\StaffType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }

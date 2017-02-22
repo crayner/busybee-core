@@ -185,7 +185,6 @@ class PersonType extends AbstractType
                         'data-off-icon-cls'	 	=> "halflings-thumbs-down",
                         'data-on-icon-cls' 		=> "halflings-thumbs-up",
                     ),
-                    'mapped'                => false,
                 )
             )
             ->add('careGiverQuestion', YesNoType::class, array(
@@ -195,7 +194,6 @@ class PersonType extends AbstractType
                         'data-off-icon-cls'	 	=> "halflings-thumbs-down",
                         'data-on-icon-cls' 		=> "halflings-thumbs-up",
                     ),
-                    'mapped'                => false,
                 )
             )
             ->add('studentQuestion', YesNoType::class, array(
@@ -205,7 +203,6 @@ class PersonType extends AbstractType
                         'data-off-icon-cls'	 	=> "halflings-thumbs-down",
                         'data-on-icon-cls' 		=> "halflings-thumbs-up",
                     ),
-                    'mapped'                => false,
                 )
             )
             ->add('userQuestion', YesNoType::class, array(

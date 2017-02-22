@@ -69,14 +69,13 @@ class PersonController extends Controller
 				$options['data'] = $this->get($name)->findOneByPerson($person->getId());
 				$options['data']->setPerson($person);
 				$form->add($extra['name'], $extra['form'], $options);
-				$name = $extra['name'];
+                $name = $extra['name'];
 				$person->$name = $options['data'];
 				
 			}
 			if (isset($extra['script']))
 				$editOptions['script'][] = $extra['script'];
 		}
-
 
 		$form->handleRequest($request);
 

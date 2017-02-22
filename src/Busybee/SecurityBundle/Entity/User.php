@@ -440,11 +440,11 @@ class User extends UserModel
     /**
      * Add directrole
      *
-     * @param \Busybee\SecurityBundle\Entity\Role $directrole
+     * @param Role $directrole
      *
      * @return User
      */
-    public function addDirectrole(\Busybee\SecurityBundle\Entity\Role $directrole)
+    public function addDirectrole(Role $directrole)
     {
         $this->directroles[] = $directrole;
 
@@ -454,9 +454,9 @@ class User extends UserModel
     /**
      * Remove directrole
      *
-     * @param \Busybee\SecurityBundle\Entity\Role $directrole
+     * @param Role $directrole
      */
-    public function removeDirectrole(\Busybee\SecurityBundle\Entity\Role $directrole)
+    public function removeDirectrole(Role $directrole)
     {
         $this->directroles->removeElement($directrole);
     }

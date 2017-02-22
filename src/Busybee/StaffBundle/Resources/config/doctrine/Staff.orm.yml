@@ -1,0 +1,37 @@
+Busybee\StaffBundle\Entity\Staff:
+    type: entity
+    table: staff
+    repositoryClass: Busybee\StaffBundle\Repository\StaffRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        staffType:
+            type: string
+            length: '20'
+            name: staff_type
+        jobTitle:
+            type: string
+            length: '100'
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id
+    oneToOne:
+        person:
+            targetEntity: Busybee\PersonBundle\Entity\Person
+            inversedBy: staff

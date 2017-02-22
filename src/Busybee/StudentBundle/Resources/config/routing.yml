@@ -1,0 +1,4 @@
+person_toggle_student:
+    path:     /person/{id}/toggle/
+    defaults: { _controller: BusybeeStudentBundle:Student:toggle }
+

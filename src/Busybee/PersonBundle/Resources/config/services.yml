@@ -86,20 +86,6 @@ services:
             - '%personPagination%'
             - '@person.repository'
             - '@my_service_container'
-    staff.repository:
-        class: Busybee\PersonBundle\Repository\StaffRepository
-        factory: 
-            - "@doctrine"
-            - 'getRepository' 
-        arguments: 
-            - "BusybeePersonBundle:Staff"
-    student.repository:
-        class: Busybee\PersonBundle\Repository\StudentRepository
-        factory:
-            - "@doctrine"
-            - 'getRepository'
-        arguments:
-            - "BusybeePersonBundle:Student"
     address.manager:
         class: Busybee\PersonBundle\Model\AddressManager
         arguments:
@@ -185,12 +171,6 @@ services:
         class: Busybee\PersonBundle\Validator\Constraints\PersonImageValidator
         tags:
             - { name: validator.constraint_validator, alias: person_image_validator }
-    student.pagination:
-        class: Busybee\PersonBundle\Model\StudentPagination
-        arguments:
-            - '%studentPagination%'
-            - '@student.repository'
-            - '@my_service_container'
     person.extension:
         class: Busybee\PersonBundle\Model\PersonExtension
         arguments:
@@ -200,34 +180,6 @@ services:
             - '@phone.manager'
         tags:
             - { name: twig.extension }
-    caregiver.repository:
-        class: Busybee\PersonBundle\Repository\CareGiverRepository
-        factory:
-            - "@doctrine"
-            - 'getRepository'
-        arguments:
-            - "BusybeePersonBundle:CareGiver"
-    form.person.staff.type:
-        class: Busybee\PersonBundle\Form\StaffType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
-        tags:
-            - { name: form.type }
-    form.person.care.giver.type:
-        class: Busybee\PersonBundle\Form\CareGiverType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
-        tags:
-            - { name: form.type }
-    form.person.student.type:
-        class: Busybee\PersonBundle\Form\StudentType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
-        tags:
-            - { name: form.type }
     form.person.user.type:
         class: Busybee\PersonBundle\Form\UserType
         arguments:

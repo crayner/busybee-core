@@ -24,10 +24,9 @@ class AppKernel extends Kernel
             new Busybee\FormBundle\BusybeeFormBundle(),
             new Busybee\PaginationBundle\PaginationBundle(),
             new Busybee\PersonBundle\BusybeePersonBundle(),
-            new Busybee\FamilyBundle\BusybeeFamilyBundle(),
-            new Busybee\Plugin\AVETMISSBundle\BusybeeAVETMISSBundle(),
             new Busybee\CurriculumBundle\BusybeeCurriculumBundle(),
-            new Busybee\InstituteBundle\BusybeeInstituteBundle(),
+            new Busybee\StaffBundle\BusybeeStaffBundle(),
+            new Busybee\StudentBundle\BusybeeStudentBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
@@ -57,11 +56,6 @@ class AppKernel extends Kernel
 		return $bundles;
     }
 
-    public function getRootDir()
-    {
-        return __DIR__;
-    }
-
     public function getCacheDir()
     {
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
@@ -75,5 +69,10 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+    }
+
+    public function getRootDir()
+    {
+        return __DIR__;
     }
 }

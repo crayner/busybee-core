@@ -1,0 +1,22 @@
+{# src/Busybee/StaffBundle/Resources/views/Person/staff.html.twig #}
+
+{% trans_default_domain "BusybeeStaffBundle" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+<div class="panel panel-primary busybee-panel">
+    {% include "BusybeePersonBundle:Person:panelHeader.html.twig"  with {'header': 'person.staff.title'} %}
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 well">
+                    {{ form_row(form.staff.staffType) }}
+                    {{ form_widget(form.staff.person) }}
+                </div>
+                <div class="col-sm-6 well">
+                    {{ form_row(form.staff.jobTitle) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

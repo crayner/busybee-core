@@ -1,0 +1,6 @@
+busybee_staff_homepage:
+    path:     /
+    defaults: { _controller: BusybeeStaffBundle:Default:index }
+person_toggle_staff:
+    path:     /person/{id}/toggle/
+    defaults: { _controller: BusybeeStaffBundle:Staff:toggle }

@@ -1,7 +1,0 @@
-# Student
-parameters:
-    student:
-        person:
-            label: student.tab.person
-            include: 'BusybeePersonBundle:Student:person.html.twig'
-            message: studentMessage

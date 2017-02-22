@@ -95,9 +95,13 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 {% if isStaff(person) and canDeleteStaff(person)  %}
-                                    <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-ok  btn btn-success"></button>
+                                    <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans }}'
+                                            type="button"
+                                            class="staffToggle halflings halflings-ok btn btn-success"></button>
                                 {% elseif canBeStaff(person) and not isStaff(person) %}
-                                    <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-remove  btn btn-danger"></button>
+                                    <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans }}'
+                                            type="button"
+                                            class="staffToggle halflings halflings-remove btn btn-danger"></button>
                                 {% elseif not isStaff(person) %}
                                     <button id="staffToggle{{ person.id }}" title='{{ 'person.staff.toggle'|trans}}' type="button" class="staffToggle halflings halflings-remove btn btn-default" disabled></button>
                                 {% else %}
@@ -116,15 +120,6 @@
                                 {% endif %}
                             </div>
                             <div class="col-sm-3">
-                                {% if isCareGiver(person) and canDeleteCareGiver(person)  %}
-                                    <button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-ok  btn btn-success"></button>
-                                {% elseif canBeCareGiver(person) and not isCareGiver(person) %}
-                                    <button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-remove  btn btn-danger"></button>
-                                {% elseif not isCareGiver(person) %}
-                                    <button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-remove btn btn-default" disabled></button>
-                                {% else %}
-                                    <button id="careGiverToggle{{ person.id }}" title='{{ 'person.caregiver.toggle'|trans}}' type="button" class="careGiverToggle halflings halflings-ok btn btn-default" disabled></button>
-                                {% endif %}
                             </div>
                             <div class="col-sm-3">
                                 {% if isUser(person) and canDeleteUser(person)  %}

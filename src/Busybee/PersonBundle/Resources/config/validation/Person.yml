@@ -39,9 +39,5 @@ Busybee\PersonBundle\Entity\Person:
             - Valid: ~
         address2:
             - Valid: ~
-        staff:
-            - Valid: ~
-        student:
-            - Valid: ~
         user:
             - Valid: ~

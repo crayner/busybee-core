@@ -10,15 +10,11 @@ parameters:
             include: 'BusybeePersonBundle:Person:contact.html.twig'
         staff:
             label: person.tab.staff
-            include: BusybeePersonBundle:Person:staff.html.twig
+            include: BusybeeStaffBundle:Person:staff.html.twig
             message: staffMessage
-        careGiver:
-            label: person.tab.careGiver
-            include: BusybeePersonBundle:Person:careGiver.html.twig
-            message: careGiverMessage
         student:
             label: person.tab.student
-            include: BusybeePersonBundle:Person:student.html.twig
+            include: BusybeeStudentBundle:Person:student.html.twig
             message: studentMessage
         user:
             label: person.tab.user

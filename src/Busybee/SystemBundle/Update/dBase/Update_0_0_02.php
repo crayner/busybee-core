@@ -27,7 +27,7 @@ class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-	private $count	= 40 ;
+    private $count = 41;
 	
 	/**
 	 * Constructor
@@ -577,6 +577,19 @@ CountryCode: AU");
         $entity->setDisplayName('Phone Full Display Format');
         $entity->setDescription("A template to convert phone numbers into full display version.");
         $entity->setRole($role->findOneByRole('ROLE_REGISTRAR'));
+
+        $this->sm->saveSetting($entity);
+        //41
+        $entity = new Setting();
+        $entity->setType('array');
+        $entity->setValue("Future: Future
+Current: Current
+Alumni: Past
+");
+        $entity->setName('Student.Status.List');
+        $entity->setDisplayName('Student Status List');
+        $entity->setDescription("List of the valid student status(es)");
+        $entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
         $this->sm->saveSetting($entity);
 

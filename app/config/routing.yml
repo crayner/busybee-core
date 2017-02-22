@@ -18,13 +18,17 @@ busybee_curriculum:
     resource: "@BusybeeCurriculumBundle/Resources/config/routing.yml"
     prefix:   /curriculum/
 
-busybee_institute:
-    resource: "@BusybeeInstituteBundle/Resources/config/routing.yml"
-    prefix:   /institute/
+#busybee_institute:
+#    resource: "@BusybeeInstituteBundle/Resources/config/routing.yml"
+#    prefix:   /institute/
 
-busybee_family:
-    resource: "@BusybeeFamilyBundle/Resources/config/routing.yml"
-    prefix:   /family/
+busybee_staff:
+    resource: "@BusybeeStaffBundle/Resources/config/routing.yml"
+    prefix:   /staff/
+
+busybee_student:
+    resource: "@BusybeeStudentBundle/Resources/config/routing.yml"
+    prefix:   /student/
 
 busybee_plugin:
     resource: .

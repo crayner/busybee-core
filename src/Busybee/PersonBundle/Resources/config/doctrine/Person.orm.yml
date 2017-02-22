@@ -51,6 +51,15 @@ Busybee\PersonBundle\Entity\Person:
             type: string
             length: '150'
             nullable: true
+        staffQuestion:
+            type: boolean
+            name: staff_question
+        studentQuestion:
+            type: boolean
+            name: student_question
+        careGiverQuestion:
+            type: boolean
+            name: care_giver_question
         lastModified:
             type: datetime
             nullable: true 
@@ -94,23 +103,18 @@ Busybee\PersonBundle\Entity\Person:
                     phone_id:
                         referencedColumnName: id
     oneToOne:
-        staff:
-            targetEntity: Busybee\PersonBundle\Entity\Staff
-            cascade: [persist, remove]
-            mappedBy: person
-            nullable: true
-        caregiver:
-            targetEntity: Busybee\PersonBundle\Entity\CareGiver
-            cascade: [persist, remove]
-            mappedBy: person
-            nullable: true
-        student:
-            targetEntity: Busybee\PersonBundle\Entity\Student
-            cascade: [persist, remove]
-            mappedBy: person
-            nullable: true
         user:
             targetEntity: Busybee\SecurityBundle\Entity\User
             cascade: [persist]
+            mappedBy: person
+            nullable: true
+        staff:
+            targetEntity: Busybee\StaffBundle\Entity\Staff
+            cascade: [all]
+            mappedBy: person
+            nullable: true
+        student:
+            targetEntity: Busybee\StudentBundle\Entity\Student
+            cascade: [all]
             mappedBy: person
             nullable: true

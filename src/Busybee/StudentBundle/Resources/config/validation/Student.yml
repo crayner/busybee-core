@@ -1,0 +1,13 @@
+Busybee\StudentBundle\Entity\Student:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: person
+    properties:
+        startAtSchool:
+            - Date: ~
+        startAtThisSchool:
+            - Date: ~
+        lastAtThisSchool:
+            - Date: ~
+        status:
+            - Busybee\FormBundle\Validator\SettingChoice:
+                name: 'Student.Status.List'

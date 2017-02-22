@@ -9,7 +9,6 @@ use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,7 +27,7 @@ class UserType extends AbstractType
     private $sm ;
 
     /**
-     * StaffType constructor.
+     * UserType constructor.
      * @param ObjectManager $manager
      */
     public function __construct(ObjectManager $manager, SettingManager $sm)
@@ -36,6 +35,7 @@ class UserType extends AbstractType
         $this->manager = $manager ;
         $this->sm = $sm ;
     }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
