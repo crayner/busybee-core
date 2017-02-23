@@ -1,0 +1,26 @@
+{% trans_default_domain "BusybeeFamilyBundle" %}
+
+
+{% block caregiver_label %}{% endblock %}
+{% block caregiver_errors %}{% endblock %}
+
+
+{% block caregiver_widget %}
+    <div class="well familyCareGiver">
+        <div class="row">
+            <div class="col-sm-9">
+                {{ form_row(form.person) }}
+            </div>
+            <div class="col-sm-3 collection-actions">
+				<span>
+					<button title="{{ 'family.caregiver.remove'|trans }}" type="button"
+                            class="collection-remove collection-action halflings halflings-erase btn btn-warning"
+                            style="float: right;"></button>
+					<button title="{{ 'family.caregiver.add'|trans }}" type="button"
+                            class="halflings halflings-plus-sign btn btn-primary collection-add collection-action"
+                            style="float: right;"></button>
+				</span>
+            </div>
+        </div>
+    </div>
+{% endblock caregiver_widget %}

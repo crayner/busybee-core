@@ -1,0 +1,44 @@
+family:
+    title:
+        manage: Family Search and Select
+        title: Manage Families
+        name: Family Name
+        add: New Family
+        edit: Modify Family
+        details: "Family Details: %name%"
+        contacts: "Family Contact Details: %name%"
+        people: "Members of Family: %name%"
+    description: Search and select families.
+    actions: Actions
+    tab:
+        details: Details
+        contacts: Contacts
+        people: Members
+    label:
+        name: Family Name
+        caregiver: Care Giver
+        students: Children (Students)
+    help:
+        name: The family name, if left blank, will be a combination of the caregivers names.  The family name must be unique.
+        caregiver: Select care givers for the family.  All people in the database not listed as students can be selected.
+        students: Select existing students (children) to add to the family.  Changes are only saved when the family is saved.  Duplicates will be ignored.  Children can be members of multiple families.
+    placeholder:
+        caregiver: Select a care giver.
+        student: Select existing Student.
+    return: Manage Families
+    student:
+        add: Add Student
+        remove: Remove Student
+    caregiver:
+        add: Add Care Giver
+        remove: Remove Care Giver
+students:
+    label:
+        person: Student Name
+    placeholder:
+        person: Select Student
+caregiver:
+    label:
+        person: Care Giver
+    placeholder:
+        person: Select Care Giver

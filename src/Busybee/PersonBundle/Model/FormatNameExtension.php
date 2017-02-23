@@ -2,6 +2,7 @@
 
 namespace Busybee\PersonBundle\Model;
 
+use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
@@ -13,10 +14,8 @@ trait FormatNameExtension
      * @return string
      * @throws CommonException
      */
-    public function getFormatName()
+    public function getFormatName($options = array())
     {
-        $options = array();
-
         if ($this instanceof CareGiver) {
             $options['preferredOnly'] = true;
             $person = $this->getPerson();

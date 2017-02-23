@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Busybee\StaffBundle\BusybeeStaffBundle(),
             new Busybee\StudentBundle\BusybeeStudentBundle(),
             new Busybee\InstituteBundle\BusybeeInstituteBundle(),
+            new Busybee\FamilyBundle\BusybeeFamilyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

@@ -1,0 +1,48 @@
+{# src/Busybee/FamilyBundle/Resources/views/Family/index.html.twig #}
+
+{% trans_default_domain "BusybeeFamilyBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'family.title.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'family.title.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'family.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('family_manage') } } %}
+    <div class="panel panel-primary busybee-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ 'family.title.manage'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="container-fluid well">
+                <div class="row row-header">
+                    <div class="col-sm-9 col-md-9" style="display: inline-block;">
+                        {% if pagination.getSortByName == 'Family Name' %}
+                            <span class="halflings halflings-sort-by-alphabet"></span> {{ 'family.title.name'|trans }}
+                        {% else %}
+                            {{ 'family.title.name'|trans }}
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-3 col-md-3 withAdd">
+                        <button title='{{ 'family.title.add'|trans }}' type="button"
+                                class="halflings halflings-plus-sign btn btn-primary"
+                                onClick="window.open('{{ path('family_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''}) }) }}','_self')"></button> {{ 'family.actions'|trans }}
+                    </div>
+                </div>
+                {% for family in pagination.getResult %}
+                    <div class="row row-striped">
+                        <div class="col-sm-9 col-md-9 form-inline">
+                            {{ family.name }}
+                        </div>
+                        <div class="col-sm-3 col-md-3 form-inline">
+                            <button title='{{ 'family.title.edit'|trans }}' type="button"
+                                    class="halflings halflings-edit btn btn-warning"
+                                    onClick="window.open('{{ path('family_edit', {'id': family.id, 'currentSearch': pagination.search|replace({'%': ''})}) }}','_self')"></button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock contentContainer %}

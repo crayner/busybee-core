@@ -115,3 +115,7 @@ Busybee\PersonBundle\Entity\Person:
             cascade: [all]
             mappedBy: person
             nullable: true
+    oneToMany:
+        careGiver:
+            targetEntity: Busybee\FamilyBundle\Entity\CareGiver
+            mappedBy: person

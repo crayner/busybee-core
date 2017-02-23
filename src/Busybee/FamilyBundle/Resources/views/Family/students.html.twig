@@ -1,0 +1,20 @@
+{# src/Busybee/FamilyBundle/Resources/views/Family/students.html.twig #}
+
+{% trans_default_domain "BusybeeFamilyBundle" %}
+
+{% form_theme form
+"BusybeeFormBundle:Template:jquery.collection.html.twig"
+"BusybeeFamilyBundle:Family:studentCollection.html.twig"
+"BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+
+<div class="panel panel-info busybee-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ form_label(form.students) }}</h3>
+        <p>{{ 'family.help.students'|trans }}</p>
+    </div>
+    <div class="panel-body">
+        {{ form_widget(form.students) }}
+    </div>
+</div>
+{% do form.students.setRendered %}

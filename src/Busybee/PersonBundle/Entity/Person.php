@@ -139,6 +139,14 @@ class Person extends PersonModel
      * @var \Busybee\StudentBundle\Entity\Student
      */
     private $student;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $caregiver;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $careGiver;
 
     /**
      * Constructor
@@ -768,4 +776,40 @@ class Person extends PersonModel
 
         return $this;
     }
+
+    /**
+     * Add caregiver
+     *
+     * @param \Busybee\FamilyBundle\Entity\CareGiver $caregiver
+     *
+     * @return Person
+     */
+    public function addCaregiver(\Busybee\FamilyBundle\Entity\CareGiver $caregiver)
+    {
+        $this->caregiver[] = $caregiver;
+
+        return $this;
+    }
+
+    /**
+     * Remove caregiver
+     *
+     * @param \Busybee\FamilyBundle\Entity\CareGiver $caregiver
+     */
+    public function removeCaregiver(\Busybee\FamilyBundle\Entity\CareGiver $caregiver)
+    {
+        $this->caregiver->removeElement($caregiver);
+    }
+
+    /**
+     * Get caregiver
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCaregiver()
+    {
+        return $this->caregiver;
+    }
+
+
 }

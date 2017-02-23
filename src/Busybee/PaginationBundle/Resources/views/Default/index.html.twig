@@ -6,67 +6,67 @@
 
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
-{% if form_array is not defined  %}
-	{% set form_array = [] %}
-{% endif %}
 
-{{ form_start(form, form_array) }}
-
-<div class="container-fluid well">
-	<div class="row">
-		<div class="col-sm-3">
-			<div class="input-group">
-                {{ form_widget(form.currentSearch) }}
-				<div class="input-group-btn">
-					<button class="btn btn-success" type="submit" name="paginator[startSearch]"
-							id="paginator_startSearch">
-						<i class="glyphicon glyphicon-search"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-3">
-            {{ form_widget(form.currentSort) }}
-		</div>
-			{% if pagination.getTotal > pagination.getLimit %}
-				<div class="col-sm-offset-4 col-sm-2">
-					{{ form_widget(form.lastSearch, {value: pagination.getSearch }) }}
-					{{ form_widget(form.offSet, {value: pagination.getOffSet}) }}
-					<div class="input-group">
-						<div class="input-group-btn">
-							<button class="btn btn-info" type="submit" name="paginator[prev]" id="paginator_prev">
-								<i class="halflings halflings-backward"></i>
-							</button>
-						</div>
+{% if pagination.getTotal > 0 %}
+    {% if form_array is not defined %}
+        {% set form_array = [] %}
+    {% endif %}
+    {{ form_start(form, form_array) }}
+    <div class="container-fluid well">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="input-group">
+                    {{ form_widget(form.currentSearch) }}
+                    <div class="input-group-btn">
+                        <button class="btn btn-success" type="submit" name="paginator[startSearch]"
+                                id="paginator_startSearch">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                {{ form_widget(form.currentSort) }}
+            </div>
+            {% if pagination.getTotal > pagination.getLimit %}
+                <div class="col-sm-offset-4 col-sm-2">
+                    {{ form_widget(form.lastSearch, {value: pagination.getSearch }) }}
+                    {{ form_widget(form.offSet, {value: pagination.getOffSet}) }}
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button class="btn btn-info" type="submit" name="paginator[prev]" id="paginator_prev">
+                                <i class="halflings halflings-backward"></i>
+                            </button>
+                        </div>
                         {{ form_widget(form.limit) }}
-						<div class="input-group-btn">
-							<button class="btn btn-info" type="submit" name="paginator[next]" id="paginator_next">
-								<i class="halflings halflings-forward"></i>
-							</button>
-						</div>
-					</div>
+                        <div class="input-group-btn">
+                            <button class="btn btn-info" type="submit" name="paginator[next]" id="paginator_next">
+                                <i class="halflings halflings-forward"></i>
+                            </button>
+                        </div>
+                    </div>
                     {{ form_widget(form.total, {value: pagination.getTotal}) }}
-				</div>
-			{% elseif pagination.getTotal > 10 %}
-				<div class="col-sm-offset-4 col-sm-2">
-					{{ form_widget(form.limit) }}
-				</div>
-			{% else %}
-				{% do form.limit.setRendered %}
-				<input type="hidden" name="paginator[limit]" id="paginator_limit" value="{{ pagination.getLimit }}"/>
-			{% endif %}
-	</div>				
-	<div class="row">
-		<div class="col-sm-12 text-right">
-            {% set pages = pagination.getTotalPages %}
+                </div>
+            {% elseif pagination.getTotal > 10 %}
+                <div class="col-sm-offset-4 col-sm-2">
+                    {{ form_widget(form.limit) }}
+                </div>
+            {% else %}
+                {% do form.limit.setRendered %}
+                <input type="hidden" name="paginator[limit]" id="paginator_limit" value="{{ pagination.getLimit }}"/>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                {% set pages = pagination.getTotalPages %}
 
-            {% transchoice pages with {'%total%': pagination.getTotal, '%current%': pagination.getCurrentPage, '%pages%': pages, '%first%': pagination.getFirstRecord, '%last%': pagination.getLastRecord} %}
-			pagination.figures
-            {% endtranschoice %}
+                {% transchoice pages with {'%total%': pagination.getTotal, '%current%': pagination.getCurrentPage, '%pages%': pages, '%first%': pagination.getFirstRecord, '%last%': pagination.getLastRecord} %}
+                pagination.figures
+                {% endtranschoice %}
 
-            {#   {{ 'pagination.figures'|trans({'%total%': pagination.getTotal, '%current%': pagination.getCurrentPage, '%pages%': pagination.getTotalPages, '%first%': pagination.getFirstRecord, '%last%': pagination.getLastRecord} ) }} #}
-		</div>
-	</div>				
-</div>
-{{ form_end(form) }}
-
+                {#   {{ 'pagination.figures'|trans({'%total%': pagination.getTotal, '%current%': pagination.getCurrentPage, '%pages%': pagination.getTotalPages, '%first%': pagination.getFirstRecord, '%last%': pagination.getLastRecord} ) }} #}
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endif %}

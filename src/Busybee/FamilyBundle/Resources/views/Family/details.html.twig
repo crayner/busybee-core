@@ -1,0 +1,23 @@
+{# src/Busybee/FamilyBundle/Resources/views/Family/details.html.twig #}
+
+{% trans_default_domain "BusybeeFamilyBundle" %}
+
+{% form_theme form
+"BusybeeFormBundle:Template:jquery.collection.html.twig"
+"BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+<div class="panel panel-primary busybee-panel">
+    {% include "BusybeeFamilyBundle:Family:panelHeader.html.twig" %}
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="well col-sm-6">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="well col-sm-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

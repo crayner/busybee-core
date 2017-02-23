@@ -1,0 +1,21 @@
+{# src/Busybee/FamilyBundle/Resources/views/Family/caregiverhtml.twig #}
+
+{% trans_default_domain "BusybeeFamilyBundle" %}
+
+{% form_theme form
+"BusybeeFormBundle:Template:jquery.collection.html.twig"
+"BusybeeFamilyBundle:Family:careGiverCollection.html.twig"
+"BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+
+<div class="panel panel-info busybee-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ form_label(form.careGiver) }}</h3>
+        <p>{{ 'family.help.caregiver'|trans }}</p>
+    </div>
+    <div class="panel-body">
+        {{ form_widget(form.careGiver) }}
+    </div>
+</div>
+
+{% do form.careGiver.setRendered %}
