@@ -1,6 +1,7 @@
 <?php
 
 namespace Busybee\FamilyBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Family
@@ -33,16 +34,6 @@ class Family
     private $familyCareGiver;
 
     /**
-     * @var \Busybee\FamilyBundle\Entity\CareGiver
-     */
-    private $careGiver1;
-
-    /**
-     * @var \Busybee\FamilyBundle\Entity\CareGiver
-     */
-    private $careGiver2;
-
-    /**
      * @var \Busybee\PersonBundle\Entity\Address
      */
     private $address1;
@@ -70,11 +61,6 @@ class Family
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $emergencyContact;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $students;
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -88,7 +74,6 @@ class Family
     {
         $this->familyCareGiver = new \Doctrine\Common\Collections\ArrayCollection();
         $this->phone = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->emergencyContact = new \Doctrine\Common\Collections\ArrayCollection();
         $this->students = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -196,64 +181,6 @@ class Family
     public function removeFamilyCareGiver(\Busybee\FamilyBundle\Entity\FamilyCareGiver $familyCareGiver)
     {
         $this->familyCareGiver->removeElement($familyCareGiver);
-    }
-
-    /**
-     * Get familyCareGiver
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFamilyCareGiver()
-    {
-        return $this->familyCareGiver;
-    }
-
-    /**
-     * Get careGiver1
-     *
-     * @return \Busybee\FamilyBundle\Entity\CareGiver
-     */
-    public function getCareGiver1()
-    {
-        return $this->careGiver1;
-    }
-
-    /**
-     * Set careGiver1
-     *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver1
-     *
-     * @return Family
-     */
-    public function setCareGiver1(\Busybee\FamilyBundle\Entity\CareGiver $careGiver1 = null)
-    {
-        $this->careGiver1 = $careGiver1;
-
-        return $this;
-    }
-
-    /**
-     * Get careGiver2
-     *
-     * @return \Busybee\FamilyBundle\Entity\CareGiver
-     */
-    public function getCareGiver2()
-    {
-        return $this->careGiver2;
-    }
-
-    /**
-     * Set careGiver2
-     *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver2
-     *
-     * @return Family
-     */
-    public function setCareGiver2(\Busybee\FamilyBundle\Entity\CareGiver $careGiver2 = null)
-    {
-        $this->careGiver2 = $careGiver2;
-
-        return $this;
     }
 
     /**
@@ -389,11 +316,11 @@ class Family
     /**
      * Add emergencyContact
      *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $emergencyContact
+     * @param CareGiver $emergencyContact
      *
      * @return Family
      */
-    public function addEmergencyContact(\Busybee\FamilyBundle\Entity\CareGiver $emergencyContact)
+    public function addEmergencyContact(CareGiver $emergencyContact)
     {
         $this->emergencyContact[] = $emergencyContact;
 
@@ -403,9 +330,9 @@ class Family
     /**
      * Remove emergencyContact
      *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $emergencyContact
+     * @param CareGiver $emergencyContact
      */
-    public function removeEmergencyContact(\Busybee\FamilyBundle\Entity\CareGiver $emergencyContact)
+    public function removeEmergencyContact(CareGiver $emergencyContact)
     {
         $this->emergencyContact->removeElement($emergencyContact);
     }
@@ -455,62 +382,17 @@ class Family
     }
 
     /**
-     * Add careGiver1
-     *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver1
-     *
-     * @return Family
-     */
-    public function addCareGiver1(\Busybee\FamilyBundle\Entity\CareGiver $careGiver1)
-    {
-        $this->careGiver1[] = $careGiver1;
-
-        return $this;
-    }
-
-    /**
-     * Remove careGiver1
-     *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver1
-     */
-    public function removeCareGiver1(\Busybee\FamilyBundle\Entity\CareGiver $careGiver1)
-    {
-        $this->careGiver1->removeElement($careGiver1);
-    }
-
-    /**
-     * Add careGiver2
-     *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver2
-     *
-     * @return Family
-     */
-    public function addCareGiver2(\Busybee\FamilyBundle\Entity\CareGiver $careGiver2)
-    {
-        $this->careGiver2[] = $careGiver2;
-
-        return $this;
-    }
-
-    /**
-     * Remove careGiver2
-     *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver2
-     */
-    public function removeCareGiver2(\Busybee\FamilyBundle\Entity\CareGiver $careGiver2)
-    {
-        $this->careGiver2->removeElement($careGiver2);
-    }
-
-    /**
      * Add careGiver
      *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver
+     * @param CareGiver $careGiver
      *
      * @return Family
      */
-    public function addCareGiver(\Busybee\FamilyBundle\Entity\CareGiver $careGiver)
+    public function addCareGiver(CareGiver $careGiver)
     {
+        if (empty($careGiver->getFamily()))
+            $careGiver->setFamily($this);
+        
         $this->careGiver[] = $careGiver;
 
         return $this;
@@ -519,9 +401,9 @@ class Family
     /**
      * Remove careGiver
      *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver
+     * @param CareGiver $careGiver
      */
-    public function removeCareGiver(\Busybee\FamilyBundle\Entity\CareGiver $careGiver)
+    public function removeCareGiver(CareGiver $careGiver)
     {
         $this->careGiver->removeElement($careGiver);
     }
@@ -534,5 +416,17 @@ class Family
     public function getCareGiver()
     {
         return $this->careGiver;
+    }
+
+    /**
+     * Set careGiver
+     *
+     * @param   ArrayCollection
+     * @return Family
+     */
+    public function setCareGiver(ArrayCollection $caregivers)
+    {
+        $this->careGiver = $caregivers;
+        return $this;
     }
 }

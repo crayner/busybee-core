@@ -1,7 +1,4 @@
 Busybee\FamilyBundle\Entity\Family:
     properties:
-        careGiver1:
-            - Valid: ~
-            - NotBlank: ~
-        careGiver2:
+        careGiver:
             - Valid: ~

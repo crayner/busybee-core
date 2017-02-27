@@ -25,8 +25,8 @@ class CareGiverType extends AbstractType
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('p')
                             ->where('p.studentQuestion = 0')
-                            ->orderBy('p.surname', 'ASC')
-                            ->orderBy('p.firstName', 'ASC');
+                            ->addOrderBy('p.surname', 'ASC')
+                            ->addOrderBy('p.firstName', 'ASC');
                     },
                     'placeholder' => 'caregiver.placeholder.person',
                 )

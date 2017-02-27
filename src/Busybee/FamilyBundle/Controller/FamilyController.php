@@ -3,6 +3,7 @@
 namespace Busybee\FamilyBundle\Controller;
 
 use Busybee\FamilyBundle\Form\FamilyType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,8 +52,8 @@ class FamilyController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $em = $this->get('doctrine')->getManager();
 
+            $em = $this->get('doctrine')->getManager();
             $em->persist($family);
             $em->flush();
             $id = $family->getId();

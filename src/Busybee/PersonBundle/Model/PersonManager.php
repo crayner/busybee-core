@@ -191,8 +191,6 @@ class PersonManager
         $families = $careGiver->getFamilies($this->em->getRepository(Family::class));
         if (is_array($families) && count($families) > 0)
             return false;
-        if (null !== $this->em->getRepository(Family::class)->findOneByCareGiver1($careGiver->getId())) return false;
-        if (null !== $this->em->getRepository(Family::class)->findOneByCareGiver2($careGiver->getId())) return false;
 
         return $careGiver->canDelete();
     }

@@ -1,13 +1,14 @@
 <?php
 namespace Busybee\PersonBundle\EventListener ;
 
-use Busybee\PersonBundle\Entity\Student;
+use Busybee\FamilyBundle\Entity\Family;
+use Busybee\StudentBundle\Entity\Student;
 use Busybee\SecurityBundle\Entity\User;
 use Doctrine\ORM\Event\LifecycleEventArgs ;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs ;
 use Busybee\PersonBundle\Entity\Person ;
 use Busybee\PersonBundle\Model\PhotoUploader ;
-use Symfony\Component\HttpFoundation\File\File ;
 
 class PersonListener
 {
@@ -31,13 +32,16 @@ class PersonListener
         if ($entity instanceof User) {
             $entity->setUsernameCanonical($entity->getUsername());
             $entity->setEmailCanonical($entity->getEmail());
-        } elseif ($entity instanceof Person) {
+        }
+        if ($entity instanceof Person) {
             $this->em = $args->getEntityManager();
             $entity = $this->setIdentifierValue($entity);
-        } elseif ($entity instanceof Student) {
+        }
+        if ($entity instanceof Student) {
             if (empty($entity->getStatus()))
                 $entity->setStatus('Future');
         }
+
     }
 
     /**
@@ -111,7 +115,8 @@ class PersonListener
         if ($entity instanceof Person) {
             $this->em = $args->getEntityManager();
             $entity = $this->setIdentifierValue($entity);
-        } elseif ($entity instanceof Student) {
+        }
+        if ($entity instanceof Student) {
             if (empty($entity->getStatus()))
                 $entity->setStatus('Future');
         }

@@ -28,3 +28,6 @@ specialDay:
     error:
         timeEmpty: Time is empty when time change active in Special Day.
         timeInvalid: Times are not in the correct order in a Special Day.
+caregiver:
+    blank:
+        family: The family for a caregiver must not be blank.

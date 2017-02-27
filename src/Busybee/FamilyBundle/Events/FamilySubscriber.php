@@ -42,15 +42,15 @@ class FamilySubscriber implements EventSubscriberInterface
     {
         $data = $event->getData();
 
+
         unset($data['address1_list'], $data['address2_list']);
 
+        $careGiver = array();
         if (!empty($data['careGiver']) && is_array($data['careGiver'])) {
-            $careGiver = array();
             foreach ($data['careGiver'] as $q => $w)
                 if (!empty($w) && !empty($w['person']))
                     $careGiver[] = $w;
         }
-
         $data['careGiver'] = $careGiver;
 
         if (empty($data['careGiver']) || empty($data['careGiver'][0]['person']))

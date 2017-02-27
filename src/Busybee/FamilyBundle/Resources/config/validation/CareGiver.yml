@@ -4,3 +4,6 @@ Busybee\FamilyBundle\Entity\CareGiver:
             fields: [family, person]
             errorPath: family
             message: 'caregiver.unique.fail'
+    properties:
+        person:
+            - NotBlank: ~

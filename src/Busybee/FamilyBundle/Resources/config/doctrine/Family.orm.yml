@@ -20,6 +20,7 @@ Busybee\FamilyBundle\Entity\Family:
         careGiver:
             targetEntity: Busybee\FamilyBundle\Entity\CareGiver
             mappedBy: family
+            cascade: [ 'all' ]
             joinColumn:
                 name: caregiver
                 referencedColumnName: id

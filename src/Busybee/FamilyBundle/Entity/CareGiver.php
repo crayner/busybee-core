@@ -44,14 +44,7 @@ class CareGiver extends CareGiverModel
      * @var \Busybee\PersonBundle\Entity\Person
      */
     private $person;
-    /**
-     * @var \Busybee\FamilyBundle\Entity\Family
-     */
-    private $family1;
-    /**
-     * @var \Busybee\FamilyBundle\Entity\Family
-     */
-    private $family2;
+
     /**
      * @var \Busybee\FamilyBundle\Entity\Family
      */
@@ -239,54 +232,6 @@ class CareGiver extends CareGiverModel
     public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
     {
         $this->person = $person;
-
-        return $this;
-    }
-
-    /**
-     * Get family1
-     *
-     * @return \Busybee\FamilyBundle\Entity\Family
-     */
-    public function getFamily1()
-    {
-        return $this->family1;
-    }
-
-    /**
-     * Set family1
-     *
-     * @param \Busybee\FamilyBundle\Entity\Family $family1
-     *
-     * @return CareGiver
-     */
-    public function setFamily1(\Busybee\FamilyBundle\Entity\Family $family1 = null)
-    {
-        $this->family1 = $family1;
-
-        return $this;
-    }
-
-    /**
-     * Get family2
-     *
-     * @return \Busybee\FamilyBundle\Entity\Family
-     */
-    public function getFamily2()
-    {
-        return $this->family2;
-    }
-
-    /**
-     * Set family2
-     *
-     * @param \Busybee\FamilyBundle\Entity\Family $family2
-     *
-     * @return CareGiver
-     */
-    public function setFamily2(\Busybee\FamilyBundle\Entity\Family $family2 = null)
-    {
-        $this->family2 = $family2;
 
         return $this;
     }
