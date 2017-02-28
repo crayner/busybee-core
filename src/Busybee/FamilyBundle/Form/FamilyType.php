@@ -4,6 +4,7 @@ namespace Busybee\FamilyBundle\Form;
 
 use Busybee\FamilyBundle\Entity\Family;
 use Busybee\FamilyBundle\Events\FamilySubscriber;
+use Busybee\FamilyBundle\Events\StudentSubscriber;
 use Busybee\FamilyBundle\Model\FamilyManager;
 use Busybee\FormBundle\Type\AutoCompleteType;
 use Busybee\PersonBundle\Entity\Address;
@@ -106,6 +107,7 @@ class FamilyType extends AbstractType
                 )
             );
         $builder->addEventSubscriber(new FamilySubscriber($this->fm));
+
     }
 
     /**

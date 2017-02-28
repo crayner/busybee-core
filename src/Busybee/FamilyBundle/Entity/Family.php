@@ -1,6 +1,8 @@
 <?php
 
 namespace Busybee\FamilyBundle\Entity;
+
+use Busybee\StudentBundle\Entity\Student;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -27,11 +29,6 @@ class Family
      * @var \DateTime
      */
     private $createdOn;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $familyCareGiver;
 
     /**
      * @var \Busybee\PersonBundle\Entity\Address
@@ -72,9 +69,9 @@ class Family
      */
     public function __construct()
     {
-        $this->familyCareGiver = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->phone = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->phone = new ArrayCollection();
+        $this->students = new ArrayCollection();
+        $this->careGiver = new ArrayCollection();
     }
 
     /**
@@ -157,30 +154,6 @@ class Family
         $this->createdOn = $createdOn;
 
         return $this;
-    }
-
-    /**
-     * Add familyCareGiver
-     *
-     * @param \Busybee\FamilyBundle\Entity\FamilyCareGiver $familyCareGiver
-     *
-     * @return Family
-     */
-    public function addFamilyCareGiver(\Busybee\FamilyBundle\Entity\FamilyCareGiver $familyCareGiver)
-    {
-        $this->familyCareGiver[] = $familyCareGiver;
-
-        return $this;
-    }
-
-    /**
-     * Remove familyCareGiver
-     *
-     * @param \Busybee\FamilyBundle\Entity\FamilyCareGiver $familyCareGiver
-     */
-    public function removeFamilyCareGiver(\Busybee\FamilyBundle\Entity\FamilyCareGiver $familyCareGiver)
-    {
-        $this->familyCareGiver->removeElement($familyCareGiver);
     }
 
     /**
@@ -350,13 +323,13 @@ class Family
     /**
      * Add student
      *
-     * @param \Busybee\StudentBundle\Entity\Student $student
+     * @param  Student $student
      *
      * @return Family
      */
-    public function addStudent(\Busybee\StudentBundle\Entity\Student $student)
+    public function addStudent(Student $student)
     {
-        $this->students[] = $student;
+        $this->students->add($student);
 
         return $this;
     }
@@ -364,21 +337,34 @@ class Family
     /**
      * Remove student
      *
-     * @param \Busybee\StudentBundle\Entity\Student $student
+     * @param Student $student
      */
-    public function removeStudent(\Busybee\StudentBundle\Entity\Student $student)
+    public function removeStudent(Student $student)
     {
         $this->students->removeElement($student);
     }
 
     /**
-     * Get students
+     * Get Students
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getStudents()
     {
         return $this->students;
+    }
+
+    /**
+     * Get Students
+     *
+     * @param \Doctrine\Common\Collections\Collection
+     * @return Family
+     */
+    public function setStudents(ArrayCollection $students)
+    {
+        $this->students = $students;
+
+        return $this;
     }
 
     /**
@@ -392,7 +378,7 @@ class Family
     {
         if (empty($careGiver->getFamily()))
             $careGiver->setFamily($this);
-        
+
         $this->careGiver[] = $careGiver;
 
         return $this;

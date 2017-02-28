@@ -51,8 +51,6 @@ class FamilyController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             $em = $this->get('doctrine')->getManager();
             $em->persist($family);
             $em->flush();

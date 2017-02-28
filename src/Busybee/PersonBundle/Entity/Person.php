@@ -134,15 +134,13 @@ class Person extends PersonModel
     /**
      * @var Staff
      */
+
     private $staff;
     /**
      * @var \Busybee\StudentBundle\Entity\Student
      */
     private $student;
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $caregiver;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -778,38 +776,36 @@ class Person extends PersonModel
     }
 
     /**
-     * Add caregiver
+     * Add careGiver
      *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $caregiver
+     * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver
      *
      * @return Person
      */
-    public function addCaregiver(\Busybee\FamilyBundle\Entity\CareGiver $caregiver)
+    public function addCareGiver(\Busybee\FamilyBundle\Entity\CareGiver $careGiver)
     {
-        $this->caregiver[] = $caregiver;
+        $this->careGiver[] = $careGiver;
 
         return $this;
     }
 
     /**
-     * Remove caregiver
+     * Remove careGiver
      *
-     * @param \Busybee\FamilyBundle\Entity\CareGiver $caregiver
+     * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver
      */
-    public function removeCaregiver(\Busybee\FamilyBundle\Entity\CareGiver $caregiver)
+    public function removeCareGiver(\Busybee\FamilyBundle\Entity\CareGiver $careGiver)
     {
-        $this->caregiver->removeElement($caregiver);
+        $this->careGiver->removeElement($careGiver);
     }
 
     /**
-     * Get caregiver
+     * Get careGiver
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCaregiver()
+    public function getCareGiver()
     {
-        return $this->caregiver;
+        return $this->careGiver;
     }
-
-
 }

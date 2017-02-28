@@ -187,15 +187,6 @@ class PersonType extends AbstractType
                     ),
                 )
             )
-            ->add('careGiverQuestion', YesNoType::class, array(
-                    'label'					=> 'person.label.careGiver.question',
-                    'attr'                  => array(
-                        'help'                  => 'person.help.careGiver.question',
-                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
-                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
-                    ),
-                )
-            )
             ->add('studentQuestion', YesNoType::class, array(
                     'label'					=> 'person.label.student.question',
                     'attr'                  => array(

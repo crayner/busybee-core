@@ -4,6 +4,7 @@ namespace Busybee\FamilyBundle\Model;
 use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Model\PersonManager;
+use Busybee\StudentBundle\Entity\Student;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\ORM\EntityManager;
 
@@ -75,4 +76,29 @@ class FamilyManager
         return null;
     }
 
+    /**
+     * @param $details
+     * @return CareGiver|null|object
+     */
+    public function findOneCareGiverByPerson($details)
+    {
+        return $this->em->getRepository(CareGiver::class)->findOneBy($details);
+    }
+
+    public function getStudentFromPerson($person)
+    {
+        $student = $this->getStudentRepository()->findOneByPerson($person);
+        if (!$student instanceof Student)
+            $student = new Student();
+        $student->setPerson($this->em->getRepository(Person::class)->find($person));
+        return $student;
+    }
+
+    /**
+     * @return \Busybee\StudentBundle\Repository\StudentRepository|\Doctrine\ORM\EntityRepository
+     */
+    public function getStudentRepository()
+    {
+        return $this->em->getRepository(Student::class);
+    }
 }

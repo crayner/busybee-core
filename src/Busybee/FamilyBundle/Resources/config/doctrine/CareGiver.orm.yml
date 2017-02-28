@@ -14,10 +14,24 @@ Busybee\FamilyBundle\Entity\CareGiver:
             generator:
                 strategy: AUTO
     fields:
+        comment:
+            type: text
+            nullable: true
+        phoneContact:
+            type: boolean
+        smsContact:
+            type: boolean
+        emailContact:
+            type: boolean
+        mailContact:
+            type: boolean
         lastModified:
             type: datetime
         createdOn:
             type: datetime
+        contactPriority:
+            type: integer
+            length: 2
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

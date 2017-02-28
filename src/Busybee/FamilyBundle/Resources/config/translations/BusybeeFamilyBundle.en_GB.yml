@@ -30,3 +30,4 @@ family:
     student:
         add: Add Student
         remove: Remove Student
+        edit: Edit Student

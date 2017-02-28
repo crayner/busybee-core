@@ -31,3 +31,5 @@ specialDay:
 caregiver:
     blank:
         family: The family for a caregiver must not be blank.
+    unique:
+        fail: The caregiver must be unique within a family.

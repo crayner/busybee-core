@@ -37,3 +37,15 @@ services:
             - '@setting.manager'
             - '@doctrine.orm.entity_manager'
             - '@person.manager'
+    caregiver.validator:
+        class: Busybee\FamilyBundle\Validator\Constraints\CareGiverValidator
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: validator.constraint_validator, alias: caregiver_validator }
+    form.caregiver.type:
+        class: Busybee\FamilyBundle\Form\CareGiverType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }

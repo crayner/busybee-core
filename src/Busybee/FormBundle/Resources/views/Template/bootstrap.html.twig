@@ -47,6 +47,40 @@
 	{% endfor %}
 {%- endblock form_errors %}
 
+{% block toggle_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' toggle form-control')|trim}) -%}
+
+    {%- set attr = attr|merge({"data-toggle": "toggle"}) -%}
+
+    {% if attribute(attr, "data-off") is not defined %}
+        {%- set attr = attr|merge({"data-off": '<span class="halflings halflings-thumbs-down"></span>'}) -%}
+    {% endif %}
+
+    {% if attribute(attr, "data-on") is not defined %}
+        {%- set attr = attr|merge({"data-on": '<span class="halflings halflings-thumbs-up"></span>'}) -%}
+    {% endif %}
+
+    {% if attribute(attr, "data-size") is not defined %}
+        {%- set attr = attr|merge({"data-size": "normal"}) -%}
+    {% endif %}
+
+    {% if attribute(attr, "data-onstyle") is not defined %}
+        {%- set attr = attr|merge({"data-onstyle": "success"}) -%}
+    {% endif %}
+    {% if attribute(attr, "data-offstyle") is not defined %}
+        {%- set attr = attr|merge({"data-offstyle": "danger"}) -%}
+    {% endif %}
+
+    <div class="yesno-right">
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    </div>
+
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    <label class="control-label">{{ (translation_domain is same as(false) ? form.vars.label : form.vars.label|trans({}, translation_domain)) }}</label>
+    {% if form.vars.help is defined %}<br/><span
+            class="field-help">{{ (translation_domain is same as(false) ? form.vars.help : form.vars.help|trans({}, translation_domain)) }}</span>{% endif %}
+{%- endblock toggle_widget %}
+
 {% block yesno_widget -%}
 	{%- set attr = attr|merge({class: (attr.class|default('') ~ ' yes-no form-control')|trim}) -%}
 

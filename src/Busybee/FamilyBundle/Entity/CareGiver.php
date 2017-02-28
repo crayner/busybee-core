@@ -3,6 +3,7 @@
 namespace Busybee\FamilyBundle\Entity;
 
 use Busybee\FamilyBundle\Model\CareGiverModel;
+use Busybee\SecurityBundle\Entity\User;
 
 /**
  * CareGiver
@@ -46,16 +47,39 @@ class CareGiver extends CareGiverModel
     private $person;
 
     /**
-     * @var \Busybee\FamilyBundle\Entity\Family
+     * @var Family
      */
     private $family;
+    /**
+     * @var string
+     */
+    private $comment;
+    /**
+     * @var boolean
+     */
+    private $phoneContact;
+    /**
+     * @var boolean
+     */
+    private $smsContact;
+    /**
+     * @var boolean
+     */
+    private $emailContact;
+    /**
+     * @var boolean
+     */
+    private $mailContact;
+    /**
+     * @var integer
+     */
+    private $contactPriority;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->careGiverFamily = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -117,54 +141,6 @@ class CareGiver extends CareGiverModel
     }
 
     /**
-     * Add careGiverFamily
-     *
-     * @param \Busybee\FamilyBundle\Entity\FamilyCareGiver $careGiverFamily
-     *
-     * @return CareGiver
-     */
-    public function addCareGiverFamily(\Busybee\FamilyBundle\Entity\FamilyCareGiver $careGiverFamily)
-    {
-        $this->careGiverFamily[] = $careGiverFamily;
-
-        return $this;
-    }
-
-    /**
-     * Remove careGiverFamily
-     *
-     * @param \Busybee\FamilyBundle\Entity\FamilyCareGiver $careGiverFamily
-     */
-    public function removeCareGiverFamily(\Busybee\FamilyBundle\Entity\FamilyCareGiver $careGiverFamily)
-    {
-        $this->careGiverFamily->removeElement($careGiverFamily);
-    }
-
-    /**
-     * Get careGiverFamily
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCareGiverFamily()
-    {
-        return $this->careGiverFamily;
-    }
-
-    /**
-     * Set careGiverFamily
-     *
-     * @param \Busybee\FamilyBundle\Entity\FamilyCareGiver $careGiverFamily
-     *
-     * @return CareGiver
-     */
-    public function setCareGiverFamily(\Busybee\FamilyBundle\Entity\FamilyCareGiver $careGiverFamily = null)
-    {
-        $this->careGiverFamily = $careGiverFamily;
-
-        return $this;
-    }
-
-    /**
      * Get createdBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
@@ -181,7 +157,7 @@ class CareGiver extends CareGiverModel
      *
      * @return CareGiver
      */
-    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+    public function setCreatedBy(User $createdBy = null)
     {
         $this->createdBy = $createdBy;
 
@@ -239,7 +215,7 @@ class CareGiver extends CareGiverModel
     /**
      * Get family
      *
-     * @return \Busybee\FamilyBundle\Entity\Family
+     * @return Family
      */
     public function getFamily()
     {
@@ -249,13 +225,157 @@ class CareGiver extends CareGiverModel
     /**
      * Set family
      *
-     * @param \Busybee\FamilyBundle\Entity\Family $family
+     * @param Family $family
      *
      * @return CareGiver
      */
-    public function setFamily(\Busybee\FamilyBundle\Entity\Family $family = null)
+    public function setFamily(Family $family = null)
     {
         $this->family = $family;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     *
+     * @return CareGiver
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get phoneContact
+     *
+     * @return boolean
+     */
+    public function getPhoneContact()
+    {
+        return $this->phoneContact;
+    }
+
+    /**
+     * Set phoneContact
+     *
+     * @param boolean $phoneContact
+     *
+     * @return CareGiver
+     */
+    public function setPhoneContact($phoneContact)
+    {
+        $this->phoneContact = $phoneContact;
+
+        return $this;
+    }
+
+    /**
+     * Get smsContact
+     *
+     * @return boolean
+     */
+    public function getSmsContact()
+    {
+        return $this->smsContact;
+    }
+
+    /**
+     * Set smsContact
+     *
+     * @param boolean $smsContact
+     *
+     * @return CareGiver
+     */
+    public function setSmsContact($smsContact)
+    {
+        $this->smsContact = $smsContact;
+
+        return $this;
+    }
+
+    /**
+     * Get emailContact
+     *
+     * @return boolean
+     */
+    public function getEmailContact()
+    {
+        return $this->emailContact;
+    }
+
+    /**
+     * Set emailContact
+     *
+     * @param boolean $emailContact
+     *
+     * @return CareGiver
+     */
+    public function setEmailContact($emailContact)
+    {
+        $this->emailContact = $emailContact;
+
+        return $this;
+    }
+
+    /**
+     * Get mailContact
+     *
+     * @return boolean
+     */
+    public function getMailContact()
+    {
+        return $this->mailContact;
+    }
+
+    /**
+     * Set mailContact
+     *
+     * @param boolean $mailContact
+     *
+     * @return CareGiver
+     */
+    public function setMailContact($mailContact)
+    {
+        $this->mailContact = $mailContact;
+
+        return $this;
+    }
+
+    /**
+     * Get contactPriority
+     *
+     * @return integer
+     */
+    public function getContactPriority()
+    {
+        return $this->contactPriority;
+    }
+
+    /**
+     * Set contactPriority
+     *
+     * @param integer $contactPriority
+     *
+     * @return CareGiver
+     */
+    public function setContactPriority($contactPriority)
+    {
+        $this->contactPriority = $contactPriority;
 
         return $this;
     }
