@@ -82,6 +82,26 @@ class CareGiver extends CareGiverModel
      * @var string
      */
     private $relationship;
+    /**
+     * @var boolean
+     */
+    private $newsletter;
+    /**
+     * @var boolean
+     */
+    private $finance;
+    /**
+     * @var boolean
+     */
+    private $pickUpAllowed;
+    /**
+     * @var boolean
+     */
+    private $emergencyOnly;
+    /**
+     * @var boolean
+     */
+    private $reporting;
 
     /**
      * Constructor
@@ -432,6 +452,126 @@ class CareGiver extends CareGiverModel
     public function setRelationship($relationship)
     {
         $this->relationship = $relationship;
+
+        return $this;
+    }
+
+    /**
+     * Get newsletter
+     *
+     * @return boolean
+     */
+    public function getNewsletter()
+    {
+        return $this->newsletter;
+    }
+
+    /**
+     * Set newsletter
+     *
+     * @param boolean $newsletter
+     *
+     * @return CareGiver
+     */
+    public function setNewsletter($newsletter)
+    {
+        $this->newsletter = $newsletter;
+
+        return $this;
+    }
+
+    /**
+     * Get finance
+     *
+     * @return boolean
+     */
+    public function getFinance()
+    {
+        return $this->finance;
+    }
+
+    /**
+     * Set finance
+     *
+     * @param boolean $finance
+     *
+     * @return CareGiver
+     */
+    public function setFinance($finance)
+    {
+        $this->finance = $finance;
+
+        return $this;
+    }
+
+    /**
+     * Get pickUpAllowed
+     *
+     * @return boolean
+     */
+    public function getPickUpAllowed()
+    {
+        return $this->pickUpAllowed;
+    }
+
+    /**
+     * Set pickUpAllowed
+     *
+     * @param boolean $pickUpAllowed
+     *
+     * @return CareGiver
+     */
+    public function setPickUpAllowed($pickUpAllowed)
+    {
+        $this->pickUpAllowed = $pickUpAllowed;
+
+        return $this;
+    }
+
+    /**
+     * Get emergencyOnly
+     *
+     * @return boolean
+     */
+    public function getEmergencyOnly()
+    {
+        return $this->emergencyOnly;
+    }
+
+    /**
+     * Set emergencyOnly
+     *
+     * @param boolean $emergencyOnly
+     *
+     * @return CareGiver
+     */
+    public function setEmergencyOnly($emergencyOnly)
+    {
+        $this->emergencyOnly = $emergencyOnly;
+
+        return $this;
+    }
+
+    /**
+     * Get reporting
+     *
+     * @return boolean
+     */
+    public function getReporting()
+    {
+        return $this->reporting;
+    }
+
+    /**
+     * Set reporting
+     *
+     * @param boolean $reporting
+     *
+     * @return CareGiver
+     */
+    public function setReporting($reporting)
+    {
+        $this->reporting = $reporting;
 
         return $this;
     }

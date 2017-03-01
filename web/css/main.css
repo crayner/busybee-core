@@ -57,6 +57,11 @@ p {
 	float: right ;
 	margin-left: 5px;
 }
+
+.yesno-left {
+    float: left;
+    margin-right: 5px;
+}
 .row-striped {
 	border: 1px solid rgba(204,204,204,1);
 	border-radius: 8px;

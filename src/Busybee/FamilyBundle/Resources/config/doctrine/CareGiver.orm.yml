@@ -39,6 +39,16 @@ Busybee\FamilyBundle\Entity\CareGiver:
         relationship:
             type: string
             length: 32
+        newsletter:
+            type: boolean
+        finance:
+            type: boolean
+        pickUpAllowed:
+            type: boolean
+        emergencyOnly:
+            type: boolean
+        reporting:
+            type: boolean
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

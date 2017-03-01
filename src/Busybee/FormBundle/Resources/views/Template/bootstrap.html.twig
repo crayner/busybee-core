@@ -71,7 +71,7 @@
         {%- set attr = attr|merge({"data-offstyle": "danger"}) -%}
     {% endif %}
 
-    <div class="yesno-right">
+    <div class="{{ div_class }}">
         <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
     </div>
 

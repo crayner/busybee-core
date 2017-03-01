@@ -24,7 +24,6 @@ family:
         language:
             first: First language spoken by family.
             second: Second language spoken by family.
-
     help:
         name: The family name, if left blank, will be a combination of the caregivers names.  The family name must be unique.
         caregiver: Select care givers for the family.  All people in the database not listed as students can be selected. The order of contact is defined by the position in this list, the first appearing at the top of this list.
@@ -33,7 +32,6 @@ family:
         caregiver: Select a care giver.
         student: Select existing Student.
         language: Select a language.
-
     return: Manage Families
     student:
         add: Add Student
@@ -49,6 +47,11 @@ students:
         person: Select Student
 caregiver:
     label:
+        newsletter: Receive Newsletter
+        reporting: Receive Reporting
+        finance: Receive Finance
+        pickUpAllowed: Allowed to collect children
+        emergencyOnly: Emergency Contact Only
         person: Care Giver
         emailcontact: Contact by EMail
         smscontact: Contact by SMS
