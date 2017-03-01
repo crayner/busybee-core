@@ -129,8 +129,8 @@
 
     $(".studentList").collection({
         name_prefix: '{{ form.students.vars.full_name }}',
-        allow_up: true,
-        allow_down: true,
+        allow_up: false,
+        allow_down: false,
         add: '<button title="{{ 'family.student.add'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
         remove: '<button title="{{ 'family.student.remove'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
         add_at_the_end: true

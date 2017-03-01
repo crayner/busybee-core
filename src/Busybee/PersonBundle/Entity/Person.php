@@ -127,11 +127,6 @@ class Person extends PersonModel
     private $studentQuestion;
 
     /**
-     * @var boolean
-     */
-    private $careGiverQuestion;
-
-    /**
      * @var Staff
      */
 
@@ -699,30 +694,6 @@ class Person extends PersonModel
     public function setStudentQuestion($studentQuestion)
     {
         $this->studentQuestion = $studentQuestion;
-
-        return $this;
-    }
-
-    /**
-     * Get careGiverQuestion
-     *
-     * @return boolean
-     */
-    public function getCareGiverQuestion()
-    {
-        return $this->careGiverQuestion;
-    }
-
-    /**
-     * Set careGiverQuestion
-     *
-     * @param boolean $careGiverQuestion
-     *
-     * @return Person
-     */
-    public function setCareGiverQuestion($careGiverQuestion)
-    {
-        $this->careGiverQuestion = $careGiverQuestion;
 
         return $this;
     }

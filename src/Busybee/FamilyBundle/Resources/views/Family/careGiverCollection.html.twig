@@ -6,15 +6,23 @@
 {% block caregiver_widget %}
     <div class="well familyCareGiver">
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-sm-4 well">
                 {{ form_row(form.person) }}
                 {{ form_row(form.family) }}
                 {{ form_row(form.contactPriority) }}
                 <input name="family[careGiver][{{ form.vars.name }}][currentOrder]"
                        value="{{ form.contactPriority.vars.value }}" type="hidden"/>
             </div>
-            <div class="col-sm-3 collection-actions">
+            <div class="col-sm-4 well">
+                {{ form_row(form.relationship) }}
+            </div>
+            <div class="col-sm-offset-1 col-sm-3 collection-actions well">
 				<span>
+                    {% if form.person.vars.value is defined and form.person.vars.value > 0 %}
+                        <button title="{{ 'family.caregiver.edit'|trans }}" style="float: right;" type="button"
+                                class=" halflings halflings-edit btn btn-info"
+                                onclick="window.open('{{ path('person_edit', {'id': form.person.vars.value}) }}','{{ 'family.caregiver.edit'|trans }}','width=1024,height=900')"></button>
+                    {% endif %}
 					<button title="{{ 'family.caregiver.remove'|trans }}" type="button"
                             class="collection-remove collection-action halflings halflings-erase btn btn-warning"
                             style="float: right;"></button>
@@ -25,23 +33,27 @@
             </div>
         </div>
         <div class="row row-striped">
-            <div class="col-sm-offset-3 col-sm-9">
+            <div class="col-sm-6">
                 {{ form_row(form.emailContact) }}
             </div>
-        </div>
-        <div class="row row-striped">
-            <div class="col-sm-offset-3 col-sm-9">
+            <div class="col-sm-6">
                 {{ form_row(form.smsContact) }}
             </div>
         </div>
         <div class="row row-striped">
-            <div class="col-sm-offset-3 col-sm-9">
+            <div class="col-sm-6">
                 {{ form_row(form.phoneContact) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(form.mailContact) }}
             </div>
         </div>
         <div class="row row-striped">
-            <div class="col-sm-offset-3 col-sm-9">
-                {{ form_row(form.mailContact) }}
+            <div class="col-sm-4 well">
+                {{ form_row(form.vehicleRegistration) }}
+            </div>
+            <div class="col-sm-8 well">
+                {{ form_row(form.comment) }}
             </div>
         </div>
     </div>

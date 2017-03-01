@@ -1,10 +1,9 @@
 <?php
 
-namespace Busybee\FamilyBundle\Form;
+namespace Busybee\PersonBundle\Form;
 
 use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\FamilyBundle\Entity\Family;
-use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\FormBundle\Type\ToggleType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
@@ -77,20 +76,7 @@ class CareGiverType extends AbstractType
                 )
             )
             ->add('family', HiddenType::class)
-            ->add('contactPriority', HiddenType::class)
-            ->add('vehicleRegistration', null, array(
-                    'label' => 'caregiver.label.vehicle',
-                )
-            )
-            ->add('comment', null, array(
-                    'label' => 'caregiver.label.comment',
-                )
-            )
-            ->add('relationship', SettingChoiceType::class, array(
-                    'label' => 'caregiver.label.relationship',
-                    'settingName' => 'Student.CareGiver.Relationship.List',
-                )
-            );
+            ->add('contactPriority', HiddenType::class);
         $builder->get('family')->addModelTransformer(new EntityToStringTransformer($this->manager, Family::class));
     }
 

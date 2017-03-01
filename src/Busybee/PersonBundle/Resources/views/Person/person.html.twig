@@ -47,23 +47,8 @@
 					</div>
                 {% else %}
                     {% do form.staffQuestion.setRendered() %}
-                {% endif %} {#
-                {% if form.vars.value.id is not null and canBeCareGiver(form.vars.value) %}
-					<div class="col-sm-2 well">
-                        {% if form.careGiver.vars.value is empty or form.careGiver.vars.value.getId() is empty %}
-                            {{ form_row(form.careGiverQuestion) }}
-                        {% else %}
-                            {% set attributes = {'checked': 'checked'} %}
-                            {% if not canDeleteCareGiver(form.vars.value) %}
-                                {% set attributes = attributes|merge({'disabled': 'disabled'}) %}
-                            {% endif %}
-                            {{ form_row(form.careGiverQuestion, attributes) }}
-                        {% endif %}
-                        {% set offset = offset - 2 %}
-					</div>
-                {% else %}
-                    {% do form.careGiverQuestion.setRendered() %}
-                {% endif %} #}
+                {% endif %}
+
                 {% if form.vars.value.id is not null and canBeStudent(form.vars.value) %}
 					<div class="col-sm-2 well">
                         {% if form.student.vars.value is empty or form.student.vars.value.getId() is empty %}

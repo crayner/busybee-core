@@ -6,8 +6,18 @@ class CareGiverModel
 {
     use \Busybee\PersonBundle\Model\FormatNameExtension;
 
-    public function getcurrentOrder()
+    public function __construct()
     {
-        return null;
+        $this->setPhoneContact(false);
+        $this->setSmsContact(false);
+        $this->setMailContact(false);
+        $this->setEmailContact(false);
+        $this->setContactPriority(0);
+        $this->setRelationship('Unknown');
+    }
+
+    public function __toString()
+    {
+        return strval($this->getId());
     }
 }

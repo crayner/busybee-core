@@ -8,23 +8,32 @@ family:
         details: "Family Details: %name%"
         contacts: "Family Contact Details: %name%"
         people: "Members of Family: %name%"
+        students: 'Family Student Details: %name%'
+        careGivers: 'Family Care Giver Details: %name%'
     description: Search and select families.
     actions: Actions
     tab:
         details: Details
         contacts: Contacts
-        people: Members
+        students: Students
+        careGivers: Care Givers
     label:
         name: Family Name
         caregiver: Care Giver
         students: Children (Students)
+        language:
+            first: First language spoken by family.
+            second: Second language spoken by family.
+
     help:
         name: The family name, if left blank, will be a combination of the caregivers names.  The family name must be unique.
         caregiver: Select care givers for the family.  All people in the database not listed as students can be selected. The order of contact is defined by the position in this list, the first appearing at the top of this list.
-        students: Select existing students (children) to add to the family.  Changes are only saved when the family is saved.  Duplicates will be ignored.  Children can be members of multiple families.
+        students: Select existing students (children) to add to the family.  Changes are only saved when the family is saved.  Duplicates will be ignored.  Children can be members of multiple families. Students are sorted based on their first day at school.
     placeholder:
         caregiver: Select a care giver.
         student: Select existing Student.
+        language: Select a language.
+
     return: Manage Families
     student:
         add: Add Student
@@ -32,6 +41,7 @@ family:
     caregiver:
         add: Add Care Giver
         remove: Remove Care Giver
+        edit: Edit Care Giver
 students:
     label:
         person: Student Name
@@ -44,5 +54,8 @@ caregiver:
         smscontact: Contact by SMS
         mailcontact: Contact by Mail
         phonecontact: Contact by Phone
+        vehicle: Vehicle Registration
+        comment: Comment
+        relationship: Relationship
     placeholder:
         person: Select Care Giver

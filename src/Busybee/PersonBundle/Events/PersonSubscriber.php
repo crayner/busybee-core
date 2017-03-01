@@ -3,6 +3,7 @@
 namespace Busybee\PersonBundle\Events ;
 
 
+use Busybee\PersonBundle\Form\CareGiverType;
 use Busybee\PersonBundle\Form\UserType;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\Group;
@@ -47,6 +48,7 @@ class PersonSubscriber implements EventSubscriberInterface
         $this->om = $om ;
         $this->parameters = $parameters;
     }
+
     /**
      * @return array
      */
@@ -74,15 +76,7 @@ class PersonSubscriber implements EventSubscriberInterface
             $form->add('staff', StaffType::class);
         else
             $form->add('staff', HiddenType::class);
-        /*
 
-            if ($person->getCareGiver() === null || $person->getCareGiver()->getId() === null)
-                $form->add('careGiver', HiddenType::class);
-            elseif ($this->personManager->canBeStaff($person))
-                $form->add('careGiver', CareGiverType::class);
-            else
-                $form->add('careGiver', HiddenType::class);
-        */
         if ($person->getStudent() === null || $person->getStudent()->getId() === null)
             $form->add('student', HiddenType::class);
         elseif ($this->personManager->canBeStudent($person))
@@ -96,12 +90,12 @@ class PersonSubscriber implements EventSubscriberInterface
             $form->add('user', UserType::class);
             if (empty($person->getUser()->getEmail()) || $person->getUser()->getEmail() != $person->getEmail())
                 $person->getUser()->setEmail($person->getEmail());
-        }
-        else
+        } else
             $form->add('user', HiddenType::class);
 
         $event->setData($person);
     }
+
     /**
      * @param FormEvent $event
      */
@@ -131,21 +125,6 @@ class PersonSubscriber implements EventSubscriberInterface
             $this->om->remove($staff);
             $flush = true;
         }
-        /*
-                if (isset($data['careGiverQuestion']) && $data['careGiverQuestion'] === '1' && !$person->getCareGiver() instanceof CareGiver && $this->personManager->canBeCareGiver($person)) {
-                    $data['careGiver'] = array();
-                    $data['careGiver']['person'] = $form->getData()->getId();
-                    $form->remove('careGiver');
-                    $form->add('careGiver', CareGiverType::class);
-                }
-
-                if ($form->get('careGiver')->getData() instanceof CareGiver && !isset($data['careGiver']) && $this->personManager->canDeleteCareGiver($person)) {
-                    $data['careGiver'] = "";
-                    $form->remove('careGiver');
-                    $form->add('careGiver', HiddenType::class);
-                    $this->om->remove($form->get('careGiver')->getData());
-                    $flush = true;
-                } */
 
         if (isset($data['studentQuestion']) && $data['studentQuestion'] === '1' && !$person->getStudent() instanceof Student && $this->personManager->canBeStudent($person)) {
             $data['student'] = array();

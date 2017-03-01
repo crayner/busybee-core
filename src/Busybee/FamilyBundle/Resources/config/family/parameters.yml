@@ -8,6 +8,9 @@ parameters:
         contacts:
             label: family.tab.contacts
             include: 'BusybeeFamilyBundle:Family:contacts.html.twig'
-        people:
-            label: family.tab.people
-            include: 'BusybeeFamilyBundle:Family:people.html.twig'
+        students:
+            label: family.tab.students
+            include: 'BusybeeFamilyBundle:Family:studentPanel.html.twig'
+        careGivers:
+            label: family.tab.careGivers
+            include: 'BusybeeFamilyBundle:Family:careGiverPanel.html.twig'

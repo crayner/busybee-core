@@ -12,6 +12,14 @@ Busybee\FamilyBundle\Entity\Family:
         name:
             type: string
             length: '255'
+        firstLanguage:
+            type: string
+            length: 32
+            nullable: true
+        secondLanguage:
+            type: string
+            length: 32
+            nullable: true
         lastModified:
             type: datetime
         createdOn:

@@ -1,0 +1,22 @@
+{# src/Busybee/FamilyBundle/Resources/views/Family/people.html.twig #}
+
+{% trans_default_domain "BusybeeFamilyBundle" %}
+
+{% form_theme form
+"BusybeeFormBundle:Template:bootstrap.html.twig"
+"BusybeeFormBundle:Template:jquery.collection.html.twig"
+"BusybeeFamilyBundle:Family:emergencyContactCollection.html.twig"
+"BusybeeFamilyBundle:Family:studentCollection.html.twig" %}
+
+<div class="panel panel-primary busybee-panel">
+    {% include "BusybeeFamilyBundle:Family:panelHeader.html.twig" with {'header': 'family.title.careGivers'} %}
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% include 'BusybeeFamilyBundle:Family:caregiver.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

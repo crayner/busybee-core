@@ -11,6 +11,7 @@ use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Form\PhoneType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -103,6 +104,18 @@ class FamilyType extends AbstractType
                         'class' => 'studentList',
                         'help' => 'family.help.students',
                     ),
+                    'required' => false,
+                )
+            )
+            ->add('firstLanguage', LanguageType::class, array(
+                    'label' => 'family.label.language.first',
+                    'placeholder' => 'family.placeholder.language',
+                    'required' => false,
+                )
+            )
+            ->add('secondLanguage', LanguageType::class, array(
+                    'label' => 'family.label.language.second',
+                    'placeholder' => 'family.placeholder.language',
                     'required' => false,
                 )
             );

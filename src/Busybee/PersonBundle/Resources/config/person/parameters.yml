@@ -12,10 +12,12 @@ parameters:
             label: person.tab.staff
             include: BusybeeStaffBundle:Person:staff.html.twig
             message: staffMessage
+            translation: BusybeeStaffBundle
         student:
             label: person.tab.student
             include: BusybeeStudentBundle:Person:student.html.twig
             message: studentMessage
+            translation: BusybeeStudentBundle
         user:
             label: person.tab.user
             include: BusybeePersonBundle:Person:user.html.twig

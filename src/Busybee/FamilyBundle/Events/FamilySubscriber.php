@@ -45,14 +45,15 @@ class FamilySubscriber implements EventSubscriberInterface
 
         $form = $event->getForm();
 
-
         unset($data['address1_list'], $data['address2_list']);
 
         $careGiver = array();
         if (!empty($data['careGiver']) && is_array($data['careGiver'])) {
             foreach ($data['careGiver'] as $q => $w)
-                if (!empty($w) && !empty($w['person']))
+                if (!empty($w) && !empty($w['person'])) {
+                    $w['contactPriority'] = $q + 1;
                     $careGiver[] = $w;
+                }
         }
         $data['careGiver'] = $careGiver;
 
@@ -82,27 +83,38 @@ class FamilySubscriber implements EventSubscriberInterface
             }
         }
 
+        $family = $form->getData();
+        $careGivers = new ArrayCollection();
+
         if (is_array($data['careGiver'])) {
             foreach ($data['careGiver'] as $q => $w) {
                 $data['careGiver'][$q]['contactPriority'] = $q + 1;
             }
 
-            $family = $form->getData();
             if ($family->getId() > 0) {
                 foreach ($data['careGiver'] as $q => $w) {
                     $cg = $this->fm->findOneCareGiverByPerson(array('person' => $w['person'], 'family' => $family->getId()));
-                    $data['careGiver'][$q]['id'] = $cg->getId();
+                    $data['careGiver'][$q]['cg'] = $cg;
+                    $data['careGiver'][$q]['family'] = $family->getId();
                 }
 
                 usort($data['careGiver'], function ($item1, $item2) {
                     return $item1['currentOrder'] <=> $item2['currentOrder'];
                 });
             }
+
             foreach ($data['careGiver'] as $q => $w) {
-                unset($data['careGiver'][$q]['id'], $data['careGiver'][$q]['currentOrder']);
+                $careGivers->add($data['careGiver'][$q]['cg']);
+                unset($data['careGiver'][$q]['cg'], $data['careGiver'][$q]['currentOrder']);
             }
         }
 
+        $a = $family->getCareGiver()->toArray();
+        $b = $careGivers->toArray();
+        $xx = array_diff($a, $b);
+        foreach ($xx as $cg)
+            $this->fm->removeEntity($cg);
+        $family->setCareGiver($careGivers);
 
         $students = new ArrayCollection();
         if (!empty($data['students']) && is_array($data['students'])) {
@@ -113,12 +125,15 @@ class FamilySubscriber implements EventSubscriberInterface
                 }
         }
 
-        $family = $form->getData();
+
         $family->setStudents($students);
 
         $form->setData($family);
 
         $event->setData($data);
+
+        dump($data);
+        dump($family);
     }
 
 }

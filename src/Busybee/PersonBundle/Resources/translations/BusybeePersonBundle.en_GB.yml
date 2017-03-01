@@ -67,7 +67,7 @@ person:
         person: Person
         contact: Contact
         staff: Staff
-        careGiver: Care Giver
+        caregiver: Care Giver
         student: Student
         user: User
     placeholder:

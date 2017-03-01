@@ -74,6 +74,14 @@ class CareGiver extends CareGiverModel
      * @var integer
      */
     private $contactPriority;
+    /**
+     * @var string
+     */
+    private $vehicleRegistration;
+    /**
+     * @var string
+     */
+    private $relationship;
 
     /**
      * Constructor
@@ -376,6 +384,54 @@ class CareGiver extends CareGiverModel
     public function setContactPriority($contactPriority)
     {
         $this->contactPriority = $contactPriority;
+
+        return $this;
+    }
+
+    /**
+     * Get vehicleRegistration
+     *
+     * @return string
+     */
+    public function getVehicleRegistration()
+    {
+        return $this->vehicleRegistration;
+    }
+
+    /**
+     * Set vehicleRegistration
+     *
+     * @param string $vehicleRegistration
+     *
+     * @return CareGiver
+     */
+    public function setVehicleRegistration($vehicleRegistration)
+    {
+        $this->vehicleRegistration = $vehicleRegistration;
+
+        return $this;
+    }
+
+    /**
+     * Get relationship
+     *
+     * @return string
+     */
+    public function getRelationship()
+    {
+        return $this->relationship;
+    }
+
+    /**
+     * Set relationship
+     *
+     * @param string $relationship
+     *
+     * @return CareGiver
+     */
+    public function setRelationship($relationship)
+    {
+        $this->relationship = $relationship;
 
         return $this;
     }

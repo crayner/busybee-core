@@ -10,3 +10,6 @@ staff:
         jobTitle: Position Title
     placeholder:
         stafftype: Select Staff Position Category
+person:
+    tab:
+        staff: Staff

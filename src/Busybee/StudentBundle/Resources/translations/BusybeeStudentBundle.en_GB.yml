@@ -13,3 +13,6 @@ student:
         startAtThisSchool: 'First day at this school:'
         lastAtThisSchool: 'Last day at this school:'
         status: Status of the Student
+person:
+    tab:
+        student: Student

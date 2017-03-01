@@ -60,7 +60,7 @@ class PersonController extends Controller
 
 		foreach($formDefinition as $extra)
 		{
-			if (isset($extra['form']) && isset($extra['name']))
+            if (isset($extra['form']) && isset($extra['name']))
 			{
 				$options = array();
 				if (! empty($extra['options']) && is_array($extra['options']))

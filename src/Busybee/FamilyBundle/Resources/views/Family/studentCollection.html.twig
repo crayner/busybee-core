@@ -8,10 +8,10 @@
 {% block student_widget %}
     <div class="well familyStudent">
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-sm-6 well">
                 {{ form_row(form.person) }}
             </div>
-            <div class="col-sm-3 collection-actions">
+            <div class="col-sm-offset-3 col-sm-3 collection-actions well">
 				<span>
                     {% if form.person.vars.value is defined and form.person.vars.value > 0 %}
                         <button title="{{ 'family.student.edit'|trans }}" style="float: right;" type="button"

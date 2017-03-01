@@ -2,6 +2,7 @@
 namespace Busybee\FamilyBundle\Model;
 
 use Busybee\FamilyBundle\Entity\CareGiver;
+use Busybee\FamilyBundle\Entity\Family;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\StudentBundle\Entity\Student;
@@ -82,7 +83,13 @@ class FamilyManager
      */
     public function findOneCareGiverByPerson($details)
     {
-        return $this->em->getRepository(CareGiver::class)->findOneBy($details);
+        $cg = $this->em->getRepository(CareGiver::class)->findOneBy($details);
+        if (!$cg instanceof CareGiver) {
+            $cg = new CareGiver();
+            $cg->setPerson($this->em->getRepository(Person::class)->find($details['person']));
+            $cg->setFamily($this->em->getRepository(Family::class)->find($details['family']));
+        }
+        return $cg;
     }
 
     public function getStudentFromPerson($person)
@@ -100,5 +107,10 @@ class FamilyManager
     public function getStudentRepository()
     {
         return $this->em->getRepository(Student::class);
+    }
+
+    public function removeEntity($entity)
+    {
+        $this->em->remove($entity);
     }
 }

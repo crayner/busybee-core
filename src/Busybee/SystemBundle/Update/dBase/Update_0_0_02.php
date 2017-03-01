@@ -27,7 +27,7 @@ class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-    private $count = 41;
+    private $count = 42;
 	
 	/**
 	 * Constructor
@@ -589,6 +589,21 @@ Alumni: Past
         $entity->setName('Student.Status.List');
         $entity->setDisplayName('Student Status List');
         $entity->setDescription("List of the valid student status(es)");
+        $entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+
+        $this->sm->saveSetting($entity);
+        //42
+        $entity = new Setting();
+        $entity->setType('array');
+        $entity->setValue("Not Defined: Unknown
+Parent: Parent
+Guardian: Guardian
+Grand Parent: Grand Parent
+Family Friend: Family Friend
+");
+        $entity->setName('Student.CareGiver.Relationship.List');
+        $entity->setDisplayName('List of Student - Care Giver Relationship');
+        $entity->setDescription('List of Student - Care Giver Relationship');
         $entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
         $this->sm->saveSetting($entity);

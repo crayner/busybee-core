@@ -65,6 +65,16 @@ class Family
     private $careGiver;
 
     /**
+     * @var string
+     */
+    private $firstLanguage;
+
+    /**
+     * @var string
+     */
+    private $secondLanguage;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -413,6 +423,54 @@ class Family
     public function setCareGiver(ArrayCollection $caregivers)
     {
         $this->careGiver = $caregivers;
+        return $this;
+    }
+
+    /**
+     * Get firstLanguage
+     *
+     * @return string
+     */
+    public function getFirstLanguage()
+    {
+        return $this->firstLanguage;
+    }
+
+    /**
+     * Set firstLanguage
+     *
+     * @param string $firstLanguage
+     *
+     * @return Family
+     */
+    public function setFirstLanguage($firstLanguage)
+    {
+        $this->firstLanguage = $firstLanguage;
+
+        return $this;
+    }
+
+    /**
+     * Get secondLanguage
+     *
+     * @return string
+     */
+    public function getSecondLanguage()
+    {
+        return $this->secondLanguage;
+    }
+
+    /**
+     * Set secondLanguage
+     *
+     * @param string $secondLanguage
+     *
+     * @return Family
+     */
+    public function setSecondLanguage($secondLanguage)
+    {
+        $this->secondLanguage = $secondLanguage;
+
         return $this;
     }
 }
