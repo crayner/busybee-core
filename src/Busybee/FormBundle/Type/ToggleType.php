@@ -2,7 +2,7 @@
 
 namespace Busybee\FormBundle\Type;
 
-use Busybee\FormBundle\Form\DataTransformer\YesNoTransformer;
+use Busybee\FormBundle\Form\DataTransformer\ToggleTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,11 +27,7 @@ class ToggleType extends AbstractType
                 'empty_data' => $emptyData,
                 'compound' => false,
                 'required' => false,
-                'attr' => array(
-                    'data-onstyle' => "success",
-                    'data-offstyle' => "danger",
-                ),
-                'div_class' => 'yesno-right'
+                'div_class' => 'toggleRight'
             )
         );
     }
@@ -58,8 +54,7 @@ class ToggleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new YesNoTransformer();
-        $builder->addModelTransformer($transformer);
+        $builder->addModelTransformer(new ToggleTransformer());
     }
 
     /**

@@ -8,8 +8,13 @@
 {% block headerTitle %}{{ 'homeroom.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'homeroom.description'|trans }}{% endblock headerLead %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Toggle:style.html.twig' %}
+{% endblock %}
+
 {% block contentContainer %}
-{{ form_start(form) }}
+    {{ form_start(form, {'attr': {'id': 'homeroom'}}) }}
 <div class="panel panel-primary busybee-panel">
 	<div class="panel-heading">
 		<h3 class="panel-title">{{ 'homeroom.edit.title'|trans}}
@@ -17,6 +22,8 @@
             {%  if id != 'Add' %}
 				<button title="{{ 'homeroom.add.title'|trans}}" type="button" style="float: right;" class="formChanged halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('home_room_edit', {'id': 'Add'}) }}','_self')"></button>
 			{% endif %}
+			<button title='{{ 'form.reset.button'|trans({}, 'BusybeeHomeBundle') }}' type="button" id="resetButton"
+					class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
 			<button title="{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}" type="submit" style="float: right;" class="halflings halflings-save btn btn-success"></button>
 			{{ form_row(form.changeRecord) }}
 		</h3>
@@ -76,11 +83,7 @@
 			<div class="col-sm-4 col-md-4 well">
 				{{ form_row(form.website) }}
  			</div>
-			<div class="col-sm-4 col-md-4 well">
-				<div class="form-group text-right">
-                    {{ form_widget(form.save) }}
-                    {{ form_widget(form.cancel) }}
-				</div>
+			<div class="col-sm-4 col-md-4">
 			</div>
 		</div>
 	</div>
@@ -90,11 +93,8 @@
 
 {% block javascripts %}
     {{ parent() }}
-	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+    {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
 	<script>
-        $('.yes-no').checkboxpicker({
-            iconCls: 'glyphicons'
-        });
         $('.monitorChange').change(function($e) {
             $('.formChanged').prop('disabled', true);
         });
@@ -103,6 +103,9 @@
             var id = $(this).val();
             window.open(path.replace('__id__', id),'_self');
         });
-
+        $('#resetButton').click(function () {
+            $("#homeroom").trigger('reset');
+            $('.formChanged').prop('disabled', false);
+        });
 	</script>
 {% endblock javascripts %}

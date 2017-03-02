@@ -2,7 +2,7 @@
 
 namespace Busybee\PersonBundle\Form;
 
-use Busybee\FormBundle\Type\YesNoType;
+use Busybee\FormBundle\Type\ToggleType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
@@ -99,14 +99,13 @@ class UserType extends AbstractType
                     ),
                 )
             )
-            ->add('enabled', YesNoType::class,
+            ->add('enabled', ToggleType::class,
                 array(
                     'label' 				=> 'user.label.enabled',
                     'attr'					=> array(
-                        'help' 					=> 'user.help.enabled',
-                        'class'                 => 'user',
-                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
-                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                        'help' => 'user.help.enabled',
+                        'class' => 'user',
+                        'data-size' => 'mini',
                     ),
                 )
             )
@@ -126,36 +125,33 @@ class UserType extends AbstractType
                     )
                 )
             )
-            ->add('locked', YesNoType::class,
+            ->add('locked', ToggleType::class,
                 array(
                     'label' 				=> 'user.label.locked',
                     'attr'					=> array(
                         'help' 					=> 'user.help.locked',
                         'class'                 => 'user',
-                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
-                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                        'data-size' => 'mini',
                     ),
                 )
             )
-            ->add('expired', YesNoType::class,
+            ->add('expired', ToggleType::class,
                 array(
                     'label' 				=> 'user.label.expired',
                     'attr'					=> array(
                         'help' 					=> 'user.help.expired',
                         'class'                 => 'user',
-                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
-                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                        'data-size' => 'mini',
                     ),
               )
             )
-            ->add('credentials_expired', YesNoType::class,
+            ->add('credentials_expired', ToggleType::class,
                 array(
                     'label' 				=> 'user.label.credentials_expired',
                     'attr'					=> array(
                         'help' 					=> 'user.help.credentials_expired',
                         'class'                 => 'user',
-                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
-                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                        'data-size' => 'mini',
                     ),
                 )
             )

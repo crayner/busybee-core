@@ -7,6 +7,11 @@
 {% block headerTitle %}{{ 'system.setting.edit.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.setting.edit.description'|trans }}{% endblock headerLead %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Toggle:style.html.twig' %}
+{% endblock stylesheets %}
+
 {% block contentContainer %}
 {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert", 'system.setting.edit.success'|trans, "alert alert-success fadeAlert") }}
 {{ form_start(form) }}
@@ -48,10 +53,8 @@
 {% block javascripts %}
 	{{ parent() }}
 	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+    {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
 	<script type="text/javascript">
-		$('.yes-no').checkboxpicker({
-			iconCls: 'glyphicons'
-		});
 		if ( $(".fadeAlert").length ) {
  	   		$(".fadeAlert").fadeOut(3000);
 		}

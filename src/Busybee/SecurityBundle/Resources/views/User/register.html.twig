@@ -7,6 +7,7 @@
 
 {% block stylesheets %}
 {{ parent() }}
+    {% include 'BusybeeHomeBundle:Toggle:style.html.twig' %}
 {% endblock stylesheets %}
 
 {% block title %}{{ parent() }}{{ 'user.registration.title'|trans }}{% endblock title %}
@@ -25,10 +26,7 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
-	{% set initialise = "$('.yes-no').checkboxpicker({
-			iconCls: 'glyphicons'
-		});" %}
+    {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
 	{% include "BusybeeHomeBundle:Form:initAjaxForm.html.twig" %}
 
 	<script type="text/javascript">
@@ -40,11 +38,6 @@
 			});
 			$('input[name="password2"]').val('{{ password.text|raw }}');
 			alert("{{ 'misc.password1.copy'|trans ({}, 'BusybeeSystemBundle') }}" + "\n\n" + "{{ password.text|raw }}") ;
-		});
-	</script>
-	<script type="text/javascript">
-		$('.yes-no').checkboxpicker({
-			iconCls: 'glyphicons'
 		});
 	</script>
 {% endblock javascripts %}

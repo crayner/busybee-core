@@ -2,6 +2,7 @@
 
 namespace Busybee\SecurityBundle\Controller;
 
+use Busybee\FormBundle\Type\ToggleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
@@ -24,16 +25,16 @@ class UserController extends Controller
      * Register a new User
      */
     public function registerAction(Request $request) {
-    
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
-		
+
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+
         $userManager = $this->get('busybee_security.user_manager');
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
-		$cUser = $this->getUser();
-		
-        $user = $userManager->createUser();        
+        $cUser = $this->getUser();
+
+        $user = $userManager->createUser();
         $user->setEnabled(true);
 
         $event = new GetResponseUserEvent($user, $request);
@@ -45,102 +46,101 @@ class UserController extends Controller
 
         $form = $this->createForm( 'Busybee\SecurityBundle\Form\RegisterType', $user);
         $form->add('locked', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
-                 	'data' 					=> 0
-            	)
-			)
-			->add('enabled', 'Busybee\FormBundle\Type\YesNoType', array(
-                 	'data' 					=> true,
-					'label'					=> 'register.enabled.label',
-					'attr'					=> array(
-						'help'					=> 'register.enabled.description',
-					),
-            	)
-			)
-			->add('expired', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
-                 	'data' 					=> 0,
-            	)
-			)
-			->add('locale', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
-                 	'data' 					=> $this->getParameter('locale'),
-            	)
-			)
-			->add('credentials_expired', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
-                 	'data' 					=> 0,
-            	)
-			)
-			->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
-					'label'					=> 'form.cancel', 
-					'translation_domain' 	=> 'BusybeeHomeBundle',
-					'attr' 					=> array(
-						'formnovalidate' 		=> 'formnovalidate',
-						'class' 				=> 'btn btn-info glyphicons glyphicons-remove-circle',
-						'onClick'				=> 'location.href=\''.$this->generateUrl('home_page')."'",
-					),
-				)
-			)
-			;
+                'data' 					=> 0
+            )
+        )
+            ->add('enabled', ToggleType::class, array(
+                    'data' 					=> true,
+                    'label'					=> 'register.enabled.label',
+                    'attr'					=> array(
+                        'help'					=> 'register.enabled.description',
+                    ),
+                )
+            )
+            ->add('expired', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+                    'data' 					=> 0,
+                )
+            )
+            ->add('locale', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+                    'data' 					=> $this->getParameter('locale'),
+                )
+            )
+            ->add('credentials_expired', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+                    'data' 					=> 0,
+                )
+            )
+            ->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
+                    'label'					=> 'form.cancel',
+                    'translation_domain' 	=> 'BusybeeHomeBundle',
+                    'attr' 					=> array(
+                        'formnovalidate' 		=> 'formnovalidate',
+                        'class' 				=> 'btn btn-info glyphicons glyphicons-remove-circle',
+                        'onClick'				=> 'location.href=\''.$this->generateUrl('home_page')."'",
+                    ),
+                )
+            );
 
         $form->setData($user);
 
         $form->handleRequest($request);
 
-		$mm = new MessageManager($this->get('translator'), $request->getLocale(), 'BusybeeSecurityBundle');
+        $mm = new MessageManager($this->get('translator'), $request->getLocale(), 'BusybeeSecurityBundle');
 
-		$password = $this->get('system.password.manager')->buildPassword($this->getParameter('password'));
-		
+        $password = $this->get('system.password.manager')->buildPassword($this->getParameter('password'));
+
         if ($form->isSubmitted()) {
-			if ($form->isValid()) {
+            if ($form->isValid()) {
 
-				$event = new FormEvent($form, $request);
+                $event = new FormEvent($form, $request);
 
-				$dispatcher->dispatch(BusybeeSecurityEvents::REGISTRATION_SUCCESS, $event);
-				
-				$user->setPlainPassword($request->request->get('password1'));
-				
-				$userManager->updateUser($user);
-				
-				if (null === $response = $event->getResponse()){
-					$url = $this->generateUrl('home_page');
-					$response = new RedirectResponse($url);
-				}
+                $dispatcher->dispatch(BusybeeSecurityEvents::REGISTRATION_SUCCESS, $event);
 
-				$dispatcher->dispatch(BusybeeSecurityEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($cUser, $request, $response));
+                $user->setPlainPassword($request->request->get('password1'));
 
-				return new JsonResponse(
-					array(
-						'message' => $mm->message('user.success.registration', 'success'),
-						'form' => $this->renderView('BusybeeSecurityBundle:User:register_content.html.twig',
-							array(
-								'user' => $user,
-								'form' => $form->createView(),
-								'password' => $password,
-								)
-							)
-						), 
-						200);
-				
-			} else {
-			
-				return new JsonResponse(
-					array(
-						'message' => $mm->message('user.error.registration', 'danger'),
-						'form' => $this->renderView('BusybeeSecurityBundle:User:register_content.html.twig',
-							array(
-								'user' => $user,
-								'form' => $form->createView(),
-								'password' => $password,
-								)
-							)
-						), 
-						400);
+                $userManager->updateUser($user);
 
-			}
-		}
-        
+                if (null === $response = $event->getResponse()){
+                    $url = $this->generateUrl('home_page');
+                    $response = new RedirectResponse($url);
+                }
+
+                $dispatcher->dispatch(BusybeeSecurityEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($cUser, $request, $response));
+
+                return new JsonResponse(
+                    array(
+                        'message' => $mm->message('user.success.registration', 'success'),
+                        'form' => $this->renderView('BusybeeSecurityBundle:User:register_content.html.twig',
+                            array(
+                                'user' => $user,
+                                'form' => $form->createView(),
+                                'password' => $password,
+                            )
+                        )
+                    ),
+                    200);
+
+            } else {
+
+                return new JsonResponse(
+                    array(
+                        'message' => $mm->message('user.error.registration', 'danger'),
+                        'form' => $this->renderView('BusybeeSecurityBundle:User:register_content.html.twig',
+                            array(
+                                'user' => $user,
+                                'form' => $form->createView(),
+                                'password' => $password,
+                            )
+                        )
+                    ),
+                    400);
+
+            }
+        }
+
         return $this->render('BusybeeSecurityBundle:User:register.html.twig', array(
-                'form' => $form->createView(),
-				'password' => $password,
-            ));
+            'form' => $form->createView(),
+            'password' => $password,
+        ));
     }
 
     /**
@@ -148,8 +148,8 @@ class UserController extends Controller
      */
     public function confirmedAction()
     {
-		$this->denyAccessUnlessGranted('ROLE_USER');
-		
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $user = $this->getUser();
 
         return $this->render('BusybeeSecurityBundle:User:confirmed.html.twig', array(
@@ -162,13 +162,13 @@ class UserController extends Controller
      */
     public function editAction($id, Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_USER');
-		
-		$config = new \stdClass();
-		$config->signin = true ;
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
-		$user = intval($id) > 0 ? $this->get('user.repository')->findOneBy(array('id'=>$id)) : $this->getUser();
-    
+        $config = new \stdClass();
+        $config->signin = true ;
+
+        $user = intval($id) > 0 ? $this->get('user.repository')->findOneBy(array('id'=>$id)) : $this->getUser();
+
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
@@ -181,87 +181,86 @@ class UserController extends Controller
 
         $form = $this->createForm( 'Busybee\SecurityBundle\Form\UserType', $user);
         $form->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
-					'label'					=> 'form.cancel', 
-					'translation_domain' 	=> 'BusybeeHomeBundle',
-					'attr' 					=> array(
-						'formnovalidate' 		=> 'formnovalidate',
-						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
-						'onClick'				=> 'location.href=\''.$this->generateUrl('home_page')."'",
-					),
-				)
-			)
-		;
-		if ($id > 0)
-			$form->add('enabled', 'Busybee\FormBundle\Type\YesNoType', array(
-					'label'					=> 'register.enabled.label',
-					'attr'					=> array(
-						'help'					=> 'register.enabled.description',
-					),
-					'data'					=> true,
-            	)
-			);
-		else
-			$form->add('enabled', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array('data' => true));
+                'label'					=> 'form.cancel',
+                'translation_domain' 	=> 'BusybeeHomeBundle',
+                'attr' 					=> array(
+                    'formnovalidate' 		=> 'formnovalidate',
+                    'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
+                    'onClick'				=> 'location.href=\''.$this->generateUrl('home_page')."'",
+                ),
+            )
+        );
+        if ($id > 0)
+            $form->add('enabled', ToggleType::class, array(
+                    'label'					=> 'register.enabled.label',
+                    'attr'					=> array(
+                        'help'					=> 'register.enabled.description',
+                    ),
+                    'data'					=> true,
+                )
+            );
+        else
+            $form->add('enabled', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array('data' => true));
 
         $form->setData($user);
 
         $form->handleRequest($request);
 
-		if ($form->get('username')->getData() == 'admin')
-			$form->get('username')->addError(new FormError('user.edit.admin'));	
-			
-		if ($form->isSubmitted()) {
-			if ($form->isValid()) {
+        if ($form->get('username')->getData() == 'admin')
+            $form->get('username')->addError(new FormError('user.edit.admin'));
 
-				/** @var $userManager \Busybee\SecurityBundle\Model\UserManagerInterface */
-				$userManager = $this->get('busybee_security.user_manager');
-	
-				$event = new FormEvent($form, $request);
-				$dispatcher->dispatch(BusybeeSecurityEvents::USER_EDIT_SUCCESS, $event);
-	
-				$userManager->updateUser($user);
-	
-				if (null === $response = $event->getResponse()){
-					$url = $this->generateUrl('home_page');
-					$response = new RedirectResponse($url);
-				}
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
 
-				$dispatcher->dispatch(BusybeeSecurityEvents::USER_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+                /** @var $userManager \Busybee\SecurityBundle\Model\UserManagerInterface */
+                $userManager = $this->get('busybee_security.user_manager');
 
-				$this->get('session')->getFlashBag()->add('success', 'user.edit.success');
-				return new JsonResponse(
-					array(
-						'form' => $this->renderView('BusybeeSecurityBundle:User:edit_content.html.twig',
-							array(
-								'user' => $user,
-								'form' => $form->createView(),
-								)
-							)
-						), 
-						200);
-	
-			} else {
+                $event = new FormEvent($form, $request);
+                $dispatcher->dispatch(BusybeeSecurityEvents::USER_EDIT_SUCCESS, $event);
 
-				$this->get('session')->getFlashBag()->add('error', 'user.edit.error');
-				return new JsonResponse(
-					array(
-						'form' => $this->renderView('BusybeeSecurityBundle:User:edit_content.html.twig',
-							array(
-								'user' => $user,
-								'form' => $form->createView(),
-								)
-							)
-						), 
-						200);
-			}
-		}
+                $userManager->updateUser($user);
+
+                if (null === $response = $event->getResponse()){
+                    $url = $this->generateUrl('home_page');
+                    $response = new RedirectResponse($url);
+                }
+
+                $dispatcher->dispatch(BusybeeSecurityEvents::USER_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+
+                $this->get('session')->getFlashBag()->add('success', 'user.edit.success');
+                return new JsonResponse(
+                    array(
+                        'form' => $this->renderView('BusybeeSecurityBundle:User:edit_content.html.twig',
+                            array(
+                                'user' => $user,
+                                'form' => $form->createView(),
+                            )
+                        )
+                    ),
+                    200);
+
+            } else {
+
+                $this->get('session')->getFlashBag()->add('error', 'user.edit.error');
+                return new JsonResponse(
+                    array(
+                        'form' => $this->renderView('BusybeeSecurityBundle:User:edit_content.html.twig',
+                            array(
+                                'user' => $user,
+                                'form' => $form->createView(),
+                            )
+                        )
+                    ),
+                    200);
+            }
+        }
 
         return $this->render('BusybeeSecurityBundle:User:edit.html.twig', array(
-				'user' => $user,
-				'form' => $form->createView(),
-				'config' => $config,
-			)
-		);
+                'user' => $user,
+                'form' => $form->createView(),
+                'config' => $config,
+            )
+        );
     }
 
     /**
@@ -289,44 +288,44 @@ class UserController extends Controller
             return $event->getResponse();
         }
 
-		$form = $this->createForm('Busybee\SecurityBundle\Form\ResetType', $user);
+        $form = $this->createForm('Busybee\SecurityBundle\Form\ResetType', $user);
         $form->setData($user);
 
         $form->handleRequest($request);
 
-		$validator = $this->get('validator');
-	
-		$constraints = array(
-			new Password(),
-		);
-	
-		$errors = $validator->validate($request->request->get('reset')['plainPassword']['first'], $constraints);
-		
-		$valid = true ;
-		if (count($errors) > 0) {
-			$this->get('session')->getFlashBag()->add('error', $errors->get(0)->getMessage());
-			$valid = false;
-		}
+        $validator = $this->get('validator');
 
-		if ($form->get('cancel')->isClicked()) {
-			$url = $this->generateUrl('home_page');
-			$response = new RedirectResponse($url);
-			return $response;			
-		}
+        $constraints = array(
+            new Password(),
+        );
+
+        $errors = $validator->validate($request->request->get('reset')['plainPassword']['first'], $constraints);
+
+        $valid = true ;
+        if (count($errors) > 0) {
+            $this->get('session')->getFlashBag()->add('error', $errors->get(0)->getMessage());
+            $valid = false;
+        }
+
+        if ($form->get('cancel')->isClicked()) {
+            $url = $this->generateUrl('home_page');
+            $response = new RedirectResponse($url);
+            return $response;
+        }
 
         if ($valid && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(BusybeeSecurityEvents::RESETTING_RESET_SUCCESS, $event);
 
-			$user->setConfirmationToken(null);
-			$user->setPasswordRequestedAt(null);
+            $user->setConfirmationToken(null);
+            $user->setPasswordRequestedAt(null);
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-				$this->addFlash(
-					'success',
-					$this->get('translator')->trans('user.reset.success', array(), 'BusybeeSecurityBundle')
-				);
+                $this->addFlash(
+                    'success',
+                    $this->get('translator')->trans('user.reset.success', array(), 'BusybeeSecurityBundle')
+                );
                 $url = $this->generateUrl('home_page');
                 $response = new RedirectResponse($url);
             }
@@ -350,22 +349,22 @@ class UserController extends Controller
         if (intval($id) > 0)
             $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
-		$user = intval($id) > 0 ? $this->get('user.repository')->find($id) : $this->getUser();
-		$email = null;
-		$force = false ;
-		if (! empty($user)) {
-			$email = trim($user->getEmail());
-			$force = $user->getExpired();
-		}
-		
-		$config = new \stdClass();
-		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
-		
-		return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
-			'email' => $email,
-			'config' => $config,
-			'forcePasswordReset' => $force,
-		));
+        $user = intval($id) > 0 ? $this->get('user.repository')->find($id) : $this->getUser();
+        $email = null;
+        $force = false ;
+        if (! empty($user)) {
+            $email = trim($user->getEmail());
+            $force = $user->getExpired();
+        }
+
+        $config = new \stdClass();
+        $config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+
+        return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
+            'email' => $email,
+            'config' => $config,
+            'forcePasswordReset' => $force,
+        ));
     }
 
     /**
@@ -374,20 +373,20 @@ class UserController extends Controller
     public function sendEmailAction(Request $request)
     {
         $username = $request->request->get('username');
-		if (empty($username))
-        	$username = $request->request->get('email');
+        if (empty($username))
+            $username = $request->request->get('email');
 
         /** @var $user UserInterface */
         $user = $this->get('busybee_security.user_manager')->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
-			$config = new \stdClass();
-			$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
-		
+            $config = new \stdClass();
+            $config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+
             return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
                 'invalid_username' => $username,
-				'config' => $config,
-				'forcePasswordReset' => false,
+                'config' => $config,
+                'forcePasswordReset' => false,
             ));
         }
 
@@ -429,39 +428,39 @@ class UserController extends Controller
         return $email;
     }
 
-   /**
+    /**
      * Create a new User from the Person Record.
      */
     public function createAction($personID) {
-    
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
-		$person = $this->get('person.repository')->find($personID);
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+
+        $person = $this->get('person.repository')->find($personID);
         if (empty($person->getUser())) {
-			$userManager = $this->get('busybee_security.user_manager');
-			$user = $userManager->createUser();        
-			$user->setEnabled(true);
-			$user->setEmail($person->getEmail());
-			$user->setplainPassword('p@ssword');
-			$userManager->updateUser($user);
+            $userManager = $this->get('busybee_security.user_manager');
+            $user = $userManager->createUser();
+            $user->setEnabled(true);
+            $user->setEmail($person->getEmail());
+            $user->setplainPassword('p@ssword');
+            $userManager->updateUser($user);
 
-			$person->setUser($user);
-			
-			$em = $this->getDoctrine()->getManager();
-				
-			$em->persist($person);
-			$em->flush();
+            $person->setUser($user);
 
-		}
-		
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($person);
+            $em->flush();
+
+        }
+
         return new RedirectResponse($this->generateUrl('person_manage',
-				array(
-				    'personID'      => $person->getId(),
-                    'currentSearch' => '',
-                )
-			)
-		);
-		
+            array(
+                'personID'      => $person->getId(),
+                'currentSearch' => '',
+            )
+        )
+        );
+
     }
 
     /**
@@ -475,9 +474,8 @@ class UserController extends Controller
             // the user does not come from the sendEmail action
             return new RedirectResponse($this->generateUrl('busybee_security_resetting_request'));
         }
-		
-		
-		
+
+
         return $this->render('BusybeeSecurityBundle:User:checkEmail.html.twig', array(
             'email' => $email,
         ));
@@ -488,19 +486,19 @@ class UserController extends Controller
      */
     public function listAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
-		
-		$up = $this->get('user.pagination');
-		
-		$up->injectRequest($request);
-		
-		$up->getDataSet();
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
-        return $this->render('BusybeeSecurityBundle:User:list.html.twig', 
-			array(
-            	'pagination' => $up,
-        	)
-		);
+        $up = $this->get('user.pagination');
+
+        $up->injectRequest($request);
+
+        $up->getDataSet();
+
+        return $this->render('BusybeeSecurityBundle:User:list.html.twig',
+            array(
+                'pagination' => $up,
+            )
+        );
     }
 
     /**
@@ -509,20 +507,20 @@ class UserController extends Controller
     public function toggleEnabledAction($id)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
-		
-        $userManager = $this->get('user.repository');
-		
-		$user = $userManager->find($id);
-		$user->setEnabled(! $user->getEnabled());
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($user);
-		$em->flush();
-		$enabled = $user->getEnabled() ? 'enabled' : 'disabled' ;
-		$status = $user->getEnabled() ? 'success' : 'warning';
 
-		return new JsonResponse(
-			array('message' => $this->get('translator')->trans('The user %user% was '.$enabled, array('%user%' => $user->getFormatName()), 'BusybeeSecurityBundle'), 'status' => $status),
-			200
-		);
+        $userManager = $this->get('user.repository');
+
+        $user = $userManager->find($id);
+        $user->setEnabled(! $user->getEnabled());
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        $enabled = $user->getEnabled() ? 'enabled' : 'disabled' ;
+        $status = $user->getEnabled() ? 'success' : 'warning';
+
+        return new JsonResponse(
+            array('message' => $this->get('translator')->trans('The user %user% was '.$enabled, array('%user%' => $user->getFormatName()), 'BusybeeSecurityBundle'), 'status' => $status),
+            200
+        );
     }
 }

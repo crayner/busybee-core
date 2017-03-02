@@ -61,7 +61,7 @@
     {% endif %}
 
     {% if attribute(attr, "data-size") is not defined %}
-        {%- set attr = attr|merge({"data-size": "normal"}) -%}
+        {%- set attr = attr|merge({"data-size": "small"}) -%}
     {% endif %}
 
     {% if attribute(attr, "data-onstyle") is not defined %}
@@ -80,35 +80,6 @@
     {% if form.vars.help is defined %}<br/><span
             class="field-help">{{ (translation_domain is same as(false) ? form.vars.help : form.vars.help|trans({}, translation_domain)) }}</span>{% endif %}
 {%- endblock toggle_widget %}
-
-{% block yesno_widget -%}
-	{%- set attr = attr|merge({class: (attr.class|default('') ~ ' yes-no form-control')|trim}) -%}
-
-    {% if attribute(attr, "data-off-icon-cls") is not defined %}
-        {%- set attr = attr|merge({"data-off-icon-cls": "glyphicons-thumbs-down"}) -%}
-    {% endif %}
-
-    {% if attribute(attr, "data-on-icon-cls") is not defined %}
-        {%- set attr = attr|merge({"data-on-icon-cls": "glyphicons-thumbs-up"}) -%}
-    {% endif %}
-
-    {% if attribute(attr, "data-off-label") is not defined %}
-        {%- set attr = attr|merge({"data-off-label": "false"}) -%}
-    {% endif %}
-
-    {% if attribute(attr, "data-on-label") is not defined %}
-        {%- set attr = attr|merge({"data-on-label": "false"}) -%}
-    {% endif %}
-
-	<div class="yesno-right">
-		<input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
-	</div>
-
-    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
-	<label class="control-label">{{ (translation_domain is same as(false) ? form.vars.label : form.vars.label|trans({}, translation_domain)) }}</label>
-		{% if form.vars.help is defined %}<br /><span class="field-help">{{ (translation_domain is same as(false) ? form.vars.help : form.vars.help|trans({}, translation_domain)) }}</span>{% endif %}	
-{%- endblock yesno_widget %}
-
 
 {%- block widget_attributes -%}
     id="{{ id }}" name="{{ full_name }}"

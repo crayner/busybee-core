@@ -4,6 +4,11 @@
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Toggle:style.html.twig' %}
+{% endblock stylesheets %}
+
 {% block title %}{{ parent() }}{{ 'campus.resource.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'campus.resource.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'campus.resource.description'|trans }}{% endblock headerLead %}
@@ -93,17 +98,11 @@
 		</div>
 	</div>
 </div>
-
 {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
-	<script>
-        $(".yes-no").checkboxpicker({
-            iconCls: "glyphicons"
-        });
-	</script>
+    {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
 	{% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'campus_resource_edit'} %}
 {% endblock javascripts %}

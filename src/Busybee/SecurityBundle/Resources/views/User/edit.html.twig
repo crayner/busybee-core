@@ -4,6 +4,11 @@
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
 {% trans_default_domain 'BusybeeSecurityBundle' %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Toggle:style.html.twig' %}
+{% endblock stylesheets %}
+
 
 {% block title %}Busybee - {{ 'user.edit.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'user.edit.title'|trans }}{% endblock headerTitle %}
@@ -19,14 +24,6 @@
 
 {% block javascripts %}
 	{{parent() }}
-	{% set initialise = "$('.yes-no').checkboxpicker({
-			iconCls: 'glyphicons'
-		});" %}
+    {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
 	{% include "BusybeeHomeBundle:Form:initAjaxForm.html.twig" %}
-	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
-	<script type="text/javascript">
-		$('.yes-no').checkboxpicker({
-			iconCls: 'glyphicons'
-		});
-	</script>
 {% endblock javascripts %}

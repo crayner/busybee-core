@@ -140,31 +140,28 @@
             add_at_the_end: true
         });
 
-        $(".yes-no").checkboxpicker({
-            iconCls: "halflings"
-        });
-        $('#person_staffQuestion').checkboxpicker().on('change', function() {
+        $('#person_staffQuestion').change(function () {
             var checked = $('#person_staffQuestion').prop('checked');
             if (checked) {
                 $('.staffMember').prop('disabled', false);
-                $('#person_studentQuestion').prop('disabled', true);
+                $('#person_studentQuestion').bootstrapToggle('disable');
             } else {
                 $('.staffMember').prop('disabled', true);
-                $('#person_studentQuestion').prop('disabled', false);
+                $('#person_studentQuestion').bootstrapToggle('enable');
             }
         });
 
-        $('#person_studentQuestion').checkboxpicker().on('change', function() {
+        $('#person_studentQuestion').change(function () {
             var checked = $('#person_studentQuestion').prop('checked');
             if (checked) {
                 $('.student').prop('disabled', false);
-                $('#person_staffQuestion').prop('disabled', true);
+                $('#person_staffQuestion').bootstrapToggle('disable');
             } else {
                 $('.student').prop('disabled', true);
-                $('#person_staffQuestion').prop('disabled', false);
+                $('#person_staffQuestion').bootstrapToggle('enable');
             }
         });
-        $('#person_userQuestion').checkboxpicker().on('change', function() {
+        $('#person_userQuestion').change(function () {
             var checked = $('#person_userQuestion').prop('checked');
             if (checked) {
                 $('.user').prop('disabled', false);

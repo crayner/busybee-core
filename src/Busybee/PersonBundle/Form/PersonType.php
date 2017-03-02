@@ -5,14 +5,13 @@ namespace Busybee\PersonBundle\Form ;
 use Busybee\FormBundle\Type\AutoCompleteType;
 use Busybee\FormBundle\Type\ImageType;
 use Busybee\FormBundle\Type\SettingChoiceType;
-use Busybee\FormBundle\Type\YesNoType;
+use Busybee\FormBundle\Type\ToggleType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Events\PersonSubscriber;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\PersonBundle\Model\PhotoUploader;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -178,30 +177,27 @@ class PersonType extends AbstractType
                     'translation_domain' => 'BusybeePersonBundle',
                 )
             )
-            ->add('staffQuestion', YesNoType::class, array(
+            ->add('staffQuestion', ToggleType::class, array(
                     'label'					=> 'person.label.staff.question',
                     'attr'                  => array(
                         'help'                  => 'person.help.staff.question',
-                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
-                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                        'data-size' => 'mini',
                     ),
                 )
             )
-            ->add('studentQuestion', YesNoType::class, array(
+            ->add('studentQuestion', ToggleType::class, array(
                     'label'					=> 'person.label.student.question',
                     'attr'                  => array(
                         'help'                  => 'person.help.student.question',
-                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
-                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                        'data-size' => 'mini',
                     ),
                 )
             )
-            ->add('userQuestion', YesNoType::class, array(
+            ->add('userQuestion', ToggleType::class, array(
                     'label'					=> 'person.label.user.question',
                     'attr'                  => array(
                         'help'                  => 'person.help.user.question',
-                        'data-off-icon-cls'	 	=> "halflings-thumbs-down",
-                        'data-on-icon-cls' 		=> "halflings-thumbs-up",
+                        'data-size' => 'mini',
                     ),
                     'mapped'                => false,
                 )

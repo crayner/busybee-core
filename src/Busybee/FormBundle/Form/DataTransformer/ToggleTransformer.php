@@ -3,7 +3,7 @@ namespace Busybee\FormBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 
-class YesNoTransformer implements DataTransformerInterface
+class ToggleTransformer implements DataTransformerInterface
 {
     /**
      * @param mixed $data

@@ -53,12 +53,13 @@ p {
 .form-group {
 	margin-bottom: 0;
 }
-.yesno-right {
+
+.toggleRight {
 	float: right ;
 	margin-left: 5px;
 }
 
-.yesno-left {
+.toggleLeft {
     float: left;
     margin-right: 5px;
 }
@@ -117,10 +118,6 @@ a:focus, a:hover {
 }
 a {
     color: #775522;
-}
-.yesno-right .btn-group {
-	margin: 0 0 5px 5px;
-	float: right ;
 }
 #bee-logo {
 	height: 150px;

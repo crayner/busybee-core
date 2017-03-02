@@ -1,4 +1,4 @@
-{# src/General/SecurityBundle/Resources/views/User/edit.html.twig #}
+{# src/General/SecurityBundle/Resources/views/User/list.html.twig #}
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
 {% trans_default_domain 'BusybeeSecurityBundle' %}
@@ -10,6 +10,7 @@
 {{ parent() }}
 	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
 	<link href="{{ asset('css/glyphicons-halflings.css') }}" type="text/css" rel="stylesheet" />
+    {% include 'BusybeeHomeBundle:Toggle:style.html.twig' %}
 {% endblock stylesheets %}
 
 {% block title %}Busybee - {{ 'user.list.title'|trans }}{% endblock title %}
@@ -56,7 +57,10 @@
 				{{ user.email }}
 			</div>
 			<div class="col-sm-4 col-md-2">
-				<input type="checkbox" data-off-label="false" data-on-label="false" data-off-icon-cls="halflings-thumbs-down" data-on-icon-cls="halflings-thumbs-up" class="yes-no" value="{{ user.getId }}" {% if user.getEnabled %}checked{% endif %} />
+                <input type="checkbox" data-toggle="toggle" data-size="small" data-onstyle="success"
+                       data-offstyle="danger" data-on="<span class='halflings halflings-thumbs-up'></span>"
+                       data-off="<span class='halflings halflings-thumbs-down'></span>" class="yes-no"
+                       value="{{ user.getId }}" {% if user.getEnabled %}checked{% endif %} />
 			</div>
 			<div class="col-sm-5 col-md-2">
 				<button title='{{ 'user.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('security_user_edit', {'id': user.getId}) }}','_self')"></button>
@@ -75,9 +79,8 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+    {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
 	<script type="text/javascript">
-		$('.yes-no').checkboxpicker();
 		$('.yes-no').change(function(e) {
 		    var path = "{{ path('user_toggle_enabled', {'id': '__id__'}) }}";
 		    path = path.replace("__id__", this.value);

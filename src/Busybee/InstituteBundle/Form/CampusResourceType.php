@@ -2,7 +2,7 @@
 
 namespace Busybee\InstituteBundle\Form;
 
-use Busybee\FormBundle\Type\YesNoType;
+use Busybee\FormBundle\Type\ToggleType;
 use Busybee\InstituteBundle\Entity\CampusResource;
 use Busybee\InstituteBundle\Form\DataTransformer\CampusTransformer;
 use Busybee\StaffBundle\Form\DataTransformer\StaffTransformer;
@@ -71,7 +71,7 @@ class CampusResourceType extends AbstractType
                     'empty_data' => 0,
                 )
             )
-            ->add('computer', YesNoType::class, array(
+            ->add('computer', ToggleType::class, array(
                     'label' => 'campus.resource.label.computer',
                     'attr' => array(
                         'class' => 'monitorChange',
@@ -88,42 +88,42 @@ class CampusResourceType extends AbstractType
                     'empty_data' => 0,
                 )
             )
-            ->add('projector', YesNoType::class, array(
+            ->add('projector', ToggleType::class, array(
                     'label' => 'campus.resource.label.projector',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
-            ->add('tv', YesNoType::class, array(
+            ->add('tv', ToggleType::class, array(
                     'label' => 'campus.resource.label.tv',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
-            ->add('dvd', YesNoType::class, array(
+            ->add('dvd', ToggleType::class, array(
                     'label' => 'campus.resource.label.dvd',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
-            ->add('hifi', YesNoType::class, array(
+            ->add('hifi', ToggleType::class, array(
                     'label' => 'campus.resource.label.hifi',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
-            ->add('speakers', YesNoType::class, array(
+            ->add('speakers', ToggleType::class, array(
                     'label' => 'campus.resource.label.speakers',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
-            ->add('iwb', YesNoType::class, array(
+            ->add('iwb', ToggleType::class, array(
                     'label' => 'campus.resource.label.iwb',
                     'attr' => array(
                         'class' => 'monitorChange',

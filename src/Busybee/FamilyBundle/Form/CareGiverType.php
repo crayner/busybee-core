@@ -52,7 +52,7 @@ class CareGiverType extends AbstractType
                     'attr' => array(
                         'data-size' => 'mini',
                     ),
-                    'div_class' => 'yesno-left',
+                    'div_class' => 'toggleLeft',
                 )
             )
             ->add('smsContact', ToggleType::class, array(
@@ -60,7 +60,7 @@ class CareGiverType extends AbstractType
                     'attr' => array(
                         'data-size' => 'mini',
                     ),
-                    'div_class' => 'yesno-left',
+                    'div_class' => 'toggleLeft',
                 )
             )
             ->add('mailContact', ToggleType::class, array(
@@ -68,7 +68,7 @@ class CareGiverType extends AbstractType
                     'attr' => array(
                         'data-size' => 'mini',
                     ),
-                    'div_class' => 'yesno-left',
+                    'div_class' => 'toggleLeft',
                 )
             )
             ->add('phoneContact', ToggleType::class, array(
@@ -76,7 +76,7 @@ class CareGiverType extends AbstractType
                     'attr' => array(
                         'data-size' => 'mini',
                     ),
-                    'div_class' => 'yesno-left',
+                    'div_class' => 'toggleLeft',
                 )
             )
             ->add('family', HiddenType::class)
@@ -99,7 +99,7 @@ class CareGiverType extends AbstractType
                     'attr' => array(
                         'data-size' => 'mini',
                     ),
-                    'div_class' => 'yesno-left',
+                    'div_class' => 'toggleLeft',
                 )
             )
             ->add('finance', ToggleType::class, array(
@@ -107,7 +107,7 @@ class CareGiverType extends AbstractType
                     'attr' => array(
                         'data-size' => 'mini',
                     ),
-                    'div_class' => 'yesno-left',
+                    'div_class' => 'toggleLeft',
                 )
             )
             ->add('pickUpAllowed', ToggleType::class, array(
@@ -115,7 +115,7 @@ class CareGiverType extends AbstractType
                     'attr' => array(
                         'data-size' => 'mini',
                     ),
-                    'div_class' => 'yesno-left',
+                    'div_class' => 'toggleLeft',
                 )
             )
             ->add('emergencyOnly', ToggleType::class, array(
@@ -123,7 +123,7 @@ class CareGiverType extends AbstractType
                     'attr' => array(
                         'data-size' => 'mini',
                     ),
-                    'div_class' => 'yesno-left',
+                    'div_class' => 'toggleLeft',
                 )
             )
             ->add('reporting', ToggleType::class, array(
@@ -131,7 +131,7 @@ class CareGiverType extends AbstractType
                     'attr' => array(
                         'data-size' => 'mini',
                     ),
-                    'div_class' => 'yesno-left',
+                    'div_class' => 'toggleLeft',
                 )
             );
         $builder->get('family')->addModelTransformer(new EntityToStringTransformer($this->manager, Family::class));
