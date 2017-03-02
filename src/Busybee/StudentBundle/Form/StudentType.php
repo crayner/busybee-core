@@ -2,15 +2,19 @@
 
 namespace Busybee\StudentBundle\Form;
 
+use Busybee\FormBundle\Type\ImageType;
 use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StudentBundle\Entity\Student;
+use Busybee\StudentBundle\Events\StudentSubscriber;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -86,8 +90,119 @@ class StudentType extends AbstractType
                     ),
                     'required' => true,
                 )
+            )
+            ->add('firstLanguage', LanguageType::class, array(
+                    'label' => 'student.label.language.first',
+                    'placeholder' => 'student.placeholder.language',
+                    'required' => false,
+                )
+            )
+            ->add('secondLanguage', LanguageType::class, array(
+                    'label' => 'student.label.language.second',
+                    'placeholder' => 'student.placeholder.language',
+                    'required' => false,
+                )
+            )
+            ->add('thirdLanguage', LanguageType::class, array(
+                    'label' => 'student.label.language.third',
+                    'placeholder' => 'student.placeholder.language',
+                    'required' => false,
+                )
+            )
+            ->add('countryOfBirth', CountryType::class, array(
+                    'label' => 'student.label.countryOfBirth',
+                    'placeholder' => 'student.placeholder.countryOfBirth',
+                    'required' => false,
+                )
+            )
+            ->add('ethnicity', SettingChoiceType::class,
+                array(
+                    'label' => 'student.label.ethnicity',
+                    'placeholder' => 'student.placeholder.ethnicity',
+                    'required' => false,
+                    'settingName' => 'Ethnicity.List',
+                )
+            )
+            ->add('religion', SettingChoiceType::class,
+                array(
+                    'label' => 'student.label.religion',
+                    'placeholder' => 'student.placeholder.religion',
+                    'required' => false,
+                    'settingName' => 'Religion.List',
+                )
+            )
+            ->add('citizenship1', CountryType::class,
+                array(
+                    'label' => 'student.label.citizenship.1',
+                    'placeholder' => 'student.placeholder.citizenship',
+                    'required' => false,
+                )
+            )
+            ->add('citizenship2', CountryType::class,
+                array(
+                    'label' => 'student.label.citizenship.2',
+                    'placeholder' => 'student.placeholder.citizenship',
+                    'required' => false,
+                )
+            )
+            ->add('citizenship1Passport', null,
+                array(
+                    'label' => 'student.label.citizenship.passport',
+                    'required' => false,
+                )
+            )
+            ->add('citizenship2Passport', null,
+                array(
+                    'label' => 'student.label.citizenship.passport',
+                    'required' => false,
+                )
+            )
+            ->add('citizenship1PassportScan', ImageType::class, array(
+                    'attr' => array(
+                        'help' => 'student.help.passportScan',
+                        'imageClass' => 'headShot75',
+                    ),
+                    'label' => 'student.label.passportScan',
+                    'required' => false,
+                )
+            )
+            ->add('nationalIDCardNumber', null, array(
+                    'label' => 'student.label.nationalIDCardNumber',
+                    'required' => false,
+                )
+            )
+            ->add('nationalIDCardScan', ImageType::class, array(
+                    'attr' => array(
+                        'help' => 'student.help.nationalIDCardScan',
+                        'imageClass' => 'headShot75',
+                    ),
+                    'label' => 'student.label.nationalIDCardScan',
+                    'required' => false,
+                )
+            )
+            ->add('residencyStatus', SettingChoiceType::class,
+                array(
+                    'label' => 'student.label.residencyStatus',
+                    'placeholder' => 'student.placeholder.residencyStatus',
+                    'required' => false,
+                    'settingName' => 'Residency.List',
+                    'attr' => array(
+                        'help' => 'student.help.residencyStatus',
+                    ),
+                )
+            )
+            ->add('visaExpiryDate', DateType::class, array(
+                    'years' => range(date('Y', strtotime('-1 years')), date('Y', strtotime('+10 year'))),
+                    'label' => 'student.label.visaExpiryDate',
+                    'attr' => array(
+                        'help' => 'student.help.visaExpiryDate',
+                        'class' => 'student',
+                    ),
+                    'required' => false,
+                )
             );
         $builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->manager, Person::class));
+        $builder->addEventSubscriber(new StudentSubscriber());
     }
 
     /**

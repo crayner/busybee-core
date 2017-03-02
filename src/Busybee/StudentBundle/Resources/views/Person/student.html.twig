@@ -24,6 +24,72 @@
                 <div class="col-sm-4 well">
                     {{ form_row(form.student.status) }}
                 </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.student.countryOfBirth) }}
+                </div>
+                <div class="col-sm-4">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.student.firstLanguage) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.student.secondLanguage) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.student.thirdLanguage) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.student.ethnicity) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.student.religion) }}
+                </div>
+                <div class="col-sm-4">
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-info busybee-panel">
+            {% include "BusybeePersonBundle:Person:panelHeader.html.twig"  with {'header': 'person.student.immigrationTitle'} %}
+            <div class="panel-body">
+                <div class="container-fluid well">
+                    <div class="row">
+                        <div class="col-sm-4 well">
+                            {{ form_row(form.student.citizenship1) }}
+                        </div>
+                        <div class="col-sm-4 well">
+                            {{ form_row(form.student.citizenship1Passport) }}
+                        </div>
+                        <div class="col-sm-4 well">
+                            {{ form_row(form.student.citizenship1PassportScan) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 well">
+                            {{ form_row(form.student.citizenship2) }}
+                        </div>
+                        <div class="col-sm-4 well">
+                            {{ form_row(form.student.citizenship2Passport) }}
+                        </div>
+                        <div class="col-sm-4 well">
+                            {{ form_row(form.student.visaExpiryDate) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 well">
+                            {{ form_row(form.student.nationalIDCardNumber) }}
+                        </div>
+                        <div class="col-sm-4 well">
+                            {{ form_row(form.student.nationalIDCardScan) }}
+                        </div>
+                        <div class="col-sm-4 well">
+                            {{ form_row(form.student.residencyStatus) }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

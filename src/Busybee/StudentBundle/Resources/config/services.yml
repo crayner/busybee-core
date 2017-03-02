@@ -13,3 +13,7 @@ services:
             - '@setting.manager'
         tags:
             - { name: form.type }
+    passport.image.validator:
+        class: Busybee\StudentBundle\Validator\Constraints\PassportImageValidator
+        tags:
+            - { name: validator.constraint_validator, alias: passport_image_validator }

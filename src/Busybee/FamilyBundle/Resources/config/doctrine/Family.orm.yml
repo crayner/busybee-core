@@ -14,11 +14,11 @@ Busybee\FamilyBundle\Entity\Family:
             length: '255'
         firstLanguage:
             type: string
-            length: 32
+            length: 16
             nullable: true
         secondLanguage:
             type: string
-            length: 32
+            length: 16
             nullable: true
         lastModified:
             type: datetime

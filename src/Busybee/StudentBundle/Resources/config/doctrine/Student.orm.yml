@@ -19,6 +19,69 @@ Busybee\StudentBundle\Entity\Student:
         status:
             type: string
             length: '32'
+        firstLanguage:
+            type: string
+            length: 16
+            nullable: true
+        secondLanguage:
+            type: string
+            length: 16
+            nullable: true
+        thirdLanguage:
+            type: string
+            length: 16
+            nullable: true
+        countryOfBirth:
+            type: string
+            length: 16
+            nullable: true
+        birthCertificateScan:
+            type: string
+            length: '150'
+            nullable: true
+        ethnicity:
+            type: string
+            length: 32
+            nullable: true
+        citizenship1:
+            type: string
+            length: 16
+            nullable: true
+        citizenship1Passport:
+            type: string
+            length: 16
+            nullable: true
+        citizenship1PassportScan:
+            type: string
+            length: '150'
+            nullable: true
+        citizenship2:
+            type: string
+            length: 16
+            nullable: true
+        citizenship2Passport:
+            type: string
+            length: 16
+            nullable: true
+        religion:
+            type: string
+            length: 16
+            nullable: true
+        nationalIDCardNumber:
+            type: string
+            length: 32
+            nullable: true
+        nationalIDCardScan:
+            type: string
+            length: '150'
+            nullable: true
+        residencyStatus:
+            type: string
+            length: 32
+            nullable: true
+        visaExpiryDate:
+            type: datetime
+            nullable: true
         lastModified:
             type: datetime
         createdOn:

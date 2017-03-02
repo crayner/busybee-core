@@ -27,7 +27,7 @@ class Update_0_0_02 implements UpdateInterface
 	/**
 	 * @var	integer
 	 */
-    private $count = 42;
+    private $count = 44;
 	
 	/**
 	 * Constructor
@@ -604,6 +604,39 @@ Family Friend: Family Friend
         $entity->setName('Student.CareGiver.Relationship.List');
         $entity->setDisplayName('List of Student - Care Giver Relationship');
         $entity->setDescription('List of Student - Care Giver Relationship');
+        $entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+
+        $this->sm->saveSetting($entity);
+        //43
+        $entity = new Setting();
+        $entity->setType('array');
+        $entity->setValue(file_get_contents('../src/Busybee/SystemBundle/Resources/Default/ethnicity.yml'));
+        $entity->setName('Ethnicity.List');
+        $entity->setDisplayName('List of Ethnicities');
+        $entity->setDescription('List of Ethnicities.  Uses the Australian Standard to create this list');
+        $entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+
+        $this->sm->saveSetting($entity);
+        //44
+        $entity = new Setting();
+        $entity->setType('array');
+        $entity->setValue(file_get_contents('../src/Busybee/SystemBundle/Resources/Default/religion.yml'));
+        $entity->setName('Religion.List');
+        $entity->setDisplayName('List of Religions');
+        $entity->setDescription('List of Religions.  Uses the Australian Standard to create this list');
+        $entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+
+        $this->sm->saveSetting($entity);
+        //45
+        $entity = new Setting();
+        $entity->setType('array');
+        $entity->setValue("Citizen: Citizen
+Temporary: Temporary
+Permanent: Permanent
+Visitor: Visitor");
+        $entity->setName('Residency.List');
+        $entity->setDisplayName('List of Residency Status');
+        $entity->setDescription('List of Residency Status.  Usually defined by the government.');
         $entity->setRole($role->findOneByRole('ROLE_ADMIN'));
 
         $this->sm->saveSetting($entity);

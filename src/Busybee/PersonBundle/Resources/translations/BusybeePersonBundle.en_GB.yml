@@ -104,6 +104,7 @@ person:
         title: 'Student Details: %name%'
         description: Student selection
         toggle: Student Status
+        immigrationTitle: 'Immigration Details: %name%'
     caregiver:
         toggle: Care Giver Status
         title: 'Care Giver Details: %name%'

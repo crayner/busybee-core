@@ -23,7 +23,7 @@ class ImageToStringTransformer implements DataTransformerInterface
     /**
      * Transforms an string to File
      *
-     * @param  Person|null $person
+     * @param  File|null $data
      * @return string
      */
     public function transform($data)
@@ -34,11 +34,10 @@ class ImageToStringTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a string (number) to an object (person).
+     * Transforms a File into a string.
      *
-     * @param  string $personNumber
-     * @return Person|null
-     * @throws TransformationFailedException if object (Person) is not found.
+     * @param  null|File
+     * @return string|null
      */
     public function reverseTransform($data)
     {
