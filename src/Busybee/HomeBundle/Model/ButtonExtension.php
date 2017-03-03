@@ -36,6 +36,7 @@ class ButtonExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('saveButton', array($this, 'saveButton')),
             new \Twig_SimpleFunction('cancelButton', array($this, 'cancelButton')),
+            new \Twig_SimpleFunction('uploadButton', array($this, 'uploadButton')),
         );
     }
 
@@ -81,5 +82,23 @@ class ButtonExtension extends \Twig_Extension
     public function getName()
     {
         return 'button_twig_extension';
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function uploadButton($details = array())
+    {
+        $button = '<button title="%title%" type="%type%" class="%class%" style="%style%" %additional%></button>';
+        $defaults = $this->buttons['upload'];
+        foreach ($defaults as $q => $w) {
+            if (!empty($details[$q]))
+                $defaults[$q] = $details[$q];
+            if ($q == 'title')
+                $defaults[$q] = $this->translator->trans($defaults[$q]);
+            $button = str_replace('%' . $q . '%', $defaults[$q], $button);
+        }
+        return $button;
     }
 }

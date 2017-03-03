@@ -12,6 +12,12 @@ parameters:
             title: 'form.cancel'
             style: 'float: right;'
             additional: ''
+        upload:
+            class: "halflings halflings-cloud-upload btn btn-success"
+            type: submit
+            title: 'form.upload'
+            style: 'float: right;'
+            additional: ''
 services:
     menu.manager:
         class: Busybee\HomeBundle\Model\MenuManager

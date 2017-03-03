@@ -1,11 +1,10 @@
 {% trans_default_domain 'BusybeeSecurityBundle' %}
 
 {% set header = 'user.reset.title' %}
-{% set translationDomain = 'BusybeeSecurityBundle' %}
+{% set transDomain = 'BusybeeSecurityBundle' %}
 
-{% set h3Content = '' %}
-{% set path = "window.open('{{ path('home_page') }}','_self')" %}
-{% set h3Content = h3Content ~ cancelButton({'additional': 'onClick="{{ path }}"'})|raw %}
+{% set path = "window.open('" ~ path('home_page') ~ "','_self')" %} #}
+{% set h3Content = cancelButton({'additional': 'onClick="' ~ path ~ '"'})|raw %}
 {% set h3Content = h3Content ~ saveButton()|raw %}
 
 

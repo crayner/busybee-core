@@ -1,10 +1,10 @@
 {# src/Busybee/HomeBundle/Resources/views/Page/panelStart.html.twig #}
 
-{% if translationDomain is not defined %}
-    {% set translationDomain = "BusybeeHomeBundle" %}
+{% if transDomain is not defined %}
+    {% set transDomain = "BusybeeHomeBundle" %}
 {% endif %}
 
-{% trans_default_domain translationDomain %}
+{% trans_default_domain transDomain %}
 
 {% if form is defined %}
     {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}

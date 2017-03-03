@@ -3,7 +3,9 @@
 namespace Busybee\SecurityBundle\Controller;
 
 use Busybee\FormBundle\Type\ToggleType;
+use Busybee\SecurityBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Busybee\SecurityBundle\Event\FormEvent;
@@ -179,17 +181,7 @@ class UserController extends Controller
             return $event->getResponse();
         }
 
-        $form = $this->createForm( 'Busybee\SecurityBundle\Form\UserType', $user);
-        $form->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType', array(
-                'label'					=> 'form.cancel',
-                'translation_domain' 	=> 'BusybeeHomeBundle',
-                'attr' 					=> array(
-                    'formnovalidate' 		=> 'formnovalidate',
-                    'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
-                    'onClick'				=> 'location.href=\''.$this->generateUrl('home_page')."'",
-                ),
-            )
-        );
+        $form = $this->createForm(UserType::class, $user);
         if ($id > 0)
             $form->add('enabled', ToggleType::class, array(
                     'label'					=> 'register.enabled.label',
@@ -200,7 +192,7 @@ class UserController extends Controller
                 )
             );
         else
-            $form->add('enabled', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array('data' => true));
+            $form->add('enabled', HiddenType::class, array('data' => true));
 
         $form->setData($user);
 

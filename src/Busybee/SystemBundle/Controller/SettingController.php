@@ -3,6 +3,7 @@
 namespace Busybee\SystemBundle\Controller ;
 
 use Busybee\FormBundle\Type\ToggleType;
+use Busybee\SystemBundle\Form\UploadType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
@@ -244,12 +245,7 @@ class SettingController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
 
-        /*		$list = Yaml::parse(file_get_contents(__DIR__.'/../Resources/Defaults/Australia.yml'));
-                $sm = $this->get('setting.manager');
-                foreach($list as $name=>$value)
-                    $sm->set($name, $value);
-        */
-        $form = $this->createForm('Busybee\SystemBundle\Form\UploadType', new \stdClass());
+        $form = $this->createForm(UploadType::class, new \stdClass());
 
         $form->handleRequest($request);
 
@@ -260,30 +256,29 @@ class SettingController extends Controller
             $content = file_get_contents($file->getRealPath());
             unlink($file->getRealPath());
             $content = Yaml::parse($content);
+            $sess = $request->getSession();
             if (empty($content['name']) || $content['name'] !== $file->getClientOriginalName()) {
-                $errors[++$error]['message'] = 'upload.error.fileNameMatch';
-                $errors[$error]['status'] = 'warning';
-                $errors[$error]['options'] = array('%name%' => $file->getClientOriginalName());
+                $sess->getFlashBag()
+                    ->add('warning', array('upload.error.fileNameMatch' => array('%name%' => $file->getClientOriginalName())));;
             }
             if (empty($content['settings'])) {
-                $errors[++$error]['message'] = 'upload.error.settingsMissing';
-                $errors[$error]['status'] = 'danger';
-                $errors[$error]['options'] = array();
+                $sess
+                    ->getFlashBag()
+                    ->add('error', 'upload.error.settingsMissing');
             }
             if (empty($errors)) {
                 $sm = $this->get('setting.manager');
                 foreach($content['settings'] as $name=> $value)
                     $sm->set($name, $value);
-                $errors[++$error]['message'] = 'upload.success';
-                $errors[$error]['status'] = 'success';
-                $errors[$error]['options'] = array('%count%' => count($content['settings']));
+                $sess
+                    ->getFlashBag()
+                    ->add('success', array('upload.success' => array('%count%' => count($content['settings']))));
             }
         }
 
         return $this->render('SystemBundle:Setting:upload.html.twig',
             array(
                 'form'	=> $form->createView(),
-                'errors' => $errors,
             )
         );
     }

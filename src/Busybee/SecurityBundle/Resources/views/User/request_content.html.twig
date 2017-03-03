@@ -3,7 +3,7 @@
 {% trans_default_domain 'BusybeeSecurityBundle' %}
 
 {% set header = 'security.request.title' %}
-{% set translationDomain = 'BusybeeSecurityBundle' %}
+{% set transDomain = 'BusybeeSecurityBundle' %}
 {% include 'BusybeeHomeBundle:Page:panelStart.html.twig' %}
 
 <form action="{{ path("busybee_security_user_reset_send_email") }}" method="post"  class="security_user_reset_request">

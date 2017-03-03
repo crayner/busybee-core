@@ -45,8 +45,6 @@ class PageController extends Controller
         if (empty($page))
             throw new InvalidArgumentException($this->get('translator')->trans('security.page.missing', array('%id%'=>$id), 'BusybeeSecurityBundle'));
 
-        $page->cancelURL = $this->generateUrl('page_list') ;
-
         $form = $this->createForm(PageType::class, $page);
 
         $form->handleRequest($request);

@@ -12,40 +12,33 @@
 {% block headerTitle %}{{ 'security.page.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'security.page.description'|trans }}{% endblock headerLead %}
 
-
-
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeSecurityBundle'} %}
     {% endblock flashMessages %}
-    {{ form_start(form) }}
 
-    <div class="panel panel-primary busybee-panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{ 'security.page.title'|trans}}</h3>
+    {{ form_start(form) }}
+    {% set transDomain = 'BusybeeSecurityBundle' %}
+    {% set header = 'security.page.title' %}
+    {% set path = "window.open('" ~ path('page_list') ~ "','_self')" %}
+    {% set h3Content = cancelButton({'additional': 'onClick="' ~ path ~ '"'})|raw %}
+    {% set h3Content = h3Content ~  saveButton() %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+    {% include '@BusybeeHome/Default/flash.html.twig' with {'flashClass': 'fadeAlert'} %}
+
+    <div class="row">
+        <div class="col-sm-6 well">
+            {{ form_row(form.route) }}
         </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-sm-6 well">
-                    {{ form_row(form.route) }}
-                </div>
-                <div class="col-sm-6 well">
-                    {{ form_row(form.path) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 well">
-                    {{ form_row(form.roles) }}
-                </div>
-                <div class="col-sm-6 well text-right">
-                    <div class="form-group">
-                        {{ form_widget(form.save) }}
-                        {{ form_widget(form.cancel) }}
-                    </div>
-                </div>
-            </div>
+        <div class="col-sm-6 well">
+            {{ form_row(form.path) }}
         </div>
-</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 well">
+            {{ form_row(form.roles) }}
+        </div>
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 

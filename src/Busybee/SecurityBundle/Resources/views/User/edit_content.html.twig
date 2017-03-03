@@ -4,51 +4,44 @@
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
-{{ include('BusybeeHomeBundle:Default:flash.html.twig') }}
+			{% include 'BusybeeHomeBundle:Default:flash.html.twig' with ({'transDomain': 'BusybeeSecurityBundle', 'flashClass': 'fadeAlert'} ) %}
 
 <div class="row">
 	<div class="col-sm-6 well">
-		{{ form_errors(form.email) }}
-		{{ form_row(form.email) }}
+        {{ form_row(form.email) }}
 	</div>
 	<div class="col-sm-6 well">
-		{{ form_row(form.username) }}
+        {{ form_row(form.username) }}
 	</div>
 </div>
 
 {% if is_granted('ROLE_REGISTRAR') %}
-<div class="row">
-	<div class="col-sm-6 well">
-		{{ form_row(form.groups) }}
-	</div>
-	<div class="col-sm-6 well">
-		{{ form_row(form.directroles) }}
-	</div>
-</div>
-{% else %}
-	{% do form.groups.setRendered %}
-	{% do form.directroles.setRendered %}
-{% endif %}
-{% if form.current_password is defined %}
-<div class="row">
-	<div class="col-sm-6 well ">
-		{{ form_row(form.current_password) }}
-	</div>
-	<div class="col-sm-6 well text-right">
-		{{ form_widget(form.save) }}
-		{{ form_widget(form.cancel) }}
-	</div>
-</div>
-{% else %}
-<div class="row">
-	<div class="col-sm-6 well">
-		{{ form_row(form.enabled) }}
-	</div>
-	<div class="col-sm-6 well text-right">
-		<div class="form-group">
-			{{ form_widget(form.save) }}
-			{{ form_widget(form.cancel) }}
+	<div class="row">
+		<div class="col-sm-6 well">
+            {{ form_row(form.groups) }}
+		</div>
+		<div class="col-sm-6 well">
+            {{ form_row(form.directroles) }}
 		</div>
 	</div>
-</div>
+{% else %}
+    {% do form.groups.setRendered %}
+    {% do form.directroles.setRendered %}
 {% endif %}
+			{% if form.current_password is defined %}
+				<div class="row">
+					<div class="col-sm-6 well ">
+                        {{ form_row(form.current_password) }}
+					</div>
+				</div>
+            {% else %}
+                {% if 'hidden' in form.enabled.vars.block_prefixes %}
+                    {{ form_row(form.enabled) }}
+                {% else %}
+					<div class="row">
+						<div class="col-sm-6 well">
+                            {{ form_row(form.enabled) }}
+						</div>
+					</div>
+                {% endif %}
+            {% endif %}

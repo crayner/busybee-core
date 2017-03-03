@@ -5,10 +5,9 @@
 	{
 		$('body').on('submit', '.ajaxForm', function (e) {
 			e.preventDefault();
-			
-			ajaxindicatorstart('{{ 'ajax.wait_message'| trans }}')
 
-			$button = $(document.activeElement);
+            ajaxindicatorstart('{{ 'ajax.wait_message'| trans }}');
+            $button = $(document.activeElement);
 			
 			$('<input />').attr('type', 'hidden')
           		.attr('name', "subBut")
@@ -31,7 +30,10 @@
 				if (typeof data.form !== 'undefined') {
 					$('#form_body').html(data.form);
 				}
-			})
+                if ($(".fadeAlert").length) {
+                    $(".fadeAlert").delay(500).fadeOut(3000);
+                }
+            })
 			.fail(function (jqXHR, textStatus, errorThrown) {
 				if (typeof data.redirect !== 'undefined') {
 					window.location.href = data.redirect;

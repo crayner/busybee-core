@@ -45,24 +45,6 @@ class PageType extends AbstractType
                     ),
                 )
             )
-            ->add('save', SubmitType::class, array(
-                    'label' 				=> 'form.save',
-                    'translation_domain' 	=> 'BusybeeHomeBundle',
-                    'attr' 					=> array(
-                        'class' 				=> 'btn btn-success glyphicons glyphicons-disk-save'
-                    ),
-                )
-            )
-            ->add('cancel', ButtonType::class, array(
-                    'label'					=> 'form.cancel',
-                    'translation_domain' 	=> 'BusybeeHomeBundle',
-                    'attr' 					=> array(
-                        'formnovalidate' 		=> 'formnovalidate',
-                        'class' 				=> 'btn btn-info glyphicons glyphicons-remove-circle',
-                        'onClick'				=> 'location.href=\''.$options['data']->cancelURL."'",
-                    ),
-                )
-            )
         ;
     }
     

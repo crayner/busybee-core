@@ -9,31 +9,29 @@
 {% block headerLead %}{{ 'system.upload.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-	{% if errors is not empty %}
-		<div class="container-fluid">
-			{% for error in errors %}
-			<div class="row alert alert-{{ error.status }}">
-				{{ error.message|trans( error.options ) }}
-			</div>
-			{% endfor %}
-		</div>
-	{% endif %}
-
+    {% block flashMessages %}{% endblock %}
 	{{ form_start(form) }}
+    {% set header = 'system.upload.title' %}
+    {% set transDomain = 'BusybeeSystemBundle' %}
+    {% set h3Content = uploadButton() %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-6 col-md-6 well">
-				{{ form_row(form.file) }}
+			<div class="col-sm-6">
+                {% include '@BusybeeHome/Default/flash.html.twig' with {'flashClass': 'fadeAlert'} %}
 			</div>
-			<div class="col-sm-6 col-md-6 well">
-				<div class="form-group text-right">
-					{{ form_widget(form.upload) }}
-					{{ form_widget(form._token) }}
-				</div>
+			<div class="col-sm-6 well">
+                {{ form_row(form.file) }}
 			</div>
 		</div>
 	</div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 	{{ form_end(form) }}
 {% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeHome/Scripts/fadeAlert.js.twig' %}
+{% endblock %}
 
 

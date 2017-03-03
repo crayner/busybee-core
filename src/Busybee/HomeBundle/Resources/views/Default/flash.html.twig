@@ -1,44 +1,49 @@
 {% if transDomain is not defined %}
     {% set transDomain = 'BusybeeHomeBundle' %}
 {% endif %}
-   {% trans_default_domain transDomain %}
+
+{% trans_default_domain transDomain %}
+
 {%  if flashClass is defined %}
     {% set flashClass = " " ~ flashClass %}
 {% else %}
     {% set flashClass = "" %}
 {% endif %}
+
+{% set theMessage = '' %}
+
 {% for flashMessage in app.session.flashbag.get('error') %}
-
 <div class="alert alert-danger{{ flashClass }}" role="alert">
-	{{ flashMessage|trans }}
-</div>
-
+    {% set theMessage = flashMessage %}
 {% endfor %}
+
 {% for flashMessage in app.session.flashbag.get('danger') %}
-
-<div class="alert alert-danger{{ flashClass }}" role="alert">
-	{{ flashMessage|trans }}
-</div>
-
+    <div class="alert alert-danger{{ flashClass }}" role="alert">
+        {% set theMessage = flashMessage %}
 {% endfor %}
+
 {% for flashMessage in app.session.flashbag.get('warning') %}
-
-<div class="alert alert-warning{{ flashClass }}" role="alert">
-	{{ flashMessage|trans }}
-</div>
-
+        <div class="alert alert-warning{{ flashClass }}" role="alert">
+            {% set theMessage = flashMessage %}
 {% endfor %}
+
 {% for flashMessage in app.session.flashbag.get('info') %}
-
-<div class="alert alert-info{{ flashClass }}" role="alert">
-	{{ flashMessage|trans }}
-</div>
-
+            <div class="alert alert-info{{ flashClass }}" role="alert">
+                {% set theMessage = flashMessage %}
 {% endfor %}
-{% for flashMessage in app.session.flashbag.get('success') %}
 
-<div class="alert alert-success{{ flashClass }}" role="alert">
-	{{ flashMessage|trans }}
-</div>
-
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success{{ flashClass }}" role="alert">
+                    {% set theMessage = flashMessage %}
 {% endfor %}
+
+                    {% if theMessage is not empty %}
+                    {% if theMessage is iterable %}
+                        {% for message,parameters in theMessage %}
+                            {{ message|trans(parameters) }}
+                        {% endfor %}
+                    {% else %}
+                        {{ theMessage|trans }}
+                    {% endif %}
+                </div>
+                {% endif %}

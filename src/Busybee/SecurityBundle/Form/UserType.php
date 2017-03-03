@@ -54,14 +54,6 @@ class UserType extends AbstractType
 						),
 				)
 			)
-            ->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
-					'label' 				=> 'form.save',
-					'translation_domain' 	=> 'BusybeeHomeBundle',
-					'attr' 					=> array(
-						'class' 				=> 'btn btn-success glyphicons glyphicons-disk-save'
-					),
-				)
-			)
         ;
     }
     
