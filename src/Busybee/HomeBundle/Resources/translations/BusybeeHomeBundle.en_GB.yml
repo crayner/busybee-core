@@ -140,3 +140,6 @@ actions: Actions
 required: (Required)
 google:
     oauth: Google Authentication
+panel:
+    header:
+        empty: 'No Panel Title Defined: %name%'

@@ -16,3 +16,18 @@
 {% block contentContainer %}
 {% include "BusybeeSecurityBundle:User:reset_content.html.twig" %}
 {% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $("#generatePassword").on('click', function () {
+            $('input[name="reset[plainPassword][first]"]').val('{{ config.misc.password.text|raw }}');
+            $('input[name="reset[plainPassword][first]"]').get(0).type = "text";
+            $('input[name="reset[plainPassword][first]"]').blur(function () {
+                $('input[name="reset[plainPassword][first]"]').get(0).type = "password";
+            });
+            $('input[name="reset[plainPassword][second]"]').val('{{ config.misc.password.text|raw }}');
+            alert("{{ 'security.copyPassword'|trans }}" + "\n\n" + "{{ config.misc.password.text|raw }}");
+        });
+    </script>
+{% endblock javascripts %}

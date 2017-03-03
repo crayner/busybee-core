@@ -15,3 +15,6 @@ regex:
 person:
     error:
         phone: Not a valid phone number.
+form:
+    save: Save
+    cancel: Cancel

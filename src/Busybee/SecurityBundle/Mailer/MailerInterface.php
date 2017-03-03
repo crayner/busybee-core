@@ -21,8 +21,9 @@ interface MailerInterface
      * Send an email to a user to confirm the password reset
      *
      * @param UserInterface $user
+     * @param string $comment
      *
      * @return void
      */
-    public function sendResettingEmailMessage(UserInterface $user);
+    public function sendResettingEmailMessage(UserInterface $user, $comment = null);
 }

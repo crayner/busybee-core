@@ -25,22 +25,6 @@ class ResetType extends AbstractType
 				'invalid_message' 		=> 'user.error.password.match',
         	)
 		)
-		 	->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
-				'label'					=> 'form.save',
-				'translation_domain' 	=> 'BusybeeHomeBundle',
-				'attr' 					=> array(
-					'class'					=> 'btn btn-success glyphicons glyphicons-disk-save'
-				),
-			)
-		)
-		 	->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label'=> 'form.cancel', 
-				'translation_domain' 	=> 'BusybeeHomeBundle',
-				'attr' 					=> array(
-					'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
-					'formnovalidate' 		=> 'formnovalidate'
-				),
-			)
-		)
 		;
 	}
 	

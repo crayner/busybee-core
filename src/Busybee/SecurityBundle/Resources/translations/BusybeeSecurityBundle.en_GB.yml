@@ -85,7 +85,11 @@ security:
         username: User Name or E-mail 
         submit: Request Password Reset 
         invalid_username: "The username / email was not found for %username%." 
-        forcePassword: "You must reset your password." 
+        forcePassword: "You must reset your password."
+        label:
+            comment: Add a comment to the email.
+    generatePassword: Generate Password
+    copyPassword: "Copy this password if required from the field below:"
     resetting:
         title: Password Reset EMail
         email:
@@ -94,6 +98,8 @@ security:
                 Hello %username%!
 
                 To reset your password - please visit %confirmationUrl%
+
+                %comment%
 
                 Regards,
                 the Busybee Team.
@@ -127,6 +133,8 @@ security:
         help:
             roles: Allow access to this page when the user has any of the selected roles.
     actions: Actions
+    help:
+        request: This page does NOT change the users password.  User passwords can be set (and reset) by the user using the link that this page sends to the selected user.  Add a comment to the sent email if required.
 role:
     label:
         name: Role Name

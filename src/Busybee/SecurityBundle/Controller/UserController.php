@@ -307,12 +307,6 @@ class UserController extends Controller
             $valid = false;
         }
 
-        if ($form->get('cancel')->isClicked()) {
-            $url = $this->generateUrl('home_page');
-            $response = new RedirectResponse($url);
-            return $response;
-        }
-
         if ($valid && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(BusybeeSecurityEvents::RESETTING_RESET_SUCCESS, $event);
@@ -334,9 +328,13 @@ class UserController extends Controller
 
             return $response;
         }
+        $config = new \stdClass();
+        $config->misc = new \stdClass();
+        $config->misc->password = $this->get('system.password.manager')->buildPassword($this->getParameter('password'));
 
         return $this->render('BusybeeSecurityBundle:User:reset.html.twig', array(
             'token' => $token,
+            'config' => $config,
             'form' => $form->createView(),
         ));
     }
@@ -400,7 +398,9 @@ class UserController extends Controller
             $user->setConfirmationToken($tokenGenerator->generateToken());
         }
 
-        $this->get('busybee_security.mailer')->sendResettingEmailMessage($user);
+        $comment = $request->get('comment');
+
+        $this->get('busybee_security.mailer')->sendResettingEmailMessage($user, $comment);
         $user->setPasswordRequestedAt(new \DateTime());
         $this->get('busybee_security.user_manager')->updateUser($user);
 

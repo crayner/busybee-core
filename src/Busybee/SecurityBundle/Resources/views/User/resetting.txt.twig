@@ -6,7 +6,7 @@
 {% endblock %}
 {% block body_text %}
 {% autoescape false %}
-{{ 'security.resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+{{ 'security.resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl, '%comment%': comment}) }}
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}

@@ -1,5 +1,26 @@
+parameters:
+    buttons:
+        save:
+            class: "halflings halflings-save btn btn-success"
+            type: submit
+            title: 'form.save'
+            style: 'float: right;'
+            additional: ''
+        cancel:
+            class: "halflings halflings-remove-circle btn btn-info"
+            type: button
+            title: 'form.cancel'
+            style: 'float: right;'
+            additional: ''
 services:
     menu.manager:
         class: Busybee\HomeBundle\Model\MenuManager
         arguments:
             - '@service_container'
+    button.extension:
+        class: Busybee\HomeBundle\Model\ButtonExtension
+        arguments:
+            - '%buttons%'
+            - '@translator'
+        tags:
+            - { name: twig.extension }
