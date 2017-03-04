@@ -4,7 +4,18 @@
 {% block caregiver_errors %}{% endblock %}
 
 {% block caregiver_widget %}
-    <div class="well familyCareGiver">
+    {% set panelStyle = 'default' %}
+    {% set transDomain = 'BusybeeFamilyBundle' %}
+    {% set header = 'family.caregiver.title' %}
+    {% set family_id = form.parent.parent.vars.value.getId %}
+    {% if family_id is empty %}
+        {% set family_id = 'Add' %}
+    {% endif %}
+    {% set route = "location.href('" ~ path('family_edit', {'id': family_id}) ~ "')" %}
+    {% set h3Content = cancelButton({'additional': 'onClick="' ~ route ~ '"'})|raw %}
+    {% set h3Content = h3Content ~ saveButton()|raw %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+    <div class="familyCareGiver container-fluid">
         <div class="row">
             <div class="col-sm-4 well">
                 {{ form_row(form.person) }}
@@ -74,4 +85,5 @@
             </div>
         </div>
     </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock caregiver_widget %}

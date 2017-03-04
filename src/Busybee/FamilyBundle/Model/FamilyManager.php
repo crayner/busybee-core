@@ -86,8 +86,10 @@ class FamilyManager
         $cg = $this->em->getRepository(CareGiver::class)->findOneBy($details);
         if (!$cg instanceof CareGiver) {
             $cg = new CareGiver();
-            $cg->setPerson($this->em->getRepository(Person::class)->find($details['person']));
-            $cg->setFamily($this->em->getRepository(Family::class)->find($details['family']));
+            if (!empty($details['person']))
+                $cg->setPerson($this->em->getRepository(Person::class)->find($details['person']));
+            if (!empty($details['family']))
+                $cg->setFamily($this->em->getRepository(Family::class)->find($details['family']));
         }
         return $cg;
     }

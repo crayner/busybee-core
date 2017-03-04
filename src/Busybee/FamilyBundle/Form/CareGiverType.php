@@ -23,6 +23,10 @@ class CareGiverType extends AbstractType
      */
     private $manager;
 
+    /**
+     * CareGiverType constructor.
+     * @param ObjectManager $manager
+     */
     public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;

@@ -104,7 +104,8 @@ class FamilySubscriber implements EventSubscriberInterface
             }
 
             foreach ($data['careGiver'] as $q => $w) {
-                $careGivers->add($data['careGiver'][$q]['cg']);
+                if (!empty($data['careGiver'][$q]['cg']))
+                    $careGivers->add($data['careGiver'][$q]['cg']);
                 unset($data['careGiver'][$q]['cg'], $data['careGiver'][$q]['currentOrder']);
             }
         }
@@ -131,9 +132,6 @@ class FamilySubscriber implements EventSubscriberInterface
         $form->setData($family);
 
         $event->setData($data);
-
-        dump($data);
-        dump($family);
     }
 
 }

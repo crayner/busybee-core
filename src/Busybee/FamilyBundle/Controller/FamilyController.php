@@ -62,6 +62,7 @@ class FamilyController extends Controller
 
         $editOptions = array();
         $editOptions['id'] = $id;
+        $editOptions['family_id'] = $id;
         $editOptions['form'] = $form->createView();
         $editOptions['fullForm'] = $form;
         $editOptions['currentSearch'] = $currentSearch;

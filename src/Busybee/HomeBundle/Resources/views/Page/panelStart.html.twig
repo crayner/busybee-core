@@ -9,6 +9,7 @@
 {% if form is defined %}
     {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 {% endif %}
+
 {% if header is not defined %}
     {% set header = 'panel.header.empty' %}
 {% endif %}
@@ -30,5 +31,8 @@
         <h3 class="panel-title">{{ header|trans({'%name%': name}) }}
             {{ h3Content|raw }}
         </h3>
+        {% if panelParagraph is defined %}
+            <p>{{ panelParagraph|trans }}</p>
+        {% endif %}
     </div>
     <div class="panel-body">

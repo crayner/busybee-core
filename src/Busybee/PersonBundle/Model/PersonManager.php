@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\PersonBundle\Model;
 
+use Busybee\FamilyBundle\Entity\Family;
 use Busybee\InstituteBundle\Entity\CampusResource;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Entity\Locality;
@@ -145,11 +146,13 @@ class PersonManager
      */
     public function canDeleteStudent(Person $person, $parameters)
     {
-        return true;
         //Place rules here to stop delete .
         $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
+        if (!$student instanceof Student)
+            return true;
 
-        $families = $student->getFamilies($this->em->getRepository(Family::class));
+        $families = $this->em->getRepository(Family::class)->findByStudents($student->getId());
+
         if (is_array($families) && count($families) > 0)
             return false;
 
@@ -429,11 +432,9 @@ class PersonManager
             return $result;
         }
         $idKey =  array_search('person.identifier', $destinationFields);
-        if ($idKey !== false)
-        {
-            foreach($fields as $q=>$w)
-                if ($w['destination'] == $idKey)
-                {
+        if ($idKey !== false) {
+            foreach($fields as $q=> $w)
+                if ($w['destination'] == $idKey) {
                     $identifier = $data[$w['source']];
                     break ;
                 }
@@ -677,7 +678,7 @@ class PersonManager
             }
         }
 
-        foreach ($this->phones as $q=>$phone)
+        foreach ($this->phones as $q=> $phone)
             if (empty($existing = $this->em->getRepository(Phone::class)->findOneByPhoneNumber($phone->getPhoneNumber()))) {
                 $phone->setCountryCode($this->countryCode);
                 $result['success'] = ['people.import.success.phone', $phone->getPhoneNumber()];
@@ -732,8 +733,7 @@ class PersonManager
     {
         $families = $this->getFamilies($person);
         $addresses = new ArrayCollection();
-        foreach($families as $family)
-        {
+        foreach($families as $family) {
             $address = $family->getAddress1();
             if (! is_null($address) && ! $addresses->contains($address))
                 $addresses->add($address);
@@ -802,8 +802,7 @@ class PersonManager
         $families = $this->getFamilies($person);
         $phones = new ArrayCollection();
 
-        foreach($families as $family)
-        {
+        foreach($families as $family) {
             foreach($family->getPhone() as $phone)
                 if (!$phones->contains($phone)) $phones->add($phone);
         }
@@ -851,7 +850,6 @@ class PersonManager
             $student = new Student();
             $student->setPerson($person);
             $person->setStudentQuestion(true);
-            dump($student);
             $person->setStudent($student);
             $this->em->persist($person);
             $this->em->flush();

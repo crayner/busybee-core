@@ -29,6 +29,14 @@ class ButtonExtension extends \Twig_Extension
     }
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'button_twig_extension';
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getFunctions()
@@ -37,6 +45,8 @@ class ButtonExtension extends \Twig_Extension
             new \Twig_SimpleFunction('saveButton', array($this, 'saveButton')),
             new \Twig_SimpleFunction('cancelButton', array($this, 'cancelButton')),
             new \Twig_SimpleFunction('uploadButton', array($this, 'uploadButton')),
+            new \Twig_SimpleFunction('addButton', array($this, 'addButton')),
+            new \Twig_SimpleFunction('editButton', array($this, 'editButton')),
         );
     }
 
@@ -46,13 +56,22 @@ class ButtonExtension extends \Twig_Extension
      */
     public function saveButton($details = array())
     {
+        return $this->generateButton($this->buttons['save'], $details);
+    }
+
+    /**
+     * @param array $defaults
+     * @param array $details
+     * @return mixed|string
+     */
+    private function generateButton($defaults, $details = array())
+    {
         $button = '<button title="%title%" type="%type%" class="%class%" style="%style%" %additional%></button>';
-        $defaults = $this->buttons['save'];
         foreach ($defaults as $q => $w) {
             if (!empty($details[$q]))
                 $defaults[$q] = $details[$q];
             if ($q == 'title')
-                $defaults[$q] = $this->translator->trans($defaults[$q]);
+                $defaults[$q] = $this->translator->trans($defaults[$q], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);
             $button = str_replace('%' . $q . '%', $defaults[$q], $button);
         }
         return $button;
@@ -64,24 +83,7 @@ class ButtonExtension extends \Twig_Extension
      */
     public function cancelButton($details = array())
     {
-        $button = '<button title="%title%" type="%type%" class="%class%" style="%style%" %additional%></button>';
-        $defaults = $this->buttons['cancel'];
-        foreach ($defaults as $q => $w) {
-            if (!empty($details[$q]))
-                $defaults[$q] = $details[$q];
-            if ($q == 'title')
-                $defaults[$q] = $this->translator->trans($defaults[$q]);
-            $button = str_replace('%' . $q . '%', $defaults[$q], $button);
-        }
-        return $button;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'button_twig_extension';
+        return $this->generateButton($this->buttons['cancel'], $details);
     }
 
     /**
@@ -90,15 +92,24 @@ class ButtonExtension extends \Twig_Extension
      */
     public function uploadButton($details = array())
     {
-        $button = '<button title="%title%" type="%type%" class="%class%" style="%style%" %additional%></button>';
-        $defaults = $this->buttons['upload'];
-        foreach ($defaults as $q => $w) {
-            if (!empty($details[$q]))
-                $defaults[$q] = $details[$q];
-            if ($q == 'title')
-                $defaults[$q] = $this->translator->trans($defaults[$q]);
-            $button = str_replace('%' . $q . '%', $defaults[$q], $button);
-        }
-        return $button;
+        return $this->generateButton($this->buttons['upload'], $details);
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function addButton($details = array())
+    {
+        return $this->generateButton($this->buttons['add'], $details);
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function editButton($details = array())
+    {
+        return $this->generateButton($this->buttons['edit'], $details);;
     }
 }

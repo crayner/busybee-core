@@ -18,3 +18,4 @@ person:
 form:
     save: Save
     cancel: Cancel
+    add: Add

@@ -19,7 +19,7 @@ family:
         careGivers: Care Givers
     label:
         name: Family Name
-        caregiver: Care Giver
+        caregiver: Care Givers
         students: Children (Students)
         language:
             first: First language spoken by family.
@@ -40,6 +40,7 @@ family:
         add: Add Care Giver
         remove: Remove Care Giver
         edit: Edit Care Giver
+        title: Care Giver
 students:
     label:
         person: Student Name

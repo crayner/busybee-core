@@ -18,6 +18,18 @@ parameters:
             title: 'form.upload'
             style: 'float: right;'
             additional: ''
+        add:
+            class: "halflings halflings-plus-sign btn btn-primary"
+            type: button
+            title: 'form.add'
+            style: 'float: right;'
+            additional: ''
+        edit:
+            class: "halflings halflings-plus-sign btn btn-primary"
+            type: button
+            title: 'form.add'
+            style: 'float: right;'
+            additional: ''
 services:
     menu.manager:
         class: Busybee\HomeBundle\Model\MenuManager
