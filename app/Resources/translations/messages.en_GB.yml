@@ -19,3 +19,5 @@ form:
     save: Save
     cancel: Cancel
     add: Add
+    upload: Upload
+    proceed: Proceed

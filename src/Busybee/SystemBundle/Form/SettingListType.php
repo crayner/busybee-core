@@ -43,7 +43,7 @@ class SettingListType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => null,
-			'translation_domain' => 'BusybeeSystemBundle',
+            'translation_domain' => 'SystemBundle',
         ));
     }
 

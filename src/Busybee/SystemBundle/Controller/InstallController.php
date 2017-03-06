@@ -438,7 +438,9 @@ class InstallController extends Controller
         $this->entity = $newEm->getRepository('BusybeeSecurityBundle:User')->find(1);
 		if (is_null($this->entity))
 			$this->entity = new User();
-		$user = $this->getParameter('user');
+        $parameters = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir() . '/config/parameters.yml'));
+        $user = $parameters['parameters']['user'];
+
        	if (intval($this->entity->getId()) == 0) {
 			$this->entity->setUsername($user['name']);
 			$this->entity->setUsernameCanonical($user['name']);
@@ -500,12 +502,10 @@ class InstallController extends Controller
 			$newEm->persist($this->entity);
 			$newEm->flush();
 		}
-	
-		$w = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
 
-		unset($w['parameters']['user']);
-	
-		file_put_contents($this->get('kernel')->getRootDir().'/config/parameters.yml', Yaml::dump($w));
+        unset($parameters['parameters']['user']);
+
+        file_put_contents($this->get('kernel')->getRootDir() . '/config/parameters.yml', Yaml::dump($parameters));
 
 		$this->get('session')->getFlashBag()->add('success', 'buildDatabase.success');
 

@@ -37,7 +37,7 @@
 				$('input[name="password1"]').get(0).type = "password";
 			});
 			$('input[name="password2"]').val('{{ password.text|raw }}');
-			alert("{{ 'misc.password1.copy'|trans ({}, 'BusybeeSystemBundle') }}" + "\n\n" + "{{ password.text|raw }}") ;
+            alert("{{ 'misc.password1.copy'|trans ({}, 'SystemBundle') }}" + "\n\n" + "{{ password.text|raw }}");
 		});
 	</script>
 {% endblock javascripts %}

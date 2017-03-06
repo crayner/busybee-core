@@ -2,6 +2,7 @@
 
 namespace Busybee\SystemBundle\Form;
 
+use Busybee\FormBundle\Type\ToggleType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,21 +17,29 @@ class UploadType extends AbstractType
     {
         $builder
             ->add('file', FileType::class,
-				array (
-					'label'		=> 'system.setting.label.upload',
-					'mapped'	=> false,
-				)
-			)
-        ;
+                array(
+                    'label' => 'system.setting.label.upload',
+                    'mapped' => false,
+                )
+            )
+            ->add('default', ToggleType::class,
+                array(
+                    'label' => 'system.setting.label.default',
+                    'attr' => array(
+                        'help' => 'system.setting.help.default',
+                    ),
+                    'mapped' => false,
+                )
+            );
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-			'translation_domain' => 'BusybeeSystemBundle',
+            'translation_domain' => 'SystemBundle',
         ));
     }
 

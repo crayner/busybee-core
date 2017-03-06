@@ -3,6 +3,7 @@ namespace Busybee\SystemBundle\Setting ;
 
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\SystemBundle\Entity\Setting;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\Yaml\Yaml ;
 use Twig_Error_Syntax ;
@@ -30,26 +31,9 @@ class SettingManager
         $this->container = $container;
         $this->repo = $this->container->get('system.setting.repository');
         $this->settings = array();
+        $this->setCurrentUser(null);
     }
 
-	/**
-	 * save Setting
-	 *
-	 * @version	21st October 2016
-	 * @since	21st October 2016
-	 * @param	Container
-	 * @return	void
-	 */
-	public function saveSetting(Setting $setting)
-	{
-		if (true !== ($response = $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($setting->getRole()->getRole())))
-			return $response;
-
-		$em = $this->container->get('doctrine')->getManager();
-		$em->persist($setting);
-		$em->flush();
-	}
-	
 	/**
 	 * @{inheritdoc}
 	 */
@@ -67,20 +51,6 @@ class SettingManager
 
 		return $this ;
 	}
-
-	/**
-	 * set Setting
-	 *
-	 * @version	31st October 2016
-	 * @since	21st October 2016
-	 * @param	string	$name
-	 * @param	mixed	$value
-	 * @return	this
-	 */
-    public function set($name, $value)
-    {
-        return $this->setSetting($name, $value);
-    }
 
 	/**
 	 * get Form Array Data
@@ -198,22 +168,24 @@ class SettingManager
 				$value =  strval(mb_substr($value, 0, 25));
 				break;
 			case 'regex':
-				$test = preg_match($value, 'qwlrfhfri$wegtiwebnf934htr 5965tb');
-				break;
+                if (empty($value)) $value = '/^/';
+                $test = preg_match($value, 'qwlrfhfri$wegtiwebnf934htr 5965tb');
+                break;
+            case 'time':
+            case 'image':
             case 'text':
             case 'system':
 				break ;
 			case 'twig':
-				try {
-					$x = $this->container->get('twig')->createTemplate($value)->render(array());
-				} catch (Twig_Error_Syntax $e)
-				{
-					throw new Twig_Error_Syntax($e->getMessage());
-				} catch (Twig_Error_Runtime $e)
-				{
-					// Ignore Runtime Errors
-				}
-				break;
+                if (is_null($value)) $value = '{{ empty }}';
+                try {
+                    $x = $this->container->get('twig')->createTemplate($value)->render(array());
+                } catch (Twig_Error_Syntax $e) {
+                    throw new Twig_Error_Syntax($e->getMessage());
+                } catch (Twig_Error_Runtime $e) {
+                    // Ignore Runtime Errors
+                }
+                break;
 			case 'boolean':
 				$value = (bool) $value ;
 				break;
@@ -223,10 +195,27 @@ class SettingManager
 			default:
 				throw new \Exception('The Setting Type ('.$this->setting->getType().') has not been defined.');
 		}
-		if ($this->validateSetting($value))
-			$this->setting->setValue($value);
-		$this->saveSetting($this->setting);
+        if ($this->validateSetting($value)) {
+            $this->setting->setValue($value);
+            $em = $this->container->get('doctrine')->getManager();
+            $em->persist($this->setting);
+            $em->flush();
+        }
+
 		return $this ;
+    }
+
+    /**
+     * Validate Setting
+     *
+     * @version    30th November 2016
+     * @since    30th November 2016
+     * @param    mixed $value
+     * @return    boolean
+     */
+    public function validateSetting($value)
+    {
+        return true;
     }
 
 	/**
@@ -326,35 +315,6 @@ class SettingManager
     {
         return $this->getSetting($name, $default, $options);
     }
-	
-	/**
-	 * create Setting
-	 *
-	 * @version	21st October 2016
-	 * @since	21st October 2016
-	 * @param	Setting
-	 * @return	SettingManager
-	 */
-	public function createSetting(Setting $setting)
-	{
-		$em = $this->container->get('doctrine')->getManager();
-		$em->persist($setting);
-		$em->flush();
-		return $this ;
-	}
-
-	/**
-	 * Validate Setting
-	 *
-	 * @version	30th November 2016
-	 * @since	30th November 2016
-	 * @param	mixed	$value
-	 * @return	boolean
-	 */
-    public function validateSetting($value)
-    {
-		return true ;
-	}
 
 	/**
 	 * Build Form
@@ -381,11 +341,11 @@ class SettingManager
 				);
 			$options['constraints'] = array();
 			if (isset($setting['blank']) && $setting['blank']) $options['required'] = false ;
-			
+
 			if (isset($setting['length'])) $options['attr']['maxLength'] = $setting['length'] ;
 			if (isset($setting['minLength'])) $options['attr']['minLength'] = $setting['minLength'] ;
-			
-			if (! empty($details->getChoice()))
+
+            if (!empty($details->getChoice()))
 			{
 				if ( 0 === strpos($details->getChoice(), 'parameter.'))
 				{
@@ -447,5 +407,51 @@ class SettingManager
         $em->remove($setting);
         $em->flush();
         return $this ;
+    }
+
+    /**
+     * create Setting
+     *
+     * @version    21st October 2016
+     * @since    21st October 2016
+     * @param    Setting
+     * @return    SettingManager
+     */
+    public function createSetting(Setting $setting)
+    {
+        if (!$this->settingExists($setting->getName())) {
+            $em = $this->container->get('doctrine')->getManager();
+            $em->persist($setting);
+            $em->flush();
+        } else {
+            $this->set($setting->getName(), $setting->getValue());
+        }
+        return $this;
+    }
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function settingExists($name)
+    {
+        $setting = $this->repo->findOneByName($name);
+        if ($setting instanceof Setting && !is_null($setting->getId()))
+            return true;
+        return false;
+    }
+
+    /**
+     * set Setting
+     *
+     * @version    31st October 2016
+     * @since    21st October 2016
+     * @param    string $name
+     * @param    mixed $value
+     * @return    this
+     */
+    public function set($name, $value)
+    {
+        return $this->setSetting($name, $value);
     }
 }

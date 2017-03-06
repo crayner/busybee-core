@@ -1,0 +1,11 @@
+{% trans_default_domain transDomain %}
+
+{% if theMessage is not empty %}
+    {% if theMessage is iterable %}
+        {% for message,parameters in theMessage %}
+            {{ message|trans(parameters) }}
+        {% endfor %}
+    {% else %}
+        {{ theMessage|trans }}
+    {% endif %}
+{% endif %}

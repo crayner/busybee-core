@@ -124,7 +124,7 @@ success:
     save:
         parameters: The parameters file was saved.
 buildDatabase:
-    success: "The database was succesfully built.  Please sign in as 'admin' with password 'p@ssword' and set your personal profile." 
+    success: "The database was succesfully built.  Please sign in with the credentials you just added in the install process.  You should be signed in already if the process has completed without error."
 homePage:
     lead: Busybee is designed for School Management
     heading: Busybee

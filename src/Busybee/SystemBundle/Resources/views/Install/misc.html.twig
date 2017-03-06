@@ -1,25 +1,30 @@
 {# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
-{% block menuContainer %}
-{% endblock menuContainer %}
+{% block menuContainer %}{% endblock menuContainer %}
 
-{% trans_default_domain 'BusybeeSystemBundle' %}
+{% trans_default_domain 'SystemBundle' %}
 {% block title %}Busybee - {{ 'system.install.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
 
-
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@BusybeeHome/Toggle/style.html.twig' %}
+{% endblock stylesheets %}
 
 {% block contentContainer %}
 <form action="{{ path("install_misc_save") }}" method="post">
-	<div id="form_body" class="container-fluid">
-
-		<div class="panel panel-default busybee-panel">
-			<div class="panel-heading">
-				<h3 class="panel-title">{{ 'install.misc.parameters'|trans }}</h3>
-			</div>
-			<div class="panel-body">
+    {% set h3Content = '' %}
+    {% if config.proceed %}
+        {% set route = 'onClick="window.open(\'' ~ path("install_build_system")|raw ~ '\',\'_self\')"' %}
+        {% set h3Content = h3Content ~ proceedButton({'additional': route, 'type': 'button'}) %}
+    {% endif %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'system.install.title', 'transDomain': 'SystemBundle'} %}
+    {% block flashMessages %}{% endblock flashMessages %}{% include '@BusybeeHome/Default/flash.html.twig' with {'flashClass': 'fadeAlert'} %}
+	<div id="form_body">
+        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'install.misc.parameters', 'transDomain': 'SystemBundle', 'panelStyle': 'default'} %}
 				<div class="row">
 					<div class="well col-sm-6">
 						<div class="form-group">
@@ -75,71 +80,71 @@
 					</div>
 				</div>
 			</div>
-		</div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 
 
+    {% set toggle = 'data-toggle=toggle data-onStyle=success data-offStyle=default data-on="<span class=\'halflings halflings-thumbs-up\'></span>" data-off="<span class=\'halflings halflings-thumbs-down\'></span>"' %}
 
 
-
-		<div class="panel panel-default busybee-panel">
-			<div class="panel-heading">
-				<h3 class="panel-title">{{ 'misc.password.title'|trans }}</h3>
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'misc.password.title', 'panelParagraph': 'misc.password.message', 'panelStyle': 'default' } %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<input type="number" id="minLength" name="minLength" value="{{ config.misc.password.minLength }}"
+						   required class="form-control" min='6' max='25' step='1'/>
+					<label for="minLength">{{ 'misc.password.minLength.title'|trans }}</label><br/>
+					<span class='field-help'>{{ 'misc.password.minLength.description'|trans }}</span>
+				</div>
 			</div>
-			<div class="panel-body">
-				<div class="alert alert-info">
-				{{ 'misc.password.message'|trans }}
-				</div>
-				<div class="row">
-					<div class="well col-sm-6">
-						<div class="form-group">
-							<input type="number" id="minLength" name="minLength" value="{{ config.misc.password.minLength }}" required class="form-control" min='6' max='25' step='1' />
-							<label for="minLength">{{ 'misc.password.minLength.title'|trans }}</label><br />
-							<span class='field-help'>{{ 'misc.password.minLength.description'|trans }}</span>
-						</div>
-					</div>
-					<div class="well col-sm-6">
-						<div class="form-group">
-							<div class="text-right">
-								<input type="checkbox" id="numbers" name="numbers" {{ config.misc.password.numbers }} class="form-control yes-no" data-off-label="false" data-on-label="false" data-off-icon-cls="glyphicons-thumbs-down" data-on-icon-cls="glyphicons-thumbs-up" />
-								<label style="float:left" for="numbers">{{ 'misc.password.numbers.title'|trans }}</label><br />
-								<span style="float:left" class='field-help'>{{ 'misc.password.numbers.description'|trans }}</span>
-							</div>
-						</div>
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<div class="text-right">
+						<input type="checkbox" id="numbers"
+							   name="numbers" {{ config.misc.password.numbers }} {{ toggle|raw }}
+							   class="form-control yes-no"/>
+						<label style="float:left" for="numbers">{{ 'misc.password.numbers.title'|trans }}</label><br/>
+						<span style="float:left"
+							  class='field-help'>{{ 'misc.password.numbers.description'|trans }}</span>
 					</div>
 				</div>
-		
-				<div class="row">
-					<div class="well col-sm-6">
-						<div class="form-group">
-							<div class="text-right">
-								<input type="checkbox" id="mixedCase" name="mixedCase" {{ config.misc.password.mixedCase }} class="form-control yes-no" data-off-label="false" data-on-label="false" data-off-icon-cls="glyphicons-thumbs-down" data-on-icon-cls="glyphicons-thumbs-up" />
-								<label style="float:left" for="mixedCase">{{ 'misc.password.mixedCase.title'|trans }}</label><br />
-								<span style="float:left" class='field-help'>{{ 'misc.password.mixedCase.description'|trans }}</span>
-							</div>
-						</div>
-					</div>
-					<div class="well col-sm-6">
-						<div class="form-group">
-							<div class="text-right">
-								<input type="checkbox" id="specials" name="specials" {{ config.misc.password.specials }} class="form-control yes-no" data-off-label="false" data-on-label="false" data-off-icon-cls="glyphicons-thumbs-down" data-on-icon-cls="glyphicons-thumbs-up" />
-								<label style="float:left" for="specials">{{ 'misc.password.specials.title'|trans }}</label><br />
-								<span style="float:left" class='field-help'>{{ 'misc.password.specials.description'|trans }}</span>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
 			</div>
 		</div>
 
-
-
-		<div class="panel panel-default busybee-panel">
-			<div class="panel-heading">
-				<h3 class="panel-title">{{ 'misc.user.title'|trans }}</h3>
+		<div class="row">
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<div class="text-right">
+						<input type="checkbox" id="mixedCase"
+							   name="mixedCase" {{ config.misc.password.mixedCase }} {{ toggle|raw }}
+							   class="form-control yes-no"/>
+						<label style="float:left"
+							   for="mixedCase">{{ 'misc.password.mixedCase.title'|trans }}</label><br/>
+						<span style="float:left"
+							  class='field-help'>{{ 'misc.password.mixedCase.description'|trans }}</span>
+					</div>
+				</div>
 			</div>
-			<div class="panel-body">
+			<div class="well col-sm-6">
+				<div class="form-group">
+					<div class="text-right">
+						<input type="checkbox" id="specials"
+							   name="specials" {{ config.misc.password.specials }} {{ toggle|raw }}
+							   class="form-control yes-no"/>
+						<label style="float:left" for="specials">{{ 'misc.password.specials.title'|trans }}</label><br/>
+						<span style="float:left"
+							  class='field-help'>{{ 'misc.password.specials.description'|trans }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+
+
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'misc.user.title', 'panelStyle': 'default' } %}
+	<div class="container-fluid">
 				<div class="row">
 					<div class="well col-sm-6">
 						<div class="form-group">
@@ -158,7 +163,7 @@
 				</div>
 		
 				<div class="row">
-					<div class="well col-sm-6">
+					<div class="well col-sm-4">
 						<div class="form-group">
 							<input type="password" title="{{ 'misc.password1.message'|trans ({'%minLength%': config.misc.password.minLength, '%numbers%': config.misc.password.numbers, '%mixedCase%': config.misc.password.mixedCase, '%specials%': config.misc.password.specials }) }}" id="password1" name="password1" value="{{ config.misc.password1 }}" required pattern="{{ config.misc.password.pattern }}" class="form-control"  onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
 			  if(this.checkValidity()) form.password2.pattern = this.value;
@@ -167,7 +172,7 @@
 							<span class='field-help'>{{ 'misc.password1.description'|trans }}</span>
 						</div>
 					</div>
-					<div class="well col-sm-6">
+					<div class="well col-sm-4">
 						<div class="form-group">
 							<input type="password" title="{{ 'misc.password2.message'|trans }}" id="password2" name="password2" value="{{ config.misc.password2 }}" required pattern="{{ config.misc.password.pattern }}" class="form-control" onchange="
 			  this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
@@ -176,28 +181,20 @@
 							<span class='field-help'>{{ 'misc.password2.description'|trans }}</span>
 						</div>
 					</div>
-				</div>
-				
-				<div class="row">
-					<div class="well col-sm-6">
+					<div class="well col-sm-4">
 						<div class="form-group text-right">
 							<button type="button" id="generatePassword" name="generatePassword" class="btn btn-info">{{ 'misc.password1.generate'|trans }}</button>
-						</div>
-					</div>
-					<div class="well col-sm-6">
-						<div class="form-group text-right">
 							<input type="hidden" name="_csrf_token" value="{{ csrf_token('miscellaneous') }}" />
-							<button type="submit" id="_submit" name="_submit" class="btn btn-success">{{ 'mailer.save'|trans }}<span class="glyphicons glyphicons-disk-save"></span></button>
-							{% if config.proceed %}
-							<button type="button" onClick="window.open('{{ path('install_build_system') }}','_self')" name="_submit" id="proceedButton" class="btn btn-info">{{ 'install.proceed'|trans }}<span class="glyphicons glyphicons-hand-right"></span></button>
-							{% endif %}
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+
 
 	</div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+
+	</div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 </form>	
 
 {% endblock contentContainer %}
@@ -205,6 +202,7 @@
 
 {% block javascripts %}
 	{{ parent() }}
+    {% include '@BusybeeHome/Toggle/script.html.twig' %}
 	<script type="text/javascript">
 		$("#generatePassword").on('click', function(){
 			$('input[name="password1"]').val('{{ config.misc.password.text|raw }}');
@@ -216,4 +214,5 @@
 			alert("{{ 'misc.password1.copy'|trans }}" + "\n\n" + "{{ config.misc.password.text|raw }}") ;
 		});
 	</script>
+    {% include '@BusybeeHome/Scripts/fadeAlert.js.twig' %}
 {% endblock javascripts %}

@@ -12,7 +12,7 @@ system:
             warning: It is recommended that you backup the database before proceeding.
     version:
         system:
-            title: "Current System Version: %version%"
+            title: "Current System Version: %name%"
             description: "Available System Version: %version%"
         database:
             title: "Current Database Version: %version%"
@@ -35,6 +35,7 @@ system:
             value: Setting Value
             displayName: Setting Display Name 
             upload: Upload Setting File
+            default: Set as Default Upgrade
         help:
             name: Setting names are set by the program and are not available to change.  Select the name here to edit that setting.
             description: You can alter the setting decription to better describe the setting.
@@ -43,6 +44,7 @@ system:
             twig: "Templates in twig need to be tested on the page for which thay are used."
             displayName: 'The display name is available to change for your system, but it must be unique on your system.'
             image: 'Upload an image.'
+            default: "The default file is loaded when you upgrade the system to a new version. The upgrade process will overwrite defaults, and this setting will then refresh your school's default settings."
     upload:
         title: Upload Setting Package
         description: 'Upload a set of pre coded default settings.'
@@ -151,7 +153,7 @@ misc:
     email: 
         description: "Provide your email address."
     user:
-        title: Admin User Details
+        title: System Administrator User Details
     password1:
         title: Password
         description: ""
@@ -191,3 +193,5 @@ upload:
         fileNameMatch: 'The file name (%name%) does not match the file data.'
         settingsMissing: "No settings have been defined in the file.  The file nust contain the name of the file (name:) and the settings: to be set."
     success: '%count% Settings were correctly uploaded.'
+default:
+    success: Default file details saved.

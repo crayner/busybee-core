@@ -4,6 +4,7 @@ namespace Busybee\SystemBundle\Update ;
 use stdClass ;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\Tools\SchemaTool ;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Update Manager
@@ -141,24 +142,26 @@ class UpdateManager
 	 */
 	public function build()
 	{
+
         $em = $this->container->get('doctrine')->getManager();
 
         $schemaTool = new SchemaTool($em);
         $metaData = $em->getMetadataFactory()->getAllMetadata();
 
 		$xx = $schemaTool->updateSchema($metaData, true);
-
 		$sysVersion = $this->version->current['system'];
-		while (version_compare($sysVersion, $this->version->shouldBe['system'], '<')) {
+
+        while (version_compare($sysVersion, $this->version->shouldBe['system'], '<')) {
 			$v = 'Busybee\SystemBundle\Update\dBase\Update_'.str_replace('.', '_', $sysVersion);
 			if (class_exists( $v ))
 			{
 				$x = new $v($this->sm, $em);
 				$x->build();
-				$this->container->get('session')->getFlashBag()->add('success', $this->container->get('translator')->trans('updateDatabase.success', array('%version%' => $sysVersion), 'BusybeeSystemBundle' ));
+                $this->container->get('session')->getFlashBag()->add('success', $this->container->get('translator')->trans('updateDatabase.success', array('%version%' => $sysVersion), 'SystemBundle'));
 			}
 			$sysVersion = $this->incrementVersion($sysVersion);
 		}
+
 
 		$this->sm->setSetting('Version.Database', $this->version->shouldBe['database'])
 			->setSetting('Version.System', $this->version->shouldBe['system']);
@@ -166,5 +169,63 @@ class UpdateManager
 		$this->version->current['system'] = $this->sm->getSetting('Version.System', $this->version->shouldBe['system']);
 		$this->version->current['database'] = $this->sm->getSetting('Version.Database', $this->version->shouldBe['database']);
 
+
+        $this->loadSettings();
+
 	}
+
+    /**
+     * @return bool
+     */
+    private function loadSettings()
+    {
+        $overWrite = $this->sm->get('Settings.Default.Overwrite');
+        $file = '../src/Busybee/SystemBundle/Resources/Defaults/Default.yml';
+        $content = file_get_contents($file);
+        $content = Yaml::parse($content);
+        $sess = $this->container->get('session');
+        $sm = $this->container->get('setting.manager');
+        if (empty($content['name']) || $content['name'] !== 'Default.yml') {
+            $sess->getFlashBag()
+                ->add('warning', array('upload.error.fileNameMatch' => array('%name%' => 'Default.yml')));;
+            return false;
+        }
+        if (empty($content['settings'])) {
+            $sess
+                ->getFlashBag()
+                ->add('error', 'upload.error.settingsMissing');
+            return false;
+        }
+        if (empty($errors)) {
+            foreach ($content['settings'] as $name => $value)
+                $sm->set($name, $value);
+            $sess
+                ->getFlashBag()
+                ->add('success', array('upload.success' => array('%count%' => count($content['settings']))));
+        }
+        if (!empty($overWrite)) {
+            $file = $overWrite;
+            $content = file_get_contents($file);
+            $content = Yaml::parse($content);
+            if (empty($content['name']) || $content['name'] !== basename($file)) {
+                $sess->getFlashBag()
+                    ->add('warning', array('upload.error.fileNameMatch' => array('%name%' => basename($file))));;
+                return false;
+            }
+            if (empty($content['settings'])) {
+                $sess
+                    ->getFlashBag()
+                    ->add('error', 'upload.error.settingsMissing');
+                return false;
+            }
+            if (empty($errors)) {
+                foreach ($content['settings'] as $name => $value)
+                    $sm->set($name, $value);
+                $sess
+                    ->getFlashBag()
+                    ->add('success', array('upload.success' => array('%count%' => count($content['settings']))));
+                return true;
+            }
+        }
+    }
 }

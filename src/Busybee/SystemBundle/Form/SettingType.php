@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Busybee\SystemBundle\Form\DataTransformer\SettingNameTransformer ;
 use Busybee\SystemBundle\Repository\SettingRepository ;
 
 class SettingType extends AbstractType
@@ -75,7 +74,16 @@ class SettingType extends AbstractType
 			)
         ;
     }
-    
+
+    private function getSettingNameChoices()
+    {
+        $names = array();
+        $settings = $this->repo->findBy(array(), array('name' => 'ASC'));
+        foreach ($settings as $setting)
+            $names[$setting->getName()] = $setting->getId();
+        return $names;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -84,7 +92,7 @@ class SettingType extends AbstractType
         $resolver->setDefaults(
 			array(
 				'data_class' => 'Busybee\SystemBundle\Entity\Setting',
-				'translation_domain' => 'BusybeeSystemBundle',
+                'translation_domain' => 'SystemBundle',
 				'validation_groups' => array('Default'),
 			)
 		);
@@ -97,13 +105,4 @@ class SettingType extends AbstractType
     {
         return 'setting';
     }
-
-	private function getSettingNameChoices()
-	{
-		$names = array();
-		$settings = $this->repo->findBy(array(), array('name'=>'ASC'));
-		foreach($settings as $setting)
-			$names[$setting->getName()] = $setting->getId();
-		return $names ;
-	}
 }

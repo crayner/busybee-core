@@ -1,0 +1,6 @@
+Busybee\SystemBundle\Entity\Setting:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name]
+            errorPath: name
+            message: 'unique.setting.name'

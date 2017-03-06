@@ -2,11 +2,6 @@ Busybee\SystemBundle\Entity\Setting:
     type: entity
     table: setting
     repositoryClass: Busybee\SystemBundle\Repository\SettingRepository
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [name]
-            errorPath: name
-            message: 'unique.setting.name'
     indexes:
         type:
             columns: [ type, name ] 
@@ -32,6 +27,7 @@ Busybee\SystemBundle\Entity\Setting:
             type: text
         value:
             type: text
+            nullable: true
         choice:
             type: string
             length: '50'

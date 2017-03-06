@@ -60,7 +60,7 @@ class Update_0_0_00 implements UpdateInterface
 		$entity->setName('Version.System');
 		$entity->setDisplayName('System Version');
 		$entity->setDescription('The version of Busybee currently configured on your system.');
-		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+        $entity->setRole($role->findOneByRole('ROLE_SYSTEM_ADMIN'));
 
 		$this->sm->createSetting($entity);
 		//2
@@ -70,7 +70,7 @@ class Update_0_0_00 implements UpdateInterface
 		$entity->setName('Version.Database');
 		$entity->setDisplayName('Database Version');
 		$entity->setDescription('The version of Busybee Database currently configured on your system.');
-		$entity->setRole($role->findOneByRole('ROLE_ADMIN'));
+        $entity->setRole($role->findOneByRole('ROLE_SYSTEM_ADMIN'));
 
 		$this->sm->createSetting($entity);
 		

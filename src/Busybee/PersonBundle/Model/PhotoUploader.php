@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\File\File ;
 
 class PhotoUploader
 {
+    /**
+     * @var string
+     */
     private $targetDir;
 
     /**

@@ -4,13 +4,13 @@
 {% block menuContainer %}
 {% endblock menuContainer %}
 
-{% trans_default_domain 'BusybeeSystemBundle' %}
+{% trans_default_domain 'SystemBundle' %}
 {% block title %}Busybee - {{ 'system.install.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'system.install.title'} %}
 <div class="row">
 	<div class="col-sm-6">
 		{% if config.parameterStatus %}
@@ -61,37 +61,27 @@
 
 </div>
 
+
 {% if config.sql.isConnected %}
-	<div class="row">
-		<div class="col-sm-12">
-			<h3>{{ 'install.database.parameters'|trans }}</h3>
-		</div>
-	</div>
+    {% set h3Content = proceedButton() %}
 	<form action="{{ path("install_check_mailer_parameters") }}" method="post">
+        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
 		<div id="form_body" class="container-fluid">
-			
 			<div class="row">
-				<div class="well col-sm-6">
-					<div class="form-group">
+				<div class="well col-sm-6 col-sm-offset-6">
+					<div class="form-group alert alert-info">
 						<p>{{ 'install.database.connection.complete'|trans }}</p>
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token('mailer') }}" />
 					</div>
 				</div>
-				<div class="well col-sm-6">
-					<div class="form-group text-right">
-						<button type="submit" id="_submit" name="_submit" class="btn btn-info">{{ 'install.proceed'|trans }}<span class="glyphicons glyphicons-hand-right"></span></button>
-					</div>
-				</div>
 			</div>
 		</div>
-	</form>	
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+	</form>
 {% else %}
-	<div class="row">
-		<div class="col-sm-12">
-			<h2>{{ 'install.database.parameters'|trans }}</h2>
-		</div>
-	</div>
+    {% set h3Content = saveButton() %}
 	<form action="{{ path("install_save_database_parameters") }}" method="post">
+        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
 		<div id="form_body" class="container-fluid">
 			<div class="row">
 				<div class="well col-sm-6">
@@ -155,14 +145,10 @@
 						<input type="text" id="prefix" name="prefix" value="{{ config.sql.database_prefix }}" required class="form-control" maxlength="6" >
 					</div>
 				</div>
-				<div class="well col-sm-6">
-					<div class="form-group text-right">
-						<button type="submit" id="_submit" name="_submit" class="btn btn-success">{{ 'sql.database.save'|trans }}<span class="glyphicons glyphicons-disk-save"></span></button>
-					</div>
-				</div>
 			</div>
 		</div>
-	</form>	
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+	</form>
 {% endif %}
-
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}

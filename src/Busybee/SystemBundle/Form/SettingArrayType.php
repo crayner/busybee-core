@@ -34,7 +34,7 @@ class SettingArrayType extends AbstractType
     {
         $resolver->setDefaults(
 			array(
-				'translation_domain' => 'BusybeeSystemBundle',
+                'translation_domain' => 'SystemBundle',
 			)
 		);
     }

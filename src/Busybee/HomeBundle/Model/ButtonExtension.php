@@ -47,6 +47,7 @@ class ButtonExtension extends \Twig_Extension
             new \Twig_SimpleFunction('uploadButton', array($this, 'uploadButton')),
             new \Twig_SimpleFunction('addButton', array($this, 'addButton')),
             new \Twig_SimpleFunction('editButton', array($this, 'editButton')),
+            new \Twig_SimpleFunction('proceedButton', array($this, 'proceedButton')),
         );
     }
 
@@ -111,5 +112,14 @@ class ButtonExtension extends \Twig_Extension
     public function editButton($details = array())
     {
         return $this->generateButton($this->buttons['edit'], $details);;
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function proceedButton($details = array())
+    {
+        return $this->generateButton($this->buttons['proceed'], $details);;
     }
 }

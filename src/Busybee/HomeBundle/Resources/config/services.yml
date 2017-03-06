@@ -30,6 +30,12 @@ parameters:
             title: 'form.add'
             style: 'float: right;'
             additional: ''
+        proceed:
+            class: "halflings halflings-hand-right btn btn-info"
+            type: submit
+            title: 'form.proceed'
+            style: 'float: right;'
+            additional: ''
 services:
     menu.manager:
         class: Busybee\HomeBundle\Model\MenuManager

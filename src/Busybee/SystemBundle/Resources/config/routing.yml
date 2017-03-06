@@ -43,3 +43,6 @@ setting_edit_name:
 plugin_manage:
     path:     /plugin/manage/
     defaults: { _controller: SystemBundle:Plugin:manager }
+install_update:
+    path:     /update/install/
+    defaults: { _controller: SystemBundle:Update:install }

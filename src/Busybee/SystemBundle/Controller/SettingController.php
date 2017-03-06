@@ -273,7 +273,21 @@ class SettingController extends Controller
                 $sess
                     ->getFlashBag()
                     ->add('success', array('upload.success' => array('%count%' => count($content['settings']))));
+                if ($form->get('default')) {
+                    $exists = $this->get('setting.manager')->get('Settings.Default.Overwrite');
+                    if (!empty($exists) && file_exists($exists))
+                        unlink($exists);
+                    $path = str_replace('app/../', '', $this->getParameter('upload_path'));
+                    $fName = $path . '/' . md5(uniqid()) . '.yml';
+                    file_put_contents($fName, Yaml::dump($content));
+                    $this->get('setting.manager')->set('Settings.Default.Overwrite', $fName);
+                    $sess
+                        ->getFlashBag()
+                        ->add('success', array('default.success' => array('%count%' => count($content['settings']))));
+                }
             }
+
+
         }
 
         return $this->render('SystemBundle:Setting:upload.html.twig',

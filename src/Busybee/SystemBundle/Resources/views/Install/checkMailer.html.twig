@@ -4,18 +4,18 @@
 {% block menuContainer %}
 {% endblock menuContainer %}
 
-{% trans_default_domain 'BusybeeSystemBundle' %}
+{% trans_default_domain 'SystemBundle' %}
 {% block title %}Busybee - {{ 'system.install.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-	<div class="row">
-		<div class="col-sm-12">
-			<h2>{{ 'install.mailer.parameters'|trans }}</h2>
-		</div>
-	</div>
+    {% set route = 'onClick="window.open(\'' ~ path("install_misc_check")|raw ~ '\',\'_self\')"' %}
+    {% if config.mailer.mailer_transport is empty or config.mailer.canDeliver %}{% set proceedAdditional = route %}{% else %}{% set proceedAdditional = 'disabled' %}{% endif %}
+    {% set h3Content = proceedButton({'additional': proceedAdditional, 'type': 'button'}) %}
+    {% set h3Content = h3Content ~ saveButton({'additional': 'id="_submit" name="_submit"'}) %}
 	<form action="{{ path("install_save_mailer") }}" method="post">
+        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.mailer.parameters'} %}
 		<div id="form_body" class="container-fluid">
 			<div class="row">
 				<div class="well col-sm-6">
@@ -106,17 +106,9 @@
 					</div>
 				</div>
 			</div>
-			
-			<div class="row">
-				<div class="well col-sm-offset-6 col-sm-6">
-					<div class="form-group text-right">
-						<button type="submit" id="_submit" name="_submit" class="btn btn-success">{{ 'mailer.save'|trans }}<span class="glyphicons glyphicons-disk-save"></span></button>
-						<button type="button" onClick="window.open('{{ path("install_misc_check") }}','_self')" name="_submit" id="proceedButton" class="btn btn-info"{% if config.mailer.mailer_transport is empty or config.mailer.canDeliver %}{% else %}disabled{% endif %}>{{ 'install.proceed'|trans }}<span class="glyphicons glyphicons-hand-right"></span></button>
-					</div>
-				</div>
-			</div>
 		</div>
-	</form>	
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+	</form>
 {% endblock contentContainer %}
 
 

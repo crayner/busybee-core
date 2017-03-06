@@ -24,20 +24,25 @@
 	<div class="row">
 		<div class="well col-sm-6">
 			<div class="form-group">
-				<input type="password" title="{{ 'misc.password1.message'|trans ({'%minLength%': password.minLength, '%numbers%': password.numbersText, '%mixedCase%': password.mixedCaseText, '%specials%': password.specialsText }, 'BusybeeSystemBundle') }}" id="password1" name="password1" value="" required pattern="{{ password.pattern }}" class="form-control"  onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+				<input type="password"
+					   title="{{ 'misc.password1.message'|trans ({'%minLength%': password.minLength, '%numbers%': password.numbersText, '%mixedCase%': password.mixedCaseText, '%specials%': password.specialsText }, 'SystemBundle') }}"
+					   id="password1" name="password1" value="" required pattern="{{ password.pattern }}"
+					   class="form-control" onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
 	if(this.checkValidity()) form.password2.pattern = this.value;
 	" />
-				<label for="password1">{{ 'misc.password1.title'|trans({}, 'BusybeeSystemBundle') }}</label><br />
-				<span class="field-help">{{ 'misc.password1.message'|trans ({'%minLength%': password.minLength, '%numbers%': password.numbersText, '%mixedCase%': password.mixedCaseText, '%specials%': password.specialsText }, 'BusybeeSystemBundle') }}</span>
+				<label for="password1">{{ 'misc.password1.title'|trans({}, 'SystemBundle') }}</label><br/>
+				<span class="field-help">{{ 'misc.password1.message'|trans ({'%minLength%': password.minLength, '%numbers%': password.numbersText, '%mixedCase%': password.mixedCaseText, '%specials%': password.specialsText }, 'SystemBundle') }}</span>
 			</div>
 		</div>
 		<div class="well col-sm-6 ">
 			<div class="form-group">
-				<input type="password" title="{{ 'misc.password2.message'|trans({}, 'BusybeeSystemBundle') }}" id="password2" name="password2" value="" required pattern="{{ password.pattern }}" class="form-control" onchange="
+				<input type="password" title="{{ 'misc.password2.message'|trans({}, 'SystemBundle') }}" id="password2"
+					   name="password2" value="" required pattern="{{ password.pattern }}" class="form-control"
+					   onchange="
 	this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
 	" />
-				<label for="password2">{{ 'misc.password2.title'|trans({}, 'BusybeeSystemBundle') }}</label><br />
-				<span class="field-help">{{ 'misc.password2.message'|trans({}, 'BusybeeSystemBundle') }}</span>
+				<label for="password2">{{ 'misc.password2.title'|trans({}, 'SystemBundle') }}</label><br/>
+				<span class="field-help">{{ 'misc.password2.message'|trans({}, 'SystemBundle') }}</span>
 			</div>
 		</div>
 	</div>
@@ -47,7 +52,8 @@
 		</div>
 		<div class="well col-sm-2">
 			<div class="form-group text-right">
-				<button type="button" id="generatePassword" name="generatePassword" class="btn btn-info">{{ 'misc.password1.generate'|trans({}, 'BusybeeSystemBundle') }}</button>
+				<button type="button" id="generatePassword" name="generatePassword"
+						class="btn btn-info">{{ 'misc.password1.generate'|trans({}, 'SystemBundle') }}</button>
 			</div>
 		</div>
 		<div class="col-sm-5 well">
