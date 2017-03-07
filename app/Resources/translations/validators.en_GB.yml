@@ -24,6 +24,7 @@ term:
         outsideYear: "The term dates must be inside the year dates. %term_date% %operator% %year_date%"
         invalid: The first or last day of a term is not valid.
         overlapped: "The term dates must not overlap. Check the terms: %name1% and %name2%"
+        order: The first day of the term must be before the last day of the term.
 specialDay:
     error:
         timeEmpty: Time is empty when time change active in Special Day.
@@ -33,3 +34,6 @@ caregiver:
         family: The family for a caregiver must not be blank.
     unique:
         fail: The caregiver must be unique within a family.
+blank:
+    term:
+        year: The term year is blank.

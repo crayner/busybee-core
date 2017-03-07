@@ -7,13 +7,7 @@
 "BusybeeFamilyBundle:Family:careGiverCollection.html.twig"
 "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
-<div class="panel panel-info busybee-panel">
-    <div class="panel-heading">
-        <h3 class="panel-title">{{ form_label(form.careGiver) }}</h3>
-        <p>{{ 'family.help.caregiver'|trans }}</p>
-    </div>
-    <div class="panel-body">
-        {{ form_widget(form.careGiver) }}
-    </div>
-</div>
+{% include '@BusybeeHome/Page/panelStart.html.twig' with {'panelStyle': 'info', 'transDomain': 'BusybeeFamilyBundle', 'panelParagraph': 'family.help.caregiver', 'header': form.careGiver.vars.label } %}
+    {{ form_widget(form.careGiver) }}
+{% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% do form.careGiver.setRendered %}

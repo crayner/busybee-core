@@ -16,6 +16,13 @@ class CalendarManager
 
     private $sm ;
 
+    public function __construct(SettingManager $sm, YearRepository $repo, EntityManager $em)
+    {
+        $this->sm = $sm;
+        $this->repo = $repo;
+        $this->em = $em;
+    }
+
     public function setCalendarDays($year, $calendar)
     {
         $this->year = $year ;
@@ -35,32 +42,29 @@ class CalendarManager
                 foreach($week->getDays() as $dayKey=>$day)
                 {
                     // School Day ?
-                    $break = $this->isTermBreak($day->getDate());
+                    $break = $this->isTermBreak($day);
                     $this->calendar->getDay($day->getDate()->format('d.m.Y'))->setTermBreak($break);
                     $day->setTermBreak($break);
+                    $week->getDays()[$dayKey] = $day;
                 }
+                $month->getWeeks()[$weekKey] = $week;
             }
-
+            $this->calendar->getMonths()[$monthKey] = $month;
         }
     }
 
-    public function isTermBreak($currentDate)
+    public function isTermBreak(Day $currentDate)
     {
         // Check if the day is a possible school day. i.e. Ignore Weekends
-        if (! in_array($currentDate->format('l'), $this->sm->get('schoolWeek')))
-            return false ;
-        foreach($this->year->getTerms() as $term)
-            if ($currentDate >= $term->getFirstDay() && $currentDate <= $term->getLastDay())
-                return false ;
+        if ($currentDate->isTermBreak()) return true;
 
+        foreach ($this->year->getTerms() as $term) {
+            if ($currentDate->getDate() >= $term->getFirstDay() && $currentDate->getDate() <= $term->getLastDay())
+                return false;
+        }
+
+        $currentDate->setTermBreak(true);
         return true ;
-    }
-
-    public function __construct(SettingManager $sm, YearRepository $repo, EntityManager $em)
-    {
-        $this->sm = $sm ;
-        $this->repo = $repo ;
-        $this->em  = $em;
     }
 
     public function setClosedDays()
@@ -81,14 +85,17 @@ class CalendarManager
 
     public function getDayClass(Day $day, $class = null)
     {
+
         $class = '';
         $weekDays = $this->sm->get('schoolWeek');
         $weekEnd = true;
+
         if (isset($weekDays[$day->getDate()->format('D')]))
             $weekEnd = false ;
         if (! $weekEnd)
             $class .= ' dayBold';
-        if ($day->isTermBreak() && ! $weekEnd )
+
+        if ($this->isTermBreak($day))
             $class .=  ' termBreak';
         if ($day->isClosed())
         {
@@ -100,6 +107,7 @@ class CalendarManager
             $class .=  ' isSpecial';
             $class = str_replace(' termBreak', '', $class);
         }
+
         if (empty($class)) return '';
         return ' class="'.trim($class).'"';
     }

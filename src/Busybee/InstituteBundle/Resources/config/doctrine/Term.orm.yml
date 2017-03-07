@@ -2,15 +2,6 @@ Busybee\InstituteBundle\Entity\Term:
     type: entity
     table: calendar_term
     repositoryClass: Busybee\InstituteBundle\Repository\YearRepository
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [name, year]
-            errorPath: name
-            message: 'term.unique'
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [nameShort, year]
-            errorPath: nameShort
-            message: 'term.unique'
     uniqueConstraints:
         name_year:
             columns: [ name, year_id ]

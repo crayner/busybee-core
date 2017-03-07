@@ -21,3 +21,7 @@ form:
     add: Add
     upload: Upload
     proceed: Proceed
+    return: Return
+    delete: Erase
+    misc: Miscellaneous
+    reset: Reset

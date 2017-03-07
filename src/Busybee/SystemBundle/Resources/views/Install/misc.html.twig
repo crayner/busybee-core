@@ -17,8 +17,7 @@
 <form action="{{ path("install_misc_save") }}" method="post">
     {% set h3Content = '' %}
     {% if config.proceed %}
-        {% set route = 'onClick="window.open(\'' ~ path("install_build_system")|raw ~ '\',\'_self\')"' %}
-        {% set h3Content = h3Content ~ proceedButton({'additional': route, 'type': 'button'}) %}
+        {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("install_build_system")}}) %}
     {% endif %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'system.install.title', 'transDomain': 'SystemBundle'} %}

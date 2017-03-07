@@ -2,25 +2,12 @@
 
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form
+'BusybeeFormBundle:Template:jquery.collection.html.twig'
+'@BusybeeInstitute/Calendar/term.html.twig'
+'BusybeeFormBundle:Template:bootstrap.html.twig' %}
 
-<div class="panel panel-primary busybee-panel">
-	<div class="panel-heading">
-		<h3 class="panel-title">{{ 'calendar.term.title'|trans({'%year%': form.name.vars.value}) }}
-		{% include 'BusybeeInstituteBundle:Calendar:calendarMenu.html.twig' %}
-		</h3>
-	</div>
-	<div class="panel-body">
-		{% for term in form.terms %}
-			{% if term.vars.name != '__name__' %}
-				{% include 'BusybeeInstituteBundle:Calendar:term.html.twig' with {'form': term} %}
-			{% endif %}
-		{% endfor %}
-{#		<div id="termProtoType" data-prototype="{% filter escape %}{{ include 'BusybeeInstituteBundle:Calendar:term.html.twig' with {'form': form.terms.vars.prototype} }}{% endfilter %}"></div> #}
-		<div id="termProtoType"></div>
-		<p class="alert alert-info">{{ 'calendar.help.terms'|trans }}</p>
-		{% include 'BusybeeInstituteBundle:Calendar:calendarMenu.html.twig' %}
-	</div>
-</div>
-
+{% include '@BusybeeInstitute/Calendar/calendarMenu.html.twig' with {'header': 'calendar.term.title', 'name': form.name.vars.value, 'panelParagraph': 'calendar.help.terms'} %}
+	{{ form_widget(form.terms) }}
+{% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% do form.terms.setRendered %}

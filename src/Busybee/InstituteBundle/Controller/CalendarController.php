@@ -62,6 +62,7 @@ class CalendarController extends Controller
 				'form' 			=> $form->createView(),
 				'fullForm'		=> $form,
 				'id'			=> $id,
+                'year_id' => $id,
 			)
 		);
     }

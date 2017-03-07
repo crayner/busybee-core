@@ -13,3 +13,6 @@ Busybee\InstituteBundle\Entity\Term:
             - NotBlank: ~
         nameShort:
             - NotBlank: ~
+        year:
+            - NotBlank:
+                message: 'blank.term.year'

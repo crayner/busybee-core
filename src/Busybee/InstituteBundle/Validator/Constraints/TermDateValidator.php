@@ -24,6 +24,7 @@ class TermDateValidator extends ConstraintValidatorBase
 				$constraint->year->removeTerm($term);
 			}
 		}
+
 		$yearStart = $constraint->year->getFirstDay();
 		$yearEnd = $constraint->year->getLastDay();
 
@@ -56,6 +57,11 @@ class TermDateValidator extends ConstraintValidatorBase
 					->addViolation();
 				return ;
 			}
+            if ($term->getFirstDay() > $term->getLastDay()) {
+                $this->context->buildViolation('term.error.order')
+                    ->addViolation();
+                return;
+            }
 			if ($term->getFirstDay() < $yearStart)
 			{	
 				$this->context->buildViolation('term.error.outsideYear', array('%term_date%' => $term->getFirstDay()->format('jS M Y'), '%year_date%' => $yearStart->format('jS M Y'), '%operator%' => '<'))

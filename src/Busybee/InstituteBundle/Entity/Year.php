@@ -44,7 +44,39 @@ class Year extends YearModel
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+    /**
+     * @var \DateTime
+     */
+    private $firstDay;
+    /**
+     * @var \DateTime
+     */
+    private $lastDay;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $terms;
+    /**
+     * @var boolean
+     */
+    private $termsSorted = false;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $specialDays;
+    /**
+     * @var boolean
+     */
+    private $specialDaysSorted = false;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->specialDays = new ArrayCollection();
+        $this->terms = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -54,6 +86,16 @@ class Year extends YearModel
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -71,13 +113,13 @@ class Year extends YearModel
     }
 
     /**
-     * Get name
+     * Get status
      *
      * @return string
      */
-    public function getName()
+    public function getStatus()
     {
-        return $this->name;
+        return $this->status;
     }
 
     /**
@@ -95,13 +137,13 @@ class Year extends YearModel
     }
 
     /**
-     * Get status
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getStatus()
+    public function getLastModified()
     {
-        return $this->status;
+        return $this->lastModified;
     }
 
     /**
@@ -119,13 +161,13 @@ class Year extends YearModel
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -143,13 +185,13 @@ class Year extends YearModel
     }
 
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -167,13 +209,13 @@ class Year extends YearModel
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -191,24 +233,14 @@ class Year extends YearModel
     }
 
     /**
-     * Get modifiedBy
+     * Get firstDay
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \DateTime
      */
-    public function getModifiedBy()
+    public function getFirstDay()
     {
-        return $this->modifiedBy;
+        return $this->firstDay;
     }
-
-    /**
-     * @var \DateTime
-     */
-    private $firstDay;
-
-    /**
-     * @var \DateTime
-     */
-    private $lastDay;
 
     /**
      * Set firstDay
@@ -225,13 +257,13 @@ class Year extends YearModel
     }
 
     /**
-     * Get firstDay
+     * Get lastDay
      *
      * @return \DateTime
      */
-    public function getFirstDay()
+    public function getLastDay()
     {
-        return $this->firstDay;
+        return $this->lastDay;
     }
 
     /**
@@ -247,21 +279,6 @@ class Year extends YearModel
 
         return $this;
     }
-
-    /**
-     * Get lastDay
-     *
-     * @return \DateTime
-     */
-    public function getLastDay()
-    {
-        return $this->lastDay;
-    }
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $terms;
 
      /**
      * Add term
@@ -287,12 +304,6 @@ class Year extends YearModel
         $this->terms->removeElement($term);
     }
 
-
-    /**
-     * @var boolean
-     */
-    private $termsSorted = false;
-
     /**
      * Get terms
      *
@@ -300,30 +311,16 @@ class Year extends YearModel
      */
     public function getTerms()
     {
-		if (count($this->terms) == 0 || $this->termsSorted)
-        	return $this->terms;
-			
-		$iterator = $this->terms->getIterator();
-		$iterator->uasort(function ($a, $b) {
-			return ($a->getFirstDay() < $b->getFirstDay()) ? -1 : 1;
-		});
-		$this->terms = new ArrayCollection(iterator_to_array($iterator));
-		$this->termsSorted = true ;
-		return $this->terms;
-    }
+        if (count($this->terms) == 0 || $this->termsSorted)
+            return $this->terms;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $specialDays;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->specialDays = new ArrayCollection();
-        $this->terms = new ArrayCollection();
+        $iterator = $this->terms->getIterator();
+        $iterator->uasort(function ($a, $b) {
+            return ($a->getFirstDay() < $b->getFirstDay()) ? -1 : 1;
+        });
+        $this->terms = new ArrayCollection(iterator_to_array($iterator));
+        $this->termsSorted = true;
+        return $this->terms;
     }
 
     /**
@@ -350,12 +347,6 @@ class Year extends YearModel
     {
         $this->specialDays->removeElement($specialDay);
     }
-
-
-    /**
-     * @var boolean
-     */
-    private $specialDaysSorted = false;
 
     /**
      * Get specialDays

@@ -26,7 +26,7 @@ class YearTransformer implements DataTransformerInterface
     {
 		if ($data instanceof Year)
 			return strval($data->getId());
-		return '' ;
+        return '0';
     }
 
     /**
@@ -40,13 +40,16 @@ class YearTransformer implements DataTransformerInterface
         if (is_null($data) || empty($data))
 			return null;
 		if (is_string($data) && $data === 'Add')
-			return '' ;
+            return '0';
 
 		if ($data instanceof Year)
 			return $data;
-			
+
+        if (is_string($data) && strpos($data, 'calendar_year_') !== false)
+            return null;
+
         $entity = $this->manager
-            ->getRepository('BusybeeInstituteBundle:Year')
+            ->getRepository(Year::class)
             // query for the issue with this id
             ->find($data)
         ;

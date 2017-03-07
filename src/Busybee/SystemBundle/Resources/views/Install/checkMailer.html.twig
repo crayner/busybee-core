@@ -12,7 +12,7 @@
 {% block contentContainer %}
     {% set route = 'onClick="window.open(\'' ~ path("install_misc_check")|raw ~ '\',\'_self\')"' %}
     {% if config.mailer.mailer_transport is empty or config.mailer.canDeliver %}{% set proceedAdditional = route %}{% else %}{% set proceedAdditional = 'disabled' %}{% endif %}
-    {% set h3Content = proceedButton({'additional': proceedAdditional, 'type': 'button'}) %}
+    {% set h3Content = proceedButton({'additional': proceedAdditional}) %}
     {% set h3Content = h3Content ~ saveButton({'additional': 'id="_submit" name="_submit"'}) %}
 	<form action="{{ path("install_save_mailer") }}" method="post">
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.mailer.parameters'} %}

@@ -2,26 +2,13 @@
 
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form
+'BusybeeFormBundle:Template:jquery.collection.html.twig'
+'@BusybeeInstitute/Calendar/specialDay.html.twig'
+'BusybeeFormBundle:Template:bootstrap.html.twig' %}
 
-<div class="panel panel-primary busybee-panel">
-	<div class="panel-heading">
-		<h3 class="panel-title">{{ 'calendar.specialDay.title'|trans({'%year%': form.name.vars.value}) }}
-		{% include 'BusybeeInstituteBundle:Calendar:calendarMenu.html.twig' %}
-		</h3>
-	</div>
-	<div class="panel-body">
-		{% for specialKey, specialDay in form.specialDays %}
-			{% if specialDay.vars.name != '__name__' %}
-				{% include 'BusybeeInstituteBundle:Calendar:specialDay.html.twig' with {'form': specialDay, 'key': specialKey} %}
-			{% endif %}
-		{% endfor %}
-		<div id="specialDayProtoType"></div>
-		{% if 'calendar.help.specialDays'|trans is not empty %}
-			<p class="alert alert-info">{{ 'calendar.help.specialDays'|trans }}</p>
-		{% endif %}
-		{% include 'BusybeeInstituteBundle:Calendar:calendarMenu.html.twig' %}
-	</div>
-</div>
+{% include 'BusybeeInstituteBundle:Calendar:calendarMenu.html.twig' with {'header': 'calendar.specialDay.title', 'name': form.name.vars.value} %}
+	{{ form_widget(form.specialDays) }}
+{% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 
 {% do form.specialDays.setRendered %}

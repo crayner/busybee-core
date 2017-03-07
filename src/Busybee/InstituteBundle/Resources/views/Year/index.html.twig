@@ -18,32 +18,28 @@
 
 {% block contentContainer %}
 {{ form_start(form) }}
-<div class="panel panel-primary busybee-panel">
-	<div class="panel-heading">
-		<h3 class="panel-title">{{ 'groups.year.title'|trans}}
-			<button title='{{ 'groups.year.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;" onClick="window.open('{{ path('student_year_edit', {'id': 'Add'}) }}','_self')"></button>
-		</h3>
-	</div>
-	<div class="panel-body">
-		<div class="row">
-			<div class="col-sm-4 col-md-4 well">
-				{{ form_row(form.name) }}
-			</div>
-			<div class="col-sm-2 col-md-2 well">
-				{{ form_row(form.nameShort) }}
-			</div>
-			<div class="col-sm-2 col-md-2 well">
-				{{ form_row(form.sequence) }}
-			</div>
-			<div class="col-sm-4 col-md-4 well">
-				<div class="form-group text-right">
-					{{ form_widget(form.save) }}
-					{{ form_widget(form.cancel) }}
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+    {% set h3Content = addButton({'windowOpen': {'route': path('student_year_edit', {'id': 'Add'})}}) %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'groups.year.title', 'transDomain': 'BusybeeInstituteBundle'} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4 col-md-4 well">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-sm-2 col-md-2 well">
+                {{ form_row(form.nameShort) }}
+            </div>
+            <div class="col-sm-2 col-md-2 well">
+                {{ form_row(form.sequence) }}
+            </div>
+            <div class="col-sm-4 col-md-4 well">
+                <div class="form-group text-right">
+                    {{ form_widget(form.save) }}
+                    {{ form_widget(form.cancel) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {{ form_end(form) }}
 {% endblock contentContainer %}
 

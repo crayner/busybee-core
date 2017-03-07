@@ -11,11 +11,10 @@
     {% if family_id is empty %}
         {% set family_id = 'Add' %}
     {% endif %}
-    {% set route = "location.href('" ~ path('family_edit', {'id': family_id}) ~ "')" %}
-    {% set h3Content = cancelButton({'additional': 'onClick="' ~ route ~ '"'})|raw %}
+    {% set h3Content = cancelButton({'windowOpen': {'route': path('family_edit', {'id': family_id})}})|raw %}
     {% set h3Content = h3Content ~ saveButton()|raw %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' %}
-    <div class="familyCareGiver container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4 well">
                 {{ form_row(form.person) }}

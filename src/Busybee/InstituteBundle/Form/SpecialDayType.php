@@ -13,7 +13,7 @@ use Busybee\InstituteBundle\Form\DataTransformer\YearTransformer ;
 class SpecialDayType extends AbstractType
 {
 	/**
-	 * @var	Doctrine\Common\Persistence\ObjectManager 
+     * @var    ObjectManager
 	 */
 	private $manager ;
 	
@@ -145,5 +145,11 @@ class SpecialDayType extends AbstractType
         return 'specialday';
     }
 
-
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'specialday';
+    }
 }

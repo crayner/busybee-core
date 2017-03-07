@@ -10,55 +10,55 @@
 
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
-    <div class="panel panel-primary busybee-panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{ 'groups.years.title'|trans}}</h3>
-        </div>
-        <div class="panel-body">
-            <div class="container-fluid well">
-                <div class="row row-header">
-                    <div class="col-sm-3 col-md-3" style="display: inline-block;">
-                        {% if pagination.getSortByName == 'Name' %}
-                            <span class="halflings halflings-sort-by-alphabet"></span> {{ 'groups.years.name'|trans }}
-                        {% else %}
-                            {{ 'groups.years.name'|trans }}
-                        {% endif %}
-                    </div>
-                    <div class="col-sm-3 col-md-3" style="display: inline-block;">
-                        {% if pagination.getSortByName == 'Short Name' %}
-                            <span class="halflings halflings-sort-by-alphabet"></span> {{ 'groups.years.nameShort'|trans }}
-                        {% else %}
-                            {{ 'groups.years.nameShort'|trans }}
-                        {% endif %}
-                    </div>
-                    <div class="col-sm-3 col-md-3" style="display: inline-block;">
-                        {% if pagination.getSortByName == 'Sequence' %}
-                            <span class="halflings halflings-sort-by-alphabet"></span> {{ 'groups.years.sequence'|trans }}
-                        {% else %}
-                            {{ 'groups.years.sequence'|trans }}
-                        {% endif %}
-                    </div>
-                    <div class="col-sm-3 col-md-3 withAdd">
-                        <button title='{{ 'groups.year.add.title'|trans}}' type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('student_year_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'groups.years.actions'|trans }}
-                    </div>
-                </div>
-                {% for year in pagination.getResult %}
-                    <div class="row row-striped">
-                        <div class="col-sm-3 col-md-3 form-inline">
-                            {{ year.name }}
-                        </div>
-                        <div class="col-sm-3 col-md-3 form-inline">
-                            {{ year.nameShort }}
-                        </div>
-                        <div class="col-sm-3 col-md-3 form-inline">
-                            {{ year.sequence }}
-                        </div>
-                        <div class="col-sm-3 col-md-3 form-inline">
-                            <button title='{{ 'groups.year.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('student_year_edit', {'id': year.id}) }}','_self')"></button>
-                        </div>
-                    </div>
-                {% endfor %}
+    {% set h3Content = addButton({'windowOpen': {'route': path('student_year_edit', {'id': 'Add'}), 'target': 'EditYear'}}) %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'groups.years.title'} %}
+    <div class="container-fluid well">
+        <div class="row row-header">
+            <div class="col-sm-3 col-md-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'groups.years.name'|trans }}
+                {% else %}
+                    {{ 'groups.years.name'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-3 col-md-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Short Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'groups.years.nameShort'|trans }}
+                {% else %}
+                    {{ 'groups.years.nameShort'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-3 col-md-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Sequence' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'groups.years.sequence'|trans }}
+                {% else %}
+                    {{ 'groups.years.sequence'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-3 col-md-3 withAdd">
+                <button title='{{ 'groups.year.add.title'|trans }}' type="button"
+                        class="halflings halflings-plus-sign btn btn-primary"
+                        onClick="window.open('{{ path('student_year_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'groups.years.actions'|trans }}
             </div>
         </div>
-    </div>
+        {% for year in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-sm-3 col-md-3 form-inline">
+                    {{ year.name }}
+                </div>
+                <div class="col-sm-3 col-md-3 form-inline">
+                    {{ year.nameShort }}
+                </div>
+                <div class="col-sm-3 col-md-3 form-inline">
+                    {{ year.sequence }}
+                </div>
+                <div class="col-sm-3 col-md-3 form-inline">
+                    <button title='{{ 'groups.year.edit.title'|trans }}' type="button"
+                            class="halflings halflings-edit btn btn-warning"
+                            onClick="window.open('{{ path('student_year_edit', {'id': year.id}) }}','_self')"></button>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}

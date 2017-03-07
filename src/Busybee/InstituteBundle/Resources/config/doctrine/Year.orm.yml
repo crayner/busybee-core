@@ -2,11 +2,6 @@ Busybee\InstituteBundle\Entity\Year:
     type: entity
     table: calendar_year
     repositoryClass: Busybee\InstituteBundle\Repository\YearRepository
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [name]
-            errorPath: name
-            message: 'The Year Name must be unique.'
     id:
         id:
             type: integer

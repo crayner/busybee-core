@@ -19,21 +19,45 @@ parameters:
             style: 'float: right;'
             additional: ''
         add:
-            class: "halflings halflings-plus-sign btn btn-primary"
+            class: "halflings halflings-plus-sign btn btn-info"
             type: button
             title: 'form.add'
             style: 'float: right;'
             additional: ''
         edit:
-            class: "halflings halflings-plus-sign btn btn-primary"
+            class: "halflings halflings-edit btn btn-primary"
             type: button
-            title: 'form.add'
+            title: 'form.edit'
             style: 'float: right;'
             additional: ''
         proceed:
             class: "halflings halflings-hand-right btn btn-info"
-            type: submit
+            type: button
             title: 'form.proceed'
+            style: 'float: right;'
+            additional: ''
+        return:
+            class: "halflings halflings-hand-left btn btn-primary"
+            type: button
+            title: 'form.return'
+            style: 'float: right;'
+            additional: ''
+        delete:
+            class: "halflings halflings-erase btn btn-danger"
+            type: button
+            title: 'form.delete'
+            style: 'float: right;'
+            additional: ''
+        reset:
+            class: "halflings halflings-refresh btn btn-warning"
+            type: reset
+            title: 'form.reset'
+            style: 'float: right;'
+            additional: ''
+        misc:
+            class: ""
+            type: button
+            title: 'form.misc'
             style: 'float: right;'
             additional: ''
 services:

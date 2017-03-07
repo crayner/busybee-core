@@ -48,6 +48,10 @@ class ButtonExtension extends \Twig_Extension
             new \Twig_SimpleFunction('addButton', array($this, 'addButton')),
             new \Twig_SimpleFunction('editButton', array($this, 'editButton')),
             new \Twig_SimpleFunction('proceedButton', array($this, 'proceedButton')),
+            new \Twig_SimpleFunction('returnButton', array($this, 'returnButton')),
+            new \Twig_SimpleFunction('deleteButton', array($this, 'deleteButton')),
+            new \Twig_SimpleFunction('miscButton', array($this, 'miscButton')),
+            new \Twig_SimpleFunction('resetButton', array($this, 'resetButton')),
         );
     }
 
@@ -68,12 +72,24 @@ class ButtonExtension extends \Twig_Extension
     private function generateButton($defaults, $details = array())
     {
         $button = '<button title="%title%" type="%type%" class="%class%" style="%style%" %additional%></button>';
+
+        if (!empty($details['windowOpen'])) {
+            $target = empty($details['windowOpen']['target']) ? '_self' : $details['windowOpen']['target'];
+            $route = 'onClick="window.open(\'' . $details['windowOpen']['route'] . '\',\'' . $target . '\'';
+            $route = empty($details['windowOpen']['params']) ? $route . ')"' : $route . ',\'' . $details['windowOpen']['params'] . '\')"';
+            $details['additional'] = empty($details['additional']) ? $route : trim($details['additional'] . ' ' . $route);
+        }
         foreach ($defaults as $q => $w) {
-            if (!empty($details[$q]))
+            if (isset($details[$q]))
                 $defaults[$q] = $details[$q];
-            if ($q == 'title')
-                $defaults[$q] = $this->translator->trans($defaults[$q], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);
-            $button = str_replace('%' . $q . '%', $defaults[$q], $button);
+            if (empty($defaults[$q])) {
+                unset($defaults[$q]);
+                $button = str_replace(array($q . '="%' . $q . '%"', '"%' . $q . '%"'), '', $button);
+            } else {
+                if ($q == 'title')
+                    $defaults[$q] = $this->translator->trans($defaults[$q], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);
+                $button = str_replace('%' . $q . '%', $defaults[$q], $button);
+            }
         }
         return $button;
     }
@@ -121,5 +137,41 @@ class ButtonExtension extends \Twig_Extension
     public function proceedButton($details = array())
     {
         return $this->generateButton($this->buttons['proceed'], $details);;
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function returnButton($details = array())
+    {
+        return $this->generateButton($this->buttons['return'], $details);;
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function deleteButton($details = array())
+    {
+        return $this->generateButton($this->buttons['delete'], $details);;
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function miscButton($details = array())
+    {
+        return $this->generateButton($this->buttons['misc'], $details);;
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function resetButton($details = array())
+    {
+        return $this->generateButton($this->buttons['reset'], $details);;
     }
 }

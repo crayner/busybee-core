@@ -7,13 +7,19 @@
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
-
+{% form_theme form
+'BusybeeFormBundle:Template:jquery.collection.html.twig'
+'@BusybeeInstitute/Calendar/term.html.twig'
+'BusybeeFormBundle:Template:bootstrap.html.twig' %}
 
 {% block title %}{{ parent() }}{{ 'calendar.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'calendar.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'calendar.description'|trans }}{% endblock headerLead %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@BusybeeHome/Scripts/jquery.js.twig' %}
+{% endblock stylesheets %}
 
 {% set tabs = get_parameter('calendar') %}
 
@@ -31,7 +37,7 @@
 	{% set active = ' active' %}
 	<div class="tab-content">
 		{% for name,tab in tabs %}
-			{% set translation = 'BusybeePersonBundle' %}
+            {% set translation = 'BusybeeInstituteBundle' %}
 			{% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
 			<div class="tab-pane{{ active }}" id="{{ name }}" >
 				{% if tab.message is defined %}
@@ -46,19 +52,13 @@
 		{% endfor %}
 	</div>
 </div>
-{% do form.save.setRendered %}
-{% do form.cancel.setRendered %}
 {{ form_end(form) }}
-
 {% endblock contentContainer %}
 
 
 {% block javascripts %}
 	{{ parent() }}
-	{% for specialDay in form.specialDays %}
-		{% include 'BusybeeInstituteBundle:Calendar:specialDay.js.twig' with {'name': specialDay.vars.name} %}
-	{% endfor %}
-	{% include 'BusybeeInstituteBundle:Calendar:specialDay.js.twig' with {'name': '__name__'} %}
+    {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
     <script type="text/javascript">
 		function confirmDayDelete(delUrl) {
 			if (confirm("{{ 'specialDay.delete.confirm'|trans }}")) {
@@ -75,38 +75,24 @@
  	   		$(".fadeAlert").fadeOut(3000);
 		}
 
-        $(".addTermButton").click(function() {
 
-            var content = '{% spaceless %}{% include 'BusybeeInstituteBundle:Calendar:term.html.twig' with {'form': form.terms.vars.prototype} %}{% endspaceless %}';
-
-            $('#termProtoType').html(content);
-
-            $('.addTermButton').prop('disabled', true);
-
+        $(".termList").collection({
+            name_prefix: '{{ form.terms.vars.full_name }}',
+            allow_up: false,
+            allow_down: false,
+            add: '<button title="{{ 'year.term.add'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+            remove: '<button title="{{ 'year.term.remove'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+            add_at_the_end: true
         });
 
-        $("#termProtoType").on("click", "#deleteTermButton", function(){
-
-            $('#termProtoType').html("");
-
-            $('.addTermButton').prop('disabled', false);
-        })
-
-        $(".addSpecialDayButton").click(function() {
-
-            var content = '{% spaceless %}{% include 'BusybeeInstituteBundle:Calendar:specialDay.html.twig' with {'form': form.specialDays.vars.prototype, 'key': '__name__'} %}{% endspaceless %}';
-
-            $('#specialDayProtoType').html(content);
-
-            $('.addSpecialDayButton').prop('disabled', true);
-
+        $(".specialDayList").collection({
+            name_prefix: '{{ form.specialDays.vars.full_name }}',
+            allow_up: false,
+            allow_down: false,
+            add: '<button title="{{ 'year.specialday.add'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+            remove: '<button title="{{ 'year.specialday.remove'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+            add_at_the_end: true
         });
 
-        $("#specialDayProtoType").on("click", "#deleteSpecialDayButton", function(){
-
-            $('#specialDayProtoType').html("");
-
-            $('.addSpecialDayButton').prop('disabled', false);
-        })
     </script>
 {% endblock javascripts %}

@@ -6,10 +6,6 @@
 
 {% trans_default_domain transDomain %}
 
-{% if form is defined %}
-    {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
-{% endif %}
-
 {% if header is not defined %}
     {% set header = 'panel.header.empty' %}
 {% endif %}
@@ -36,3 +32,4 @@
         {% endif %}
     </div>
     <div class="panel-body">
+{#</div>#}
