@@ -9,27 +9,19 @@
 {% block headerLead %}{{ 'people.import.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-	<div class="panel panel-primary busybee-panel">
-		<div class="panel-heading">
-			<h3 class="panel-title">{{ 'people.import.title'|trans}}</h3>
-		</div>
-		<div class="panel-body">
-            {{ form_start(form) }}
+    {{ form_start(form) }}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('person_manage')}}) %}
+    {% set h3Content = h3Content ~ uploadButton() %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'people.import.title', 'transDomain': 'BusybeePersonBundle'} %}
+    <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-8 well">
+                <div class="col-sm-6 col-sm-offset-3 well">
                     {{ form_row(form.importFile) }}
                 </div>
-                <div class="col-sm-4 well">
-                    <div class="text-right form-group">
-                        {{ form_widget(form.save) }}
-                        {{ form_widget(form.return) }}
-                    </div>
-                </div>
             </div>
-
-            {{ form_end(form) }}
-		</div>
-	</div>
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}

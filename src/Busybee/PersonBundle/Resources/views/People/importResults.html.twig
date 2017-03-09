@@ -9,11 +9,8 @@
 {% block headerLead %}{{ 'people.importresults.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-	<div class="panel panel-primary busybee-panel">
-		<div class="panel-heading">
-			<h3 class="panel-title">{{ 'people.importresults.title'|trans}}</h3>
-		</div>
-		<div class="panel-body">
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'people.importresults.title', 'transDomain': 'BusybeePersonBundle' } %}
+	<div class="container-fluid">
             {% if results is not empty %}
 				{% for stuff in results %}
 					{% if stuff|length > 0 %}
@@ -30,9 +27,16 @@
 											<input type="hidden" name="import[fields][{{ index }}][{{ name }}]" value="{{ value }}" />
 										{% endfor %}
 									{% endfor %}
-								<p class="alert alert-info">
-									<button type="submit" class="btn btn-primary" style="float: right; margin-left: 5px;" title="{{ 'people.import.limit.numbers'|trans }}" >{{ 'people.import.limit.reload'|trans }}</button>{{ message[0]|trans({'%data%': message[1]}) }}
-								</p>
+									<div class="alert alert-info row">
+										<div class="col-sm-9">
+                                            {{ message[0]|trans({'%data%': message[1]}) }}
+										</div>
+										<div class="col-sm-3">
+											<button type="submit" class="btn btn-primary"
+													style="float: right; margin-left: 5px;"
+													title="{{ 'people.import.limit.numbers'|trans }}">{{ 'people.import.limit.reload'|trans }}</button>
+										</div>
+									</div>
 								</form>
 							{% else %}
 								<div class="row alert alert-{{ alert }}">{{ message[0]|trans({'%data%': message[1]})|replace({'%newline%': '<br />'})|raw }}</div>
@@ -42,7 +46,7 @@
                 {% endfor %}
             {% endif %}
 		</div>
-	</div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}

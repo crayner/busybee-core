@@ -867,7 +867,7 @@ class PersonManager
         //place rules here to stop new student.
         if ($this->isStaff($person) || $this->isCareGiver($person))
             return false;
-        return true;
+        return !$this->isStudent($person);
     }
 
     /**

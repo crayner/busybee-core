@@ -26,6 +26,7 @@
 				}
 				if (typeof data.message !== 'undefined') {
 					$('.form_error').html(data.message);
+                    $('.form_error').delay(500).fadeOut(3000);
 				}
 				if (typeof data.form !== 'undefined') {
 					$('#form_body').html(data.form);
@@ -44,6 +45,7 @@
 					}
 	
 					$('.form_error').html(jqXHR.responseJSON.message);
+                    $('.form_error').delay(500).fadeOut(3000);
 	
 				} else {
 					alert(errorThrown);

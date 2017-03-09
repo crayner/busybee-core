@@ -4,12 +4,14 @@
 
 {% set header = 'security.request.title' %}
 {% set transDomain = 'BusybeeSecurityBundle' %}
+{% set panelParagraph = 'security.help.request' %}
+{% set h3Content = saveButton({'class': 'btn btn-success halflings halflings-send'}) %}
 {% include 'BusybeeHomeBundle:Page:panelStart.html.twig' %}
 
 <form action="{{ path("busybee_security_user_reset_send_email") }}" method="post"  class="security_user_reset_request">
 	<div id="form_body" class="container-fluid">
 		<div class="row">
-			<div class="col-sm-6 well">
+			<div class="col-sm-5 well">
 				{% if invalid_username is defined %}
 				<div class="alert alert-warning" role="alert">
 					<strong>{{ 'Warning'|trans }}!</strong> {{ 'security.request.invalid_username'|trans({'%username%': invalid_username}) }}
@@ -20,17 +22,10 @@
 				<label for="username">{{ 'security.request.username'|trans }}</label>
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 			</div>
-			<div class="col-sm-6 well">
-				<div class="form-group text-right">
-					<button type="submit" class="btn btn-success glyphicons glyphicons-message-forward"></button>
-				</div>	
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 well">
+
+			<div class="col-sm-7 well">
 				<textarea class="form-control" id="comment" name="comment"></textarea>
 				<label for="comment">{{ 'security.request.label.comment'|trans }}</label>
-				<p class="alert-info alert">{{ 'security.help.request'|trans }}</p>
 			</div>
 		</div>
 	</div>

@@ -237,6 +237,7 @@ class SettingController extends Controller
         return $this->render('SystemBundle:Setting:edit.html.twig', array(
                 'form' => $form->createView(),
                 'fullForm' => $form,
+                'setting_id' => $setting->getId(),
             )
         );
     }

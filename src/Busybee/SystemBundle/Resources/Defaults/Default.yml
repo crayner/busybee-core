@@ -40,6 +40,7 @@ settings:
         'Miss': 'Miss'
         'Dr': 'Dr'
     Org.Name: Busybee Institute
+    Org.Name.Short: Bee
     CountryType: 'Symfony\Component\Form\Extension\Core\Type\CountryType' 
     firstDayofWeek: Monday
     schoolWeek:

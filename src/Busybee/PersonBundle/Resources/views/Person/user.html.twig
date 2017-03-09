@@ -24,11 +24,26 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-6 well">
+				<div class="col-sm-5 well">
                     {{ form_widget(form.user.directroles) }}
 				</div>
-				<div class="col-sm-6 well">
+				<div class="col-sm-5 well">
                     {{ form_row(form.user.groups) }}
+				</div>
+				<div class="col-sm-2 well">
+					<div class="row">
+						<div class="col-sm-8 col-sm-offset-2 well">
+                            {% set route = path('home_page') ~ '?_switch_user=' ~ form.user.vars.value.getUsername %}
+                            {% set additional = '' %}
+                            {% if form.user.vars.value.getId == app.user.getId %}{% set additional = 'disabled' %}{% endif %}
+                            {{ miscButton({'transDomain': 'BusybeeSecurityBundle', 'title': 'security.impersonate.title', 'windowOpen': {'route': route }, 'class': 'btn btn-warning glyphicons glyphicons-theater', 'type': 'button', 'style': '', 'additional': additional})|raw }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-8 col-sm-offset-2 well">
+                            {{ editButton({'title': 'user.request.passwordReset', 'class': 'btn btn-warning glyphicons glyphicons-user-key', 'transDomain': 'BusybeeSecurityBundle', 'windowOpen': {'route': path('security_user_reset_request', {'id': form.user.vars.value.getId})}})|raw }}
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row">

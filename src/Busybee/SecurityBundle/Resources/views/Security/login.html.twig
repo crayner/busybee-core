@@ -2,7 +2,7 @@
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
 {% trans_default_domain 'BusybeeSecurityBundle' %}
-{% block title %}Busybee - {{ 'security.login.title'|trans }}{% endblock title %}
+{% block title %}{{ 'security.login.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'security.login.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'security.login.description'|trans }}{% endblock headerLead %}
 
@@ -11,3 +11,8 @@
 {% block contentContainer %}
 {% include "BusybeeSecurityBundle:Security:login_content.html.twig" %}{% endblock contentContainer %}
 {% endblock SecurityBundleContent  %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeHome/Scripts/fadeAlert.js.twig' %}
+{% endblock javascripts %}

@@ -15,15 +15,13 @@
 
 {% block contentContainer %}
 	{% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('person_manage') } } %}
+    {% set transDomain = 'BusybeePersonBundle' %}
 
-    {% set route = path('person_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''}) }) %}
-    {% set route = "window.open('" ~ route ~ "','_self')" %}
-    {% set h3Content = addButton({'additional': 'onClick="' ~ route ~ '"'})|raw %}
+    {% set h3Content = addButton({'windowOpen': {'route': path('person_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''})})}})|raw %}
 
-    {% set route = "location.href('" ~ path('people_import') ~ "')" %}
-    {% set h3Content = h3Content ~ uploadButton({'transDomain': 'BusybeePersonBundle', 'additional': 'onClick="' ~ route ~ '"', 'title': 'person.title.import'})|raw %}
+    {% set h3Content = h3Content ~ uploadButton({'type': 'button', 'transDomain': transDomain, 'title': 'person.title.import', 'windowOpen': {'route': path('people_import')}})|raw %}
 
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'people.title', 'transDomain': 'BusybeePersonBundle'} %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'people.title'} %}
     <div class="container-fluid well">
         <div class="row">
             <div class="col-md-12 col-sm-12" id="peopleError">

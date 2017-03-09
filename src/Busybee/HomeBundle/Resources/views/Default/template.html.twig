@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{% block title %}Busybee - {% endblock title %}</title>
+	<title>{{ get_setting('org.name') }} - {% block title %}Missing{% endblock title %} on Busybee</title>
 
 {% block stylesheets %}{% include 'BusybeeHomeBundle:Default:style.html.twig' %}{% endblock stylesheets %}
 

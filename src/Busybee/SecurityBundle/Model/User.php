@@ -23,7 +23,8 @@ abstract class User implements UserInterface
 		$this->setEnabled(false);
 		$this->setExpired(false);
 		$this->setCredentialsExpired(false);
-		$this->locale = 'en_GB';
+        $this->setLocale('en_GB');
+        $this->setPassword('This password will never work.');
 	}
     /**
      * Returns the roles granted to the user.

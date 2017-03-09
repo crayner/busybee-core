@@ -111,11 +111,15 @@ services:
         class: Busybee\SystemBundle\Form\SettingListType
         arguments:
             - '@setting.manager'
-        tags: 
-            - { name: form.type }    
+        tags:
+            - { name: form.type }
     system.SettingType:
         class: Busybee\SystemBundle\Form\SettingType
         arguments:
             - '@setting.repository'
         tags: 
             - { name: form.type }    
+    validator.org.name.short:
+        class: Symfony\Component\Validator\Constraints\Length
+        arguments:
+            - {max: 8}

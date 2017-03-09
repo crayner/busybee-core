@@ -45,3 +45,5 @@ Busybee\PersonBundle\Entity\Person:
             - Valid: ~
         staff:
             - Valid: ~
+        importIdentifier:
+            - \Busybee\FormBundle\Validator\UniqueOrBlank: ~

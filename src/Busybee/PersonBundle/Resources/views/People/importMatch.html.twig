@@ -9,12 +9,12 @@
 {% block headerLead %}{{ 'people.matchimport.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-	<div class="panel panel-primary busybee-panel">
-		<div class="panel-heading">
-			<h3 class="panel-title">{{ 'people.matchimport.title'|trans}}</h3>
-		</div>
-		<div class="panel-body">
-            {{ form_start(form) }}
+    {{ form_start(form) }}
+    {% set transDomain = 'BusybeePersonBundle' %}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('person_manage')}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'people.matchimport.title', 'panelParagraph': 'people.matchimport.help.help'} %}
+    <div class="container-fluid">
             {% set value = 0 %}
             {% for field in form.fields %}
                 <div class="row">
@@ -29,23 +29,10 @@
                     </div>
                 </div>
             {% endfor %}
-            <div class="row">
-                <div class="col-sm-8 well">
-                    {{ form_row(form.file) }}
-                    <div class="alert alert-info">
-                        {{ 'people.matchimport.help.help'|trans }}
-                    </div>
-                </div>
-                <div class="col-sm-4 well">
-                    <div class="text-right form-group">
-                        {{ form_widget(form.save) }}
-                        {{ form_widget(form.return) }}
-                    </div>
-                </div>
-            </div>
-            {{ form_end(form) }}
-		</div>
-	</div>
+        {{ form_row(form.file) }}
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}

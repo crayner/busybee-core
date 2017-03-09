@@ -127,6 +127,7 @@ class User extends UserModel
     {
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->directroles = new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
     }
 
     /**

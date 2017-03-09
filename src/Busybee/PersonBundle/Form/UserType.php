@@ -4,6 +4,7 @@ namespace Busybee\PersonBundle\Form;
 
 use Busybee\FormBundle\Type\ToggleType;
 use Busybee\PersonBundle\Entity\Person;
+use Busybee\PersonBundle\Events\UserSubscriber;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -164,6 +165,7 @@ class UserType extends AbstractType
             )
         ;
         $builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->manager, Person::class));
+        $builder->addEventSubscriber(new UserSubscriber());
     }
     
     /**

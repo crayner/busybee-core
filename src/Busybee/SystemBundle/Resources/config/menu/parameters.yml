@@ -35,7 +35,7 @@ parameters:
             name: Register User
             label: menu.site.security.register
             role: ROLE_REGISTRAR
-            route: security_user_register
+            route: person_manage
             node: 19
             order: 101
         192:

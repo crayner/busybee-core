@@ -44,25 +44,6 @@ class MatchImportType extends AbstractType
                     'mapped'    => false,
                 )
             )
-            ->add('save', SubmitType::class, array(
-                    'label'					=> 'form.button.save',
-                    'attr' 					=> array(
-                        'class' 				=> 'beeLocalitySave btn btn-success glyphicons glyphicons-plus-sign',
-                    ),
-                    'translation_domain' => 'BusybeeHomeBundle',
-                )
-            )
-            ->add('return', ButtonType::class,
-                array(
-                    'label'					=> 'form.button.return',
-                    'translation_domain' 	=> 'BusybeeHomeBundle',
-                    'attr' 					=> array(
-                        'formnovalidate' 		=> 'formnovalidate',
-                        'class' 				=> 'btn btn-info glyphicons glyphicons-hand-left',
-                        'onClick'				=> "location.href='".$options['data']['returnURL']."'",
-                    ),
-                )
-            )
             ->setAction($options['data']['action'])
         ;
     }

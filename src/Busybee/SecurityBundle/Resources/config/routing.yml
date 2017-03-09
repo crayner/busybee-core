@@ -7,7 +7,7 @@ busybee_security_check:
     methods:  [POST]
 busybee_security_resetting_request:
     path:     /request
-    defaults: { _controller: BusybeeSecurityBundle:User:request }
+    defaults: { _controller: BusybeeSecurityBundle:User:request, id: null }
 busybee_security_logout:
     path:     /logout
     defaults: { _controller: BusybeeSecurityBundle:Authentication:logout }
@@ -25,9 +25,6 @@ busybee_security_group_list:
 busybee_security_group_delete: 
     path:     /group/delete/{GroupID}
     defaults: { _controller: BusybeeSecurityBundle:Group:delete }
-security_user_register:
-    path:     /user/register
-    defaults: { _controller: BusybeeSecurityBundle:User:register }
 security_user_edit:
     path:     /user/{id}/edit/
     defaults: { _controller: BusybeeSecurityBundle:User:edit }

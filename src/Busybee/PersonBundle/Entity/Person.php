@@ -140,6 +140,10 @@ class Person extends PersonModel
      * @var \Doctrine\Common\Collections\Collection
      */
     private $careGiver;
+    /**
+     * @var string
+     */
+    private $importIdentifier;
 
     /**
      * Constructor
@@ -778,5 +782,29 @@ class Person extends PersonModel
     public function getCareGiver()
     {
         return $this->careGiver;
+    }
+
+    /**
+     * Get importIdentifier
+     *
+     * @return string
+     */
+    public function getImportIdentifier()
+    {
+        return $this->importIdentifier;
+    }
+
+    /**
+     * Set importIdentifier
+     *
+     * @param string $importIdentifier
+     *
+     * @return Person
+     */
+    public function setImportIdentifier($importIdentifier)
+    {
+        $this->importIdentifier = $importIdentifier;
+
+        return $this;
     }
 }

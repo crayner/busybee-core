@@ -13,6 +13,10 @@ Busybee\PersonBundle\Entity\Person:
             type: string
             length: '10'
             unique: true
+        importIdentifier:
+            type: string
+            length: '32'
+            nullable: true
         title:
             type: string
             length: '5'

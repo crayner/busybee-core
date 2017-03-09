@@ -41,6 +41,8 @@ class StudentSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
         $student = $form->getData();
+        if (is_null($student)) return;
+
         if (is_null($data['citizenship1PassportScan'])) $data['citizenship1PassportScan'] = $student->getCitizenship1PassportScan();
         if (is_null($data['nationalIDCardScan'])) $data['nationalIDCardScan'] = $student->getNationalIDCardScan();
 

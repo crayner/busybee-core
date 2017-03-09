@@ -5,12 +5,10 @@
 
 {% block stylesheets %}
 {{ parent() }}
-	<link href="{{ asset('css/glyphicons.css') }}" type="text/css" rel="stylesheet" />
-	<link href="{{ asset('css/glyphicons-halflings.css') }}" type="text/css" rel="stylesheet" />
     {% include 'BusybeeHomeBundle:Toggle:style.html.twig' %}
 {% endblock stylesheets %}
 
-{% block title %}Busybee - {{ 'user.list.title'|trans }}{% endblock title %}
+{% block title %}{{ 'user.list.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'user.list.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'user.list.description'|trans }}{% endblock headerLead %}
 

@@ -3,12 +3,12 @@
 namespace Busybee\PersonBundle\Events ;
 
 
-use Busybee\PersonBundle\Form\CareGiverType;
 use Busybee\PersonBundle\Form\UserType;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\Group;
 use Busybee\SecurityBundle\Entity\Role;
 use Busybee\SecurityBundle\Entity\User;
+use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StaffBundle\Form\StaffType;
 use Busybee\StudentBundle\Entity\Student;
@@ -79,7 +79,7 @@ class PersonSubscriber implements EventSubscriberInterface
 
         if ($person->getStudent() === null || $person->getStudent()->getId() === null)
             $form->add('student', HiddenType::class);
-        elseif ($this->personManager->canBeStudent($person))
+        elseif ($this->personManager->isStudent($person) || $this->personManager->canBeStudent($person))
             $form->add('student', StudentType::class);
         else
             $form->add('student', HiddenType::class);
@@ -140,6 +140,14 @@ class PersonSubscriber implements EventSubscriberInterface
             $data['student']['person'] = $form->getData()->getId();
             $form->remove('student');
             $form->add('student', StudentType::class);
+            $user = $this->personManager->doesThisUserExist($person);
+            if ($user instanceof User) {
+                if (!isset($data['user']['groups']) || !is_array($data['user']['groups']))
+                    $data['user']['groups'] = array();
+                $group = $this->om->getRepository(Group::class)->findOneByGroupname('Student');
+                if (!in_array($group->getId(), $data['user']['groups']))
+                    $data['user']['groups'] = $group->getId();
+            }
         }
         if ($person->getStudent() instanceof Student) {
             $start = $data['student']['startAtSchool'];
@@ -198,11 +206,11 @@ class PersonSubscriber implements EventSubscriberInterface
 
         }
 
-        if ($form->get('user')->getData() instanceof User && isset($data['userQuestion'])) {
+        if ($form->get('user')->getData() instanceof User && isset($data['user'])) {
             $user = $this->personManager->doesThisUserExist($person);
             if ($user instanceof User) {
                 $data['user']['usernameCanonical'] = $data['user']['username'] = $user->getUsername();
-                $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'] = $user->getEmail();
+                $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'] = $data['email'];
             } else {
                 $data['user']['usernameCanonical'] = $data['user']['username'];
                 $data['user']['email'] = $data['user']['emailCanonical'] = $data['email'];

@@ -3,7 +3,7 @@
 
 {% trans_default_domain 'SystemBundle' %}
 
-{% block title %}Busybee - {{ 'system.setting.edit.title'|trans }}{% endblock title %}
+{% block title %}{{ 'system.setting.edit.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'system.setting.edit.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.setting.edit.description'|trans }}{% endblock headerLead %}
 
@@ -13,46 +13,39 @@
 {% endblock stylesheets %}
 
 {% block contentContainer %}
-{{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert", 'system.setting.edit.success'|trans, "alert alert-success fadeAlert") }}
 {{ form_start(form) }}
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-6 well">
-			<div class="alert alert-success">
-				{{ form_row(form.name) }}
-				{{ form_row(form.nameSelect) }}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', 'transDomain': 'SystemBundle', 'panelParagraph': 'system.setting.edit.description'} %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert", 'system.setting.edit.success'|trans, "alert alert-success fadeAlert") }}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-6 well">
+				<div class="alert alert-success">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.nameSelect, {'value': setting_id ~ ""}) }}
+				</div>
+			</div>
+			<div class="col-sm-6 well">
+                {{ form_row(form.displayName) }}
 			</div>
 		</div>
-		<div class="col-sm-6 well">
-			{{ form_row(form.displayName) }}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-6 well">
-			{{ form_row(form.description) }}
-		</div>
-		<div class="col-sm-6 well">
-			{{ form_row(form.value) }}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-6 well">
-			<p class="alert alert-warning">{{ 'system.setting.warning'|trans }}</p>
-		</div>
-		<div class="col-sm-6 well">
-			<div class="text-right form-group">
-				{{ form_widget(form.save) }}
-				{{ form_widget(form.cancel) }}
+		<div class="row">
+			<div class="col-sm-6 well">
+                {{ form_row(form.description) }}
+			</div>
+			<div class="col-sm-6 well">
+                {{ form_row(form.value) }}
+				<p class="alert alert-warning">{{ 'system.setting.warning'|trans }}</p>
+			</div>
 			</div>
 		</div>
-	</div>
-</div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
 	{{ parent() }}
-	<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
     {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
 	<script type="text/javascript">
 		if ( $(".fadeAlert").length ) {
