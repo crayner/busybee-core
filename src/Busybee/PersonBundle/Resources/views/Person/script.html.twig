@@ -110,7 +110,11 @@
             } else {
                 $('.user').prop('disabled', true);
             }
-
+            if (window.location.hash) {
+                var hash = window.location.hash;
+                hash = 'a[href="' + hash.replace('#', '#') + '"]';
+                $(hash).tab('show');
+            }
         });
 
         $("#erasePersonAddress1").click(function() {

@@ -8,13 +8,6 @@ parameters:
             order: 1
             menu: 1
     items:
-        19:
-            name: User Manage
-            label: menu.site.security.user
-            role: ROLE_USER
-            node: 1
-            order: 19
-            menu: 19
         12:
             name: Manage System Settings
             label: menu.site.setting.manage
@@ -23,28 +16,6 @@ parameters:
             route: setting_manage
             order: 12
             menu: 12
-        190:
-            label: menu.site.security.edit
-            role: ROLE_USER
-            node: 19
-            route: security_user_edit
-            parameters:
-                'id': 'self'
-            order: 100
-        191:
-            name: Register User
-            label: menu.site.security.register
-            role: ROLE_REGISTRAR
-            route: person_manage
-            node: 19
-            order: 101
-        192:
-            name: Current User
-            label: menu.site.security.user
-            role: ROLE_REGISTRAR
-            route: security_user_list
-            node: 19
-            order: 102
         120:
             name: Manage Individual Setting
             label: menu.site.setting.individual
