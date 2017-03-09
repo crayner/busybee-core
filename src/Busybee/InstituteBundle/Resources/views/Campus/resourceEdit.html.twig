@@ -15,17 +15,13 @@
 
 {% block contentContainer %}
 {{ form_start(form) }}
-<div class="panel panel-primary busybee-panel">
-	<div class="panel-heading">
-		<h3 class="panel-title">{{ 'campus.resource.title'|trans}}
-			<button title='{{ 'campus.resources.title'|trans}}' type="button" class="formChanged halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('campus_resource_manage') }}','_self')" style="float: right"></button>
-			{%  if id != 'Add' %}
-			<button title="{{ 'campus.resource.add.title'|trans}}" type="button" style="float: right;" class="formChanged halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('campus_resource_edit', {'id': 'Add'}) }}','_self')"></button>{% endif %}
-			<button title="{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}" type="submit" style="float: right;" class="halflings halflings-save btn btn-success"></button>
-			{{ form_row(form.changeRecord) }}
-		</h3>
-	</div>
-	<div class="panel-body">
+    {% set h3Content = returnButton({'windowOpen': {'route': path('campus_resource_manage')}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('campus_resource_edit', {'id': 'Add'})}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton() %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.resource.title', 'transDomain': 'BusybeeInstituteBundle'} %}
+	<div class=container-fluid">
 		<div class="row">
 			<div class="col-sm-4 col-md-4 well">
                 {{ form_row(form.name) }}
@@ -44,11 +40,11 @@
 			<div class="col-sm-4 col-md-4 well">
                 {{ form_row(form.staff2, {'value': form.staff2.vars.data }) }}
 			</div>
-		</div>
-		<div class="row">
 			<div class="col-sm-4 col-md-4 well">
                 {{ form_row(form.capacity) }}
 			</div>
+			</div>
+		<div class="row">
 			<div class="col-sm-4 col-md-4 well">
                 {{ form_row(form.studentComputers) }}
 			</div>
@@ -81,7 +77,7 @@
 
 		<div class="row">
 			<div class="col-sm-6 col-md-6 well">
-				{{ form_row(form.comment) }}
+                {{ form_row(form.comment) }}
 			</div>
 			<div class="col-sm-4 col-md-4 well">
                 {{ form_row(form.phoneExt) }}
@@ -91,7 +87,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {{ form_end(form) }}
 {% endblock contentContainer %}
 

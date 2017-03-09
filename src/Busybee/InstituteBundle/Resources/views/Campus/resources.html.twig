@@ -10,42 +10,40 @@
 
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
-    <div class="panel panel-primary busybee-panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{ 'campus.resources.title'|trans}}</h3>
-        </div>
-        <div class="panel-body">
-            <div class="container-fluid well">
-                <div class="row row-header">
-                    <div class="col-sm-3 col-md-3" style="display: inline-block;">
-                        {% if pagination.getSortByName == 'Name' %}
-                            <span class="halflings halflings-sort-by-alphabet"></span> {{ 'campus.resources.name'|trans }}
-                        {% else %}
-                            {{ 'campus.resources.name'|trans }}
-                        {% endif %}
-                    </div>
-                    <div class="col-sm-6 col-md-6" style="display: inline-block;">
-                        {{ 'campus.resources.comment'|trans }}
-                    </div>
-                    <div class="col-sm-3 col-md-3 withAdd">
-                        <button title="{{ 'campus.resource.add.title'|trans}}" type="button" class="halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('campus_resource_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'actions'|trans({}, 'BusybeeHomeBundle') }}
-                    </div>
-                </div>
-                {% for resource in pagination.getResult %}
-                    <div class="row row-striped">
-                        <div class="col-sm-3 col-md-3 form-inline">
-                            {{ resource.name }}
-                        </div>
-                        <div class="col-sm-3 col-md-3 form-inline">
-                        </div>
-                        <div class="col-sm-3 col-md-3 form-inline">
-                        </div>
-                        <div class="col-sm-3 col-md-3 form-inline">
-                            <button title='{{ 'campus.resource.edit.title'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('campus_resource_edit', {'id': resource.id}) }}','_self')"></button>
-                        </div>
-                    </div>
-                {% endfor %}
+    {% set h3Content = addButton({'windowOpen': {'route': path('campus_resource_edit', {'id': 'Add'})}}) %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.resources.title', 'transDomain': 'BusybeeInstituteBundle'} %}
+    <div class="container-fluid">
+        <div class="row row-header">
+            <div class="col-sm-3 col-md-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'campus.resources.name'|trans }}
+                {% else %}
+                    {{ 'campus.resources.name'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-6 col-md-6" style="display: inline-block;">
+                {{ 'campus.resources.comment'|trans }}
+            </div>
+            <div class="col-sm-3 col-md-3 withAdd">
+                {{ 'actions'|trans({}, 'BusybeeHomeBundle') }}
             </div>
         </div>
-    </div>
+        {% for resource in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-sm-3 col-md-3 form-inline">
+                    {{ resource.name }}
+                </div>
+                <div class="col-sm-3 col-md-3 form-inline">
+                </div>
+                <div class="col-sm-3 col-md-3 form-inline">
+                </div>
+                <div class="col-sm-3 col-md-3 form-inline">
+                    <button title='{{ 'campus.resource.edit.title'|trans }}' type="button"
+                            class="halflings halflings-edit btn btn-warning"
+                            onClick="window.open('{{ path('campus_resource_edit', {'id': resource.id}) }}','_self')"></button>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
