@@ -39,26 +39,6 @@ class StudentYearType extends AbstractType
                         'help' => 'groups.year.help.sequence'
                     ),
                 )
-            )
-            ->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType',
-                array(
-                    'label' 				=> 'form.save',
-                    'translation_domain' 	=> 'BusybeeHomeBundle',
-                    'attr' 					=> array(
-                        'class' 				=> 'btn btn-success glyphicons glyphicons-disk-save',
-                    ),
-                )
-            )
-            ->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\ButtonType',
-                array(
-                    'label'					=> 'form.reset.button',
-                    'translation_domain' 	=> 'BusybeeHomeBundle',
-                    'attr' 					=> array(
-                        'formnovalidate' 		=> 'formnovalidate',
-                        'class' 				=> 'btn btn-info glyphicons glyphicons-remove-circle',
-                        'onClick'				=> "location.href='".$options['data']->cancelURL."'",
-                    ),
-                )
             );
     }
     

@@ -4,68 +4,51 @@
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
-{% block title %}{{ parent() }}{{ 'campus.title'|trans }}{% endblock title %}
+{% block title %}{{ 'campus.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'campus.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'campus.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
 {{ form_start(form) }}
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-6 col-md-6 well">
-			{{ form_row(form.identifier) }}
-		</div>
-		<div class="col-sm-6 col-md-6 well">
-			{{ form_row(form.name) }}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-6 col-md-6 well">
-			{{ form_row(form.locality) }}
-		</div>
-		<div class="col-sm-6 col-md-6 well">
-			{{ form_row(form.territory) }}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-6 col-md-6 well">
-			{{ form_row(form.postcode) }}
-		</div>
-		<div class="col-sm-6 col-md-6 well">
-			{{ form_row(form.country) }}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-6 col-md-6 well">
-			<div class="alert alert-success">
-				{{ form_row(form.locationList) }}
+    {% set h3Content = '' %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('campus_manage', {'id': 'Add'})}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton() %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ form_widget(form.locationList, {'value': app.request.attributes.get('id')}) %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': ''} %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.identifier) }}
+			</div>
+			<div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.name) }}
 			</div>
 		</div>
-		<div class="col-sm-6 col-md-6 well">
-		
-			<div class="form-group text-right">
-				{{ form_widget(form.save) }}
-				{{ form_widget(form.cancel) }}
+		<div class="row">
+			<div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.locality) }}
+			</div>
+			<div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.territory) }}
 			</div>
 		</div>
-	</div>
-</div>
+		<div class="row">
+			<div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.postcode) }}
+			</div>
+			<div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.country) }}
+			</div>
+			</div>
+		</div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {{ form_end(form) }}
 {% endblock contentContainer %}
 
 
 {% block javascripts %}
 	{{ parent() }}
-	<script>
-		$('.locationForm').change(function() {
-			$('.locationList').prop('disabled', true);
-		});
-		$('.locationList').change(function() {
-			
-			var id = $(this).val();
-			
-			window.open("{{ path('campus_manage') }}?id=" + id, "_self");
-			
-		});
-	</script>
+    {% set route = 'campus_manage' %}]
+    {% include '@BusybeeHome/Scripts/monitorForm.js.twig' %}
 {% endblock javascripts %}

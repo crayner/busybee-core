@@ -15,20 +15,13 @@
 
 {% block contentContainer %}
     {{ form_start(form, {'attr': {'id': 'homeroom'}}) }}
-<div class="panel panel-primary busybee-panel">
-	<div class="panel-heading">
-		<h3 class="panel-title">{{ 'homeroom.edit.title'|trans}}
-			<button title='{{ 'homeroom.title'|trans}}' type="button" class="formChanged halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('home_room_manage') }}','_self')" style="float: right"></button>
-            {%  if id != 'Add' %}
-				<button title="{{ 'homeroom.add.title'|trans}}" type="button" style="float: right;" class="formChanged halflings halflings-plus-sign btn btn-primary" onClick="window.open('{{ path('home_room_edit', {'id': 'Add'}) }}','_self')"></button>
-			{% endif %}
-			<button title='{{ 'form.reset.button'|trans({}, 'BusybeeHomeBundle') }}' type="button" id="resetButton"
-					class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
-			<button title="{{ 'form.save'|trans({}, 'BusybeeHomeBundle')}}" type="submit" style="float: right;" class="halflings halflings-save btn btn-success"></button>
-			{{ form_row(form.changeRecord) }}
-		</h3>
-	</div>
-	<div class="panel-body">
+    {% set h3Content = returnButton({'windowOpen': {'route': path('home_room_manage')}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('home_room_edit', {'id': 'Add'})}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton() %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ form_widget(form.changeRecord) %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'homeroom.edit.title', 'transDomain': 'BusybeeInstituteBundle'} %}
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4 col-md-4 well">
                 {{ form_row(form.name) }}

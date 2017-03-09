@@ -17,7 +17,7 @@ campus:
         postcode: ''
         country: ''
     placeholder:
-        locations: Select a Location
+        locations: Select a Location to Edit
     resources:
         title: Manage Campus Resources
         description: Add, modify and remove Campus Resources (Rooms and Spaces.)

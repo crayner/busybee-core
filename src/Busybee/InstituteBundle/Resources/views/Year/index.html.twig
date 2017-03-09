@@ -18,24 +18,21 @@
 
 {% block contentContainer %}
 {{ form_start(form) }}
-    {% set h3Content = addButton({'windowOpen': {'route': path('student_year_edit', {'id': 'Add'})}}) %}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('groups_years')}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('student_year_edit', {'id': 'Add'})}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton() %}
+    {% set h3Content = h3Content ~ saveButton() %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'groups.year.title', 'transDomain': 'BusybeeInstituteBundle'} %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-4 col-md-4 well">
+            <div class="col-sm-6 well">
                 {{ form_row(form.name) }}
             </div>
-            <div class="col-sm-2 col-md-2 well">
+            <div class="col-sm-3 well">
                 {{ form_row(form.nameShort) }}
             </div>
-            <div class="col-sm-2 col-md-2 well">
+            <div class="col-sm-3 well">
                 {{ form_row(form.sequence) }}
-            </div>
-            <div class="col-sm-4 col-md-4 well">
-                <div class="form-group text-right">
-                    {{ form_widget(form.save) }}
-                    {{ form_widget(form.cancel) }}
-                </div>
             </div>
         </div>
     </div>

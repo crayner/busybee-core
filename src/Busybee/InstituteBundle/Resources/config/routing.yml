@@ -1,6 +1,6 @@
 campus_manage:
-    path:     /campus/
-    defaults: { _controller: BusybeeInstituteBundle:Campus:index }
+    path:     /{id}/campus/
+    defaults: { _controller: BusybeeInstituteBundle:Campus:index, id: Add }
 calendar_years:
     path:     /years/
     defaults: { _controller: BusybeeInstituteBundle:Calendar:years }

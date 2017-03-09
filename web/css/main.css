@@ -208,7 +208,7 @@ img.imageWidth200 {
 .changeRecord {
 	float: right;
 	width: 300px;
-	margin-top: -25px;
+    margin-top: 1px;
 	height: 28px;
 	font-weight: normal ;
 }

@@ -10,8 +10,8 @@
 
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
-    {% set h3Content = addButton({'windowOpen': {'route': path('student_year_edit', {'id': 'Add'}), 'target': 'EditYear'}}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'groups.years.title'} %}
+    {% set h3Content = addButton({'windowOpen': {'route': path('student_year_edit', {'id': 'Add'})}, 'title': 'groups.year.add.title', 'transDomain': "BusybeeInstituteBundle"}) %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'groups.years.title', 'transDomain': "BusybeeInstituteBundle"} %}
     <div class="container-fluid well">
         <div class="row row-header">
             <div class="col-sm-3 col-md-3" style="display: inline-block;">
@@ -36,9 +36,7 @@
                 {% endif %}
             </div>
             <div class="col-sm-3 col-md-3 withAdd">
-                <button title='{{ 'groups.year.add.title'|trans }}' type="button"
-                        class="halflings halflings-plus-sign btn btn-primary"
-                        onClick="window.open('{{ path('student_year_edit', {'id': 'Add'}) }}','_self')"></button> {{ 'groups.years.actions'|trans }}
+                {{ 'groups.years.actions'|trans }}
             </div>
         </div>
         {% for year in pagination.getResult %}
