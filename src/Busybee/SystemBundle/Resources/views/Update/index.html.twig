@@ -9,12 +9,11 @@
 {% block headerLead %}{{ 'system.update.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
+    {% block flashMessages %}{% endblock %}
 {% include 'SystemBundle:Update:index_content.html.twig' %}
 {% endblock contentContainer %}
 
-
 {% block javascripts %}
-	{{parent() }}
-	{% set action = path('update_database') %}
-	{% include "BusybeeHomeBundle:Form:initAjaxContent.html.twig" %}
-{% endblock javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeHome/Scripts/fadeAlert.js.twig' %}
+{% endblock %}

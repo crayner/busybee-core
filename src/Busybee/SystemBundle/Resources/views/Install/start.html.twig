@@ -63,7 +63,7 @@
 
 
 {% if config.sql.isConnected %}
-    {% set h3Content = proceedButton('type': 'submit') %}
+    {% set h3Content = proceedButton({'type': 'submit'}) %}
 	<form action="{{ path("install_check_mailer_parameters") }}" method="post">
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
 		<div id="form_body" class="container-fluid">

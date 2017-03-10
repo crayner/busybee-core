@@ -35,6 +35,15 @@ parameters:
         searchList:
             - p.route
             - p.path
+    groups:
+        Parent: [ROLE_PARENT]
+        Student: [ROLE_STUDENT]
+        Teaching Staff: [ROLE_STAFF, ROLE_TEACHER, ROLE_ALLOWED_TO_SWITCH]
+        Support Staff: [ROLE_STAFF]
+        Administration Staff: [ROLE_STAFF, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        Contact: [ROLE_USER]
+
+
 
 
 services:
@@ -57,15 +66,8 @@ services:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: 
             - '%busybee_security.user.entity%'
-    busybee_security.user.repository:
-        class: Busybee\SecurityBundle\Entity\UserRepository
-        factory: 
-            - "@doctrine"
-            - getRepository 
-        arguments: 
-            - "BusybeeSecurityBundle:User"
     user.repository:
-        class: Busybee\SecurityBundle\Entity\UserRepository
+        class: Busybee\SecurityBundle\Repository\UserRepository
         factory: 
             - "@doctrine"
             - getRepository 
@@ -150,7 +152,7 @@ services:
         tags:
             - { name: kernel.event_subscriber }
     security.role.repository:
-        class: Busybee\SecurityBundle\Entity\RoleRepository
+        class: Busybee\SecurityBundle\Repository\RoleRepository
         factory: 
             - "@doctrine"
             - getRepository 
@@ -169,7 +171,7 @@ services:
         arguments: 
             name: '%busybee_security.failure.entity%'
     security.failure.repository:
-        class: Busybee\SecurityBundle\Entity\FailureRepository
+        class: Busybee\SecurityBundle\Repository\FailureRepository
         arguments: 
             - "@doctrine.orm.entity_manager" 
             - "@failure_metadata"
@@ -201,3 +203,9 @@ services:
             - getRepository
         arguments:
             - "BusybeeSecurityBundle:Page"
+    form.group.type:
+        class: Busybee\SecurityBundle\Form\GroupType
+        arguments:
+            - '%groups%'
+        tags:
+            - { name: form.type }

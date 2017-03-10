@@ -3,18 +3,6 @@
 namespace Busybee\StudentBundle\Events;
 
 
-use Busybee\PersonBundle\Form\CareGiverType;
-use Busybee\PersonBundle\Form\UserType;
-use Busybee\PersonBundle\Model\PersonManager;
-use Busybee\SecurityBundle\Entity\Group;
-use Busybee\SecurityBundle\Entity\Role;
-use Busybee\SecurityBundle\Entity\User;
-use Busybee\StaffBundle\Entity\Staff;
-use Busybee\StaffBundle\Form\StaffType;
-use Busybee\StudentBundle\Entity\Student;
-use Busybee\StudentBundle\Form\StudentType;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

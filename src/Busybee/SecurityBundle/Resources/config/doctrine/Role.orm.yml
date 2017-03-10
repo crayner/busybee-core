@@ -2,7 +2,7 @@
 Busybee\SecurityBundle\Entity\Role:
     type: entity
     table: secure_roles
-    repositoryClass: Busybee\SecurityBundle\Entity\RoleRepository
+    repositoryClass: Busybee\SecurityBundle\Repository\RoleRepository
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
             fields: [role]

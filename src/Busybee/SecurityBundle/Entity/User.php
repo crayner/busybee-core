@@ -4,6 +4,7 @@ namespace Busybee\SecurityBundle\Entity;
 
 use Busybee\SecurityBundle\Model\User as UserModel;
 use DateTime ;
+
 /**
  * User
  */
@@ -92,11 +93,6 @@ class User extends UserModel
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    protected $groups;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     protected $directroles;
 
     /**
@@ -119,13 +115,16 @@ class User extends UserModel
      * @var \Busybee\PersonBundle\Entity\Person
      */
     private $person;
+    /**
+     * @var array
+     */
+    private $groups;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->directroles = new \Doctrine\Common\Collections\ArrayCollection();
         parent::__construct();
     }
@@ -405,40 +404,6 @@ class User extends UserModel
     }
 
     /**
-     * Add group
-     *
-     * @param \Busybee\SecurityBundle\Entity\Group $group
-     *
-     * @return User
-     */
-    public function addGroup(\Busybee\SecurityBundle\Entity\Group $group)
-    {
-        $this->groups[] = $group;
-
-        return $this;
-    }
-
-    /**
-     * Remove group
-     *
-     * @param \Busybee\SecurityBundle\Entity\Group $group
-     */
-    public function removeGroup(\Busybee\SecurityBundle\Entity\Group $group)
-    {
-        $this->groups->removeElement($group);
-    }
-
-    /**
-     * Get groups
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGroups()
-    {
-        return $this->groups;
-    }
-
-    /**
      * Add directrole
      *
      * @param Role $directrole
@@ -697,6 +662,32 @@ class User extends UserModel
     public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
     {
         $this->person = $person;
+
+        return $this;
+    }
+
+    /**
+     * Get groups
+     *
+     * @return array
+     */
+    public function getGroups()
+    {
+        if (empty($this->groups))
+            $this->groups = [];
+        return $this->groups;
+    }
+
+    /**
+     * Set groups
+     *
+     * @param array $groups
+     *
+     * @return User
+     */
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
 
         return $this;
     }

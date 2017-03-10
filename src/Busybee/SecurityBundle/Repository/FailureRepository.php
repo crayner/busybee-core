@@ -1,7 +1,6 @@
 <?php
 
-namespace Busybee\SecurityBundle\Entity;
-
+namespace Busybee\SecurityBundle\Repository;
 
 use Doctrine\ORM\EntityManager ;
 use Doctrine\ORM\Mapping\ClassMetadata ;
@@ -19,11 +18,21 @@ class FailureRepository extends EntityRepository
 	private $period;
 	private $exceptions;
 
+    public function __construct(EntityManager $em, ClassMetadata $entity, $count, $period, $exceptions)
+    {
+        parent::__construct($em, $entity);
+        $this->period = $period;
+        $this->count = $count;
+        $this->exceptions = $exceptions;
+        return $this;
+    }
+
 	public function createNew()
 	{
 		return new \Busybee\SecurityBundle\Entity\Failure();
 	}
-	/**
+
+    /**
 	 * Test Remote Address
 	 *
 	 * @return boolean
@@ -41,15 +50,6 @@ class FailureRepository extends EntityRepository
 			return true;
 		return false;
 	}
-
-	public function __construct(EntityManager $em, ClassMetadata $entity, $count, $period, $exceptions)
-	{
-		parent::__construct($em, $entity);
-		$this->period = $period;
-		$this->count = $count;
-		$this->exceptions = $exceptions;
-		return $this;
-	}	
 	
 	public function exceptedIP($ip)
 	{

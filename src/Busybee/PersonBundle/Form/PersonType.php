@@ -117,6 +117,9 @@ class PersonType extends AbstractType
             ->add('email', EmailType::class, array(
 					'label' => 'person.label.email',
 					'required' => false,
+                    'attr' => array(
+                        'help' => 'person.help.email',
+                    ),
 				)
 			)
             ->add('email2', EmailType::class, array(

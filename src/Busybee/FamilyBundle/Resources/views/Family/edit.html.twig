@@ -13,7 +13,7 @@
 {% endblock stylesheets %}
 
 
-{% block title %}{{ parent() }}{% if id == 'Add' %}{{ 'family.title.add'|trans }}{% else %}{{ 'family.title.edit'|trans }}{% endif %}{% endblock title %}
+{% block title %}{% if id == 'Add' %}{{ 'family.title.add'|trans }}{% else %}{{ 'family.title.edit'|trans }}{% endif %}{% endblock title %}
 {% block headerTitle %}{% if id == 'Add' %}{{ 'family.title.add'|trans }}{% else %}{{ 'family.title.edit'|trans }}{% endif %}{% endblock headerTitle %}
 {% block headerLead %}{% if id == 'Add' %}{{ 'family.description'|trans }}{% else %}{{ 'family.description'|trans }}{% endif %}{% endblock headerLead %}
 

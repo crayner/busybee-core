@@ -12,7 +12,7 @@ use Busybee\SecurityBundle\BusybeeSecurityEvents;
 use Busybee\SecurityBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\JsonResponse ;
 use Busybee\SecurityBundle\Validator\Password ;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException ;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 class UserController extends Controller
 {
@@ -34,6 +34,9 @@ class UserController extends Controller
 
     /**
      * Reset user password
+     * @param Request $request
+     * @param string $token
+     * @return null|RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function resetAction(Request $request, $token)
     {
@@ -47,7 +50,7 @@ class UserController extends Controller
 
 
         if (null === $user) {
-            throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
+            throw new TokenNotFoundException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
         }
 
         $event = new GetResponseUserEvent($user, $request);
@@ -110,6 +113,9 @@ class UserController extends Controller
 
     /**
      * Request reset user password: show form
+     * @param integer $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function requestAction($id, Request $request)
     {
@@ -136,6 +142,8 @@ class UserController extends Controller
 
     /**
      * Request reset user password: submit form and send email
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function sendEmailAction(Request $request)
     {
@@ -183,7 +191,7 @@ class UserController extends Controller
      *
      * The default implementation only keeps the part following @ in the address.
      *
-     * @param \Busybee\SecurityBundle\Model\UserInterface $user
+     * @param UserInterface $user
      *
      * @return string
      */
@@ -199,6 +207,8 @@ class UserController extends Controller
 
     /**
      * Create a new User from the Person Record.
+     * @param integer $personID
+     * @return RedirectResponse
      */
     public function createAction($personID) {
 
@@ -234,6 +244,8 @@ class UserController extends Controller
 
     /**
      * Tell the user to check his email provider
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function checkEmailAction(Request $request)
     {
@@ -252,6 +264,8 @@ class UserController extends Controller
 
     /**
      * toggle User Enabled
+     * @param integer $id
+     * @return JsonResponse
      */
     public function toggleEnabledAction($id)
     {

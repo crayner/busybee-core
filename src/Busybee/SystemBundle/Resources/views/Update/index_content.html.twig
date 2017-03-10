@@ -4,6 +4,7 @@
 
 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'system.version.system.title', 'name': config.version.current['system']} %}
 <div class="container-fluid">
+    {% include '@BusybeeHome/Default/flash.html.twig' with {'transDomain': 'SystemBundle'} %}
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="panel panel-{% if config.version.shouldBe['system'] == config.version.current['system'] %}success{% else %}warning{% endif %}">
@@ -33,9 +34,8 @@
 					</div>
 					<div class="panel-body">
 						<p>
-							<button class="btn btn-warning" id="ajaxLoad" style="float: right"><span
-										class="glyphicons glyphicons-roundabout"></span>Update
-							</button>
+                            {{ miscButton({'title': 'system.update.database.button', 'transDomain': 'SystemBundle', 'class': 'btn btn-warning glyphicons glyphicons-roundabout', 'windowOpen': {'route': path('update_database')} })|raw }}
+
                             {% transchoice config.dbUpdate with  {'%count%': config.dbUpdate} %}
 							system.update.database.required
                             {% endtranschoice %}</p>

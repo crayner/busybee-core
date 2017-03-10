@@ -6,10 +6,12 @@ use Busybee\FormBundle\Type\ToggleType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Events\UserSubscriber;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\SecurityBundle\Form\GroupType;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -86,20 +88,7 @@ class UserType extends AbstractType
                     ),
 				)
 			)
-            ->add('groups', EntityType::class,
-                array(
-                    'multiple' 				=> true,
-                    'expanded' 				=> true,
-                    'class' 				=> 'Busybee\SecurityBundle\Entity\Group',
-                    'choice_label' 			=> 'groupname',
-                    'label' 				=> 'user.label.groups',
-                    'required' 				=> false,
-                    'attr'					=> array(
-                        'help' 					=> 'user.help.groups',
-                        'class'                 => 'user',
-                    ),
-                )
-            )
+            ->add('groups', GroupType::class)
             ->add('enabled', ToggleType::class,
                 array(
                     'label' 				=> 'user.label.enabled',

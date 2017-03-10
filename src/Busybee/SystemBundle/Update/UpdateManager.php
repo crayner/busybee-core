@@ -99,6 +99,7 @@ class UpdateManager
 			}
 			$sysVersion = $this->incrementVersion($sysVersion);
 		}
+
 		return $count ;
 	}
 
@@ -161,14 +162,11 @@ class UpdateManager
 			}
 			$sysVersion = $this->incrementVersion($sysVersion);
 		}
-
-
-		$this->sm->setSetting('Version.Database', $this->version->shouldBe['database'])
-			->setSetting('Version.System', $this->version->shouldBe['system']);
+        $this->sm->setSetting('Version.System', $this->version->shouldBe['system']);
+        $this->sm->setSetting('Version.Database', $this->version->shouldBe['database']);
  
 		$this->version->current['system'] = $this->sm->getSetting('Version.System', $this->version->shouldBe['system']);
 		$this->version->current['database'] = $this->sm->getSetting('Version.Database', $this->version->shouldBe['database']);
-
 
         $this->loadSettings();
 
@@ -203,6 +201,7 @@ class UpdateManager
                 ->getFlashBag()
                 ->add('success', array('upload.success' => array('%count%' => count($content['settings']))));
         }
+
         if (!empty($overWrite)) {
             $file = $overWrite;
             $content = file_get_contents($file);

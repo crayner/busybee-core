@@ -10,6 +10,7 @@ system:
             title: Database Update 
             notRequired: The database is up to date.
             warning: It is recommended that you backup the database before proceeding.
+            button: Update Database
     version:
         system:
             title: "Current System Version: %name%"
@@ -195,3 +196,5 @@ upload:
     success: '%count% Settings were correctly uploaded.'
 default:
     success: Default file details saved.
+buildDatabase:
+    success: "The database was succesfully built.  Please sign in with the credentials you just added in the install process.  You should be signed in already if the process has completed without error."

@@ -47,20 +47,17 @@ class UpdateController extends Controller
 
         $um = $this->get('system.update.manager');
 
+        $um->build();
+
         $config = new \stdClass();
         $config->signin = null;
 
-        $um->build();
+        $um = $this->get('system.update.manager');
 
         $config->version = $um->getVersion();
         $config->dbUpdate = $um->getUpdateDetails();
-        $content = $this->renderView('SystemBundle:Update:index_content.html.twig', array('config' => $config));
 
-        return new JsonResponse(
-            array('content' => $content),
-            200
-        );
-
+        return $this->render('SystemBundle:Update:index.html.twig', array('config' => $config));
     }
 
     /**

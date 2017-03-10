@@ -2,7 +2,7 @@
 Busybee\SecurityBundle\Entity\Failure:
     type: entity
     table: secure_failure
-    repositoryClass: Busybee\SecurityBundle\Entity\FailureRepository
+    repositoryClass: Busybee\SecurityBundle\Repository\FailureRepository
     id:
         id:
             type: integer

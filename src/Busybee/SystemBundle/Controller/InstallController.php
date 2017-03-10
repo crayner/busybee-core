@@ -469,40 +469,6 @@ class InstallController extends Controller
 
         $this->get('security.token_storage')->setToken($token);
 
-        $this->entity = $this->findOrCreateGroup('Parent', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addRole($repos->findOneByRole('ROLE_PARENT'));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateGroup('Student', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addRole($repos->findOneByRole('ROLE_STUDENT'));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateGroup('Teaching Staff', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addRole($repos->findOneByRole('ROLE_TEACHER'));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateGroup('Non Teaching Staff', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addRole($repos->findOneByRole('ROLE_STAFF'));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateGroup('Contact', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-
         unset($parameters['parameters']['user']);
 
         file_put_contents($this->get('kernel')->getRootDir() . '/config/parameters.yml', Yaml::dump($parameters));
@@ -523,19 +489,6 @@ class InstallController extends Controller
     protected function findOrCreateRole($role, $newEm)
     {
         return $newEm->getRepository('BusybeeSecurityBundle:Role')->findOneBy(['role' => $role]) ?: new Role($role);
-    }
-	
-  /**
-     * Helper method to return an already existing Group from the database, else create and return a new one
-     *
-     * @param string        $name
-     * @param ObjectManager $newEm
-     *
-     * @return Group
-     */
-    protected function findOrCreateGroup($name, $newEm)
-    {
-        return $newEm->getRepository('BusybeeSecurityBundle:Group')->findOneBy(['groupname' => $name]) ?: new Group($name);
     }
 
   /**

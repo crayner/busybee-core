@@ -123,8 +123,11 @@ class CalendarController extends Controller
 		$firstDayofWeek = $sm->get('firstDayofWeek', 'Monday');
 		
 		$repo = $this->get('year.repository');
-		
-		$year = $repo->find($id);
+
+        if ($id == 'current')
+            $year = $repo->findOneByStatus('current');
+        else
+            $year = $repo->find($id);
 		$years = $repo->findBy(array(), array('name'=>'ASC'));
 		
         $service = $this->get('calendar.widget'); //calling a calendar service
@@ -233,7 +236,7 @@ class CalendarController extends Controller
      */
     public function calendarChangeAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+        $this->denyAccessUnlessGranted('ROLE_USER', null, null);
 
         $id = $request->get('id');
 

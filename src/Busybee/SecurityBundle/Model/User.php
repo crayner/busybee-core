@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\SecurityBundle\Model;
 
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Storage agnostic user object
@@ -50,12 +51,15 @@ abstract class User implements UserInterface
 
 		$groups = $this->getGroups();
 
-		foreach($groups as $group) 
+        $groupData = Yaml::parse(file_get_contents('../src/Busybee/SecurityBundle/Resources/config/services.yml'));
+        $groupData = $groupData['parameters']['groups'];
+
+        foreach ($groups as $group)
 		{
-			$roles = $group->getRoles();
-			foreach($roles as $role) 
+            $roles = $groupData[$group];
+            foreach ($roles as $role)
 			{
-			 	$this->roles = array_merge($this->roles, array($role->getRole()));
+                $this->roles[] = $role;
 			}
 		}
 		foreach($this->getDirectroles() As $role)

@@ -159,8 +159,8 @@ class SettingManager
     public function setSetting($name, $value)
     {
         $this->setting = $this->repo->findOneByName($name);
-		if (is_null($this->setting) || is_null($this->setting->getName()))
-			return $this;
+        if (is_null($this->setting) || is_null($this->setting->getName()))
+            return $this;
 		if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole()->getRole())) return $this;
 		switch ($this->setting->getType())
 		{
@@ -202,7 +202,7 @@ class SettingManager
             $em->flush();
         }
 
-		return $this ;
+        return $this;
     }
 
     /**

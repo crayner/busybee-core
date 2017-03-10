@@ -5,10 +5,8 @@ namespace Busybee\PersonBundle\Events ;
 
 use Busybee\PersonBundle\Form\UserType;
 use Busybee\PersonBundle\Model\PersonManager;
-use Busybee\SecurityBundle\Entity\Group;
 use Busybee\SecurityBundle\Entity\Role;
 use Busybee\SecurityBundle\Entity\User;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StaffBundle\Form\StaffType;
 use Busybee\StudentBundle\Entity\Student;
@@ -144,9 +142,7 @@ class PersonSubscriber implements EventSubscriberInterface
             if ($user instanceof User) {
                 if (!isset($data['user']['groups']) || !is_array($data['user']['groups']))
                     $data['user']['groups'] = array();
-                $group = $this->om->getRepository(Group::class)->findOneByGroupname('Student');
-                if (!in_array($group->getId(), $data['user']['groups']))
-                    $data['user']['groups'] = $group->getId();
+                $data['user']['groups'][] = 'Student';
             }
         }
         if ($person->getStudent() instanceof Student) {
@@ -196,7 +192,7 @@ class PersonSubscriber implements EventSubscriberInterface
                 $data['user']['groups'] = array();
                 if (is_array($groups = $user->getGroups()))
                     foreach ($groups as $group) {
-                        $data['user']['groups'][] = $this->om->getRepository(Group::class)->findOneByGroupName($group)->getId();
+                        $data['user']['groups'][] = $group;
                     }
                 $person->setUser($user);
             }

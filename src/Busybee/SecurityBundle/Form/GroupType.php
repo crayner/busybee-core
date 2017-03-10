@@ -3,79 +3,82 @@
 namespace Busybee\SecurityBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GroupType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * @var array
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    private $groups;
 
-        $builder
-            ->add('groupname', 'Symfony\Component\Form\Extension\Core\Type\TextType',  array(
-					'label' => 'group.label.name'
-				)
-			)
-            ->add('roles', 'Symfony\Bridge\Doctrine\Form\Type\EntityType',  array(
-					'label' 				=> 'group.label.roles.assigned',
-					'choice_label'			=> 'role',
-					'multiple' 				=> true,
-					'expanded' 				=> true,
-					'help_label' 			=> 'group.help.roles.assigned',
-					'required' 				=> true,
-					'class' 				=> 'Busybee\SecurityBundle\Entity\Role',
-				)
-			)
-            ->add('save', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(	
-					'label' 				=> 'form.save',
-					'translation_domain' 	=> 'BusybeeHomeBundle',
-					'attr' 					=> array(
-						'class'					=> 'btn btn-success glyphicon glyphicon-save'
-					),
-				)
-			)
-            ->add('save_and_add', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
-					'label' 				=> 'form.save_and_add',
-					'translation_domain' 	=> 'BusybeeHomeBundle',
-					'attr' 					=> array(
-						'class' 				=> 'btn btn-success glyphicon glyphicon-plus-sign'
-					),
-				)
-			)
-            ->add('cancel', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
-					'label'					=> 'form.cancel', 
-					'translation_domain' 	=> 'BusybeeHomeBundle',
-					'attr' 					=> array(
-						'formnovalidate' 		=> 'formnovalidate',
-						'class' 				=> 'btn btn-info glyphicons glyphicons-exclamation-sign',
-					),
-				)
-			)
-			;
-    }
-    
     /**
-     * @param OptionsResolver $resolver
+     * GroupType constructor.
+     * @param array $groups
      */
-   public function configureOptions(OptionsResolver $resolver)
+    public function __construct($groups)
     {
-        $resolver->setDefaults(array(
-            'data_class' 			=> 'Busybee\SecurityBundle\Entity\Group',
-            'translation_domain' 	=> 'BusybeeSecurityBundle',
-            'validation_groups' 	=> null,
-        )
-		);
+        $this->groups = $groups;
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'user_group';
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getName()
     {
-        return 'bee_security_group';
+        return 'user_group';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return ChoiceType::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'multiple' => true,
+                'expanded' => true,
+                'label' => 'user.label.groups',
+                'required' => false,
+                'attr' => array(
+                    'help' => 'user.help.groups',
+                    'class' => 'user',
+                ),
+                'translation_domain' => 'BusybeeSecurityBundle',
+                'choices' => $this->getGroupChoices(),
+            )
+        );
+    }
+
+    /**
+     * get Group Choices
+     *
+     * @version 10th March 2017
+     * @return array
+     */
+    private function getGroupChoices()
+    {
+        $groups = [];
+        foreach ($this->groups as $group => $roles) {
+            $groups[$group] = $group;
+        }
+        return $groups;
     }
 }

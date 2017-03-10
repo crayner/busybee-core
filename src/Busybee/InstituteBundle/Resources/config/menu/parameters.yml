@@ -50,7 +50,9 @@ parameters:
             role: ROLE_USER
             node: 141
             order: 1411
-            route: year_calendar_change
+            route: year_calendar
+            parameters:
+                id: current
         142:
             label: menu.groups.manage
             name: Group Management
