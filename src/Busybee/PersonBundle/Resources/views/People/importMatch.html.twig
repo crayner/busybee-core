@@ -37,7 +37,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
     <script>
         $(".optionLoader").change( function() {
             var id = $(this).attr('id');

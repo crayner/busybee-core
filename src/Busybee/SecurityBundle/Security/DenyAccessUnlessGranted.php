@@ -3,7 +3,6 @@
 namespace Busybee\SecurityBundle\Security;
 
 use Busybee\SecurityBundle\Entity\Page;
-use Busybee\SecurityBundle\Entity\Role;
 
 trait DenyAccessUnlessGranted
 {

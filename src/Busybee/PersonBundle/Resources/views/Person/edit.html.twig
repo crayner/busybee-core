@@ -75,11 +75,11 @@
 
 {% block javascripts %}
 	{{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
     {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
     {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
     {% include 'BusybeePersonBundle:Person:script.html.twig' %}
-    {% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'person_manage'} %}
+    {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'person_manage'} %}
 	<script>
 
 	</script>

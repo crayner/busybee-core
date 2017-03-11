@@ -16,17 +16,18 @@
 {{ form_start(form) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ form_widget(form.nameSelect, {'value': setting_id ~ ""}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', 'transDomain': 'SystemBundle', 'panelParagraph': 'system.setting.edit.description'} %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert", 'system.setting.edit.success'|trans, "alert alert-success fadeAlert") }}
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-6 well">
-				<div class="alert alert-success">
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.nameSelect, {'value': setting_id ~ ""}) }}
+				<div class="alert alert-warning">
+                    {{ 'system.setting.warning'|trans }}
 				</div>
 			</div>
 			<div class="col-sm-6 well">
+                {{ form_row(form.name) }}
                 {{ form_row(form.displayName) }}
 			</div>
 		</div>
@@ -36,7 +37,6 @@
 			</div>
 			<div class="col-sm-6 well">
                 {{ form_row(form.value) }}
-				<p class="alert alert-warning">{{ 'system.setting.warning'|trans }}</p>
 			</div>
 			</div>
 		</div>

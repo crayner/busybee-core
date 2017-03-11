@@ -34,7 +34,7 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	{% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
 	{% include 'BusybeePersonBundle:Address:script.html.twig' %}
-	{% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'address_manage'} %}
+    {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'address_manage'} %}
 {% endblock javascripts %}

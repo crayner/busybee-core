@@ -4,18 +4,17 @@ namespace Busybee\SecurityBundle\Event ;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class SessionIdleHandler
 {
 
-    protected	 $session;
+    protected $session;
     protected 	$securityToken;
     protected 	$router;
     protected 	$translator;
-    private		$cookieNames;
     protected 	$maxIdleTime;
+    private $cookieNames;
 
     public function __construct(Container $container, TokenStorageInterface $securityToken, $maxIdleTime = 900)
     {

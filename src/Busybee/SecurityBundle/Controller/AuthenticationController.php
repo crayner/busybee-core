@@ -114,16 +114,14 @@ class AuthenticationController extends Controller
             $session->start();
         } else
             $session = $this->container->get('session');
-
         // Initialize the provider
         $provider = new Google(compact('clientId', 'clientSecret', 'redirectUri'));
 
         $get = $request->query;
 
         if (!empty($get->get('error'))) {
-
             // Got an error, probably user denied access
-            throw new AuthenticationException(htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8'));
+            throw new AuthenticationException(htmlspecialchars($get->get('error'), ENT_QUOTES, 'UTF-8'));
 
         } elseif (empty($get->get('code'))) {
             // If we don't have an authorization code then get one
@@ -132,7 +130,7 @@ class AuthenticationController extends Controller
             header('Location: ' . $authUrl);
             exit;
 
-        } elseif (empty($request->query->get('state')) || ($request->query->get('state') !== $session->get('oauth2state'))) {
+        } elseif (empty($get->get('state')) || ($get->get('state') !== $session->get('oauth2state'))) {
 
             // State is invalid, possible CSRF attack in progress
             $session->remove('oauth2state');
@@ -141,9 +139,11 @@ class AuthenticationController extends Controller
         } else {
 
             // Try to get an access token (using the authorization code grant)
-            $token = $provider->getAccessToken('authorization_code', [
-                'code' => $request->query->get('code')
-            ]);
+            $token = $provider->getAccessToken('authorization_code',
+                array(
+                    'code' => $get->get('code')
+                )
+            );
 
             // Optional: Now you have a token you can look up a users profile data
             try {

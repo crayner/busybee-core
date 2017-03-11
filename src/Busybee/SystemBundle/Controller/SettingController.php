@@ -56,7 +56,7 @@ class SettingController extends Controller
         if (is_null($setting->getRole())) $setting->setRole($this->get('security.role.repository')->findOneByRole('ROLE_SYSTEM_ADMIN'));
 
         if (is_null($setting)) throw new InvalidArgumentException('The System setting of identifier: '.$id.' was not found');
-        $this->denyAccessUnlessGranted($setting->getRole()->getRole(), null, null);
+        $this->denyAccessUnlessGranted($setting->getRole(), null, null);
 
         $sm = $this->get('setting.manager');
 

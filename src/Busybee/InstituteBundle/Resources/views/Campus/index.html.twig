@@ -14,6 +14,8 @@
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('campus_manage', {'id': 'Add'})}}) %}{% endif %}
     {% set h3Content = h3Content ~ resetButton() %}
     {% set h3Content = h3Content ~ saveButton() %}
+    {% set locationValue = 'Add' %}
+    {% if app.request.attributes.get('id') is not empty %}{% set locationValue = 'Add' %}{% endif %}
     {% set h3Content = h3Content ~ form_widget(form.locationList, {'value': app.request.attributes.get('id')}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': ''} %}
 	<div class="container-fluid">
@@ -50,5 +52,5 @@
 {% block javascripts %}
 	{{ parent() }}
     {% set route = 'campus_manage' %}]
-    {% include '@BusybeeHome/Scripts/monitorForm.js.twig' %}
+    {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
 {% endblock javascripts %}

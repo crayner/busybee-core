@@ -31,8 +31,8 @@
 
 {% block javascripts %}
 	{{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'locality_manage'} %}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+    {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'locality_manage'} %}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
 	<script type="text/javascript">
 		$('.beeLocalityList').change(function() {
 

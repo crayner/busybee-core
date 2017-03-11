@@ -94,5 +94,5 @@
 {% block javascripts %}
     {{ parent() }}
     {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
-	{% include 'BusybeeHomeBundle:Scripts:monitorForm.js.twig' with {'route': 'campus_resource_edit'} %}
+    {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'campus_resource_edit'} %}
 {% endblock javascripts %}

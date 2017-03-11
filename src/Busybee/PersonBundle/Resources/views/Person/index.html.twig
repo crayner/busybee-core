@@ -161,7 +161,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.js.twig' %}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
     {% include '@BusybeeHome/Toggle/script.html.twig' %}
 	<script type="text/javascript">
         $(".studentToggle").change(function () {

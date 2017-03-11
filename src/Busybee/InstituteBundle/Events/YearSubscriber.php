@@ -40,10 +40,6 @@ class YearSubscriber implements EventSubscriberInterface
             }
         }
 
-
-        dump($form->getData());
-        dump($data);
-
         $event->setData($data);
     }
 }

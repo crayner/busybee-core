@@ -2,9 +2,8 @@
 namespace Busybee\SecurityBundle\Security\Role;
 
 use Doctrine\ORM\EntityManager ;
-use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\Security\Core\Role\RoleHierarchy as RoleHierarchyBase;
-use Doctrine\DBAL\Exception\TableNotFoundException ;
 use Symfony\Component\Yaml\Yaml;
 
 class RoleHierarchy extends RoleHierarchyBase {
@@ -56,12 +55,10 @@ class RoleHierarchy extends RoleHierarchyBase {
      */
     private function getRoles()
     {
-        $roles = array();
-
         try {
             $roles = Yaml::parse(file_get_contents('../src/Busybee/SecurityBundle/Resources/config/services.yml'));
             $roles = $roles['parameters']['roles'];
-        } catch (FileNotFoundException $e) {
+        } catch (ContextErrorException $e) {
             return array();
         }
         return $roles;

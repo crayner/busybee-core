@@ -2,6 +2,7 @@
 
 namespace Busybee\InstituteBundle\Form;
 
+use Busybee\InstituteBundle\Events\CampusSubscriber;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -88,6 +89,7 @@ class CampusType extends AbstractType
                     'label' => '',
                     'mapped' => false,
                     'choice_label' => 'name',
+                    'empty_data' => 'Add',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.name', 'ASC');
@@ -97,6 +99,7 @@ class CampusType extends AbstractType
                     'data' => $options['data']->getId(),
                 )
             );
+        $builder->addEventSubscriber(new CampusSubscriber());
     }
 
     /**

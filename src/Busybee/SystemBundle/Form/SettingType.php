@@ -3,6 +3,8 @@
 namespace Busybee\SystemBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -22,14 +24,15 @@ class SettingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-			->add('type', 'Symfony\Component\Form\Extension\Core\Type\HiddenType')
-			->add('name', 'Symfony\Component\Form\Extension\Core\Type\HiddenType')
-			->add('nameSelect', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', 
+            ->add('type', HiddenType::class)
+            ->add('name', HiddenType::class)
+            ->add('nameSelect', ChoiceType::class,
 				array(
-					'label' => 'system.setting.label.name',
-					'choices' => $this->getSettingNameChoices(),
-					'attr' => array(
-						'help' => 'system.setting.help.name',
+                    'label' => '',
+                    'placeholder' => 'system.setting.placeholder.name',
+                    'choices' => $this->getSettingNameChoices(),
+                    'attr' => array(
+                        'class' => 'changeRecord',
 					),
 					'mapped'	=> false,
 					'data'	=> $options['data']->getNameSelect(),

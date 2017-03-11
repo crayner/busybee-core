@@ -13,8 +13,14 @@ abstract class User implements UserInterface
 {
     use \Busybee\PersonBundle\Model\FormatNameExtension ;
 
+    /**
+     * @var string
+     */
     protected $plainPassword;
 
+    /**
+     * @var array
+     */
 	protected $roles;
 	
 	public function __construct() {
@@ -51,8 +57,7 @@ abstract class User implements UserInterface
 
 		$groups = $this->getGroups();
 
-        $groupData = Yaml::parse(file_get_contents('../src/Busybee/SecurityBundle/Resources/config/services.yml'));
-        $groupData = $groupData['parameters']['groups'];
+        $groupData = $this->getGroupList();
 
         foreach ($groups as $group)
 		{
@@ -67,12 +72,23 @@ abstract class User implements UserInterface
 		
 		return $this->roles;
 	}
- 
-    
+
+    public function getGroupList()
+    {
+        try {
+            $groups = Yaml::parse(file_get_contents('../src/Busybee/SecurityBundle/Resources/config/services.yml'));
+            $groups = $groups['parameters']['groups'];
+        } catch (ContextErrorException $e) {
+            return array();
+        }
+        return $groups;
+
+    }
+
 	public function getPlainPassword()
     {
         return $this->plainPassword;
-    }	
+    }
 
 	public function setPlainPassword($password)
 	{
@@ -94,13 +110,13 @@ abstract class User implements UserInterface
 
 	public function setSuperAdmin($boolean)
 	{
-	
-		if (true === $boolean) 
+
+        if (true === $boolean)
 			$this->addRole(static::ROLE_SUPER_ADMIN);
 		else
 			$this->removeRole(static::ROLE_SUPER_ADMIN);
-		
-		return $this;
+
+        return $this;
 	}
 
 	public function isPasswordRequestNonExpired($ttl)
@@ -165,6 +181,7 @@ abstract class User implements UserInterface
             $this->id,
         ));
     }
+
     /**
      * Unserializes the user.
      *
