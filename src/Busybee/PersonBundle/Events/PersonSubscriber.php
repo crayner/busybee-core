@@ -187,7 +187,7 @@ class PersonSubscriber implements EventSubscriberInterface
                 $data['user']['directroles'] = array();
                 if (is_array($roles = $user->getRoles()))
                     foreach ($roles as $role) {
-                        $data['user']['directroles'][] = $this->om->getRepository(Role::class)->findOneByRole($role)->getId();
+                        $data['user']['directroles'][] = $role;
                     }
                 $data['user']['groups'] = array();
                 if (is_array($groups = $user->getGroups()))

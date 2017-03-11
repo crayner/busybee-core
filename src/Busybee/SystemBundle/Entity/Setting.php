@@ -48,6 +48,30 @@ class Setting extends SettingModel
      * @var string
      */
     private $choice;
+    /**
+     * @var string
+     */
+    private $role;
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $createdBy;
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $modifiedBy;
+    /**
+     * @var string
+     */
+    private $description;
+    /**
+     * @var string
+     */
+    private $displayName;
+    /**
+     * @var string
+     */
+    private $validator;
 
     /**
      * Get id
@@ -57,6 +81,16 @@ class Setting extends SettingModel
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
@@ -74,13 +108,13 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get type
+     * Get name
      *
      * @return string
      */
-    public function getType()
+    public function getName()
     {
-        return $this->type;
+        return $this->name;
     }
 
     /**
@@ -98,13 +132,13 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get name
+     * Get value
      *
-     * @return string
+     * @return \blog
      */
-    public function getName()
+    public function getValue()
     {
-        return $this->name;
+        return $this->value;
     }
 
     /**
@@ -122,13 +156,13 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get value
+     * Get lastModified
      *
-     * @return \blog
+     * @return \DateTime
      */
-    public function getValue()
+    public function getLastModified()
     {
-        return $this->value;
+        return $this->lastModified;
     }
 
     /**
@@ -146,13 +180,13 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -170,29 +204,23 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get createdOn
+     * Get role
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getCreatedOn()
+    public function getRole()
     {
-        return $this->createdOn;
+        return $this->role;
     }
-	
-    /**
-     * @var \Busybee\SecurityBundle\Entity\Role
-     */
-    private $role;
-
 
     /**
      * Set role
      *
-     * @param \Busybee\SecurityBundle\Entity\Role $role
+     * @param string $role
      *
      * @return Setting
      */
-    public function setRole(\Busybee\SecurityBundle\Entity\Role $role = null)
+    public function setRole($role)
     {
         $this->role = $role;
 
@@ -202,11 +230,11 @@ class Setting extends SettingModel
     /**
      * Get role
      *
-     * @return \Busybee\SecurityBundle\Entity\Role
+     * @return boolean
      */
-    public function getRole()
+    public function getSecurityActive()
     {
-        return $this->role;
+        return $this->securityActive;
     }
 
     /**
@@ -224,24 +252,14 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get role
+     * Get createdBy
      *
-     * @return boolean
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getSecurityActive()
+    public function getCreatedBy()
     {
-        return $this->securityActive;
+        return $this->createdBy;
     }
-    /**
-     * @var \Busybee\SecurityBundle\Entity\User
-     */
-    private $createdBy;
-
-    /**
-     * @var \Busybee\SecurityBundle\Entity\User
-     */
-    private $modifiedBy;
-
 
     /**
      * Set createdBy
@@ -258,13 +276,13 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -282,19 +300,14 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get modifiedBy
+     * Get description
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return string
      */
-    public function getModifiedBy()
+    public function getDescription()
     {
-        return $this->modifiedBy;
+        return $this->description;
     }
-    /**
-     * @var string
-     */
-    private $description;
-
 
     /**
      * Set description
@@ -311,19 +324,14 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get description
+     * Get displayName
      *
      * @return string
      */
-    public function getDescription()
+    public function getDisplayName()
     {
-        return $this->description;
+        return $this->displayName;
     }
-    /**
-     * @var string
-     */
-    private $displayName;
-
 
     /**
      * Set displayName
@@ -340,13 +348,13 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get displayName
+     * Get choice
      *
      * @return string
      */
-    public function getDisplayName()
+    public function getChoice()
     {
-        return $this->displayName;
+        return $this->choice;
     }
 
     /**
@@ -364,19 +372,14 @@ class Setting extends SettingModel
     }
 
     /**
-     * Get choice
+     * Get validator
      *
      * @return string
      */
-    public function getChoice()
+    public function getValidator()
     {
-        return $this->choice;
+        return $this->validator;
     }
-    /**
-     * @var string
-     */
-    private $validator;
-
 
     /**
      * Set validator
@@ -390,15 +393,5 @@ class Setting extends SettingModel
         $this->validator = $validator;
 
         return $this;
-    }
-
-    /**
-     * Get validator
-     *
-     * @return string
-     */
-    public function getValidator()
-    {
-        return $this->validator;
     }
 }

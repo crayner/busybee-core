@@ -11,26 +11,6 @@ busybee_security_resetting_request:
 busybee_security_logout:
     path:     /logout
     defaults: { _controller: BusybeeSecurityBundle:Authentication:logout }
-busybee_security_group_new:
-    path:     /group/new
-    defaults: { _controller: BusybeeSecurityBundle:Group:new }
-    methods:  [GET, POST]
-busybee_security_group_edit:
-    path:     /group/edit/{GroupID}
-    defaults: { _controller: BusybeeSecurityBundle:Group:edit }
-    methods:  [GET, POST]
-busybee_security_group_list: 
-    path:     /group/list
-    defaults: { _controller: BusybeeSecurityBundle:Group:list }
-busybee_security_group_delete: 
-    path:     /group/delete/{GroupID}
-    defaults: { _controller: BusybeeSecurityBundle:Group:delete }
-security_user_edit:
-    path:     /user/{id}/edit/
-    defaults: { _controller: BusybeeSecurityBundle:User:edit }
-security_user_list:
-    path:     /user/list
-    defaults: { _controller: BusybeeSecurityBundle:User:list }
 security_user_reset_request:
     path:     /user/request/{id}
     defaults: { _controller: BusybeeSecurityBundle:User:request }
@@ -43,18 +23,6 @@ busybee_security_user_reset_send_email:
 busybee_security_user_registration_confirmed:
     path:     /user/confirmed 
     defaults: { _controller: BusybeeSecurityBundle:User:confirmed }
-busybee_security_role_add: 
-    path:     /role/add
-    defaults: { _controller: BusybeeSecurityBundle:Role:add }
-busybee_security_role_edit: 
-    path:     /role/{roleName}/edit
-    defaults: { _controller: BusybeeSecurityBundle:Role:edit }
-busybee_security_role_list:
-    path:     /role/list
-    defaults: { _controller: BusybeeSecurityBundle:Role:list }
-busybee_security_role_delete:
-    path:     /role/delete/{roleName}
-    defaults: { _controller: BusybeeSecurityBundle:Role:delete }
 busybee_security_createuser:
     path:     /{personID}/createuser
     defaults: { _controller: BusybeeSecurityBundle:User:create }

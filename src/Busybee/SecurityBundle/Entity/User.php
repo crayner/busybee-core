@@ -2,6 +2,7 @@
 
 namespace Busybee\SecurityBundle\Entity;
 
+use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Model\User as UserModel;
 use DateTime ;
 
@@ -93,11 +94,6 @@ class User extends UserModel
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    protected $directroles;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     protected $lastModified;
     /**
      * @var \DateTime
@@ -119,13 +115,16 @@ class User extends UserModel
      * @var array
      */
     private $groups;
+    /**
+     * @var array
+     */
+    private $directroles;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->directroles = new \Doctrine\Common\Collections\ArrayCollection();
         parent::__construct();
     }
 
@@ -404,40 +403,6 @@ class User extends UserModel
     }
 
     /**
-     * Add directrole
-     *
-     * @param Role $directrole
-     *
-     * @return User
-     */
-    public function addDirectrole(Role $directrole)
-    {
-        $this->directroles[] = $directrole;
-
-        return $this;
-    }
-
-    /**
-     * Remove directrole
-     *
-     * @param Role $directrole
-     */
-    public function removeDirectrole(Role $directrole)
-    {
-        $this->directroles->removeElement($directrole);
-    }
-
-    /**
-     * Get directroles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDirectroles()
-    {
-        return $this->directroles;
-    }
-
-    /**
      * check Username
      *
      * @return void
@@ -445,9 +410,9 @@ class User extends UserModel
     public function checkUsername()
     {
         if (empty($this->getUsername()))
-			$this->setUsername($this->getEmail());
+            $this->setUsername($this->getEmail());
         if (empty($this->getUsernameCanonical()))
-			$this->setUsernameCanonical($this->getEmailCanonical());
+            $this->setUsernameCanonical($this->getEmailCanonical());
     }
 
     /**
@@ -645,7 +610,7 @@ class User extends UserModel
     /**
      * Get person
      *
-     * @return \Busybee\PersonBundle\Entity\Person
+     * @return Person
      */
     public function getPerson()
     {
@@ -655,11 +620,11 @@ class User extends UserModel
     /**
      * Set person
      *
-     * @param \Busybee\PersonBundle\Entity\Person $person
+     * @param Person $person
      *
      * @return User
      */
-    public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
+    public function setPerson(Person $person = null)
     {
         $this->person = $person;
 
@@ -688,6 +653,30 @@ class User extends UserModel
     public function setGroups($groups)
     {
         $this->groups = $groups;
+
+        return $this;
+    }
+
+    /**
+     * Get directroles
+     *
+     * @return array
+     */
+    public function getDirectroles()
+    {
+        return $this->directroles;
+    }
+
+    /**
+     * Set directroles
+     *
+     * @param array $directroles
+     *
+     * @return User
+     */
+    public function setDirectroles($directroles)
+    {
+        $this->directroles = $directroles;
 
         return $this;
     }

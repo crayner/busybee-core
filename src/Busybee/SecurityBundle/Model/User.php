@@ -63,7 +63,7 @@ abstract class User implements UserInterface
 			}
 		}
 		foreach($this->getDirectroles() As $role)
-			$this->roles = array_merge($this->roles, array($role->getRole()));
+            $this->roles = array_merge($this->roles, array($role));
 		
 		return $this->roles;
 	}

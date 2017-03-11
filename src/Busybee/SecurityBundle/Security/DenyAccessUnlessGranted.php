@@ -31,15 +31,10 @@ trait DenyAccessUnlessGranted
             $page->setRoute($routeName);
 
             if (! is_array($attributes))
-            {
                 $attributes = [$attributes];
-            }
-            $rr = $this->get('doctrine')->getRepository(Role::class);
 
             foreach($attributes as $attribute)
-            {
-                $page->addRole($rr->findOneByRole($attribute));
-            }
+                $page->addRole($attribute);
 
             $page->setPath($request->getPathInfo());
             $em = $this->get('doctrine')->getManager();
@@ -49,7 +44,7 @@ trait DenyAccessUnlessGranted
 
         $attributes = [];
         foreach ($page->getRoles() as $role)
-            $attributes[] = $role->getRole();
+            $attributes[] = $role;
 
         parent::denyAccessUnlessGranted($attributes, $object, $message);
     }

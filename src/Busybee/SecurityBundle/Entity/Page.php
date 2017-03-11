@@ -2,10 +2,12 @@
 
 namespace Busybee\SecurityBundle\Entity;
 
+use Busybee\SecurityBundle\Model\PageModel;
+
 /**
  * Page
  */
-class Page
+class Page extends PageModel
 {
     /**
      * @var integer
@@ -38,21 +40,14 @@ class Page
     private $modifiedBy;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var array
      */
     private $roles;
+
     /**
      * @var string
      */
     private $path;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -185,37 +180,30 @@ class Page
     }
 
     /**
-     * Add role
-     *
-     * @param \Busybee\SecurityBundle\Entity\Role $role
-     *
-     * @return Page
-     */
-    public function addRole(\Busybee\SecurityBundle\Entity\Role $role)
-    {
-        $this->roles[] = $role;
-
-        return $this;
-    }
-
-    /**
-     * Remove role
-     *
-     * @param \Busybee\SecurityBundle\Entity\Role $role
-     */
-    public function removeRole(\Busybee\SecurityBundle\Entity\Role $role)
-    {
-        $this->roles->removeElement($role);
-    }
-
-    /**
      * Get roles
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return array
      */
     public function getRoles()
     {
+        if (empty($this->roles))
+            $this->roles = [];
+
         return $this->roles;
+    }
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return Page
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**

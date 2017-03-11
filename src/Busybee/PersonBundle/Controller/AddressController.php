@@ -20,7 +20,7 @@ class AddressController extends Controller
      */
     public function checkAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 		
 		$address = array();
 		$address['propertyName'] = $request->request->get('propertyName');
@@ -47,7 +47,7 @@ class AddressController extends Controller
      */
     public function indexAction($id = 'Add', Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 		
 		$address = new Address();
 		$repo = $this->get('address.repository');
@@ -91,7 +91,7 @@ class AddressController extends Controller
      */
     public function fetchAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $addresses = $this->get('address.repository')->findBy(array(), array('propertyName'=>'ASC', 'streetName'=>'ASC', 'streetNumber'=> 'ASC'));
         $addresses = is_array($addresses) ? $addresses : array() ;
@@ -120,7 +120,7 @@ class AddressController extends Controller
      */
     public function deleteAction($id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($id > 0 && $entity = $this->get('address.repository')->find($id))
         {

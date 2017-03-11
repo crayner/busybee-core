@@ -36,6 +36,9 @@ Busybee\SystemBundle\Entity\Setting:
             type: string
             length: '255'
             nullable: true
+        role:
+            type: string
+            length: 64
         lastModified:
             type: datetime
             nullable: true 
@@ -54,10 +57,4 @@ Busybee\SystemBundle\Entity\Setting:
             nullable: true
             joinColumns:
                 modifiedBy:
-                    referencedColumnName: id
-        role:
-            targetEntity: Busybee\SecurityBundle\Entity\Role
-            cascade: [persist]
-            joinColumns:
-                role_id:
                     referencedColumnName: id

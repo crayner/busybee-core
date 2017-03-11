@@ -12,8 +12,6 @@ use Doctrine\DBAL\DBALException ;
 use Doctrine\ORM\EntityManager ;
 use Doctrine\ORM\Tools\SchemaTool ;
 use Busybee\SecurityBundle\Entity\User ;
-use Busybee\SecurityBundle\Entity\Role ;
-use Busybee\SecurityBundle\Entity\Group ;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -357,83 +355,7 @@ class InstallController extends Controller
 		$tool = new SchemaTool($newEm);
 		$tool->createSchema($meta);
 
-		$repos = $newEm->getRepository('BusybeeSecurityBundle:Role');
 
-        $this->entity = $this->findOrCreateRole('ROLE_USER', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-
-        $this->entity = $this->findOrCreateRole('ROLE_ALLOWED_TO_SWITCH', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateRole('ROLE_PARENT', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateRole('ROLE_STUDENT', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateRole('ROLE_STAFF', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-
-        $this->entity = $this->findOrCreateRole('ROLE_TEACHER', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_STUDENT'));
-			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_ALLOWED_TO_SWITCH'));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateRole('ROLE_HEAD_TEACHER', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_TEACHER'));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateRole('ROLE_PRINCIPAL', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_HEAD_TEACHER'));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateRole('ROLE_ADMIN', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_PARENT'));
-			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_ALLOWED_TO_SWITCH'));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateRole('ROLE_REGISTRAR', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_PRINCIPAL'));
-			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_ADMIN'));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
-		
-        $this->entity = $this->findOrCreateRole('ROLE_SYSTEM_ADMIN', $newEm);
-       	if (intval($this->entity->getId()) == 0) {
-			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_ADMIN'));
-			$this->entity->addChildrenRole($repos->findOneByRole('ROLE_REGISTRAR'));
-			$newEm->persist($this->entity);
-			$newEm->flush();
-		}
 
         $this->entity = $newEm->getRepository('BusybeeSecurityBundle:User')->find(1);
 		if (is_null($this->entity))
@@ -451,8 +373,7 @@ class InstallController extends Controller
 			$this->entity->setExpired(false);
 			$this->entity->setCredentialsExpired(false);
 			$this->entity->setEnabled(true);
-			$repos = $newEm->getRepository('BusybeeSecurityBundle:Role');
-			$this->entity->addDirectrole($repos->findOneByRole('ROLE_SYSTEM_ADMIN'));
+            $this->entity->setDirectroles(['ROLE_SYSTEM_ADMIN']);
 			$encoder = $this->get('security.password_encoder');
 			$password = $encoder->encodePassword($this->entity, $user['password']);
 			$this->entity->setPassword($password); 
@@ -461,7 +382,7 @@ class InstallController extends Controller
 			$newEm->flush(); 
 		}
 
-        $user = $newEm->getRepository('BusybeeSecurityBundle:User')->find(1);
+        $user = $newEm->getRepository(User::class)->find(1);
 
 		$session = $this->get('session');
        // Here, "default" is the name of the firewall in your security.yml
@@ -479,28 +400,15 @@ class InstallController extends Controller
 	}
 
   /**
-     * Helper method to return an already existing Role from the database, else create and return a new one
-     *
-     * @param string        $name
-     * @param ObjectManager $newEm
-     *
-     * @return Role
-     */
-    protected function findOrCreateRole($role, $newEm)
-    {
-        return $newEm->getRepository('BusybeeSecurityBundle:Role')->findOneBy(['role' => $role]) ?: new Role($role);
-    }
-
-  /**
      * Helper method to return an already existing User from the database, else create and return a new one
      *
      * @param string        $name
      * @param ObjectManager $newEm
      *
-     * @return Group
+   * @return User
      */
     protected function findOrCreateUser($name, $newEm)
     {
-        return $newEm->getRepository('BusybeeSecurityBundle:User')->findOneBy(['username' => $name]) ?: new User($name);
+        return $newEm->getRepository(User::class)->findOneBy(['username' => $name]) ?: new User($name);
     }
 }

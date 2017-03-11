@@ -2,13 +2,16 @@
 namespace Busybee\SecurityBundle\Security\Role;
 
 use Doctrine\ORM\EntityManager ;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\Security\Core\Role\RoleHierarchy as RoleHierarchyBase;
 use Doctrine\DBAL\Exception\TableNotFoundException ;
+use Symfony\Component\Yaml\Yaml;
 
 class RoleHierarchy extends RoleHierarchyBase {
 	
-    private $em;
     protected $hierarchy;
+    private $em;
+
     /**
      * @param array $hierarchy
      */
@@ -29,22 +32,40 @@ class RoleHierarchy extends RoleHierarchyBase {
     private function buildRolesTree() {
 		
         $hierarchy = array();
-		try {
-			$roles = $this->em->createQuery('SELECT r FROM BusybeeSecurityBundle:Role r')->execute() ;
-		}
-		catch (TableNotFoundException $e) {
-			return array();
-		}
-		foreach ($roles as $role) {
-			if (!isset($hierarchy[$role->getRole()]))
-				$hierarchy[$role->getRole()] = array();
-			foreach ($role->getChildrenRoles() as $name)
-				$hierarchy[$role->getRole()][] = $name->getRole();
-			if (! in_array('ROLE_USER', $hierarchy[$role->getRole()]))
-					$hierarchy[$role->getRole()][] = 'ROLE_USER';
+        $roles = $this->getRoles();
+        foreach ($roles as $role => $subRoles) {
+            if (empty($subRoles))
+                $subRoles = array();
+
+            if (!isset($hierarchy[$role]))
+                $hierarchy[$role] = array();
+
+            foreach ($subRoles as $name)
+                $hierarchy[$role][] = $name;
+
+            if (!in_array('ROLE_USER', $hierarchy[$role]) && !in_array($role, array('ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH')))
+                $hierarchy[$role][] = 'ROLE_USER';
         }
+
 		$this->hierarchy = $hierarchy;
         return $hierarchy;
+    }
+
+    /**
+     * @return array
+     */
+    private function getRoles()
+    {
+        $roles = array();
+
+        try {
+            $roles = Yaml::parse(file_get_contents('../src/Busybee/SecurityBundle/Resources/config/services.yml'));
+            $roles = $roles['parameters']['roles'];
+        } catch (FileNotFoundException $e) {
+            return array();
+        }
+        return $roles;
+
     }
 
 	public function getMap()
@@ -60,14 +81,15 @@ class RoleHierarchy extends RoleHierarchyBase {
 	public function getAssigned()
 	{
         $hierarchy = array();
-        $roles = $this->em->createQuery('SELECT r FROM BusybeeSecurityBundle:Role r')->execute();;
-        foreach ($roles as $role) {
-			if (!isset($hierarchy[$role->getRole()]))
-				$hierarchy[$role->getRole()] = array();
-			foreach ($role->getChildrenRoles() as $name)
-				$hierarchy[$role->getRole()][] = $name->getRole();
+        $roles = $this->getRoles();
+
+        foreach ($roles as $role => $subRoles) {
+            if (!isset($hierarchy[$role]))
+                $hierarchy[$role] = array();
+            if (empty($subRoles)) $subRoles = array();
+            foreach ($subRoles as $name)
+                $hierarchy[$role][] = $name;
         }
         return $hierarchy;
 	}
-
 }

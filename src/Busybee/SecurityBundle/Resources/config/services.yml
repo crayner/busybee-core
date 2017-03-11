@@ -42,8 +42,27 @@ parameters:
         Support Staff: [ROLE_STAFF]
         Administration Staff: [ROLE_STAFF, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
         Contact: [ROLE_USER]
-
-
+    roles:
+        ROLE_USER: ~
+        ROLE_ALLOWED_TO_SWITCH: ~
+        ROLE_PARENT: ~
+        ROLE_STUDENT: ~
+        ROLE_STAFF: ~
+        ROLE_TEACHER:
+            - ROLE_ALLOWED_TO_SWITCH
+            - ROLE_STUDENT
+            - ROLE_STAFF
+        ROLE_HEAD_TEACHER:
+            - ROLE_TEACHER
+        ROLE_PRINCIPAL:
+            - ROLE_HEAD_TEACHER
+        ROLE_ADMIN:
+            - ROLE_ALLOWED_TO_SWITCH
+        ROLE_REGISTRAR:
+            - ROLE_PRINCIPAL
+            - ROLE_ADMIN
+        ROLE_SYSTEM_ADMIN:
+            - ROLE_REGISTRAR
 
 
 services:
@@ -151,13 +170,6 @@ services:
             - '%kernel.default_locale%'
         tags:
             - { name: kernel.event_subscriber }
-    security.role.repository:
-        class: Busybee\SecurityBundle\Repository\RoleRepository
-        factory: 
-            - "@doctrine"
-            - getRepository 
-        arguments: 
-            - "BusybeeSecurityBundle:Role"
     security.role.hierarchy.voter:
         class: Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter 
         tags:
@@ -207,5 +219,11 @@ services:
         class: Busybee\SecurityBundle\Form\GroupType
         arguments:
             - '%groups%'
+        tags:
+            - { name: form.type }
+    form.directrole.type:
+        class: Busybee\SecurityBundle\Form\DirectRoleType
+        arguments:
+            - '%roles%'
         tags:
             - { name: form.type }

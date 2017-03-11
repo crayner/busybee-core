@@ -81,6 +81,9 @@ Busybee\SecurityBundle\Entity\User:
         groups:
             type: array
             nullable: true
+        directroles:
+            type: array
+            nullable: true
         lastModified:
             type: datetime
             nullable: true
@@ -100,19 +103,6 @@ Busybee\SecurityBundle\Entity\User:
                 modified_by:
                     referencedColumnName: id
                     nullable: true
-    manyToMany:
-        directroles:
-            targetEntity: Busybee\SecurityBundle\Entity\Role
-            nullable: true 
-            cascade: [persist]
-            joinTable:
-                name: secure_users_to_roles
-                joinColumns:
-                    user_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    role_id:
-                        referencedColumnName: id
     oneToOne:
         person:
             targetEntity: Busybee\PersonBundle\Entity\Person

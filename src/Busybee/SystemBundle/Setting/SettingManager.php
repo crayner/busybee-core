@@ -161,7 +161,7 @@ class SettingManager
         $this->setting = $this->repo->findOneByName($name);
         if (is_null($this->setting) || is_null($this->setting->getName()))
             return $this;
-		if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole()->getRole())) return $this;
+        if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole())) return $this;
 		switch ($this->setting->getType())
 		{
 			case 'string':

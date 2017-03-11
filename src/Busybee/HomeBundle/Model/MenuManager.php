@@ -2,6 +2,7 @@
 namespace Busybee\HomeBundle\Model ;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
+use Symfony\Component\Process\Exception\InvalidArgumentException;
 
 class MenuManager
 {
@@ -59,24 +60,33 @@ class MenuManager
         return $items;
 	}
 
-	private function getRouteAccess($route, $role)
+    /**
+     * get Route Access
+     *
+     * @param string $route
+     * @param string $role
+     * @return array
+     */
+    private function getRouteAccess($route, $role)
     {
         $roles = array();
         $page = $this->pageRepository->findOneByRoute($route);
         if (! empty($page))
-        {
             foreach($page->getRoles() as $role)
-                $roles[] = $role->getRole();
-        }
+                $roles[] = $role;
         elseif (! empty($role))
             $roles[] = $role ;
 
         return $roles;
     }
 
-	/**
-	 * @return	boolean
-	 */
+    /**
+     * test Menu Item
+     *
+     * @param string $test
+     * @return bool
+     * @throws InvalidArgumentException
+     */
 	public function testMenuItem($test)
 	{
 		$test['default1'] = isset($test['default1']) ? $test['default1'] : null ;
@@ -97,7 +107,7 @@ class MenuManager
 				if ($value1 < $value2) return true ;
 				break;
 			default:
-				throw new \Exception('Do not know how to deal with '. $test['comparitor'] . ' in '.__FILE__);
+                throw new InvalidArgumentException('Do not know how to deal with ' . $test['comparitor'] . ' in ' . __FILE__);
 		}
 		return false;
 	}

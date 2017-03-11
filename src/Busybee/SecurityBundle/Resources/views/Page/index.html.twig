@@ -25,19 +25,21 @@
 					</div>
 				</div>
 				<div class="row row-header">
-					<div class="col-sm-5" style="display: inline-block;">
+					<div class="col-sm-3" style="display: inline-block;">
 						{% if pagination.getSortByName == 'Route' %}
 							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'security.page.route'|trans }}
 						{% else %}
 							{{ 'security.page.route'|trans }}
 						{% endif %}
 					</div>
-					<div class="col-sm-5" style="display: inline-block;">
-						{% if pagination.getSortByName == 'Path' %}
+					<div class="col-sm-3" style="display: inline-block;">
+                        {% if pagination.getSortByName == 'Path' %}
 							<span class="halflings halflings-sort-by-alphabet"></span> {{ 'security.page.path'|trans }}
-						{% else %}
-							{{ 'security.page.path'|trans }}
-						{% endif %}
+                        {% else %}
+                            {{ 'security.page.path'|trans }}
+                        {% endif %}
+					</div>
+					<div class="col-sm-4" style="display: inline-block;">
 					</div>
                     <div class="col-sm-2 text-center" style="display: inline-block;">
                        {{ 'security.actions'|trans }}
@@ -48,11 +50,14 @@
 
 			{% for page in pagination.getResult %}
 				<div class="row row-striped">
-					<div class="col-sm-5 form-inline">
+					<div class="col-sm-3 form-inline">
 						{{ page.route }}
 					</div>
-					<div class="col-sm-5 form-inline">
-						{{ page.path }}
+					<div class="col-sm-3 form-inline">
+                        {{ page.path }}
+					</div>
+					<div class="col-sm-4 form-inline">
+                        {{ page.roleToString()|replace({',': '<br/>'})|raw }}
 					</div>
 					<div class="col-sm-2 text-center form-inline">
 						<button title='{{ 'security.page.edit'|trans}}' type="button" class="halflings halflings-edit btn btn-warning" onClick="window.open('{{ path('page_edit', {'id': page.id}) }}','_self')"></button>

@@ -34,15 +34,14 @@ class PageType extends AbstractType
                     )
                 )
             )
-            ->add('roles', EntityType::class, array(
+            ->add('roles', DirectRoleType::class, array(
                     'label'                 => 'security.page.label.roles',
                     'multiple' 				=> true,
                     'expanded' 				=> true,
-                    'class' 				=> Role::class,
-                    'choice_label' 			=> 'role',
                     'attr'					=> array(
                         'help' 					=> 'security.page.help.roles',
                     ),
+                    'required' => true,
                 )
             )
         ;

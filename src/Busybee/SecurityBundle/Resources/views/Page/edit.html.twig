@@ -19,8 +19,7 @@
     {{ form_start(form) }}
     {% set transDomain = 'BusybeeSecurityBundle' %}
     {% set header = 'security.page.title' %}
-    {% set path = "window.open('" ~ path('page_list') ~ "','_self')" %}
-    {% set h3Content = cancelButton({'additional': 'onClick="' ~ path ~ '"'})|raw %}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('page_list')}}) %}
     {% set h3Content = h3Content ~  saveButton() %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' %}
     {% include '@BusybeeHome/Default/flash.html.twig' with {'flashClass': 'fadeAlert'} %}

@@ -21,6 +21,8 @@ Busybee\SecurityBundle\Entity\Page:
         path:
             type: string
             length: '200'
+        roles:
+            type: array
         lastModified:
             type: datetime
         createdOn:
@@ -36,14 +38,3 @@ Busybee\SecurityBundle\Entity\Page:
             joinColumns:
                 modified_by:
                     referencedColumnName: id
-    manyToMany:
-        roles:
-            targetEntity: Busybee\SecurityBundle\Entity\Role
-            joinTable:
-                name: secure_page_role
-                joinColumns:
-                    page_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    role_id:
-                        referencedColumnName: id

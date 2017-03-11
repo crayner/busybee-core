@@ -6,12 +6,12 @@ use Busybee\FormBundle\Type\ToggleType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Events\UserSubscriber;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\SecurityBundle\Form\DirectRoleType;
 use Busybee\SecurityBundle\Form\GroupType;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -74,20 +74,7 @@ class UserType extends AbstractType
                     ),
                 )
             )
-            ->add('directroles', EntityType::class,
-                array(
-					'label' 				=> 'user.label.directroles',
-					'multiple' 				=> true,
-					'expanded' 				=> true,
-					'class' 				=> 'Busybee\SecurityBundle\Entity\Role',
-					'choice_label' 			=> 'role',
-					'required' 				=> false,
-					'attr'					=> array(
-						'help' 					=> 'user.help.directroles',
-                        'class'                 => 'user',
-                    ),
-				)
-			)
+            ->add('directroles', DirectRoleType::class)
             ->add('groups', GroupType::class)
             ->add('enabled', ToggleType::class,
                 array(

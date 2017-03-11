@@ -1,8 +1,0 @@
-# src\Busybee\SecurityBundle\Resources\config\doctrine\Role.orm.yml
-Busybee\SecurityBundle\Entity\Role:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [role]
-            errorPath: role
-            message: 'The Role Name must be unique.'
-
