@@ -151,7 +151,7 @@ class UpdateManager
         $this->em = $this->container->get('doctrine')->getManager();
 
         $schemaTool = new SchemaTool($this->em);
-        $metaData = $em->getMetadataFactory()->getAllMetadata();
+        $metaData = $this->em->getMetadataFactory()->getAllMetadata();
 
         $xx = $schemaTool->updateSchema($metaData, true);
         $sysVersion = $this->version->current['system'];
@@ -159,23 +159,35 @@ class UpdateManager
         while (version_compare($sysVersion, $this->version->shouldBe['system'], '<')) {
             $v = 'Busybee\SystemBundle\Update\dBase\Update_' . str_replace('.', '_', $sysVersion);
             if (class_exists($v)) {
-                $x = new $v($this->sm, $em);
-                $this->loadSettings($x->loadSettingFile());
+                $x = new $v($this->sm, $this->em);
+                $this->buildSettings($x->loadSettingFile());
                 $this->container->get('session')->getFlashBag()->add('success', $this->container->get('translator')->trans('updateDatabase.success', array('%version%' => $sysVersion), 'SystemBundle'));
             }
             $sysVersion = $this->incrementVersion($sysVersion);
         }
 
-        $this->em->flush();
+        $this->loadSettings();
 
         $this->sm->setSetting('Version.System', $this->version->shouldBe['system']);
         $this->sm->setSetting('Version.Database', $this->version->shouldBe['database']);
 
-        $this->version->current['system'] = $this->sm->getSetting('Version.System', $this->version->shouldBe['system']);
-        $this->version->current['database'] = $this->sm->getSetting('Version.Database', $this->version->shouldBe['database']);
+        $this->version->current['system'] = $this->version->shouldBe['system'];
+        $this->version->current['database'] = $this->version->shouldBe['database'];
 
-        $this->loadSettings();
+    }
 
+    private function buildSettings($data)
+    {
+        foreach ($data as $name => $datum) {
+            $entity = new Setting();
+            $entity->setName($name);
+            foreach ($datum as $field => $value) {
+                $w = 'set' . ucwords($field);
+                $entity->$w($value);
+            }
+            $this->em->persist($entity);
+        }
+        $this->em->flush();
     }
 
     /**
@@ -183,7 +195,7 @@ class UpdateManager
      */
     private function loadSettings()
     {
-        $overWrite = $this->sm->get('Settings.Default.Overwrite');
+        $overWrite = $this->sm->get('Settings.Default.Overwrite', '');
         $file = '../src/Busybee/SystemBundle/Resources/Defaults/Default.yml';
         $content = file_get_contents($file);
         $content = Yaml::parse($content);
@@ -205,7 +217,7 @@ class UpdateManager
                 $sm->set($name, $value);
             $sess
                 ->getFlashBag()
-                ->add('success', array('upload.success' => array('%count%' => count($content['settings']))));
+                ->add('success', array('upload.success.default' => array('%count%' => count($content['settings']))));
         }
 
         if (!empty($overWrite)) {
@@ -228,22 +240,9 @@ class UpdateManager
                     $sm->set($name, $value);
                 $sess
                     ->getFlashBag()
-                    ->add('success', array('upload.success' => array('%count%' => count($content['settings']))));
+                    ->add('success', array('upload.success.overwrite' => array('%count%' => count($content['settings']))));
                 return true;
             }
         }
-    }
-
-    private function buildSettings($data)
-    {
-        foreach ($data as $name => $datum) {
-            $entity = new Setting();
-            $entity->setName($name);
-            foreach ($datum as $field => $value) {
-                $w = 'set' . ucwords($field);
-                $entity->$w($value);
-            }
-        }
-        $this->em->persist($entity);
     }
 }

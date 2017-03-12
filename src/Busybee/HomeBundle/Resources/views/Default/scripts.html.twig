@@ -1,24 +1,19 @@
-
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-{% javascripts
-'js/jquery.min.js'
-	'%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.min.js' 
-	'js/bootstrap-submenu.min.js' 
-	'js/ie10-viewport-bug-workaround.js'
-'%kernel.root_dir%/../vendor/imsky/holder/holder.js'
-'js/jquery-ui.min.js'
-'js/dist/store.legacy.min.js'
-'js/jquery-idleTimeout.min.js' %}
-	<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+<script src={{ asset('js/jquery.min.js') }}></script>
+<script src={{ asset('js/bootstrap.min.js') }}></script>
+<script src={{ asset('js/bootstrap-submenu.min.js') }}></script>
+<script src={{ asset('js/ie10-viewport-bug-workaround.js') }}></script>
+<script src={{ asset('js/holder.min.js') }}></script>
+<script src={{ asset('js/jquery-ui.min.js') }}></script>
+<script src={{ asset('js/dist/store.legacy.min.js') }}></script>
+<script src={{ asset('js/jquery-idleTimeout.min.js') }}></script>
 {% if script is defined %}
     {% for xx in script %}
         {% include xx %}
     {% endfor %}
 {% endif %}
-
 
 <script type="text/javascript" charset="utf-8">
     {% if app.getUser is not empty %}

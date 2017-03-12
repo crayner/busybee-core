@@ -193,7 +193,10 @@ upload:
     error:
         fileNameMatch: 'The file name (%name%) does not match the file data.'
         settingsMissing: "No settings have been defined in the file.  The file nust contain the name of the file (name:) and the settings: to be set."
-    success: '%count% Settings were correctly uploaded.'
+    success:
+        default: '%count% Default Settings were correctly uploaded.'
+        overwrite: '%count% Overwrite settings were applied successfully.'
+        settings: '%count% settings were applied successfully.'
 default:
     success: Default file details saved.
 buildDatabase:

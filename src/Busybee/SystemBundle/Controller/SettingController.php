@@ -273,7 +273,7 @@ class SettingController extends Controller
                     $sm->set($name, $value);
                 $sess
                     ->getFlashBag()
-                    ->add('success', array('upload.success' => array('%count%' => count($content['settings']))));
+                    ->add('success', array('upload.success.settings' => array('%count%' => count($content['settings']))));
                 if ($form->get('default')) {
                     $exists = $this->get('setting.manager')->get('Settings.Default.Overwrite');
                     if (!empty($exists) && file_exists($exists))
@@ -284,7 +284,7 @@ class SettingController extends Controller
                     $this->get('setting.manager')->set('Settings.Default.Overwrite', $fName);
                     $sess
                         ->getFlashBag()
-                        ->add('success', array('default.success' => array('%count%' => count($content['settings']))));
+                        ->add('success', 'default.success');
                 }
             }
 

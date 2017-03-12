@@ -122,7 +122,8 @@ class SettingManager
 			case 'string':
 				return strval(mb_substr($this->setting->getValue(), 0, 25));
 				break;
-			case 'image':
+            case 'file':
+            case 'image':
 				$value = $this->setting->getValue();
 				$appPath = $this->container->getParameter('kernel_root_dir');
 				$webPath = realpath($appPath . '/../web/');
@@ -179,6 +180,7 @@ class SettingManager
                 break;
             case 'time':
             case 'image':
+            case 'file':
             case 'text':
             case 'system':
 				break ;
