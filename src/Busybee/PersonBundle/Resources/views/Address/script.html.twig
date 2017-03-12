@@ -2,7 +2,6 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 	<script>
 		$("#refreshAddressLocality").click(function(e){
 		    $.ajax({
@@ -21,12 +20,12 @@
                     $("#address_locality").val(id);
 				}
 			})
-		})
+        });
 
         $("#addAddressLocality").click(function(e){
 
             window.open("{{ path('locality_manage', {'id': 'Add'}) }}","Locality","width=820,height=600");
-        })
+        });
 
         $( document ).ready(function() {
             $.ajax({

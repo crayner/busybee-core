@@ -141,3 +141,9 @@ google:
 panel:
     header:
         empty: 'No Panel Title Defined: %name%'
+idletimeout:
+    title: Timed Sign Out
+    signout: Sign Out Now
+    stay: Stay Connected
+    dialogue: No activitiy has been detected for %time% minutes.  You are about to be signed out of the system for security reasons.
+    timeRemaining: 'Time Remaining'

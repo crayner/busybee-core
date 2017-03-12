@@ -48,9 +48,8 @@
 {{ form_end(form) }}
 {% endblock contentContainer %}
 
-
 {% block javascripts %}
 	{{ parent() }}
-    {% set route = 'campus_manage' %}]
+    {% set route = 'campus_manage' %}
     {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
 {% endblock javascripts %}

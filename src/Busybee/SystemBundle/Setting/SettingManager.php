@@ -90,7 +90,8 @@ class SettingManager
 	 * @param	mixed	$default
 	 * @param	array	$options
 	 * @return	mixed	Value
-	 */
+     * @throws  \Exception
+     */
     public function getSetting($name, $default = null, $options = array())
     {
         try {
@@ -141,10 +142,12 @@ class SettingManager
 			case 'array':
 				return Yaml::parse($this->setting->getValue());
 				break;
+            case 'integer':
+                return intval($this->setting->getValue());
+                break;
 			default:
 				throw new \Exception('The Setting Type ('.$this->setting->getType().') has not been defined.');
 		}
-		return $this->setting->getValue();
     }
 
 	/**
@@ -154,7 +157,7 @@ class SettingManager
 	 * @since	21st October 2016
 	 * @param	string	$name
 	 * @param	mixed	$value
-	 * @return	Setting Manager
+     * @return    SettingManager
 	 */
     public function setSetting($name, $value)
     {
@@ -164,9 +167,12 @@ class SettingManager
         if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole())) return $this;
 		switch ($this->setting->getType())
 		{
-			case 'string':
-				$value =  strval(mb_substr($value, 0, 25));
-				break;
+            case 'string':
+                $value = strval(mb_substr($value, 0, 25));
+                break;
+            case 'integer':
+                $value = intval($value);
+                break;
 			case 'regex':
                 if (empty($value)) $value = '/^/';
                 $test = preg_match($value, 'qwlrfhfri$wegtiwebnf934htr 5965tb');

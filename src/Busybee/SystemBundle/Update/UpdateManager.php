@@ -1,6 +1,8 @@
 <?php
 namespace Busybee\SystemBundle\Update ;
 
+use Busybee\SystemBundle\Entity\Setting;
+use Doctrine\ORM\EntityManager;
 use stdClass ;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\Tools\SchemaTool ;
@@ -15,162 +17,166 @@ use Symfony\Component\Yaml\Yaml;
  */
 class UpdateManager
 {
-	/**
-	 * @var	Container
-	 */
-	private	$container ;
-	
-	/**
-	 * @var	Version
-	 */
-	private	$version ;
-	
-	/**
-	 * @var	Setting Manager
-	 */
-	private	$sm ;
-	
-	/**
-	 * @var	User
-	 */
-	private	$user ;
-	
-	/**
-	 * Constructor
-	 *
-	 * @version	23rd October 2016
-	 * @since	23rd October 2016
-	 * @param	Symfony Container
-	 * @return	this
-	 */
-	public function __construct(Container $container)
-	{
-		$this->container = $container ;
-		$this->version = new stdClass();
-		$this->version->shouldBe = $this->container->getParameter('version');
-		$this->sm = $this->container->get('setting.manager');
-		$this->user = $this->container->get('security.token_storage')->getToken()->getUser();
-		$this->sm->setCurrentUser($this->user);
-		$this->version->current = array();
-		$this->version->current['system'] = $this->sm->getSetting('version.system', '0.0.00');
-		$this->version->current['database'] = $this->sm->getSetting('version.database', '0.0.00');
-		return $this ;
-	}
-	
-	/**
-	 * get Version
-	 *
-	 * @version	23rd October 2016
-	 * @since	23rd October 2016
-	 * @param	Symfony Container
-	 * @return	stdClass
-	 */
-	public function getVersion()
-	{
-		return $this->version ;
-	}
-	
-	/**
-	 * get Update Details
-	 *
-	 * @version	23rd October 2016
-	 * @since	23rd October 2016
-	 * @return	integer
-	 */
-	public function getUpdateDetails()
-	{
+    /**
+     * @var    Container
+     */
+    private $container;
+
+    /**
+     * @var    Version
+     */
+    private $version;
+
+    /**
+     * @var    Setting Manager
+     */
+    private $sm;
+
+    /**
+     * @var    EntityManager
+     */
+    private $em;
+
+    /**
+     * @var    User
+     */
+    private $user;
+
+    /**
+     * Constructor
+     *
+     * @version    23rd October 2016
+     * @since    23rd October 2016
+     * @param    Symfony Container
+     * @return    this
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+        $this->version = new stdClass();
+        $this->version->shouldBe = $this->container->getParameter('version');
+        $this->sm = $this->container->get('setting.manager');
+        $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $this->sm->setCurrentUser($this->user);
+        $this->version->current = array();
+        $this->version->current['system'] = $this->sm->getSetting('version.system', '0.0.00');
+        $this->version->current['database'] = $this->sm->getSetting('version.database', '0.0.00');
+        return $this;
+    }
+
+    /**
+     * get Version
+     *
+     * @version    23rd October 2016
+     * @since    23rd October 2016
+     * @param    Symfony Container
+     * @return    stdClass
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * get Update Details
+     *
+     * @version    23rd October 2016
+     * @since    23rd October 2016
+     * @return    integer
+     */
+    public function getUpdateDetails()
+    {
         $em = $this->container->get('doctrine')->getManager();
 
         $schemaTool = new SchemaTool($em);
 
         $metaData = $em->getMetadataFactory()->getAllMetadata();
 
-		$xx = $schemaTool->getUpdateSchemaSql($metaData, false);
-		
-		$count = count($xx);
+        $xx = $schemaTool->getUpdateSchemaSql($metaData, false);
 
-		$sysVersion = $this->version->current['system'];
-		while (version_compare($sysVersion, $this->version->shouldBe['system'], '<')) {
-			$v = 'Busybee\SystemBundle\Update\dBase\Update_'.str_replace('.', '_', $sysVersion);
-			if (class_exists( $v ))
-			{
-				$x = new $v($this->sm, $em);
-				$count += $x->getCount();
-			}
-			$sysVersion = $this->incrementVersion($sysVersion);
-		}
+        $count = count($xx);
 
-		return $count ;
-	}
+        $sysVersion = $this->version->current['system'];
+        while (version_compare($sysVersion, $this->version->shouldBe['system'], '<')) {
+            $v = 'Busybee\SystemBundle\Update\dBase\Update_' . str_replace('.', '_', $sysVersion);
+            if (class_exists($v)) {
+                $x = new $v($this->sm, $em);
+                $count += $x->getCount();
+            }
+            $sysVersion = $this->incrementVersion($sysVersion);
+        }
 
-	/**
-	 * increment Version
-	 *
-	 * @version	20th October 2016
-	 * @since	20th October 2016
-	 * @param	string	$version
-	 * @return	string Version
-	 */
+        return $count;
+    }
+
+    /**
+     * increment Version
+     *
+     * @version    20th October 2016
+     * @since    20th October 2016
+     * @param    string $version
+     * @return    string Version
+     */
     private function incrementVersion($version)
     {
-		$v = explode('.', $version);
-		if (!isset($v[2])) $v[2] = 0;
-		if (!isset($v[1])) $v[1] = 0;
-		if (!isset($v[0])) $v[0] = 0;
-		while (count($v) > 3)
-			array_pop($v);
-		$v[2]++;
-		if ($v[2] > 99) 
-		{
-			$v[2] = 0;
-			$v[1]++;
-		}
-		if ($v[1] > 9)
-		{
-			$v[1] = 0;
-			$v[0]++;
-		}
-		$v[2] = str_pad($v[2], 2, '00', STR_PAD_LEFT);
-		return implode('.', $v);
-	}
-	
-	/**
-	 * build
-	 *
-	 * @version	23rd October 2016
-	 * @since	23rd October 2016
-	 * @return	void
-	 */
-	public function build()
-	{
+        $v = explode('.', $version);
+        if (!isset($v[2])) $v[2] = 0;
+        if (!isset($v[1])) $v[1] = 0;
+        if (!isset($v[0])) $v[0] = 0;
+        while (count($v) > 3)
+            array_pop($v);
+        $v[2]++;
+        if ($v[2] > 99) {
+            $v[2] = 0;
+            $v[1]++;
+        }
+        if ($v[1] > 9) {
+            $v[1] = 0;
+            $v[0]++;
+        }
+        $v[2] = str_pad($v[2], 2, '00', STR_PAD_LEFT);
+        return implode('.', $v);
+    }
 
-        $em = $this->container->get('doctrine')->getManager();
+    /**
+     * build
+     *
+     * @version    23rd October 2016
+     * @since    23rd October 2016
+     * @return    void
+     */
+    public function build()
+    {
 
-        $schemaTool = new SchemaTool($em);
+        $this->em = $this->container->get('doctrine')->getManager();
+
+        $schemaTool = new SchemaTool($this->em);
         $metaData = $em->getMetadataFactory()->getAllMetadata();
 
-		$xx = $schemaTool->updateSchema($metaData, true);
-		$sysVersion = $this->version->current['system'];
+        $xx = $schemaTool->updateSchema($metaData, true);
+        $sysVersion = $this->version->current['system'];
 
         while (version_compare($sysVersion, $this->version->shouldBe['system'], '<')) {
-			$v = 'Busybee\SystemBundle\Update\dBase\Update_'.str_replace('.', '_', $sysVersion);
-			if (class_exists( $v ))
-			{
-				$x = new $v($this->sm, $em);
-				$x->build();
+            $v = 'Busybee\SystemBundle\Update\dBase\Update_' . str_replace('.', '_', $sysVersion);
+            if (class_exists($v)) {
+                $x = new $v($this->sm, $em);
+                $this->loadSettings($x->loadSettingFile());
                 $this->container->get('session')->getFlashBag()->add('success', $this->container->get('translator')->trans('updateDatabase.success', array('%version%' => $sysVersion), 'SystemBundle'));
-			}
-			$sysVersion = $this->incrementVersion($sysVersion);
-		}
+            }
+            $sysVersion = $this->incrementVersion($sysVersion);
+        }
+
+        $this->em->flush();
+
         $this->sm->setSetting('Version.System', $this->version->shouldBe['system']);
         $this->sm->setSetting('Version.Database', $this->version->shouldBe['database']);
- 
-		$this->version->current['system'] = $this->sm->getSetting('Version.System', $this->version->shouldBe['system']);
-		$this->version->current['database'] = $this->sm->getSetting('Version.Database', $this->version->shouldBe['database']);
+
+        $this->version->current['system'] = $this->sm->getSetting('Version.System', $this->version->shouldBe['system']);
+        $this->version->current['database'] = $this->sm->getSetting('Version.Database', $this->version->shouldBe['database']);
 
         $this->loadSettings();
 
-	}
+    }
 
     /**
      * @return bool
@@ -226,5 +232,18 @@ class UpdateManager
                 return true;
             }
         }
+    }
+
+    private function buildSettings($data)
+    {
+        foreach ($data as $name => $datum) {
+            $entity = new Setting();
+            $entity->setName($name);
+            foreach ($datum as $field => $value) {
+                $w = 'set' . ucwords($field);
+                $entity->$w($value);
+            }
+        }
+        $this->em->persist($entity);
     }
 }
