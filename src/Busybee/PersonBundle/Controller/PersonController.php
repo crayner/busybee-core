@@ -117,7 +117,6 @@ class PersonController extends Controller
             }
 		} 
 
-
 		$editOptions['id'] = $id;
 		$editOptions['form'] = $form->createView();
 		$editOptions['fullForm'] = $form;

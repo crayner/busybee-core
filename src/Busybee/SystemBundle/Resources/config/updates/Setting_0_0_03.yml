@@ -1,0 +1,5 @@
+house.list:
+    type: 'array'
+    displayName: 'House List'
+    description: "House list used in your school."
+    role: 'ROLE_REGISTRAR'

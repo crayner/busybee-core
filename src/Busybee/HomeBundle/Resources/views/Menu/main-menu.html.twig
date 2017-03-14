@@ -12,7 +12,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand"
-			   href="{{ path('home_page') }}">{% block projectname %}{{ get_setting('org.name.short') }}{% endblock projectname %}</a>
+               href="{{ path('home_page') }}">{% block projectname %}{{ get_setting('org.name.short', 'BEE') }}{% endblock projectname %}</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			{% block dynamicMenu %}

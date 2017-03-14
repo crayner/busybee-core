@@ -2,7 +2,7 @@
 
 namespace Busybee\PersonBundle\Form ;
 
-use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\FormBundle\Type\SettingType;
 use Busybee\SecurityBundle\Form\ResetType;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -49,12 +49,12 @@ class LocalityType extends AbstractType
                     ),
                 )
             )
-            ->add('territory', SettingChoiceType::class, array(
+            ->add('territory', SettingType::class, array(
                     'label' => 'locality.label.territory',
                     'attr' => array(
                         'class' => 'beeTerritory monitorChange',
                     ),
-                    'settingName' => 'Address.TerritoryList',
+                    'setting_name' => 'Address.TerritoryList',
                     'placeholder' => 'locality.placeholder.territory',
                 )
             )

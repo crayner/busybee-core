@@ -4,7 +4,7 @@ namespace Busybee\PersonBundle\Form ;
 
 use Busybee\FormBundle\Type\AutoCompleteType;
 use Busybee\FormBundle\Type\ImageType;
-use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\FormBundle\Type\SettingType;
 use Busybee\FormBundle\Type\ToggleType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Events\PersonSubscriber;
@@ -59,26 +59,26 @@ class PersonType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', SettingChoiceType::class, array(
-					'label' => 'person.label.title',
-                'settingName' => 'Person.TitleList',
-					'attr'	=> array(
-						'class' => 'beeTitle',
+        $builder->add('title', SettingType::class, array(
+                'label' => 'person.label.title',
+                'setting_name' => 'Person.TitleList',
+                'attr' => array(
+                    'class' => 'beeTitle',
 					),
-					'required' => false,
+                'required' => false,
 				)
 			)
             ->add('surname', null, array(
                     'label' => 'person.label.surname',
-                    'attr'	=> array(
+                    'attr' => array(
                         'class' => 'beeSurname',
                     ),
                 )
             )
 			->add('firstName', null, array(
-					'label' => 'person.label.firstName',
-					'attr'	=> array(
-						'class' => 'beeFirstName',
+                    'label' => 'person.label.firstName',
+                    'attr' => array(
+                        'class' => 'beeFirstName',
 					),
 				)
 			)
@@ -98,12 +98,13 @@ class PersonType extends AbstractType
 					),
 				)
 			)
-            ->add('gender', SettingChoiceType::class, array(
-                    'settingName' => 'Person.GenderList',
+            ->add('gender', SettingType::class, array(
+                    'setting_name' => 'Person.GenderList',
 					'label' => 'person.label.gender',
 					'attr'	=> array(
 						'class' => 'beeGender',
 					),
+                    'choice_translation_domain' => 'BusybeePersonBundle',
 				)
 			)
             ->add('dob', BirthdayType::class, array(

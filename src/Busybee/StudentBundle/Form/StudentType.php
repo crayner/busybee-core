@@ -3,7 +3,7 @@
 namespace Busybee\StudentBundle\Form;
 
 use Busybee\FormBundle\Type\ImageType;
-use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\FormBundle\Type\SettingType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StudentBundle\Entity\Student;
@@ -81,9 +81,9 @@ class StudentType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('status', SettingChoiceType::class, array(
+            ->add('status', SettingType::class, array(
                     'label' => 'student.label.status',
-                    'settingName' => 'Student.Status.List',
+                    'setting_name' => 'Student.Status.List',
                     'attr' => array(
                         'help' => 'student.help.status',
                         'class' => 'student',
@@ -115,20 +115,20 @@ class StudentType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('ethnicity', SettingChoiceType::class,
+            ->add('ethnicity', SettingType::class,
                 array(
                     'label' => 'student.label.ethnicity',
                     'placeholder' => 'student.placeholder.ethnicity',
                     'required' => false,
-                    'settingName' => 'Ethnicity.List',
+                    'setting_name' => 'Ethnicity.List',
                 )
             )
-            ->add('religion', SettingChoiceType::class,
+            ->add('religion', SettingType::class,
                 array(
                     'label' => 'student.label.religion',
                     'placeholder' => 'student.placeholder.religion',
                     'required' => false,
-                    'settingName' => 'Religion.List',
+                    'setting_name' => 'Religion.List',
                 )
             )
             ->add('citizenship1', CountryType::class,
@@ -180,12 +180,12 @@ class StudentType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('residencyStatus', SettingChoiceType::class,
+            ->add('residencyStatus', SettingType::class,
                 array(
                     'label' => 'student.label.residencyStatus',
                     'placeholder' => 'student.placeholder.residencyStatus',
                     'required' => false,
-                    'settingName' => 'Residency.List',
+                    'setting_name' => 'Residency.List',
                     'attr' => array(
                         'help' => 'student.help.residencyStatus',
                     ),

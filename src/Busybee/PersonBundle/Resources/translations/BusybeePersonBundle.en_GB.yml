@@ -22,7 +22,7 @@ person:
         title: "Contact Details: %name%"
     label:
         surname: Family Name
-        firstName: Given Name
+        firstName: Given Names
         preferredName: Preferred Name
         officialName: Official Name
         email: Email

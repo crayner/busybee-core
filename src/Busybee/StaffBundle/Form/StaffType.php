@@ -2,7 +2,7 @@
 
 namespace Busybee\StaffBundle\Form;
 
-use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\FormBundle\Type\SettingType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToIntTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
@@ -47,9 +47,9 @@ class StaffType extends AbstractType
                     )
                 )
             )
-            ->add('staffType', SettingChoiceType::class, array(
+            ->add('staffType', SettingType::class, array(
                     'label' => 'staff.label.stafftype',
-                    'settingName' => 'Staff.Categories',
+                    'setting_name' => 'Staff.Categories',
                     'placeholder' => 'staff.placeholder.stafftype',
                     'attr' => array(
                         'class' => 'staffMember',

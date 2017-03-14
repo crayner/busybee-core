@@ -3,8 +3,7 @@
 namespace Busybee\PersonBundle\Form;
 
 use Busybee\FormBundle\Type\AutoCompleteType;
-use Busybee\FormBundle\Type\SettingChoiceType;
-use Busybee\PersonBundle\Entity\Address;
+use Busybee\FormBundle\Type\SettingType;
 use Busybee\PersonBundle\Entity\Locality;
 use Busybee\PersonBundle\Events\AddressSubscriber;
 use Busybee\PersonBundle\Repository\LocalityRepository;
@@ -14,7 +13,6 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -47,14 +45,14 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('buildingType', SettingChoiceType::class,
+            ->add('buildingType', SettingType::class,
                 array(
 					'label' => 'address.label.buildingType',
 					'attr' => array(
 						'help' => 'address.help.buildingType',
 						'class' => 'beeBuildingType monitorChange',
 					),
-                    'settingName' => 'Address.BuildingType',
+                    'setting_name' => 'Address.BuildingType',
                     'required'  =>  false,
 				)
 			)

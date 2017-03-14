@@ -2,8 +2,10 @@
 namespace Busybee\SystemBundle\Update ;
 
 use Busybee\SystemBundle\Entity\Setting;
+use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\ORM\EntityManager;
 use stdClass ;
+use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\Tools\SchemaTool ;
 use Symfony\Component\Yaml\Yaml;
@@ -18,22 +20,22 @@ use Symfony\Component\Yaml\Yaml;
 class UpdateManager
 {
     /**
-     * @var    Container
+     * @var Container
      */
     private $container;
 
     /**
-     * @var    Version
+     * @var Version
      */
     private $version;
 
     /**
-     * @var    Setting Manager
+     * @var SettingManager
      */
     private $sm;
 
     /**
-     * @var    EntityManager
+     * @var EntityManager
      */
     private $em;
 
@@ -45,10 +47,10 @@ class UpdateManager
     /**
      * Constructor
      *
-     * @version    23rd October 2016
-     * @since    23rd October 2016
-     * @param    Symfony Container
-     * @return    this
+     * @version 23rd October 2016
+     * @since   23rd October 2016
+     * @param   Symfony Container
+     * @return  UpdateManager
      */
     public function __construct(Container $container)
     {
@@ -80,9 +82,9 @@ class UpdateManager
     /**
      * get Update Details
      *
-     * @version    23rd October 2016
-     * @since    23rd October 2016
-     * @return    integer
+     * @version 23rd October 2016
+     * @since   23rd October 2016
+     * @return  integer
      */
     public function getUpdateDetails()
     {
@@ -97,16 +99,49 @@ class UpdateManager
         $count = count($xx);
 
         $sysVersion = $this->version->current['system'];
+
         while (version_compare($sysVersion, $this->version->shouldBe['system'], '<')) {
-            $v = 'Busybee\SystemBundle\Update\dBase\Update_' . str_replace('.', '_', $sysVersion);
-            if (class_exists($v)) {
-                $x = new $v($this->sm, $em);
-                $count += $x->getCount();
-            }
+            $v = '../src/Busybee/SystemBundle/Resources/config/updates/Setting_' . str_replace('.', '_', $sysVersion) . '.yml';
+
+            if (file_exists($v))
+                $count += $this->getCount($v);
+
             $sysVersion = $this->incrementVersion($sysVersion);
         }
-
+        dump($count);
         return $count;
+    }
+
+    /**
+     * get Count
+     *
+     * @version 12th March 2017
+     * @since   12th March 2017
+     * @return  integer
+     */
+    private function getCount($fName)
+    {
+        $data = $this->loadSettingFile($fName);
+        return count($data);
+    }
+
+    /**
+     * load Setting File
+     *
+     * @version 12th March 2017
+     * @since   12th March 2017
+     * @return  array
+     * @throws  ContextErrorException
+     */
+    private function loadSettingFile($fName)
+    {
+        try {
+            $data = Yaml::parse(file_get_contents($fName));
+        } catch (ContextErrorException $e) {
+            $this->container->get('session')->getFlashBag()->add('error', $this->container->get('translator')->trans('updateDatabase.failure', array('%fName%' => $fName), 'SystemBundle'));
+            return array();
+        }
+        return $data;
     }
 
     /**
@@ -141,9 +176,9 @@ class UpdateManager
     /**
      * build
      *
-     * @version    23rd October 2016
-     * @since    23rd October 2016
-     * @return    void
+     * @version 23rd October 2016
+     * @since   23rd October 2016
+     * @return  void
      */
     public function build()
     {
@@ -153,16 +188,15 @@ class UpdateManager
         $schemaTool = new SchemaTool($this->em);
         $metaData = $this->em->getMetadataFactory()->getAllMetadata();
 
-        $xx = $schemaTool->updateSchema($metaData, true);
+        $schemaTool->updateSchema($metaData, true);
+
         $sysVersion = $this->version->current['system'];
 
         while (version_compare($sysVersion, $this->version->shouldBe['system'], '<')) {
-            $v = 'Busybee\SystemBundle\Update\dBase\Update_' . str_replace('.', '_', $sysVersion);
-            if (class_exists($v)) {
-                $x = new $v($this->sm, $this->em);
-                $this->buildSettings($x->loadSettingFile());
-                $this->container->get('session')->getFlashBag()->add('success', $this->container->get('translator')->trans('updateDatabase.success', array('%version%' => $sysVersion), 'SystemBundle'));
-            }
+            $v = '../src/Busybee/SystemBundle/Resources/config/updates/Setting_' . str_replace('.', '_', $sysVersion) . '.yml';
+            if (file_exists($v))
+                $this->buildSettings($this->loadSettingFile($v), $sysVersion);
+
             $sysVersion = $this->incrementVersion($sysVersion);
         }
 
@@ -176,8 +210,13 @@ class UpdateManager
 
     }
 
-    private function buildSettings($data)
+    /**
+     * @param $data
+     */
+    private function buildSettings($data, $sysVersion)
     {
+        if (empty($data))
+            return;
         foreach ($data as $name => $datum) {
             $entity = new Setting();
             $entity->setName($name);
@@ -185,9 +224,9 @@ class UpdateManager
                 $w = 'set' . ucwords($field);
                 $entity->$w($value);
             }
-            $this->em->persist($entity);
+            $this->sm->createSetting($entity);
         }
-        $this->em->flush();
+        $this->container->get('session')->getFlashBag()->add('success', $this->container->get('translator')->trans('updateDatabase.success', array('%version%' => $sysVersion), 'SystemBundle'));
     }
 
     /**

@@ -57,7 +57,7 @@ services:
         tags:
             - { name: form.type }
     form.type.setting:
-        class: Busybee\FormBundle\Type\SettingChoiceType
+        class: Busybee\FormBundle\Type\SettingType
         arguments:
             - '@setting.manager'
         tags:

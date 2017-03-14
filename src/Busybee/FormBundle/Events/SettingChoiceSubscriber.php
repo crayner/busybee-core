@@ -48,8 +48,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
         $options = $form->getConfig()->getOptions();
         $name = $form->getName();
-        $choices = $this->settingManager->get($options['settingName']);
-
+        $choices = $this->settingManager->get($options['setting_name']);
         $newOptions = array();
         $newOptions['choices'] = $choices;
         if (isset($options['label']))
@@ -62,6 +61,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
             $newOptions['translation_domain'] = $options['translation_domain'];
         if (isset($options['placeholder']))
             $newOptions['placeholder'] = $options['placeholder'];
+        $newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ?: 'SystemBundle';
 
         //  Now replace the existing setting form element with a straight Choice
         $form->getParent()->add($name, ChoiceType::class, $newOptions);

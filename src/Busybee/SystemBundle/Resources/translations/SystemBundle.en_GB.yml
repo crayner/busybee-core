@@ -184,7 +184,9 @@ user:
     list:
         title: User List
         description: List of users configured on the site. 
-updateDatabase.success: 'Updated from version %version%'
+updateDatabase:
+    success: 'Updated from version %version%.'
+    failure: 'Failed to load the file %fName% correctly.'
 plugin:
     manage:
         title: Plugin Management
@@ -201,3 +203,8 @@ default:
     success: Default file details saved.
 buildDatabase:
     success: "The database was succesfully built.  Please sign in with the credentials you just added in the install process.  You should be signed in already if the process has completed without error."
+Mr: Mr
+Mrs: Mrs
+Ms:	Ms
+Miss: Miss
+Dr:	Dr

@@ -1,14 +1,33 @@
-<!-- Bootstrap core JavaScript
+<!-- core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src={{ asset('js/jquery.min.js') }}></script>
+<script src={{ asset('js/jquery-ui.min.js') }}></script>
+{% if app.getUser is not empty %}
+    <script src={{ asset('js/dist/store.modern.min.js') }}></script>
+    <script src={{ asset('js/jquery-idleTimeout.js') }}></script>
+    <script type="text/javascript" charset="utf-8">
+    // idleTimeout
+    $(document).ready(function () {
+        $(document).idleTimeout({
+            dialogTimeRemaining: '{{ 'idletimeout.timeRemaining'|trans({}, 'BusybeeHomeBundle') }}',
+            dialogStayLoggedInButton: '{{ 'idletimeout.stay'|trans({}, 'BusybeeHomeBundle') }}',
+            dialogLogOutNowButton: '{{ 'idletimeout.signout'|trans({}, 'BusybeeHomeBundle') }}',
+            idleTimeLimit: {{ get_setting('idleTimeout', 15) * 60 - 60 }},
+            dialogDisplayLimit: 60,
+            activityEvents: 'click keypress scroll wheel mousewheel',
+            sessionKeepAliveTimer: false,
+            dialogTitle: '{{ 'idletimeout.title'|trans({}, 'BusybeeHomeBundle') }}',
+            dialogText: '{{ 'idletimeout.dialogue'|trans({'%time%': get_setting('idleTimeout', 15) -  1}, 'BusybeeHomeBundle') }}',
+            redirectUrl: '{{ path('busybee_security_logout') }}'
+        });
+    });
+    </script>
+{% endif %}
 <script src={{ asset('js/bootstrap.min.js') }}></script>
 <script src={{ asset('js/bootstrap-submenu.min.js') }}></script>
 <script src={{ asset('js/ie10-viewport-bug-workaround.js') }}></script>
 <script src={{ asset('js/holder.min.js') }}></script>
-<script src={{ asset('js/jquery-ui.min.js') }}></script>
-<script src={{ asset('js/dist/store.legacy.min.js') }}></script>
-<script src={{ asset('js/jquery-idleTimeout.min.js') }}></script>
 {% if script is defined %}
     {% for xx in script %}
         {% include xx %}
@@ -16,22 +35,5 @@
 {% endif %}
 
 <script type="text/javascript" charset="utf-8">
-    {% if app.getUser is not empty %}
-    // idleTimeout
-    $(document).ready(function () {
-        $(document).idleTimeout({
-            redirectUrl: '{{ path('busybee_security_logout') }}',
-            idleTimeLimit: {{ get_setting('idleTimeout', 15) * 60 - 60 }},
-            dialogDisplayLimit: 60,
-            activityEvents: 'click keypress scroll wheel mousewheel',
-            sessionKeepAliveTimer: false,
-            dialogTitle: '{{ 'idletimeout.title'|trans({}, 'BusybeeHomeBundle') }}',
-            dialogText: '{{ 'idletimeout.dialogue'|trans({'%time%': get_setting('idleTimeout', 15) -  1}, 'BusybeeHomeBundle') }}',
-            dialogTimeRemaining: '{{ 'idletimeout.timeRemaining'|trans({}, 'BusybeeHomeBundle') }}',
-            dialogStayLoggedInButton: '{{ 'idletimeout.stay'|trans({}, 'BusybeeHomeBundle') }}',
-            dialogLogOutNowButton: '{{ 'idletimeout.signout'|trans({}, 'BusybeeHomeBundle') }}'
-        });
-    });
-    {% endif %}
     $('[data-submenu]').submenupicker();
 </script>

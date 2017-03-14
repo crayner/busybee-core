@@ -4,7 +4,7 @@ namespace Busybee\FamilyBundle\Form;
 
 use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\FamilyBundle\Entity\Family;
-use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\FormBundle\Type\SettingType;
 use Busybee\FormBundle\Type\ToggleType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
@@ -93,9 +93,9 @@ class CareGiverType extends AbstractType
                     'label' => 'caregiver.label.comment',
                 )
             )
-            ->add('relationship', SettingChoiceType::class, array(
+            ->add('relationship', SettingType::class, array(
                     'label' => 'caregiver.label.relationship',
-                    'settingName' => 'Student.CareGiver.Relationship.List',
+                    'setting_name' => 'Student.CareGiver.Relationship.List',
                 )
             )
             ->add('newsletter', ToggleType::class, array(

@@ -2,7 +2,7 @@
 
 namespace Busybee\PersonBundle\Form;
 
-use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\FormBundle\Type\SettingType;
 use Busybee\PersonBundle\Entity\Phone;
 use Busybee\PersonBundle\Events\PhoneSubscriber;
 use Busybee\PersonBundle\Repository\PhoneRepository;
@@ -40,10 +40,10 @@ class PhoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('phoneType', SettingChoiceType::class,
+            ->add('phoneType', SettingType::class,
                 array(
                     'label' => 'person.label.phone.type',
-                    'settingName' => 'Phone.TypeList',
+                    'setting_name' => 'Phone.TypeList',
                 )
             )
             ->add('phoneNumber', null,
@@ -54,11 +54,11 @@ class PhoneType extends AbstractType
                     ),
                 )
             )
-            ->add('countryCode', SettingChoiceType::class,
+            ->add('countryCode', SettingType::class,
                 array(
                     'label' => 'person.label.phone.country',
                     'required' => false,
-                    'settingName' => 'Phone.CountryList',
+                    'setting_name' => 'Phone.CountryList',
                 )
             );
         $builder->get('phoneNumber')
