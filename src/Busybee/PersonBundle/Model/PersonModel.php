@@ -124,10 +124,9 @@ abstract class PersonModel
      */
     public function getPhoto75($float = 'none')
     {
-        $photo = '';
-
-        if (empty($this->getPhoto())) return $this->getIdentifier();
-
+        $photo = $this->getIdentifier();
+        if (empty($this->getPhoto()))
+            return $this->getIdentifier();
         if ($this->getPhoto() instanceof File && !empty($this->getPhoto()->getPathName())) {
             $div = getimagesize($this->getPhoto()->getPathName());
             $xx = $div[0] / 75;
@@ -136,7 +135,7 @@ abstract class PersonModel
 
             $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto()->getPathName() . '" width="75" height="' . $hh . '" style="width: 75px; height: ' . $hh . 'px; float: ' . $float . '" />';
 
-        } elseif (is_string($this->getPhoto())) {
+        } elseif (is_string($this->getPhoto()) && file_exists($this->getPhoto())) {
             $div = getimagesize($this->getPhoto());
             $xx = $div[0] / 75;
 
@@ -144,6 +143,7 @@ abstract class PersonModel
 
             $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto() . '" width="75" height="' . $hh . '" style="width: 75px; height: ' . $hh . 'px; float: ' . $float . '" />';
         }
+
         return $photo;
     }
 
@@ -153,7 +153,7 @@ abstract class PersonModel
      */
     public function getPhoto250($float = 'none')
     {
-        $photo = '';
+        $photo = $this->getIdentifier();
 
         if (empty($this->getPhoto())) return $this->getIdentifier();
 
@@ -164,7 +164,7 @@ abstract class PersonModel
             $hh = intval($div[1] / $xx);
 
             $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto()->getPathName() . '" width="250" height="' . $hh . '" style="width: 25opx; height: ' . $hh . 'px; float: ' . $float . '" />';
-        } elseif (is_string($this->getPhoto())) {
+        } elseif (is_string($this->getPhoto()) && file_exists($this->getPhoto())) {
             $div = getimagesize($this->getPhoto());
             $xx = $div[0] / 250;
 

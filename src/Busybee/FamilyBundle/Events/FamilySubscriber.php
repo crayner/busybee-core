@@ -122,6 +122,12 @@ class FamilySubscriber implements EventSubscriberInterface
             foreach ($data['students'] as $q => $w)
                 if (!empty($w) && !empty($w['person'])) {
                     $student = $this->fm->getStudentFromPerson($w['person']);
+                    if (empty($student->getHouse()))
+                        $student->setHouse($data['house']);
+                    if (empty($student->getFirstLanguage()))
+                        $student->setFirstLanguage($data['firstLanguage']);
+                    if (empty($student->getSecondLanguage()))
+                        $student->setSecondLanguage($data['secondLanguage']);
                     $students->add($student);
                 }
         }

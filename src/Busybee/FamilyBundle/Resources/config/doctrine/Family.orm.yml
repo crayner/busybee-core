@@ -20,6 +20,10 @@ Busybee\FamilyBundle\Entity\Family:
             type: string
             length: 16
             nullable: true
+        house:
+             type: string
+             length: 32
+             nullable: true
         lastModified:
             type: datetime
         createdOn:

@@ -62,6 +62,18 @@ class StaffType extends AbstractType
                         'class' => 'staffMember',
                     )
                 )
+            )
+            ->add('house', SettingType::class, array(
+                    'label' => 'family.label.house',
+                    'placeholder' => 'family.placeholder.house',
+                    'required' => false,
+                    'attr' => array(
+                        'help' => 'family.help.house',
+                    ),
+                    'setting_name' => 'house.list',
+                    'translation_domain' => 'BusybeeFamilyBundle',
+                    'choice_translation_domain' => 'BusybeeFamilyBundle',
+                )
             );
         $builder->get('person')->addModelTransformer(new EntityToIntTransformer($this->manager, Person::class));
 

@@ -60,6 +60,24 @@ parameters:
             title: 'form.misc'
             style: 'float: right;'
             additional: ''
+        close:
+            class: "halflings halflings-remove-sign btn btn-primary"
+            type: button
+            title: 'form.close'
+            style: 'float: right;'
+            additional: 'onclick="window.close();"'
+        up:
+            class: "collection-up collection-action halflings halflings-arrow-up btn btn-default"
+            type: button
+            title: 'form.up'
+            style: 'float: right;'
+            additional: ''
+        down:
+            class: "collection-down collection-action halflings halflings-arrow-down btn btn-default"
+            type: button
+            title: 'form.down'
+            style: 'float: right;'
+            additional: ''
 services:
     menu.manager:
         class: Busybee\HomeBundle\Model\MenuManager

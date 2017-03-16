@@ -73,6 +73,10 @@ class Family
      * @var string
      */
     private $secondLanguage;
+    /**
+     * @var string
+     */
+    private $house;
 
     /**
      * Constructor
@@ -470,6 +474,30 @@ class Family
     public function setSecondLanguage($secondLanguage)
     {
         $this->secondLanguage = $secondLanguage;
+
+        return $this;
+    }
+
+    /**
+     * Get house
+     *
+     * @return string
+     */
+    public function getHouse()
+    {
+        return $this->house;
+    }
+
+    /**
+     * Set house
+     *
+     * @param string $house
+     *
+     * @return Family
+     */
+    public function setHouse($house)
+    {
+        $this->house = $house;
 
         return $this;
     }

@@ -16,6 +16,10 @@ Busybee\StaffBundle\Entity\Staff:
         jobTitle:
             type: string
             length: '100'
+        house:
+            type: string
+            length: 32
+            nullable: true
         lastModified:
             type: datetime
         createdOn:

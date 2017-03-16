@@ -1,6 +1,5 @@
 {% trans_default_domain "BusybeeFamilyBundle" %}
 
-
 {% block student_label %}{% endblock %}
 {% block student_errors %}{% endblock %}
 
@@ -14,16 +13,10 @@
             <div class="col-sm-offset-3 col-sm-3 collection-actions well">
 				<span>
                     {% if form.person.vars.value is defined and form.person.vars.value > 0 %}
-                        <button title="{{ 'family.student.edit'|trans }}" style="float: right;" type="button"
-                                class=" halflings halflings-edit btn btn-info"
-                                onclick="window.open('{{ path('person_edit', {'id': form.person.vars.value}) }}','{{ 'family.student.edit'|trans }}','width=1024,height=900')"></button>
+                        {{ editButton({'title': 'family.student.edit', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('person_edit', {'id': form.person.vars.value, 'currentSearch': '_closeWindow'}), 'target': 'family.student.edit', 'params': 'width=1024,height=900'}, 'class': 'halflings halflings-edit btn btn-info'})|raw }}
                     {% endif %}
-					<button title="{{ 'family.student.remove'|trans }}" type="button"
-                            class="collection-remove collection-action halflings halflings-erase btn btn-warning"
-                            style="float: right;"></button>
-					<button title="{{ 'family.student.add'|trans }}" type="button"
-                            class="halflings halflings-plus-sign btn btn-primary collection-add collection-action"
-                            style="float: right;"></button>
+                    {{ deleteButton({'title': 'family.student.remove', 'transDomain': 'BusybeeFamilyBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw }}
+                    {{ addButton({'title': 'family.student.add', 'transDomain': 'BusybeeFamilyBundle', 'class': 'halflings halflings-plus-sign btn btn-primary collection-add collection-action'})|raw }}
 				</span>
             </div>
         </div>

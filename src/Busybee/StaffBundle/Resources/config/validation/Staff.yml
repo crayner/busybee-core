@@ -8,3 +8,8 @@ Busybee\StaffBundle\Entity\Staff:
             - NotBlank: ~
         jobTitle:
             - NotBlank: ~
+        house:
+            - Busybee\FormBundle\Validator\SettingChoice:
+                name: 'house.list'
+        person:
+            - NotBlank: ~

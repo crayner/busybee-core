@@ -15,13 +15,11 @@
                 style="float: right"></button>
         {% if id != 'Add' %}
             <button title='{{ 'family.title.add'|trans }}' type="button"
-                    class="halflings halflings-plus-sign btn btn-primary"
+                    class="halflings halflings-plus-sign btn btn-info"
                     onClick="window.open('{{ path('family_edit', {'id': 'Add', 'currentSearch': currentSearch}) }}','_self')"
                     style="float: right"></button>
         {% endif %}
-        <button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button"
-                onClick="location.href='{{ path('family_edit', {'id': id, 'currentSearch': currentSearch}) }}'"
-                class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+        {{ resetButton()|raw }}
         <button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle') }}' type="submit"
                 class="halflings halflings-save btn btn-success" style="float: right"></button>
     </h3>

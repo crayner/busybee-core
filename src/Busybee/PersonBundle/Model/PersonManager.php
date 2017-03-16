@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\PersonBundle\Model;
 
+use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\FamilyBundle\Entity\Family;
 use Busybee\InstituteBundle\Entity\CampusResource;
 use Busybee\PersonBundle\Entity\Address;
@@ -199,8 +200,8 @@ class PersonManager
     }
 
     /**
-     * @param Person $person
-     * @return bool
+     * @param   Person $person
+     * @return  bool
      */
     public function canBeCareGiver(Person $person)
     {
@@ -216,7 +217,10 @@ class PersonManager
      */
     public function isStudent(Person $person)
     {
-        return $person->getStudentQuestion();
+        $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
+        if ($student instanceof Student && $student->getId() > 0)
+            return true;
+        return boolval($person->getStudentQuestion());
     }
 
     /**
@@ -885,7 +889,9 @@ class PersonManager
      */
     public function isCareGiver(Person $person)
     {
-        //place rules here to stop new student.
+        $careGiver = $this->em->getRepository(CareGiver::class)->findOneByPerson($person);
+        if ($careGiver instanceof CareGiver)
+            return true;
         return false;
     }
 }

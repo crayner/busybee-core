@@ -82,6 +82,10 @@ Busybee\StudentBundle\Entity\Student:
         visaExpiryDate:
             type: datetime
             nullable: true
+        house:
+            type: string
+            length: 32
+            nullable: true
         lastModified:
             type: datetime
         createdOn:

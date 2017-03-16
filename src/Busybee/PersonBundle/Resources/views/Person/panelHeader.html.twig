@@ -10,8 +10,12 @@
 
 <div class="panel-heading">
     <h3 class="panel-title">{{ header|trans({'%name%': form.vars.value.formatName}) }}
-        {{ returnButton({'title': 'person.return', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_manage', {'currentSearch': currentSearch})}})|raw }}
-		{% if id != 'Add' %}
+        {% if currentSearch == '_closeWindow' %}
+            {{ closeButton()|raw }}
+        {% else %}
+            {{ returnButton({'title': 'person.return', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_manage', {'currentSearch': currentSearch})}})|raw }}
+        {% endif %}
+        {% if id != 'Add' %}
             {{ addButton({'title': 'person.add.title', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_edit', {'id': 'Add', 'currentSearch': currentSearch})}})|raw }}
 		{% endif %}
         {{ resetButton()|raw }}

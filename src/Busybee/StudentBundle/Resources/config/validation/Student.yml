@@ -13,3 +13,8 @@ Busybee\StudentBundle\Entity\Student:
                 name: 'Student.Status.List'
         citizenship1PassportScan:
             - \Busybee\StudentBundle\Validator\PassportImage: ~
+        person:
+            - NotBlank: ~
+        house:
+            - Busybee\FormBundle\Validator\SettingChoice:
+                name: 'house.list'

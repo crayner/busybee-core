@@ -24,18 +24,22 @@ family:
         language:
             first: First language spoken by family.
             second: Second language spoken by family.
+        house: House
     help:
         name: The family name, if left blank, will be a combination of the caregivers names.  The family name must be unique.
         caregiver: Select care givers for the family.  All people in the database not listed as students can be selected. The order of contact is defined by the position in this list, the first appearing at the top of this list.
         students: Select existing students (children) to add to the family.  Changes are only saved when the family is saved.  Duplicates will be ignored.  Children can be members of multiple families. Students are sorted based on their first day at school.
+        house: Adding the family to a house will populate student records automaically,
     placeholder:
         caregiver: Select a care giver.
         student: Select existing Student.
         language: Select a language.
+        house: Select a House
     return: Manage Families
     student:
         add: Add Student
         remove: Remove Student
+        edit: Edit Student
     caregiver:
         add: Add Care Giver
         remove: Remove Care Giver

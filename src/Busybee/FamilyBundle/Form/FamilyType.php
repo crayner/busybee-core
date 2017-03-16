@@ -7,6 +7,7 @@ use Busybee\FamilyBundle\Events\FamilySubscriber;
 use Busybee\FamilyBundle\Events\StudentSubscriber;
 use Busybee\FamilyBundle\Model\FamilyManager;
 use Busybee\FormBundle\Type\AutoCompleteType;
+use Busybee\FormBundle\Type\SettingType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Form\PhoneType;
 use Symfony\Component\Form\AbstractType;
@@ -117,6 +118,16 @@ class FamilyType extends AbstractType
                     'label' => 'family.label.language.second',
                     'placeholder' => 'family.placeholder.language',
                     'required' => false,
+                )
+            )
+            ->add('house', SettingType::class, array(
+                    'label' => 'family.label.house',
+                    'placeholder' => 'family.placeholder.house',
+                    'required' => false,
+                    'attr' => array(
+                        'help' => 'family.help.house',
+                    ),
+                    'setting_name' => 'house.list',
                 )
             );
         $builder->addEventSubscriber(new FamilySubscriber($this->fm));

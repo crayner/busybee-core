@@ -52,6 +52,10 @@ class ButtonExtension extends \Twig_Extension
             new \Twig_SimpleFunction('deleteButton', array($this, 'deleteButton')),
             new \Twig_SimpleFunction('miscButton', array($this, 'miscButton')),
             new \Twig_SimpleFunction('resetButton', array($this, 'resetButton')),
+            new \Twig_SimpleFunction('closeButton', array($this, 'closeButton')),
+            new \Twig_SimpleFunction('upButton', array($this, 'upButton')),
+            new \Twig_SimpleFunction('downButton', array($this, 'downButton')),
+            new \Twig_SimpleFunction('upDownButton', array($this, 'upDownButton')),
         );
     }
 
@@ -74,7 +78,7 @@ class ButtonExtension extends \Twig_Extension
         $button = '<button title="%title%" type="%type%" class="%class%" style="%style%" %additional%></button>';
 
         if (!empty($details['windowOpen'])) {
-            $target = empty($details['windowOpen']['target']) ? '_self' : $details['windowOpen']['target'];
+            $target = empty($details['windowOpen']['target']) ? '_self' : $this->translator->trans($details['windowOpen']['target'], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);
             $route = 'onClick="window.open(\'' . $details['windowOpen']['route'] . '\',\'' . $target . '\'';
             $route = empty($details['windowOpen']['params']) ? $route . ')"' : $route . ',\'' . $details['windowOpen']['params'] . '\')"';
             $details['additional'] = empty($details['additional']) ? $route : trim($details['additional'] . ' ' . $route);
@@ -84,7 +88,7 @@ class ButtonExtension extends \Twig_Extension
                 $defaults[$q] = $details[$q];
             if (empty($defaults[$q])) {
                 unset($defaults[$q]);
-                $button = str_replace(array($q . '="%' . $q . '%"', '"%' . $q . '%"'), '', $button);
+                $button = str_replace(array($q . '="%' . $q . '%"', '%' . $q . '%'), '', $button);
             } else {
                 if ($q == 'title')
                     $defaults[$q] = $this->translator->trans($defaults[$q], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);
@@ -127,7 +131,7 @@ class ButtonExtension extends \Twig_Extension
      */
     public function editButton($details = array())
     {
-        return $this->generateButton($this->buttons['edit'], $details);;
+        return $this->generateButton($this->buttons['edit'], $details);
     }
 
     /**
@@ -136,7 +140,7 @@ class ButtonExtension extends \Twig_Extension
      */
     public function proceedButton($details = array())
     {
-        return $this->generateButton($this->buttons['proceed'], $details);;
+        return $this->generateButton($this->buttons['proceed'], $details);
     }
 
     /**
@@ -145,7 +149,7 @@ class ButtonExtension extends \Twig_Extension
      */
     public function returnButton($details = array())
     {
-        return $this->generateButton($this->buttons['return'], $details);;
+        return $this->generateButton($this->buttons['return'], $details);
     }
 
     /**
@@ -154,7 +158,7 @@ class ButtonExtension extends \Twig_Extension
      */
     public function deleteButton($details = array())
     {
-        return $this->generateButton($this->buttons['delete'], $details);;
+        return $this->generateButton($this->buttons['delete'], $details);
     }
 
     /**
@@ -163,7 +167,7 @@ class ButtonExtension extends \Twig_Extension
      */
     public function miscButton($details = array())
     {
-        return $this->generateButton($this->buttons['misc'], $details);;
+        return $this->generateButton($this->buttons['misc'], $details);
     }
 
     /**
@@ -172,6 +176,42 @@ class ButtonExtension extends \Twig_Extension
      */
     public function resetButton($details = array())
     {
-        return $this->generateButton($this->buttons['reset'], $details);;
+        return $this->generateButton($this->buttons['reset'], $details);
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function closeButton($details = array())
+    {
+        return $this->generateButton($this->buttons['close'], $details);
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function upButton($details = array())
+    {
+        return $this->generateButton($this->buttons['up'], $details);
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function downButton($details = array())
+    {
+        return $this->generateButton($this->buttons['down'], $details);
+    }
+
+    /**
+     * @param array $details
+     * @return string
+     */
+    public function upDownButton($details = array())
+    {
+        return $this->generateButton($this->buttons['down'], $details) . $this->generateButton($this->buttons['up'], $details);
     }
 }

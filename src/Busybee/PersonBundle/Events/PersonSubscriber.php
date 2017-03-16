@@ -2,10 +2,8 @@
 
 namespace Busybee\PersonBundle\Events ;
 
-
 use Busybee\PersonBundle\Form\UserType;
 use Busybee\PersonBundle\Model\PersonManager;
-use Busybee\SecurityBundle\Entity\Role;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StaffBundle\Form\StaffType;
@@ -75,9 +73,7 @@ class PersonSubscriber implements EventSubscriberInterface
         else
             $form->add('staff', HiddenType::class);
 
-        if ($person->getStudent() === null || $person->getStudent()->getId() === null)
-            $form->add('student', HiddenType::class);
-        elseif ($this->personManager->isStudent($person) || $this->personManager->canBeStudent($person))
+        if ($this->personManager->isStudent($person))
             $form->add('student', StudentType::class);
         else
             $form->add('student', HiddenType::class);
@@ -123,7 +119,6 @@ class PersonSubscriber implements EventSubscriberInterface
             $this->om->remove($staff);
             $flush = true;
         }
-
         if (isset($data['studentQuestion']) && $data['studentQuestion'] === '1' && !$person->getStudent() instanceof Student && $this->personManager->canBeStudent($person)) {
             $data['student'] = array();
             $data['student']['startAtSchool'] = array();
@@ -135,7 +130,7 @@ class PersonSubscriber implements EventSubscriberInterface
             $data['student']['startAtThisSchool']['month'] = date('n');
             $data['student']['startAtThisSchool']['day'] = date('j');
             $data['student']['status'] = 'Future';
-            $data['student']['person'] = $form->getData()->getId();
+            $data['student']['person'] = $person->getId();
             $form->remove('student');
             $form->add('student', StudentType::class);
             $user = $this->personManager->doesThisUserExist($person);
@@ -145,21 +140,24 @@ class PersonSubscriber implements EventSubscriberInterface
                 $data['user']['groups'][] = 'Student';
             }
         }
+
         if ($person->getStudent() instanceof Student) {
             $start = $data['student']['startAtSchool'];
             $startHere = $data['student']['startAtThisSchool'];
             if ($start['year'] . $start['month'] . $start['day'] > $startHere['year'] . $startHere['month'] . $startHere['day'])
                 $data['student']['startAtSchool'] = $startHere;
+            $data['student']['person'] = $person->getId();
+            $data['studentQuestion'] = '1';
         }
 
-        if ($form->get('student')->getData() instanceof Student && !isset($data['studentQuestion']) && $this->personManager->canDeleteStudent($person, $this->parameters)) {
+        if ($form->get('student')->getData() instanceof Student && isset($data['studentQuestion']) && !(bool)$data['studentQuestion'] && $this->personManager->canDeleteStudent($person, $this->parameters)) {
             $data['student'] = "";
             $form->remove('student');
             $form->add('student', HiddenType::class);
             $this->om->remove($form->get('student')->getData());
             $flush = true;
         }
-
+        dump($data);
         if (isset($data['userQuestion']) && $data['userQuestion'] === '1' && !$person->getUser() instanceof User && $this->personManager->canBeUser($person)) {
             $user = $this->personManager->doesThisUserExist($person);
             $data['user'] = array();

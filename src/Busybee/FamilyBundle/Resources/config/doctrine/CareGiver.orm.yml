@@ -3,7 +3,7 @@ Busybee\FamilyBundle\Entity\CareGiver:
     table: caregiver
     repositoryClass: Busybee\FamilyBundle\Repository\CareGiverRepository
     uniqueConstraints:
-        firstFamilyPerson:
+        familyPerson:
             columns:
                 - family
                 - person

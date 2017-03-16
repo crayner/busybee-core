@@ -123,6 +123,10 @@ class Student extends StudentModel
      * @var \DateTime
      */
     private $visaExpiryDate;
+    /**
+     * @var string
+     */
+    private $house;
 
     /**
      * Get id
@@ -730,6 +734,30 @@ class Student extends StudentModel
     public function setVisaExpiryDate($visaExpiryDate)
     {
         $this->visaExpiryDate = $visaExpiryDate;
+
+        return $this;
+    }
+
+    /**
+     * Get house
+     *
+     * @return string
+     */
+    public function getHouse()
+    {
+        return $this->house;
+    }
+
+    /**
+     * Set house
+     *
+     * @param string $house
+     *
+     * @return Student
+     */
+    public function setHouse($house)
+    {
+        $this->house = $house;
 
         return $this;
     }

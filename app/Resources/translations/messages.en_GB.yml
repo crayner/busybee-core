@@ -25,3 +25,6 @@ form:
     delete: Erase
     misc: Miscellaneous
     reset: Reset
+    close: Close
+    up: Up
+    down: Down

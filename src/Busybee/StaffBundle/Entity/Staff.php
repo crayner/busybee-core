@@ -50,7 +50,10 @@ class Staff extends StaffModel
      * @var User
      */
     private $modifiedBy;
-
+    /**
+     * @var string
+     */
+    private $house;
 
     /**
      * Get id
@@ -226,6 +229,30 @@ class Staff extends StaffModel
     public function setModifiedBy(User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get house
+     *
+     * @return string
+     */
+    public function getHouse()
+    {
+        return $this->house;
+    }
+
+    /**
+     * Set house
+     *
+     * @param string $house
+     *
+     * @return Staff
+     */
+    public function setHouse($house)
+    {
+        $this->house = $house;
 
         return $this;
     }
