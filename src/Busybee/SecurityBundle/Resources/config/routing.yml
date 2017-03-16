@@ -11,6 +11,9 @@ busybee_security_resetting_request:
 busybee_security_logout:
     path:     /logout
     defaults: { _controller: BusybeeSecurityBundle:Authentication:logout }
+security_timeout:
+    path:     /timeout
+    defaults: { _controller: BusybeeSecurityBundle:Authentication:timeout }
 security_user_reset_request:
     path:     /user/request/{id}
     defaults: { _controller: BusybeeSecurityBundle:User:request }

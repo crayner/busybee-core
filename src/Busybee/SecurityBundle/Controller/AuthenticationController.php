@@ -93,6 +93,28 @@ class AuthenticationController extends Controller
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
 
+    public function timeoutAction()
+    {
+        $session = $this->get('session');
+
+        $session->set('_timeout', false);
+
+        $token = $this->get('security.token_storage');
+        $token->setToken(NULL);
+        $session->set('_timeout', true);
+
+        $lapse = $this->get('setting.manager')->get('idleTimeout', 15);
+
+        $session->getFlashBag()->add(
+            'info',
+            $this->get('translator')->trans('security.session.timeout', array('%hours%' => '00', '%minutes%' => $lapse), 'BusybeeSecurityBundle')
+        );
+
+        $url = $this->generateUrl('home_page');
+
+        return new RedirectResponse($url);
+    }
+
     /**
      * @param Request $request
      */

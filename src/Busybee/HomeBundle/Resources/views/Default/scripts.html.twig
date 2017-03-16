@@ -13,13 +13,13 @@
             dialogTimeRemaining: '{{ 'idletimeout.timeRemaining'|trans({}, 'BusybeeHomeBundle') }}',
             dialogStayLoggedInButton: '{{ 'idletimeout.stay'|trans({}, 'BusybeeHomeBundle') }}',
             dialogLogOutNowButton: '{{ 'idletimeout.signout'|trans({}, 'BusybeeHomeBundle') }}',
-            idleTimeLimit: {{ get_setting('idleTimeout', 15) * 60 - 60 }},
-            dialogDisplayLimit: 60,
+            idleTimeLimit: 15, //{{ get_setting('idleTimeout', 15) * 60 - 60 }},
+            dialogDisplayLimit: 5, //60,
             activityEvents: 'click keypress scroll wheel mousewheel',
             sessionKeepAliveTimer: false,
             dialogTitle: '{{ 'idletimeout.title'|trans({}, 'BusybeeHomeBundle') }}',
             dialogText: '{{ 'idletimeout.dialogue'|trans({'%time%': get_setting('idleTimeout', 15) -  1}, 'BusybeeHomeBundle') }}',
-            redirectUrl: '{{ path('busybee_security_logout') }}'
+            redirectUrl: '{{ path('security_timeout') }}'
         });
     });
     </script>
