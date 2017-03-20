@@ -3,6 +3,6 @@
 {% if id != 'Add' %}
     {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('year_edit', {'id': 'Add'})}}) %}
 {% endif %}
-{% set h3Content = h3Content ~ resetButton() %}
+{% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('year_edit', {'id': app.request.get('id')})}}) %}
 {% set h3Content = h3Content ~ saveButton() %}
 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': header, 'transDomain': 'BusybeeInstituteBundle'} %}

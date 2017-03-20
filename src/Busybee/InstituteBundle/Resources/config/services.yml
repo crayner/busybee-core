@@ -93,10 +93,11 @@ services:
             - 'getRepository' 
         arguments: 
             - "BusybeeInstituteBundle:Term"
-    calendar.yearType:
+    calendar.year.type:
         class: Busybee\InstituteBundle\Form\YearType
         arguments:
             - '%calendarStatus%'
+            - '@year.manager'
         tags: 
             - { name: form.type }
     calendar.status.validator:
@@ -209,3 +210,17 @@ services:
             - '@setting.manager'
         tags:
             - { name: form.type }
+    campus.subscriber:
+        class: Busybee\InstituteBundle\Events\CampusSubscriber
+        arguments:
+            - '%country%'
+    form.student.years.type:
+        class: Busybee\InstituteBundle\Form\StudentYearType
+        arguments:
+            - '@year.manager'
+        tags:
+            - { name: form.type }
+    year.manager:
+        class: Busybee\InstituteBundle\Model\YearManager
+        arguments:
+            - '@doctrine.orm.entity_manager'

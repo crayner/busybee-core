@@ -4,12 +4,13 @@ namespace Busybee\InstituteBundle\Form;
 
 use Busybee\InstituteBundle\Entity\CampusResource;
 use Busybee\InstituteBundle\Entity\HomeRoom;
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\InstituteBundle\Entity\StudentYear;
 use Busybee\InstituteBundle\Events\TutorSubscriber;
 use Busybee\InstituteBundle\Form\DataTransformer\CampusResourceTransformer;
 use Busybee\InstituteBundle\Form\DataTransformer\YearTransformer;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StaffBundle\Form\DataTransformer\StaffTransformer;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -69,13 +70,20 @@ class HomeRoomType extends AbstractType
             )
             ->add('schoolYear', EntityType::class, array(
                     'choice_label' => 'name',
-                    'class' => Year::class,
+                    'class' => StudentYear::class,
                     'placeholder' => 'homeroom.placeholder.schoolYear',
                     'label' => 'homeroom.label.schoolYear',
                     'attr' => array(
                         'help' => 'homeroom.help.schoolYear',
                         'class' => 'monitorChange',
                     ),
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('s')
+                            ->leftJoin('s.year', 'y')
+                            ->where('y.status = :current')
+                            ->setParameter('current', 'current')
+                            ->orderby('y.sequence');
+                    },
                 )
             )
             ->add('tutor1', EntityType::class, array(

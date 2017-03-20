@@ -43,7 +43,7 @@ class EntityToStringTransformer implements DataTransformerInterface
      */
     public function transform($entity)
     {
-        if (null === $entity || ! $entity instanceof $this->entityClass) {
+        if (is_null($entity) || !$entity instanceof $this->entityClass) {
             return '';
         }
 
@@ -59,7 +59,7 @@ class EntityToStringTransformer implements DataTransformerInterface
      */
     public function reverseTransform($id)
     {
-        if (!$id) {
+        if (!$id || $id === 'Add' || empty($id)) {
             return null;
         }
 

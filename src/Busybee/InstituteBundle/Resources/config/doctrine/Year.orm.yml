@@ -34,6 +34,13 @@ Busybee\InstituteBundle\Entity\Year:
             targetEntity: Busybee\InstituteBundle\Entity\SpecialDay
             mappedBy: year
             cascade: [persist, remove]
+        studentYears:
+            targetEntity: Busybee\InstituteBundle\Entity\StudentYear
+            mappedBy: year
+            cascade: [ all ]
+            joinColumn:
+                name: student_year_id
+                referencedColumnName: id
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

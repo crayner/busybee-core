@@ -4,11 +4,11 @@ Busybee\InstituteBundle\Entity\StudentYear:
     repositoryClass: Busybee\InstituteBundle\Repository\StudentYearRepository
     uniqueConstraints:
         name:
-            columns: [ name ]
+            columns: [ year_id, name ]
         nameShort:
-            columns: [ nameShort ]
+            columns: [ year_id, nameShort ]
         sequence:
-            columns: [ sequence ]
+            columns: [ year_id, sequence ]
     id:
         id:
             type: integer
@@ -22,13 +22,19 @@ Busybee\InstituteBundle\Entity\StudentYear:
             type: string
             length: '4'
         sequence:
-            type: integer
+            type: string
             length: '3'
         lastModified:
             type: datetime
         createdOn:
             type: datetime
     manyToOne:
+        year:
+            targetEntity: Busybee\InstituteBundle\Entity\Year
+            inversedBy: studentYears
+            joinColumn:
+                name: year_id
+                referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:

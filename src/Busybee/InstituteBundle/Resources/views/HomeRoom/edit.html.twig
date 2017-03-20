@@ -19,7 +19,7 @@
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('home_room_edit', {'id': 'Add'})}}) %}{% endif %}
     {% set h3Content = h3Content ~ resetButton() %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% set h3Content = h3Content ~ form_widget(form.changeRecord) %}
+    {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'homeroom.edit.title', 'transDomain': 'BusybeeInstituteBundle'} %}
 	<div class="container-fluid">
 		<div class="row">
@@ -94,7 +94,8 @@
         $('.changeRecord').change(function($e) {
             var path = '{{ path('home_room_edit', {'id': '__id__'}) }}';
             var id = $(this).val();
-            window.open(path.replace('__id__', id),'_self');
+            if (!id) id = 'Add';
+            window.open(path.replace('__id__', id), '_self');
         });
         $('#resetButton').click(function () {
             $("#homeroom").trigger('reset');

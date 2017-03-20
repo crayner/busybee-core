@@ -33,6 +33,7 @@ class TutorSubscriber implements EventSubscriberInterface
     {
         $data = $event->getData();
         $form = $event->getForm();
+
         if (empty($data['tutor2']))
         {
             if (! empty($data['tutor3']))
@@ -54,6 +55,7 @@ class TutorSubscriber implements EventSubscriberInterface
             if (! empty($cr->getStaff1()) && $cr->getStaff1()->getId() > 0)
                 $data['tutor1'] = $cr->getStaff1()->getId();
         }
+
         if (! empty($data['tutor1']) && $data['tutor1'] == $data['tutor2']) $data['tutor2'] = '';
         if (! empty($data['tutor1']) && $data['tutor1'] == $data['tutor3']) $data['tutor3'] = '';
         if (! empty($data['tutor2']) && $data['tutor2'] == $data['tutor3']) $data['tutor3'] = '';

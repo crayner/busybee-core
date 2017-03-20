@@ -2,6 +2,7 @@
 namespace Busybee\InstituteBundle\Form\DataTransformer;
 
 use Busybee\InstituteBundle\Entity\Year ;
+use Busybee\InstituteBundle\Model\YearManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -9,8 +10,15 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class YearTransformer implements DataTransformerInterface
 {
+    /**
+     * @var YearManager|ObjectManager
+     */
     private $manager;
 
+    /**
+     * YearTransformer constructor.
+     * @param ObjectManager $manager
+     */
     public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;

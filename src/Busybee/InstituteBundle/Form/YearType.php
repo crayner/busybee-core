@@ -3,6 +3,7 @@
 namespace Busybee\InstituteBundle\Form ;
 
 use Busybee\InstituteBundle\Events\YearSubscriber;
+use Busybee\InstituteBundle\Model\YearManager;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
@@ -15,11 +16,20 @@ use Busybee\InstituteBundle\Validator\SpecialDayDate ;
 
 class YearType extends AbstractType
 {
+    /**
+     * @var array
+     */
     private $statusList;
 
-    public function __construct($list)
+    /**
+     * @var YearManager
+     */
+    private $manager;
+
+    public function __construct($list, YearManager $manager)
     {
         $this->statusList = $list;
+        $this->manager = $manager;
     }
 
     /**
@@ -101,8 +111,23 @@ class YearType extends AbstractType
                     ),
                     'by_reference' => false,
                 )
+            )
+            ->add('studentYears', CollectionType::class, array(
+                    'entry_type' => StudentYearType::class,
+                    'allow_add' => true,
+                    'entry_options' => array(
+                        'year_data' => $options['data'],
+                    ),
+                    'label' => false,
+                    'allow_delete' => true,
+                    'mapped' => true,
+                    'attr' => array(
+                        'class' => 'studentYearList'
+                    ),
+                    'by_reference' => false,
+                )
             );
-        $builder->addEventSubscriber(new YearSubscriber());
+        $builder->addEventSubscriber(new YearSubscriber($this->manager));
 
     }
 

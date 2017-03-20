@@ -462,4 +462,9 @@ class SettingManager
     {
         return $this->setSetting($name, $value);
     }
+
+    public function getContainer()
+    {
+        return $this->container;
+    }
 }

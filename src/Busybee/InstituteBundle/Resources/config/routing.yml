@@ -28,9 +28,6 @@ year_calendar_change:
 specialday_copy:
     path:     /special_day/{day}/{id}/copy/
     defaults: { _controller: BusybeeInstituteBundle:Calendar:copySpecialDay }
-groups_years:
-    path:     /groups/years/
-    defaults: { _controller: BusybeeInstituteBundle:Groups:years }
 student_year_edit:
     path:     /student/{id}/year/
     defaults: { _controller: BusybeeInstituteBundle:Year:edit }

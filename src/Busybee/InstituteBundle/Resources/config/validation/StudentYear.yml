@@ -1,11 +1,11 @@
 Busybee\InstituteBundle\Entity\StudentYear:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [name]
+            fields: [name, schoolYear]
             message: groups.year.unique.name
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [nameShort]
+            fields: [nameShort, schoolYear]
             message: groups.year.unique.nameShort
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [sequence]
-            message: groups.year.unique.sequence
+    properties:
+        year:
+            - Valid: ~

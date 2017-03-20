@@ -43,7 +43,7 @@ class StaffTransformer implements DataTransformerInterface
      */
     public function reverseTransform($data)
     {
-		if (is_null($data))
+        if (empty($data))
 			return null ;
         if ($data instanceof Staff)
             return $data ;

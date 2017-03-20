@@ -301,40 +301,6 @@ class Family
     }
 
     /**
-     * Add emergencyContact
-     *
-     * @param CareGiver $emergencyContact
-     *
-     * @return Family
-     */
-    public function addEmergencyContact(CareGiver $emergencyContact)
-    {
-        $this->emergencyContact[] = $emergencyContact;
-
-        return $this;
-    }
-
-    /**
-     * Remove emergencyContact
-     *
-     * @param CareGiver $emergencyContact
-     */
-    public function removeEmergencyContact(CareGiver $emergencyContact)
-    {
-        $this->emergencyContact->removeElement($emergencyContact);
-    }
-
-    /**
-     * Get emergencyContact
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEmergencyContact()
-    {
-        return $this->emergencyContact;
-    }
-
-    /**
      * Add student
      *
      * @param  Student $student

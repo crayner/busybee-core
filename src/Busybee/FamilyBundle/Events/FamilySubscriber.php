@@ -47,18 +47,6 @@ class FamilySubscriber implements EventSubscriberInterface
 
         unset($data['address1_list'], $data['address2_list']);
 
-        $careGiver = array();
-        if (!empty($data['careGiver']) && is_array($data['careGiver'])) {
-            foreach ($data['careGiver'] as $q => $w)
-                if (!empty($w) && !empty($w['person'])) {
-                    $w['contactPriority'] = $q + 1;
-                    $careGiver[] = $w;
-                }
-        }
-        $data['careGiver'] = $careGiver;
-
-        if (empty($data['careGiver']) || empty($data['careGiver'][0]['person']))
-            unset($data['careGiver']);
 
         if (empty($data['name']))
             $data['name'] = $this->fm->generateFamilyName($data);
@@ -86,6 +74,18 @@ class FamilySubscriber implements EventSubscriberInterface
         $family = $form->getData();
         $careGivers = new ArrayCollection();
 
+        $careGiver = array();
+        if (!empty($data['careGiver']) && is_array($data['careGiver'])) {
+            foreach ($data['careGiver'] as $q => $w)
+                if (!empty($w) && !empty($w['person'])) {
+                    $w['contactPriority'] = $q + 1;
+                    $careGiver[] = $w;
+                }
+        }
+        $data['careGiver'] = $careGiver;
+
+        if (empty($data['careGiver']) || empty($data['careGiver'][0]['person']))
+            unset($data['careGiver']);
         if (is_array($data['careGiver'])) {
             foreach ($data['careGiver'] as $q => $w) {
                 $data['careGiver'][$q]['contactPriority'] = $q + 1;

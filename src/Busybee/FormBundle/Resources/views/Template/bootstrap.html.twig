@@ -42,7 +42,11 @@
 	{% for attrname,attrvalue in attr %}
         {% if required and not required_printed %}<span class="field-required">{{ 'required'|trans({}, 'BusybeeHomeBundle') }} </span> {% set required_printed = true %}{% endif %}
         {% if attrname == 'help' %}
-           <span class="field-help">{{ (translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain)) }}</span>
+            {% if attrvalue is iterable %}
+                <span class="field-help">{{ (translation_domain is same as(false) ? attrvalue[0] : attrvalue[0]|trans(attrvalue[1], translation_domain)) }}</span>
+            {% else %}
+                <span class="field-help">{{ (translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain)) }}</span>
+            {% endif %}
 		{% endif %}
 	{% endfor %}
 {%- endblock form_errors %}

@@ -2,7 +2,10 @@
 
 namespace Busybee\InstituteBundle\Form;
 
+use Busybee\InstituteBundle\Entity\Campus;
 use Busybee\InstituteBundle\Events\CampusSubscriber;
+use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,11 +21,17 @@ class CampusType extends AbstractType
     private $sm;
 
     /**
+     * @var ObjectManager
+     */
+    private $manager;
+
+    /**
      * Construct
      */
     public function __construct(SettingManager $sm)
     {
         $this->sm = $sm;
+        $this->manager = $this->sm->getContainer()->get('doctrine')->getManager();
     }
 
     /**
@@ -82,14 +91,13 @@ class CampusType extends AbstractType
                 )
             )
             ->add('locationList', EntityType::class, array(
-                    'class' => 'BusybeeInstituteBundle:Campus',
+                    'class' => Campus::class,
                     'attr' => array(
                         'class' => 'locationList changeRecord formChanged',
                     ),
                     'label' => '',
                     'mapped' => false,
                     'choice_label' => 'name',
-                    'empty_data' => 'Add',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.name', 'ASC');
@@ -99,6 +107,8 @@ class CampusType extends AbstractType
                     'data' => $options['data']->getId(),
                 )
             );
+        $builder->get('locationList')
+            ->addModelTransformer(new EntityToStringTransformer($this->manager, Campus::class));
         $builder->addEventSubscriber(new CampusSubscriber());
     }
 
@@ -108,7 +118,7 @@ class CampusType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Busybee\InstituteBundle\Entity\Campus',
+            'data_class' => Campus::class,
             'translation_domain' => 'BusybeeInstituteBundle',
         ));
     }

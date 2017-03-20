@@ -23,7 +23,7 @@ class StudentYear
     private $nameShort;
 
     /**
-     * @var integer
+     * @var string
      */
     private $sequence;
 
@@ -46,7 +46,10 @@ class StudentYear
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
-
+    /**
+     * @var \Busybee\InstituteBundle\Entity\Year
+     */
+    private $year;
 
     /**
      * Get id
@@ -56,6 +59,16 @@ class StudentYear
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -73,13 +86,13 @@ class StudentYear
     }
 
     /**
-     * Get name
+     * Get nameShort
      *
      * @return string
      */
-    public function getName()
+    public function getNameShort()
     {
-        return $this->name;
+        return $this->nameShort;
     }
 
     /**
@@ -97,37 +110,13 @@ class StudentYear
     }
 
     /**
-     * Get nameShort
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getNameShort()
+    public function getLastModified()
     {
-        return $this->nameShort;
-    }
-
-    /**
-     * Set sequence
-     *
-     * @param integer $sequence
-     *
-     * @return StudentYear
-     */
-    public function setSequence($sequence)
-    {
-        $this->sequence = $sequence;
-
-        return $this;
-    }
-
-    /**
-     * Get sequence
-     *
-     * @return integer
-     */
-    public function getSequence()
-    {
-        return $this->sequence;
+        return $this->lastModified;
     }
 
     /**
@@ -145,13 +134,13 @@ class StudentYear
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -169,13 +158,13 @@ class StudentYear
     }
 
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -193,13 +182,13 @@ class StudentYear
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -217,12 +206,50 @@ class StudentYear
     }
 
     /**
-     * Get modifiedBy
+     * Get year
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\InstituteBundle\Entity\Year
      */
-    public function getModifiedBy()
+    public function getYear()
     {
-        return $this->modifiedBy;
+        return $this->year;
+    }
+
+    /**
+     * Set year
+     *
+     * @param \Busybee\InstituteBundle\Entity\Year $year
+     *
+     * @return StudentYear
+     */
+    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get sequence
+     *
+     * @return string
+     */
+    public function getSequence()
+    {
+        return $this->sequence;
+    }
+
+    /**
+     * Set sequence
+     *
+     * @param string $sequence
+     *
+     * @return StudentYear
+     */
+    public function setSequence($sequence)
+    {
+        $this->sequence = $sequence;
+
+        return $this;
     }
 }

@@ -25,11 +25,14 @@
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'groups.year.title', 'transDomain': 'BusybeeInstituteBundle'} %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6 well">
+            <div class="col-sm-3 well">
                 {{ form_row(form.name) }}
             </div>
             <div class="col-sm-3 well">
                 {{ form_row(form.nameShort) }}
+            </div>
+            <div class="col-sm-3 well">
+                {{ form_row(form.year) }}
             </div>
             <div class="col-sm-3 well">
                 {{ form_row(form.sequence) }}

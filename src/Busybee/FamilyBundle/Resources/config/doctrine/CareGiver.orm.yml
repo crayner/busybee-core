@@ -50,16 +50,6 @@ Busybee\FamilyBundle\Entity\CareGiver:
         reporting:
             type: boolean
     manyToOne:
-        createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
-            joinColumns:
-                created_by:
-                    referencedColumnName: id
-        modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
-            joinColumns:
-                modified_by:
-                    referencedColumnName: id
         person:
             targetEntity: Busybee\PersonBundle\Entity\Person
             inversedBy: careGiver
@@ -72,3 +62,13 @@ Busybee\FamilyBundle\Entity\CareGiver:
             joinColumn:
                 name: family
                 referencedColumnName: id
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id

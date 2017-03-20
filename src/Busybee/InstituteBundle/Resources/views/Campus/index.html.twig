@@ -9,6 +9,7 @@
 {% block headerLead %}{{ 'campus.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
 {{ form_start(form) }}
     {% set h3Content = '' %}
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('campus_manage', {'id': 'Add'})}}) %}{% endif %}
@@ -52,4 +53,5 @@
 	{{ parent() }}
     {% set route = 'campus_manage' %}
     {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
+    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

@@ -29,16 +29,12 @@ class CalendarController extends Controller
     public function editYearAction($id, Request $request)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
-		
-		$repo = $this->get('year.repository');
-		
+
 		if ($id === 'Add')
 			$year = new Year();
 		else
-			$year = $repo->find($id);
+            $year = $this->get('year.repository')->find($id);
 		
-		$year->cancelURL = $this->get('router')->generate('calendar_years');
- 
         $form = $this->createForm(YearType::class, $year);
 
 		$form->handleRequest($request);
@@ -53,6 +49,8 @@ class CalendarController extends Controller
                 ->getFlashBag()
                 ->add('success', 'calendar.success')
             ;
+
+            $this->get('year.manager')->turnYearSequenceOn();
 
             return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
 		} 

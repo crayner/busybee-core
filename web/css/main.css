@@ -229,3 +229,8 @@ ul.nav li.disabled {
 	float: right ;
 	margin-right: 3px;
 }
+
+.collection-panel {
+    margin-top: -28px;
+    min-height: 28px;
+}

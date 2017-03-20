@@ -49,11 +49,6 @@ class HomeRoom
     private $modifiedBy;
 
     /**
-     * @var \Busybee\InstituteBundle\Entity\Year
-     */
-    private $schoolYear;
-
-    /**
      * @var Staff
      */
     private $tutor1;
@@ -72,7 +67,10 @@ class HomeRoom
      * @var \Busybee\InstituteBundle\Entity\CampusResource
      */
     private $campusResource;
-
+    /**
+     * @var \Busybee\InstituteBundle\Entity\StudentYear
+     */
+    private $schoolYear;
 
     /**
      * Get id
@@ -253,30 +251,6 @@ class HomeRoom
     }
 
     /**
-     * Get schoolYear
-     *
-     * @return \Busybee\InstituteBundle\Entity\Year
-     */
-    public function getSchoolYear()
-    {
-        return $this->schoolYear;
-    }
-
-    /**
-     * Set schoolYear
-     *
-     * @param \Busybee\InstituteBundle\Entity\Year $schoolYear
-     *
-     * @return HomeRoom
-     */
-    public function setSchoolYear(\Busybee\InstituteBundle\Entity\Year $schoolYear = null)
-    {
-        $this->schoolYear = $schoolYear;
-
-        return $this;
-    }
-
-    /**
      * Get tutor1
      *
      * @return Staff
@@ -371,5 +345,28 @@ class HomeRoom
 
         return $this;
     }
-}
 
+    /**
+     * Get schoolYear
+     *
+     * @return \Busybee\InstituteBundle\Entity\StudentYear
+     */
+    public function getSchoolYear()
+    {
+        return $this->schoolYear;
+    }
+
+    /**
+     * Set schoolYear
+     *
+     * @param \Busybee\InstituteBundle\Entity\StudentYear $schoolYear
+     *
+     * @return HomeRoom
+     */
+    public function setSchoolYear(\Busybee\InstituteBundle\Entity\StudentYear $schoolYear = null)
+    {
+        $this->schoolYear = $schoolYear;
+
+        return $this;
+    }
+}

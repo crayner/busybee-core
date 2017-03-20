@@ -64,10 +64,21 @@ class Year extends YearModel
      * @var \Doctrine\Common\Collections\Collection
      */
     private $specialDays;
+
     /**
      * @var boolean
      */
     private $specialDaysSorted = false;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $studentYears;
+
+    /**
+     * @var boolean
+     */
+    private $studentYearsSorted = false;
 
     /**
      * Constructor
@@ -75,6 +86,7 @@ class Year extends YearModel
     public function __construct()
     {
         $this->specialDays = new ArrayCollection();
+        $this->studentYears = new ArrayCollection();
         $this->terms = new ArrayCollection();
     }
 
@@ -318,7 +330,7 @@ class Year extends YearModel
         $iterator->uasort(function ($a, $b) {
             return ($a->getFirstDay() < $b->getFirstDay()) ? -1 : 1;
         });
-        $this->terms = new ArrayCollection(iterator_to_array($iterator));
+        $this->terms = new ArrayCollection(iterator_to_array($iterator, false));
         $this->termsSorted = true;
         return $this->terms;
     }
@@ -351,7 +363,7 @@ class Year extends YearModel
     /**
      * Get specialDays
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return null|\Doctrine\Common\Collections\Collection
      */
     public function getSpecialDays()
     {
@@ -365,9 +377,66 @@ class Year extends YearModel
 		$iterator->uasort(function ($a, $b) {
 			return ($a->getDay() < $b->getDay()) ? -1 : 1;
 		});
-		$this->specialDays = new ArrayCollection(iterator_to_array($iterator));
+        $this->specialDays = new ArrayCollection(iterator_to_array($iterator, false));
 		$this->specialDaysSorted = true ;
 
         return $this->specialDays;
+    }
+
+    /**
+     * Add studentYear
+     *
+     * @param \Busybee\InstituteBundle\Entity\StudentYear $studentYear
+     *
+     * @return Year
+     */
+    public function addStudentYear(\Busybee\InstituteBundle\Entity\StudentYear $studentYear)
+    {
+        $this->studentYears[] = $studentYear;
+
+        return $this;
+    }
+
+    /**
+     * Remove studentYear
+     *
+     * @param \Busybee\InstituteBundle\Entity\StudentYear $studentYear
+     */
+    public function removeStudentYear(\Busybee\InstituteBundle\Entity\StudentYear $studentYear)
+    {
+        $this->studentYears->removeElement($studentYear);
+    }
+
+    /**
+     * Get studentYears
+     *
+     * @return null|\Doctrine\Common\Collections\Collection
+     */
+    public function getStudentYears()
+    {
+        if (count($this->studentYears) == 0)
+            return null;
+
+        if ($this->studentYearsSorted)
+            return $this->studentYears;
+
+        $iterator = $this->studentYears->getIterator();
+        $iterator->uasort(function ($a, $b) {
+            return ($a->getSequence() < $b->getSequence()) ? -1 : 1;
+        });
+        $this->studentYears = new ArrayCollection(iterator_to_array($iterator, false));
+        $this->studentYearsSorted = true;
+
+        return $this->studentYears;
+    }
+
+    /**
+     * Set Student Years
+     *
+     * @param ArrayCollection|null $studentYears
+     */
+    public function setStudentYears(ArrayCollection $studentYears = null)
+    {
+        $this->studentYears = $studentYears;
     }
 }

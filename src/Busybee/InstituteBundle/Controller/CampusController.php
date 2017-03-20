@@ -27,13 +27,11 @@ class CampusController extends Controller
         if (intval($id) > 0)
             $campus = $this->get('campus.repository')->find($id);
 
-        $campus->cancelURL = $this->get('router')->generate('campus_manage', ['id' => 'Add']);
-        if (empty($campus->getCountry())) $campus->setCountry($this->getParameter('country'));
 
         $form = $this->createForm(CampusType::class, $campus);
         if (intval($id) > 0)
             $form->get('locationList')->setData($id);
-
+        dump($form);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
@@ -44,7 +42,11 @@ class CampusController extends Controller
 
         }
 
-        return $this->render('BusybeeInstituteBundle:Campus:index.html.twig', array('form' => $form->createView()));
+        return $this->render('BusybeeInstituteBundle:Campus:index.html.twig', array(
+                'form' => $form->createView(),
+                'fullForm' => $form,
+            )
+        );
     }
 
     /**

@@ -2,8 +2,11 @@
 
 namespace Busybee\InstituteBundle\Form;
 
+use Busybee\InstituteBundle\Entity\StudentYear;
+use Busybee\InstituteBundle\Form\DataTransformer\YearTransformer;
+use Busybee\InstituteBundle\Model\YearManager;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,16 +14,30 @@ use Symfony\Component\Validator\Constraints as Assert;
 class StudentYearType extends AbstractType
 {
     /**
+     * @var YearManager
+     */
+    private $manager;
+
+    /**
+     * Construct
+     */
+    public function __construct(YearManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $year = empty($options['year_data']->getName()) ? '' : $options['year_data']->getName();
         $builder
             ->add('name', null,
                 array(
                     'label' => 'groups.year.label.name',
                     'attr' => array(
-                        'help' => 'groups.year.help.name'
+                        'help' => array('groups.year.help.unique', array('%year%' => $year)),
                     ),
                 )
             )
@@ -28,20 +45,16 @@ class StudentYearType extends AbstractType
                 array(
                     'label' => 'groups.year.label.nameShort',
                     'attr' => array(
-                        'help' => 'groups.year.help.nameShort'
+                        'help' => array('groups.year.help.unique', array('%year%' => $year)),
                     ),
                 )
             )
-            ->add('sequence', IntegerType::class,
-                array(
-                    'label' => 'groups.year.label.sequence',
-                    'attr' => array(
-                        'help' => 'groups.year.help.sequence'
-                    ),
-                )
-            );
+            ->add('year', HiddenType::class)
+            ->add('sequence', HiddenType::class);
+        $builder->get('year')
+            ->addModelTransformer(new YearTransformer($this->manager->getObjectManager()));
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -49,9 +62,9 @@ class StudentYearType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Busybee\InstituteBundle\Entity\StudentYear',
+                'data_class' => StudentYear::class,
                 'translation_domain' => 'BusybeeInstituteBundle',
-                'validation_groups' => array('Default')
+                'year_data' => null,
             )
         );
     }

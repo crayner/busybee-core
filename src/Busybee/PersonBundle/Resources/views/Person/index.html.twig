@@ -22,7 +22,7 @@
     {% set h3Content = h3Content ~ uploadButton({'type': 'button', 'transDomain': transDomain, 'title': 'person.title.import', 'windowOpen': {'route': path('people_import')}})|raw %}
 
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'people.title'} %}
-    <div class="container-fluid well">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 col-sm-12" id="peopleError">
 
