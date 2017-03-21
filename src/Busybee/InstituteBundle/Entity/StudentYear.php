@@ -2,10 +2,12 @@
 
 namespace Busybee\InstituteBundle\Entity;
 
+use Busybee\InstituteBundle\Model\StudentYearModel;
+
 /**
  * StudentYear
  */
-class StudentYear
+class StudentYear extends StudentYearModel
 {
     /**
      * @var integer

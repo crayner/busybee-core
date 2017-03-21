@@ -18,7 +18,7 @@
         {% if id != 'Add' %}
             {{ addButton({'title': 'person.add.title', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_edit', {'id': 'Add', 'currentSearch': currentSearch})}})|raw }}
 		{% endif %}
-        {{ resetButton()|raw }}
+        {{ resetButton({'type': 'button', 'windowOpen': {'route': path('person_edit', {'id': app.request.get('id'), 'currentSearch': currentSearch}) }})|raw }}
         {{ saveButton()|raw }}
 		{% if form.dob.vars.data is not empty %}
             {% set difference = date('now').diff(date(form.dob.vars.data)) %}

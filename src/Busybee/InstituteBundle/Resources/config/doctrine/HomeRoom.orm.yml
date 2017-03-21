@@ -35,7 +35,7 @@ Busybee\InstituteBundle\Entity\HomeRoom:
     manyToOne:
         schoolYear:
             targetEntity: Busybee\InstituteBundle\Entity\StudentYear
-            orderBy: [year: 'ASC', sequence: 'ASC']
+            orderBy: [year: ASC, sequence: ASC]
             joinColumns:
                 schoolYear:
                     referencedColumnName: id

@@ -7,6 +7,7 @@ use Busybee\InstituteBundle\Entity\HomeRoom;
 use Busybee\InstituteBundle\Entity\StudentYear;
 use Busybee\InstituteBundle\Events\TutorSubscriber;
 use Busybee\InstituteBundle\Form\DataTransformer\CampusResourceTransformer;
+use Busybee\InstituteBundle\Form\DataTransformer\StudentYearTransformer;
 use Busybee\InstituteBundle\Form\DataTransformer\YearTransformer;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StaffBundle\Form\DataTransformer\StaffTransformer;
@@ -69,7 +70,7 @@ class HomeRoomType extends AbstractType
                 )
             )
             ->add('schoolYear', EntityType::class, array(
-                    'choice_label' => 'name',
+                    'choice_label' => 'yearName',
                     'class' => StudentYear::class,
                     'placeholder' => 'homeroom.placeholder.schoolYear',
                     'label' => 'homeroom.label.schoolYear',
@@ -77,12 +78,13 @@ class HomeRoomType extends AbstractType
                         'help' => 'homeroom.help.schoolYear',
                         'class' => 'monitorChange',
                     ),
+                    'choice_value' => 'id',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('s')
                             ->leftJoin('s.year', 'y')
                             ->where('y.status = :current')
                             ->setParameter('current', 'current')
-                            ->orderby('y.sequence');
+                            ->orderby('s.sequence');
                     },
                 )
             )
@@ -147,7 +149,8 @@ class HomeRoomType extends AbstractType
                 )
             )
         ;
-        $builder->get('schoolYear')->addModelTransformer(new YearTransformer($this->manager));
+
+        $builder->get('schoolYear')->addModelTransformer(new StudentYearTransformer($this->manager));
         $builder->get('tutor1')->addModelTransformer(new StaffTransformer($this->manager));
         $builder->get('tutor2')->addModelTransformer(new StaffTransformer($this->manager));
         $builder->get('tutor3')->addModelTransformer(new StaffTransformer($this->manager));

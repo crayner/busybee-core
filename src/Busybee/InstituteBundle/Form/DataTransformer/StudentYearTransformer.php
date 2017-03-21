@@ -1,17 +1,17 @@
 <?php
 namespace Busybee\InstituteBundle\Form\DataTransformer;
 
+use Busybee\InstituteBundle\Entity\StudentYear;
 use Busybee\InstituteBundle\Entity\Year ;
-use Busybee\InstituteBundle\Model\YearManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 
-class YearTransformer implements DataTransformerInterface
+class StudentYearTransformer implements DataTransformerInterface
 {
     /**
-     * @var YearManager|ObjectManager
+     * @var ObjectManager
      */
     private $manager;
 
@@ -32,8 +32,8 @@ class YearTransformer implements DataTransformerInterface
      */
     public function transform($data)
     {
-		if ($data instanceof Year)
-			return strval($data->getId());
+        if ($data instanceof StudentYear)
+            return strval($data->getId());
         return '0';
     }
 
@@ -46,21 +46,20 @@ class YearTransformer implements DataTransformerInterface
     public function reverseTransform($data)
     {
         if (is_null($data) || empty($data))
-			return null;
-		if (is_string($data) && $data === 'Add')
+            return null;
+        if (is_string($data) && $data === 'Add')
             return '0';
 
-		if ($data instanceof Year)
-			return $data;
+        if ($data instanceof StudentYear)
+            return $data;
 
         if (is_string($data) && strpos($data, 'calendar_year_') !== false)
             return null;
 
         $entity = $this->manager
-            ->getRepository(Year::class)
+            ->getRepository(StudentYear::class)
             // query for the issue with this id
-            ->find($data)
-        ;
+            ->find($data);
 
         if (is_null($entity)) {
             // causes a validation error

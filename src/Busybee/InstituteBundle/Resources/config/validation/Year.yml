@@ -9,3 +9,5 @@ Busybee\InstituteBundle\Entity\Year:
             - Valid: ~
         specialDays:
             - Valid: ~
+        studentYears:
+            - Valid: ~

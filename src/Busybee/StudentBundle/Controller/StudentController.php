@@ -15,7 +15,7 @@ class StudentController extends Controller
      */
     public function toggleAction($id)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
         $person = $this->get('person.repository')->find($id);
 

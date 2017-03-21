@@ -2,7 +2,6 @@
 
 namespace Busybee\StudentBundle\Events;
 
-
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
