@@ -14,11 +14,13 @@
 							{% include 'BusybeeHomeBundle:Menu:submenu.html.twig' with {'menu': drop} %}
 						{% elseif drop.route is defined %}
 							{% set translate = 'BusybeeHomeBundle' %}{% if drop.translate is defined %}{% set translate = drop.translate %}{% endif %}
-							<li><a href="{{ path(drop.route, drop.parameters) }}">{{ drop.label|trans({}, translate) }}</a></li>  
+                            <li>
+                                <a href="{{ path(drop.route, drop.parameters) }}">{{ drop.label|trans({}, translate) }}</a>
+                            </li><!-- {{ drop.order }} -->
 						{% endif %}
 					{% endif %}
 				{% endif %}
 			{% endfor %}
 		</ul>
-	</li>
+    </li><!-- {{ menu.order }} -->
 {% endif %}

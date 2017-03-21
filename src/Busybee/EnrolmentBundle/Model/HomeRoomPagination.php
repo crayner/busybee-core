@@ -1,5 +1,5 @@
 <?php
-namespace Busybee\InstituteBundle\Model;
+namespace Busybee\EnrolmentBundle\Model;
 
 use Busybee\PaginationBundle\Model\PaginationManager ;
 
@@ -12,7 +12,7 @@ class HomeRoomPagination extends PaginationManager
 	 * @version	13th December 2016
 	 * @since	13th December 2016
 	 * @param	boolean		$count
-	 * @return	\Busybee\PaginationBundle\Model\query
+     * @return    ORM Query
 	 */
 	public function buildQuery($count = false)
 	{

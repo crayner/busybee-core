@@ -57,6 +57,8 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
             $newOptions['attr'] = $options['attr'];
         if (isset($options['required']))
             $newOptions['required'] = $options['required'];
+        if (isset($options['disabled']))
+            $newOptions['disabled'] = $options['disabled'];
         if (isset($options['translation_domain']))
             $newOptions['translation_domain'] = $options['translation_domain'];
         if (isset($options['placeholder']))

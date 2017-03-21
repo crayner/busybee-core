@@ -1,9 +1,9 @@
 <?php
 
-namespace Busybee\InstituteBundle\Form;
+namespace Busybee\EnrolmentBundle\Form;
 
 use Busybee\InstituteBundle\Entity\CampusResource;
-use Busybee\InstituteBundle\Entity\HomeRoom;
+use Busybee\EnrolmentBundle\Entity\HomeRoom;
 use Busybee\InstituteBundle\Entity\StudentYear;
 use Busybee\InstituteBundle\Events\TutorSubscriber;
 use Busybee\InstituteBundle\Form\DataTransformer\CampusResourceTransformer;
@@ -166,8 +166,8 @@ class HomeRoomType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Busybee\InstituteBundle\Entity\HomeRoom',
-                'translation_domain' => 'BusybeeInstituteBundle',
+                'data_class' => 'Busybee\EnrolmentBundle\Entity\HomeRoom',
+                'translation_domain' => 'BusybeeEnrolmentBundle',
             )
         );
     }

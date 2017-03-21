@@ -26,41 +26,6 @@ parameters:
         searchList:
             - r.name
             - r.comment
-    HomeRoomPagination:
-        alias: h
-        sortBy:
-            Name:
-                h.name: ASC
-                y.name: ASC
-            Short Name:
-                h.nameShort: ASC
-                y.name: ASC
-            Room:
-                r.name: ASC
-                y.name: ASC
-                h.name: ASC
-            Year:
-                y.name: ASC
-                h.name: ASC
-        join:
-            h.schoolYear:
-                alias: y
-                type: leftJoin
-            h.campusResource:
-                alias: r
-                type: leftJoin
-        limit: '25'
-        searchList:
-            - h.name
-            - h.nameShort
-            - y.name
-            - r.name
-        select:
-            - h.name
-            - h.id
-            - h.nameShort
-            - y.name as year
-            - r.name as room
 services:
     campus.repository:
         class: Busybee\InstituteBundle\Repository\CampusRepository
@@ -183,28 +148,8 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeeInstituteBundle:CampusResource"
-    HomeRoom.repository:
-        class: Busybee\InstituteBundle\Repository\HomeRoomRepository
-        factory:
-            - "@doctrine"
-            - 'getRepository'
-        arguments:
-            - "BusybeeInstituteBundle:HomeRoom"
     form.CampusResourceType:
         class: Busybee\InstituteBundle\Form\CampusResourceType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
-        tags:
-            - { name: form.type }
-    HomeRoom.pagination:
-        class: Busybee\InstituteBundle\Model\HomeRoomPagination
-        arguments:
-            - '%HomeRoomPagination%'
-            - '@HomeRoom.repository'
-            - '@my_service_container'
-    form.HomeRoomType:
-        class: Busybee\InstituteBundle\Form\HomeRoomType
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@setting.manager'

@@ -53,18 +53,4 @@ parameters:
             route: year_calendar
             parameters:
                 id: current
-        142:
-            label: menu.groups.manage
-            name: Group Management
-            node: 14
-            order: 142
-            menu: 142
-
-        1420:
-            label: menu.groups.homerooms
-            name: Home Rooms
-            role: ROLE_REGISTRAR
-            node: 142
-            order: 1421
-            route: home_room_manage
 

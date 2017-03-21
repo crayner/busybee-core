@@ -87,8 +87,8 @@
 
 {%- block widget_attributes -%}
     id="{{ id }}" name="{{ full_name }}"
-    {%- if disabled %} disabled{% endif -%}
-    {%- if required %} required{% endif -%}
+    {%- if disabled %} disabled="disabled"{% endif -%}
+    {%- if required %} required="required"{% endif -%}
     {%- for attrname, attrvalue in attr -%}
         {{- " " -}}
         {%- if attrname in ['placeholder', 'title'] -%}
@@ -104,10 +104,10 @@
 {%- endblock widget_attributes -%}
 
 {% block choice_row -%}
-	{% if expanded %}
+    {% if expanded %}
     <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
-        {{- form_label(form) -}}
         {{- form_widget(form) -}}
+        {{- form_label(form) -}}
         {{- form_errors(form) -}}
     </div>
 	{% else %}

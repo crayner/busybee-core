@@ -1,6 +1,6 @@
-{# src/Busybee/InstituteBundle/Resources/views/CampusresourceEdit.html.twig #}
+{# src/Busybee/EnrolmentBundle/Resources/views/HomeRoom/edit.html.twig #}
 
-{% trans_default_domain "BusybeeInstituteBundle" %}
+{% trans_default_domain "BusybeeEnrolmentBundle" %}
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
@@ -20,7 +20,7 @@
     {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('home_room_edit', {'id': app.request.get('id')}) } }) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'homeroom.edit.title', 'transDomain': 'BusybeeInstituteBundle'} %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'homeroom.edit.title', 'transDomain': 'BusybeeEnrolmentBundle'} %}
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4 col-md-4 well">

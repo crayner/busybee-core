@@ -1,4 +1,4 @@
-Busybee\InstituteBundle\Entity\HomeRoom:
+Busybee\EnrolmentBundle\Entity\HomeRoom:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [tutor1, schoolYear]

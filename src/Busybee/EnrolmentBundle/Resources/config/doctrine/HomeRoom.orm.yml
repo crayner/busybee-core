@@ -1,7 +1,7 @@
-Busybee\InstituteBundle\Entity\HomeRoom:
+Busybee\EnrolmentBundle\Entity\HomeRoom:
     type: entity
     table: home_room
-    repositoryClass: Busybee\InstituteBundle\Repository\HomeRoomRepository
+    repositoryClass: Busybee\EnrolmentBundle\Repository\HomeRoomRepository
     uniqueConstraints:
         year_resource:
             columns: [ schoolYear, campusResource ]

@@ -1,5 +1,5 @@
 <?php
-namespace Busybee\InstituteBundle\Entity;
+namespace Busybee\EnrolmentBundle\Entity;
 
 use Busybee\StaffBundle\Entity\Staff;
 

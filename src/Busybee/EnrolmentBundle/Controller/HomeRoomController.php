@@ -1,9 +1,9 @@
 <?php
 
-namespace Busybee\InstituteBundle\Controller ;
+namespace Busybee\EnrolmentBundle\Controller;
 
-use Busybee\InstituteBundle\Entity\HomeRoom;
-use Busybee\InstituteBundle\Form\HomeRoomType;
+use Busybee\EnrolmentBundle\Entity\HomeRoom;
+use Busybee\EnrolmentBundle\Form\HomeRoomType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request ;
@@ -19,15 +19,15 @@ class HomeRoomController extends Controller
      */
     public function indexAction(Request $request)
     {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
-        $up = $this->get('HomeRoom.pagination');
+        $up = $this->get('home.room.pagination');
 
         $up->injectRequest($request);
 
         $up->getDataSet();
 
-        return $this->render('BusybeeInstituteBundle:HomeRoom:index.html.twig', array('pagination' => $up));
+        return $this->render('BusybeeEnrolmentBundle:HomeRoom:index.html.twig', array('pagination' => $up));
     }
 
     /**
@@ -37,13 +37,13 @@ class HomeRoomController extends Controller
      */
     public function editAction($id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
         $entity = new HomeRoom();
 
         $id = $request->get('id');
         if (intval($id) > 0)
-            $entity = $this->get('HomeRoom.repository')->find($id);
+            $entity = $this->get('home.room.repository')->find($id);
 
         if (! is_null($entity->getSchoolYear())) $entity->getSchoolYear()->getName();
         if (! is_null($entity->getCampusResource())) $entity->getCampusResource()->getName();
@@ -67,6 +67,6 @@ class HomeRoomController extends Controller
             return new RedirectResponse($this->get('router')->generate('home_room_edit', array('id' => $entity->getId())));
         }
 
-        return $this->render('BusybeeInstituteBundle:HomeRoom:edit.html.twig', array('id' => $id, 'form' => $form->createView()));
+        return $this->render('BusybeeEnrolmentBundle:HomeRoom:edit.html.twig', array('id' => $id, 'form' => $form->createView()));
     }
 }

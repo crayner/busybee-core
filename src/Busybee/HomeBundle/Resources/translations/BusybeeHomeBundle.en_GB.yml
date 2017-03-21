@@ -86,7 +86,9 @@ menu:
             manage: Manage Families
     Site: System
     Misc: Miscellaneous
-    templateDesign: Template Design 
+    templateDesign: Template Design
+    Enrolment: Enrolment
+    Student: Manage Students
     Person: People
     system: Organise
     reports:
