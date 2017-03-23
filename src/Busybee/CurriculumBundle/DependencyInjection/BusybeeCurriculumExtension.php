@@ -14,7 +14,9 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class BusybeeCurriculumExtension extends Extension
 {
-	use \Busybee\HomeBundle\DependencyInjection\MenuExtension ;
+    use \Busybee\HomeBundle\DependencyInjection\MenuExtension;
+    use \Busybee\CurriculumBundle\DependencyInjection\CurriculumExtension;
+
 
     /**
      * {@inheritdoc}
@@ -27,6 +29,7 @@ class BusybeeCurriculumExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-		$container = $this->buildMenu(__DIR__, $container);
+        $container = $this->buildMenu(__DIR__, $container);
+        $container = $this->curriculumTabs(__DIR__, $container);
     }
 }

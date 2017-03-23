@@ -3,8 +3,15 @@ parameters:
     nodes:
         5:
             name: curriculum
-            label: menu.curriculum
+            label: menu.curriculum.tab
             order: 5
             menu: 5
             role: ROLE_TEACHER
-    items: []
+    items:
+        50:
+            label: menu.curriculum.course
+            name: Manage Students
+            node: 5
+            order: 50
+            role: ROLE_TEACHER
+            route: course_manage

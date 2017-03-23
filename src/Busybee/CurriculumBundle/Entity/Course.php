@@ -2,7 +2,7 @@
 
 namespace Busybee\CurriculumBundle\Entity;
 
-use Busybee\CurriculumBundle\Model\Course as CourseModel ;
+use Busybee\CurriculumBundle\Model\CourseModel;
 /**
  * Course
  */
@@ -37,7 +37,10 @@ class Course extends CourseModel
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
-
+    /**
+     * @var string
+     */
+    private $version;
 
     /**
      * Get id
@@ -47,6 +50,16 @@ class Course extends CourseModel
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -64,13 +77,13 @@ class Course extends CourseModel
     }
 
     /**
-     * Get name
+     * Get lastModified
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getName()
+    public function getLastModified()
     {
-        return $this->name;
+        return $this->lastModified;
     }
 
     /**
@@ -88,13 +101,13 @@ class Course extends CourseModel
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -112,13 +125,13 @@ class Course extends CourseModel
     }
 
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -136,13 +149,13 @@ class Course extends CourseModel
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -160,19 +173,14 @@ class Course extends CourseModel
     }
 
     /**
-     * Get modifiedBy
+     * Get version
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return string
      */
-    public function getModifiedBy()
+    public function getVersion()
     {
-        return $this->modifiedBy;
+        return $this->version;
     }
- 
-    /**
-     * @var string
-     */
-    private $version;
 
     /**
      * Set release
@@ -186,15 +194,5 @@ class Course extends CourseModel
         $this->version = $version;
 
         return $this;
-    }
-
-    /**
-     * Get version
-     *
-     * @return string
-     */
-    public function getVersion()
-    {
-        return $this->version;
     }
 }

@@ -1,0 +1,17 @@
+course:
+    title: Manage Courses
+    description: Create, edit and remove course details.
+    label:
+        name: Course Name
+        version: Course Version
+    add:
+        title: Add Course
+    placeholder:
+        changeRecord: Select course to edit
+    edit:
+        title: Course Details
+        description: ''
+curriculum:
+    unique:
+        name:
+            version: The name and version are not unique

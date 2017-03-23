@@ -89,6 +89,9 @@ menu:
     templateDesign: Template Design
     Enrolment: Enrolment
     Student: Manage Students
+    curriculum:
+        tab: Curriculum
+        course: Manage Courses
     Person: People
     system: Organise
     reports:

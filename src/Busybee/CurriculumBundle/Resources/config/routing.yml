@@ -1,1 +1,6 @@
-
+course_manage:
+    path:     /course/manage/
+    defaults: { _controller: BusybeeCurriculumBundle:Course:index }
+course_edit:
+    path:     /course/{id}/edit/
+    defaults: { _controller: BusybeeCurriculumBundle:Course:edit, id: 'Add' }

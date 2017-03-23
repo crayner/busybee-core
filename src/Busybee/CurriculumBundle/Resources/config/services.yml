@@ -1,1 +1,29 @@
+parameters:
+    CoursePagination:
+        alias: c
+        sortBy:
+            Name:
+                c.name: ASC
+                c.version: ASC
+        limit: '25'
+        searchList:
+            - c.name
+            - c.version
+        select:
+            - c.name
+            - c.id
+            - c.version
 services:
+    course.repository:
+        class: Busybee\CurriculumBundle\Repository\CourseRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeCurriculumBundle:Course"
+    course.pagination:
+        class: Busybee\CurriculumBundle\Model\CoursePagination
+        arguments:
+            - '%CoursePagination%'
+            - '@course.repository'
+            - '@my_service_container'

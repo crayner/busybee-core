@@ -15,13 +15,13 @@ trait EnrolmentExtension
         $loader->load('parameters.yml');
 
         if ($container->getParameterBag()->has('enrolment')) {
-            $calendar = $container->getParameterBag()->get('enrolment', array());
+            $enrolment = $container->getParameterBag()->get('enrolment', array());
             $container->getParameterBag()->remove('enrolment');
         } else
-            $calendar = array();
+            $enrolment = array();
 
         $container->getParameterBag()
-            ->set('enrolment', $this->enrolmentTabMerge($calendar, $newContainer->getParameterBag()->get('enrolment')));
+            ->set('enrolment', $this->enrolmentTabMerge($enrolment, $newContainer->getParameterBag()->get('enrolment')));
     }
 
     protected function enrolmentTabMerge($a1, $a2)
