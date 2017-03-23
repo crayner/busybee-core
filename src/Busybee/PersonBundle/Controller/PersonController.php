@@ -128,7 +128,7 @@ class PersonController extends Controller
         $editOptions['addresses'] = $this->get('person.manager')->getAddresses($person);
         $editOptions['phones'] = $this->get('person.manager')->getPhones($person);
         $editOptions['currentSearch'] = $currentSearch;
-        dump($editOptions);
+
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
 			$editOptions	
 		);

@@ -4,15 +4,23 @@ parameters:
         sortBy:
             Name:
                 c.name: ASC
-                c.version: ASC
+                y.sequence: ASC
+            Student Year:
+                y.sequence: ASC
+                c.name: ASC
         limit: '25'
         searchList:
             - c.name
-            - c.version
+            - y.name
+        join:
+             c.studentYear:
+                 alias: y
+                 type: leftJoin
         select:
             - c.name
             - c.id
             - c.version
+            - y.name as year
 services:
     course.repository:
         class: Busybee\CurriculumBundle\Repository\CourseRepository
@@ -27,3 +35,9 @@ services:
             - '%CoursePagination%'
             - '@course.repository'
             - '@my_service_container'
+    course.form.type:
+        class: Busybee\CurriculumBundle\Form\CourseType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }

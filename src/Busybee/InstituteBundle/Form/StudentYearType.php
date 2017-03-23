@@ -3,8 +3,10 @@
 namespace Busybee\InstituteBundle\Form;
 
 use Busybee\InstituteBundle\Entity\StudentYear;
+use Busybee\InstituteBundle\Entity\Year;
 use Busybee\InstituteBundle\Form\DataTransformer\YearTransformer;
 use Busybee\InstituteBundle\Model\YearManager;
+use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -52,7 +54,7 @@ class StudentYearType extends AbstractType
             ->add('year', HiddenType::class)
             ->add('sequence', HiddenType::class);
         $builder->get('year')
-            ->addModelTransformer(new YearTransformer($this->manager->getObjectManager()));
+            ->addModelTransformer(new EntityToStringTransformer($this->manager->getObjectManager(), Year::class));
     }
 
     /**

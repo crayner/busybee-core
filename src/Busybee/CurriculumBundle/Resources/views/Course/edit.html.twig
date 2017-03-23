@@ -29,6 +29,9 @@
             <div class="col-sm-2 well">
                 {{ form_row(form.version) }}
             </div>
+            <div class="col-sm-4 well">
+                {{ form_row(form.studentYear, {'value': form.studentYear.vars.data}) }}
+            </div>
         </div>
     </div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}

@@ -3,6 +3,8 @@
 namespace Busybee\CurriculumBundle\Entity;
 
 use Busybee\CurriculumBundle\Model\CourseModel;
+use Busybee\InstituteBundle\Entity\StudentYear;
+
 /**
  * Course
  */
@@ -41,6 +43,10 @@ class Course extends CourseModel
      * @var string
      */
     private $version;
+    /**
+     * @var StudentYear
+     */
+    private $studentYear;
 
     /**
      * Get id
@@ -192,6 +198,30 @@ class Course extends CourseModel
     public function setVersion($version)
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get studentYear
+     *
+     * @return StudentYear
+     */
+    public function getStudentYear()
+    {
+        return $this->studentYear;
+    }
+
+    /**
+     * Set studentYear
+     *
+     * @param StudentYear $studentYear
+     *
+     * @return Course
+     */
+    public function setStudentYear(StudentYear $studentYear = null)
+    {
+        $this->studentYear = $studentYear;
 
         return $this;
     }

@@ -14,4 +14,13 @@ class CourseModel
     {
         return $this->getName() . ' ' . $this->getVersion();
     }
+
+    /**
+     * @return string
+     */
+    public function getStudentYearName()
+    {
+        return is_null($this->getStudentYear()) ? '' : $this->getName() . ' ' . $this->getStudentYear()->getName();
+
+    }
 }

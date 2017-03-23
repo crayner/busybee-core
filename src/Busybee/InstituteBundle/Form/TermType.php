@@ -3,11 +3,12 @@
 namespace Busybee\InstituteBundle\Form ;
 
 use Busybee\InstituteBundle\Entity\Term;
+use Busybee\InstituteBundle\Entity\Year;
+use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType ;
-use Busybee\InstituteBundle\Form\DataTransformer\YearTransformer ;
 use Doctrine\ORM\EntityManager as ObjectManager;
 
 class TermType extends AbstractType
@@ -76,7 +77,7 @@ class TermType extends AbstractType
             )
             ->add('year', HiddenType::class);
         $builder->get('year')
-            ->addModelTransformer(new YearTransformer($this->manager));
+            ->addModelTransformer(new EntityToStringTransformer($this->manager, Year::class));
     }
 
     /**

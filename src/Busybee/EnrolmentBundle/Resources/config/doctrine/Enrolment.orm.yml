@@ -1,40 +1,28 @@
-Busybee\CurriculumBundle\Entity\Course:
+Busybee\EnrolmentBundle\Entity\Enrolment:
     type: entity
-    table: course
-    repositoryClass: Busybee\CurriculumBundle\Repository\CourseRepository
-    uniqueConstraints:
-        name_version:
-            columns: [ name, studentYear ]
+    table: enrolment
+    repositoryClass: Busybee\EnrolmentBundle\Repository\EnrolmentRepository
     id:
         id:
             type: integer
             generator:
                 strategy: AUTO
     fields:
-        name:
-            type: string
-            length: '100'
-        version:
-            type: string
-            length: '10'
-            nullable: true
         lastModified:
             type: datetime
         createdOn:
             type: datetime
     manyToOne:
-        studentYear:
-            targetEntity: Busybee\InstituteBundle\Entity\StudentYear
-            orderBy: [name]
+        student:
+            targetEntity: Busybee\StudentBundle\Entity\Student
             joinColumns:
-                studentYear:
+                schoolYear:
                     referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
                 createdBy:
                     referencedColumnName: id
-                    
         modifiedBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:

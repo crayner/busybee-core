@@ -1,11 +1,13 @@
 Busybee\CurriculumBundle\Entity\Course:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [name, version]
+            fields: [name, studentYear]
             errorPath: name
-            message: curriculum.unique.name.version
+            message: curriculum.unique.name.studentYear
     properties:
         name:
             - NotBlank: ~
         version:
+            - NotBlank: ~
+        studentYear:
             - NotBlank: ~
