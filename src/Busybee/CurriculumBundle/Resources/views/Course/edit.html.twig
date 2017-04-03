@@ -1,4 +1,4 @@
-{# src/Busybee/CurriculumBundle/Resources/views/HomeRoom/edit.html.twig #}
+{# src/Busybee/CurriculumBundle/Resources/views/Course/edit.html.twig #}
 
 {% trans_default_domain "BusybeeCurriculumBundle" %}
 
@@ -30,7 +30,7 @@
                 {{ form_row(form.version) }}
             </div>
             <div class="col-sm-4 well">
-                {{ form_row(form.studentYear, {'value': form.studentYear.vars.data}) }}
+                {{ form_row(form.targetYear) }}
             </div>
         </div>
     </div>

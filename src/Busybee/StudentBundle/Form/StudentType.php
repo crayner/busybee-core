@@ -3,7 +3,7 @@
 namespace Busybee\StudentBundle\Form;
 
 use Busybee\FormBundle\Type\ImageType;
-use Busybee\FormBundle\Type\SettingType;
+use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StudentBundle\Entity\Student;
@@ -81,7 +81,7 @@ class StudentType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('status', SettingType::class, array(
+            ->add('status', SettingChoiceType::class, array(
                     'label' => 'student.label.status',
                     'setting_name' => 'Student.Status.List',
                     'attr' => array(
@@ -115,7 +115,7 @@ class StudentType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('ethnicity', SettingType::class,
+            ->add('ethnicity', SettingChoiceType::class,
                 array(
                     'label' => 'student.label.ethnicity',
                     'placeholder' => 'student.placeholder.ethnicity',
@@ -123,7 +123,7 @@ class StudentType extends AbstractType
                     'setting_name' => 'Ethnicity.List',
                 )
             )
-            ->add('religion', SettingType::class,
+            ->add('religion', SettingChoiceType::class,
                 array(
                     'label' => 'student.label.religion',
                     'placeholder' => 'student.placeholder.religion',
@@ -180,7 +180,7 @@ class StudentType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('residencyStatus', SettingType::class,
+            ->add('residencyStatus', SettingChoiceType::class,
                 array(
                     'label' => 'student.label.residencyStatus',
                     'placeholder' => 'student.placeholder.residencyStatus',
@@ -201,7 +201,7 @@ class StudentType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('house', SettingType::class, array(
+            ->add('house', SettingChoiceType::class, array(
                     'label' => 'family.label.house',
                     'placeholder' => 'family.placeholder.house',
                     'required' => false,

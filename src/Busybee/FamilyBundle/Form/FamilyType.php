@@ -4,10 +4,9 @@ namespace Busybee\FamilyBundle\Form;
 
 use Busybee\FamilyBundle\Entity\Family;
 use Busybee\FamilyBundle\Events\FamilySubscriber;
-use Busybee\FamilyBundle\Events\StudentSubscriber;
 use Busybee\FamilyBundle\Model\FamilyManager;
 use Busybee\FormBundle\Type\AutoCompleteType;
-use Busybee\FormBundle\Type\SettingType;
+use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Form\PhoneType;
 use Symfony\Component\Form\AbstractType;
@@ -120,7 +119,7 @@ class FamilyType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('house', SettingType::class, array(
+            ->add('house', SettingChoiceType::class, array(
                     'label' => 'family.label.house',
                     'placeholder' => 'family.placeholder.house',
                     'required' => false,

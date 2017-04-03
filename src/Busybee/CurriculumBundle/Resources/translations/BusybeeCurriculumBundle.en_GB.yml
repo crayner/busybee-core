@@ -4,16 +4,18 @@ course:
     label:
         name: Course Name
         version: Course Version
-        studentYear: Student Year
+        targetYear: Course Target
     add:
         title: Add Course
     placeholder:
         changeRecord: Select course to edit
-        studentYear: 'Select the year this course is taught'
+        targetYear: 'Select the year this course is taught'
     edit:
         title: Course Details
         description: ''
+    help:
+        targetYear: The target details are used to point a course to one or more student years.
 curriculum:
     unique:
         name:
-            studentYear: The name and student year combined are not unique.
+            targetYear: The name and target combined are not unique.

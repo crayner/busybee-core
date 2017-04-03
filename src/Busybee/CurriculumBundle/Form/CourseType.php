@@ -3,9 +3,11 @@
 namespace Busybee\CurriculumBundle\Form;
 
 use Busybee\CurriculumBundle\Entity\Course;
+use Busybee\CurriculumBundle\Events\CourseSubscriber;
+use Busybee\CurriculumBundle\Form\DataTransformer\TargetYearTransformer;
+use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\FormBundle\Type\TextType;
-use Busybee\InstituteBundle\Entity\StudentYear;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -21,12 +23,18 @@ class CourseType extends AbstractType
     private $manager;
 
     /**
+     * @var array
+     */
+    private $studentGroups;
+
+    /**
      * CourseType constructor.
      * @param ObjectManager $manager
      */
-    public function __construct(ObjectManager $manager)
+    public function __construct(ObjectManager $manager, SettingManager $sm)
     {
         $this->manager = $manager;
+        $this->studentGroups = $sm->get('student.groups');
     }
 
     /**
@@ -51,20 +59,18 @@ class CourseType extends AbstractType
                     ),
                 )
             )
-            ->add('studentYear', EntityType::class,
+            ->add('targetYear', SettingChoiceType::class,
                 array(
-                    'label' => 'course.label.studentYear',
-                    'class' => StudentYear::class,
-                    'choice_label' => 'name',
+                    'label' => 'course.label.targetYear',
                     'attr' => array(
                         'class' => 'monitorChange',
+                        'help' => 'course.help.targetYear',
                     ),
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('s')
-                            ->addOrderBy('s.year', 'ASC')
-                            ->addOrderBy('s.sequence', 'ASC');
-                    },
-                    'placeholder' => 'course.placeholder.studentYear',
+                    'placeholder' => 'course.placeholder.targetYear',
+                    'multiple' => true,
+                    'expanded' => true,
+                    'setting_name' => 'student.groups',
+                    'choice_translation_domain' => 'BusybeeCurriculumBundle',
                 )
             )
             ->add('changeRecord', EntityType::class,
@@ -74,20 +80,19 @@ class CourseType extends AbstractType
                         'class' => 'formChanged changeRecord',
                     ),
                     'class' => Course::class,
-                    'choice_label' => 'studentYearName',
-                    'choice_value' => 'id',
+                    'choice_label' => 'targetYearName',
                     'mapped' => false,
                     'required' => false,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('c')
-                            ->leftJoin('c.studentYear', 'y')
                             ->addOrderBy('c.name', 'ASC')
-                            ->addOrderBy('y.sequence', 'ASC');
+                            ->addOrderBy('c.targetYear', 'ASC');
                     },
                     'placeholder' => 'course.placeholder.changeRecord',
                 )
             );
-        $builder->get('studentYear')->addModelTransformer(new EntityToStringTransformer($this->manager, StudentYear::class));
+
+        $builder->addEventSubscriber(new CourseSubscriber($this->studentGroups));
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace Busybee\CurriculumBundle\Model;
 
+use Doctrine\ORM\PersistentCollection;
+
 /**
  * Course
  */
@@ -18,9 +20,9 @@ class CourseModel
     /**
      * @return string
      */
-    public function getStudentYearName()
+    public function getTargetYearName()
     {
-        return is_null($this->getStudentYear()) ? '' : $this->getName() . ' ' . $this->getStudentYear()->getName();
+        return $this->getName() . ' ' . implode(' ', $this->getTargetYear());
 
     }
 }

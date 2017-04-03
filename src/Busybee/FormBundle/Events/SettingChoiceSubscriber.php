@@ -55,14 +55,12 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
             $newOptions['label'] = $options['label'];
         if (isset($options['attr']))
             $newOptions['attr'] = $options['attr'];
-        if (isset($options['required']))
-            $newOptions['required'] = $options['required'];
-        if (isset($options['disabled']))
-            $newOptions['disabled'] = $options['disabled'];
+        $newOptions['required'] = isset($options['required']) ?: false;
         if (isset($options['translation_domain']))
             $newOptions['translation_domain'] = $options['translation_domain'];
-        if (isset($options['placeholder']))
-            $newOptions['placeholder'] = $options['placeholder'];
+        $newOptions['placeholder'] = isset($options['placeholder']) ?: null;
+        $newOptions['multiple'] = isset($options['multiple']) ?: false;
+        $newOptions['expanded'] = isset($options['expanded']) ?: false;
         $newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ?: 'SystemBundle';
 
         //  Now replace the existing setting form element with a straight Choice

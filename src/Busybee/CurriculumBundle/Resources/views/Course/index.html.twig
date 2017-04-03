@@ -24,11 +24,11 @@
             <div class="col-sm-2 text-center" style="display: inline-block;">
                 {{ 'course.label.version'|trans }}
             </div>
-            <div class="col-sm-3 text-center" style="display: inline-block;">
-                {% if pagination.getSortByName == 'Student Year' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'course.label.studentYear'|trans }}
+            <div class="col-sm-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Target Year' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'course.label.targetYear'|trans }}
                 {% else %}
-                    {{ 'course.label.studentYear'|trans }}
+                    {{ 'course.label.targetYear'|trans }}
                 {% endif %}
             </div>
             <div class="col-sm-2 col-sm-offset-1 withAdd">
@@ -43,8 +43,8 @@
                 <div class="col-sm-2 form-inline text-center">
                     {{ course.version }}
                 </div>
-                <div class="col-sm-3 form-inline text-center">
-                    {{ course.year }}
+                <div class="col-sm-3 form-inline">
+                    {{ course.targetYear }}
                 </div>
                 <div class="col-sm-2 col-sm-offset-1 form-inline">
                     {{ editButton({'style': '', 'class': 'halflings halflings-edit btn btn-warning','title': 'course.edit.title', 'transDomain': 'BusybeeCurriculumBundle', 'windowOpen': {'route': path('course_edit', {'id': course.id})}})|raw }}

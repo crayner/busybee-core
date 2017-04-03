@@ -3,7 +3,7 @@
 namespace Busybee\PersonBundle\Form;
 
 use Busybee\FormBundle\Type\AutoCompleteType;
-use Busybee\FormBundle\Type\SettingType;
+use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\PersonBundle\Entity\Locality;
 use Busybee\PersonBundle\Events\AddressSubscriber;
 use Busybee\PersonBundle\Repository\LocalityRepository;
@@ -45,7 +45,7 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('buildingType', SettingType::class,
+            ->add('buildingType', SettingChoiceType::class,
                 array(
 					'label' => 'address.label.buildingType',
 					'attr' => array(

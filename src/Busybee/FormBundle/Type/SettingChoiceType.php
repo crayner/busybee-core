@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SettingType extends AbstractType
+class SettingChoiceType extends AbstractType
 {
     /**
      * @var SettingManager
@@ -33,7 +33,7 @@ class SettingType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'setting';
+        return 'setting_choice';
     }
 
     /**
@@ -49,6 +49,8 @@ class SettingType extends AbstractType
         $resolver->setDefaults(
             array(
                 'expanded' => false,
+                'multiple' => false,
+                'placeholder' => null,
             )
         );
     }

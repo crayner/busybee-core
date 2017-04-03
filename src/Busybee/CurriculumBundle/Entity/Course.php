@@ -3,7 +3,6 @@
 namespace Busybee\CurriculumBundle\Entity;
 
 use Busybee\CurriculumBundle\Model\CourseModel;
-use Busybee\InstituteBundle\Entity\StudentYear;
 
 /**
  * Course
@@ -21,6 +20,11 @@ class Course extends CourseModel
     private $name;
 
     /**
+     * @var string
+     */
+    private $version;
+
+    /**
      * @var \DateTime
      */
     private $lastModified;
@@ -31,6 +35,11 @@ class Course extends CourseModel
     private $createdOn;
 
     /**
+     * @var string
+     */
+    private $targetYear;
+
+    /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $createdBy;
@@ -39,14 +48,7 @@ class Course extends CourseModel
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
-    /**
-     * @var string
-     */
-    private $version;
-    /**
-     * @var StudentYear
-     */
-    private $studentYear;
+
 
     /**
      * Get id
@@ -78,6 +80,30 @@ class Course extends CourseModel
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get version
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Set version
+     *
+     * @param string $version
+     *
+     * @return Course
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
 
         return $this;
     }
@@ -131,6 +157,37 @@ class Course extends CourseModel
     }
 
     /**
+     * Get targetYear
+     *
+     * @return string
+     */
+    public function getTargetYear()
+    {
+        if (!is_array($this->targetYear))
+            return explode(' ', $this->targetYear);
+
+        return $this->targetYear;
+    }
+
+    /**
+     * Set targetYear
+     *
+     * @param string|array $targetYear
+     *
+     * @return Course
+     */
+    public function setTargetYear($targetYear)
+    {
+        if (is_array($targetYear)) {
+            $targetYear = implode(' ', $targetYear);
+        }
+
+        $this->targetYear = $targetYear;
+
+        return $this;
+    }
+
+    /**
      * Get createdBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
@@ -174,54 +231,6 @@ class Course extends CourseModel
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
-
-        return $this;
-    }
-
-    /**
-     * Get version
-     *
-     * @return string
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * Set release
-     *
-     * @param string $version
-     *
-     * @return Course
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-
-        return $this;
-    }
-
-    /**
-     * Get studentYear
-     *
-     * @return StudentYear
-     */
-    public function getStudentYear()
-    {
-        return $this->studentYear;
-    }
-
-    /**
-     * Set studentYear
-     *
-     * @param StudentYear $studentYear
-     *
-     * @return Course
-     */
-    public function setStudentYear(StudentYear $studentYear = null)
-    {
-        $this->studentYear = $studentYear;
 
         return $this;
     }

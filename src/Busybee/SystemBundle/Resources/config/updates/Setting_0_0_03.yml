@@ -3,3 +3,11 @@ house.list:
     displayName: 'House List'
     description: "House list used in your school."
     role: 'ROLE_REGISTRAR'
+student.groups:
+    type: array
+    displayName: Student Groups
+    description: Usually the year groups that attend this school.
+    role: 'ROLE_REGISTRAR'
+    value:
+        Year 7: Y7
+        Year 8: Y8

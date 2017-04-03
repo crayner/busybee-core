@@ -4,7 +4,7 @@ namespace Busybee\PersonBundle\Form ;
 
 use Busybee\FormBundle\Type\AutoCompleteType;
 use Busybee\FormBundle\Type\ImageType;
-use Busybee\FormBundle\Type\SettingType;
+use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\FormBundle\Type\ToggleType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Events\PersonSubscriber;
@@ -17,7 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Persistence\ObjectManager ;
 
 
@@ -98,7 +97,7 @@ class PersonType extends AbstractType
 					),
 				)
 			)
-            ->add('gender', SettingType::class, array(
+            ->add('gender', SettingChoiceType::class, array(
                     'setting_name' => 'Person.GenderList',
 					'label' => 'person.label.gender',
 					'attr'	=> array(

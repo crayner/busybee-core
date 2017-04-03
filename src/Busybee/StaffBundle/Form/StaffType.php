@@ -2,13 +2,12 @@
 
 namespace Busybee\StaffBundle\Form;
 
-use Busybee\FormBundle\Type\SettingType;
+use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToIntTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -47,7 +46,7 @@ class StaffType extends AbstractType
                     )
                 )
             )
-            ->add('staffType', SettingType::class, array(
+            ->add('staffType', SettingChoiceType::class, array(
                     'label' => 'staff.label.stafftype',
                     'setting_name' => 'Staff.Categories',
                     'placeholder' => 'staff.placeholder.stafftype',
@@ -63,7 +62,7 @@ class StaffType extends AbstractType
                     )
                 )
             )
-            ->add('house', SettingType::class, array(
+            ->add('house', SettingChoiceType::class, array(
                     'label' => 'family.label.house',
                     'placeholder' => 'family.placeholder.house',
                     'required' => false,

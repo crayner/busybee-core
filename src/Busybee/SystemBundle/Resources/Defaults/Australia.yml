@@ -113,4 +113,18 @@ settings:
         Caribbean Islander: '8400'
         Sub-Saharan African: '9000'
         Central and West African: '9100'
-        Southern and East African: '9200'        
+        Southern and East African: '9200'
+    student.group:
+        Kinder: K
+        Year 1: Y1
+        Year 2: Y2
+        Year 3: Y3
+        Year 4: Y4
+        Year 5: Y5
+        Year 6: Y6
+        Year 7: Y7
+        Year 8: Y8
+        Year 9: Y9
+        Year 10: Y10
+        Year 11: Y11
+        Year 12: Y12
