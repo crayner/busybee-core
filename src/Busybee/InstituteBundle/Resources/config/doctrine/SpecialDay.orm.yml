@@ -2,11 +2,6 @@ Busybee\InstituteBundle\Entity\SpecialDay:
     type: entity
     table: calendar_special_day
     repositoryClass: Busybee\InstituteBundle\Repository\SpecialDayRepository
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
-            fields: [day]
-            errorPath: day
-            message: 'Each date must be unique to the Special Day record.'
     id:
         id:
             type: integer
@@ -55,7 +50,6 @@ Busybee\InstituteBundle\Entity\SpecialDay:
             joinColumns:
                 createdBy:
                     referencedColumnName: id
-                    
         modifiedBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:

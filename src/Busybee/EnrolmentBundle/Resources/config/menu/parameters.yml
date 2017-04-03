@@ -1,24 +1,18 @@
-# Campus
+# Enrolment
 parameters:
     nodes: []
-    items:
-        23:
-            label: menu.Student
-            name: Manage Students
-            node: 2
-            order: 23
-            menu: 23
-        230:
-            label: menu.Enrolment
-            name: Enrolment
-            node: 23
-            order: 230
-            menu: 230
-        2302:
-            label: menu.groups.homerooms
-            name: Home Rooms
-            role: ROLE_ADMIN
-            node: 230
-            order: 2300
-            route: home_room_manage
+    items: []
+#        23:
+#            label: menu.Student
+#            name: Manage Students
+#            node: 2
+#            order: 23
+#            menu: 23
+#        230:
+#            label: menu.Enrolment
+#            name: Enrolment
+#            node: 23
+#            order: 230
+#            menu: 230
+
 

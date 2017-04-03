@@ -42,7 +42,7 @@
                     {{ editButton({'style': '', 'windowOpen': {'route': path('year_edit', {'id': Year.id})}, 'title': 'year.edit.title', 'class': 'btn btn-warning halflings halflings-edit', 'transDomain': 'BusybeeInstituteBundle'})|raw }}
                     {% set additional = 'onclick="confirmDelete(\'' ~ path('year_delete', {'id': Year.id}) ~ '\')"' %}
                     {% if not Year.canDelete %}{% set additional = additional ~ ' disabled' %}{% endif %}
-                    {{ deleteButton({'additional': additional, 'transDomain': 'BusybeeInstituteBundle', 'style': ''})|raw }}
+                    {{ deleteButton({'additional': additional, 'style': ''})|raw }}
                     {{ miscButton({'title': 'year.calendar.button', 'type': 'button', 'class': 'halflings halflings-calendar btn btn-info', 'style': '', 'transDomain': 'BusybeeInstituteBundle', 'windowOpen': {'route': path('year_calendar', {'id': Year.id})}})|raw }}
                 </div>
             </div>

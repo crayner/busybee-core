@@ -50,8 +50,6 @@ class CalendarController extends Controller
                 ->add('success', 'calendar.success')
             ;
 
-            $this->get('year.manager')->turnYearSequenceOn();
-
             return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
 		} 
 		

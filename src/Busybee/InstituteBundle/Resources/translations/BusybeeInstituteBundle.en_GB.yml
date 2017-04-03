@@ -83,9 +83,6 @@ year:
     specialday:
         add: Add Special Day
         remove: Erase Special Day
-    studentyear:
-        add: Add Student Year Group
-        remove: Erase Student Year Group
 calendar:
     title: Define Calendars
     description: Create and modify calendar definitions.
@@ -102,7 +99,6 @@ calendar:
         year: Year
         terms: Terms
         specialDays: Special Days
-        studentYears: Student Years
     year:
         title: Manage Year
         return: Return
@@ -118,7 +114,6 @@ calendar:
         status: Only one calendar can be current. 
         terms: "Terms are sorted within the year by the First Day Date. Terms must exist within the year days, and must not overlap days in another term."
         specialDays: ""
-        studentYears: "Student Year Groups are sorted on the sequence within the year."
     placeholder:
         status: Select Status
     error:
@@ -132,10 +127,6 @@ calendar:
         action: Actions
     term:
         title: "Manage Terms in %name%"
-    studentYear:
-        title: "Manage Student Years in %name%"
-    studentyear:
-        add: New Student Year Group
     specialDay:
         title: "Manage Special Days in %name%"
         add: Add Special Day

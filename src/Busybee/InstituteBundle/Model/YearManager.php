@@ -2,7 +2,6 @@
 
 namespace Busybee\InstituteBundle\Model;
 
-use Busybee\InstituteBundle\Entity\StudentYear;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\DBAL\Driver\PDOException;
@@ -71,31 +70,10 @@ class YearManager
             }
         }
 
-        if (isset($this->data['studentYears']) && is_array($this->data['studentYears'])) {
-            foreach ($this->data['studentYears'] as $q => $w) {
-                $w['year'] = $year->getId();
-                $w['old_sequence'] = $w['sequence'];
-                $this->data['studentYears'][$q] = $w;
-            }
-        }
-
-        $this->turnYearSequenceOff();
-        $this->manageStudentYears();
-
         $event->setData($this->data);
 
         return $event;
 
-    }
-
-    /**
-     *
-     */
-    public function turnYearSequenceOff()
-    {
-        $rsm = new ResultSetMapping();
-        $om = $this->manager->getClassMetadata(StudentYear::class);
-        $this->executeQuery('ALTER TABLE `' . $om->table['name'] . '` DROP INDEX `sequence`', $rsm);
     }
 
     /**
@@ -116,45 +94,5 @@ class YearManager
                 dump($e);
         }
 
-    }
-
-    /**
-     *
-     */
-    private function manageStudentYears()
-    {
-        if (!empty($this->data['studentYears']) && is_array($this->data['studentYears'])) {
-            $studentYears = array();
-            foreach ($this->data['studentYears'] as $w)
-                if (!empty($w) && !empty($w['year'])) {
-                    $studentYears[] = $w;
-                }
-            $year = $this->form->getData();
-
-            $sYears = new ArrayCollection();
-
-            $seq = 0;
-            foreach ($studentYears as $q => $w) {
-                $sy = $this->manager->getRepository(StudentYear::class)->findOneByYearSequence($w['year'], $w['old_sequence']);
-                $sy->setSequence(++$seq);
-                $studentYears[$q]['sequence'] = $seq;
-                $sYears->add($sy);
-                unset($studentYears[$q]['old_sequence']);
-            }
-            $year->setStudentYears($sYears);
-            $this->form->setData($year);
-
-            $this->data['studentYears'] = $studentYears;
-        }
-    }
-
-    /**
-     *
-     */
-    public function turnYearSequenceOn()
-    {
-        $rsm = new ResultSetMapping();
-        $om = $this->manager->getClassMetadata(StudentYear::class);
-        $this->executeQuery('ALTER TABLE `' . $om->table['name'] . '` ADD UNIQUE `sequence` (`year_id`, `sequence`)', $rsm);
     }
 }

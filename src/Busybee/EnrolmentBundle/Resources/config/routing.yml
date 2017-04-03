@@ -1,7 +1,2 @@
-home_room_manage:
-    path:     /homeroom/manage/
-    defaults: { _controller: BusybeeEnrolmentBundle:HomeRoom:index }
-home_room_edit:
-    path:     /homeroom/{id}/edit/
-    defaults: { _controller: BusybeeEnrolmentBundle:HomeRoom:edit }
+
 

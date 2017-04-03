@@ -94,14 +94,6 @@
             add_at_the_end: true
         });
 
-        $(".studentYearList").collection({
-            name_prefix: '{{ form.studentYears.vars.full_name }}',
-            allow_up: true,
-            allow_down: true,
-            add: '<button title="{{ 'year.studentyear.add'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
-            remove: '<button title="{{ 'year.studentyear.remove'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
-            add_at_the_end: true
-        });
 
     </script>
 {% endblock javascripts %}
