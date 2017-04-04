@@ -23,8 +23,11 @@
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'course.edit.title', 'transDomain': 'BusybeeCurriculumBundle', 'panelParagraph': 'course.edit.description'} %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6 well">
+            <div class="col-sm-4 well">
                 {{ form_row(form.name) }}
+            </div>
+            <div class="col-sm-2 well">
+                {{ form_row(form.code) }}
             </div>
             <div class="col-sm-2 well">
                 {{ form_row(form.version) }}

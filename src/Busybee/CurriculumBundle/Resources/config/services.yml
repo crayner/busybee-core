@@ -4,19 +4,27 @@ parameters:
         sortBy:
             Name:
                 c.name: ASC
+                c.code: ASC
                 c.targetYear: ASC
-            Target Year:
+            Course Code:
+                c.code: ASC
+                c.name: ASC
+                c.targetYear: ASC
+            Course Target:
                 c.targetYear: ASC
                 c.name: ASC
+                c.code: ASC
         limit: '25'
         searchList:
             - c.name
             - c.targetYear
+            - c.code
         select:
             - c.name
             - c.id
             - c.version
             - c.targetYear
+            - c.code
 services:
     course.repository:
         class: Busybee\CurriculumBundle\Repository\CourseRepository

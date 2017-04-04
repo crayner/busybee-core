@@ -20,9 +20,8 @@ class CourseModel
     /**
      * @return string
      */
-    public function getTargetYearName()
+    public function getFullName()
     {
-        return $this->getName() . ' ' . implode(' ', $this->getTargetYear());
-
+        return $this->getName() . ' (' . $this->getCode() . ') ' . $this->getVersion();
     }
 }

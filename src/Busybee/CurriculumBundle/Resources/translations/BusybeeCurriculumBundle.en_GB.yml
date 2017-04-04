@@ -3,6 +3,7 @@ course:
     description: Create, edit and remove course details.
     label:
         name: Course Name
+        code: Course Code
         version: Course Version
         targetYear: Course Target
     add:
@@ -15,6 +16,7 @@ course:
         description: ''
     help:
         targetYear: The target details are used to point a course to one or more student years.
+        code: Use 3 or less characters.
 curriculum:
     unique:
         name:

@@ -14,18 +14,25 @@
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'course.title', 'transDomain': 'BusybeeCurriculumBundle'} %}
     <div class="container-fluid well">
         <div class="row row-header">
-            <div class="col-sm-4" style="display: inline-block;">
+            <div class="col-sm-3" style="display: inline-block;">
                 {% if pagination.getSortByName == 'Name' %}
                     <span class="halflings halflings-sort-by-alphabet"></span> {{ 'course.label.name'|trans }}
                 {% else %}
                     {{ 'course.label.name'|trans }}
                 {% endif %}
             </div>
-            <div class="col-sm-2 text-center" style="display: inline-block;">
+            <div class="col-sm-2" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Course Code' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'course.label.code'|trans }}
+                {% else %}
+                    {{ 'course.label.code'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-2" style="display: inline-block;">
                 {{ 'course.label.version'|trans }}
             </div>
-            <div class="col-sm-3" style="display: inline-block;">
-                {% if pagination.getSortByName == 'Target Year' %}
+            <div class="col-sm-2" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Course Target' %}
                     <span class="halflings halflings-sort-by-alphabet"></span> {{ 'course.label.targetYear'|trans }}
                 {% else %}
                     {{ 'course.label.targetYear'|trans }}
@@ -37,13 +44,16 @@
         </div>
         {% for course in pagination.getResult %}
             <div class="row row-striped">
-                <div class="col-sm-4 form-inline">
+                <div class="col-sm-3 form-inline">
                     {{ course.name }}
                 </div>
-                <div class="col-sm-2 form-inline text-center">
+                <div class="col-sm-2 form-inline">
+                    {{ course.code }}
+                </div>
+                <div class="col-sm-2 form-inline">
                     {{ course.version }}
                 </div>
-                <div class="col-sm-3 form-inline">
+                <div class="col-sm-2 form-inline">
                     {{ course.targetYear }}
                 </div>
                 <div class="col-sm-2 col-sm-offset-1 form-inline">

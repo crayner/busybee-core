@@ -51,6 +51,15 @@ class CourseType extends AbstractType
                     ),
                 )
             )
+            ->add('code', TextType::class,
+                array(
+                    'label' => 'course.label.code',
+                    'attr' => array(
+                        'class' => 'monitorChange',
+                        'help' => 'course.help.code',
+                    ),
+                )
+            )
             ->add('version', TextType::class,
                 array(
                     'label' => 'course.label.version',
@@ -70,7 +79,7 @@ class CourseType extends AbstractType
                     'multiple' => true,
                     'expanded' => true,
                     'setting_name' => 'student.groups',
-                    'choice_translation_domain' => 'BusybeeCurriculumBundle',
+                    'choice_translation_domain' => 'SystemBundle',
                 )
             )
             ->add('changeRecord', EntityType::class,
@@ -80,7 +89,7 @@ class CourseType extends AbstractType
                         'class' => 'formChanged changeRecord',
                     ),
                     'class' => Course::class,
-                    'choice_label' => 'targetYearName',
+                    'choice_label' => 'fullName',
                     'mapped' => false,
                     'required' => false,
                     'query_builder' => function (EntityRepository $er) {

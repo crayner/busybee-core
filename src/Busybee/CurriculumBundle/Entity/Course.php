@@ -22,7 +22,17 @@ class Course extends CourseModel
     /**
      * @var string
      */
+    private $code;
+
+    /**
+     * @var string
+     */
     private $version;
+
+    /**
+     * @var string
+     */
+    private $targetYear;
 
     /**
      * @var \DateTime
@@ -33,11 +43,6 @@ class Course extends CourseModel
      * @var \DateTime
      */
     private $createdOn;
-
-    /**
-     * @var string
-     */
-    private $targetYear;
 
     /**
      * @var \Busybee\SecurityBundle\Entity\User
@@ -85,6 +90,30 @@ class Course extends CourseModel
     }
 
     /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return strtoupper($this->code);
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     *
+     * @return Course
+     */
+    public function setCode($code)
+    {
+        $this->code = strtoupper($code);
+
+        return $this;
+    }
+
+    /**
      * Get version
      *
      * @return string
@@ -104,6 +133,37 @@ class Course extends CourseModel
     public function setVersion($version)
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get targetYear
+     *
+     * @return string
+     */
+    public function getTargetYear()
+    {
+        if (!is_array($this->targetYear))
+            return explode(' ', $this->targetYear);
+
+        return $this->targetYear;
+    }
+
+    /**
+     * Set targetYear
+     *
+     * @param string|array $targetYear
+     *
+     * @return Course
+     */
+    public function setTargetYear($targetYear)
+    {
+        if (is_array($targetYear)) {
+            $targetYear = implode(' ', $targetYear);
+        }
+
+        $this->targetYear = $targetYear;
 
         return $this;
     }
@@ -152,37 +212,6 @@ class Course extends CourseModel
     public function setCreatedOn($createdOn)
     {
         $this->createdOn = $createdOn;
-
-        return $this;
-    }
-
-    /**
-     * Get targetYear
-     *
-     * @return string
-     */
-    public function getTargetYear()
-    {
-        if (!is_array($this->targetYear))
-            return explode(' ', $this->targetYear);
-
-        return $this->targetYear;
-    }
-
-    /**
-     * Set targetYear
-     *
-     * @param string|array $targetYear
-     *
-     * @return Course
-     */
-    public function setTargetYear($targetYear)
-    {
-        if (is_array($targetYear)) {
-            $targetYear = implode(' ', $targetYear);
-        }
-
-        $this->targetYear = $targetYear;
 
         return $this;
     }
