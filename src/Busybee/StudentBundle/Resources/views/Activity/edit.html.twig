@@ -1,0 +1,42 @@
+{# src/Busybee/PersonBundle/Resources/views/Activity/edit.html.twig #}
+
+{% trans_default_domain "BusybeeStudentBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'student.activity.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'student.activity.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'student.activity.description'|trans }}{% endblock headerLead %}
+
+
+{% block contentContainer %}
+    {% set transDomain = 'BusybeeStudentBundle' %}
+    {% if app.request.get('id') != 'Add' %}
+        {% set h3Content = addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add', 'currentSearch': currentSearch})}})|raw %}
+    {% endif %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'student.activity.title'} %}
+    <div class="container-fluid">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-sm-8 well">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-sm-4 well">
+                {{ form_row(form.nameShort) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 well">
+                {{ form_row(form.year) }}
+            </div>
+            <div class="col-sm-6 well">
+                {{ form_row(form.course) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+

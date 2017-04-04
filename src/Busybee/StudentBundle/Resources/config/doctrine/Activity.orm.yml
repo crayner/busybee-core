@@ -1,0 +1,49 @@
+Busybee\StudentBundle\Entity\Activity:
+    type: entity
+    table: activity
+    repositoryClass: Busybee\StudentBundle\Repository\ActivityRepository
+    uniqueConstraints:
+        name_year:
+            columns: [name, year]
+        nameshort_year:
+            columns: [nameShort, year]
+        course_year:
+            columns: [course, year]
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        nameShort:
+            type: string
+            length: '8'
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        year:
+            targetEntity: Busybee\InstituteBundle\Entity\Year
+            joinColumns:
+                year:
+                    referencedColumnName: id
+        course:
+            targetEntity: Busybee\CurriculumBundle\Entity\Course
+            joinColumns:
+                course:
+                    referencedColumnName: id
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id

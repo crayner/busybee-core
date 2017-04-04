@@ -44,6 +44,18 @@ student:
         lastAtThisSchool: The last date of formal schooling at this school.
         status: The status of the student at this school.
         residencyStatus: Residency status in the country the school is located.
+    activities:
+        title: Manage Activities
+        description: ''
+    activity:
+        title: Manage Activity
+        description: ''
 person:
     tab:
         student: Student
+activity:
+    label:
+        name: Activity Name
+        nameShort: Code
+activities:
+    title: Activities List

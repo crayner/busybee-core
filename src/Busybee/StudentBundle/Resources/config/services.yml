@@ -1,3 +1,25 @@
+parameters:
+    activityPagination:
+        alias: a
+        sortBy:
+            Activity Name:
+                a.name: ASC
+                a.nameShort: ASC
+        limit: '25'
+        searchList:
+            - a.name
+            - a.nameShort
+        join:
+            a.year:
+                alias: y
+                type: leftJoin
+            a.course:
+                alias: c
+                type: leftJoin
+        select:
+            - a.name
+            - a.nameShort
+            - a.id
 services:
     student.repository:
         class: Busybee\StudentBundle\Repository\StudentRepository
@@ -17,3 +39,22 @@ services:
         class: Busybee\StudentBundle\Validator\Constraints\PassportImageValidator
         tags:
             - { name: validator.constraint_validator, alias: passport_image_validator }
+    activity.pagination:
+        class: Busybee\StudentBundle\Model\ActivityPagination
+        arguments:
+            - '%activityPagination%'
+            - '@activity.repository'
+            - '@my_service_container'
+    activity.repository:
+        class: Busybee\StudentBundle\Repository\ActivityRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeStudentBundle:Activity"
+    form.activity.type:
+        class: Busybee\StudentBundle\Form\ActivityType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }

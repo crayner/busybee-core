@@ -1,4 +1,9 @@
 person_toggle_student:
     path:     /person/{id}/toggle/
     defaults: { _controller: BusybeeStudentBundle:Student:toggle }
-
+student_activities:
+    path:     /activities/
+    defaults: { _controller: BusybeeStudentBundle:Activity:list }
+student_activity_edit:
+    path:     /activity/{id}/edit/{currentSearch}
+    defaults: { _controller: BusybeeStudentBundle:Activity:edit, id: 'Add', currentSearch: null }

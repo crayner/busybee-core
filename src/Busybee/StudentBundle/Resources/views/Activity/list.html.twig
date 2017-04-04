@@ -1,0 +1,63 @@
+{# src/Busybee/PersonBundle/Resources/views/Activity/list.html.twig #}
+
+{% trans_default_domain "BusybeeStudentBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'student.activities.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'student.activities.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'student.activities.description'|trans }}{% endblock headerLead %}
+
+
+{% block contentContainer %}
+    {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('student_activities', {'currentSearch': pagination.search|replace({'%': ''})}) } } %}
+    {% set transDomain = 'BusybeeStudentBundle' %}
+
+    {% set h3Content = addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''})})}})|raw %}
+
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activities.title'} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-sm-12" id="activityError">
+
+            </div>
+        </div>
+        <div class="row row-header">
+            <div class="col-sm-2 hidden-sm hidden-xs">
+                {{ 'activity.label.nameShort'|trans }}
+            </div>
+            <div class="col-sm-2" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Activity Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'activity.label.name'|trans }}
+                {% else %}
+                    {{ 'activity.label.name'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-2 col-sm-offset-6 text-center" style="display: inline-block;">
+                {{ 'actions'|trans({}, 'BusybeeHomeBundle') }}
+            </div>
+        </div>
+
+
+        {% for activity in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-sm-2">
+                    {{ activity.nameShort }}
+                </div>
+                <div class="col-sm-2">
+                    {{ activity.name }}
+                </div>
+                <div class="col-sm-2 col-sm-offset-6 text-center form-inline">
+                    {{ editButton({'windowOpen': {'route': path('student_activity_edit', {'id': activity.id, 'currentSearch': pagination.search|replace({'%': ''})}) } }) }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
+{% endblock javascripts %}
+

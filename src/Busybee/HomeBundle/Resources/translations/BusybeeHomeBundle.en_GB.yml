@@ -110,6 +110,9 @@ menu:
         year:
             manage: Manage Year Groups
         homerooms: Manage Home Rooms
+    student:
+        manage: Manage Students
+        activities: Manage Activities
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security
