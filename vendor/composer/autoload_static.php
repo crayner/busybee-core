@@ -85,6 +85,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'C' => 
         array (
             'Core23\\DompdfBundle\\' => 20,
+            'Composer\\CaBundle\\' => 18,
         ),
     );
 
@@ -238,6 +239,10 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         array (
             0 => __DIR__ . '/..' . '/core23/dompdf-bundle',
         ),
+        'Composer\\CaBundle\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
+            ),
     );
 
     public static $fallbackDirsPsr4 = array (

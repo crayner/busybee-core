@@ -34,11 +34,6 @@ busybee_family:
     resource: "@BusybeeFamilyBundle/Resources/config/routing.yml"
     prefix:   /family/
 
-busybee_enrolment:
-    resource: "@BusybeeEnrolmentBundle/Resources/config/routing.yml"
-    prefix:   /enrol/
-
-
 busybee_plugin:
     resource: .
     type: advanced_extra
