@@ -108,7 +108,12 @@ class CalendarController extends Controller
 		return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year)));
     }
 
-    public function calendarAction($id)
+    /**
+     * @param   string|integer $id
+     * @param   bool $closeWindow
+     * @return  Response
+     */
+    public function calendarAction($id, $closeWindow = false)
     {
 		$this->denyAccessUnlessGranted('ROLE_USER', null, null);
 	
@@ -149,7 +154,7 @@ class CalendarController extends Controller
 		$content = $this->render('BusybeeInstituteBundle:Calendar:calendarView.pdf.twig', 
 			array(
 				'calendar'	=> $calendar,
-				'year'		=> $year,
+                'year' => $year,
 			)
 		);
 		
@@ -158,9 +163,10 @@ class CalendarController extends Controller
          */
 		return $this->render('BusybeeInstituteBundle:Calendar:yearCalendar.html.twig', 
 			array(
-				'calendar'	=> $calendar,
-				'year'		=> $year,
-				'years' 	=> $years,
+                'calendar' => $calendar,
+                'year' => $year,
+                'years' => $years,
+                'closeWindow' => $closeWindow,
 			)
 		);
 	}
@@ -213,12 +219,12 @@ class CalendarController extends Controller
 			)
 		);
 
-        /**
-         * @todo Remove this constaint on render when PHP 7.1 compatible
-         */
 		$dompdf = $this->get('dompdf')->createDompdf();
 		$dompdf->setPaper('a4', 'landscape');
         $dompdf->loadHtml($content);
+        /**
+         * @todo Remove this constaint on render when PHP 7.1 compatible.
+         */
         @$dompdf->render();
 		$headers = array(
 			'Content-type' => 'application/pdf'

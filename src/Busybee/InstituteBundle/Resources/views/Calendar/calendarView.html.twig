@@ -12,7 +12,11 @@
 				{% endfor %}
 			</select>
 		{% endif %}
-		<button title="{{ 'calendar.year.return'|trans}}" type="button" class="halflings halflings-hand-left btn btn-primary" onClick="window.open('{{ path('calendar_years') }}','_self')" style="float: right"></button>
+        {% if closeWindow %}
+            {{ closeButton()|raw }}
+        {% else %}
+            {{ returnButton({'title': 'calendar.year.return', 'transDomain': 'BusybeeInstituteBundle', 'windowOpen': {'route': path('calendar_years')}})|raw }}
+        {% endif %}
 		<button title='{{ 'calendar.generate.print'|trans}}' type="button" class="halflings halflings-print btn btn-info" onClick="window.open('{{ path('calendar_print', {'id': year.id}) }}','_blank')" style="float: right"></button>
 	</h3>
 	{% for month in calendar.months %} 

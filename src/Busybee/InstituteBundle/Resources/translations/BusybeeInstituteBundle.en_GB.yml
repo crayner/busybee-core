@@ -113,7 +113,7 @@ calendar:
         lastDay: The last day must be less than a year after the first day.
         status: Only one calendar can be current. 
         terms: "Terms are sorted within the year by the First Day Date. Terms must exist within the year days, and must not overlap days in another term."
-        specialDays: ""
+        specialDays: "The date of Special Days must exist in the year, and each special day must be a unique date."
     placeholder:
         status: Select Status
     error:
@@ -227,3 +227,5 @@ groups:
 menu:
     campus:
         resources: Campus Resources
+window:
+    calendar: Calendar

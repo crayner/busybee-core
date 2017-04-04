@@ -29,10 +29,7 @@
             <div class="col-sm-offset-1 col-sm-3 collection-actions well">
 				<span>
                     {% if form.person.vars.value is defined and form.person.vars.value > 0 %}
-                        {{ editButton({'title': 'family.caregiver.edit', 'transDomain': 'BusybeeFamilyBundle', 'class': 'halflings halflings-edit btn btn-info', 'windowOpen': {'route': path('person_edit', {'id': form.person.vars.value}), 'target': 'family.caregiver.edit', 'params': 'width=1024,height=900'}})|raw }} {#
-                        <button title="{{ 'family.caregiver.edit'|trans }}" style="float: right;" type="button"
-                                class=" halflings halflings-edit btn btn-info"
-                                onclick="window.open('{{ path('person_edit', {'id': form.person.vars.value}) }}','{{ 'family.caregiver.edit'|trans }}','width=1024,height=900')"></button> #}
+                        {{ editButton({'title': 'family.caregiver.edit', 'transDomain': 'BusybeeFamilyBundle', 'class': 'halflings halflings-edit btn btn-info', 'windowOpen': {'route': path('person_edit', {'id': form.person.vars.value}), 'target': 'family.caregiver.edit', 'params': 'width=1024,height=900'}})|raw }}
                     {% endif %}
                     {{ deleteButton({'title': 'family.caregiver.remove', 'transDomain': 'BusybeeFamilyBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw }}
                     {{ upDownButton()|raw }}

@@ -5,8 +5,8 @@ calendar_years:
     path:     /years/
     defaults: { _controller: BusybeeInstituteBundle:Calendar:years }
 year_calendar:
-    path:     /year/{id}/calendar/
-    defaults: { _controller: BusybeeInstituteBundle:Calendar:calendar, id: 'current' }
+    path:     /year/{id}/calendar/{closeWindow}/
+    defaults: { _controller: BusybeeInstituteBundle:Calendar:calendar, id: 'current', closeWindow: '0' }
 year_edit:
     path:     /year/{id}/edit/
     defaults: { _controller: BusybeeInstituteBundle:Calendar:editYear }
