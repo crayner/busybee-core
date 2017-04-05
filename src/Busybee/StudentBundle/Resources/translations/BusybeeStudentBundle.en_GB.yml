@@ -49,7 +49,7 @@ student:
         description: ''
     activity:
         title: Manage Activity
-        description: ''
+        description: Activites include both curriculum and extra curriculum in scope.  Include any event or series of events that any student undertakes within the institute in this section.
 person:
     tab:
         student: Student
@@ -57,5 +57,10 @@ activity:
     label:
         name: Activity Name
         nameShort: Code
+        year: Year
+        course: Course
+    placeholder:
+        year: Select Year
+        course: Select Course
 activities:
     title: Activities List

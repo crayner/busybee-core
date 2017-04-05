@@ -79,6 +79,7 @@ class FamilyType extends AbstractType
                         'class' => 'phoneNumberList'
                     ),
                     'translation_domain' => 'BusybeePersonBundle',
+                    'required' => false,
                 )
             )
             ->add('careGiver', CollectionType::class, array(

@@ -1,6 +1,3 @@
-system_homepage:
-    path:     /
-    defaults: { _controller: SystemBundle:Default:index }
 install_start:
     path:     /install/start/
     defaults: { _controller: SystemBundle:Install:index }
@@ -46,3 +43,6 @@ plugin_manage:
 install_update:
     path:     /update/install/
     defaults: { _controller: SystemBundle:Update:install }
+setting_create:
+    path: /setting/create/
+    defaults: { _controller: SystemBundle:Setting:create }

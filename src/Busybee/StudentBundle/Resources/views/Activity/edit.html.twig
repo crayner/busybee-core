@@ -8,17 +8,19 @@
 
 {% block title %}{{ parent() }}{{ 'student.activity.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'student.activity.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'student.activity.description'|trans }}{% endblock headerLead %}
+{% block headerLead %}{% endblock headerLead %}
 
 
 {% block contentContainer %}
     {% set transDomain = 'BusybeeStudentBundle' %}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('student_activities', {'currentSearch': currentSearch})}})|raw %}
     {% if app.request.get('id') != 'Add' %}
-        {% set h3Content = addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add', 'currentSearch': currentSearch})}})|raw %}
+        {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add', 'currentSearch': currentSearch})}})|raw %}
     {% endif %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'student.activity.title'} %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {{ form_start(form) }}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'student.activity.title', 'panelParagraph': 'student.activity.description'} %}
     <div class="container-fluid">
-        {{ form_start(form) }}
         <div class="row">
             <div class="col-sm-8 well">
                 {{ form_row(form.name) }}
@@ -29,14 +31,22 @@
         </div>
         <div class="row">
             <div class="col-sm-6 well">
-                {{ form_row(form.year) }}
+                {% set value = form.year.vars.value %}
+                {% if form.year.vars.value is empty and not form.year.vars.data is empty %}
+                    {% set value = form.year.vars.data %}
+                {% endif %}
+                {{ form_row(form.year, {'value': value}) }}
             </div>
             <div class="col-sm-6 well">
-                {{ form_row(form.course) }}
+                {% set value = form.course.vars.value %}
+                {% if form.course.vars.value is empty and not form.course.vars.data is empty %}
+                    {% set value = form.course.vars.data %}
+                {% endif %}
+                {{ form_row(form.course, {'value': value}) }}
             </div>
         </div>
-        {{ form_end(form) }}
     </div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
 {% endblock contentContainer %}
 

@@ -26,6 +26,9 @@
 {% block form_label -%}
     {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
     {{- parent() -}}
+    {% set required_printed = false %}
+    {% if required and not required_printed %}<span
+            class="field-required">{{ 'required'|trans({}, 'BusybeeHomeBundle') }} </span> {% set required_printed = true %}{% endif %}
 {%- endblock form_label %}
 
 {% block form_errors -%}
@@ -38,9 +41,8 @@
     </ul>
     {% if form.parent %}</span>{% else %}</div>{% endif %}
     {%- endif %}
-    {% set required_printed = false %}<br />
+    <br/>
 	{% for attrname,attrvalue in attr %}
-        {% if required and not required_printed %}<span class="field-required">{{ 'required'|trans({}, 'BusybeeHomeBundle') }} </span> {% set required_printed = true %}{% endif %}
         {% if attrname == 'help' %}
             {% if attrvalue is iterable %}
                 <span class="field-help">{{ (translation_domain is same as(false) ? attrvalue[0] : attrvalue[0]|trans(attrvalue[1], translation_domain)) }}</span>

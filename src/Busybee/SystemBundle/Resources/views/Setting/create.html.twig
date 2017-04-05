@@ -1,0 +1,29 @@
+{# src/Busybee/SystemBundle/Resources/views/Setting/create.html.twig #}
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% trans_default_domain 'SystemBundle' %}
+
+{% block title %}{{ 'system.setting.create.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.setting.create.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.setting.create.description'|trans }}{% endblock headerLead %}
+
+
+{% block contentContainer %}
+{{ form_start(form) }}
+    {% set h3Content = saveButton() %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', 'transDomain': 'SystemBundle', 'panelParagraph': 'system.setting.edit.description'} %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert", 'system.setting.edit.success'|trans, "alert alert-success fadeAlert") }}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 well">
+            {{ form_row(form.setting) }}
+        </div>
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+    {% endblock contentContainer %}
+
+    {% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+{% endblock javascripts %}

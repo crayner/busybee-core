@@ -51,17 +51,17 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
         $choices = $this->settingManager->get($options['setting_name']);
         $newOptions = array();
         $newOptions['choices'] = $choices;
-        if (isset($options['label']))
-            $newOptions['label'] = $options['label'];
-        if (isset($options['attr']))
-            $newOptions['attr'] = $options['attr'];
-        $newOptions['required'] = isset($options['required']) ?: false;
-        if (isset($options['translation_domain']))
-            $newOptions['translation_domain'] = $options['translation_domain'];
-        $newOptions['placeholder'] = isset($options['placeholder']) ?: null;
-        $newOptions['multiple'] = isset($options['multiple']) ?: false;
-        $newOptions['expanded'] = isset($options['expanded']) ?: false;
-        $newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ?: 'SystemBundle';
+        $newOptions['label'] = isset($options['label']) ? $options['label'] : null;
+        $newOptions['attr'] = isset($options['attr']) ? $options['attr'] : [];
+        $newOptions['translation_domain'] = isset($options['translation_domain']) ? $options['translation_domain'] : null;
+        $newOptions['placeholder'] = isset($options['placeholder']) ? $options['placeholder'] : null;
+        if (isset($options['required']))
+            $newOptions['required'] = $options['required'];
+        if (isset($options['multiple']))
+            $newOptions['multiple'] = $options['multiple'];
+        if (isset($options['expanded']))
+            $newOptions['expanded'] = $options['expanded'];
+        $newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : 'SystemBundle';
 
         //  Now replace the existing setting form element with a straight Choice
         $form->getParent()->add($name, ChoiceType::class, $newOptions);

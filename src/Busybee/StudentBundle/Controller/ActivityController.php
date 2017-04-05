@@ -5,6 +5,7 @@ namespace Busybee\StudentBundle\Controller;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Form\ActivityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ActivityController extends Controller
@@ -44,19 +45,19 @@ class ActivityController extends Controller
 
         $em = $this->get('doctrine')->getManager();
 
-        $activity = intval($id) > 0 ? $this->get('activity.repository')->find($id) : new Activity();
+        $entity = intval($id) > 0 ? $this->get('activity.repository')->find($id) : new Activity();
 
         $editOptions = array();
 
-        $form = $this->createForm(ActivityType::class, $activity);
+        $form = $this->createForm(ActivityType::class, $entity);
 
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($person);
+            $em->persist($entity);
             $em->flush();
-            $id = $person->getId();
+            $id = $entity->getId();
 
             return new RedirectResponse($this->generateUrl('student_activity_edit', array('id' => $id, 'currentSearch' => $currentSearch)));
         }

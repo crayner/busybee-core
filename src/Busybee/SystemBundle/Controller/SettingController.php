@@ -3,6 +3,9 @@
 namespace Busybee\SystemBundle\Controller ;
 
 use Busybee\FormBundle\Type\ToggleType;
+use Busybee\SystemBundle\Entity\Setting;
+use Busybee\SystemBundle\Form\CreateType;
+use Busybee\SystemBundle\Form\SettingType;
 use Busybee\SystemBundle\Form\UploadType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -19,6 +22,10 @@ class SettingController extends Controller
 {
     use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
@@ -37,7 +44,11 @@ class SettingController extends Controller
         return $this->render('SystemBundle:Setting:manage.html.twig');
     }
 
-
+    /**
+     * @param $name
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function editNameAction($name, Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
@@ -47,6 +58,11 @@ class SettingController extends Controller
         return $this->editAction($setting->getId(), $request);
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function editAction($id, Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
@@ -77,7 +93,7 @@ class SettingController extends Controller
         }
 
         $setting->cancelURL = $this->generateUrl('setting_manage');
-        $form = $this->createForm('Busybee\SystemBundle\Form\SettingType', $setting);
+        $form = $this->createForm(SettingType::class, $setting);
 
         $options = array(
             'label' => 'system.setting.label.value',
@@ -298,4 +314,43 @@ class SettingController extends Controller
         );
     }
 
+    /**
+     * This action is only used by the program developer.
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function createAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
+
+        $form = $this->createForm(CreateType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $create = $request->request->get('create');
+            $data = Yaml::parse($create['setting']);
+            $sm = $this->get('setting.manager');
+            foreach ($data as $name => $values) {
+                $setting = new Setting();
+                $setting->setName($name);
+                foreach ($values as $field => $value) {
+                    $b = 'set' . ucfirst($field);
+                    if ($field == 'value' && is_array($value))
+                        $value = Yaml::dump($value);
+                    $setting->$b($value);
+                }
+                $sm->createSetting($setting);
+            }
+        }
+
+        return $this->render('SystemBundle:Setting:create.html.twig',
+            [
+                'form' => $form->createView(),
+                'fullForm' => $form,
+            ]
+        );
+    }
 }

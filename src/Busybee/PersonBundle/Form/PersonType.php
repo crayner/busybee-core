@@ -58,12 +58,12 @@ class PersonType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', SettingType::class, array(
+        $builder->add('title', SettingChoiceType::class, array(
                 'label' => 'person.label.title',
                 'setting_name' => 'Person.TitleList',
                 'attr' => array(
                     'class' => 'beeTitle',
-					),
+                ),
                 'required' => false,
 				)
 			)
@@ -83,7 +83,7 @@ class PersonType extends AbstractType
 			)
 			->add('preferredName', null, array(
 					'label' => 'person.label.preferredName',
-					'attr'	=> array(
+                    'attr' => array(
 						'class' => 'beePreferredName',
 					),
 					'required' => false,
@@ -178,6 +178,7 @@ class PersonType extends AbstractType
                         'class'                 => 'phoneNumberList'
                     ),
                     'translation_domain' => 'BusybeePersonBundle',
+                    'required' => false,
                 )
             )
             ->add('staffQuestion', ToggleType::class, array(

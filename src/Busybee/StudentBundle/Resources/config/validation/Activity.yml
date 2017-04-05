@@ -19,5 +19,6 @@ Busybee\StudentBundle\Entity\Activity:
             - NotBlank: ~
         year:
             - Valid: ~
+            - NotBlank: ~
         course:
             - Valid: ~

@@ -1,14 +1,7 @@
-Busybee\StudentBundle\Entity\Activity:
+Busybee\StudentBundle\Entity\Enrolment:
     type: entity
-    table: activity
-    repositoryClass: Busybee\StudentBundle\Repository\ActivityRepository
-    uniqueConstraints:
-        name_year:
-            columns: [name, year]
-        nameshort_year:
-            columns: [nameShort, year]
-        course_year:
-            columns: [course, year]
+    table: enrolment
+    repositoryClass: Busybee\StudentBundle\Repository\EnrolmentRepository
     id:
         id:
             type: integer
@@ -16,12 +9,9 @@ Busybee\StudentBundle\Entity\Activity:
             generator:
                 strategy: AUTO
     fields:
-        name:
+        ststus:
             type: string
-            length: '100'
-        nameShort:
-            type: string
-            length: '8'
+            length: '32'
         lastModified:
             type: datetime
         createdOn:
@@ -32,12 +22,11 @@ Busybee\StudentBundle\Entity\Activity:
             joinColumns:
                 year:
                     referencedColumnName: id
-        course:
-            targetEntity: Busybee\CurriculumBundle\Entity\Course
+        student:
+            targetEntity: Busybee\StudentBundle\Entity\Student
             joinColumns:
-                course:
+                student:
                     referencedColumnName: id
-            nullable: true
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:

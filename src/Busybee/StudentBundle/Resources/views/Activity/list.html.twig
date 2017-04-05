@@ -47,8 +47,8 @@
                 <div class="col-sm-2">
                     {{ activity.name }}
                 </div>
-                <div class="col-sm-2 col-sm-offset-6 text-center form-inline">
-                    {{ editButton({'windowOpen': {'route': path('student_activity_edit', {'id': activity.id, 'currentSearch': pagination.search|replace({'%': ''})}) } }) }}
+                <div class="col-sm-2 col-sm-offset-6 form-inline">
+                    {{ editButton({'style': '', 'windowOpen': {'route': path('student_activity_edit', {'id': activity.id, 'currentSearch': pagination.search|replace({'%': ''})}) } })|raw }}
                 </div>
             </div>
         {% endfor %}

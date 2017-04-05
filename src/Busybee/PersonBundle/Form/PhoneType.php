@@ -54,7 +54,7 @@ class PhoneType extends AbstractType
                     ),
                 )
             )
-            ->add('countryCode', SettingType::class,
+            ->add('countryCode', SettingChoiceType::class,
                 array(
                     'label' => 'person.label.phone.country',
                     'required' => false,

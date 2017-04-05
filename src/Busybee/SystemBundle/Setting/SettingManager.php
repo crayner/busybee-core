@@ -420,10 +420,10 @@ class SettingManager
     /**
      * create Setting
      *
-     * @version    21st October 2016
-     * @since    21st October 2016
-     * @param    Setting
-     * @return    SettingManager
+     * @version 5th April 2017
+     * @since   21st October 2016
+     * @param   Setting
+     * @return  SettingManager
      */
     public function createSetting(Setting $setting)
     {
@@ -431,8 +431,10 @@ class SettingManager
             $em = $this->container->get('doctrine')->getManager();
             $em->persist($setting);
             $em->flush();
-        } else {
+        } elseif (!empty($setting->getValue())) {
             $this->set($setting->getName(), $setting->getValue());
+        } else {
+            $this->get($setting->getName());
         }
         return $this;
     }
@@ -452,17 +454,20 @@ class SettingManager
     /**
      * set Setting
      *
-     * @version    31st October 2016
-     * @since    21st October 2016
-     * @param    string $name
-     * @param    mixed $value
-     * @return    this
+     * @version 31st October 2016
+     * @since   21st October 2016
+     * @param   string $name
+     * @param   mixed $value
+     * @return  mixed
      */
     public function set($name, $value)
     {
         return $this->setSetting($name, $value);
     }
 
+    /**
+     * @return Container
+     */
     public function getContainer()
     {
         return $this->container;
