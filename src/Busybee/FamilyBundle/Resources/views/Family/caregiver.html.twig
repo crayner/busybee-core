@@ -3,9 +3,10 @@
 {% trans_default_domain "BusybeeFamilyBundle" %}
 
 {% form_theme form
+"BusybeeFormBundle:Template:bootstrap.html.twig"
 "BusybeeFormBundle:Template:jquery.collection.html.twig"
 "BusybeeFamilyBundle:Family:careGiverCollection.html.twig"
-"BusybeeFormBundle:Template:bootstrap.html.twig" %}
+"BusybeeFamilyBundle:Family:studentCollection.html.twig" %}
 
 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'panelStyle': 'info', 'transDomain': 'BusybeeFamilyBundle', 'panelParagraph': 'family.help.caregiver', 'header': form.careGiver.vars.label } %}
     {{ form_widget(form.careGiver) }}

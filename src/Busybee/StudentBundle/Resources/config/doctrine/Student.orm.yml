@@ -94,6 +94,10 @@ Busybee\StudentBundle\Entity\Student:
         person:
             targetEntity: Busybee\PersonBundle\Entity\Person
             inversedBy: student
+    manyToMany:
+        enrolments:
+            targetEntity: Busybee\StudentBundle\Entity\Enrolment
+            inversedBy: 'students'
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

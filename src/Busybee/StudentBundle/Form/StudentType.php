@@ -11,6 +11,7 @@ use Busybee\StudentBundle\Events\StudentSubscriber;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -212,6 +213,20 @@ class StudentType extends AbstractType
                     'translation_domain' => 'BusybeeFamilyBundle',
                     'choice_translation_domain' => 'BusybeeFamilyBundle',
                 )
+            )
+            ->add('enrolments', CollectionType::class,
+                [
+                    'label' => 'student.label.enrolments',
+                    'allow_add' => true,
+                    'by_reference' => false,
+                    'allow_delete' => true,
+                    'entry_type' => EnrolmentType::class,
+                    'attr' => [
+                        'class' => 'enrolmentList',
+                        'help' => 'student.help.enrolments',
+                    ],
+                    'required' => false,
+                ]
             );
         $builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->manager, Person::class));
         $builder->addEventSubscriber(new StudentSubscriber());

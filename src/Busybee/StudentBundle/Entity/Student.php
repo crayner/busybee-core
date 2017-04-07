@@ -4,6 +4,7 @@ namespace Busybee\StudentBundle\Entity;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StudentBundle\Model\StudentModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Student
@@ -127,6 +128,20 @@ class Student extends StudentModel
      * @var string
      */
     private $house;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $enrolments;
+
+    /**
+     * Student constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->enrolments = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -760,5 +775,39 @@ class Student extends StudentModel
         $this->house = $house;
 
         return $this;
+    }
+
+    /**
+     * Add enrolment
+     *
+     * @param \Busybee\StudentBundle\Entity\Enrolment $enrolment
+     *
+     * @return Student
+     */
+    public function addEnrolment(\Busybee\StudentBundle\Entity\Enrolment $enrolment)
+    {
+        $this->enrolments[] = $enrolment;
+
+        return $this;
+    }
+
+    /**
+     * Remove enrolment
+     *
+     * @param \Busybee\StudentBundle\Entity\Enrolment $enrolment
+     */
+    public function removeEnrolment(\Busybee\StudentBundle\Entity\Enrolment $enrolment)
+    {
+        $this->enrolments->removeElement($enrolment);
+    }
+
+    /**
+     * Get enrolments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEnrolments()
+    {
+        return $this->enrolments;
     }
 }

@@ -167,4 +167,14 @@
                 $('.user').prop('disabled', true);
             }
         });
+
+        $(".enrolmentList").collection({
+            name_prefix: '{{ form.student.enrolments.vars.full_name }}',
+            allow_up: false,
+            allow_down: false,
+            add: '<button title="{{ 'student.enrolment.add'|trans({}, 'BusybeeStudentBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+            remove: '<button title="{{ 'student.enrolment.remove'|trans({}, 'BusybeeStudentBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+            add_at_the_end: true
+        });
+
     </script>

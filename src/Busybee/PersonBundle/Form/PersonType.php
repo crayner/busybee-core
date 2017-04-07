@@ -149,6 +149,7 @@ class PersonType extends AbstractType
                     'choice_label' => 'singleLineAddress',
                     'empty_data'  => null,
                     'required' => false,
+                    'label' => 'person.label.address1',
                     'attr' => array(
                         'help' => 'person.help.address1',
                         'class' => 'beeAddressList formChanged',
@@ -162,6 +163,7 @@ class PersonType extends AbstractType
                     'data'  => $options['data']->getAddress2(),
                     'empty_data'  => null,
                     'required' => false,
+                    'label' => 'person.label.address2',
                     'attr' => array(
                         'help' => 'person.help.address2',
                         'class' => 'beeAddressList formChanged',

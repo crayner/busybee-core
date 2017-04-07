@@ -1,11 +1,12 @@
 <?php
 
 namespace Busybee\StudentBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Activity
+ * Enrolment
  */
-class Activity
+class Enrolment
 {
     /**
      * @var integer
@@ -15,12 +16,7 @@ class Activity
     /**
      * @var string
      */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $nameShort;
+    private $status;
 
     /**
      * @var \DateTime
@@ -38,11 +34,6 @@ class Activity
     private $year;
 
     /**
-     * @var \Busybee\CurriculumBundle\Entity\Course
-     */
-    private $course;
-
-    /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $createdBy;
@@ -52,6 +43,22 @@ class Activity
      */
     private $modifiedBy;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $student;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $students;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->students = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -64,49 +71,25 @@ class Activity
     }
 
     /**
-     * Get name
+     * Get status
      *
      * @return string
      */
-    public function getName()
+    public function getStatus()
     {
-        return $this->name;
+        return $this->status;
     }
 
     /**
-     * Set name
+     * Set status
      *
-     * @param string $name
+     * @param string $status
      *
-     * @return Activity
+     * @return Enrolment
      */
-    public function setName($name)
+    public function setStatus($status)
     {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get nameShort
-     *
-     * @return string
-     */
-    public function getNameShort()
-    {
-        return $this->nameShort;
-    }
-
-    /**
-     * Set nameShort
-     *
-     * @param string $nameShort
-     *
-     * @return Activity
-     */
-    public function setNameShort($nameShort)
-    {
-        $this->nameShort = $nameShort;
+        $this->status = $status;
 
         return $this;
     }
@@ -126,7 +109,7 @@ class Activity
      *
      * @param \DateTime $lastModified
      *
-     * @return Activity
+     * @return Enrolment
      */
     public function setLastModified($lastModified)
     {
@@ -150,7 +133,7 @@ class Activity
      *
      * @param \DateTime $createdOn
      *
-     * @return Activity
+     * @return Enrolment
      */
     public function setCreatedOn($createdOn)
     {
@@ -174,35 +157,11 @@ class Activity
      *
      * @param \Busybee\InstituteBundle\Entity\Year $year
      *
-     * @return Activity
+     * @return Enrolment
      */
     public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
     {
         $this->year = $year;
-
-        return $this;
-    }
-
-    /**
-     * Get course
-     *
-     * @return \Busybee\CurriculumBundle\Entity\Course
-     */
-    public function getCourse()
-    {
-        return $this->course;
-    }
-
-    /**
-     * Set course
-     *
-     * @param \Busybee\CurriculumBundle\Entity\Course $course
-     *
-     * @return Activity
-     */
-    public function setCourse(\Busybee\CurriculumBundle\Entity\Course $course = null)
-    {
-        $this->course = $course;
 
         return $this;
     }
@@ -222,7 +181,7 @@ class Activity
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Activity
+     * @return Enrolment
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -246,12 +205,46 @@ class Activity
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Activity
+     * @return Enrolment
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
 
         return $this;
+    }
+
+    /**
+     * Add student
+     *
+     * @param \Busybee\StudentBundle\Entity\Student $student
+     *
+     * @return Enrolment
+     */
+    public function addStudent(\Busybee\StudentBundle\Entity\Student $student)
+    {
+        $this->students[] = $student;
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \Busybee\StudentBundle\Entity\Student $student
+     */
+    public function removeStudent(\Busybee\StudentBundle\Entity\Student $student)
+    {
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }

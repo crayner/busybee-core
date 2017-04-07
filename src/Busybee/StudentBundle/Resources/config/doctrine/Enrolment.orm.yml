@@ -9,7 +9,7 @@ Busybee\StudentBundle\Entity\Enrolment:
             generator:
                 strategy: AUTO
     fields:
-        ststus:
+        status:
             type: string
             length: '32'
         lastModified:
@@ -22,11 +22,6 @@ Busybee\StudentBundle\Entity\Enrolment:
             joinColumns:
                 year:
                     referencedColumnName: id
-        student:
-            targetEntity: Busybee\StudentBundle\Entity\Student
-            joinColumns:
-                student:
-                    referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:
@@ -37,3 +32,7 @@ Busybee\StudentBundle\Entity\Enrolment:
             joinColumns:
                 modified_by:
                     referencedColumnName: id
+    manyToMany:
+        students:
+            targetEntity: Busybee\StudentBundle\Entity\Student
+            mappedBy: enrolments

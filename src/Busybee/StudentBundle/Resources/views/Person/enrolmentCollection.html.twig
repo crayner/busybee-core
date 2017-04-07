@@ -1,0 +1,31 @@
+{% trans_default_domain "BusybeeFamilyBundle" %}
+
+{% block enrolment_label %}{% endblock %}
+{% block enrolment_errors %}{% endblock %}
+
+{% block enrolment_widget %}
+    {% set panelStyle = 'default' %}
+    {% set transDomain = 'BusybeeStudentBundle' %}
+    {% set header = 'student.enrolment.title' %}
+    {% set h3Content = saveButton()|raw %}
+
+    {% set yearName = '' %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': yearName} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4 well">
+                {{ form_row(form.status) }}
+            </div>
+            <div class="col-sm-4 well">
+                {{ form_row(form.year) }}
+            </div>
+            <div class="col-sm-4 well collection-actions ">
+                {{ form_row(form.students) }}
+                <span>
+                    {{ deleteButton({'title': 'student.enrolment.remove', 'transDomain': 'BusybeeStudentBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw }}
+                </span>
+            </div>
+        </div>
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% endblock enrolment_widget %}

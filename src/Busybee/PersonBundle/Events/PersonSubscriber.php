@@ -157,7 +157,7 @@ class PersonSubscriber implements EventSubscriberInterface
             $this->om->remove($form->get('student')->getData());
             $flush = true;
         }
-        dump($data);
+
         if (isset($data['userQuestion']) && $data['userQuestion'] === '1' && !$person->getUser() instanceof User && $this->personManager->canBeUser($person)) {
             $user = $this->personManager->doesThisUserExist($person);
             $data['user'] = array();

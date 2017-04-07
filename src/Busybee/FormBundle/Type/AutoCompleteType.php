@@ -13,11 +13,6 @@ class AutoCompleteType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-/*		$resolver->setRequired(
-			array(
-				'name',
-			)
-		); */
     }
 
     public function getBlockPrefix()

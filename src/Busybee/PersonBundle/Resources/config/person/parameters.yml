@@ -18,6 +18,16 @@ parameters:
             include: BusybeeStudentBundle:Person:student.html.twig
             message: studentMessage
             translation: BusybeeStudentBundle
+        immigration:
+            label: person.tab.immigration
+            include: BusybeeStudentBundle:Person:immigration.html.twig
+            message: immigrationMessage
+            translation: BusybeeStudentBundle
+        enrolment:
+            label: person.tab.enrolment
+            include: BusybeeStudentBundle:Person:enrolmentStart.html.twig
+            message: enrolmentMessage
+            translation: BusybeeStudentBundle
         user:
             label: person.tab.user
             include: BusybeePersonBundle:Person:user.html.twig

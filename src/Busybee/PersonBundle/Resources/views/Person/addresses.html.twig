@@ -2,12 +2,6 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% form_theme form
-	"BusybeeFormBundle:Template:bootstrap.html.twig"
-%}
-
-
-
 {% if addresses is defined %}
 	<p class="alert alert-info">
 		<strong>{{ 'Linked Family Addresses'|trans }}</strong>

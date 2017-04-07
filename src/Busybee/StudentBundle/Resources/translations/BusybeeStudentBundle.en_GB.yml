@@ -50,9 +50,19 @@ student:
     activity:
         title: Manage Activity
         description: Activites include both curriculum and extra curriculum in scope.  Include any event or series of events that any student undertakes within the institute in this section.
+    enrolment:
+        title: '%name% Enrolment'
+        label:
+            status: Enrolment Status
+            year: School Year
+        placeholder:
+            status: Select Enrolment Status
+            year: Select School Year
 person:
     tab:
         student: Student
+        immigration: Citizenship
+        enrolment: Enrolment
 activity:
     label:
         name: Activity Name

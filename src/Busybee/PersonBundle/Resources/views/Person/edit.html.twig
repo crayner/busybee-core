@@ -4,7 +4,11 @@
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form
+"BusybeeFormBundle:Template:bootstrap.html.twig"
+"BusybeeFormBundle:Template:jquery.collection.html.twig"
+"BusybeePersonBundle:Form:phoneCollection.html.twig"
+"BusybeeStudentBundle:Person:enrolmentCollection.html.twig" %}
 
 {% block stylesheets %}
 	{{ parent() }}
@@ -34,6 +38,8 @@
             {% set disabled = '' %}
             {% if name == 'staff' and form.staff.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
             {% if name == 'student' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
+            {% if name == 'immigration' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
+            {% if name == 'enrolment' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
             {% if name == 'user' and form.user.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
             <li{{ disabled }} role="presentation"><a href="#{{ name }}" role="tab"
                                                      data-toggle="tab">{{ tab.label|trans({}, translation) }}</a></li>
@@ -49,9 +55,17 @@
                     {%  include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.staff.title'|trans({'%name%': form.vars.value.formatName}) }  %}
                 </div>
             {% elseif name == 'student' and form.student.person is not defined %}
-                <div class="tab-pane" id="{{ name }}" >
+				<div class="tab-pane" id="{{ name }}">
+                    {% include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
+				</div>
+            {% elseif name == 'immigration' and form.student.person is not defined %}
+				<div class="tab-pane" id="{{ name }}">
+                    {% include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
+				</div>
+            {% elseif name == 'enrolment' and form.student.person is not defined %}
+				<div class="tab-pane" id="{{ name }}">
                     {%  include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) }  %}
-                </div>
+				</div>
             {% elseif name == 'user' and form.user.person is not defined %}
                 <div class="tab-pane" id="{{ name }}" >
                     {%  include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.user.title'|trans({'%name%': form.vars.value.formatName}) }  %}

@@ -31,7 +31,7 @@ class CampusController extends Controller
         $form = $this->createForm(CampusType::class, $campus);
         if (intval($id) > 0)
             $form->get('locationList')->setData($id);
-        dump($form);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
