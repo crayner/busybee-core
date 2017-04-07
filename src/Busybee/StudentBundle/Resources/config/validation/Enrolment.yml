@@ -1,0 +1,7 @@
+Busybee\StudentBundle\Entity\Enrolment:
+    properties:
+        year:
+            - NotBlank: ~
+            - Valid: ~
+        status:
+            - NotBlank: ~

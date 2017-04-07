@@ -41,6 +41,7 @@ class EnrolmentType extends AbstractType
                     'label' => 'student.enrolment.label.status',
                     'setting_name' => 'student.enrolment.status',
                     'placeholder' => 'student.enrolment.placeholder.status',
+                    'required' => true,
                 ]
             )
             ->add('year', EntityType::class,
@@ -55,6 +56,7 @@ class EnrolmentType extends AbstractType
                             ->setParameter('yearStatus', 'Archived');
                     },
                     'placeholder' => 'student.enrolment.placeholder.year',
+                    'required' => true,
                 ]
             );
 

@@ -37,3 +37,9 @@ caregiver:
 blank:
     term:
         year: The term year is blank.
+student:
+    enrolments:
+        error: 'Enrolments are not valid.'
+        current: Only a single enrolment can be current.
+        year: 'The year (%year%) can only be selected once.'
+        yearempty: You must select a Year in the enrolment.

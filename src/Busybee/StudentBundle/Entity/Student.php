@@ -808,6 +808,8 @@ class Student extends StudentModel
         $iterator = $this->enrolments->getIterator();
         $iterator->uasort(
             function ($a, $b) {
+                if (empty($a->getYear()) || empty($b->getYear()))
+                    return 0;
                 return ($a->getYear()->getFirstDay() < $b->getYear()->getFirstDay()) ? -1 : 1;
             }
         );

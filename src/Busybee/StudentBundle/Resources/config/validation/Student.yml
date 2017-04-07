@@ -18,3 +18,5 @@ Busybee\StudentBundle\Entity\Student:
         house:
             - Busybee\FormBundle\Validator\SettingChoice:
                 name: 'house.list'
+        enrolments:
+            - Busybee\StudentBundle\Validator\Enrolments: ~
