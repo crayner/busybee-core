@@ -1,7 +1,6 @@
 <?php
 
 namespace Busybee\StudentBundle\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Enrolment
@@ -42,23 +41,6 @@ class Enrolment
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $student;
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $students;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->students = new ArrayCollection();
-    }
 
     /**
      * Get id
@@ -212,39 +194,5 @@ class Enrolment
         $this->modifiedBy = $modifiedBy;
 
         return $this;
-    }
-
-    /**
-     * Add student
-     *
-     * @param \Busybee\StudentBundle\Entity\Student $student
-     *
-     * @return Enrolment
-     */
-    public function addStudent(\Busybee\StudentBundle\Entity\Student $student)
-    {
-        $this->students[] = $student;
-
-        return $this;
-    }
-
-    /**
-     * Remove student
-     *
-     * @param \Busybee\StudentBundle\Entity\Student $student
-     */
-    public function removeStudent(\Busybee\StudentBundle\Entity\Student $student)
-    {
-        $this->students->removeElement($student);
-    }
-
-    /**
-     * Get students
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getStudents()
-    {
-        return $this->students;
     }
 }

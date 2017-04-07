@@ -56,10 +56,8 @@ class EnrolmentType extends AbstractType
                     },
                     'placeholder' => 'student.enrolment.placeholder.year',
                 ]
-            )
-            ->add('students', HiddenType::class);
+            );
 
-        $builder->get('students')->addModelTransformer(new EntityToStringTransformer($this->om, Student::class));
     }
 
     /**
@@ -67,10 +65,12 @@ class EnrolmentType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Busybee\StudentBundle\Entity\Enrolment',
-            'translation_domain' => 'BusybeeStudentBundle',
-        ));
+        $resolver->setDefaults(
+            [
+                'data_class' => 'Busybee\StudentBundle\Entity\Enrolment',
+                'translation_domain' => 'BusybeeStudentBundle',
+            ]
+        );
     }
 
     /**

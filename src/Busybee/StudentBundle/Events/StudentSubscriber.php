@@ -34,20 +34,6 @@ class StudentSubscriber implements EventSubscriberInterface
         if (is_null($data['citizenship1PassportScan'])) $data['citizenship1PassportScan'] = $student->getCitizenship1PassportScan();
         if (is_null($data['nationalIDCardScan'])) $data['nationalIDCardScan'] = $student->getNationalIDCardScan();
 
-        if (!empty($data['enrolments']))
-            foreach ($data['enrolments'] as $q => $w)
-                $data['enrolments'][$q]['students'] = $student->getId();
-
-        dump($data);
-        dump($student);
-
-        $event->setData($data);
-    }
-
-    public function preSetData(FormEvent $event)
-    {
-        $data = $event->getData();
-
         $event->setData($data);
     }
 }

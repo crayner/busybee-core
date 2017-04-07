@@ -8,7 +8,6 @@
     {% set transDomain = 'BusybeeStudentBundle' %}
     {% set header = 'student.enrolment.title' %}
     {% set h3Content = saveButton()|raw %}
-
     {% set yearName = '' %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': yearName} %}
     <div class="container-fluid">
@@ -20,7 +19,6 @@
                 {{ form_row(form.year) }}
             </div>
             <div class="col-sm-4 well collection-actions ">
-                {{ form_row(form.students) }}
                 <span>
                     {{ deleteButton({'title': 'student.enrolment.remove', 'transDomain': 'BusybeeStudentBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw }}
                 </span>

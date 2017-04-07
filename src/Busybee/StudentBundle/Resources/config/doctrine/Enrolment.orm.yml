@@ -19,6 +19,7 @@ Busybee\StudentBundle\Entity\Enrolment:
     manyToOne:
         year:
             targetEntity: Busybee\InstituteBundle\Entity\Year
+            orderBy: { 'firstDay': 'ASC' }
             joinColumns:
                 year:
                     referencedColumnName: id
@@ -32,7 +33,3 @@ Busybee\StudentBundle\Entity\Enrolment:
             joinColumns:
                 modified_by:
                     referencedColumnName: id
-    manyToMany:
-        students:
-            targetEntity: Busybee\StudentBundle\Entity\Student
-            mappedBy: enrolments

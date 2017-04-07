@@ -5,6 +5,9 @@ use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StudentBundle\Model\StudentModel;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Student
@@ -37,6 +40,91 @@ class Student extends StudentModel
     private $status;
 
     /**
+     * @var string
+     */
+    private $firstLanguage;
+
+    /**
+     * @var string
+     */
+    private $secondLanguage;
+
+    /**
+     * @var string
+     */
+    private $thirdLanguage;
+
+    /**
+     * @var string
+     */
+    private $countryOfBirth;
+
+    /**
+     * @var string
+     */
+    private $birthCertificateScan;
+
+    /**
+     * @var string
+     */
+    private $ethnicity;
+
+    /**
+     * @var string
+     */
+    private $citizenship1;
+
+    /**
+     * @var string
+     */
+    private $citizenship1Passport;
+
+    /**
+     * @var string
+     */
+    private $citizenship1PassportScan;
+
+    /**
+     * @var string
+     */
+    private $citizenship2;
+
+    /**
+     * @var string
+     */
+    private $citizenship2Passport;
+
+    /**
+     * @var string
+     */
+    private $religion;
+
+    /**
+     * @var string
+     */
+    private $nationalIDCardNumber;
+
+    /**
+     * @var string
+     */
+    private $nationalIDCardScan;
+
+    /**
+     * @var string
+     */
+    private $residencyStatus;
+
+    /**
+     * @var \DateTime
+     */
+    private $visaExpiryDate;
+
+    /**
+     * @var string
+     */
+    private $house;
+
+    /**
      * @var \DateTime
      */
     private $lastModified;
@@ -47,92 +135,29 @@ class Student extends StudentModel
     private $createdOn;
 
     /**
-     * @var Person
+     * @var \Busybee\PersonBundle\Entity\Person
      */
     private $person;
-
-    /**
-     * @var User
-     */
-    private $createdBy;
-
-    /**
-     * @var User
-     */
-    private $modifiedBy;
-    /**
-     * @var string
-     */
-    private $firstLanguage;
-    /**
-     * @var string
-     */
-    private $secondLanguage;
-    /**
-     * @var string
-     */
-    private $thirdLanguage;
-    /**
-     * @var string
-     */
-    private $countryOfBirth;
-    /**
-     * @var string
-     */
-    private $birthCertificateScan;
-    /**
-     * @var string
-     */
-    private $ethnicity;
-    /**
-     * @var string
-     */
-    private $citizenship1;
-    /**
-     * @var string
-     */
-    private $citizenship1Passport;
-    /**
-     * @var string
-     */
-    private $citizenship1PassportScan;
-    /**
-     * @var string
-     */
-    private $citizenship2;
-    /**
-     * @var string
-     */
-    private $citizenship2Passport;
-    /**
-     * @var string
-     */
-    private $religion;
-    /**
-     * @var string
-     */
-    private $nationalIDCardNumber;
-    /**
-     * @var string
-     */
-    private $nationalIDCardScan;
-    /**
-     * @var string
-     */
-    private $residencyStatus;
-    /**
-     * @var \DateTime
-     */
-    private $visaExpiryDate;
-    /**
-     * @var string
-     */
-    private $house;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $enrolments;
+
+    /**
+     * @var boolean
+     */
+    private $enrolmentsSorted = false;
+
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $createdBy;
+
+    /**
+     * @var \Busybee\SecurityBundle\Entity\User
+     */
+    private $modifiedBy;
 
     /**
      * Student constructor.
@@ -170,7 +195,7 @@ class Student extends StudentModel
      *
      * @return Student
      */
-    public function setStartAtSchool(\DateTime $startAtSchool)
+    public function setStartAtSchool($startAtSchool)
     {
         $this->startAtSchool = $startAtSchool;
 
@@ -194,7 +219,7 @@ class Student extends StudentModel
      *
      * @return Student
      */
-    public function setStartAtThisSchool(\DateTime $startAtThisSchool)
+    public function setStartAtThisSchool($startAtThisSchool)
     {
         $this->startAtThisSchool = $startAtThisSchool;
 
@@ -218,7 +243,7 @@ class Student extends StudentModel
      *
      * @return Student
      */
-    public function setLastAtThisSchool(\DateTime $lastAtThisSchool = null)
+    public function setLastAtThisSchool($lastAtThisSchool)
     {
         $this->lastAtThisSchool = $lastAtThisSchool;
 
@@ -245,126 +270,6 @@ class Student extends StudentModel
     public function setStatus($status)
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get lastModified
-     *
-     * @return \DateTime
-     */
-    public function getLastModified()
-    {
-        return $this->lastModified;
-    }
-
-    /**
-     * Set lastModified
-     *
-     * @param \DateTime $lastModified
-     *
-     * @return Student
-     */
-    public function setLastModified($lastModified)
-    {
-        $this->lastModified = $lastModified;
-
-        return $this;
-    }
-
-    /**
-     * Get createdOn
-     *
-     * @return \DateTime
-     */
-    public function getCreatedOn()
-    {
-        return $this->createdOn;
-    }
-
-    /**
-     * Set createdOn
-     *
-     * @param \DateTime $createdOn
-     *
-     * @return Student
-     */
-    public function setCreatedOn($createdOn)
-    {
-        $this->createdOn = $createdOn;
-
-        return $this;
-    }
-
-    /**
-     * Get person
-     *
-     * @return \Busybee\PersonBundle\Entity\Person
-     */
-    public function getPerson()
-    {
-        return $this->person;
-    }
-
-    /**
-     * Set person
-     *
-     * @param \Busybee\PersonBundle\Entity\Person $person
-     *
-     * @return Student
-     */
-    public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
-    {
-        $this->person = $person;
-
-        return $this;
-    }
-
-    /**
-     * Get createdBy
-     *
-     * @return User
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * Set createdBy
-     *
-     * @param User $createdBy
-     *
-     * @return Student
-     */
-    public function setCreatedBy(User $createdBy = null)
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    /**
-     * Get modifiedBy
-     *
-     * @return User
-     */
-    public function getModifiedBy()
-    {
-        return $this->modifiedBy;
-    }
-
-    /**
-     * Set modifiedBy
-     *
-     * @param User $modifiedBy
-     *
-     * @return Student
-     */
-    public function setModifiedBy(User $modifiedBy = null)
-    {
-        $this->modifiedBy = $modifiedBy;
 
         return $this;
     }
@@ -778,6 +683,78 @@ class Student extends StudentModel
     }
 
     /**
+     * Get lastModified
+     *
+     * @return \DateTime
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
+
+    /**
+     * Set lastModified
+     *
+     * @param \DateTime $lastModified
+     *
+     * @return Student
+     */
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+
+        return $this;
+    }
+
+    /**
+     * Get createdOn
+     *
+     * @return \DateTime
+     */
+    public function getCreatedOn()
+    {
+        return $this->createdOn;
+    }
+
+    /**
+     * Set createdOn
+     *
+     * @param \DateTime $createdOn
+     *
+     * @return Student
+     */
+    public function setCreatedOn($createdOn)
+    {
+        $this->createdOn = $createdOn;
+
+        return $this;
+    }
+
+    /**
+     * Get person
+     *
+     * @return \Busybee\PersonBundle\Entity\Person
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * Set person
+     *
+     * @param \Busybee\PersonBundle\Entity\Person $person
+     *
+     * @return Student
+     */
+    public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
+    {
+        $this->person = $person;
+
+        return $this;
+    }
+
+    /**
      * Add enrolment
      *
      * @param \Busybee\StudentBundle\Entity\Enrolment $enrolment
@@ -792,22 +769,100 @@ class Student extends StudentModel
     }
 
     /**
-     * Remove enrolment
+     * Get Enrolments
      *
-     * @param \Busybee\StudentBundle\Entity\Enrolment $enrolment
-     */
-    public function removeEnrolment(\Busybee\StudentBundle\Entity\Enrolment $enrolment)
-    {
-        $this->enrolments->removeElement($enrolment);
-    }
-
-    /**
-     * Get enrolments
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getEnrolments()
     {
+        $this->sortEnrolments();
+
         return $this->enrolments;
+    }
+
+    /**
+     * Set Enrolments
+     *
+     * @return Student
+     */
+    public function setEnrolments($enrolments)
+    {
+        if ($enrolments instanceof ArrayCollection || $enrolments instanceof PersistentCollection)
+            $this->enrolments = $enrolments;
+        else
+            throw new InvalidArgumentException('Enrolments added to student are invalid.');
+
+        return $this;
+    }
+
+    /**
+     * Sort Enrolments
+     *
+     * @return Student
+     */
+    public function sortEnrolments()
+    {
+        if (count($this->enrolments) == 0 || $this->enrolmentsSorted)
+            return $this;
+
+        $iterator = $this->enrolments->getIterator();
+        $iterator->uasort(
+            function ($a, $b) {
+                return ($a->getYear()->getFirstDay() < $b->getYear()->getFirstDay()) ? -1 : 1;
+            }
+        );
+
+        $this->enrolments = new ArrayCollection(iterator_to_array($iterator, false));
+        $this->enrolmentsSorted = true;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return \Busybee\SecurityBundle\Entity\User
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param \Busybee\SecurityBundle\Entity\User $createdBy
+     *
+     * @return Student
+     */
+    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedBy
+     *
+     * @return \Busybee\SecurityBundle\Entity\User
+     */
+    public function getModifiedBy()
+    {
+        return $this->modifiedBy;
+    }
+
+    /**
+     * Set modifiedBy
+     *
+     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     *
+     * @return Student
+     */
+    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+    {
+        $this->modifiedBy = $modifiedBy;
+
+        return $this;
     }
 }

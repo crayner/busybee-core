@@ -97,7 +97,16 @@ Busybee\StudentBundle\Entity\Student:
     manyToMany:
         enrolments:
             targetEntity: Busybee\StudentBundle\Entity\Enrolment
-            inversedBy: 'students'
+            orderBy: { 'year': 'ASC' }
+            cascade: [ all ]
+            joinTable:
+                name: student_enrolment
+                joinColumns:
+                    student_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    enrolment_id:
+                        referencedColumnName: id
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

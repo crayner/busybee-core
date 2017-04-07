@@ -24,7 +24,7 @@ class StudentType extends AbstractType
     /**
      * @var ObjectManager
      */
-    private $manager ;
+    private $om;
 
     /**
      * @var SettingManager
@@ -33,11 +33,11 @@ class StudentType extends AbstractType
 
     /**
      * StaffType constructor.
-     * @param ObjectManager $manager
+     * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $manager, SettingManager $sm)
+    public function __construct(ObjectManager $om, SettingManager $sm)
     {
-        $this->manager = $manager ;
+        $this->om = $om;
         $this->sm = $sm ;
     }
 
@@ -218,7 +218,6 @@ class StudentType extends AbstractType
                 [
                     'label' => 'student.label.enrolments',
                     'allow_add' => true,
-                    'by_reference' => false,
                     'allow_delete' => true,
                     'entry_type' => EnrolmentType::class,
                     'attr' => [
@@ -228,7 +227,8 @@ class StudentType extends AbstractType
                     'required' => false,
                 ]
             );
-        $builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->manager, Person::class));
+
+        $builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->om, Person::class));
         $builder->addEventSubscriber(new StudentSubscriber());
     }
 
