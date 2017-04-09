@@ -41,6 +41,10 @@ class Enrolment
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+    /**
+     * @var string
+     */
+    private $grade;
 
     /**
      * Get id
@@ -192,6 +196,30 @@ class Enrolment
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get grade
+     *
+     * @return string
+     */
+    public function getGrade()
+    {
+        return $this->grade;
+    }
+
+    /**
+     * Set grade
+     *
+     * @param string $grade
+     *
+     * @return Enrolment
+     */
+    public function setGrade($grade)
+    {
+        $this->grade = $grade;
 
         return $this;
     }

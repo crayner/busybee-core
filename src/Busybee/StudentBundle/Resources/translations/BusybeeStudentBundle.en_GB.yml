@@ -55,9 +55,11 @@ student:
         label:
             status: Enrolment Status
             year: School Year
+            grade: School Grade
         placeholder:
             status: Select Enrolment Status
             year: Select School Year
+            grade: Select School Grade
 person:
     tab:
         student: Student

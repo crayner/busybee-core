@@ -44,6 +44,14 @@ class EnrolmentType extends AbstractType
                     'required' => true,
                 ]
             )
+            ->add('grade', SettingChoiceType::class,
+                [
+                    'label' => 'student.enrolment.label.grade',
+                    'setting_name' => 'student.groups',
+                    'placeholder' => 'student.enrolment.placeholder.grade',
+                    'required' => true,
+                ]
+            )
             ->add('year', EntityType::class,
                 [
                     'label' => 'student.enrolment.label.year',

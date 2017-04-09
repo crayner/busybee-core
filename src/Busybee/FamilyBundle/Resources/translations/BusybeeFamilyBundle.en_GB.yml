@@ -40,11 +40,12 @@ family:
         add: Add Student
         remove: Remove Student
         edit: Edit Student
+        title: 'Student: %name%'
     caregiver:
         add: Add Care Giver
         remove: Remove Care Giver
         edit: Edit Care Giver
-        title: Care Giver
+        title: 'Care Giver: %name%'
 students:
     label:
         person: Student Name

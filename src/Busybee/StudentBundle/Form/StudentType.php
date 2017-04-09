@@ -224,7 +224,6 @@ class StudentType extends AbstractType
                         'class' => 'enrolmentList',
                         'help' => 'student.help.enrolments',
                     ],
-                    'required' => false,
                 ]
             );
 

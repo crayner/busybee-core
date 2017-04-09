@@ -1,11 +1,8 @@
 <?php
 namespace Busybee\StudentBundle\Entity;
 
-use Busybee\PersonBundle\Entity\Person;
-use Busybee\SecurityBundle\Entity\User;
 use Busybee\StudentBundle\Model\StudentModel;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\ORM\PersistentCollection;
 

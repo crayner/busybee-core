@@ -55,13 +55,10 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
         $newOptions['attr'] = isset($options['attr']) ? $options['attr'] : [];
         $newOptions['translation_domain'] = isset($options['translation_domain']) ? $options['translation_domain'] : null;
         $newOptions['placeholder'] = isset($options['placeholder']) ? $options['placeholder'] : null;
-        if (isset($options['required']))
-            $newOptions['required'] = $options['required'];
-        if (isset($options['multiple']))
-            $newOptions['multiple'] = $options['multiple'];
-        if (isset($options['expanded']))
-            $newOptions['expanded'] = $options['expanded'];
-        $newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : 'SystemBundle';
+        $newOptions['required'] = isset($options['required']) ? $options['required'] : false;
+        $newOptions['multiple'] = isset($options['multiple']) ? $options['multiple'] : false;
+        $newOptions['expanded'] = isset($options['expanded']) ? $options['expanded'] : false;
+        $newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : $newOptions['translation_domain'];
 
         //  Now replace the existing setting form element with a straight Choice
         $form->getParent()->add($name, ChoiceType::class, $newOptions);

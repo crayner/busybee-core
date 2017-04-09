@@ -19,6 +19,13 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeeFamilyBundle:Family"
+    caregiver.repository:
+        class: Busybee\FamilyBundle\Repository\CareGiverRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeFamilyBundle:CareGiver"
     family.pagination:
         class: Busybee\FamilyBundle\Model\FamilyPagination
         arguments:
@@ -49,3 +56,7 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
+    caregiver.extension:
+        class: Busybee\FamilyBundle\Model\CareGiverExtension
+        tags:
+            - { name: twig.extension }

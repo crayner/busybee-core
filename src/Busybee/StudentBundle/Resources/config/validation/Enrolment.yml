@@ -5,3 +5,7 @@ Busybee\StudentBundle\Entity\Enrolment:
             - Valid: ~
         status:
             - NotBlank: ~
+        grade:
+            - NotBlank: ~
+            - Busybee\FormBundle\Validator\SettingChoice:
+                name: student.groups

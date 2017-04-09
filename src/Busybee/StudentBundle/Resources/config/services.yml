@@ -68,3 +68,10 @@ services:
         class: Busybee\StudentBundle\Validator\Constraints\EnrolmentsValidator
         tags:
             - { name: validator.constraint_validator, alias: student_enrolments_validator }
+    student.extension:
+        class: Busybee\StudentBundle\Model\StudentExtension
+        arguments:
+            - '@student.repository'
+            - '@translator'
+        tags:
+            - { name: twig.extension }

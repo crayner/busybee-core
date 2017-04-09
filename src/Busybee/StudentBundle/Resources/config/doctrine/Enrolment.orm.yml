@@ -12,6 +12,9 @@ Busybee\StudentBundle\Entity\Enrolment:
         status:
             type: string
             length: '32'
+        grade:
+            type: string
+            length: 8
         lastModified:
             type: datetime
         createdOn:

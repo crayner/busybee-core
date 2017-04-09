@@ -4,10 +4,13 @@
 {% block enrolment_errors %}{% endblock %}
 
 {% block enrolment_widget %}
-    {% set panelStyle = 'default' %}
+    {% set panelStyle = 'info' %}
     {% set transDomain = 'BusybeeStudentBundle' %}
     {% set header = 'student.enrolment.title' %}
-    {% set h3Content = saveButton()|raw %}
+    {% set h3Content = '<div class="collection-actions collection-panel">' %}
+    {% set h3Content = h3Content ~ deleteButton({'title': 'student.enrolment.remove', 'transDomain': 'BusybeeStudentBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ '</div>' %}
     {% set yearName = '' %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': yearName} %}
     <div class="container-fluid">
@@ -18,10 +21,8 @@
             <div class="col-sm-4 well">
                 {{ form_row(form.year) }}
             </div>
-            <div class="col-sm-4 well collection-actions ">
-                <span>
-                    {{ deleteButton({'title': 'student.enrolment.remove', 'transDomain': 'BusybeeStudentBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw }}
-                </span>
+            <div class="col-sm-4 well">
+                {{ form_row(form.grade) }}
             </div>
         </div>
     </div>

@@ -5,20 +5,31 @@
 
 
 {% block student_widget %}
-    <div class="well familyStudent">
+
+    {% set panelStyle = 'default' %}
+    {% set transDomain = 'BusybeeFamilyBundle' %}
+    {% set header = 'family.student.title' %}
+    {% set family_id = form.parent.parent.vars.value.getId %}
+    {% if family_id is empty %}
+        {% set family_id = 'Add' %}
+    {% endif %}
+
+    {% set h3Content = '<div class="collection-actions collection-panel">' %}
+    {% if form.person.vars.value is defined and form.person.vars.value > 0 %}
+        {% set h3Content = h3Content ~ editButton({'title': 'family.student.edit', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('person_edit', {'id': form.person.vars.value, 'currentSearch': '_closeWindow'}), 'target': 'family.student.edit', 'params': 'width=1024,height=900'}, 'class': 'halflings halflings-edit btn btn-info'})|raw %}
+    {% endif %}
+    {% set h3Content = h3Content ~ deleteButton({'title': 'family.student.remove', 'transDomain': 'BusybeeFamilyBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw %}
+    {% set h3Content = h3Content ~ saveButton()|raw %}
+    {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+    {% set h3Content = h3Content ~ '</div>' %}
+
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': displayStudentField(form.vars['value'], 'formatName')} %}
+    <div class="container-fluid familyStudent">
         <div class="row">
             <div class="col-sm-6 well">
                 {{ form_row(form.person) }}
             </div>
-            <div class="col-sm-offset-3 col-sm-3 collection-actions well">
-				<span>
-                    {% if form.person.vars.value is defined and form.person.vars.value > 0 %}
-                        {{ editButton({'title': 'family.student.edit', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('person_edit', {'id': form.person.vars.value, 'currentSearch': '_closeWindow'}), 'target': 'family.student.edit', 'params': 'width=1024,height=900'}, 'class': 'halflings halflings-edit btn btn-info'})|raw }}
-                    {% endif %}
-                    {{ deleteButton({'title': 'family.student.remove', 'transDomain': 'BusybeeFamilyBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw }}
-                    {{ addButton({'title': 'family.student.add', 'transDomain': 'BusybeeFamilyBundle', 'class': 'halflings halflings-plus-sign btn btn-primary collection-add collection-action'})|raw }}
-				</span>
             </div>
         </div>
-    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock student_widget %}

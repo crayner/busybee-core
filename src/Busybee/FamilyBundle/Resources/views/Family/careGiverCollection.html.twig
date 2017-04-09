@@ -11,9 +11,18 @@
     {% if family_id is empty %}
         {% set family_id = 'Add' %}
     {% endif %}
-    {% set h3Content = cancelButton({'windowOpen': {'route': path('family_edit', {'id': family_id})}})|raw %}
+
+    {% set h3Content = '<div class="collection-actions collection-panel">' %}
+    {% if form.person.vars.value is defined and form.person.vars.value > 0 %}
+        {% set h3Content = h3Content ~ editButton({'title': 'family.caregiver.edit', 'transDomain': 'BusybeeFamilyBundle', 'class': 'halflings halflings-edit btn btn-info', 'windowOpen': {'route': path('person_edit', {'id': form.person.vars.value, 'currentSearch': '_closeWindow'}), 'target': 'family.caregiver.edit', 'params': 'width=1024,height=900'}})|raw %}
+    {% endif %}
+    {% set h3Content = h3Content ~ deleteButton({'title': 'family.caregiver.remove', 'transDomain': 'BusybeeFamilyBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'})|raw %}
     {% set h3Content = h3Content ~ saveButton()|raw %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+    {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+    {% set h3Content = h3Content ~ upDownButton()|raw %}
+    {% set h3Content = h3Content ~ '</div>' %}
+
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': displayCareGiverField(form.vars['value'], 'formatName')} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4 well">
@@ -26,14 +35,8 @@
             <div class="col-sm-4 well">
                 {{ form_row(form.relationship) }}
             </div>
-            <div class="col-sm-offset-1 col-sm-3 collection-actions well">
-				<span>
-                    {% if form.person.vars.value is defined and form.person.vars.value > 0 %}
-                        {{ editButton({'title': 'family.caregiver.edit', 'transDomain': 'BusybeeFamilyBundle', 'class': 'halflings halflings-edit btn btn-info', 'windowOpen': {'route': path('person_edit', {'id': form.person.vars.value}), 'target': 'family.caregiver.edit', 'params': 'width=1024,height=900'}})|raw }}
-                    {% endif %}
-                    {{ deleteButton({'title': 'family.caregiver.remove', 'transDomain': 'BusybeeFamilyBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw }}
-                    {{ upDownButton()|raw }}
-				</span>
+            <div class="col-sm-4 well">
+                {{ form_row(form.vehicleRegistration) }}
             </div>
         </div>
         <div class="row row-striped">
@@ -70,10 +73,7 @@
             </div>
         </div>
         <div class="row row-striped">
-            <div class="col-sm-4 well">
-                {{ form_row(form.vehicleRegistration) }}
-            </div>
-            <div class="col-sm-8 well">
+            <div class="col-sm-12 well">
                 {{ form_row(form.comment) }}
             </div>
         </div>

@@ -6,6 +6,7 @@ use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
+use Busybee\StudentBundle\Entity\Student;
 use Doctrine\Common\CommonException;
 
 trait FormatNameExtension
@@ -14,10 +15,21 @@ trait FormatNameExtension
      * @return string
      * @throws CommonException
      */
+    public function getFullName($options = array())
+    {
+        return $this->getFormatName($options);
+    }
+
+    /**
+     * @return string
+     * @throws CommonException
+     */
     public function getFormatName($options = array())
     {
         if ($this instanceof CareGiver) {
-            $options['preferredOnly'] = true;
+            if (empty($options)) {
+                $options['preferredOnly'] = true;
+            }
             $person = $this->getPerson();
             if ($person instanceof Person)
                 return $person->getFormatName($options);
@@ -33,6 +45,16 @@ trait FormatNameExtension
 
         if ($this instanceof Staff) {
             $person = $this->getPerson();
+            if ($person instanceof Person)
+                return $person->getFormatName($options);
+        }
+
+        if ($this instanceof Student) {
+            $person = $this->getPerson();
+            if (empty($options)) {
+                $options['preferredOnly'] = true;
+                $options['surnameFirst'] = false;
+            }
             if ($person instanceof Person)
                 return $person->getFormatName($options);
         }
