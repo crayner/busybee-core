@@ -1,0 +1,11 @@
+# Person
+parameters:
+    items:
+        59:
+            label: menu.timetable.manage
+            name: Manage Timetable
+            route: timetable_manage
+            role: ROLE_PRINCIPAL
+            parameters: []
+            node: 5
+            order: 59

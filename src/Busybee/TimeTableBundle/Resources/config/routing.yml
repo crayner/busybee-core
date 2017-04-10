@@ -1,0 +1,3 @@
+timetable_manage:
+    path:     /manage/{currentSearch}
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:list, currentSearch: null }

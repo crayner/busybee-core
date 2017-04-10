@@ -2,16 +2,23 @@
 parameters:
     nodes:
         5:
-            name: curriculum
-            label: menu.curriculum.tab
+            name: Learn
+            label: menu.learn.tab
             order: 5
             menu: 5
             role: ROLE_TEACHER
     items:
-        50:
-            label: menu.curriculum.course
-            name: Manage Students
+        52:
+            label: menu.learn.course
+            name: Manage Courses
             node: 5
-            order: 50
+            order: 52
             role: ROLE_TEACHER
             route: course_manage
+        50:
+            label: menu.student.activities
+            name: Manage Activities
+            role: ROLE_ADMIN
+            node: 5
+            order: 50
+            route: student_activities

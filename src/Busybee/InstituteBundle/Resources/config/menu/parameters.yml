@@ -53,17 +53,3 @@ parameters:
             route: year_calendar
             parameters:
                 id: current
-        22:
-            label: menu.student.manage
-            name: Manage Students
-            role: ROLE_ADMIN
-            node: 2
-            order: 22
-            menu: 22
-        220:
-            label: menu.student.activities
-            name: Manage Activities
-            role: ROLE_ADMIN
-            node: 22
-            order: 220
-            route: student_activities

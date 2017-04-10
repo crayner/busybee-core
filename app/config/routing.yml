@@ -34,6 +34,10 @@ busybee_family:
     resource: "@BusybeeFamilyBundle/Resources/config/routing.yml"
     prefix:   /family/
 
+busybee_time_table:
+    resource: "@BusybeeTimeTableBundle/Resources/config/routing.yml"
+    prefix:   /timetable/
+
 busybee_plugin:
     resource: .
     type: advanced_extra
