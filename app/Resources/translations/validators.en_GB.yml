@@ -43,3 +43,6 @@ student:
         current: Only a single enrolment can be current.
         year: 'The year (%year%) can only be selected once.'
         yearempty: You must select a Year in the enrolment.
+timetable:
+    unique:
+        year: This value must be unique within the year

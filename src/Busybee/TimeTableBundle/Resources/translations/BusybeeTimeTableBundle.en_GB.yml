@@ -1,0 +1,15 @@
+timetable:
+    list:
+        title: Manage Timetable
+        description: Create, edit and remove timetable details.
+    label:
+        name: Name
+        nameShort: Short Name
+        year: Year
+    add:
+        title: Add Timetable
+    edit:
+        title: Timetable
+        description: ''
+    placeholder:
+        year: Select Year

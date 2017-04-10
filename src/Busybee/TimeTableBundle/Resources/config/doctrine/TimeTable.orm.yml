@@ -1,0 +1,42 @@
+Busybee\TimeTableBundle\Entity\TimeTable:
+    type: entity
+    table: timetable
+    repositoryClass: Busybee\TimeTableBundle\Repository\TimeTableRepository
+    uniqueConstraints:
+        name_year:
+            columns:
+                - name
+                - year
+        nameshort_year:
+            columns:
+                - nameShort
+                - year
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        nameShort:
+            type: string
+            length: '16'
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        year:
+            targetEntity: Busybee\InstituteBundle\Entity\Year
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

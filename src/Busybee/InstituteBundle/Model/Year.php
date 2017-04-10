@@ -1,9 +1,8 @@
 <?php
 namespace Busybee\InstituteBundle\Model ;
 
-use Doctrine\Common\Collections\ArrayCollection ;
 
-class Year
+abstract class Year
 {
 	public function canDelete()
 	{

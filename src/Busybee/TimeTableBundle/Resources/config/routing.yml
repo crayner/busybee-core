@@ -1,3 +1,6 @@
 timetable_manage:
     path:     /manage/{currentSearch}
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:list, currentSearch: null }
+timetable_edit:
+    path:     /edit/{id}/{currentSearch}
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:edit, currentSearch: null }

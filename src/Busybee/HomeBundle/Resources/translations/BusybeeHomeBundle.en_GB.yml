@@ -91,7 +91,7 @@ menu:
     Student: Manage Students
     learn:
         tab: Learn
-        course: Manage Courses
+        course: Courses
     Person: People
     system: Organise
     reports:
@@ -112,7 +112,9 @@ menu:
         homerooms: Manage Home Rooms
     student:
         manage: Manage Students
-        activities: Manage Activities
+        activities: Activities
+    timetable:
+        manage: Timetables
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

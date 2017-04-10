@@ -1,1 +1,47 @@
+parameters:
+    TimeTablePagination:
+        alias: t
+        sortBy:
+            Name:
+                t.name: ASC
+                y.firstDay: ASC
+            Short Name:
+                t.nameShort: ASC
+                y.firstDay: ASC
+            Year:
+                y.firstDay: ASC
+                t.name: ASC
+        limit: '25'
+        join:
+            t.year:
+                alias: y
+                type: leftJoin
+        searchList:
+            - t.name
+            - t.nameShort
+            - y.name
+        select:
+            - t.name
+            - t.nameShort
+            - t.id
+            - y.name as year
 services:
+    timetable.repository:
+        class: Busybee\TimeTableBundle\Repository\TimeTableRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeTimeTableBundle:TimeTable"
+    timetable.pagination:
+        class: Busybee\TimeTableBundle\Model\TimeTablePagination
+        arguments:
+            - '%TimeTablePagination%'
+            - '@timetable.repository'
+            - '@my_service_container'
+    form.timetable.type:
+        class: Busybee\TimeTableBundle\Form\TimeTableType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
