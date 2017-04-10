@@ -144,6 +144,10 @@ class Person extends PersonModel
      * @var string
      */
     private $importIdentifier;
+    /**
+     * @var \Busybee\PersonBundle\Entity\PersonExtra
+     */
+    private $extra;
 
     /**
      * Constructor
@@ -804,6 +808,34 @@ class Person extends PersonModel
     public function setImportIdentifier($importIdentifier)
     {
         $this->importIdentifier = $importIdentifier;
+
+        return $this;
+    }
+
+    /**
+     * Get extra
+     *
+     * @return \Busybee\PersonBundle\Entity\PersonExtra
+     */
+    public function getExtra()
+    {
+        return $this->extra;
+    }
+
+    /**
+     * Set extra
+     *
+     * @param \Busybee\PersonBundle\Entity\PersonExtra $extra
+     *
+     * @return Person
+     */
+    public function setExtra(\Busybee\PersonBundle\Entity\PersonExtra $extra = null)
+    {
+
+        if ($extra instanceof PersonExtra)
+            $extra->setPerson($this);
+
+        $this->extra = $extra;
 
         return $this;
     }

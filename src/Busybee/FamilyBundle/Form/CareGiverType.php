@@ -85,10 +85,6 @@ class CareGiverType extends AbstractType
             )
             ->add('family', HiddenType::class)
             ->add('contactPriority', HiddenType::class)
-            ->add('vehicleRegistration', null, array(
-                    'label' => 'caregiver.label.vehicle',
-                )
-            )
             ->add('comment', null, array(
                     'label' => 'caregiver.label.comment',
                 )

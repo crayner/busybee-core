@@ -32,10 +32,6 @@ Busybee\FamilyBundle\Entity\CareGiver:
         contactPriority:
             type: integer
             length: 2
-        vehicleRegistration:
-            type: string
-            length: '25'
-            nullable: true
         relationship:
             type: string
             length: 32

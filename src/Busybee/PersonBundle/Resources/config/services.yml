@@ -205,3 +205,9 @@ services:
             entityManager: "@doctrine.orm.entity_manager"
         tags:
             - { name: validator.constraint_validator, alias: person_name_validator }
+    form.person.extra.type:
+        class: Busybee\PersonBundle\Form\ExtraType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }

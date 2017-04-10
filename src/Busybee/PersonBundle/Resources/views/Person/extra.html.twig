@@ -1,0 +1,19 @@
+{# src/Busybee/PersonBundle/Resources/views/Person/extra.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+<div class="panel panel-primary busybee-panel">
+    {% include "BusybeePersonBundle:Person:panelHeader.html.twig"  with {'header': 'person.extra.title'} %}
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 well">
+                    {{ form_row(form.extra.vehicleRegistration) }}
+                    {{ form_row(form.extra.person) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -12,6 +12,10 @@ person:
             label: Type of Staff
         toggle: Staff Member Status
     actions: Actions
+    extra:
+        title: 'Additional: %name%'
+        label:
+            vehicleRegistration: Vehicle Registration
     return: Manage People
     dob:
         label: Date of Birth
@@ -73,6 +77,7 @@ person:
         caregiver: Care Giver
         student: Student
         user: User
+        extra: Miscellaneous
     placeholder:
         address: Start typing any address.
         staff:

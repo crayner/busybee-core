@@ -208,6 +208,11 @@ class PersonType extends AbstractType
                     'mapped'                => false,
                 )
             )
+            ->add('extra', ExtraType::class,
+                [
+                    'label' => 'person.label.extra',
+                ]
+            )
 		;
 
         $builder->addEventSubscriber(new PersonSubscriber($this->personManager, $this->manager, $this->parameters));
