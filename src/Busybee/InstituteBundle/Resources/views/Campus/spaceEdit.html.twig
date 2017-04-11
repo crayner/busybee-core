@@ -1,4 +1,4 @@
-{# src/Busybee/InstituteBundle/Resources/views/CampusresourceEdit.html.twig #}
+{# src/Busybee/InstituteBundle/Resources/views/spaceEdit.html.twig #}
 
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
@@ -9,18 +9,18 @@
     {% include 'BusybeeHomeBundle:Toggle:style.html.twig' %}
 {% endblock stylesheets %}
 
-{% block title %}{{ parent() }}{{ 'campus.resource.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'campus.resource.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'campus.resource.description'|trans }}{% endblock headerLead %}
+{% block title %}{{ parent() }}{{ 'campus.space.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'campus.space.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'campus.space.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
 {{ form_start(form) }}
-    {% set h3Content = returnButton({'windowOpen': {'route': path('campus_resource_manage')}}) %}
-    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('campus_resource_edit', {'id': 'Add'})}}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('campus_resource_edit', {'id': app.request.get('id')}) }}) %}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('campus_space_manage')}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('campus_space_edit', {'id': 'Add'})}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('campus_space_edit', {'id': app.request.get('id')}) }}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.resource.title', 'transDomain': 'BusybeeInstituteBundle'} %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.space.title', 'transDomain': 'BusybeeInstituteBundle'} %}
 	<div class=container-fluid">
 		<div class="row">
 			<div class="col-sm-4 col-md-4 well">
@@ -94,5 +94,5 @@
 {% block javascripts %}
     {{ parent() }}
     {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
-    {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'campus_resource_edit'} %}
+    {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'campus_space_edit'} %}
 {% endblock javascripts %}

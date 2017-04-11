@@ -189,12 +189,14 @@ SchoolDay.Close:
     description: 'The time the doors of the campus normally close, all after school and school activities finished.'
     role: 'ROLE_ADMIN'
     validator: null
-Campus.Resource.Type:
+Campus.Space.Type:
     type: 'array'
-    displayName: 'Type of Campus Resource'
-    description: 'Campus resources are spaces used with the Campus, such as classrooms and Storage Rooms.'
+    displayName: 'Type of Space'
+    description: 'Spaces are spaces used with the Campus, such as classrooms, purpose built rooms and Storage Rooms.'
     role: 'ROLE_ADMIN'
     validator: null
+    value: { Classroom: Classroom }
+    choice: Classroom
 Staff.Categories:
     type: 'array'
     displayName: 'Staff Categories'

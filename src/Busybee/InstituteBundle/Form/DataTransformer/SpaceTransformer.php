@@ -1,18 +1,18 @@
 <?php
 namespace Busybee\InstituteBundle\Form\DataTransformer;
 
-use Busybee\InstituteBundle\Entity\CampusResource;
+use Busybee\InstituteBundle\Entity\Space;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 
-class CampusResourceTransformer implements DataTransformerInterface
+class SpaceTransformer implements DataTransformerInterface
 {
     private $manager;
 
     /**
-     * CampusTransformer constructor.
+     * SpaceTransformer constructor.
      * @param ObjectManager $manager
      */
     public function __construct(ObjectManager $manager)
@@ -26,7 +26,7 @@ class CampusResourceTransformer implements DataTransformerInterface
      */
     public function transform($data)
     {
-        if ($data instanceof CampusResource)
+        if ($data instanceof Space)
 			$data = strval($data->getId());
         else
             $data = '';
@@ -35,16 +35,16 @@ class CampusResourceTransformer implements DataTransformerInterface
 
     /**
      * @param mixed $data
-     * @return CampusResource|mixed|null|object
+     * @return Space|mixed|null|object
      */
     public function reverseTransform($data)
     {
         if (is_null($data))
 			return null;
-        if ($data instanceof CampusResource)
+        if ($data instanceof Space)
             return $data ;
         $entity = $this->manager
-            ->getRepository('BusybeeInstituteBundle:CampusResource')
+            ->getRepository(Space::class)
             // query for the issue with this id
             ->find($data)
         ;

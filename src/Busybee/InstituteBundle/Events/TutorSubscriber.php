@@ -2,18 +2,25 @@
 
 namespace Busybee\InstituteBundle\Events ;
 
-use Busybee\InstituteBundle\Repository\CampusResourceRepository;
+use Busybee\InstituteBundle\Repository\SpaceRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class TutorSubscriber implements EventSubscriberInterface
 {
-    private $crr;
+    /**
+     * @var SpaceRepository
+     */
+    private $sr;
 
-    public function __construct(CampusResourceRepository $crr)
+    /**
+     * TutorSubscriber constructor.
+     * @param SpaceRepository $sr
+     */
+    public function __construct(SpaceRepository $sr)
     {
-        $this->crr = $crr;
+        $this->sr = $sr;
     }
 
     /**
@@ -49,9 +56,9 @@ class TutorSubscriber implements EventSubscriberInterface
                 $data['tutor1'] = $data['tutor2'];
                 $data['tutor2'] = '';          }
         }
-        if (empty($data['tutor1']) && ! empty($data['campusResource']))
+        if (empty($data['tutor1']) && !empty($data['space']))
         {
-            $cr = $this->crr->find($data['campusResource']);
+            $cr = $this->sr->find($data['space']);
             if (! empty($cr->getStaff1()) && $cr->getStaff1()->getId() > 0)
                 $data['tutor1'] = $cr->getStaff1()->getId();
         }

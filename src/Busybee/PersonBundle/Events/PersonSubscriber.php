@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\File\File;
 
 class PersonSubscriber implements EventSubscriberInterface
 {
@@ -253,6 +254,9 @@ class PersonSubscriber implements EventSubscriberInterface
 
         if (empty($data['preferredName']))
             $data['preferredName'] = $data['firstName'];
+        dump($data['photo']->getFilename());
+        if ($data['photo'] instanceof File && empty($data['photo']->getFilename()))
+            $data['photo'] = null;
 
         $event->setData($data);
     }

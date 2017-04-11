@@ -1,7 +1,7 @@
 timetable:
     list:
-        title: Manage Timetable
-        description: Create, edit and remove timetable details.
+        title: Timetable List
+        description: ''
     label:
         name: Name
         nameShort: Short Name
@@ -10,6 +10,6 @@ timetable:
         title: Add Timetable
     edit:
         title: Timetable
-        description: ''
+        description: Modify the details of the timetable.
     placeholder:
         year: Select Year

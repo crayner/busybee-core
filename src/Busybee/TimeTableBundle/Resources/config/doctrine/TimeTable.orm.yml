@@ -30,6 +30,9 @@ Busybee\TimeTableBundle\Entity\TimeTable:
     manyToOne:
         year:
             targetEntity: Busybee\InstituteBundle\Entity\Year
+            joinColumns:
+                year:
+                    referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:

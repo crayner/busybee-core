@@ -3,7 +3,7 @@ namespace Busybee\InstituteBundle\Model;
 
 use Busybee\PaginationBundle\Model\PaginationManager ;
 
-class CampusResourcePagination extends PaginationManager
+class SpacePagination extends PaginationManager
 {
 
 	/**

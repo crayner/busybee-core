@@ -2,8 +2,8 @@
 
 namespace Busybee\InstituteBundle\Controller ;
 
-use Busybee\InstituteBundle\Entity\CampusResource;
-use Busybee\InstituteBundle\Form\CampusResourceType;
+use Busybee\InstituteBundle\Entity\Space;
+use Busybee\InstituteBundle\Form\SpaceType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request ;
@@ -53,39 +53,45 @@ class CampusController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function resourceAction(Request $request)
+    public function spaceAction(Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
-        $up = $this->get('campusResource.pagination');
+        $up = $this->get('space.pagination');
 
         $up->injectRequest($request);
 
         $up->getDataSet();
 
-        return $this->render('BusybeeInstituteBundle:Campus:resources.html.twig',
+        return $this->render('BusybeeInstituteBundle:Campus:spaces.html.twig',
             array(
                 'pagination' => $up,
             )
         );
     }
-    public function editResourceAction($id, Request $request)
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function editSpaceAction($id, Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
-        $campus = new CampusResource();
+        $campus = new Space();
 
         $id = $request->get('id');
         if (intval($id) > 0)
-            $campus = $this->get('campusResource.repository')->find($id);
+            $campus = $this->get('space.repository')->find($id);
 
         if (! is_null($campus->getCampus())) $campus->getCampus()->getName();
         if (! is_null($campus->getStaff1())) $campus->getStaff1()->getPerson();
         if (! is_null($campus->getStaff2())) $campus->getStaff2()->getPerson();
 
-        $campus->cancelURL = $this->get('router')->generate('campus_resource_manage');
+        $campus->cancelURL = $this->get('router')->generate('campus_space_manage');
 
-        $form = $this->createForm(CampusResourceType::class, $campus);
+        $form = $this->createForm(SpaceType::class, $campus);
 
         $form->handleRequest($request);
 
@@ -104,9 +110,9 @@ class CampusController extends Controller
             $em->persist($campus);
             $em->flush();
 
-			return new RedirectResponse($this->get('router')->generate('campus_resource_edit', array('id' => $campus->getId())));
+            return new RedirectResponse($this->get('router')->generate('campus_space_edit', array('id' => $campus->getId())));
         }
 
-        return $this->render('BusybeeInstituteBundle:Campus:resourceEdit.html.twig', array('id' => $id, 'form' => $form->createView()));
+        return $this->render('BusybeeInstituteBundle:Campus:spaceEdit.html.twig', array('id' => $id, 'form' => $form->createView()));
     }
 }

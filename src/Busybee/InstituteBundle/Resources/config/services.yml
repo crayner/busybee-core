@@ -4,7 +4,7 @@ parameters:
         calendar.status.past: past
         calendar.status.current: current
         calendar.status.future: future
-    campusResourcePagination: []
+    spacePagination: []
 services:
     campus.repository:
         class: Busybee\InstituteBundle\Repository\CampusRepository
@@ -101,21 +101,21 @@ services:
             - '@my_service_container'
         tags:
             - { name: twig.extension }
-    campusResource.pagination:
-        class: Busybee\InstituteBundle\Model\CampusResourcePagination
+    space.pagination:
+        class: Busybee\InstituteBundle\Model\SpacePagination
         arguments:
-            - '%campusResourcePagination%'
-            - '@campusResource.repository'
+            - '%spacePagination%'
+            - '@space.repository'
             - '@my_service_container'
-    campusResource.repository:
-        class: Busybee\InstituteBundle\Repository\CampusResourceRepository
+    space.repository:
+        class: Busybee\InstituteBundle\Repository\SpaceRepository
         factory:
             - "@doctrine"
             - 'getRepository'
         arguments:
-            - "BusybeeInstituteBundle:CampusResource"
-    form.CampusResourceType:
-        class: Busybee\InstituteBundle\Form\CampusResourceType
+            - "BusybeeInstituteBundle:Space"
+    form.space.type:
+        class: Busybee\InstituteBundle\Form\SpaceType
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@setting.manager'

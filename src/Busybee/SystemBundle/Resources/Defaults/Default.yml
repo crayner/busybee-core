@@ -56,7 +56,7 @@ settings:
     SchoolDay.Begin: '08:45'
     SchoolDay.Finish: '15:00'
     SchoolDay.Close: '17:00'
-    Campus.Resource.Type: 
+    Campus.Space.Type:
         Classroom: Classroom
         Hall: Hall
         Laboratory: Laboratory

@@ -1,7 +1,7 @@
-Busybee\InstituteBundle\Entity\CampusResource:
+Busybee\InstituteBundle\Entity\Space:
     type: entity
-    table: campus_resource
-    repositoryClass: Busybee\InstituteBundle\Repository\CampusResourceRepository
+    table: campus_space
+    repositoryClass: Busybee\InstituteBundle\Repository\SpaceRepository
     uniqueConstraints:
         name_campus:
             columns: [ name, campus ]

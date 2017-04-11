@@ -3,7 +3,7 @@
 namespace Busybee\InstituteBundle\Form;
 
 use Busybee\FormBundle\Type\ToggleType;
-use Busybee\InstituteBundle\Entity\CampusResource;
+use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Form\DataTransformer\CampusTransformer;
 use Busybee\StaffBundle\Form\DataTransformer\StaffTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CampusResourceType extends AbstractType
+class SpaceType extends AbstractType
 {
     /**
      * @var ObjectManager
@@ -45,41 +45,41 @@ class CampusResourceType extends AbstractType
     {
         $builder
             ->add('name', null, array(
-                    'label' => 'campus.resource.label.name',
+                    'label' => 'campus.space.label.name',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('type', ChoiceType::class, array(
-                    'choices' => $this->sm->get('Campus.Resource.Type'),
-                    'label' => 'campus.resource.label.type',
-                    'placeholder' => 'campus.resource.placeholder.type',
+                    'choices' => $this->sm->get('Campus.Space.Type'),
+                    'label' => 'campus.space.label.type',
+                    'placeholder' => 'campus.space.placeholder.type',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('capacity', IntegerType::class, array(
-                    'label' => 'campus.resource.label.capacity',
+                    'label' => 'campus.space.label.capacity',
                     'attr' => array(
                         'min' => '0',
                         'max' => '9999',
-                        'help' => 'campus.resource.help.capacity',
+                        'help' => 'campus.space.help.capacity',
                         'class' => 'monitorChange',
                     ),
                     'empty_data' => 0,
                 )
             )
             ->add('computer', ToggleType::class, array(
-                    'label' => 'campus.resource.label.computer',
+                    'label' => 'campus.space.label.computer',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('studentComputers', IntegerType::class, array(
-                    'label' => 'campus.resource.label.studentComputers',
+                    'label' => 'campus.space.label.studentComputers',
                     'attr' => array(
                         'min' => '0',
                         'max' => '999',
@@ -89,63 +89,63 @@ class CampusResourceType extends AbstractType
                 )
             )
             ->add('projector', ToggleType::class, array(
-                    'label' => 'campus.resource.label.projector',
+                    'label' => 'campus.space.label.projector',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('tv', ToggleType::class, array(
-                    'label' => 'campus.resource.label.tv',
+                    'label' => 'campus.space.label.tv',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('dvd', ToggleType::class, array(
-                    'label' => 'campus.resource.label.dvd',
+                    'label' => 'campus.space.label.dvd',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('hifi', ToggleType::class, array(
-                    'label' => 'campus.resource.label.hifi',
+                    'label' => 'campus.space.label.hifi',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('speakers', ToggleType::class, array(
-                    'label' => 'campus.resource.label.speakers',
+                    'label' => 'campus.space.label.speakers',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('iwb', ToggleType::class, array(
-                    'label' => 'campus.resource.label.iwb',
+                    'label' => 'campus.space.label.iwb',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('phoneInt', null, array(
-                    'label' => 'campus.resource.label.phoneint',
+                    'label' => 'campus.space.label.phoneint',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('phoneExt', null, array(
-                    'label' => 'campus.resource.label.phoneext',
+                    'label' => 'campus.space.label.phoneext',
                     'attr' => array(
                         'class' => 'monitorChange',
                     ),
                 )
             )
             ->add('comment', TextareaType::class, array(
-                    'label' => 'campus.resource.label.comment',
+                    'label' => 'campus.space.label.comment',
                     'required' => false,
                     'attr' => array(
                         'class' => 'monitorChange',
@@ -157,11 +157,11 @@ class CampusResourceType extends AbstractType
                     'class' => Staff::class,
                     'choice_label' => 'formatName',
                     'choice_value' => 'id',
-                    'label' => 'campus.resource.label.staff1',
-                    'placeholder' => 'campus.resource.placeholder.staff',
+                    'label' => 'campus.space.label.staff1',
+                    'placeholder' => 'campus.space.placeholder.staff',
                     'empty_data'    => null,
                     'attr' => array(
-                        'help' => 'campus.resource.help.staff',
+                        'help' => 'campus.space.help.staff',
                         'class' => 'monitorChange',
                     ),
                     'required' => false,
@@ -169,16 +169,16 @@ class CampusResourceType extends AbstractType
             )
             ->add('campus', EntityType::class,
                 array(
-                    'label' => 'campus.resource.label.campus',
+                    'label' => 'campus.space.label.campus',
                     'attr' => array(
-                        'help' => 'campus.resource.help.campus',
+                        'help' => 'campus.space.help.campus',
                         'class' => 'monitorChange',
                     ),
                     'class' => 'Busybee\InstituteBundle\Entity\Campus',
                     'choice_label' => 'name',
                     'choice_value' => 'id',
                     'empty_data' => $this->manager->getRepository('BusybeeInstituteBundle:Campus')->find(1),
-                    'placeholder' => 'campus.resource.placeholder.campus',
+                    'placeholder' => 'campus.space.placeholder.campus',
                 )
             )
             ->add('staff2', EntityType::class,
@@ -186,11 +186,11 @@ class CampusResourceType extends AbstractType
                     'class' => Staff::class,
                     'choice_label' => 'formatName',
                     'choice_value' => 'id',
-                    'label' => 'campus.resource.label.staff2',
-                    'placeholder' => 'campus.resource.placeholder.staff',
+                    'label' => 'campus.space.label.staff2',
+                    'placeholder' => 'campus.space.placeholder.staff',
                     'empty_data'    => null,
                     'attr' => array(
-                        'help' => 'campus.resource.help.staff',
+                        'help' => 'campus.space.help.staff',
                         'class' => 'monitorChange',
                     ),
                     'required' => false,
@@ -202,12 +202,12 @@ class CampusResourceType extends AbstractType
                     'attr' => array(
                         'class' => 'formChanged changeRecord',
                     ),
-                    'class' => CampusResource::class,
+                    'class' => Space::class,
                     'choice_label' => 'name',
                     'choice_value' => 'id',
                     'mapped' => false,
                     'required' => false,
-                    'placeholder' => 'campus.resource.placeholder.changeRecord',
+                    'placeholder' => 'campus.space.placeholder.changeRecord',
                 )
             )
         ;
@@ -223,7 +223,7 @@ class CampusResourceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Busybee\InstituteBundle\Entity\CampusResource',
+            'data_class' => Space::class,
             'translation_domain' => 'BusybeeInstituteBundle',
         ));
     }
@@ -233,7 +233,7 @@ class CampusResourceType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'busybee_institutebundle_campusresource';
+        return 'space';
     }
 
 

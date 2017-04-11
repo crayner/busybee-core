@@ -18,25 +18,25 @@ campus:
         country: ''
     placeholder:
         locations: Select a Location to Edit
-    resources:
-        title: Manage Campus Resources
-        description: Add, modify and remove Campus Resources (Rooms and Spaces.)
-        name: Campus Resource
+    spaces:
+        title: Manage Spaces
+        description: Add, modify and remove Spaces (Rooms and Spaces.)
+        name: Spaces
         comment: Comment
-    resource:
+    space:
         add:
-            title: Add Campus Resource
+            title: Add Space
         edit:
-            title: Edit Campus Resource
-        title: Manage Campus Resource
-        description: Add, Modify Campus Resource details.
+            title: Edit Space
+        title: Manage Space
+        description: Add, Modify Space details.
         label:
             staff1: Home Room Teacher
             staff2: Home Room Teacher (2)
-            type: Campus Resource Type
-            name: Campus Resource Name
+            type: Space Type
+            name: Space Name
             campus: Campus Name
-            capacity: Capacity of Resource.
+            capacity: Capacity of Space.
             studentComputers: Available Student Computers
             computer: Staff Use Computer?
             projector: Projector supplied?

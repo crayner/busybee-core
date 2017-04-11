@@ -24,7 +24,7 @@ parameters:
             order: 1400
             route: campus_manage
         1401:
-            label: menu.campus.resources
+            label: menu.campus.spaces
             name: Campus Resource Management
             role: ROLE_REGISTRAR
             node: 140

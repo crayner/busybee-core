@@ -10,7 +10,7 @@
 
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
-    {% set h3Content = addButton({'title': 'course.add.title', 'transDomain': 'BusybeeCurriculumBundle', 'windowOpen': {'route': path('timetable_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''})})}}) %}
+    {% set h3Content = addButton({'title': 'timetable.add.title', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''})})}}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description'} %}
     <div class="container-fluid well">
         <div class="row row-header">

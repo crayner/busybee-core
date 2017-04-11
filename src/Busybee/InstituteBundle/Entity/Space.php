@@ -5,9 +5,9 @@ namespace Busybee\InstituteBundle\Entity;
 use Busybee\StaffBundle\Entity\Staff;
 
 /**
- * CampusResource
+ * Space
  */
-class CampusResource
+class Space
 {
     /**
      * @var integer
@@ -145,7 +145,7 @@ class CampusResource
      *
      * @param string $name
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setName($name)
     {
@@ -169,7 +169,7 @@ class CampusResource
      *
      * @param string $type
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setType($type)
     {
@@ -193,7 +193,7 @@ class CampusResource
      *
      * @param integer $capacity
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setCapacity($capacity)
     {
@@ -217,7 +217,7 @@ class CampusResource
      *
      * @param boolean $computer
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setComputer($computer)
     {
@@ -241,7 +241,7 @@ class CampusResource
      *
      * @param integer $studentComputers
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setStudentComputers($studentComputers)
     {
@@ -265,7 +265,7 @@ class CampusResource
      *
      * @param boolean $projector
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setProjector($projector)
     {
@@ -289,7 +289,7 @@ class CampusResource
      *
      * @param boolean $tv
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setTv($tv)
     {
@@ -313,7 +313,7 @@ class CampusResource
      *
      * @param boolean $dvd
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setDvd($dvd)
     {
@@ -337,7 +337,7 @@ class CampusResource
      *
      * @param boolean $hifi
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setHifi($hifi)
     {
@@ -361,7 +361,7 @@ class CampusResource
      *
      * @param boolean $speakers
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setSpeakers($speakers)
     {
@@ -385,7 +385,7 @@ class CampusResource
      *
      * @param boolean $iwb
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setIwb($iwb)
     {
@@ -409,7 +409,7 @@ class CampusResource
      *
      * @param string $phoneInt
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setPhoneInt($phoneInt)
     {
@@ -433,7 +433,7 @@ class CampusResource
      *
      * @param string $phoneExt
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setPhoneExt($phoneExt)
     {
@@ -457,7 +457,7 @@ class CampusResource
      *
      * @param string $comment
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setComment($comment)
     {
@@ -481,7 +481,7 @@ class CampusResource
      *
      * @param \DateTime $lastModified
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setLastModified($lastModified)
     {
@@ -505,7 +505,7 @@ class CampusResource
      *
      * @param \DateTime $createdOn
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setCreatedOn($createdOn)
     {
@@ -529,7 +529,7 @@ class CampusResource
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -553,7 +553,7 @@ class CampusResource
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -577,7 +577,7 @@ class CampusResource
      *
      * @param \Busybee\InstituteBundle\Entity\Campus $campus
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setCampus(\Busybee\InstituteBundle\Entity\Campus $campus = null)
     {
@@ -601,7 +601,7 @@ class CampusResource
      *
      * @param Staff $staff1
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setStaff1(Staff $staff1 = null)
     {
@@ -625,7 +625,7 @@ class CampusResource
      *
      * @param Staff $staff2
      *
-     * @return CampusResource
+     * @return Space
      */
     public function setStaff2(Staff $staff2 = null)
     {

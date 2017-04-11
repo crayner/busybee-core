@@ -1,9 +1,9 @@
-Busybee\InstituteBundle\Entity\CampusResource:
+Busybee\InstituteBundle\Entity\Space:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, campus]
             errorPath: name
-            message: campus.resource.unique.name
+            message: campus.space.unique.name
     properties:
         phoneExt:
             - Busybee\PersonBundle\Validator\Phone: ~

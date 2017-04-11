@@ -28,12 +28,9 @@ year_calendar_change:
 specialday_copy:
     path:     /special_day/{day}/{id}/copy/
     defaults: { _controller: BusybeeInstituteBundle:Calendar:copySpecialDay }
-student_year_edit:
-    path:     /student/{id}/year/
-    defaults: { _controller: BusybeeInstituteBundle:Year:edit }
-campus_resource_manage:
-    path:     /campus/resource/
-    defaults: { _controller: BusybeeInstituteBundle:Campus:resource }
-campus_resource_edit:
-    path:     /campus/resource/{id}/edit/
-    defaults: { _controller: BusybeeInstituteBundle:Campus:editResource }
+campus_space_manage:
+    path:     /campus/space/
+    defaults: { _controller: BusybeeInstituteBundle:Campus:space }
+campus_space_edit:
+    path:     /campus/space/{id}/edit/
+    defaults: { _controller: BusybeeInstituteBundle:Campus:editSpace }

@@ -3,7 +3,7 @@ namespace Busybee\PersonBundle\Model;
 
 use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\FamilyBundle\Entity\Family;
-use Busybee\InstituteBundle\Entity\CampusResource;
+use Busybee\InstituteBundle\Entity\Space;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Entity\Locality;
 use Busybee\PersonBundle\Entity\Person;
@@ -254,8 +254,8 @@ class PersonManager
         if (is_null($staff))
             return true;
         /*
-                if (null !== $this->em->getRepository(CampusResource::class)->findOneByStaff1($staff->getId())) return false;
-                if (null !== $this->em->getRepository(CampusResource::class)->findOneByStaff2($staff->getId())) return false;
+                if (null !== $this->em->getRepository(Space:class)->findOneByStaff1($staff->getId())) return false;
+                if (null !== $this->em->getRepository(Space::class)->findOneByStaff2($staff->getId())) return false;
         */
         return $staff->canDelete();
     }
