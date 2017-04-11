@@ -25,11 +25,11 @@ parameters:
             route: campus_manage
         1401:
             label: menu.campus.spaces
-            name: Campus Resource Management
+            name: Space Management
             role: ROLE_REGISTRAR
             node: 140
             order: 1401
-            route: campus_resource_manage
+            route: campus_space_manage
             translate: BusybeeInstituteBundle
         141:
             label: menu.calendar.manage

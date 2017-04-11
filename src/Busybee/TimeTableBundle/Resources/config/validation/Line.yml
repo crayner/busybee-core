@@ -1,0 +1,12 @@
+Busybee\TimeTableBundle\Entity\Line:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [sequence, timetable]
+            errorPath: sequence
+            message: 'line.unique.sequence'
+    properties:
+        timetable:
+            - Valid: ~
+            - NotBlank: ~
+        sequence:
+            - NotBlank: ~

@@ -45,6 +45,18 @@ class TimeTable
      * @var \Busybee\InstituteBundle\Entity\Year
      */
     private $year;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $lines;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lines = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -222,5 +234,44 @@ class TimeTable
         $this->year = $year;
 
         return $this;
+    }
+
+    /**
+     * Add line
+     *
+     * @param \Busybee\TimeTableBundle\Entity\Line $line
+     *
+     * @return TimeTable
+     */
+    public function addLine(\Busybee\TimeTableBundle\Entity\Line $line)
+    {
+        if ($this->lines->contains($line))
+            return $this;
+
+        $line->setTimetable($this);
+
+        $this->lines->add($line);
+
+        return $this;
+    }
+
+    /**
+     * Remove line
+     *
+     * @param \Busybee\TimeTableBundle\Entity\Line $line
+     */
+    public function removeLine(\Busybee\TimeTableBundle\Entity\Line $line)
+    {
+        $this->lines->removeElement($line);
+    }
+
+    /**
+     * Get lines
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLines()
+    {
+        return $this->lines;
     }
 }

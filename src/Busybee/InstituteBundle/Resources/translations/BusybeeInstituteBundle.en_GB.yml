@@ -226,6 +226,6 @@ groups:
             nameShort: The year short name must be unique!
 menu:
     campus:
-        resources: Campus Resources
+        spaces: Campus Resources
 window:
     calendar: Calendar

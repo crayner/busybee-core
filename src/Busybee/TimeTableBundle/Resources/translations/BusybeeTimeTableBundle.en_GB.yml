@@ -6,6 +6,7 @@ timetable:
         name: Name
         nameShort: Short Name
         year: Year
+        lines: Timetable Lines
     add:
         title: Add Timetable
     edit:
@@ -13,3 +14,5 @@ timetable:
         description: Modify the details of the timetable.
     placeholder:
         year: Select Year
+    help:
+        lines: Line Help

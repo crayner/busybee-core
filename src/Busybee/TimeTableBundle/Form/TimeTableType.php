@@ -8,6 +8,7 @@ use Busybee\TimeTableBundle\Entity\TimeTable;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -49,6 +50,20 @@ class TimeTableType extends AbstractType
                     'label' => 'timetable.label.year',
                     'choice_label' => 'name',
                     'placeholder' => 'timetable.placeholder.year'
+                ]
+            )
+            ->add('lines', CollectionType::class,
+                [
+                    'label' => 'timetable.label.lines',
+                    'entry_type' => LineType::class,
+                    'allow_add' => true,
+                    'by_reference' => false,
+                    'allow_delete' => true,
+                    'attr' => array(
+                        'class' => 'lineList',
+                        'help' => 'timetable.help.lines',
+                    ),
+                    'required' => false,
                 ]
             );
 

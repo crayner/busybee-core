@@ -4,6 +4,9 @@
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
+{% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
+'BusybeeTimeTableBundle:Lines:lineCollection.html.twig' %}
+
 {% block title %}{{ parent() }}{{ 'timetable.edit.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'timetable.edit.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'timetable.edit.description'|trans }}{% endblock headerLead %}
@@ -18,16 +21,25 @@
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.edit.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.edit.description'} %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-5 well">
-                {{ form_row(form.name) }}
+            <div class="col-sm-6 well">
+                <div class="row">
+                    <div class="col-sm-12 well">
+                        {{ form_row(form.name) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 well">
+                        {{ form_row(form.nameShort) }}
+                    </div>
+                    <div class="col-sm-6 well">
+                        {% set data = form.year.vars.value %}
+                        {% if data is empty %}{% set data = form.year.vars.data %}{% endif %}
+                        {{ form_row(form.year, {'value': data}) }}
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-3 well">
-                {{ form_row(form.nameShort) }}
-            </div>
-            <div class="col-sm-4 well">
-                {% set data = form.year.vars.value %}
-                {% if data is empty %}{% set data = form.year.vars.data %}{% endif %}
-                {{ form_row(form.year, {'value': data}) }}
+            <div class="col-sm-6 well">
+                {{ form_row(form.lines) }}
             </div>
         </div>
     </div>
