@@ -226,6 +226,20 @@ groups:
             nameShort: The year short name must be unique!
 menu:
     campus:
-        spaces: Campus Resources
+        spaces: Spaces
+    department:
+        manage: Departments
 window:
     calendar: Calendar
+department:
+    edit:
+        title: Manage Departments
+        description: ''
+    label:
+        name: Department Name
+        nameShort: Department Code
+        type: Type
+        staff: Attached Staff
+    placeholder:
+        type: Select Department Type
+        departments: Add New Department

@@ -20,6 +20,11 @@ Busybee\TimeTableBundle\Entity\Line:
             type: datetime
         createdOn:
             type: datetime
+    oneToMany:
+        learningGroups:
+            targetEntity: Busybee\TimeTableBundle\Entity\LearningGroups
+            mappedBy: line
+            cascade: [ all ]
     manyToOne:
         timetable:
             targetEntity: Busybee\TimeTableBundle\Entity\TimeTable

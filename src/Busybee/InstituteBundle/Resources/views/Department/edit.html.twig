@@ -1,0 +1,55 @@
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% extends "@BusybeeHome/Default/template.html.twig" %}
+
+{% form_theme form
+"BusybeeFormBundle:Template:bootstrap.html.twig"
+"BusybeeFormBundle:Template:jquery.collection.html.twig"
+'@BusybeeInstitute/Department/staffCollection.html.twig' %}
+
+{% block title %}{{ 'department.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'department.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'department.edit.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
+    {{ form_start(form) }}
+    {% set h3Content = '' %}
+    {% set h3Content = h3Content ~ resetButton() %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ form_widget(form.departmentList, {'value': app.request.attributes.get('id')}) %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'department.edit.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': ''} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 well">
+                <div class="row">
+                    <div class="col-sm-12 well">
+                        {{ form_row(form.name) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 well">
+                        {{ form_row(form.nameShort) }}
+                    </div>
+                    <div class="col-sm-6 well">
+                        {{ form_row(form.type) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 well">
+                {{ form_widget(form.staff) }}
+            </div>
+        </div>
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }} {{ dump() }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% set route = 'department_edit' %}
+    {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
+    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
+    {% include '@BusybeeInstitute/Department/staffCollection.js.html.twig' %}
+{% endblock javascripts %}

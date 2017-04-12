@@ -31,6 +31,14 @@ parameters:
             order: 1401
             route: campus_space_manage
             translate: BusybeeInstituteBundle
+        142:
+            label: menu.department.manage
+            name: Department Management
+            role: ROLE_PRINCIPAL
+            node: 14
+            order: 142
+            route: department_edit
+            translate: BusybeeInstituteBundle
         141:
             label: menu.calendar.manage
             name: Calendar Management

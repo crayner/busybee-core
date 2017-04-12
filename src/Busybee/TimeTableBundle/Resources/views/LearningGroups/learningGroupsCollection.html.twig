@@ -1,10 +1,10 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% block tt_line_label %}{% endblock %}
-{% block tt_line_errors %}{% endblock %}
+{% block tt_line__learninggroups_label %}{% endblock %}
+{% block tt_line__learninggroups_errors %}{% endblock %}
 
-{% block tt_line_widget %}
-    {% set panelStyle = 'default' %}
+{% block tt_line__learninggroups_widget %}
+    {% set panelStyle = 'warning' %}
     {% set transDomain = 'BusybeeTimeTableBundle' %}
     {% set header = 'timetable.line.header' %}
 
@@ -27,4 +27,4 @@
         </div>
     </div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-{% endblock tt_line_widget %}
+{% endblock tt_line__learninggroups_widget %}

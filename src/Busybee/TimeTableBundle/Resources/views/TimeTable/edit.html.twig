@@ -5,7 +5,9 @@
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
 {% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
-'BusybeeTimeTableBundle:Lines:lineCollection.html.twig' %}
+'@BusybeeForm/Template/jquery.collection.html.twig'
+'BusybeeTimeTableBundle:Lines:lineCollection.html.twig'
+'BusybeeTimeTableBundle:LearningGroups:learningGroupsCollection.html.twig' %}
 
 {% block title %}{{ parent() }}{{ 'timetable.edit.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'timetable.edit.title'|trans }}{% endblock headerTitle %}
@@ -39,7 +41,10 @@
                 </div>
             </div>
             <div class="col-sm-6 well">
-                {{ form_row(form.lines) }}
+                {% set h3Content = '' %}
+                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': form.lines.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.lines.vars.attr.help, 'panelStyle': 'info'} %}
+                {{ form_widget(form.lines) }}
+                {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
             </div>
         </div>
     </div>
@@ -47,3 +52,10 @@
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
+    {% include '@BusybeeTimeTable/Lines/lineScript.html.twig' %}
+    {% include '@BusybeeTimeTable/LearningGroups/learningGroupsScript.html.twig' %}
+{% endblock javascripts %}

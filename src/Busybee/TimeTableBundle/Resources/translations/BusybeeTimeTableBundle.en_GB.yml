@@ -2,6 +2,10 @@ timetable:
     list:
         title: Timetable List
         description: ''
+    line:
+        add: Add line.
+        remove: Remove line.
+        header: Line %name%
     label:
         name: Name
         nameShort: Short Name

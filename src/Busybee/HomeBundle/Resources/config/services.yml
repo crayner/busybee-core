@@ -90,3 +90,7 @@ services:
             - '@translator'
         tags:
             - { name: twig.extension }
+    math.extension:
+        class: Busybee\HomeBundle\Model\MathExtension
+        tags:
+            - { name: twig.extension }

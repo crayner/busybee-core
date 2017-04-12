@@ -24,6 +24,19 @@ Busybee\StaffBundle\Entity\Staff:
             type: datetime
         createdOn:
             type: datetime
+    manyToMany:
+        department:
+            targetEntity: Busybee\InstituteBundle\Entity\Department
+            inversedBy: staff
+            cascade: [ all ]
+            joinTable:
+                name: department_staff
+                joinColumns:
+                    staff_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    dept_id:
+                        referencedColumnName: id
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

@@ -5,6 +5,7 @@ namespace Busybee\StaffBundle\Entity;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Model\StaffModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Staff
@@ -54,6 +55,19 @@ class Staff extends StaffModel
      * @var string
      */
     private $house;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $department;
+
+    /**
+     * Staff constructor.
+     */
+    public function __construct()
+    {
+        $this->department = new ArrayCollection();
+        parent::__construct();
+    }
 
     /**
      * Get id
@@ -255,5 +269,44 @@ class Staff extends StaffModel
         $this->house = $house;
 
         return $this;
+    }
+
+    /**
+     * Add department
+     *
+     * @param \Busybee\InstituteBundle\Entity\Department $department
+     *
+     * @return Staff
+     */
+    public function addDepartment(\Busybee\InstituteBundle\Entity\Department $department)
+    {
+        if ($this->department->contains($department))
+            return $this;
+
+        $department->addStaff($this);
+
+        $this->department->add($department);
+
+        return $this;
+    }
+
+    /**
+     * Remove department
+     *
+     * @param \Busybee\InstituteBundle\Entity\Department $department
+     */
+    public function removeDepartment(\Busybee\InstituteBundle\Entity\Department $department)
+    {
+        $this->department->removeElement($department);
+    }
+
+    /**
+     * Get department
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDepartment()
+    {
+        return $this->department;
     }
 }

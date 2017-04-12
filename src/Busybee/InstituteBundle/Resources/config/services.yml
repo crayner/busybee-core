@@ -129,3 +129,10 @@ services:
         class: Busybee\InstituteBundle\Model\YearManager
         arguments:
             - '@doctrine.orm.entity_manager'
+    department.repository:
+        class: Busybee\InstituteBundle\Repository\DepartmentRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeInstituteBundle:Department"

@@ -13,3 +13,5 @@ Busybee\StaffBundle\Entity\Staff:
                 name: 'house.list'
         person:
             - NotBlank: ~
+        department:
+            - Valid: ~

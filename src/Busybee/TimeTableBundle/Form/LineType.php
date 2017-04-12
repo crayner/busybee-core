@@ -3,10 +3,13 @@
 namespace Busybee\TimeTableBundle\Form;
 
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\TimeTableBundle\Entity\LearningGroups;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,7 +37,17 @@ class LineType extends AbstractType
     {
         $builder
             ->add('sequence', HiddenType::class)
-            ->add('timetable', HiddenType::class);
+            ->add('timetable', HiddenType::class)
+            ->add('learningGroups', CollectionType::class,
+                [
+                    'label' => 'timetable.line.label.learningGroups',
+                    'entry_type' => ChoiceType::class,
+                    'attr' =>
+                        [
+                            'class' => 'learningGroupsList',
+                        ],
+                ]
+            );
         $builder->get('timetable')->addModelTransformer(new EntityToStringTransformer($this->om, TimeTable::class));
     }
 
@@ -54,7 +67,7 @@ class LineType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'timetable_line';
+        return 'tt_line';
     }
 
 

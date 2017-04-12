@@ -3,9 +3,9 @@
 namespace Busybee\TimeTableBundle\Entity;
 
 /**
- * Line
+ * LearningGroups
  */
-class Line
+class LearningGroups
 {
     /**
      * @var integer
@@ -13,9 +13,14 @@ class Line
     private $id;
 
     /**
-     * @var integer
+     * @var string
      */
-    private $sequence;
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $nameShort;
 
     /**
      * @var \DateTime
@@ -28,9 +33,14 @@ class Line
     private $createdOn;
 
     /**
-     * @var \Busybee\TimeTableBundle\Entity\TimeTable
+     * @var \Busybee\TimeTableBundle\Entity\Line
      */
-    private $timetable;
+    private $line;
+
+    /**
+     * @var \Busybee\CurriculumBundle\Entity\Course
+     */
+    private $course;
 
     /**
      * @var \Busybee\SecurityBundle\Entity\User
@@ -41,18 +51,7 @@ class Line
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $learningGroups;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->learningGroups = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -65,25 +64,49 @@ class Line
     }
 
     /**
-     * Get sequence
+     * Get name
      *
-     * @return integer
+     * @return string
      */
-    public function getSequence()
+    public function getName()
     {
-        return $this->sequence;
+        return $this->name;
     }
 
     /**
-     * Set sequence
+     * Set name
      *
-     * @param integer $sequence
+     * @param string $name
      *
-     * @return Line
+     * @return LearningGroups
      */
-    public function setSequence($sequence)
+    public function setName($name)
     {
-        $this->sequence = $sequence;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get nameShort
+     *
+     * @return string
+     */
+    public function getNameShort()
+    {
+        return $this->nameShort;
+    }
+
+    /**
+     * Set nameShort
+     *
+     * @param string $nameShort
+     *
+     * @return LearningGroups
+     */
+    public function setNameShort($nameShort)
+    {
+        $this->nameShort = $nameShort;
 
         return $this;
     }
@@ -103,7 +126,7 @@ class Line
      *
      * @param \DateTime $lastModified
      *
-     * @return Line
+     * @return LearningGroups
      */
     public function setLastModified($lastModified)
     {
@@ -127,7 +150,7 @@ class Line
      *
      * @param \DateTime $createdOn
      *
-     * @return Line
+     * @return LearningGroups
      */
     public function setCreatedOn($createdOn)
     {
@@ -137,25 +160,50 @@ class Line
     }
 
     /**
-     * Get timetable
+     * Get line
      *
-     * @return \Busybee\TimeTableBundle\Entity\TimeTable
+     * @return \Busybee\TimeTableBundle\Entity\Line
      */
-    public function getTimetable()
+    public function getLine()
     {
-        return $this->timetable;
+        return $this->line;
     }
 
     /**
-     * Set timetable
+     * Set line
      *
-     * @param \Busybee\TimeTableBundle\Entity\TimeTable $timetable
+     * @param \Busybee\TimeTableBundle\Entity\Line $line
      *
-     * @return Line
+     * @return LearningGroups
      */
-    public function setTimetable(\Busybee\TimeTableBundle\Entity\TimeTable $timetable = null)
+    public function setLine(\Busybee\TimeTableBundle\Entity\Line $line = null)
     {
-        $this->timetable = $timetable;
+
+        $this->line = $line;
+
+        return $this;
+    }
+
+    /**
+     * Get course
+     *
+     * @return \Busybee\CurriculumBundle\Entity\Course
+     */
+    public function getCourse()
+    {
+        return $this->course;
+    }
+
+    /**
+     * Set course
+     *
+     * @param \Busybee\CurriculumBundle\Entity\Course $course
+     *
+     * @return LearningGroups
+     */
+    public function setCourse(\Busybee\CurriculumBundle\Entity\Course $course = null)
+    {
+        $this->course = $course;
 
         return $this;
     }
@@ -175,7 +223,7 @@ class Line
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Line
+     * @return LearningGroups
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -199,7 +247,7 @@ class Line
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Line
+     * @return LearningGroups
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -207,42 +255,5 @@ class Line
 
         return $this;
     }
-
-    /**
-     * Add learningGroup
-     *
-     * @param \Busybee\TimeTableBundle\Entity\LearningGroups $learningGroup
-     *
-     * @return Line
-     */
-    public function addLearningGroup(\Busybee\TimeTableBundle\Entity\LearningGroups $learningGroup)
-    {
-        if ($this->learningGroups->contains($learningGroup))
-            return $this;
-
-        $learningGroup->setLine($this);
-        $this->learningGroups->add($learningGroup);
-
-        return $this;
-    }
-
-    /**
-     * Remove learningGroup
-     *
-     * @param \Busybee\TimeTableBundle\Entity\LearningGroups $learningGroup
-     */
-    public function removeLearningGroup(\Busybee\TimeTableBundle\Entity\LearningGroups $learningGroup)
-    {
-        $this->learningGroups->removeElement($learningGroup);
-    }
-
-    /**
-     * Get learningGroups
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getLearningGroups()
-    {
-        return $this->learningGroups;
-    }
 }
+

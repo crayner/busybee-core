@@ -1,16 +1,7 @@
-Busybee\TimeTableBundle\Entity\TimeTable:
+Busybee\TimeTableBundle\Entity\LearningGroups:
     type: entity
-    table: timetable
-    repositoryClass: Busybee\TimeTableBundle\Repository\TimeTableRepository
-    uniqueConstraints:
-        name_year:
-            columns:
-                - name
-                - year
-        nameshort_year:
-            columns:
-                - nameShort
-                - year
+    table: learning_groups
+    repositoryClass: Busybee\TimeTableBundle\Repository\LearningGroupsRepository
     id:
         id:
             type: integer
@@ -22,21 +13,22 @@ Busybee\TimeTableBundle\Entity\TimeTable:
             length: '100'
         nameShort:
             type: string
-            length: '16'
+            length: '5'
         lastModified:
             type: datetime
         createdOn:
             type: datetime
-    oneToMany:
-        lines:
-            targetEntity: Busybee\TimeTableBundle\Entity\Line
-            mappedBy: timetable
-            cascade: [ all ]
     manyToOne:
-        year:
-            targetEntity: Busybee\InstituteBundle\Entity\Year
+        line:
+            targetEntity: Busybee\TimeTableBundle\Entity\Line
+            inversedBy: learningGroups
+            joinColumn:
+                name: line
+                referencedColumnName: id
+        course:
+            targetEntity: Busybee\CurriculumBundle\Entity\Course
             joinColumns:
-                year:
+                course:
                     referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

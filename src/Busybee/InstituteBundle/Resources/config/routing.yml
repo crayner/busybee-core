@@ -34,3 +34,6 @@ campus_space_manage:
 campus_space_edit:
     path:     /campus/space/{id}/edit/
     defaults: { _controller: BusybeeInstituteBundle:Campus:editSpace }
+department_edit:
+    path:     /department/{id}/edit/
+    defaults: { _controller: BusybeeInstituteBundle:Department:edit, id: 'Add' }

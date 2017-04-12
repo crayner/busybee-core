@@ -5,6 +5,7 @@ namespace Busybee\TimeTableBundle\Form;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\TimeTableBundle\Entity\TimeTable;
+use Busybee\TimeTableBundle\Events\TimeTableSubscriber;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -68,6 +69,7 @@ class TimeTableType extends AbstractType
             );
 
         $builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
+        $builder->addEventSubscriber(new TimeTableSubscriber());
     }
 
     /**

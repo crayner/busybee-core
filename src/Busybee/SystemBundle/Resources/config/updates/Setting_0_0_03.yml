@@ -21,3 +21,11 @@ student.enrolment.status:
         Current: Current
         Past: Past
         Archived: Archived
+department.type.list:
+    type: array
+    displayName: Department Type List
+    role: ROLE_REGISTRAR
+    description: Types of departments within the institute.
+    value:
+        Learning Area: Learning Area
+        Administration: Administration
