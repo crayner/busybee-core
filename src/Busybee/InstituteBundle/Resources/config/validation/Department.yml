@@ -15,5 +15,7 @@ Busybee\InstituteBundle\Entity\Department:
                 max: 4
         staff:
             - Valid: ~
+            - Busybee\InstituteBundle\Validator\DepartmentStaff:
+                errorPath: staff
         type:
             - NotBlank: ~

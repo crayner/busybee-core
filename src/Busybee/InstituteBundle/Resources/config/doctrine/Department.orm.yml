@@ -23,10 +23,11 @@ Busybee\InstituteBundle\Entity\Department:
             type: datetime
         createdOn:
             type: datetime
-    manyToMany:
+    oneToMany:
         staff:
-            targetEntity: Busybee\StaffBundle\Entity\Staff
+            targetEntity: Busybee\InstituteBundle\Entity\DepartmentStaff
             mappedBy: department
+            cascade: [ all ]
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

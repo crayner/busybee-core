@@ -31,7 +31,16 @@ class SettingChoiceValidator extends ChoiceValidator
         if (empty($value))
             return ;
 
-        $constraint->choices = array_merge($constraint->choices, $this->sm->get($constraint->name));
+        $s = [];
+
+        foreach ($this->sm->get($constraint->name) as $q => $w) {
+            if (is_array($w))
+                $s = array_merge($s, $w);
+            else
+                $s[$q] = $w;
+        }
+
+        $constraint->choices = array_merge($constraint->choices, $s);
 
 		parent::validate($value, $constraint);
     }

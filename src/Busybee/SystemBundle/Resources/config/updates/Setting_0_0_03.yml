@@ -29,3 +29,20 @@ department.type.list:
     value:
         Learning Area: Learning Area
         Administration: Administration
+department.staff.type.list:
+    type: array
+    displayName: Department Staff Type List
+    role: ROLE_REGISTRAR
+    description: Types of staff within departments within the institute.
+    value:
+        Learning:
+            Coordinator: Coordinator
+            Assistant Coordinator: Assistant Coordinator
+            Teacher (Curriculum): Teacher (Curriculum)
+            Teacher: Teacher
+            Other: Other
+        Administation:
+            Director: Director
+            Manager: Manager
+            Administrator: Administrator
+            Other: Other

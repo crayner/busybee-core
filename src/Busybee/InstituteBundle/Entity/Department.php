@@ -1,11 +1,13 @@
 <?php
-
 namespace Busybee\InstituteBundle\Entity;
+
+use Busybee\InstituteBundle\Model\DepartmentModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Department
  */
-class Department
+class Department extends DepartmentModel
 {
     /**
      * @var integer
@@ -57,7 +59,7 @@ class Department
      */
     public function __construct()
     {
-        $this->staff = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->staff = new ArrayCollection();
     }
 
     /**
@@ -241,16 +243,16 @@ class Department
     /**
      * Add staff
      *
-     * @param \Busybee\StaffBundle\Entity\Staff $staff
+     * @param \Busybee\InstituteBundle\Entity\DepartmentStaff $staff
      *
      * @return Department
      */
-    public function addStaff(\Busybee\StaffBundle\Entity\Staff $staff)
+    public function addStaff(\Busybee\InstituteBundle\Entity\DepartmentStaff $staff)
     {
-        if ($this->staff->contain($staff))
+        if ($this->staff->contains($staff))
             return $this;
 
-        $staff->addDepartment($this);
+        $staff->setDepartment($this);
 
         $this->staff->add($staff);
 
@@ -260,9 +262,9 @@ class Department
     /**
      * Remove staff
      *
-     * @param \Busybee\StaffBundle\Entity\Staff $staff
+     * @param \Busybee\InstituteBundle\Entity\DepartmentStaff $staff
      */
-    public function removeStaff(\Busybee\StaffBundle\Entity\Staff $staff)
+    public function removeStaff(\Busybee\InstituteBundle\Entity\DepartmentStaff $staff)
     {
         $this->staff->removeElement($staff);
     }
@@ -272,9 +274,22 @@ class Department
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getStaff()
+    public function getStaff($sorted = true)
     {
+        if ($sorted)
+            return $this->sortStaff();
         return $this->staff;
     }
-}
 
+    /**
+     * Set staff
+     *
+     * @return Department
+     */
+    public function setStaff(ArrayCollection $staff)
+    {
+        $this->staff = $staff;
+
+        return $this;
+    }
+}

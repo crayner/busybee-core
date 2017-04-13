@@ -136,3 +136,19 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeeInstituteBundle:Department"
+    form.department.staff.type:
+        class: Busybee\InstituteBundle\Form\DepartmentStaffType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    form.department.type:
+        class: Busybee\InstituteBundle\Form\DepartmentType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    department.staff.validator:
+        class: Busybee\InstituteBundle\Validator\Constraints\DepartmentStaffValidator
+        tags:
+            - { name: validator.constraint_validator, alias: department_staff_validator }

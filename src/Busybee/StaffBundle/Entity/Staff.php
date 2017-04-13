@@ -274,17 +274,16 @@ class Staff extends StaffModel
     /**
      * Add department
      *
-     * @param \Busybee\InstituteBundle\Entity\Department $department
+     * @param \Busybee\InstituteBundle\Entity\DepartmentStaff $department
      *
      * @return Staff
      */
-    public function addDepartment(\Busybee\InstituteBundle\Entity\Department $department)
+    public function addDepartment(\Busybee\InstituteBundle\Entity\DepartmentStaff $department)
     {
         if ($this->department->contains($department))
             return $this;
 
-        $department->addStaff($this);
-
+        $department->setStaff($this);
         $this->department->add($department);
 
         return $this;
@@ -293,9 +292,9 @@ class Staff extends StaffModel
     /**
      * Remove department
      *
-     * @param \Busybee\InstituteBundle\Entity\Department $department
+     * @param \Busybee\InstituteBundle\Entity\DepartmentStaff $department
      */
-    public function removeDepartment(\Busybee\InstituteBundle\Entity\Department $department)
+    public function removeDepartment(\Busybee\InstituteBundle\Entity\DepartmentStaff $department)
     {
         $this->department->removeElement($department);
     }

@@ -4,11 +4,10 @@ namespace Busybee\InstituteBundle\Form;
 
 use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Department;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\InstituteBundle\Events\DepartmentSubscriber;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

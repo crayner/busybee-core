@@ -1,33 +1,30 @@
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
 {% block departmentStaff_label %}{% endblock %}
-{% block departmentStaff_errors %}{% endblock %}
-
 
 {% block departmentStaff_widget %}
 
     {% set panelStyle = 'default' %}
     {% set transDomain = 'BusybeeInstituteBundle' %}
-    {% set header = 'department.staff.title' %}
-    {% set family_id = form.parent.parent.vars.value.getId %}
-    {% if family_id is empty %}
-        {% set family_id = 'Add' %}
-    {% endif %}
+    {% set header = 'department.staff.member' %}
 
     {% set h3Content = '<div class="collection-actions collection-panel">' %}
-    {% if form.person.vars.value is defined and form.person.vars.value > 0 %}
-        {% set h3Content = h3Content ~ editButton({'title': 'family.student.edit', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('person_edit', {'id': form.person.vars.value, 'currentSearch': '_closeWindow'}), 'target': 'family.student.edit', 'params': 'width=1024,height=900'}, 'class': 'halflings halflings-edit btn btn-info'})|raw %}
-    {% endif %}
-    {% set h3Content = h3Content ~ deleteButton({'title': 'family.student.remove', 'transDomain': 'BusybeeFamilyBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw %}
+    {% set h3Content = h3Content ~ deleteButton({'title': 'department.staff.remove', 'transDomain': 'BusybeeInstituteBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw %}
     {% set h3Content = h3Content ~ saveButton()|raw %}
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
     {% set h3Content = h3Content ~ '</div>' %}
 
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': displayStudentField(form.vars['value'], 'formatName')} %}
-    <div class="container-fluid familyStudent">
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': displayStudentField(form.vars['value'], 'formatName'), 'panelStyle': 'default', 'name': 'Member'} %}
+    <div class="container-fluid departmentStaff">
         <div class="row">
             <div class="col-sm-6 well">
-                {{ form_row(form.name) }}
+                {{ form_row(form.staff) }}
+            </div>
+            <div class="col-sm-6 well">
+                {{ form_row(form.staffType) }}
+                {% set dept_id = '' %}
+                {% if app.request.get('id') != 'Add' %}{% set dept_id = app.request.get('id') %}{% endif %}
+                {{ form_row(form.department, {'id': dept_id}) }}
             </div>
         </div>
     </div>

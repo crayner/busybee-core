@@ -1,0 +1,44 @@
+Busybee\InstituteBundle\Entity\DepartmentStaff:
+    type: entity
+    table: department_staff
+    repositoryClass: Busybee\InstituteBundle\Repository\DepartmentStaffRepository
+    uniqueConstraints:
+        dept_staff:
+            columns: [ department, staff ]
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        staffType:
+            type: string
+            length: '32'
+            name: staff_type
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        department:
+            targetEntity: Busybee\InstituteBundle\Entity\Department
+            inversedBy: staff
+            joinColumn:
+                name: dept_id
+                referencedColumnName: id
+        staff:
+            targetEntity: Busybee\StaffBundle\Entity\Staff
+            inversedBy: department
+            joinColumn:
+                name: staff
+                referencedColumnName: id
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

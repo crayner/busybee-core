@@ -3,8 +3,8 @@
 {% extends "@BusybeeHome/Default/template.html.twig" %}
 
 {% form_theme form
-"BusybeeFormBundle:Template:bootstrap.html.twig"
-"BusybeeFormBundle:Template:jquery.collection.html.twig"
+"@BusybeeForm/Template/bootstrap.html.twig"
+"@BusybeeForm/Template/jquery.collection.html.twig"
 '@BusybeeInstitute/Department/staffCollection.html.twig' %}
 
 {% block title %}{{ 'department.edit.title'|trans }}{% endblock title %}
@@ -15,8 +15,8 @@
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {{ form_start(form) }}
     {% set h3Content = '' %}
-    {% set h3Content = h3Content ~ resetButton() %}
-    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('department_edit', {'id': app.request.get('id')})}})|raw %}
+    {% set h3Content = h3Content ~ saveButton()|raw %}
     {% set h3Content = h3Content ~ form_widget(form.departmentList, {'value': app.request.attributes.get('id')}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'department.edit.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': ''} %}
     <div class="container-fluid">
@@ -37,12 +37,16 @@
                 </div>
             </div>
             <div class="col-sm-6 well">
+                {% set h3Content = '' %}
+                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'department.staff.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': '', 'panelStyle': 'info'} %}
+                {{ form_errors(form.staff.parent) }}
                 {{ form_widget(form.staff) }}
+                {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
             </div>
         </div>
     </div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-    {{ form_end(form) }} {{ dump() }}
+    {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}

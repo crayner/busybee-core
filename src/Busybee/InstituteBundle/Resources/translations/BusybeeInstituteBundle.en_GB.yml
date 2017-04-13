@@ -243,3 +243,17 @@ department:
     placeholder:
         type: Select Department Type
         departments: Add New Department
+    staff:
+        title: Department Staff
+        member: %name%
+        add: New Staff Member
+        label:
+            member: Staff Member
+            type: Member Type
+        placeholder:
+            member: Select Department Member
+            type: Select Member Type
+        remove: Remove Staff Member
+setting:
+    choice:
+        invalid: Choice not found in setting

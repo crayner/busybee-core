@@ -24,19 +24,14 @@ Busybee\StaffBundle\Entity\Staff:
             type: datetime
         createdOn:
             type: datetime
-    manyToMany:
-        department:
-            targetEntity: Busybee\InstituteBundle\Entity\Department
+    oneToOne:
+        person:
+            targetEntity: Busybee\PersonBundle\Entity\Person
             inversedBy: staff
-            cascade: [ all ]
-            joinTable:
-                name: department_staff
-                joinColumns:
-                    staff_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    dept_id:
-                        referencedColumnName: id
+    oneToMany:
+        department:
+            targetEntity: Busybee\InstituteBundle\Entity\DepartmentStaff
+            mappedBy: staff
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
@@ -48,7 +43,3 @@ Busybee\StaffBundle\Entity\Staff:
             joinColumns:
                 modified_by:
                     referencedColumnName: id
-    oneToOne:
-        person:
-            targetEntity: Busybee\PersonBundle\Entity\Person
-            inversedBy: staff

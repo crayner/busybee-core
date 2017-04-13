@@ -46,3 +46,7 @@ student:
 timetable:
     unique:
         year: This value must be unique within the year
+department:
+    staff:
+        invalid: Staff member list is not valid.
+        uniquestaff: %name% is not a unique Staff Member
