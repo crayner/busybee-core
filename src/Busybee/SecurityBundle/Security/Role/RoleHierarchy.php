@@ -6,19 +6,35 @@ use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\Security\Core\Role\RoleHierarchy as RoleHierarchyBase;
 use Symfony\Component\Yaml\Yaml;
 
-class RoleHierarchy extends RoleHierarchyBase {
-	
+class RoleHierarchy extends RoleHierarchyBase
+{
+
+    /**
+     * @var array
+     */
     protected $hierarchy;
+
+    /**
+     * @var EntityManager
+     */
     private $em;
 
     /**
-     * @param array $hierarchy
+     * @var array
      */
-    public function __construct(array $hierarchy, EntityManager $em)
+    private $roles;
+
+    /**
+     * RoleHierarchy constructor.
+     * @param array $hierarchy
+     * @param EntityManager $em
+     */
+    public function __construct(array $hierarchy, EntityManager $em, array $roles)
     {
         $this->em = $em;
 		$y = $em->getConnection()->getParams();
 		$x = array();
+        $this->roles = $roles;
 		if ($y['driver'] != 'pdo_sqlite')
 			$x = $this->buildRolesTree();
 		parent::__construct($x);
@@ -55,13 +71,7 @@ class RoleHierarchy extends RoleHierarchyBase {
      */
     private function getRoles()
     {
-        try {
-            $roles = Yaml::parse(file_get_contents('../src/Busybee/SecurityBundle/Resources/config/services.yml'));
-            $roles = $roles['parameters']['roles'];
-        } catch (ContextErrorException $e) {
-            return array();
-        }
-        return $roles;
+        return $this->roles;
 
     }
 

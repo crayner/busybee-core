@@ -36,10 +36,6 @@ class TimeTableSubscriber implements EventSubscriberInterface
             }
         }
 
-        dump($data);
-        dump($form);
-        dump($entity);
-
         $event->setData($data);
     }
 }

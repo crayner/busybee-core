@@ -108,7 +108,7 @@ class UpdateManager
 
             $sysVersion = $this->incrementVersion($sysVersion);
         }
-        dump($count);
+
         return $count;
     }
 

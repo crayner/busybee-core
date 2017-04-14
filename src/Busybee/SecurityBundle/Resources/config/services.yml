@@ -137,6 +137,7 @@ services:
         arguments:
             - '%security.role_hierarchy.roles%'
             - '@doctrine.orm.default_entity_manager'
+            - '%roles%'
     busybee_security.util.tokengenerator:
         class: Busybee\SecurityBundle\Util\TokenGenerator
         arguments: 
