@@ -66,30 +66,6 @@ class Course extends CourseModel
     }
 
     /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Course
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
      * Get code
      *
      * @return string
@@ -260,6 +236,40 @@ class Course extends CourseModel
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
+
+        return $this;
+    }
+
+    /**
+     * To String
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return strval($this->getName());
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Course
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
         return $this;
     }

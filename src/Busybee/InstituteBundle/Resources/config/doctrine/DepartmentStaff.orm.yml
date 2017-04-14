@@ -4,7 +4,7 @@ Busybee\InstituteBundle\Entity\DepartmentStaff:
     repositoryClass: Busybee\InstituteBundle\Repository\DepartmentStaffRepository
     uniqueConstraints:
         dept_staff:
-            columns: [ department, staff ]
+            columns: [ dept_id, staff ]
     id:
         id:
             type: integer

@@ -55,11 +55,17 @@ class Department extends DepartmentModel
     private $staff;
 
     /**
-     * Constructor
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $courses;
+
+    /**
+     * Department constructor.
      */
     public function __construct()
     {
         $this->staff = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     /**
@@ -289,6 +295,57 @@ class Department extends DepartmentModel
     public function setStaff(ArrayCollection $staff)
     {
         $this->staff = $staff;
+
+        return $this;
+    }
+
+    /**
+     * Add course
+     *
+     * @param \Busybee\CurriculumBundle\Entity\Course $course
+     *
+     * @return Department
+     */
+    public function addCourse(\Busybee\CurriculumBundle\Entity\Course $course)
+    {
+        if ($this->courses->contains($course))
+            return $this;
+
+        $this->courses->add($course);
+
+        return $this;
+    }
+
+    /**
+     * Remove course
+     *
+     * @param \Busybee\CurriculumBundle\Entity\Course $course
+     */
+    public function removeCourse(\Busybee\CurriculumBundle\Entity\Course $course)
+    {
+        $this->courses->removeElement($course);
+    }
+
+    /**
+     * Get courses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCourses($sorted = true)
+    {
+        if ($sorted)
+            return $this->sortCourses();
+        return $this->courses;
+    }
+
+    /**
+     * Set courses
+     *
+     * @return Department
+     */
+    public function setCourses(ArrayCollection $courses)
+    {
+        $this->courses = $courses;
 
         return $this;
     }

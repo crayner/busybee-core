@@ -49,4 +49,6 @@ timetable:
 department:
     staff:
         invalid: Staff member list is not valid.
-        uniquestaff: %name% is not a unique Staff Member
+        uniquestaff: '%name% is not a unique Staff Member'
+    course:
+        unique: 'The course (%name%) is not unique.'

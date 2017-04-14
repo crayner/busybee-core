@@ -14,13 +14,13 @@
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
     {% set h3Content = h3Content ~ '</div>' %}
 
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': displayStudentField(form.vars['value'], 'formatName'), 'panelStyle': 'default', 'name': 'Member'} %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'panelStyle': 'default', 'name': 'Member'} %}
     <div class="container-fluid departmentStaff">
         <div class="row">
-            <div class="col-sm-6 well">
+            <div class="col-sm-6">
                 {{ form_row(form.staff) }}
             </div>
-            <div class="col-sm-6 well">
+            <div class="col-sm-6">
                 {{ form_row(form.staffType) }}
                 {% set dept_id = '' %}
                 {% if app.request.get('id') != 'Add' %}{% set dept_id = app.request.get('id') %}{% endif %}

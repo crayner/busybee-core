@@ -254,6 +254,18 @@ department:
             member: Select Department Member
             type: Select Member Type
         remove: Remove Staff Member
+    course:
+        title: Department Courses
+        placeholder:
+            name: Select Department Course
+        label:
+            name: Department Course Name
+        member: Course
+        remove: Remove Course from Department
+        add: Add course to Department
+    help:
+        staff: Department staff entered more than one are ignored.
+        courses: Department Courses entered more than once are ignored.
 setting:
     choice:
         invalid: Choice not found in setting
