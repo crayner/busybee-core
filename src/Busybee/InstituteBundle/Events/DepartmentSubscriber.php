@@ -28,14 +28,14 @@ class DepartmentSubscriber implements EventSubscriberInterface
         $data = $event->getData();
 
 
-        if (is_array($data['courses'])) {
+        if (isset($data['courses']) && is_array($data['courses'])) {
             $items = [];
             foreach ($data['courses'] as $q => $w)
                 if (!in_array($w, $items))
                     $items[$q] = $w;
             $data['courses'] = $items;
         }
-        if (is_array($data['staff'])) {
+        if (isset($data['staff']) && is_array($data['staff'])) {
             $items = [];
             foreach ($data['staff'] as $q => $w)
                 if (!in_array($w['staff'], $items))
