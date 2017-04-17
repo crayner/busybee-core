@@ -3,6 +3,7 @@
 namespace Busybee\TimeTableBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,7 +27,8 @@ class LearningGroupsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Busybee\TimeTableBundle\Entity\LearningGroups'
+            'data_class' => 'Busybee\TimeTableBundle\Entity\LearningGroups',
+            'translation_domain' => 'BusybeeTimeTableBundle',
         ));
     }
 
@@ -35,7 +37,7 @@ class LearningGroupsType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'tt_line__learninggroups';
+        return 'tt_line_learninggroups';
     }
 
 

@@ -22,7 +22,7 @@
             <div class="col-sm-12 well">
                 {{ form_row(form.sequence) }}
                 {{ form_row(form.timetable, {'value': app.request.get('id')}) }}
-                {{ form_row(form.learningGroups) }}
+                {{ form_widget(form.learningGroups) }}
             </div>
         </div>
     </div>

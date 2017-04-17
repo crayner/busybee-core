@@ -1,9 +1,9 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% block tt_line__learninggroups_label %}{% endblock %}
-{% block tt_line__learninggroups_errors %}{% endblock %}
+{% block tt_line_learninggroups_label %}{% endblock %}
+{% block tt_line_learninggroups_errors %}{% endblock %}
 
-{% block tt_line__learninggroups_widget %}
+{% block tt_line_learninggroups_widget %}
     {% set panelStyle = 'warning' %}
     {% set transDomain = 'BusybeeTimeTableBundle' %}
     {% set header = 'timetable.line.header' %}
@@ -20,11 +20,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 well">
-                {{ form_row(form.sequence) }}
-                {{ form_row(form.timetable, {'value': app.request.get('id')}) }}
-                {{ form_row(form.learningGroups) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.nameShort) }}
+                {{ form_row(form.course) }}
             </div>
         </div>
     </div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-{% endblock tt_line__learninggroups_widget %}
+{% endblock tt_line_learninggroups_widget %}

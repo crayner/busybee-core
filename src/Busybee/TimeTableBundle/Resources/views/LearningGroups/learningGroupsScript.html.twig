@@ -1,8 +1,9 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
+{% for line in form.lines %}
 <script type="text/javascript">
     $(".learningGroupsList").collection({
-        name_prefix: '',
+        name_prefix: '{{ line.learningGroups.vars.full_name }}',
         allow_up: false,
         allow_down: false,
         add: '<button title="{{ 'timetable.line.learninggroup.add'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
@@ -10,3 +11,4 @@
         add_at_the_end: true
     });
 </script>
+{% endfor %}
