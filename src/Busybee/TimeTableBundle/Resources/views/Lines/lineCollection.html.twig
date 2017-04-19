@@ -4,27 +4,29 @@
 {% block tt_line_errors %}{% endblock %}
 
 {% block tt_line_widget %}
-    {% set panelStyle = 'default' %}
-    {% set transDomain = 'BusybeeTimeTableBundle' %}
-    {% set header = 'timetable.line.header' %}
+    {% spaceless %}
+        {% set panelStyle = 'default' %}
+        {% set transDomain = 'BusybeeTimeTableBundle' %}
+        {% set header = 'timetable.line.header' %}
 
-    {% set h3Content = '<div class="collection-actions collection-panel">' %}
-    {% set h3Content = h3Content ~ deleteButton({'title': 'timetable.line.remove', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'})|raw %}
-    {% set h3Content = h3Content ~ saveButton()|raw %}
-    {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
-    {% set h3Content = h3Content ~ upDownButton()|raw %}
-    {% set h3Content = h3Content ~ '</div>' %}
-    {% set count = 'New' %}
-    {% if name != '__name__' %}{% set count = intVal(name) + 1 %}{% endif %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': count} %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12 well">
-                {{ form_row(form.sequence) }}
-                {{ form_row(form.timetable, {'value': app.request.get('id')}) }}
-                {{ form_widget(form.learningGroups) }}
+        {% set h3Content = '<div class="line-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ deleteButton({'title': 'timetable.line.remove', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-erase btn btn-warning line-remove line-action', 'style': 'float: right;'})|raw %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ upDownButton({'collectionName': 'line'})|raw %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% set count = 'New' %}
+        {% if name != '__linename__' %}{% set count = intVal(name) + 1 %}{% endif %}
+        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': count} %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 well">
+                    {{ form_row(form.sequence) }}
+                    {{ form_row(form.timetable, {'value': app.request.get('id')}) }}
+                    {{ form_widget(form.learningGroups) }}
+                </div>
             </div>
         </div>
-    </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% endspaceless %}
 {% endblock tt_line_widget %}

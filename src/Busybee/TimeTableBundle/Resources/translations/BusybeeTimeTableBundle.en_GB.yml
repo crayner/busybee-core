@@ -6,6 +6,10 @@ timetable:
         add: Add line.
         remove: Remove line.
         header: Line %name%
+        learninggroup:
+            add: Add Learning Group
+            remove: Remove Learning Group
+            header: Learning Group
     label:
         name: Name
         nameShort: Short Name

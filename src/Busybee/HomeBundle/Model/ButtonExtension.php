@@ -95,6 +95,10 @@ class ButtonExtension extends \Twig_Extension
                 $button = str_replace('%' . $q . '%', $defaults[$q], $button);
             }
         }
+
+        if (isset($details['collectionName']))
+            $button = str_replace('collection', $details['collectionName'], $button);
+
         return $button;
     }
 

@@ -4,6 +4,7 @@ namespace Busybee\TimeTableBundle\Controller;
 
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Form\TimeTableType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -34,8 +35,8 @@ class TimeTableController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param   Request $request
+     * @return  \Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, $id, $currentSearch = null)
     {

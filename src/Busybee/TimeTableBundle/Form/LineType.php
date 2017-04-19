@@ -5,6 +5,7 @@ namespace Busybee\TimeTableBundle\Form;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\TimeTable;
+use Busybee\TimeTableBundle\Events\LineSubscriber;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -40,10 +41,14 @@ class LineType extends AbstractType
                 [
                     'label' => 'timetable.line.label.learningGroups',
                     'entry_type' => LearningGroupsType::class,
-                    'attr' =>
-                        [
-                            'class' => 'learningGroupsList',
-                        ],
+                    'prototype_name' => '__lgname__',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'by_reference' => false,
+                    'prototype' => true,
+                    'attr' => [
+                        'class' => 'lgList',
+                    ],
                 ]
             );
 

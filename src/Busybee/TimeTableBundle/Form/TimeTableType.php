@@ -60,6 +60,7 @@ class TimeTableType extends AbstractType
                     'allow_add' => true,
                     'by_reference' => false,
                     'allow_delete' => true,
+                    'prototype_name' => '__linename__',
                     'attr' => array(
                         'class' => 'lineList',
                         'help' => 'timetable.help.lines',

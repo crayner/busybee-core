@@ -1,30 +1,32 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% block tt_line_learninggroups_label %}{% endblock %}
-{% block tt_line_learninggroups_errors %}{% endblock %}
+{% block tt_line_lgs_label %}{% endblock %}
+{% block tt_line_lgs_errors %}{% endblock %}
 
-{% block tt_line_learninggroups_widget %}
-    {% set panelStyle = 'warning' %}
-    {% set transDomain = 'BusybeeTimeTableBundle' %}
-    {% set header = 'timetable.line.header' %}
+{% block tt_line_lgs_widget %}
+    {% spaceless %}
+        {% set panelStyle = 'warning' %}
+        {% set transDomain = 'BusybeeTimeTableBundle' %}
+        {% set header = 'timetable.line.learninggroup.header' %}
 
-    {% set h3Content = '<div class="collection-actions collection-panel">' %}
-    {% set h3Content = h3Content ~ deleteButton({'title': 'timetable.line.remove', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'})|raw %}
-    {% set h3Content = h3Content ~ saveButton()|raw %}
-    {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
-    {% set h3Content = h3Content ~ upDownButton()|raw %}
-    {% set h3Content = h3Content ~ '</div>' %}
-    {% set count = 'New' %}
-    {% if name != '__name__' %}{% set count = intVal(name) + 1 %}{% endif %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': count} %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12 well">
-                {{ form_row(form.name) }}
-                {{ form_row(form.nameShort) }}
-                {{ form_row(form.course) }}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ deleteButton({'title': 'timetable.line.learninggroup.remove', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;', 'collectionName': 'learningGroup'})|raw %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ upDownButton({'collectionName': 'learningGroup'})|raw %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% set count = 'New' %}
+        {% if name != '__name__' %}{% set count = intVal(name) + 1 %}{% endif %}
+        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': count} %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 well">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.nameShort) }}
+                    {{ form_row(form.course) }}
+                </div>
             </div>
         </div>
-    </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-{% endblock tt_line_learninggroups_widget %}
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock tt_line_lgs_widget %}
