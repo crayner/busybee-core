@@ -2693,71 +2693,6 @@
     ]
   },
   {
-    "name": "twig/twig",
-    "version": "v2.3.0",
-    "version_normalized": "2.3.0.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/twigphp/Twig.git",
-      "reference": "9718186a5df85a4f7917e78d3ffcabc204c75d25"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/twigphp/Twig/zipball/9718186a5df85a4f7917e78d3ffcabc204c75d25",
-      "reference": "9718186a5df85a4f7917e78d3ffcabc204c75d25",
-      "shasum": ""
-    },
-    "require": {
-      "php": "^7.0",
-      "symfony/polyfill-mbstring": "~1.0"
-    },
-    "require-dev": {
-      "psr/container": "^1.0",
-      "symfony/debug": "~2.7",
-      "symfony/phpunit-bridge": "~3.3@dev"
-    },
-    "time": "2017-03-22T15:41:51+00:00",
-    "type": "library",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "2.3-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "psr-0": {
-        "Twig_": "lib/"
-      }
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "BSD-3-Clause"
-    ],
-    "authors": [
-      {
-        "name": "Fabien Potencier",
-        "email": "fabien@symfony.com",
-        "homepage": "http://fabien.potencier.org",
-        "role": "Lead Developer"
-      },
-      {
-        "name": "Armin Ronacher",
-        "email": "armin.ronacher@active-4.com",
-        "role": "Project Founder"
-      },
-      {
-        "name": "Twig Team",
-        "homepage": "http://twig.sensiolabs.org/contributors",
-        "role": "Contributors"
-      }
-    ],
-    "description": "Twig, the flexible, fast, and secure template language for PHP",
-    "homepage": "http://twig.sensiolabs.org",
-    "keywords": [
-      "templating"
-    ]
-  },
-  {
     "name": "symfony/swiftmailer-bundle",
     "version": "v2.5.4",
     "version_normalized": "2.5.4.0",
@@ -3270,5 +3205,70 @@
     ],
     "description": "Symfony PHPUnit Bridge",
     "homepage": "https://symfony.com"
+  },
+  {
+    "name": "twig/twig",
+    "version": "v2.3.1",
+    "version_normalized": "2.3.1.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/twigphp/Twig.git",
+      "reference": "437efc435619c8e67acacda37b3984344854142c"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/twigphp/Twig/zipball/437efc435619c8e67acacda37b3984344854142c",
+      "reference": "437efc435619c8e67acacda37b3984344854142c",
+      "shasum": ""
+    },
+    "require": {
+      "php": "^7.0",
+      "symfony/polyfill-mbstring": "~1.0"
+    },
+    "require-dev": {
+      "psr/container": "^1.0",
+      "symfony/debug": "~2.7",
+      "symfony/phpunit-bridge": "~3.3@dev"
+    },
+    "time": "2017-04-18T21:50:11+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "2.3-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-0": {
+        "Twig_": "lib/"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "BSD-3-Clause"
+    ],
+    "authors": [
+      {
+        "name": "Fabien Potencier",
+        "email": "fabien@symfony.com",
+        "homepage": "http://fabien.potencier.org",
+        "role": "Lead Developer"
+      },
+      {
+        "name": "Armin Ronacher",
+        "email": "armin.ronacher@active-4.com",
+        "role": "Project Founder"
+      },
+      {
+        "name": "Twig Team",
+        "homepage": "http://twig.sensiolabs.org/contributors",
+        "role": "Contributors"
+      }
+    ],
+    "description": "Twig, the flexible, fast, and secure template language for PHP",
+    "homepage": "http://twig.sensiolabs.org",
+    "keywords": [
+      "templating"
+    ]
     }
 ]
