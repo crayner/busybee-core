@@ -1,0 +1,33 @@
+Busybee\InstituteBundle\Entity\Grade:
+    type: entity
+    table: grade
+    repositoryClass: Busybee\InstituteBundle\Repository\GradeRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        grade:
+            type: string
+            length: '8'
+        sequence:
+            type: integer
+            length: 2
+    manyToOne:
+        year:
+            targetEntity: Busybee\InstituteBundle\Entity\Year
+            inversedBy: grades
+            joinColumn:
+                name: year_id
+                referencedColumnName: id
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

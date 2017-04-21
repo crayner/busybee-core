@@ -34,6 +34,7 @@ user:
         locked: User Locked
         expired: User Expired
         credentials_expired: User Credentials Expired
+        year: System Year
     help: 
         username: "You can leave the user name blank and the username will default to the email address. The username must not be 'admin'" 
         directroles: Direct Role allocation for a user should not be used unless the user needs a level of access not supplied by group selection.  Direct Roles are combined with the indirect roles inherited from the Groups to which the user belongs.
@@ -43,6 +44,10 @@ user:
         expired: The user account has expired due to lack of use.
         groups: Groups are created by you to match a user to groups that provide authority to use the various pages in the site.  Groups are also used by the site to lists groups such as classes and parents of classes.
         credentials_expired: User Credentials must be changed at the next user logon.
+        year: Use the year to set the system year that this user is currently accessing.  The current year is the default.
+        locale: Set the user language.
+    placeholder:
+        year: Current Year
     edit:
         title: Edit User
         description: You are able to change your own details on this page.

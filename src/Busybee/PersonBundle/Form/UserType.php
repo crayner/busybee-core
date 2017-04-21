@@ -3,6 +3,7 @@
 namespace Busybee\PersonBundle\Form;
 
 use Busybee\FormBundle\Type\ToggleType;
+use Busybee\InstituteBundle\Entity\Year;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Events\UserSubscriber;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
@@ -139,8 +140,20 @@ class UserType extends AbstractType
                     )
                 )
             )
+            ->add('year', EntityType::class, [
+                    'class' => Year::class,
+                    'choice_label' => 'name',
+                    'placeholder' => 'user.placeholder.year',
+                    'label' => 'user.label.year',
+                    'attr' => [
+                        'help' => 'user.help.year',
+                    ],
+                    'required' => false,
+                ]
+            )
         ;
         $builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->manager, Person::class));
+
         $builder->addEventSubscriber(new UserSubscriber());
     }
     

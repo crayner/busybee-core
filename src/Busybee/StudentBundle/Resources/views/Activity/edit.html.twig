@@ -38,13 +38,12 @@
                 {{ form_row(form.year, {'value': value}) }}
             </div>
             <div class="col-sm-6 well">
-                {% set value = form.course.vars.value %}
-                {% if form.course.vars.value is empty and not form.course.vars.data is empty %}
-                    {% set value = form.course.vars.data %}
-                {% endif %}
-                {{ form_row(form.course, {'value': value}) }}
+                {{ form_row(form.grades) }}
             </div>
         </div>
+        {% if form.students is defined %}
+            {{ form_row(form.students) }}{{ dump() }}
+        {% endif %}
     </div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}

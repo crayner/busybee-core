@@ -30,11 +30,8 @@ class CalendarController extends Controller
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		if ($id === 'Add')
-			$year = new Year();
-		else
-            $year = $this->get('year.repository')->find($id);
-		
+        $year = $id === 'Add' ? new Year() : $this->get('year.repository')->find($id);
+
         $form = $this->createForm(YearType::class, $year);
 
 		$form->handleRequest($request);
@@ -49,17 +46,19 @@ class CalendarController extends Controller
                 ->getFlashBag()
                 ->add('success', 'calendar.success')
             ;
+            if ($id === 'Add')
+                return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
 
-            return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
+            $id = $year->getId();
 		} 
 		
-		return $this->render('BusybeeInstituteBundle:Calendar:calendar.html.twig', 
-			array(
+		return $this->render('BusybeeInstituteBundle:Calendar:calendar.html.twig',
+            [
 				'form' 			=> $form->createView(),
 				'fullForm'		=> $form,
 				'id'			=> $id,
                 'year_id' => $id,
-			)
+            ]
 		);
     }
 
@@ -115,19 +114,18 @@ class CalendarController extends Controller
      */
     public function calendarAction($id, $closeWindow = false)
     {
-		$this->denyAccessUnlessGranted('ROLE_USER', null, null);
-	
-        $now = new \DateTime();
-		
-		$sm = $this->get('setting.manager');
-		
-		$firstDayofWeek = $sm->get('firstDayofWeek', 'Monday');
-		
-		$repo = $this->get('year.repository');
+        $this->denyAccessUnlessGranted('ROLE_USER', null, null);
 
-        if ($id == 'current')
-            $year = $repo->findOneByStatus('current');
-        else
+        $now = new \DateTime();
+
+        $sm = $this->get('setting.manager');
+
+        $repo = $this->get('year.repository');
+
+
+        if ($id == 'current') {
+            $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
+        } else
             $year = $repo->find($id);
 		$years = $repo->findBy(array(), array('name'=>'ASC'));
 		
@@ -151,7 +149,7 @@ class CalendarController extends Controller
 		
 		$cm->setCalendarDays($year, $calendar);
 
-		$content = $this->render('BusybeeInstituteBundle:Calendar:calendarView.pdf.twig', 
+        $this->render('BusybeeInstituteBundle:Calendar:calendarView.pdf.twig',
 			array(
 				'calendar'	=> $calendar,
                 'year' => $year,

@@ -13,3 +13,7 @@ parameters:
             label: calendar.tab.specialDays
             include: 'BusybeeInstituteBundle:Calendar:specialDays.html.twig'    
             message: specialDayMessage
+        grades:
+            label: calendar.tab.grades
+            include: 'BusybeeInstituteBundle:Grade:edit.html.twig'
+            message: gradeMessage

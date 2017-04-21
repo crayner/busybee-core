@@ -18,12 +18,13 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
     /**
      * SettingSubscriber constructor.
      *
-     * @param SettingManager $settingManager
-     * @return SettingSubscriber
+     * @param   SettingManager $settingManager
+     * @return  SettingChoiceSubscriber
      */
     public function __construct(SettingManager $settingManager)
     {
         $this->settingManager = $settingManager;
+
         return $this;
     }
 
@@ -48,6 +49,10 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
         $options = $form->getConfig()->getOptions();
         $name = $form->getName();
+        if (!$this->settingManager->settingExists($options['setting_name'])) {
+            $names = $this->settingManager->getLikeSettingNames($options['setting_name']);
+            throw new \InvalidArgumentException('Setting ' . $options['setting_name'] . ' not found.' . $names);
+        }
         $choices = $this->settingManager->get($options['setting_name']);
         $newOptions = array();
         $newOptions['choices'] = $choices;

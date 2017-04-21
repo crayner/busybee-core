@@ -1,11 +1,12 @@
 <?php
-
 namespace Busybee\StudentBundle\Entity;
+
+use Busybee\StudentBundle\Model\ActivityModel;
 
 /**
  * Activity
  */
-class Activity
+class Activity extends ActivityModel
 {
     /**
      * @var integer
@@ -38,11 +39,6 @@ class Activity
     private $year;
 
     /**
-     * @var \Busybee\CurriculumBundle\Entity\Course
-     */
-    private $course;
-
-    /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $createdBy;
@@ -51,7 +47,22 @@ class Activity
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+    /**
+     * @var array
+     */
+    private $grades;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $students;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -184,30 +195,6 @@ class Activity
     }
 
     /**
-     * Get course
-     *
-     * @return \Busybee\CurriculumBundle\Entity\Course
-     */
-    public function getCourse()
-    {
-        return $this->course;
-    }
-
-    /**
-     * Set course
-     *
-     * @param \Busybee\CurriculumBundle\Entity\Course $course
-     *
-     * @return Activity
-     */
-    public function setCourse(\Busybee\CurriculumBundle\Entity\Course $course = null)
-    {
-        $this->course = $course;
-
-        return $this;
-    }
-
-    /**
      * Get createdBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
@@ -253,5 +240,66 @@ class Activity
         $this->modifiedBy = $modifiedBy;
 
         return $this;
+    }
+
+    /**
+     * Get grades
+     *
+     * @return array
+     */
+    public function getGrades()
+    {
+        return $this->grades;
+    }
+
+    /**
+     * Set grades
+     *
+     * @param array $grades
+     *
+     * @return Activity
+     */
+    public function setGrades($grades)
+    {
+        $this->grades = $grades;
+
+        return $this;
+    }
+
+    /**
+     * Add student
+     *
+     * @param \Busybee\StudentBundle\Entity\Student $student
+     *
+     * @return Activity
+     */
+    public function addStudent(\Busybee\StudentBundle\Entity\Student $student)
+    {
+        if ($this->students->contains($student))
+            return $this;
+
+        $this->students->add($student);
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \Busybee\StudentBundle\Entity\Student $student
+     */
+    public function removeStudent(\Busybee\StudentBundle\Entity\Student $student)
+    {
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }

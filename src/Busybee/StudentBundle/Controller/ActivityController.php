@@ -42,7 +42,6 @@ class ActivityController extends Controller
     public function editAction(Request $request, $id, $currentSearch)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         $em = $this->get('doctrine')->getManager();
 
         $entity = intval($id) > 0 ? $this->get('activity.repository')->find($id) : new Activity();
@@ -53,13 +52,13 @@ class ActivityController extends Controller
 
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($entity);
             $em->flush();
-            $id = $entity->getId();
-
-            return new RedirectResponse($this->generateUrl('student_activity_edit', array('id' => $id, 'currentSearch' => $currentSearch)));
+            if ($id === 'Add') {
+                $id = $entity->getId();
+                return new RedirectResponse($this->generateUrl('student_activity_edit', array('id' => $id, 'currentSearch' => $currentSearch)));
+            }
         }
 
         $editOptions['id'] = $id;

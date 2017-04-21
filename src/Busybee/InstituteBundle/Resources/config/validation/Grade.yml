@@ -1,0 +1,13 @@
+Busybee\InstituteBundle\Entity\Grade:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - grade
+                - year
+            message: grade.grade.unique
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - sequence
+                - year
+            message: grade.sequence.unique
+            errorPath: grade

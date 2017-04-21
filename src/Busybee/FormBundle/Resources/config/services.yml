@@ -56,7 +56,7 @@ services:
             - '@file.uploader'
         tags:
             - { name: form.type }
-    form.type.setting:
+    form.type.setting.choice:
         class: Busybee\FormBundle\Type\SettingChoiceType
         arguments:
             - '@setting.manager'

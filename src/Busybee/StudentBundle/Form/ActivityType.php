@@ -2,14 +2,16 @@
 
 namespace Busybee\StudentBundle\Form;
 
-use Busybee\CurriculumBundle\Entity\Course;
+use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StudentBundle\Entity\Activity;
+use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Events\ActivitySubscriber;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +24,7 @@ class ActivityType extends AbstractType
 
     /**
      * ActivityType constructor.
-     * @param ObjectManager $om
+     * @param   ObjectManager $om
      */
     public function __construct(ObjectManager $om)
     {
@@ -46,26 +48,27 @@ class ActivityType extends AbstractType
                 ]
             )
             ->add('year', EntityType::class,
-                array(
+                [
                     'label' => 'activity.label.year',
                     'class' => Year::class,
                     'choice_label' => 'name',
                     'placeholder' => 'activity.placeholder.year',
                     'required' => true,
-                )
+                ]
             )
-            ->add('course', EntityType::class,
-                array(
-                    'label' => 'activity.label.course',
-                    'class' => Course::class,
-                    'choice_label' => 'fullName',
-                    'placeholder' => 'activity.placeholder.course',
-                    'required' => false,
-                )
+            ->add('grades', SettingChoiceType::class,
+                [
+                    'label' => 'activity.label.grades',
+                    'placeholder' => 'activity.placeholder.grades',
+                    'setting_name' => 'student.groups',
+                    'multiple' => true,
+                    'attr' => [
+                        'help' => 'activity.help.grades',
+                    ],
+                ]
             );
 
         $builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
-        $builder->get('course')->addModelTransformer(new EntityToStringTransformer($this->om, Course::class));
 
         $builder->addEventSubscriber(new ActivitySubscriber());
     }

@@ -137,16 +137,6 @@ class Student extends StudentModel
     private $person;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $enrolments;
-
-    /**
-     * @var boolean
-     */
-    private $enrolmentsSorted = false;
-
-    /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $createdBy;
@@ -747,72 +737,6 @@ class Student extends StudentModel
     public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
     {
         $this->person = $person;
-
-        return $this;
-    }
-
-    /**
-     * Add enrolment
-     *
-     * @param \Busybee\StudentBundle\Entity\Enrolment $enrolment
-     *
-     * @return Student
-     */
-    public function addEnrolment(\Busybee\StudentBundle\Entity\Enrolment $enrolment)
-    {
-        $this->enrolments[] = $enrolment;
-
-        return $this;
-    }
-
-    /**
-     * Get Enrolments
-     *
-     * @return ArrayCollection
-     */
-    public function getEnrolments()
-    {
-        $this->sortEnrolments();
-
-        return $this->enrolments;
-    }
-
-    /**
-     * Set Enrolments
-     *
-     * @return Student
-     */
-    public function setEnrolments($enrolments)
-    {
-        if ($enrolments instanceof ArrayCollection || $enrolments instanceof PersistentCollection)
-            $this->enrolments = $enrolments;
-        else
-            throw new InvalidArgumentException('Enrolments added to student are invalid.');
-
-        return $this;
-    }
-
-    /**
-     * Sort Enrolments
-     *
-     * @return Student
-     */
-    public function sortEnrolments()
-    {
-        if (count($this->enrolments) == 0 || $this->enrolmentsSorted)
-            return $this;
-
-        $iterator = $this->enrolments->getIterator();
-        $iterator->uasort(
-            function ($a, $b) {
-                if (empty($a->getYear()) || empty($b->getYear()))
-                    return 0;
-                return ($a->getYear()->getFirstDay() < $b->getYear()->getFirstDay()) ? -1 : 1;
-            }
-        );
-
-        $this->enrolments = new ArrayCollection(iterator_to_array($iterator, false));
-        $this->enrolmentsSorted = true;
 
         return $this;
     }

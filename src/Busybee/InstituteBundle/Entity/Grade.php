@@ -1,11 +1,11 @@
 <?php
 
-namespace Busybee\StudentBundle\Entity;
+namespace Busybee\InstituteBundle\Entity;
 
 /**
- * Enrolment
+ * Grade
  */
-class Enrolment
+class Grade
 {
     /**
      * @var integer
@@ -15,17 +15,7 @@ class Enrolment
     /**
      * @var string
      */
-    private $status;
-
-    /**
-     * @var \DateTime
-     */
-    private $lastModified;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdOn;
+    private $grade;
 
     /**
      * @var \Busybee\InstituteBundle\Entity\Year
@@ -41,10 +31,11 @@ class Enrolment
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+
     /**
-     * @var string
+     * @var integer
      */
-    private $grade;
+    private $sequence;
 
     /**
      * Get id
@@ -57,25 +48,49 @@ class Enrolment
     }
 
     /**
-     * Get status
+     * Get grade
      *
      * @return string
      */
-    public function getStatus()
+    public function getGrade()
     {
-        return $this->status;
+        return $this->grade;
     }
 
     /**
-     * Set status
+     * Set grade
      *
-     * @param string $status
+     * @param string $grade
      *
-     * @return Enrolment
+     * @return Grade
      */
-    public function setStatus($status)
+    public function setGrade($grade)
     {
-        $this->status = $status;
+        $this->grade = $grade;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return \Busybee\InstituteBundle\Entity\Year
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Set year
+     *
+     * @param \Busybee\InstituteBundle\Entity\Year $year
+     *
+     * @return Grade
+     */
+    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+    {
+        $this->year = $year;
 
         return $this;
     }
@@ -95,7 +110,7 @@ class Enrolment
      *
      * @param \DateTime $lastModified
      *
-     * @return Enrolment
+     * @return Department
      */
     public function setLastModified($lastModified)
     {
@@ -119,35 +134,11 @@ class Enrolment
      *
      * @param \DateTime $createdOn
      *
-     * @return Enrolment
+     * @return Department
      */
     public function setCreatedOn($createdOn)
     {
         $this->createdOn = $createdOn;
-
-        return $this;
-    }
-
-    /**
-     * Get year
-     *
-     * @return \Busybee\InstituteBundle\Entity\Year
-     */
-    public function getYear()
-    {
-        return $this->year;
-    }
-
-    /**
-     * Set year
-     *
-     * @param \Busybee\InstituteBundle\Entity\Year $year
-     *
-     * @return Enrolment
-     */
-    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
-    {
-        $this->year = $year;
 
         return $this;
     }
@@ -167,7 +158,7 @@ class Enrolment
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Enrolment
+     * @return Grade
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -191,7 +182,7 @@ class Enrolment
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Enrolment
+     * @return Grade
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -201,25 +192,25 @@ class Enrolment
     }
 
     /**
-     * Get grade
+     * Get sequence
      *
-     * @return string
+     * @return integer
      */
-    public function getGrade()
+    public function getSequence()
     {
-        return $this->grade;
+        return $this->sequence;
     }
 
     /**
-     * Set grade
+     * Set sequence
      *
-     * @param string $grade
+     * @param integer $sequence
      *
-     * @return Enrolment
+     * @return Grade
      */
-    public function setGrade($grade)
+    public function setSequence($sequence)
     {
-        $this->grade = $grade;
+        $this->sequence = $sequence;
 
         return $this;
     }

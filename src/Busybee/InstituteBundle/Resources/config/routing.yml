@@ -37,3 +37,6 @@ campus_space_edit:
 department_edit:
     path:     /department/{id}/edit/
     defaults: { _controller: BusybeeInstituteBundle:Department:edit, id: 'Add' }
+grade_edit:
+    path:     /grade/edit/
+    defaults: { _controller: BusybeeInstituteBundle:Grade:edit }

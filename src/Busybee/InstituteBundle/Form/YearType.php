@@ -4,6 +4,7 @@ namespace Busybee\InstituteBundle\Form ;
 
 use Busybee\InstituteBundle\Events\YearSubscriber;
 use Busybee\InstituteBundle\Model\YearManager;
+use Busybee\InstituteBundle\Validator\Grade;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
@@ -111,9 +112,27 @@ class YearType extends AbstractType
                     ),
                     'by_reference' => false,
                 )
+            )
+            ->add('grades', CollectionType::class, array(
+                    'entry_type' => GradeType::class,
+                    'allow_add' => true,
+                    'entry_options' => array(
+                        'year_data' => $options['data'],
+                    ),
+                    'constraints' => [
+                        new Grade($options['data']),
+                    ],
+                    'label' => false,
+                    'allow_delete' => true,
+                    'mapped' => true,
+                    'attr' => array(
+                        'class' => 'gradeList'
+                    ),
+                    'by_reference' => false,
+                )
             );
-        $builder->addEventSubscriber(new YearSubscriber($this->manager));
 
+        $builder->addEventSubscriber(new YearSubscriber());
     }
 
     /**

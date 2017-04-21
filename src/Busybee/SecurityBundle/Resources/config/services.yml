@@ -228,3 +228,9 @@ services:
             - '%roles%'
         tags:
             - { name: form.type }
+    user.manager.extension:
+        class: Busybee\SecurityBundle\Model\UserManagerExtension
+        arguments:
+            - '@busybee_security.user_manager'
+        tags:
+            - { name: twig.extension }

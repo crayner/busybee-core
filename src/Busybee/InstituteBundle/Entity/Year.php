@@ -69,6 +69,17 @@ class Year extends YearModel
      * @var boolean
      */
     private $specialDaysSorted = false;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $grades;
+
+    /**
+     * @var boolean
+     */
+    private $gradesSorted = false;
+
     /**
      * Constructor
      */
@@ -76,6 +87,7 @@ class Year extends YearModel
     {
         $this->specialDays = new ArrayCollection();
         $this->terms = new ArrayCollection();
+        $this->grades = new ArrayCollection();
     }
 
     /**
@@ -369,5 +381,59 @@ class Year extends YearModel
 		$this->specialDaysSorted = true ;
 
         return $this->specialDays;
+    }
+
+    /**
+     * Add grade
+     *
+     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     *
+     * @return Year
+     */
+    public function addGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+    {
+        if ($this->grades->contains($grade))
+            return $this;
+
+        $grade->setYear($this);
+
+        $this->grades->add($grade);
+
+        return $this;
+    }
+
+    /**
+     * Remove grade
+     *
+     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     */
+    public function removeGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+    {
+        $this->grades->removeElement($grade);
+    }
+
+    /**
+     * Get grades
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGrades()
+    {
+        if (count($this->grades) == 0)
+            return null;
+
+        if ($this->gradesSorted)
+            return $this->grades;
+
+        $iterator = $this->grades->getIterator();
+        $iterator->uasort(function ($a, $b) {
+            return ($a->getSequence() < $b->getSequence()) ? -1 : 1;
+        });
+
+        $this->grades = new ArrayCollection(iterator_to_array($iterator, false));
+        $this->gradesSorted = true;
+
+        return $this->grades;
+
     }
 }

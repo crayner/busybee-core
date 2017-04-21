@@ -24,6 +24,7 @@ Busybee\TimeTableBundle\Entity\Line:
         learningGroups:
             targetEntity: Busybee\TimeTableBundle\Entity\LearningGroups
             mappedBy: line
+            orderBy: { name: 'ASC' }
             cascade: [ all ]
     manyToOne:
         timetable:

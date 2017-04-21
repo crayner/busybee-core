@@ -148,3 +148,20 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
+    grade.repository:
+        class: Busybee\InstituteBundle\Repository\GradeRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeInstituteBundle:Grade"
+    form.grade.type:
+        class: Busybee\InstituteBundle\Form\GradeType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    grade.validator:
+        class: Busybee\InstituteBundle\Validator\Constraints\GradeValidator
+        tags:
+            - { name: validator.constraint_validator, alias: grade_validator }

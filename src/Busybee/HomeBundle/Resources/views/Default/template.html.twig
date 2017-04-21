@@ -9,6 +9,16 @@
 	<title>{{ get_setting('org.name', 'Busybee') }} - {% block title %}{% endblock title %} on Busybee</title>
 
 {% block stylesheets %}{% include 'BusybeeHomeBundle:Default:style.html.twig' %}{% endblock stylesheets %}
+    {% set containerThemeOverwrite = '' %}
+    {% set headerNotices = '' %}
+    {% if app.user is not null %}
+        {% if app.user.year is not null %}
+            {% set headerNotices = headerNotices ~ '<span class="label label-warning">' ~ app.user.year.name ~ '</span>' %}
+            {% set containerThemeOverwrite = ' containerWarning' %}
+        {% else %}
+            {% set headerNotices = headerNotices ~ '<span class="label label-success">' ~ get_SystemYear(app.user).name ~ '</span>' %}
+        {% endif %}
+    {% endif %}
 
 </head>
 
@@ -21,10 +31,11 @@
 		<div class="container theme-showcase" role="main">
 
 			{% block titleContainer %}
-			<div class="jumbotron">
+                <div class="jumbotron{{ containerThemeOverwrite }}">
 				<img src="{{ asset(get_setting('Org.Logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo" />
 				<h2>{% block headerTitle %}Busybee - {{ get_setting('Org.Name') }}{% endblock headerTitle %}</h2>
 				<p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
+                    {% if headerNotices is not empty %}<p>{{ headerNotices|raw }}</p>{% endif %}
 			</div>
 			{% endblock titleContainer %}
 

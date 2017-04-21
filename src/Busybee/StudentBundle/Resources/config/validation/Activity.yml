@@ -8,10 +8,6 @@ Busybee\StudentBundle\Entity\Activity:
             fields: [nameShort, year]
             errorPath: nameShort
             message: activity.unique.nameShort
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [course, year]
-            errorPath: course
-            message: activity.unique.course
     properties:
         name:
             - NotBlank: ~
@@ -20,5 +16,3 @@ Busybee\StudentBundle\Entity\Activity:
         year:
             - Valid: ~
             - NotBlank: ~
-        course:
-            - Valid: ~

@@ -52,3 +52,8 @@ department:
         uniquestaff: '%name% is not a unique Staff Member'
     course:
         unique: 'The course (%name%) is not unique.'
+grade:
+    grade:
+        unique: 'The grade must be unique in the school year.'
+    error:
+        default: Grades in the year must be unique.

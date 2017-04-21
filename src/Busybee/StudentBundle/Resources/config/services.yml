@@ -5,21 +5,23 @@ parameters:
             Activity Name:
                 a.name: ASC
                 a.nameShort: ASC
+            Grades:
+                a.grades: ASC
+                a.name: ASC
         limit: '25'
         searchList:
             - a.name
             - a.nameShort
+            - a.grades
         join:
             a.year:
                 alias: y
-                type: leftJoin
-            a.course:
-                alias: c
                 type: leftJoin
         select:
             - a.name
             - a.nameShort
             - a.id
+            - a.grades
 services:
     student.repository:
         class: Busybee\StudentBundle\Repository\StudentRepository

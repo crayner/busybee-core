@@ -1,11 +1,4 @@
-{# src/Busybee/InstituteBundle/Resources/views/Calendar/specialDays.html.twig #}
-
 {% trans_default_domain "BusybeeInstituteBundle" %}
-
-{% form_theme form
-'BusybeeFormBundle:Template:jquery.collection.html.twig'
-'@BusybeeInstitute/Calendar/specialDay.html.twig'
-'BusybeeFormBundle:Template:bootstrap.html.twig' %}
 
 {% include 'BusybeeInstituteBundle:Calendar:calendarMenu.html.twig' with {'header': 'calendar.specialDay.title', 'name': form.name.vars.value, 'panelParagraph': 'calendar.help.specialDays'} %}
 	{{ form_widget(form.specialDays) }}

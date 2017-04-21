@@ -6,10 +6,14 @@ abstract class Year
 {
 	public function canDelete()
 	{
-		if (is_array($this->getTerms()))
-			foreach($this->getTerms() as $term)
-				if (! $term->canDelete())
-					return false ;
+        if (!empty($this->getTerms()))
+            foreach ($this->getTerms()->toArray() as $term)
+                if (!$term->canDelete())
+                    return false;
+        if (!empty($this->getGrades()))
+            foreach ($this->getGrades()->toArray() as $grade)
+                if (!$grade->canDelete())
+                    return false;
 		return true;
 	}
 }

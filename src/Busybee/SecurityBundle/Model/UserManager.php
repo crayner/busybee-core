@@ -1,7 +1,10 @@
 <?php
 namespace Busybee\SecurityBundle\Model;
 
+use Busybee\InstituteBundle\Entity\Year;
 use Busybee\SecurityBundle\Util\CanonicaliserInterface;
+use Doctrine\ORM\NoResultException;
+use Dompdf\Exception;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -17,15 +20,15 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 abstract class UserManager implements UserManagerInterface, UserProviderInterface
 {
     /**
-     * @var EncoderFactoryInterface 
+     * @var EncoderFactoryInterface
      */
     protected $encoderFactory;
-    
+
     /**
-     * @var CanonicaliserInterface 
+     * @var CanonicaliserInterface
      */
     protected $usernameCanonicaliser;
-    
+
     /**
      * @var CanonicaliserInterface
      */
@@ -82,7 +85,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function findUserByEmail($email)
     {
-        return $this->findUserBy(array('emailCanonical' => $this->canonicaliseEmail($email)));
+        return $this->findUserBy(['emailCanonical' => $this->canonicaliseEmail($email)]);
     }
 
     /**
@@ -228,5 +231,28 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
         trigger_error('Using the UserManager as user provider is deprecated. UseBusybee\SecurityBundle\Security\UserProvider instead.', E_USER_DEPRECATED);
 
         return $class === $this->getClass();
+    }
+
+    /**
+     * @param   UserInterface $user
+     * @return  Year
+     */
+    public function getSystemYear(UserInterface $user)
+    {
+        if (!is_null($user->getYear()))
+            return $user->getYear();
+
+        $query = $this->objectManager->getRepository(Year::class)->createQueryBuilder('y')
+            ->where('y.status = :status')
+            ->setParameter('status', 'current')
+            ->getQuery();
+
+        try {
+            $result = $query->getSingleResult();
+        } catch (NoResultException $e) {
+            return null;
+        }
+
+        return $result;
     }
 }

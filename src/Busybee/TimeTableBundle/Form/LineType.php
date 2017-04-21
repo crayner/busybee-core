@@ -3,6 +3,7 @@
 namespace Busybee\TimeTableBundle\Form;
 
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\TimeTableBundle\Entity\LearningGroups;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Events\LineSubscriber;
@@ -40,7 +41,7 @@ class LineType extends AbstractType
             ->add('learningGroups', CollectionType::class,
                 [
                     'label' => 'timetable.line.label.learningGroups',
-                    'entry_type' => LearningGroupsType::class,
+                    'entry_type' => LearningGroupsEntityType::class,
                     'prototype_name' => '__lgname__',
                     'allow_add' => true,
                     'allow_delete' => true,

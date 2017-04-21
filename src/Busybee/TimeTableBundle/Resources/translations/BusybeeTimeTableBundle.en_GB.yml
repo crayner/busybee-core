@@ -10,6 +10,8 @@ timetable:
             add: Add Learning Group
             remove: Remove Learning Group
             header: Learning Group
+        placeholder:
+            learningGroups: Select Learning Group
     label:
         name: Name
         nameShort: Short Name

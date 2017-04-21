@@ -34,6 +34,11 @@ Busybee\InstituteBundle\Entity\Year:
             targetEntity: Busybee\InstituteBundle\Entity\SpecialDay
             mappedBy: year
             cascade: [persist, remove]
+        grades:
+            targetEntity: Busybee\InstituteBundle\Entity\Grade
+            mappedBy: year
+            cascade: [persist, remove]
+            orderBy: { sequence: ASC }
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

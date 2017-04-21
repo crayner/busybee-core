@@ -70,9 +70,12 @@ activity:
         name: Activity Name
         nameShort: Code
         year: Year
-        course: Course
+        grades: Grades
+        students: Activity Students
     placeholder:
         year: Select Year
         course: Select Course
+    help:
+        grades: These grades are used to limit the student list for selection into this activity.
 activities:
     title: Activities List

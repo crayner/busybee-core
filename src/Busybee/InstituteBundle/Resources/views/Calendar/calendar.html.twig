@@ -10,6 +10,8 @@
 {% form_theme form
 'BusybeeFormBundle:Template:jquery.collection.html.twig'
 '@BusybeeInstitute/Calendar/term.html.twig'
+'@BusybeeInstitute/Calendar/specialDay.html.twig'
+'@BusybeeInstitute/Grade/grade.html.twig'
 'BusybeeFormBundle:Template:bootstrap.html.twig' %}
 
 {% block title %}{{ parent() }}{{ 'calendar.title'|trans }}{% endblock title %}
@@ -93,7 +95,6 @@
             remove: '<button title="{{ 'year.specialday.remove'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
             add_at_the_end: true
         });
-
-
-    </script>
+	</script>
+    {% include '@BusybeeInstitute/Grade/gradesScript.html.twig' %}
 {% endblock javascripts %}

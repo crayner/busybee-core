@@ -2,11 +2,6 @@
 
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
-{% form_theme form
-'BusybeeFormBundle:Template:jquery.collection.html.twig'
-'@BusybeeInstitute/Calendar/term.html.twig'
-'BusybeeFormBundle:Template:bootstrap.html.twig' %}
-
 {% include '@BusybeeInstitute/Calendar/calendarMenu.html.twig' with {'header': 'calendar.term.title', 'name': form.name.vars.value, 'panelParagraph': 'calendar.help.terms'} %}
 	{{ form_widget(form.terms) }}
 {% include '@BusybeeHome/Page/panelEnd.html.twig' %}

@@ -36,6 +36,7 @@ class SettingExtension extends \Twig_Extension
             new \Twig_SimpleFunction('get_menuItems', array($this, 'getMenuItems')),
             new \Twig_SimpleFunction('test_menuItem', array($this, 'testMenuItem')),
             new \Twig_SimpleFunction('menu_required', array($this, 'menuRequired')),
+            new \Twig_SimpleFunction('array_flip', array($this, 'arrayFlip')),
         );
     }
 
@@ -112,5 +113,10 @@ class SettingExtension extends \Twig_Extension
     public function getName()
     {
         return 'system_twig_extension';
+    }
+
+    public function arrayFlip($data)
+    {
+        return array_flip($data);
     }
 }

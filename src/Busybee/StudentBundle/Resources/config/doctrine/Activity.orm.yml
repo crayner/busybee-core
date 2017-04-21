@@ -7,8 +7,6 @@ Busybee\StudentBundle\Entity\Activity:
             columns: [name, year]
         nameshort_year:
             columns: [nameShort, year]
-        course_year:
-            columns: [course, year]
     id:
         id:
             type: integer
@@ -22,22 +20,29 @@ Busybee\StudentBundle\Entity\Activity:
         nameShort:
             type: string
             length: '8'
+        grades:
+            type: array
         lastModified:
             type: datetime
         createdOn:
             type: datetime
+    manyToMany:
+        students:
+            targetEntity: Busybee\StudentBundle\Entity\Student
+            joinTable:
+                name: activity_students
+                joinColumns:
+                    activity_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    student_id:
+                        referencedColumnName: id
     manyToOne:
         year:
             targetEntity: Busybee\InstituteBundle\Entity\Year
             joinColumns:
                 year:
                     referencedColumnName: id
-        course:
-            targetEntity: Busybee\CurriculumBundle\Entity\Course
-            joinColumns:
-                course:
-                    referencedColumnName: id
-            nullable: true
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:

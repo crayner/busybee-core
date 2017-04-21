@@ -99,6 +99,7 @@ calendar:
         year: Year
         terms: Terms
         specialDays: Special Days
+        grades: Grades
     year:
         title: Manage Year
         return: Return
@@ -114,6 +115,7 @@ calendar:
         status: Only one calendar can be current. 
         terms: "Terms are sorted within the year by the First Day Date. Terms must exist within the year days, and must not overlap days in another term."
         specialDays: "The date of Special Days must exist in the year, and each special day must be a unique date."
+        grades: ''
     placeholder:
         status: Select Status
     error:
@@ -130,6 +132,9 @@ calendar:
     specialDay:
         title: "Manage Special Days in %name%"
         add: Add Special Day
+    grade:
+        title: "Manage Grades in %name%"
+        description: ''
 term:
     add: Add Term
     help:
@@ -229,6 +234,8 @@ menu:
         spaces: Spaces
     department:
         manage: Departments
+    grade:
+        manage: Grades
 window:
     calendar: Calendar
 department:
@@ -269,3 +276,18 @@ department:
 setting:
     choice:
         invalid: Choice not found in setting
+grade:
+    placeholder:
+        grades: Add a Grade
+        grade: Select a Grade
+        year: Select a Year
+    label:
+        grade: Select a School Grade
+        year: Select a School Year
+    edit:
+        title: Manage Grade
+        description: ''
+    remove:
+        title: Remove Grade from Year
+    add:
+        title: Add Grade to Year

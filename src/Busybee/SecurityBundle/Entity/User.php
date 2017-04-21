@@ -121,6 +121,11 @@ class User extends UserModel
     private $directroles;
 
     /**
+     * @var \Busybee\InstituteBundle\Entity\Year
+     */
+    private $year;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -677,6 +682,33 @@ class User extends UserModel
     public function setDirectroles($directroles)
     {
         $this->directroles = $directroles;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return \Busybee\InstituteBundle\Entity\Year
+     */
+    public function getYear()
+    {
+        if (!is_null($this->year))
+            return $this->year;
+
+        return $this->year;
+    }
+
+    /**
+     * Set year
+     *
+     * @param \Busybee\InstituteBundle\Entity\Year $year
+     *
+     * @return User
+     */
+    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+    {
+        $this->year = $year;
 
         return $this;
     }

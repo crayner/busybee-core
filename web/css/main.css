@@ -233,7 +233,18 @@ ul.nav li.disabled {
     margin-top: -28px;
     min-height: 28px;
 }
-
 .panel-heading p {
     margin: 5px 0 -5px 0;
+}
+
+@keyframes blink {
+    50% {
+        border-bottom: 3px SOLID #F0AD4E;
+        border-radius: 0px;
+    }
+}
+
+.containerWarning {
+    animation: blink 1.0s step-end infinite alternate;
+    border-bottom: 3px solid transparent;
 }

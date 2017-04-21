@@ -472,4 +472,31 @@ class SettingManager
     {
         return $this->container;
     }
+
+    /**
+     * @param   $name
+     * @return  string
+     */
+    public function getLikeSettingNames($name)
+    {
+        $query = $this->repo->createQueryBuilder('s')
+            ->select(['s.name', 's.displayName'])
+            ->where('s.name LIKE :name1')
+            ->orWhere('s.description LIKE :name2')
+            ->orWhere('s.displayName LIKE :name3')
+            ->setParameter('name1', '%' . $name . '%')
+            ->setParameter('name2', '%' . $name . '%')
+            ->setParameter('name3', '%' . $name . '%')
+            ->orderBy('s.name')
+            ->getQuery();
+        $results = $query->getResult();
+        if (empty($results))
+            return '';
+        $return = ' Did you mean ';
+        dump($results);
+        foreach ($results as $setting) {
+            $return .= $setting['name'] . ' (' . $setting['displayName'] . ') ';
+        }
+        return $return;
+    }
 }

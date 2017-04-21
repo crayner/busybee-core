@@ -4,7 +4,7 @@ namespace Busybee\StaffBundle\Form;
 
 use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\PersonBundle\Entity\Person;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToIntTransformer;
+use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
@@ -74,7 +74,7 @@ class StaffType extends AbstractType
                     'choice_translation_domain' => 'BusybeeFamilyBundle',
                 )
             );
-        $builder->get('person')->addModelTransformer(new EntityToIntTransformer($this->manager, Person::class));
+        $builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->manager, Person::class));
 
     }
 

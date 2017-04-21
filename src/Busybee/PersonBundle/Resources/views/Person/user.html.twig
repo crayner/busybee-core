@@ -7,7 +7,7 @@
 	<div class="panel-body">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-6 well">
+                <div class="col-sm-5 well">
                     {{ form_row(form.user.username) }}
                     {{ form_row(form.user.usernameCanonical) }}
                     {{ form_widget(form.user.person) }}
@@ -15,9 +15,12 @@
                     {{ form_row(form.user.emailCanonical) }}
                     {{ form_widget(form.user.password) }}
 				</div>
-				<div class="col-sm-6 well">
+                <div class="col-sm-4 well">
                     {{ form_row(form.user.locale) }}
-				</div>
+                </div>
+                <div class="col-sm-3 well">
+                    {{ form_row(form.user.year) }}
+                </div>
 			</div>
 			<div class="row">
 				<div class="col-sm-5 well">
