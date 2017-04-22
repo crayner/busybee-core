@@ -13,10 +13,10 @@
     {% set headerNotices = '' %}
     {% if app.user is not null %}
         {% if app.user.year is not null %}
-            {% set headerNotices = headerNotices ~ '<span class="label label-warning">' ~ app.user.year.name ~ '</span>' %}
+            {% set headerNotices = headerNotices ~ 'year.system.warning'|trans({'%year%': app.user.year.name}) %}
             {% set containerThemeOverwrite = ' containerWarning' %}
         {% else %}
-            {% set headerNotices = headerNotices ~ '<span class="label label-success">' ~ get_SystemYear(app.user).name ~ '</span>' %}
+            {% set headerNotices = headerNotices ~ 'year.system.current'|trans({'%year%': get_SystemYear(app.user).name}) %}
         {% endif %}
     {% endif %}
 

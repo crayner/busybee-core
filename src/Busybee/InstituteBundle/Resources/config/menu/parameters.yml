@@ -45,14 +45,6 @@ parameters:
             node: 14
             order: 141
             menu: 141
-        143:
-            label: menu.grade.manage
-            name: Manage Grade
-            role: ROLE_PRINCIPAL
-            node: 14
-            order: 143
-            route: grade_edit
-            translate: BusybeeInstituteBundle
         1410:
             label: menu.calendar.years
             name: Years

@@ -315,6 +315,7 @@ user:
         removeSuccess: "The %name% was removed as a System User."
         removeRestricted: '%name% is set as a System User, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a System User."
-Linked Phone Numbers: ~
+Linked Phone Numbers: Linked Phone Numbers
+Linked Family Addresses: Linked Family Addresses
 delete:
     photo: Delete Photo
