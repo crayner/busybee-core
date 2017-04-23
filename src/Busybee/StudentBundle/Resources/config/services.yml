@@ -60,12 +60,6 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
-    form.enrolment.type:
-        class: Busybee\StudentBundle\Form\EnrolmentType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags:
-            - { name: form.type }
     student.enrolments.validator:
         class: Busybee\StudentBundle\Validator\Constraints\EnrolmentsValidator
         tags:

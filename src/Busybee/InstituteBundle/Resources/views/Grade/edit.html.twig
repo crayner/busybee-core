@@ -1,7 +1,7 @@
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
 {% include 'BusybeeInstituteBundle:Calendar:calendarMenu.html.twig' with {'header': 'calendar.grade.title', 'name': form.name.vars.value, 'panelParagraph': 'calendar.help.grades'} %}
-<div class="col-sm-4 col-sm-offset-4">
+<div class="col-sm-4 col-sm-offset-8">
     {{ form_widget(form.grades) }}
 </div>
 {% include '@BusybeeHome/Page/panelEnd.html.twig' %}

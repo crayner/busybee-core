@@ -8,7 +8,7 @@
 "BusybeeFormBundle:Template:bootstrap.html.twig"
 "BusybeeFormBundle:Template:jquery.collection.html.twig"
 "BusybeePersonBundle:Form:phoneCollection.html.twig"
-"BusybeeStudentBundle:Person:enrolmentCollection.html.twig" %}
+"BusybeeStudentBundle:Person:gradeCollection.html.twig" %}
 
 {% block stylesheets %}
 	{{ parent() }}
@@ -39,7 +39,7 @@
             {% if name == 'staff' and form.staff.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
             {% if name == 'student' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
             {% if name == 'immigration' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
-            {% if name == 'enrolment' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
+            {% if name == 'grades' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
             {% if name == 'user' and form.user.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
             <li{{ disabled }} role="presentation"><a href="#{{ name }}" role="tab"
                                                      data-toggle="tab">{{ tab.label|trans({}, translation) }}</a></li>
@@ -62,7 +62,7 @@
 				<div class="tab-pane" id="{{ name }}">
                     {% include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
 				</div>
-            {% elseif name == 'enrolment' and form.student.person is not defined %}
+            {% elseif name == 'grades' and form.student.person is not defined %}
 				<div class="tab-pane" id="{{ name }}">
                     {%  include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) }  %}
 				</div>
@@ -95,7 +95,4 @@
     {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
     {% include 'BusybeePersonBundle:Person:script.html.twig' %}
     {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'person_manage'} %}
-	<script>
-
-	</script>
 {% endblock javascripts %}

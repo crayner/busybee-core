@@ -66,6 +66,7 @@ class PersonSubscriber implements EventSubscriberInterface
     {
         $person = $event->getData();
         $form = $event->getForm();
+        $data = [];
 
         if ($person->getStaff() === null || $person->getStaff()->getId() === null)
             $form->add('staff', HiddenType::class);
@@ -74,9 +75,11 @@ class PersonSubscriber implements EventSubscriberInterface
         else
             $form->add('staff', HiddenType::class);
 
-        if ($this->personManager->isStudent($person))
-            $form->add('student', StudentType::class);
-        else
+        if ($this->personManager->isStudent($person)) {
+            $data['data'] = $person->getStudent();
+            $data['data']->yearData = $person->yearData;
+            $form->add('student', StudentType::class, $data);
+        } else
             $form->add('student', HiddenType::class);
 
         if ($person->getUser() === null || $person->getUser()->getId() === null)
@@ -254,7 +257,7 @@ class PersonSubscriber implements EventSubscriberInterface
 
         if (empty($data['preferredName']))
             $data['preferredName'] = $data['firstName'];
-        dump($data['photo']->getFilename());
+
         if ($data['photo'] instanceof File && empty($data['photo']->getFilename()))
             $data['photo'] = null;
 

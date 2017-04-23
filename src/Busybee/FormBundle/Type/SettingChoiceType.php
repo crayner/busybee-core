@@ -51,6 +51,7 @@ class SettingChoiceType extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
                 'placeholder' => null,
+                'year_data' => null,
             )
         );
     }

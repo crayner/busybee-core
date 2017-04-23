@@ -56,6 +56,8 @@ class PersonController extends Controller
 
 		$editOptions = array();
 
+        $year = $person->yearData = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
+
         $form = $this->createForm(PersonType::class, $person);
 
 		foreach($formDefinition as $extra)
@@ -111,9 +113,9 @@ class PersonController extends Controller
 			if ($ok) {
                 $em->persist($person);
                 $em->flush();
-                $id = $person->getId();
-
-                return new RedirectResponse($this->generateUrl('person_edit', array('id' => $id, 'currentSearch' => $currentSearch)));
+                if ($id === 'Add') {
+                    return new RedirectResponse($this->generateUrl('person_edit', array('id' => $person->getId(), 'currentSearch' => $currentSearch)));
+                }
             }
 		} 
 
@@ -128,6 +130,7 @@ class PersonController extends Controller
         $editOptions['addresses'] = $this->get('person.manager')->getAddresses($person);
         $editOptions['phones'] = $this->get('person.manager')->getPhones($person);
         $editOptions['currentSearch'] = $currentSearch;
+        $editOptions['year'] = $year;
 
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
 			$editOptions	

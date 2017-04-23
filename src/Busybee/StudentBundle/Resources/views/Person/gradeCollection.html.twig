@@ -1,0 +1,29 @@
+{% trans_default_domain "BusybeeStudentBundle" %}
+
+{% block studentGrade_label %}{% endblock %}
+{% block studentGrade_errors %}{% endblock %}
+
+{% block studentGrade_widget %}
+    {% set panelStyle = 'info' %}
+    {% set transDomain = 'BusybeeStudentBundle' %}
+    {% set header = 'student.grade.title' %}
+    {% set h3Content = '<div class="collection-actions collection-panel">' %}
+    {% set h3Content = h3Content ~ deleteButton({'title': 'student.grade.remove', 'transDomain': 'BusybeeStudentBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ '</div>' %}
+    {% set yearName = '(New)' %}
+    {% if data is not null %}{% set yearName = data.getGradeYear %}{% endif %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': yearName} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4 well">
+                {{ form_row(form) }}
+            </div>
+            <div class="col-sm-4 well">
+            </div>
+        </div>
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% endblock studentGrade_widget %}

@@ -24,7 +24,7 @@
                 {{ form_row(form.name) }}
 			</div>
 			<div class="col-sm-5 well">
-                {{ form_row(form.year) }}
+                {{ form_row(form.year, {'value': app.request.get('id')}) }}
                 {{ form_row(form.description) }}
 			</div>
 		</div>

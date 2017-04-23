@@ -14,6 +14,10 @@ Busybee\InstituteBundle\Entity\Grade:
         sequence:
             type: integer
             length: 2
+    manyToMany:
+        students:
+            targetEntity: Busybee\StudentBundle\Entity\Student
+            mappedBy: grades
     manyToOne:
         year:
             targetEntity: Busybee\InstituteBundle\Entity\Year

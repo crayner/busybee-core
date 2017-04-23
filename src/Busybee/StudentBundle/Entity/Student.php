@@ -145,6 +145,10 @@ class Student extends StudentModel
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $grades;
 
     /**
      * Student constructor.
@@ -152,7 +156,7 @@ class Student extends StudentModel
     public function __construct()
     {
         parent::__construct();
-        $this->enrolments = new ArrayCollection();
+        $this->grades = new ArrayCollection();
     }
 
     /**
@@ -787,5 +791,44 @@ class Student extends StudentModel
         $this->modifiedBy = $modifiedBy;
 
         return $this;
+    }
+
+    /**
+     * Add grade
+     *
+     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     *
+     * @return Student
+     */
+    public function addGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+    {
+        if ($this->grades->contain($grade))
+            return $this;
+
+        $grade->addStudent($this);
+
+        $this->grades->add($grade);
+
+        return $this;
+    }
+
+    /**
+     * Remove grade
+     *
+     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     */
+    public function removeGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+    {
+        $this->grades->removeElement($grade);
+    }
+
+    /**
+     * Get grades
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGrades()
+    {
+        return $this->grades;
     }
 }

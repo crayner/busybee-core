@@ -4,12 +4,12 @@ namespace Busybee\StudentBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-class Enrolments extends Constraint
+class Grades extends Constraint
 {
-    public $message = 'student.enrolments.error';
+    public $message = 'student.grades.error';
 
     public function validatedBy()
     {
-        return 'student_enrolments_validator';
+        return 'student_grades_validator';
     }
 }

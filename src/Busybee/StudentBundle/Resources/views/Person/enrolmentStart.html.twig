@@ -1,9 +1,0 @@
-{# src/Busybee/StudentBundle/Resources/views/Person/enrolmentStart.html.twig #}
-
-<div class="panel panel-primary busybee-panel">
-    {% include "BusybeePersonBundle:Person:panelHeader.html.twig"  with {'header': 'person.student.immigrationTitle'} %}
-    <div class="panel-body">
-
-        {% include '@BusybeeStudent/Person/enrolment.html.twig' with {'form': form.student} %}
-
-{% include '@BusybeeHome/Page/panelEnd.html.twig' %}

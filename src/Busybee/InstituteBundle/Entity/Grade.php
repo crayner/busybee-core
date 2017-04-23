@@ -2,10 +2,12 @@
 
 namespace Busybee\InstituteBundle\Entity;
 
+use Busybee\InstituteBundle\Model\GradeModel;
+
 /**
  * Grade
  */
-class Grade
+class Grade extends GradeModel
 {
     /**
      * @var integer
@@ -36,6 +38,18 @@ class Grade
      * @var integer
      */
     private $sequence;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $students;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -213,5 +227,44 @@ class Grade
         $this->sequence = $sequence;
 
         return $this;
+    }
+
+    /**
+     * Add student
+     *
+     * @param \Busybee\StudentBundle\Entity\Student $student
+     *
+     * @return Grade
+     */
+    public function addStudent(\Busybee\StudentBundle\Entity\Student $student)
+    {
+        if ($this->students->contain($student))
+            return $this;
+
+        $student->addGrade($this);
+
+        $this->students->add($student);
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \Busybee\StudentBundle\Entity\Student $student
+     */
+    public function removeStudent(\Busybee\StudentBundle\Entity\Student $student)
+    {
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }

@@ -291,3 +291,10 @@ grade:
         title: Remove Grade from Year
     add:
         title: Add Grade to Year
+
+student:
+    grade:
+        label:
+            grade: Select a Grade / Year
+        help:
+            year: The year selected must be unique for this student.
