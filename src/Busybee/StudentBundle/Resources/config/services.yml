@@ -60,10 +60,6 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
-    student.enrolments.validator:
-        class: Busybee\StudentBundle\Validator\Constraints\EnrolmentsValidator
-        tags:
-            - { name: validator.constraint_validator, alias: student_enrolments_validator }
     student.extension:
         class: Busybee\StudentBundle\Model\StudentExtension
         arguments:
@@ -71,3 +67,14 @@ services:
             - '@translator'
         tags:
             - { name: twig.extension }
+    form.person.student.grade.type:
+        class: Busybee\StudentBundle\Form\StudentGradeType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    student.grades.validator:
+        class: Busybee\StudentBundle\Validator\Constraints\GradesValidator
+        tags:
+            - { name: validator.constraint_validator, alias: student_grades_validator }
+

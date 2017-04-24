@@ -50,7 +50,7 @@ campus:
             comment: Comment
         help:
             staff: ''
-            campus: (Required) The Campus on which this resource exists.
+            campus: The Campus on which this resource exists.
             capacity: Number of people that this space is designed to hold.
         placeholder:
             staff: Select a Home Room Teacher
@@ -252,7 +252,7 @@ department:
         departments: Add New Department
     staff:
         title: Department Staff
-        member: %name%
+        member: '%name%'
         add: New Staff Member
         label:
             member: Staff Member

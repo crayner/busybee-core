@@ -16,12 +16,12 @@
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': yearName} %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6 well">
+                {{ form_row(form.grade) }}
             </div>
-            <div class="col-sm-4 well">
-                {{ form_row(form) }}
-            </div>
-            <div class="col-sm-4 well">
+            <div class="col-sm-6 well">
+                {{ form_row(form.status) }}
+                {{ form_row(form.student) }}
             </div>
         </div>
     </div>

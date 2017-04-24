@@ -5,7 +5,7 @@ timetable:
     line:
         add: Add line.
         remove: Remove line.
-        header: Line %name%
+        header: 'Line %name%'
         learninggroup:
             add: Add Learning Group
             remove: Remove Learning Group

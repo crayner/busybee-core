@@ -232,16 +232,16 @@ class Grade extends GradeModel
     /**
      * Add student
      *
-     * @param \Busybee\StudentBundle\Entity\Student $student
+     * @param \Busybee\StudentBundle\Entity\StudentGrade $student
      *
      * @return Grade
      */
-    public function addStudent(\Busybee\StudentBundle\Entity\Student $student)
+    public function addStudent(\Busybee\StudentBundle\Entity\StudentGrade $student)
     {
-        if ($this->students->contain($student))
+        if ($this->students->contains($student))
             return $this;
 
-        $student->addGrade($this);
+        $student->setGrade($this, false);
 
         $this->students->add($student);
 
@@ -251,9 +251,9 @@ class Grade extends GradeModel
     /**
      * Remove student
      *
-     * @param \Busybee\StudentBundle\Entity\Student $student
+     * @param \Busybee\StudentBundle\Entity\StudentGrade $student
      */
-    public function removeStudent(\Busybee\StudentBundle\Entity\Student $student)
+    public function removeStudent(\Busybee\StudentBundle\Entity\StudentGrade $student)
     {
         $this->students->removeElement($student);
     }

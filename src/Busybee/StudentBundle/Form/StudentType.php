@@ -4,15 +4,14 @@ namespace Busybee\StudentBundle\Form;
 
 use Busybee\FormBundle\Type\ImageType;
 use Busybee\FormBundle\Type\SettingChoiceType;
-use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Events\StudentSubscriber;
+use Busybee\StudentBundle\Validator\Constraints\GradesValidator;
+use Busybee\StudentBundle\Validator\Grades;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -49,7 +48,6 @@ class StudentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        dump($options);
         $builder
             ->add('person', HiddenType::class,
                 array(
@@ -223,28 +221,24 @@ class StudentType extends AbstractType
                     'label' => 'student.label.grades',
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => GradeType::class,
+                    'entry_type' => StudentGradeType::class,
                     'attr' => [
                         'class' => 'gradeList',
                         'help' => 'student.help.grades',
                     ],
                     'entry_options' => [
                         'year_data' => $options['data']->yearData,
-                        'class' => Grade::class,
-                        'query_builder' => function (EntityRepository $er) use ($options) {
-                            return $er->createQueryBuilder('g')
-                                ->leftJoin('g.year', 'y')
-                                ->orderBy('y.firstDay', 'ASC')
-                                ->addOrderBy('g.sequence', 'ASC');
-                        },
-                        'choice_label' => 'gradeYear',
                     ],
+                    'constraints' => [
+                        new Grades(),
+                    ],
+
                 ]
             );
 
         $builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->om, Person::class));
 
-        $builder->addEventSubscriber(new StudentSubscriber());
+        $builder->addEventSubscriber(new StudentSubscriber($this->om));
     }
 
     /**
@@ -252,11 +246,14 @@ class StudentType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Student::class,
-            'translation_domain' => 'BusybeeStudentBundle',
-            )
-        );
+        $resolver
+            ->setDefaults(
+                [
+                    'data_class' => Student::class,
+                    'translation_domain' => 'BusybeeStudentBundle',
+                    'error_bubbling' => true,
+                ]
+            );
     }
 
     /**

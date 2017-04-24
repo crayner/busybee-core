@@ -64,7 +64,6 @@ person:
     tab:
         student: Student
         immigration: Citizenship
-        enrolment: Enrolment
         grades: Year / Grades
     student:
         gradeTitle: Student Year Grades.
@@ -82,3 +81,13 @@ activity:
         grades: These grades are used to limit the student list for selection into this activity.
 activities:
     title: Activities List
+grades:
+    label:
+        grade: Grade / Year
+        status: Status of Enrolment
+    placeholder:
+        grade: Select Grade
+        status: Select Enrolment Status
+    help:
+        grade: The year must be unique for the student.
+        status: "The status 'Current' must be unique for the student."

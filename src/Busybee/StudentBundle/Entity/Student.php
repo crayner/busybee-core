@@ -155,8 +155,8 @@ class Student extends StudentModel
      */
     public function __construct()
     {
-        parent::__construct();
         $this->grades = new ArrayCollection();
+        parent::__construct();
     }
 
     /**
@@ -796,16 +796,16 @@ class Student extends StudentModel
     /**
      * Add grade
      *
-     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     * @param \Busybee\StudentBundle\Entity\StudentGrade $grade
      *
      * @return Student
      */
-    public function addGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+    public function addGrade(\Busybee\StudentBundle\Entity\StudentGrade $grade)
     {
-        if ($this->grades->contain($grade))
+        if ($this->grades->contains($grade))
             return $this;
 
-        $grade->addStudent($this);
+        $grade->setStudent($this, false);
 
         $this->grades->add($grade);
 
@@ -815,9 +815,9 @@ class Student extends StudentModel
     /**
      * Remove grade
      *
-     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     * @param \Busybee\StudentBundle\Entity\StudentGrade $grade
      */
-    public function removeGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+    public function removeGrade(\Busybee\StudentBundle\Entity\StudentGrade $grade)
     {
         $this->grades->removeElement($grade);
     }

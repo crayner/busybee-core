@@ -5,7 +5,6 @@
         <img src="{{ asset( data.pathname ) }}" class="{{ attr.imageClass }}"/>
         {{- form_label(form) -}}
         {% if deletePhoto is not null %}
-            &nbsp;
             <button class="btn btn-warning halflings halflings-erase"
                     title="{{ 'delete.photo'|trans({}, translation_domain) }}"
                     onclick="window.open('{{ deletePhoto }}','DeletePhoto','width=50,height=50')"></button>
@@ -28,7 +27,8 @@
     {{- parent() -}}
     {% set required_printed = false %}
     {% if required and not required_printed %}<span
-            class="field-required">{{ 'required'|trans({}, 'BusybeeHomeBundle') }} </span> {% set required_printed = true %}{% endif %}
+            class="field-required">
+        &nbsp;{{ 'required'|trans({}, 'BusybeeHomeBundle') }} </span>&nbsp;{% set required_printed = true %}{% endif %}
 {%- endblock form_label %}
 
 {% block form_errors -%}

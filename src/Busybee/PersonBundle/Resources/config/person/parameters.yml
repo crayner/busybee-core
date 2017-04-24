@@ -13,15 +13,15 @@ parameters:
             include: BusybeeStaffBundle:Person:staff.html.twig
             message: staffMessage
             translation: BusybeeStaffBundle
-        student:
-            label: person.tab.student
-            include: BusybeeStudentBundle:Person:student.html.twig
-            message: studentMessage
-            translation: BusybeeStudentBundle
         immigration:
             label: person.tab.immigration
             include: BusybeeStudentBundle:Person:immigration.html.twig
             message: immigrationMessage
+            translation: BusybeeStudentBundle
+        student:
+            label: person.tab.student
+            include: BusybeeStudentBundle:Person:student.html.twig
+            message: studentMessage
             translation: BusybeeStudentBundle
         grades:
             label: person.tab.grades

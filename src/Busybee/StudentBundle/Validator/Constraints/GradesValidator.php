@@ -17,11 +17,22 @@ class GradesValidator extends ConstraintValidator
         $current = 0;
         $year = [];
 
-        dump($value);
+
+        foreach ($value->toArray() as $grade) {
+            if (empty($grade->getStudent()) || empty($grade->getGrade())) {
+
+                dump($grade);
+                die();
+
+                $this->context->buildViolation('student.grades.empty')
+                    ->addViolation();
+                return $value;
+            }
+        }
         /*
                 foreach ($year as $q => $w)
                     if ($w > 1) {
-                        $constraint->message = 'student.enrolments.year';
+                        $constraint->message = 'student.enr lments.year';
                         $this->context->buildViolation($constraint->message, ['%year%' => $q])
                             ->addViolation();
                     }

@@ -1,7 +1,7 @@
-Busybee\StaffBundle\Entity\Staff:
+Busybee\StudentBundle\Entity\StudentGrade:
     type: entity
-    table: staff
-    repositoryClass: Busybee\StaffBundle\Repository\StaffRepository
+    table: student_grade
+    repositoryClass: Busybee\StudentBundle\Repository\StudentGradeRepository
     id:
         id:
             type: integer
@@ -9,31 +9,26 @@ Busybee\StaffBundle\Entity\Staff:
             generator:
                 strategy: AUTO
     fields:
-        staffType:
+        status:
             type: string
-            length: '20'
-            name: staff_type
-        jobTitle:
-            type: string
-            length: '100'
-        house:
-            type: string
-            length: 32
-            nullable: true
+            length: '32'
         lastModified:
             type: datetime
         createdOn:
             type: datetime
-    oneToOne:
-        person:
-            targetEntity: Busybee\PersonBundle\Entity\Person
-            inversedBy: staff
-    oneToMany:
-        department:
-            targetEntity: Busybee\InstituteBundle\Entity\DepartmentStaff
-            mappedBy: staff
-            cascade: [ all ]
     manyToOne:
+        student:
+            targetEntity: Busybee\StudentBundle\Entity\Student
+            inversedBy: grades
+            joinColumns:
+                student_id:
+                    referencedColumnName: id
+        grade:
+            targetEntity: Busybee\InstituteBundle\Entity\Grade
+            inversedBy: students
+            joinColumns:
+                grade_id:
+                    referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:

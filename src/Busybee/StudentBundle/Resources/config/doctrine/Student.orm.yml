@@ -94,20 +94,11 @@ Busybee\StudentBundle\Entity\Student:
         person:
             targetEntity: Busybee\PersonBundle\Entity\Person
             inversedBy: student
-    manyToMany:
+    oneToMany:
         grades:
-            targetEntity: Busybee\InstituteBundle\Entity\Grade
-            inversedBy: students
-            orderBy: { 'year': 'ASC' }
-            cascade: [ 'persist' ]
-            joinTable:
-                name: student_grade
-                joinColumns:
-                    student_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    grade_id:
-                        referencedColumnName: id
+            targetEntity: Busybee\StudentBundle\Entity\StudentGrade
+            mappedBy: student
+            cascade: [ 'all' ]
     manyToOne:
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

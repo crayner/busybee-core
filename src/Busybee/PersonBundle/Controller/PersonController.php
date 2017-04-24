@@ -60,7 +60,7 @@ class PersonController extends Controller
 
         $form = $this->createForm(PersonType::class, $person);
 
-		foreach($formDefinition as $extra)
+        foreach ($formDefinition as $extra)
 		{
             if (isset($extra['form']) && isset($extra['name']))
 			{

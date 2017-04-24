@@ -231,4 +231,3 @@ class DepartmentStaff
         return $this;
     }
 }
-
