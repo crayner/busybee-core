@@ -9,7 +9,7 @@
 
 {% form_theme form
 'BusybeeFormBundle:Template:jquery.collection.html.twig'
-'@BusybeeInstitute/Calendar/term.html.twig'
+'@BusybeeInstitute/Term/term.html.twig'
 '@BusybeeInstitute/Calendar/specialDay.html.twig'
 '@BusybeeInstitute/Grade/grade.html.twig'
 'BusybeeFormBundle:Template:bootstrap.html.twig' %}
@@ -78,15 +78,6 @@
 		}
 
 
-        $(".termList").collection({
-            name_prefix: '{{ form.terms.vars.full_name }}',
-            allow_up: false,
-            allow_down: false,
-            add: '<button title="{{ 'year.term.add'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
-            remove: '<button title="{{ 'year.term.remove'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
-            add_at_the_end: true
-        });
-
         $(".specialDayList").collection({
             name_prefix: '{{ form.specialDays.vars.full_name }}',
             allow_up: false,
@@ -103,12 +94,21 @@
         {% endif %}
         {% endfor %}
 
-        {% for error in form.vars.errors %}
-        {% if error.messageTemplate in ['year.term.error.delete', 'year.term.error.invalid', 'year.term.error.order', 'year.term.error.outsideYear', 'year.term.error.overlapped'] %}
-        $("#termMessage").html('<p class="alert alert-danger">{{ error.message }}</p>');
-        $("#termMessage").fadeIn(1000);
-        {% endif %}
-        {% endfor %}
+
 	</script>
     {% include '@BusybeeInstitute/Grade/gradesScript.html.twig' %}
+    {% include '@BusybeeInstitute/Term/termScript.html.twig' %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var hash = window.location.hash.substr(1);
+            if (hash == 'terms') {
+                var index = $('#calendarTabs a[href="#terms"]').parent();
+                index.prop('class', 'active');
+                $('#year').prop('class', 'tab-pane');
+                $('#terms').prop('class', 'tab-pane active');
+                $('#specialDays').prop('class', 'tab-pane');
+                $('#grades').prop('class', 'tab-pane');
+            }
+        });
+    </script>
 {% endblock javascripts %}

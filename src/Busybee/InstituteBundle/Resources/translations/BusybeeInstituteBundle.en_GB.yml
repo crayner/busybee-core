@@ -80,6 +80,9 @@ year:
     term:
         add: Add Term
         remove: Erase Term
+        delete:
+            warning: '%name% is locked and cannot be removed'
+            sucess: '%name% has been removed successfully'
     specialday:
         add: Add Special Day
         remove: Erase Special Day

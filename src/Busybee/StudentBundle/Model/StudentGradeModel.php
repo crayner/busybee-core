@@ -16,6 +16,6 @@ class StudentGradeModel
 
     public function canDelete()
     {
-
+        return true;
     }
 }

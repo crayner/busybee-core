@@ -24,6 +24,8 @@ class YearSubscriber implements EventSubscriberInterface
     public function preSubmit(FormEvent $event)
     {
         $data = $event->getData();
+//        $form = $event->getForm();
+//        $year = $form->getData();
 
         if (!empty($data['grades'])) {
             $seq = 0;
@@ -34,6 +36,7 @@ class YearSubscriber implements EventSubscriberInterface
             }
         }
 
+//        $form->setData($year);
         $event->setData($data);
     }
 }

@@ -1,0 +1,37 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/term.html.twig #}
+
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% block term_label %}{% endblock %}
+{% block term_errors %}{% endblock %}
+
+{% block term_widget %}
+    {% spaceless %}
+        {% if form.name.vars.value is empty %}{% set termTitle = 'term.add'|trans %}{% else %}{% set termTitle = form.name.vars.value %}{% endif %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set term_id = '0' %}
+        {% if form.vars.value is not null %}{% set term_id = form.vars.value.getId() %}{% endif %}
+        {% set h3Content = h3Content ~ deleteButton({'javascript': {'function': 'return removeTerm', 'options': {'id': term_id, 'year': app.request.get('id')}}, 'title': 'term.delete.title', 'transDomain': 'BusybeeInstituteBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'}) %}
+        {% set h3Content = h3Content ~ saveButton() %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': termTitle, 'panelStyle': 'info'} %}
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-2 well">
+                    {{ form_row(form.name) }}
+				</div>
+				<div class="col-sm-2 well">
+                    {{ form_row(form.nameShort) }}
+				</div>
+				<div class="col-sm-4 well">
+                    {{ form_row(form.firstDay) }}
+				</div>
+				<div class="col-sm-4 well">
+                    {{ form_row(form.lastDay) }}
+                    {{ form_row(form.year, {'value': app.request.get('id')}) }}
+				</div>
+			</div>
+		</div>
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock term_widget %}

@@ -2,6 +2,7 @@
 
 namespace Busybee\InstituteBundle\Form ;
 
+use Busybee\InstituteBundle\Entity\Year;
 use Busybee\InstituteBundle\Events\YearSubscriber;
 use Busybee\InstituteBundle\Model\YearManager;
 use Busybee\InstituteBundle\Validator\Grade;
@@ -140,7 +141,7 @@ class YearType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Busybee\InstituteBundle\Entity\Year',
+                'data_class' => Year::class,
                 'translation_domain' => 'BusybeeInstituteBundle',
             )
         );

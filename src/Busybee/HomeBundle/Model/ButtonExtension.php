@@ -83,6 +83,14 @@ class ButtonExtension extends \Twig_Extension
             $route = empty($details['windowOpen']['params']) ? $route . ')"' : $route . ',\'' . $details['windowOpen']['params'] . '\')"';
             $details['additional'] = empty($details['additional']) ? $route : trim($details['additional'] . ' ' . $route);
         }
+
+        if (!empty($details['javascript'])) {
+            $target = implode(',', $details['javascript']['options']);
+            $route = 'onClick="' . $details['javascript']['function'] . '(' . $target . ');"';
+            $details['additional'] = empty($details['additional']) ? $route : trim($details['additional'] . ' ' . $route);
+        }
+
+
         foreach ($defaults as $q => $w) {
             if (isset($details[$q]))
                 $defaults[$q] = $details[$q];

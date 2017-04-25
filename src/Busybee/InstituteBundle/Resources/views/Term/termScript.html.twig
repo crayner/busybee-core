@@ -1,0 +1,28 @@
+<script language="JavaScript" type="text/javascript">
+    function removeTerm(id, year) {
+        if (id > 0) {
+            var path = "{{ path('term_delete', {'id': '__id__', 'year': '__year__'}) }}";
+            path = path.replace('__id__', id);
+            path = path.replace('__year__', year);
+            window.open(path, '_self');
+        }
+    }
+
+
+    $(".termList").collection({
+        name_prefix: '{{ form.terms.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '<button title="{{ 'year.term.add'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+        remove: '<button title="{{ 'year.term.remove'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        add_at_the_end: true
+    });
+
+    {% for error in form.vars.errors %}
+    {% if error.messageTemplate in ['year.term.error.delete', 'year.term.error.invalid', 'year.term.error.order', 'year.term.error.outsideYear', 'year.term.error.overlapped'] %}
+    $("#termMessage").html('<p class="alert alert-danger">{{ error.message }}</p>');
+    $("#termMessage").fadeIn(1000);
+    {% endif %}
+    {% endfor %}
+
+</script>
