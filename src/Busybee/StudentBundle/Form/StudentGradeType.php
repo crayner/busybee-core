@@ -55,7 +55,7 @@ class StudentGradeType extends AbstractType
                     'choice_label' => 'gradeYear',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('g')
-                            ->orderBy('g.year', 'ASC')
+                            ->orderBy('g.year', 'DESC')
                             ->addOrderBy('g.sequence', 'ASC');
                     },
                     'placeholder' => 'grades.placeholder.grade',

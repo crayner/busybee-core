@@ -21,9 +21,6 @@ class GradesValidator extends ConstraintValidator
         foreach ($value->toArray() as $grade) {
             if (empty($grade->getStudent()) || empty($grade->getGrade())) {
 
-                dump($grade);
-                die();
-
                 $this->context->buildViolation('student.grades.empty')
                     ->addViolation();
                 return $value;

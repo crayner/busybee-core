@@ -2,21 +2,26 @@
 namespace Busybee\InstituteBundle\Validator\Constraints ;
 
 use Symfony\Component\Validator\Constraint ;
-use Symfony\Component\Validator\ConstraintValidator as ConstraintValidatorBase ;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\Validator\ConstraintValidator;
 use Busybee\InstituteBundle\Repository\YearRepository ;
 use DateTime ;
 
-class CalendarDateValidator extends ConstraintValidatorBase 
+class CalendarDateValidator extends ConstraintValidator
 {
+    private $yr;
 
+    public function __construct(YearRepository $yr)
+    {
+        $this->yr = $yr;
+    }
+	
 	public function validate($value, Constraint $constraint)
     {
-        
+
         if (empty($value))
             return ;
-		
-		$year = reset($constraint->fields);		
+
+        $year = reset($constraint->fields);
 		$start = $year->getFirstDay();
 		$end = $year->getLastDay();
 		$name = $year->getName();
@@ -39,7 +44,7 @@ class CalendarDateValidator extends ConstraintValidatorBase
 				->addViolation();
 			return ;
 		}
-		
+
 		$years = $this->yr->createQueryBuilder('y')
 			->where('y.id != :id')
 			->setParameter('id', $year->getId())
@@ -49,13 +54,13 @@ class CalendarDateValidator extends ConstraintValidatorBase
 		if (is_array($years))
 			foreach($years as $year)
 			{
-				if ($year->getFirstDay() >= $start && $year->getFirstDay() <= $end) 
+                if ($year->getFirstDay() >= $start && $year->getFirstDay() <= $end)
 				{
 					$this->context->buildViolation('calendar.error.overlapped', array('%name1%' => $year->getName(), '%name2%' => $name))
 						->addViolation();
 					return ;
 				}
-				if ($year->getLastDay() >= $start && $year->getLastDay() <= $end) 
+                if ($year->getLastDay() >= $start && $year->getLastDay() <= $end)
 				{
 					$this->context->buildViolation('calendar.error.overlapped', array('%name1%' => $year->getName(), '%name2%' => $name))
 						->addViolation();
@@ -63,11 +68,4 @@ class CalendarDateValidator extends ConstraintValidatorBase
 				}
 			}
     }
-
-	private $yr ;
-	
-	public function __construct(YearRepository $yr)
-	{
-		$this->yr = $yr;
-	}
 }

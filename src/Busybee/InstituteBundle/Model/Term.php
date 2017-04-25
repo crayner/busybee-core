@@ -10,6 +10,6 @@ class Term
      */
 	public function canDelete()
 	{
-		return true;
+        return false;
 	}
 }

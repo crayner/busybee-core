@@ -106,7 +106,6 @@ class YearType extends AbstractType
                     ),
                     'label' => false,
                     'allow_delete' => true,
-                    'mapped' => true,
                     'attr' => array(
                         'class' => 'specialDayList'
                     ),
@@ -124,7 +123,6 @@ class YearType extends AbstractType
                     ],
                     'label' => false,
                     'allow_delete' => true,
-                    'mapped' => true,
                     'attr' => array(
                         'class' => 'gradeList'
                     ),

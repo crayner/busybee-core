@@ -301,7 +301,12 @@ class Year extends YearModel
      */
     public function addTerm(\Busybee\InstituteBundle\Entity\Term $term)
     {
-        $this->terms[] = $term;
+        if ($this->terms->contains($term))
+            return $this;
+
+        $term->setYear($this);
+
+        $this->terms->add($term);
 
         return $this;
     }
@@ -330,8 +335,11 @@ class Year extends YearModel
         $iterator->uasort(function ($a, $b) {
             return ($a->getFirstDay() < $b->getFirstDay()) ? -1 : 1;
         });
+
         $this->terms = new ArrayCollection(iterator_to_array($iterator, false));
+
         $this->termsSorted = true;
+
         return $this->terms;
     }
 

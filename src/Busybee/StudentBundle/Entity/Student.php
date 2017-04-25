@@ -145,10 +145,16 @@ class Student extends StudentModel
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $grades;
+
+    /**
+     * @var boolean
+     */
+    private $gradesSorted = false;
 
     /**
      * Student constructor.
@@ -809,6 +815,8 @@ class Student extends StudentModel
 
         $this->grades->add($grade);
 
+        $this->gradesSorted = false;
+
         return $this;
     }
 
@@ -829,6 +837,18 @@ class Student extends StudentModel
      */
     public function getGrades()
     {
+        if ($this->gradesSorted || $this->grades->count() == 0)
+            return $this->grades;
+        $iterator = $this->grades->getIterator();
+        $iterator->uasort(function ($a, $b) {
+            return ($a->getGrade()->getYear()->getFirstDay() < $b->getGrade()->getYear()->getFirstDay()) ? 1 : -1;
+        }
+        );
+
+        $this->grades = new ArrayCollection(iterator_to_array($iterator, false));
+
+        $this->gradesSorted = true;
+
         return $this->grades;
     }
 }

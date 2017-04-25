@@ -10,7 +10,7 @@
         add_at_the_end: true
     });
     {% for error in form.vars.errors %}
-    {% if error.messageTemplate == 'grade.error.default' %}
+    {% if error.messageTemplate in ['year.grade.error.duplicate', 'year.grade.error.delete'] %}
     $("#gradeMessage").html('<p class="alert alert-danger">{{ error.message }}</p>');
     $("#gradeMessage").fadeIn(1000);
     {% endif %}

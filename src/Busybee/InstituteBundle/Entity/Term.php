@@ -71,6 +71,16 @@ class Term extends TermModel
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -85,13 +95,13 @@ class Term extends TermModel
     }
 
     /**
-     * Get name
+     * Get nameShort
      *
      * @return string
      */
-    public function getName()
+    public function getNameShort()
     {
-        return $this->name;
+        return $this->nameShort;
     }
 
     /**
@@ -101,7 +111,7 @@ class Term extends TermModel
      *
      * @return Term
      */
-    public function setnameShort($nameShort)
+    public function setNameShort($nameShort)
     {
         $this->nameShort = $nameShort;
 
@@ -109,13 +119,13 @@ class Term extends TermModel
     }
 
     /**
-     * Get nameShort
+     * Get firstDay
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getnameShort()
+    public function getFirstDay()
     {
-        return $this->nameShort;
+        return $this->firstDay;
     }
 
     /**
@@ -133,13 +143,13 @@ class Term extends TermModel
     }
 
     /**
-     * Get firstDay
+     * Get lastDay
      *
      * @return \DateTime
      */
-    public function getFirstDay()
+    public function getLastDay()
     {
-        return $this->firstDay;
+        return $this->lastDay;
     }
 
     /**
@@ -157,13 +167,13 @@ class Term extends TermModel
     }
 
     /**
-     * Get lastDay
+     * Get lastModified
      *
      * @return \DateTime
      */
-    public function getLastDay()
+    public function getLastModified()
     {
-        return $this->lastDay;
+        return $this->lastModified;
     }
 
     /**
@@ -181,13 +191,13 @@ class Term extends TermModel
     }
 
     /**
-     * Get lastModified
+     * Get createdOn
      *
      * @return \DateTime
      */
-    public function getLastModified()
+    public function getCreatedOn()
     {
-        return $this->lastModified;
+        return $this->createdOn;
     }
 
     /**
@@ -205,13 +215,13 @@ class Term extends TermModel
     }
 
     /**
-     * Get createdOn
+     * Get createdBy
      *
-     * @return \DateTime
+     * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedOn()
+    public function getCreatedBy()
     {
-        return $this->createdOn;
+        return $this->createdBy;
     }
 
     /**
@@ -229,13 +239,13 @@ class Term extends TermModel
     }
 
     /**
-     * Get createdBy
+     * Get modifiedBy
      *
      * @return \Busybee\SecurityBundle\Entity\User
      */
-    public function getCreatedBy()
+    public function getModifiedBy()
     {
-        return $this->createdBy;
+        return $this->modifiedBy;
     }
 
     /**
@@ -253,13 +263,13 @@ class Term extends TermModel
     }
 
     /**
-     * Get modifiedBy
+     * Get year
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\InstituteBundle\Entity\Year
      */
-    public function getModifiedBy()
+    public function getYear()
     {
-        return $this->modifiedBy;
+        return $this->year;
     }
 
     /**
@@ -274,15 +284,5 @@ class Term extends TermModel
         $this->year = $year;
 
         return $this;
-    }
-
-    /**
-     * Get year
-     *
-     * @return \Busybee\InstituteBundle\Entity\Year
-     */
-    public function getYear()
-    {
-        return $this->year;
     }
 }

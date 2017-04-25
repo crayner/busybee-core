@@ -1,76 +1,85 @@
 <?php
 namespace Busybee\InstituteBundle\Validator\Constraints ;
 
-use Symfony\Component\Validator\Constraint ;
-use Symfony\Component\Validator\ConstraintValidator as ConstraintValidatorBase ;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use Busybee\InstituteBundle\Repository\YearRepository ;
+use Busybee\InstituteBundle\Entity\Term;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 use DateTime ;
 
-class TermDateValidator extends ConstraintValidatorBase 
+class TermDateValidator extends ConstraintValidator
 {
+    /**
+     * @var ObjectManager
+     */
+    private $om;
 
-	public function validate($value, Constraint $constraint)
+    /**
+     * SpecialDayDateValidator constructor.
+     * @param ObjectManager $objectManager
+     */
+    public function __construct(ObjectManager $objectManager)
+    {
+        $this->om = $objectManager;
+    }
+
+    /**
+     * @param mixed $value
+     * @param Constraint $constraint
+     * @return mixed|void
+     */
+    public function validate($value, Constraint $constraint)
     {
         
         if (empty($value))
             return ;
-		
-		foreach($value as $key=>$term)
-		{
-			if (empty($term->getName()) || empty($term->getnameShort()))
-			{
-				$value->remove($key);
-				$constraint->year->removeTerm($term);
-			}
-		}
 
-		$yearStart = $constraint->year->getFirstDay();
-		$yearEnd = $constraint->year->getLastDay();
+        $firstDay = $constraint->year->getFirstDay();
+        $lastDay = $constraint->year->getLastDay();
 
-		if (! $yearStart instanceof DateTime  || ! $yearEnd instanceof DateTime)
-		{
-			$this->context->buildViolation('term.error.invalidYear')
-				->addViolation();
-			return ;
-		}
-		if ($yearStart > $yearEnd)
-		{
-			$this->context->buildViolation('calendar.error.dateOrder')
-				->addViolation();
-			return ;
-		}
-		if ($yearStart->diff($yearEnd)->y > 0)
-		{
-			$this->context->buildViolation('calendar.error.date')
-				->addViolation();
-			return ;
-		}
-		
-		$terms = array();
+        $terms = $this->om->getRepository(Term::class)->findBy(['year' => $constraint->year->getId()], ['firstDay' => 'ASC']);
+
+        if (!empty($terms))
+            foreach ($terms as $t) {
+                if (!$value->contains($t))
+                    if (!$t->canDelete()) {
+                        $this->context->buildViolation('year.term.error.delete', ['%term%' => $t->getName()])
+                            ->addViolation();
+                        return;
+                    }
+            }
+
+        foreach ($value as $key => $term) {
+            if (empty($term->getName()) || empty($term->getnameShort())) {
+                $value->remove($key);
+                $constraint->year->removeTerm($term);
+            }
+        }
+
+        $terms = array();
 		
 		foreach($value as $term)
 		{
 			if (! $term->getFirstDay() instanceof DateTime  || ! $term->getLastDay() instanceof DateTime)
 			{
-				$this->context->buildViolation('term.error.invalid')
+                $this->context->buildViolation('year.term.error.invalid')
 					->addViolation();
 				return ;
 			}
             if ($term->getFirstDay() > $term->getLastDay()) {
-                $this->context->buildViolation('term.error.order')
+                $this->context->buildViolation('year.term.error.order')
                     ->addViolation();
                 return;
             }
-			if ($term->getFirstDay() < $yearStart)
-			{	
-				$this->context->buildViolation('term.error.outsideYear', array('%term_date%' => $term->getFirstDay()->format('jS M Y'), '%year_date%' => $yearStart->format('jS M Y'), '%operator%' => '<'))
+            if ($term->getFirstDay() < $firstDay)
+			{
+                $this->context->buildViolation('year.term.error.outsideYear', array('%term_date%' => $term->getFirstDay()->format('jS M Y'), '%year_date%' => $yearStart->format('jS M Y'), '%operator%' => '<'))
 					->addViolation();
 				return ;
 			}
-			if ($term->getLastDay() > $yearEnd)
+            if ($term->getLastDay() > $lastDay)
 			{
-				$this->context->buildViolation('term.error.outsideYear', array('%term_date%' => $term->getLastDay()->format('jS M Y'), '%year_date%' => $yearEnd->format('jS M Y'), '%operator%' => '>'))
+                $this->context->buildViolation('year.term.error.outsideYear', array('%term_date%' => $term->getLastDay()->format('jS M Y'), '%year_date%' => $yearEnd->format('jS M Y'), '%operator%' => '>'))
 					->addViolation();
 				return ;
 			}
@@ -78,13 +87,13 @@ class TermDateValidator extends ConstraintValidatorBase
 			{
 				if ($term->getFirstDay() >= $test['start'] && $term->getFirstDay() <= $test['end']) 
 				{
-					$this->context->buildViolation('term.error.overlapped', array('%name1%' => $name, '%name2%' => $term->getName()))
+                    $this->context->buildViolation('year.term.error.overlapped', array('%name1%' => $name, '%name2%' => $term->getName()))
 						->addViolation();
 					return ;
 				}
 				if ($term->getLastDay() >= $test['start'] && $term->getLastDay() <= $test['end']) 
 				{
-					$this->context->buildViolation('term.error.overlapped', array('%name1%' => $name, '%name2%' => $term->getName()))
+                    $this->context->buildViolation('year.term.error.overlapped', array('%name1%' => $name, '%name2%' => $term->getName()))
 						->addViolation();
 					return ;
 				}

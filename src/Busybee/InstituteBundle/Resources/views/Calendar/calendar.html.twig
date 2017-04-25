@@ -95,6 +95,20 @@
             remove: '<button title="{{ 'year.specialday.remove'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
             add_at_the_end: true
         });
+
+        {% for error in form.vars.errors %}
+        {% if error.messageTemplate in ['year.specialDay.error.delete', 'year.specialDay.error.timeEmpty', 'year.specialDay.error.timeInvalid'] %}
+        $("#specialDayMessage").html('<p class="alert alert-danger">{{ error.message }}</p>');
+        $("#specialDayMessage").fadeIn(1000);
+        {% endif %}
+        {% endfor %}
+
+        {% for error in form.vars.errors %}
+        {% if error.messageTemplate in ['year.term.error.delete', 'year.term.error.invalid', 'year.term.error.order', 'year.term.error.outsideYear', 'year.term.error.overlapped'] %}
+        $("#termMessage").html('<p class="alert alert-danger">{{ error.message }}</p>');
+        $("#termMessage").fadeIn(1000);
+        {% endif %}
+        {% endfor %}
 	</script>
     {% include '@BusybeeInstitute/Grade/gradesScript.html.twig' %}
 {% endblock javascripts %}

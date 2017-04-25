@@ -58,6 +58,8 @@ services:
             - { name: validator.constraint_validator, alias: calendar_date_validator }
     term.date.validator:
         class: Busybee\InstituteBundle\Validator\Constraints\TermDateValidator
+        arguments:
+            - '@doctrine.orm.entity_manager'
         tags:
             - { name: validator.constraint_validator, alias: term_date_validator }
     form.termType:
@@ -74,6 +76,8 @@ services:
             - { name: form.type }
     specialDay.date.validator:
         class: Busybee\InstituteBundle\Validator\Constraints\SpecialDayDateValidator
+        arguments:
+            - '@doctrine.orm.entity_manager'
         tags:
             - { name: validator.constraint_validator, alias: specialday_date_validator }
     specialDay.repository:
@@ -161,7 +165,9 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
-    grade.validator:
+    calendar.grade.validator:
         class: Busybee\InstituteBundle\Validator\Constraints\GradeValidator
+        arguments:
+            - '@doctrine.orm.entity_manager'
         tags:
-            - { name: validator.constraint_validator, alias: grade_validator }
+            - { name: validator.constraint_validator, alias: calendar_grade_validator }

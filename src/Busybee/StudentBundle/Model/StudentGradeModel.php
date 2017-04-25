@@ -13,4 +13,9 @@ class StudentGradeModel
             return $this->getGrade()->getGradeYear();
         return '';
     }
+
+    public function canDelete()
+    {
+
+    }
 }

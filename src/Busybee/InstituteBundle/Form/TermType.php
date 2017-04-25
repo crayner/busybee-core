@@ -18,14 +18,14 @@ class TermType extends AbstractType
     /**
      * @var    ObjectManager
      */
-    private $manager;
+    private $om;
 
     /**
      * Construct
      */
     public function __construct(ObjectManager $manager)
     {
-        $this->manager = $manager;
+        $this->om = $manager;
     }
 
     /**
@@ -33,7 +33,6 @@ class TermType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $terms = $options['year_data']->getTerms();
         $year = $options['year_data'];
         $years = array();
         if (!is_null($year->getFirstDay())) {
@@ -78,8 +77,9 @@ class TermType extends AbstractType
                 )
             )
             ->add('year', HiddenType::class);
+
         $builder->get('year')
-            ->addModelTransformer(new EntityToStringTransformer($this->manager, Year::class));
+            ->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
     }
 
     /**

@@ -18,17 +18,6 @@ calendar:
         dateOrder: The first day must be before the last day in the year.
         invalid: The first or last day of the year is not valid.
         overlapped: "The year dates must not overlap. Check the years: %name1% and %name2%"
-term:
-    error:
-        invalidYear: The first or last day of the year is not valid.
-        outsideYear: "The term dates must be inside the year dates. %term_date% %operator% %year_date%"
-        invalid: The first or last day of a term is not valid.
-        overlapped: "The term dates must not overlap. Check the terms: %name1% and %name2%"
-        order: The first day of the term must be before the last day of the term.
-specialDay:
-    error:
-        timeEmpty: Time is empty when time change active in Special Day.
-        timeInvalid: Times are not in the correct order in a Special Day.
 caregiver:
     blank:
         family: The family for a caregiver must not be blank.
@@ -38,11 +27,11 @@ blank:
     term:
         year: The term year is blank.
 student:
-    enrolments:
-        error: 'Enrolments are not valid.'
-        current: Only a single enrolment can be current.
-        year: 'The year (%year%) can only be selected once.'
-        yearempty: You must select a Year in the enrolment.
+    grades:
+        current:
+            duplicate: Only a single grade can be current.
+        year:
+            duplicate: 'The year (%year%) can only be selected once.'
 timetable:
     unique:
         year: This value must be unique within the year
@@ -57,3 +46,21 @@ grade:
         unique: 'The grade must be unique in the school year.'
     error:
         default: Grades in the year must be unique.
+year:
+    grade:
+        error:
+            delete: 'You are not able to delete the grade (%grade%).'
+            duplicate: 'The grade (%grade%) is not unique.'
+    specialDay:
+        error:
+            timeEmpty: Time is empty when time change active in Special Day.
+            timeInvalid: Times are not in the correct order in a Special Day.
+            delete: 'You are not able to delete the special day (%day%).'
+    term:
+        error:
+            invalidYear: The first or last day of the year is not valid.
+            outsideYear: "The term dates must be inside the year dates. %term_date% %operator% %year_date%"
+            invalid: The first or last day of a term is not valid.
+            overlapped: "The term dates must not overlap. Check the terms: %name1% and %name2%"
+            order: The first day of the term must be before the last day of the term.
+            delete: 'You are not able to delete the term (%term%).'

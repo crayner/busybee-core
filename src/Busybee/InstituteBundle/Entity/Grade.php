@@ -3,6 +3,7 @@
 namespace Busybee\InstituteBundle\Entity;
 
 use Busybee\InstituteBundle\Model\GradeModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Grade
@@ -38,6 +39,7 @@ class Grade extends GradeModel
      * @var integer
      */
     private $sequence;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -48,7 +50,7 @@ class Grade extends GradeModel
      */
     public function __construct()
     {
-        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->students = new ArrayCollection();
     }
 
     /**

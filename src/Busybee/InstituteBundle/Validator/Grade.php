@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraint;
 
 class Grade extends Constraint
 {
-    public $message = 'grade.error.default';
+    public $message = 'year.grade.error.duplicate';
 
     public $year;
 
@@ -19,6 +19,6 @@ class Grade extends Constraint
 
     public function validatedBy()
     {
-        return 'grade_validator';
+        return 'calendar_grade_validator';
     }
 }
