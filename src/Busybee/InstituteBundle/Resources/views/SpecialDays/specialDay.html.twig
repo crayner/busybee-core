@@ -1,5 +1,3 @@
-{# src/Busybee/InstituteBundle/Resources/views/Calendar/specialDay.html.twig #}
-
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
 {% block specialday_label %}{% endblock %}
@@ -45,6 +43,6 @@
 				</div>
 			</div>
 		</div>
-    {% include '@BusybeeInstitute/Calendar/specialDayScript.html.twig' with {'name': form.vars.name} %}
+    {% include '@BusybeeInstitute/SpecialDays/specialDayScript.html.twig' with {'name': form.vars.name} %}
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock specialday_widget %}

@@ -1,0 +1,29 @@
+<script language="JavaScript" type="text/javascript">
+
+    $(".specialDayList").collection({
+        name_prefix: '{{ form.specialDays.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '<button title="{{ 'year.specialday.add'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+        remove: '<button title="{{ 'year.specialday.remove'|trans({}, 'BusybeeInstituteBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        add_at_the_end: true
+    });
+
+    {% for error in form.vars.errors %}
+    {% if error.messageTemplate in ['year.specialDay.error.delete', 'year.specialDay.error.timeEmpty', 'year.specialDay.error.timeInvalid'] %}
+    $("#specialDayMessage").html('<p class="alert alert-danger">{{ error.message }}</p>');
+    $("#specialDayMessage").fadeIn(1000);
+    {% endif %}
+    {% endfor %}
+
+    $(document).ready(function () {
+        var hash = window.location.hash.substr(1);
+        if (hash == 'specialDays') {
+            var index = $('#calendarTabs a[href="#specialDays"]').parent();
+            index.prop('class', 'active');
+            clearTabActive();
+            $('#specialDays').addClass('active');
+        }
+    });
+
+</script>
