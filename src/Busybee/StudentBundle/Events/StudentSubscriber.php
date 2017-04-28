@@ -52,19 +52,16 @@ class StudentSubscriber implements EventSubscriberInterface
         if (is_null($data['citizenship1PassportScan'])) $data['citizenship1PassportScan'] = $entity->getCitizenship1PassportScan();
         if (is_null($data['nationalIDCardScan'])) $data['nationalIDCardScan'] = $entity->getNationalIDCardScan();
 
-
         if (!empty($data['grades'])) {
             foreach ($data['grades'] as $q => $w) {
                 $w['student'] = strval($entity->getId());
                 $data['grades'][$q] = $w;
                 if ($entity->getGrades()->containsKey($q) && is_null($entity->getGrades()->get($q)->getGrade())) {
                     $grade = $entity->getGrades()->get($q);
-                    dump($grade);
                     $grade->setGrade($this->om->getRepository(Grade::class)->find($w['grade']));
                 }
             }
         }
-
 
         $event->setData($data);
     }

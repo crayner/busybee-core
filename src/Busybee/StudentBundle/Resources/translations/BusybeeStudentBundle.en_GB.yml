@@ -74,11 +74,24 @@ activity:
         year: Year
         grades: Grades
         students: Activity Students
+        tutor1: Tutor
+        tutor2: Tutor 2
+        tutor3: Tutor 3
     placeholder:
         year: Select Year
         course: Select Course
+        tutor: Select a Tutor
     help:
         grades: These grades are used to limit the student list for selection into this activity.
+        tutor: Select a staff member to manage/teach this activity.
+    student:
+        title: '%name%'
+        label:
+            list: 'Select Student/s'
+        help:
+            list: 'Students must be placed in the grade selected to appear in this list of available students.'
+    students:
+        title: 'Students in Activity'
 activities:
     title: Activities List
 grades:

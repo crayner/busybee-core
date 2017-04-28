@@ -43,6 +43,21 @@ Busybee\StudentBundle\Entity\Activity:
             joinColumns:
                 year:
                     referencedColumnName: id
+        tutor1:
+            targetEntity: Busybee\StaffBundle\Entity\Staff
+            joinColumns:
+                tutor_1:
+                    referencedColumnName: id
+        tutor2:
+            targetEntity: Busybee\StaffBundle\Entity\Staff
+            joinColumns:
+                tutor_2:
+                    referencedColumnName: id
+        tutor3:
+            targetEntity: Busybee\StaffBundle\Entity\Staff
+            joinColumns:
+                tutor_3:
+                    referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:

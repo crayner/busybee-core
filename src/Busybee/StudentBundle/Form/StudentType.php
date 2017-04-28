@@ -227,7 +227,7 @@ class StudentType extends AbstractType
                         'help' => 'student.help.grades',
                     ],
                     'entry_options' => [
-                        'year_data' => $options['data']->yearData,
+                        'year_data' => $options['year_data'],
                     ],
                     'constraints' => [
                         new Grades(),
@@ -252,6 +252,7 @@ class StudentType extends AbstractType
                     'data_class' => Student::class,
                     'translation_domain' => 'BusybeeStudentBundle',
                     'error_bubbling' => true,
+                    'year_data' => null,
                 ]
             );
     }

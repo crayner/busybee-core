@@ -5,6 +5,7 @@ namespace Busybee\StudentBundle\Form;
 use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Events\ActivitySubscriber;
@@ -66,6 +67,42 @@ class ActivityType extends AbstractType
                         'help' => 'activity.help.grades',
                     ],
                 ]
+            )
+            ->add('tutor1', EntityType::class,
+                [
+                    'label' => 'activity.label.tutor1',
+                    'class' => Staff::class,
+                    'choice_label' => 'formatName',
+                    'placeholder' => 'activity.placeholder.tutor',
+                    'attr' => [
+                        'help' => 'activity.help.tutor'
+                    ],
+                    'required' => true,
+                ]
+            )
+            ->add('tutor2', EntityType::class,
+                [
+                    'label' => 'activity.label.tutor2',
+                    'class' => Staff::class,
+                    'choice_label' => 'formatName',
+                    'placeholder' => 'activity.placeholder.tutor',
+                    'attr' => [
+                        'help' => 'activity.help.tutor'
+                    ],
+                    'required' => false,
+                ]
+            )
+            ->add('tutor3', EntityType::class,
+                [
+                    'label' => 'activity.label.tutor3',
+                    'class' => Staff::class,
+                    'choice_label' => 'formatName',
+                    'placeholder' => 'activity.placeholder.tutor',
+                    'attr' => [
+                        'help' => 'activity.help.tutor'
+                    ],
+                    'required' => false,
+                ]
             );
 
         $builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
@@ -78,10 +115,13 @@ class ActivityType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Activity::class,
-            'translation_domain' => 'BusybeeStudentBundle',
-        ));
+        $resolver->setDefaults(
+            [
+                'data_class' => Activity::class,
+                'translation_domain' => 'BusybeeStudentBundle',
+                'year_data' => null,
+            ]
+        );
     }
 
     /**

@@ -126,7 +126,7 @@ abstract class PersonModel
     {
         $photo = $this->getIdentifier();
         if (empty($this->getPhoto()))
-            return $this->getIdentifier();
+            $this->setPhoto($this->getBlankPhoto());
         if ($this->getPhoto() instanceof File && !empty($this->getPhoto()->getPathName())) {
             $div = getimagesize($this->getPhoto()->getPathName());
             $xx = $div[0] / 75;
@@ -148,6 +148,15 @@ abstract class PersonModel
     }
 
     /**
+     * @return File
+     */
+    private function getBlankPhoto()
+    {
+        $photo = new File('img/DefaultPerson.png');
+        return $photo;
+    }
+
+    /**
      * @param string $float
      * @return string
      */
@@ -155,7 +164,7 @@ abstract class PersonModel
     {
         $photo = $this->getIdentifier();
 
-        if (empty($this->getPhoto())) return $this->getIdentifier();
+        if (empty($this->getPhoto())) $this->setPhoto($this->getBlankPhoto());
 
         if ($this->getPhoto() instanceof File && !empty($this->getPhoto()->getPathName())) {
             $div = getimagesize($this->getPhoto()->getPathName());

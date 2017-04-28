@@ -48,7 +48,7 @@ class ActivityController extends Controller
 
         $editOptions = array();
 
-        $form = $this->createForm(ActivityType::class, $entity);
+        $form = $this->createForm(ActivityType::class, $entity, ['year_data' => $this->get('busybee_security.user_manager')->getSystemYear($this->getUser())]);
 
         $form->handleRequest($request);
 

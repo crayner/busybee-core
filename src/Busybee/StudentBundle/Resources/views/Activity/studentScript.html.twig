@@ -1,0 +1,16 @@
+<script type="text/javascript" language="JavaScript">
+    $('#selectAll_students').click(function () {
+            $('.studentList input[type=checkbox]').prop('checked', true);
+            $('#selectAll_students').fadeOut(1);
+            $('#deSelectAll_students').fadeIn(1);
+        }
+    );
+    $('#deSelectAll_students').click(function () {
+            $('.studentList input[type=checkbox]').prop('checked', false);
+            $('#selectAll_students').fadeIn(1);
+            $('#deSelectAll_students').fadeOut(1);
+        }
+    );
+    $('#selectAll_students').fadeIn(1);
+    $('#deSelectAll_students').fadeOut(1);
+</script>

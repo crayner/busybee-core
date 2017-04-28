@@ -66,7 +66,6 @@ class PersonSubscriber implements EventSubscriberInterface
     {
         $person = $event->getData();
         $form = $event->getForm();
-        $data = [];
 
         if ($person->getStaff() === null || $person->getStaff()->getId() === null)
             $form->add('staff', HiddenType::class);
@@ -76,9 +75,11 @@ class PersonSubscriber implements EventSubscriberInterface
             $form->add('staff', HiddenType::class);
 
         if ($this->personManager->isStudent($person)) {
-            $data['data'] = $person->getStudent();
-            $data['data']->yearData = $person->yearData;
-            $form->add('student', StudentType::class, $data);
+            $form->add('student', StudentType::class, [
+                    'year_data' => $person->yearData,
+                    'data' => $person->getStudent(),
+                ]
+            );
         } else
             $form->add('student', HiddenType::class);
 

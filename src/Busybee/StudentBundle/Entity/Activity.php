@@ -55,6 +55,18 @@ class Activity extends ActivityModel
      * @var \Doctrine\Common\Collections\Collection
      */
     private $students;
+    /**
+     * @var \Busybee\StaffBundle\Entity\Staff
+     */
+    private $tutor1;
+    /**
+     * @var \Busybee\StaffBundle\Entity\Staff
+     */
+    private $tutor2;
+    /**
+     * @var \Busybee\StaffBundle\Entity\Staff
+     */
+    private $tutor3;
 
     /**
      * Constructor
@@ -301,5 +313,77 @@ class Activity extends ActivityModel
     public function getStudents()
     {
         return $this->students;
+    }
+
+    /**
+     * Get tutor1
+     *
+     * @return \Busybee\StaffBundle\Entity\Staff
+     */
+    public function getTutor1()
+    {
+        return $this->tutor1;
+    }
+
+    /**
+     * Set tutor1
+     *
+     * @param \Busybee\StaffBundle\Entity\Staff $tutor1
+     *
+     * @return Activity
+     */
+    public function setTutor1(\Busybee\StaffBundle\Entity\Staff $tutor1 = null)
+    {
+        $this->tutor1 = $tutor1;
+
+        return $this;
+    }
+
+    /**
+     * Get tutor2
+     *
+     * @return \Busybee\StaffBundle\Entity\Staff
+     */
+    public function getTutor2()
+    {
+        return $this->tutor2;
+    }
+
+    /**
+     * Set tutor2
+     *
+     * @param \Busybee\StaffBundle\Entity\Staff $tutor2
+     *
+     * @return Activity
+     */
+    public function setTutor2(\Busybee\StaffBundle\Entity\Staff $tutor2 = null)
+    {
+        $this->tutor2 = $tutor2;
+
+        return $this;
+    }
+
+    /**
+     * Get tutor3
+     *
+     * @return \Busybee\StaffBundle\Entity\Staff
+     */
+    public function getTutor3()
+    {
+        return $this->tutor3;
+    }
+
+    /**
+     * Set tutor3
+     *
+     * @param \Busybee\StaffBundle\Entity\Staff $tutor3
+     *
+     * @return Activity
+     */
+    public function setTutor3(\Busybee\StaffBundle\Entity\Staff $tutor3 = null)
+    {
+        $this->tutor3 = $tutor3;
+
+        return $this;
     }
 }

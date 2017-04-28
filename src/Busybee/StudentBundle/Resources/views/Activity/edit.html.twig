@@ -4,7 +4,9 @@
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form
+"BusybeeFormBundle:Template:bootstrap.html.twig"
+'@BusybeeStudent/Activity/studentCollection.html.twig' %}
 
 {% block title %}{{ parent() }}{{ 'student.activity.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'student.activity.title'|trans }}{% endblock headerTitle %}
@@ -22,30 +24,70 @@
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'student.activity.title', 'panelParagraph': 'student.activity.description'} %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-8 well">
-                {{ form_row(form.name) }}
-            </div>
-            <div class="col-sm-4 well">
-                {{ form_row(form.nameShort) }}
-            </div>
-        </div>
-        <div class="row">
             <div class="col-sm-6 well">
-                {% set value = form.year.vars.value %}
-                {% if form.year.vars.value is empty and not form.year.vars.data is empty %}
-                    {% set value = form.year.vars.data %}
-                {% endif %}
-                {{ form_row(form.year, {'value': value}) }}
+                <div class="row">
+                    <div class="col-sm-8 well">
+                        {{ form_row(form.name) }}
+                    </div>
+                    <div class="col-sm-4 well">
+                        {{ form_row(form.nameShort) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 well">
+                        {% set value = form.year.vars.value %}
+                        {% if form.year.vars.value is empty and not form.year.vars.data is empty %}
+                            {% set value = form.year.vars.data %}
+                        {% endif %}
+                        {{ form_row(form.year, {'value': value}) }}
+                    </div>
+                    <div class="col-sm-6 well">
+                        {{ form_row(form.grades) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 well">
+                        {{ form_row(form.tutor1) }}
+                    </div>
+                    {% if form.tutor1.vars.data is not empty %}
+                        <div class="col-sm-4 well">
+                            <div class="text-center">{{ form.tutor1.vars.data.getPortrait()|raw }}</div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 well">
+                        {{ form_row(form.tutor2) }}
+                    </div>
+                    {% if form.tutor2.vars.data is not empty %}
+                        <div class="col-sm-4 well">
+                            <div class="text-center">{{ form.tutor2.vars.data.getPortrait()|raw }}</div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 well">
+                        {{ form_row(form.tutor3) }}
+                    </div>
+                    {% if form.tutor3.vars.data is not empty %}
+                        <div class="col-sm-4 well">
+                            <div class="text-center">{{ form.tutor3.vars.data.getPortrait()|raw }}</div>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-            <div class="col-sm-6 well">
-                {{ form_row(form.grades) }}
-            </div>
+            {% if form.students is defined %}
+                <div class="col-sm-6 well">
+                    {{ form_row(form.students) }}
+                </div>
+            {% endif %}
         </div>
-        {% if form.students is defined %}
-            {{ form_row(form.students) }}{{ dump() }}
-        {% endif %}
     </div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeStudent/Activity/studentScript.html.twig' %}
+{% endblock javascripts %}

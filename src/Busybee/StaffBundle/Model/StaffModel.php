@@ -2,7 +2,7 @@
 
 namespace Busybee\StaffBundle\Model;
 
-class StaffModel
+abstract class StaffModel
 {
     use \Busybee\PersonBundle\Model\FormatNameExtension;
 
@@ -15,5 +15,10 @@ class StaffModel
     public function canDelete()
     {
         return true;
+    }
+
+    public function getPortrait($float = 'none')
+    {
+        return $this->getPerson()->getPhoto75($float);
     }
 }
