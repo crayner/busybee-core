@@ -4,7 +4,6 @@ namespace Busybee\CurriculumBundle\Form;
 
 use Busybee\CurriculumBundle\Entity\Course;
 use Busybee\CurriculumBundle\Events\CourseSubscriber;
-use Busybee\CurriculumBundle\Form\DataTransformer\TargetYearTransformer;
 use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\FormBundle\Type\TextType;
 use Busybee\SystemBundle\Setting\SettingManager;

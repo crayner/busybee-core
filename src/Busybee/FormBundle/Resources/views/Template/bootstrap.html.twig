@@ -26,9 +26,9 @@
     {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
     {{- parent() -}}
     {% set required_printed = false %}
-    {% if required and not required_printed %}<span
+    {% if required and not required_printed %}{% spaceless %}<span
             class="field-required">
-        &nbsp;{{ 'required'|trans({}, 'BusybeeHomeBundle') }} </span>&nbsp;{% set required_printed = true %}{% endif %}
+        &nbsp;{{ 'required'|trans({}, 'BusybeeHomeBundle') }} </span>&nbsp;{% endspaceless %}{% set required_printed = true %}{% endif %}
 {%- endblock form_label %}
 
 {% block form_errors -%}

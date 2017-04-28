@@ -13,4 +13,25 @@
     );
     $('#selectAll_students').fadeIn(1);
     $('#deSelectAll_students').fadeOut(1);
+
+    $('.possibleList').click(function (e) {
+        var id = $('#activity_possibleList').val();
+        if (id > 0) {
+            var path = '{{ path('student_activity_list', {'id': '__id__'}) }}';
+            path = path.replace('__id__', id);
+
+            $.ajax({
+                url: path,
+                type: 'POST',
+                success: function (data) {
+
+                    var students = $.parseJSON(data['students']);
+                    for (var i = 0, len = students.length; i < len; i++) {
+                        $('#activity_students_' + students[i]).prop('checked', true);
+                    }
+                    $('#activity_form').submit();
+                }
+            });
+        }
+    })
 </script>

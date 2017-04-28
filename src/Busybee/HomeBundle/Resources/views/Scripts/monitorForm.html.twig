@@ -6,7 +6,11 @@
     });
 
     $(".changeRecord").change(function (e) {
+        {% if currentSearch is defined %}
+        var path = "{{ path(route, {'id': '__id__', 'currentSearch': currentSearch}) }}";
+        {% else %}
         var path = "{{ path(route, {'id': '__id__'}) }}";
+        {% endif %}
         var id = $(this).val();
         if (id == '') {
             id = 'Add';

@@ -8,7 +8,7 @@
 {% block studentActivity_row %}
     {% set header = 'activity.students.title' %}
     {% set transDomain = 'BusybeeStudentBundle' %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': {'%name%': form.vars.value|length, '%total%': form.vars.choices|length}} %}
     {{ form_label(form) }}
     {{ form_widget(form) }}
     {{ form_errors(form) }}

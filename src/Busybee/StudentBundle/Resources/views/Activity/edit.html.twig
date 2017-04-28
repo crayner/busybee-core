@@ -19,12 +19,14 @@
     {% if app.request.get('id') != 'Add' %}
         {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add', 'currentSearch': currentSearch})}})|raw %}
     {% endif %}
+    {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('student_activity_edit', {'id': app.request.get('id'), 'currentSearch': currentSearch})}})|raw %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {{ form_start(form) }}
+    {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
+    {{ form_start(form, {'attr':{'id': 'activity_form'}}) }}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'student.activity.title', 'panelParagraph': 'student.activity.description'} %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6 well">
+            <div class="col-sm-6">
                 <div class="row">
                     <div class="col-sm-8 well">
                         {{ form_row(form.name) }}
@@ -77,8 +79,24 @@
                 </div>
             </div>
             {% if form.students is defined %}
-                <div class="col-sm-6 well">
-                    {{ form_row(form.students) }}
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12 well">
+                            {{ form_row(form.students) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 well">
+                            <div class="input-group">
+                                {{ form_widget(form.possibleList) }}
+                                <div class="input-group-btn">
+                                    {{ miscButton({'class': 'btn btn-warning halflings halflings-saved possibleList', 'title': 'activity.student.button.possibleList', 'style': 'height: 34px; margin-top: -1px; float: right; '})|raw }}
+                                </div>
+                            </div>
+                            {{ form_label(form.possibleList) }}
+                            <span class="field-help">{{ form.possibleList.vars.attr.help|trans }}</span>
+                        </div>
+                    </div>
                 </div>
             {% endif %}
         </div>
@@ -90,4 +108,6 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@BusybeeStudent/Activity/studentScript.html.twig' %}
+    {% set route = 'student_activity_edit' %}
+    {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
 {% endblock javascripts %}

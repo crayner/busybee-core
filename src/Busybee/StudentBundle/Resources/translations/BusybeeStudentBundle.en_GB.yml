@@ -81,17 +81,24 @@ activity:
         year: Select Year
         course: Select Course
         tutor: Select a Tutor
+        changeRecord: 'Change Activity to edit.'
     help:
         grades: These grades are used to limit the student list for selection into this activity.
         tutor: Select a staff member to manage/teach this activity.
     student:
         title: '%name%'
+        button:
+            possibleList: 'Merge Selected Students'
         label:
             list: 'Select Student/s'
+            possibleList: Match Student List
         help:
-            list: 'Students must be placed in the grade selected to appear in this list of available students.'
+            list: 'Students must be placed in the grades selected to appear in this list of available students.'
+            possibleList: 'Selecting and clicking the list will select the students in the selected list and apply them to this activity. The lists available are restricted to the same year.'
+        placeholder:
+            possibleList: 'Select Student Activity'
     students:
-        title: 'Students in Activity'
+        title: 'Students in Activity. (%name% of %total% selected)'
 activities:
     title: Activities List
 grades:

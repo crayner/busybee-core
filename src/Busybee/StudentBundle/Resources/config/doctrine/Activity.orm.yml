@@ -40,6 +40,7 @@ Busybee\StudentBundle\Entity\Activity:
     manyToOne:
         year:
             targetEntity: Busybee\InstituteBundle\Entity\Year
+            orderBy: {'firstDay': 'DESC'}
             joinColumns:
                 year:
                     referencedColumnName: id

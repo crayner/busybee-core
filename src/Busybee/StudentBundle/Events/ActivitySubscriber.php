@@ -2,6 +2,7 @@
 
 namespace Busybee\StudentBundle\Events;
 
+use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Form\StudentActivityType;
 use Doctrine\ORM\EntityRepository;
@@ -34,13 +35,9 @@ class ActivitySubscriber implements EventSubscriberInterface
         $form = $event->getForm();
         $entity = $form->getData();
 
-        if (!empty($entity->getGrades())) {
-            $grades = '';
-            foreach ($entity->getGrades() as $grade)
-                $grades .= "'" . trim($grade) . "',";
-            $grades = trim($grades, ',');
+        if (!empty($entity->getGrades()) && !empty($entity->getYear())) {
             $grades = $entity->getGrades();
-            $year = $form->getConfig()->getOption('year_data');
+            $year = $entity->getYear();
             $form->add('students', StudentActivityType::class,
                 [
                     'class' => Student::class,
@@ -67,6 +64,28 @@ class ActivitySubscriber implements EventSubscriberInterface
                     'label_attr' => [
                         'class' => 'studentList',
                     ],
+                ]
+            );
+            $form->add('possibleList', EntityType::class,
+                [
+                    'mapped' => false,
+                    'class' => Activity::class,
+                    'choice_label' => 'name',
+                    'query_builder' => function (EntityRepository $er) use ($grades, $year) {
+                        return $er->createQueryBuilder('a')
+                            ->leftJoin('a.year', 'y')
+                            ->orderBy('a.name', 'ASC')
+                            ->where('y.id = :year_id')
+                            ->andWhere('a.grades LIKE :grades')
+                            ->setParameter('year_id', $year->getId())
+                            ->setParameter('grades', '%' . implode('%', $grades) . '%');
+                    },
+                    'attr' => [
+                        'help' => 'activity.student.help.possibleList',
+                    ],
+                    'placeholder' => 'activity.student.placeholder.possibleList',
+                    'label' => 'activity.student.label.possibleList',
+                    'required' => false,
                 ]
             );
         }

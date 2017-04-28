@@ -40,7 +40,14 @@
                     {{ 'activity.label.grades'|trans }}
                 {% endif %}
             </div>
-            <div class="col-sm-2 col-sm-offset-3 text-center" style="display: inline-block;">
+            <div class="col-sm-2" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Year' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'activity.label.year'|trans }}
+                {% else %}
+                    {{ 'activity.label.year'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-2 col-sm-offset-1 text-center" style="display: inline-block;">
                 {{ 'actions'|trans({}, 'BusybeeHomeBundle') }}
             </div>
         </div>
@@ -60,7 +67,10 @@
                         {{ groups[grade] }},
                     {% endfor %}
                 </div>
-                <div class="col-sm-2 col-sm-offset-3 form-inline">
+                <div class="col-sm-2">
+                    {{ activity.year }}
+                </div>
+                <div class="col-sm-2 col-sm-offset-1 form-inline">
                     {{ editButton({'style': '', 'windowOpen': {'route': path('student_activity_edit', {'id': activity.id, 'currentSearch': pagination.search|replace({'%': ''})}) } })|raw }}
                 </div>
             </div>

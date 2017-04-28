@@ -5,6 +5,7 @@ namespace Busybee\StudentBundle\Controller;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Form\ActivityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -68,6 +69,26 @@ class ActivityController extends Controller
 
         return $this->render('BusybeeStudentBundle:Activity:edit.html.twig',
             $editOptions
+        );
+    }
+
+    public function studentListAction($id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $activity = $this->get('activity.repository')->find($id);
+        $data = empty($activity) || empty($activity->getStudents()) ? [] : $activity->getStudents()->toArray();
+
+        $students = [];
+        foreach ($data as $student)
+            $students[] = $student->getId();
+
+        return new JsonResponse(
+            array(
+                'students' => json_encode($students),
+                'status' => 'success',
+            ),
+            200
         );
     }
 }
