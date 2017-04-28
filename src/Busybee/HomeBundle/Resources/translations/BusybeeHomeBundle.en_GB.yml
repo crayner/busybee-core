@@ -114,7 +114,9 @@ menu:
         manage: Manage Students
         activities: Activities
     timetable:
-        manage: Timetables
+        manage: Manage Timetables
+        title: Timetables
+        learninggroups: Learning Groups
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

@@ -45,9 +45,16 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
-    form.limetablke.line.type:
+    form.timetable.line.type:
         class: Busybee\TimeTableBundle\Form\LineType
         arguments:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
+    learning.groups.repository:
+        class: Busybee\TimeTableBundle\Repository\LearningGroupsRepository
+        factory:
+            - '@doctrine'
+            - 'getRepository'
+        arguments:
+            - "BusybeeTimeTableBundle:LearningGroups"

@@ -2,10 +2,26 @@
 parameters:
     items:
         59:
+            label: menu.timetable.title
+            name: Timetable Menu
+            role: ROLE_PRINCIPAL
+            parameters: []
+            node: 5
+            order: 59
+            menu: 59
+        590:
             label: menu.timetable.manage
             name: Manage Timetable
             route: timetable_manage
             role: ROLE_PRINCIPAL
             parameters: []
-            node: 5
-            order: 59
+            node: 59
+            order: 590
+        591:
+            label: menu.timetable.learninggroups
+            name: Manage Learning Groups
+            route: learning_group_manage
+            role: ROLE_PRINCIPAL
+            parameters: []
+            node: 59
+            order: 591

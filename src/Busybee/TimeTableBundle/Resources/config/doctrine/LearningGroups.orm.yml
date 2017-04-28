@@ -18,6 +18,17 @@ Busybee\TimeTableBundle\Entity\LearningGroups:
             type: datetime
         createdOn:
             type: datetime
+    manyToMany:
+        activities:
+            targetEntity: Busybee\StudentBundle\Entity\Activity
+            joinTable:
+                name: learning_group_activity
+                joinColumns:
+                    lg_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    activity_id:
+                        referencedColumnName: id
     manyToOne:
         line:
             targetEntity: Busybee\TimeTableBundle\Entity\Line

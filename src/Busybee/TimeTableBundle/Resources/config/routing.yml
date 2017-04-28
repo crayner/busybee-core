@@ -4,3 +4,6 @@ timetable_manage:
 timetable_edit:
     path:     /{id}/edit/{currentSearch}
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:edit, currentSearch: null }
+learning_group_manage:
+    path:     /lgs/{currentSearch}
+    defaults: { _controller: BusybeeTimeTableBundle:LearningGroup:list, currentSearch: null }
