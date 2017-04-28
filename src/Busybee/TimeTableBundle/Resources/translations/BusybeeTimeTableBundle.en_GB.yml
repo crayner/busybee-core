@@ -26,3 +26,30 @@ timetable:
         year: Select Year
     help:
         lines: Line Help
+learninggroups:
+    title:
+        list: Manage Learning Groups
+        add: Add Learning Group
+        edit: Edit Learning Group
+        manage: Manage Learning Group
+    label:
+        name: Learning Group
+        nameShort: Code
+        course: Course
+        activities: Activity List
+        year: Attach to Year
+        course: Attach a Course
+    description:
+        manage: Create, edit and test a Learning Group
+    help:
+        activities: ''
+    placeholder:
+        activity: Select an Activity for this Group
+        year: Select the year
+        course: Select the course
+activity:
+    title:
+        add: Add Activity
+        remove: Remove Activity
+        header: '%name%'
+        new: New Activity

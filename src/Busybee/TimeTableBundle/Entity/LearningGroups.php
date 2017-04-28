@@ -33,11 +33,6 @@ class LearningGroups
     private $createdOn;
 
     /**
-     * @var \Busybee\TimeTableBundle\Entity\Line
-     */
-    private $line;
-
-    /**
      * @var \Busybee\CurriculumBundle\Entity\Course
      */
     private $course;
@@ -55,6 +50,10 @@ class LearningGroups
      * @var \Doctrine\Common\Collections\Collection
      */
     private $activities;
+    /**
+     * @var \Busybee\InstituteBundle\Entity\Year
+     */
+    private $year;
 
     /**
      * Constructor
@@ -171,31 +170,6 @@ class LearningGroups
     }
 
     /**
-     * Get line
-     *
-     * @return \Busybee\TimeTableBundle\Entity\Line
-     */
-    public function getLine()
-    {
-        return $this->line;
-    }
-
-    /**
-     * Set line
-     *
-     * @param \Busybee\TimeTableBundle\Entity\Line $line
-     *
-     * @return LearningGroups
-     */
-    public function setLine(\Busybee\TimeTableBundle\Entity\Line $line = null)
-    {
-
-        $this->line = $line;
-
-        return $this;
-    }
-
-    /**
      * Get course
      *
      * @return \Busybee\CurriculumBundle\Entity\Course
@@ -299,5 +273,29 @@ class LearningGroups
     public function getActivities()
     {
         return $this->activities;
+    }
+
+    /**
+     * Get year
+     *
+     * @return \Busybee\InstituteBundle\Entity\Year
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Set year
+     *
+     * @param \Busybee\InstituteBundle\Entity\Year $year
+     *
+     * @return LearningGroups
+     */
+    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+    {
+        $this->year = $year;
+
+        return $this;
     }
 }

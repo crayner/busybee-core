@@ -20,12 +20,17 @@ Busybee\TimeTableBundle\Entity\Line:
             type: datetime
         createdOn:
             type: datetime
-    oneToMany:
+    manyToMany:
         learningGroups:
             targetEntity: Busybee\TimeTableBundle\Entity\LearningGroups
-            mappedBy: line
-            orderBy: { name: 'ASC' }
-            cascade: [ all ]
+            joinTable:
+                name: learninggroups_lines
+                joinColumns:
+                    learninggroup_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    line_id:
+                        referencedColumnName: id
     manyToOne:
         timetable:
             targetEntity: Busybee\TimeTableBundle\Entity\TimeTable

@@ -1,0 +1,60 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
+'@BusybeeForm/Template/jquery.collection.html.twig'
+'BusybeeTimeTableBundle:Activities:activityCollection.html.twig' %}
+
+{% block title %}{{ parent() }}{{ 'learninggroups.title.manage'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'learninggroups.title.manage'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'learninggroups.description.manage'|trans }}{% endblock headerLead %}
+
+
+{% block contentContainer %}
+    {{ form_start(form) }}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('learning_group_list', {'currentSearch': currentSearch})}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('learning_group_manage', {'id': 'Add', 'currentSearch': currentSearch}) }}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('learning_group_manage', {'id': app.request.get('id'), 'currentSearch': currentSearch})}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'learninggroups.title.manage', 'transDomain': 'BusybeeTimeTableBundle'} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6 well">
+                        {{ form_row(form.name) }}
+                    </div>
+                    <div class="col-sm-6 well">
+                        {{ form_row(form.nameShort) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 well">
+                        {{ form_row(form.year) }}
+                    </div>
+                    <div class="col-sm-6 well">
+                        {{ form_row(form.course) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                {% if form.activities is defined %}
+                    {% set h3Content = '' %}
+                    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': form.activities.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.activities.vars.attr.help, 'panelStyle': 'info'} %}
+                    {{ form_widget(form.activities) }}
+                    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
+    {% include '@BusybeeTimeTable/Activities/activityScript.html.twig' %}
+{% endblock javascripts %}

@@ -1,1 +1,60 @@
-{{ dump() }}
+{# src/Busybee/TimeTableBundle/Resources/views/TimeTable/list.html.twig #}
+
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ 'learninggroups.title.list'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'learninggroups.title.list'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include 'PaginationBundle:Default:index.html.twig' %}
+    {% set h3Content = addButton({'title': 'learninggroups.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('learning_group_manage', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''})})}}) %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'learninggroups.title.list', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.description.list'} %}
+    <div class="container-fluid well">
+        <div class="row row-header">
+            <div class="col-sm-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'learninggroups.label.name'|trans }}
+                {% else %}
+                    {{ 'learninggroups.label.name'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Short Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'learninggroups.label.nameShort'|trans }}
+                {% else %}
+                    {{ 'learninggroups.label.nameShort'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-3 form-inline">
+                {% if pagination.getSortByName == 'Course' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'learninggroups.label.course'|trans }}
+                {% else %}
+                    {{ 'learninggroups.label.course'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-3 withAdd">
+                {{ 'actions'|trans({}, 'BusybeeHomeBundle') }}
+            </div>
+        </div>
+        {% for timetable in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-sm-3 form-inline">
+                    {{ timetable.name }}
+                </div>
+                <div class="col-sm-3 form-inline">
+                    {{ timetable.nameShort }}
+                </div>
+                <div class="col-sm-3 form-inline">
+                    {{ timetable.course }}
+                </div>
+                <div class="col-sm-3 form-inline">
+                    {{ editButton({'style': '', 'class': 'halflings halflings-edit btn btn-warning','title': 'learninggroups.title.edit', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('learning_group_manage', {'id': timetable.id, 'currentSearch': pagination.search|replace({'%': ''})})}})|raw }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}

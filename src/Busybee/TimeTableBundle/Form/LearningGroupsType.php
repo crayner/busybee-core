@@ -2,9 +2,16 @@
 
 namespace Busybee\TimeTableBundle\Form;
 
+use Busybee\CurriculumBundle\Entity\Course;
+use Busybee\InstituteBundle\Entity\Year;
+use Busybee\InstituteBundle\Form\YearEntityType;
+use Busybee\StudentBundle\Entity\Activity;
 use Busybee\TimeTableBundle\Entity\LearningGroups;
+use Busybee\TimeTableBundle\Events\LearningGroupsSubscriber;
 use Busybee\TimeTableBundle\Events\LearningGroupSubscriber;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,8 +25,19 @@ class LearningGroupsType extends AbstractType
         $builder
             ->add('name')
             ->add('nameShort')
-//            ->add('line')
-            ->add('course');
+            ->add('course', EntityType::class, [
+                    'class' => Course::class,
+                    'choice_label' => 'name',
+                    'placeholder' => 'learninggroups.placeholder.course',
+                    'label' => 'learninggroups.label.course',
+                ]
+            )
+            ->add('year', YearEntityType::class, [
+                    'placeholder' => 'learninggroups.placeholder.year',
+                    'label' => 'learninggroups.label.year',
+                ]
+            );
+        $builder->addEventSubscriber(new LearningGroupsSubscriber());
     }
 
     /**
@@ -38,7 +56,7 @@ class LearningGroupsType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'tt_line_lgs';
+        return 'learning_groups';
     }
 
 

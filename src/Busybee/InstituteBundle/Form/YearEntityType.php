@@ -1,15 +1,15 @@
 <?php
 
-namespace Busybee\TimeTableBundle\Form;
+namespace Busybee\InstituteBundle\Form;
 
-use Busybee\TimeTableBundle\Entity\LearningGroups;
+use Busybee\InstituteBundle\Entity\Year;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LearningGroupsEntityType extends AbstractType
+class YearEntityType extends AbstractType
 {
-
     /**
      * {@inheritdoc}
      */
@@ -19,9 +19,13 @@ class LearningGroupsEntityType extends AbstractType
             [
                 'data_class' => null,
                 'translation_domain' => 'BusybeeTimeTableBundle',
-                'placeholder' => 'timetable.line.placeholder.learningGroups',
-                'class' => LearningGroups::class,
+                'placeholder' => 'learninggroups.placeholder.activity',
+                'class' => Year::class,
                 'choice_label' => 'name',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('y')
+                        ->orderBy('y.name', 'DESC');
+                },
             ]
         );
     }
@@ -31,11 +35,11 @@ class LearningGroupsEntityType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'tt_line_lgs';
+        return 'year';
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getParent()
     {

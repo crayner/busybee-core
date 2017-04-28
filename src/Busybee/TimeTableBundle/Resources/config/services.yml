@@ -25,6 +25,32 @@ parameters:
             - t.nameShort
             - t.id
             - y.name as year
+    LearningGroupsPagination:
+        alias: l
+        sortBy:
+            Name:
+                l.name: ASC
+                l.nameShort: ASC
+            Short Name:
+                l.nameShort: ASC
+                l.name: ASC
+            Course:
+                c.name: ASC
+                l.name: ASC
+        limit: '25'
+        join:
+            l.course:
+                alias: c
+                type: leftJoin
+        searchList:
+            - l.name
+            - l.nameShort
+            - c.name
+        select:
+            - l.name
+            - l.nameShort
+            - c.name as course
+            - l.id
 services:
     timetable.repository:
         class: Busybee\TimeTableBundle\Repository\TimeTableRepository
@@ -58,3 +84,9 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeeTimeTableBundle:LearningGroups"
+    learning.groups.pagination:
+        class: Busybee\TimeTableBundle\Model\LearningGroupsPagination
+        arguments:
+            - '%LearningGroupsPagination%'
+            - '@learning.groups.repository'
+            - '@my_service_container'

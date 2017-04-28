@@ -2,6 +2,15 @@ Busybee\TimeTableBundle\Entity\LearningGroups:
     type: entity
     table: learning_groups
     repositoryClass: Busybee\TimeTableBundle\Repository\LearningGroupsRepository
+    uniqueConstraints:
+        name_year:
+            columns:
+                - name
+                - year
+        short_year:
+            columns:
+                - nameShort
+                - year
     id:
         id:
             type: integer
@@ -30,12 +39,11 @@ Busybee\TimeTableBundle\Entity\LearningGroups:
                     activity_id:
                         referencedColumnName: id
     manyToOne:
-        line:
-            targetEntity: Busybee\TimeTableBundle\Entity\Line
-            inversedBy: learningGroups
-            joinColumn:
-                name: line
-                referencedColumnName: id
+        year:
+            targetEntity: Busybee\InstituteBundle\Entity\Year
+            joinColumns:
+                year:
+                    referencedColumnName: id
         course:
             targetEntity: Busybee\CurriculumBundle\Entity\Course
             joinColumns:

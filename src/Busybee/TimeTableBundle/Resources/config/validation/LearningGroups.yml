@@ -1,0 +1,21 @@
+Busybee\TimeTableBundle\Entity\LearningGroups:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, year]
+            errorPath: name
+            message: 'learninggroups.error.nameyear'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, year]
+            errorPath: name
+            message: 'learninggroups.error.nameshortyear'
+    properties:
+        name:
+            - NotBlank: ~
+        nameShort:
+            - NotBlank: ~
+        year:
+            - Valid: ~
+            - NotBlank: ~
+        course:
+            - Valid: ~
+            - NotBlank: ~

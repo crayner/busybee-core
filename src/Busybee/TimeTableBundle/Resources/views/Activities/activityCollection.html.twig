@@ -1,0 +1,30 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% block activities_label %}{% endblock %}
+{% block activities_errors %}{% endblock %}
+
+{% block activities_widget %}
+    {% spaceless %}
+        {% set panelStyle = 'default' %}
+        {% set transDomain = 'BusybeeTimeTableBundle' %}
+        {% set header = 'activity.title.header' %}
+
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ deleteButton({'title': 'activity.title.remove', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'})|raw %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ upDownButton()|raw %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% set title = 'activity.title.new'|trans %}
+        {% if form.vars.data is not empty %}{% set title = form.vars.data.name %}{% endif %}
+        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': title} %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_row(form) }}
+                </div>
+            </div>
+        </div>
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock activities_widget %}

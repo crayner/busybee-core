@@ -2,12 +2,12 @@
 
 namespace Busybee\TimeTableBundle\Form;
 
-use Busybee\TimeTableBundle\Entity\LearningGroups;
+use Busybee\StudentBundle\Entity\Activity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LearningGroupsEntityType extends AbstractType
+class ActivitiesEntityType extends AbstractType
 {
 
     /**
@@ -19,8 +19,9 @@ class LearningGroupsEntityType extends AbstractType
             [
                 'data_class' => null,
                 'translation_domain' => 'BusybeeTimeTableBundle',
-                'placeholder' => 'timetable.line.placeholder.learningGroups',
-                'class' => LearningGroups::class,
+                'placeholder' => 'learninggroups.placeholder.activity',
+                'class' => Activity::class,
+                'year_data' => null,
                 'choice_label' => 'name',
             ]
         );
@@ -31,11 +32,11 @@ class LearningGroupsEntityType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'tt_line_lgs';
+        return 'activities';
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getParent()
     {
