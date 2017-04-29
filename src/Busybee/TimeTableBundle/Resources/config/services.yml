@@ -90,3 +90,7 @@ services:
             - '%LearningGroupsPagination%'
             - '@learning.groups.repository'
             - '@my_service_container'
+    learning.groups.manager:
+        class: Busybee\TimeTableBundle\Model\LearningGroupsManager
+        arguments:
+            - '@doctrine.orm.entity_manager'

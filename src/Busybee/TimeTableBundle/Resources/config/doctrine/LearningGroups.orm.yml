@@ -23,6 +23,11 @@ Busybee\TimeTableBundle\Entity\LearningGroups:
         nameShort:
             type: string
             length: '5'
+        participants:
+            type: integer
+            length: 4
+        includeAll:
+            type: boolean
         lastModified:
             type: datetime
         createdOn:

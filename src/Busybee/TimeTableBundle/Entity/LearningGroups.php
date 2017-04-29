@@ -54,6 +54,14 @@ class LearningGroups
      * @var \Busybee\InstituteBundle\Entity\Year
      */
     private $year;
+    /**
+     * @var integer
+     */
+    private $participants;
+    /**
+     * @var boolean
+     */
+    private $includeAll;
 
     /**
      * Constructor
@@ -295,6 +303,54 @@ class LearningGroups
     public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get participants
+     *
+     * @return integer
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
+    }
+
+    /**
+     * Set participants
+     *
+     * @param integer $participants
+     *
+     * @return LearningGroups
+     */
+    public function setParticipants($participants)
+    {
+        $this->participants = $participants;
+
+        return $this;
+    }
+
+    /**
+     * Get includeAll
+     *
+     * @return boolean
+     */
+    public function getIncludeAll()
+    {
+        return $this->includeAll;
+    }
+
+    /**
+     * Set includeAll
+     *
+     * @param boolean $includeAll
+     *
+     * @return LearningGroups
+     */
+    public function setIncludeAll($includeAll)
+    {
+        $this->includeAll = $includeAll;
 
         return $this;
     }

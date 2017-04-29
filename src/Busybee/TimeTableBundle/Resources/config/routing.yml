@@ -10,3 +10,6 @@ learning_group_list:
 learning_group_manage:
     path:     /lgs/{id}/manage/{currentSearch}
     defaults: { _controller: BusybeeTimeTableBundle:LearningGroup:manage, id: 'Add', currentSearch: null }
+learning_group_test:
+    path:     /lgs/{id}/test/
+    defaults: { _controller: BusybeeTimeTableBundle:LearningGroup:test, id: 'Add' }

@@ -20,7 +20,7 @@ parameters:
         591:
             label: menu.timetable.learninggroups
             name: Manage Learning Groups
-            route: learning_group_manage
+            route: learning_group_list
             role: ROLE_PRINCIPAL
             parameters: []
             node: 59

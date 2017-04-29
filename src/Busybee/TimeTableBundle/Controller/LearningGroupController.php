@@ -5,6 +5,7 @@ namespace Busybee\TimeTableBundle\Controller;
 use Busybee\TimeTableBundle\Entity\LearningGroups;
 use Busybee\TimeTableBundle\Form\LearningGroupsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -62,5 +63,29 @@ class LearningGroupController extends Controller
                 'currentSearch' => $currentSearch,
             ]
         );
+    }
+
+    /**
+     * @param   Request $request
+     * @return  \Symfony\Component\HttpFoundation\Response
+     */
+    public function testAction(Request $request, $id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
+
+        $lgm = $this->get('learning.groups.manager');
+        $data = [];
+
+        $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
+
+        $lgm->generateReport($id, $year);
+
+        dump($lgm);
+        die();
+        return new JsonResponse(
+            $data,
+            200
+        );
+
     }
 }
