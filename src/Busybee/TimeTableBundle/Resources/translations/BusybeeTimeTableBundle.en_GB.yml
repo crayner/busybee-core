@@ -53,6 +53,22 @@ learninggroups:
         activity: Select an Activity for this Group
         year: Select the year
         course: Select the course
+    report:
+        header: |
+            <html>
+            <body>
+            <h3>Learning Group Report</h3>
+            <p>Learning Group: <strong>%learninggroup%</strong></p>
+            <p>Participating Student Count: <strong>%participantCount%</strong> of a possible <strong>%studentCount%</strong> students.</p>
+        includeAll: |
+            <p style="background-color: #FAF3CE; color: #8A6D3B; padding: 15px; border-radius: 5px;">Some students have not been included in the Learning group</p>
+            <h4>Possible Students</h4>
+        student: "%identifier%: %name%"
+        exceededMax: |
+            <p style="background-color: #FAF3CE; color: #8A6D3B; padding: 15px; border-radius: 5px;">The number of students selected has exceeded the maximum number allowed.</p>
+        footer: |
+            </body></html>
+        ajaxwait: Generating Report
 activity:
     title:
         add: Add Activity

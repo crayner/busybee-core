@@ -66,25 +66,25 @@ class LearningGroupController extends Controller
     }
 
     /**
-     * @param   Request $request
-     * @return  \Symfony\Component\HttpFoundation\Response
+     * @param integer $id
+     * @return  JsonResponse
      */
-    public function testAction(Request $request, $id)
+    public function testAction($id)
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
         $lgm = $this->get('learning.groups.manager');
-        $data = [];
 
         $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
 
         $lgm->generateReport($id, $year);
 
-        dump($lgm);
-        die();
-        return new JsonResponse(
-            $data,
-            200
+        $data = $lgm->getReport();
+
+        return $this->render('BusybeeTimeTableBundle:LearningGroups:report.html.twig',
+            [
+                'report' => $data['report']
+            ]
         );
 
     }

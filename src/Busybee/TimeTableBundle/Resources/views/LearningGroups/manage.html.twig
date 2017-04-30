@@ -52,10 +52,14 @@
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-6 well">
                         <div>
-                            {{ miscButton({'class': 'btn btn-info halflings halflings-tick', 'windowOpen': {'route': path('learning_group_test', {'id': app.request.get('id')})}})|raw }}
+                            {{ miscButton({'class': 'btn btn-info halflings halflings-tick testLG'})|raw }}
                             <label class="control-label">{{ 'learninggroups.label.test'|trans }}</label><br>
                             <span class="field-help">{{ 'learninggroups.help.test'|trans }}</span>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 well" id="reportResults" style="display: none;">
                     </div>
                 </div>
             </div>
@@ -87,6 +91,7 @@
         $('.testLG').click(function (e) {
             var path = '{{ path('learning_group_test', {'id': '__id__'}) }}';
             path = path.replace('__id__', '{{ app.request.get('id') }}');
+            window.open(path, 'Report', 'width=500,height=500,menubar=no,top=200,left=200');
         })
     </script>
 {% endblock javascripts %}

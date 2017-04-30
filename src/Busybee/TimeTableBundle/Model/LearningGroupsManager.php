@@ -3,12 +3,12 @@
 namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Year;
-use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\TimeTableBundle\Entity\LearningGroups;
 use Busybee\TimeTableBundle\Repository\LearningGroupsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 class LearningGroupsManager
 {
@@ -21,50 +21,89 @@ class LearningGroupsManager
      * @var LearningGroupsRepository
      */
     private $om;
+
     /**
      * @var Year
      */
     private $year;
+
     /**
      * @var ArrayCollection
      */
     private $grades;
+
     /**
      * @var boolean
      */
     private $gradesGenerated = false;
+
     /**
      * @var ArrayCollection
      */
     private $students;
+
     /**
      * @var boolean
      */
     private $studentsGenerated = false;
+
     /**
      * @var ArrayCollection
      */
     private $participant;
+
     /**
      * @var boolean
      */
     private $participantGenerated = false;
+
     /**
      * @var ArrayCollection
      */
     private $possible;
+
     /**
      * @var boolean
      */
     private $possibleGenerated = false;
 
     /**
+     * @var Translator
+     */
+    private $trans;
+    /**
+     * @var integer
+     */
+    private $possibleCount;
+    /**
+     * @var integer
+     */
+    private $studentCount;
+    /**
+     * @var integer
+     */
+    private $participantCount;
+    /**
+     * @var bool
+     */
+    private $includeAll;
+    /**
+     * @var bool
+     */
+    private $exceededMax;
+    /**
+     * @var array
+     */
+    private $missingStudents;
+
+    /**
      * LearningGroupsManager constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, Translator $trans)
     {
         $this->om = $om;
+        $this->trans = $trans;
         $this->students = new ArrayCollection();
         $this->grades = new ArrayCollection();
     }
@@ -182,5 +221,119 @@ class LearningGroupsManager
         }
         $this->gradesGenerated = true;
         return $this;
+    }
+
+    /**
+     *
+     */
+    public function getReport()
+    {
+        $report = [];
+        $report['%learninggroup%'] = $this->lg->getName();
+        $report['%possibleCount%'] = $this->possibleCount = $this->getPossibleCount();
+        $report['%studentCount%'] = $this->studentCount = $this->getStudentCount();
+        $report['%participantCount%'] = $this->participantCount = $this->getParticipantCount();
+        $report['%includeAll%'] = $this->getIncludeAll();
+        $report['%exceededMax%'] = $this->getExceededMax();
+        $report['%missingStudents%'] = $this->getMissingStudents();
+
+
+        $report['report'] = $this->trans->trans('learninggroups.report.header', $report, 'BusybeeTimeTableBundle');
+
+        if (!$this->includeAll) {
+            $report['report'] .= $this->trans->trans('learninggroups.report.includeAll', $report, 'BusybeeTimeTableBundle');
+            $report['report'] .= "<ul>";
+            foreach ($this->possible as $student) {
+                $data = [];
+                $data['%name%'] = $student->getFormatName();
+                $data['%identifier%'] = $student->getPerson()->getIdentifier();
+                $report['report'] .= '<li>' . $this->trans->trans('learninggroups.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
+            }
+            $report['report'] .= '</ul>';
+        }
+
+        if ($this->exceededMax)
+            $report['report'] .= $this->trans->trans('learninggroups.report.exceededMax', $report, 'BusybeeTimeTableBundle');
+        $report['report'] .= $this->trans->trans('learninggroups.report.footer', $report, 'BusybeeTimeTableBundle');
+
+        return $report;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPossibleCount()
+    {
+        $this->possibleCount = $this->possible->count();
+        return $this->possibleCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStudentCount()
+    {
+        $this->studentCount = $this->students->count();
+        return $this->studentCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getParticipantCount()
+    {
+        $this->participantCount = $this->participant->count();
+        return $this->participantCount;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIncludeAll()
+    {
+        $this->includeAll = true;
+
+        // Test OK if includeAll not set
+
+        if (!$this->lg->getIncludeAll())
+            return $this->includeAll;
+
+        if ($this->getPossibleCount() > 0)
+            $this->includeAll = false;
+
+        return $this->includeAll;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getExceededMax()
+    {
+        $this->exceededMax = false;
+
+        // Test OK if includeAll not set
+
+        if ($this->lg->getParticipants() == 0)
+            return $this->exceededMax;
+
+        if ($this->getParticipantCount() > $this->lg->getParticipants())
+            $this->exceededMax = true;
+
+        return $this->exceededMax;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMissingStudents()
+    {
+        $this->missingStudents = [];
+        if ($this->getPossibleCount() == 0)
+            return $this->missingStudents;
+
+        foreach ($this->possible as $student)
+            $this->missingStudents[] = $student->getFormatName() . ': ' . $student->getPerson()->getIdentifier();
+
+        return $this->missingStudents;
     }
 }

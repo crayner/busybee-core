@@ -94,3 +94,5 @@ services:
         class: Busybee\TimeTableBundle\Model\LearningGroupsManager
         arguments:
             - '@doctrine.orm.entity_manager'
+            - '@translator'
+
