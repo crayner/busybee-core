@@ -34,11 +34,6 @@ class Student extends StudentModel
     /**
      * @var string
      */
-    private $status;
-
-    /**
-     * @var string
-     */
     private $firstLanguage;
 
     /**
@@ -155,6 +150,10 @@ class Student extends StudentModel
      * @var boolean
      */
     private $gradesSorted = false;
+    /**
+     * @var string
+     */
+    private $locker;
 
     /**
      * Student constructor.
@@ -243,30 +242,6 @@ class Student extends StudentModel
     public function setLastAtThisSchool($lastAtThisSchool)
     {
         $this->lastAtThisSchool = $lastAtThisSchool;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set status
-     *
-     * @param string $status
-     *
-     * @return Student
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -850,5 +825,29 @@ class Student extends StudentModel
         $this->gradesSorted = true;
 
         return $this->grades;
+    }
+
+    /**
+     * Get locker
+     *
+     * @return string
+     */
+    public function getLocker()
+    {
+        return $this->locker;
+    }
+
+    /**
+     * Set locker
+     *
+     * @param string $locker
+     *
+     * @return Student
+     */
+    public function setLocker($locker)
+    {
+        $this->locker = $locker;
+
+        return $this;
     }
 }

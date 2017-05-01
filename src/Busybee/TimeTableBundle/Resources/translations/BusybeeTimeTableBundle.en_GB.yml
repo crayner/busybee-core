@@ -32,6 +32,7 @@ learninggroups:
         add: Add Learning Group
         edit: Edit Learning Group
         manage: Manage Learning Group
+        report: Learning Group Report
     label:
         name: Learning Group
         nameShort: Code
@@ -46,7 +47,7 @@ learninggroups:
         manage: Create, edit and test a Learning Group
     help:
         activities: ''
-        includeAll: The total list is generated from the included activities, and the selected participants are tested against this list.
+        includeAll: The available list is generated from the included activities, and the selected participants are tested against this list.
         participants: Limit the participants to a maximum number.  A selection of zero (0) turns this test off.
         test: Generate a report on the Learning Group
     placeholder:
@@ -55,20 +56,20 @@ learninggroups:
         course: Select the course
     report:
         header: |
-            <html>
-            <body>
             <h3>Learning Group Report</h3>
             <p>Learning Group: <strong>%learninggroup%</strong></p>
             <p>Participating Student Count: <strong>%participantCount%</strong> of a possible <strong>%studentCount%</strong> students.</p>
         includeAll: |
-            <p style="background-color: #FAF3CE; color: #8A6D3B; padding: 15px; border-radius: 5px;">Some students have not been included in the Learning group</p>
+            <p%class%>Some students have not been included in the Learning group.  All students should be included.</p>
             <h4>Possible Students</h4>
-        student: "%identifier%: %name%"
+        student: |
+            %identifier%: %name% %activityList%
         exceededMax: |
-            <p style="background-color: #FAF3CE; color: #8A6D3B; padding: 15px; border-radius: 5px;">The number of students selected has exceeded the maximum number allowed.</p>
-        footer: |
-            </body></html>
-        ajaxwait: Generating Report
+            <p%class%>The number of students selected has exceeded the maximum number allowed. Allowed: <strong>%allowed%</strong> Participants: <strong>%participantCount%</strong></p>
+        footer: ''
+        duplicated: |
+            <p%class%>Some students appear in this Learning Group more than once.</p>
+            <h4>Duplicated Students</h4>
 activity:
     title:
         add: Add Activity

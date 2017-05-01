@@ -33,26 +33,22 @@
                 {{ form_widget(form.offSet, {value: pagination.getOffSet}) }}
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <button class="btn btn-info halflings halflings-backward" type="submit" name="paginator[prev]"
-                                id="paginator_prev" style="height: 34px; margin-top: -1px; ">
-                        </button>
+                        {{ saveButton({'class': 'btn btn-info halflings halflings-backward', 'additional': 'id="paginator_prev"', 'style': 'height: 34px; margin-top: -1px;'})|raw }}
                     </div>
-                    {{ form_widget(form.limit) }}
+                    {{ form_widget(form.limit, {'value': '' ~ pagination.limit}) }}
                     <div class="input-group-btn">
-                        <button class="btn btn-info halflings halflings-forward" type="submit" name="paginator[next]"
-                                id="paginator_next" style="height: 34px; margin-top: -1px; ">
-                        </button>
+                        {{ saveButton({'class': 'btn btn-info halflings halflings-forward', 'additional': 'id="paginator_next"', 'style': 'height: 34px; margin-top: -1px;'})|raw }}
                     </div>
                 </div>
                 {{ form_widget(form.total, {value: pagination.getTotal}) }}
             </div>
         {% elseif pagination.getTotal > 10 %}
             <div class="col-sm-offset-4 col-sm-2">
-                {{ form_widget(form.limit) }}
+                {{ form_widget(form.limit, {'value': '' ~ pagination.limit}) }}
             </div>
         {% else %}
             {% do form.limit.setRendered %}
-            <input type="hidden" name="paginator[limit]" id="paginator_limit" value="{{ pagination.getLimit }}"/>
+            <input type="hidden" name="paginator[limit]" id="paginator_limit" value="{{ pagination.limit }}"/>
         {% endif %}
     </div>
     <div class="row">
@@ -62,8 +58,6 @@
             {% transchoice pages with {'%total%': pagination.getTotal, '%current%': pagination.getCurrentPage, '%pages%': pages, '%first%': pagination.getFirstRecord, '%last%': pagination.getLastRecord} %}
             pagination.figures
             {% endtranschoice %}
-
-            {#   {{ 'pagination.figures'|trans({'%total%': pagination.getTotal, '%current%': pagination.getCurrentPage, '%pages%': pagination.getTotalPages, '%first%': pagination.getFirstRecord, '%last%': pagination.getLastRecord} ) }} #}
         </div>
     </div>
 </div>

@@ -1,9 +1,9 @@
 person_manage:
-    path:     /manage/{currentSearch}
-    defaults: { _controller: BusybeePersonBundle:Person:index, currentSearch: null }
+    path:     /manage/{limit}/{currentSearch}
+    defaults: { _controller: BusybeePersonBundle:Person:index, currentSearch: null, limit: 10 }
 person_edit:
-    path:     /{id}/edit/{currentSearch}
-    defaults: { _controller: BusybeePersonBundle:Person:edit, currentSearch: null }
+    path:     /{id}/edit/{limit}/{currentSearch}
+    defaults: { _controller: BusybeePersonBundle:Person:edit, id: 'Add', currentSearch: null, limit: 10 }
 address_check:
     path:     /address/
     defaults: { _controller: BusybeePersonBundle:Address:check }

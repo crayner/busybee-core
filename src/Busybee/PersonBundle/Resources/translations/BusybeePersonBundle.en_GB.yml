@@ -114,6 +114,7 @@ person:
         toggle: Student Status
         immigrationTitle: 'Immigration Details: %name%'
         gradeTitle: 'Student Year/Grade: %name%'
+        title: 'Student Details: %name%'
     caregiver:
         toggle: Care Giver Status
         title: 'Care Giver Details: %name%'

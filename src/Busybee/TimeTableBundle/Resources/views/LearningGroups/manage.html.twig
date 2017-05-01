@@ -49,15 +49,17 @@
                         {{ form_row(form.includeAll) }}
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6 col-sm-offset-6 well">
-                        <div>
-                            {{ miscButton({'class': 'btn btn-info halflings halflings-tick testLG'})|raw }}
-                            <label class="control-label">{{ 'learninggroups.label.test'|trans }}</label><br>
-                            <span class="field-help">{{ 'learninggroups.help.test'|trans }}</span>
+                {% if app.request.get('id') != 'Add' %}
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-6 well">
+                            <div>
+                                {{ miscButton({'class': 'btn btn-info halflings halflings-tick testLG'})|raw }}
+                                <label class="control-label">{{ 'learninggroups.label.test'|trans }}</label><br>
+                                <span class="field-help">{{ 'learninggroups.help.test'|trans }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
                 <div class="row">
                     <div class="col-sm-12 well" id="reportResults" style="display: none;">
                     </div>

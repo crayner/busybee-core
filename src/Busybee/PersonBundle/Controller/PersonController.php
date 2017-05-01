@@ -20,13 +20,13 @@ class PersonController extends Controller
      * @param null $currentSearch
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request, $currentSearch = null)
+    public function indexAction(Request $request, $currentSearch = null, $limit = 10)
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
 		$up = $this->get('person.pagination');
 
-		$up->injectRequest($request, $currentSearch);
+        $up->injectRequest($request, $currentSearch, $limit);
 
 		$up->getDataSet();
 
@@ -42,11 +42,11 @@ class PersonController extends Controller
      * @param $id
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, $id, $currentSearch)
+    public function editAction(Request $request, $id, $currentSearch, $limit)
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$person = $this->getPerson($id, $currentSearch);
+        $person = $this->getPerson($id, $currentSearch, $limit);
 		
 		$em = $this->get('doctrine')->getManager();
 
@@ -130,6 +130,7 @@ class PersonController extends Controller
         $editOptions['addresses'] = $this->get('person.manager')->getAddresses($person);
         $editOptions['phones'] = $this->get('person.manager')->getPhones($person);
         $editOptions['currentSearch'] = $currentSearch;
+        $editOptions['limit'] = $limit;
         $editOptions['year'] = $year;
 
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
@@ -138,13 +139,13 @@ class PersonController extends Controller
     }
 
 
-    private function getPerson($id, $currentSearch)
+    private function getPerson($id, $currentSearch, $limit)
     {
 		$person = new Person();
 		if ($id !== 'Add')
 			$person = $this->get('person.repository')->findOneById($id);
-		$person->cancelURL = $this->generateUrl('person_edit', array('id' => $id, 'currentSearch' => $currentSearch));
-        $person->deletePhoto = $this->generateUrl('person_photo_remove', ['id' => $person->getId(), 'currentSearch' => $currentSearch]);
+        $person->cancelURL = $this->generateUrl('person_edit', ['id' => $id, 'currentSearch' => $currentSearch, 'limit' => $limit]);
+        $person->deletePhoto = $this->generateUrl('person_photo_remove', ['id' => $person->getId(), 'currentSearch' => $currentSearch, 'limit' => $limit]);
 
 		return $person ;
 	}
@@ -155,11 +156,11 @@ class PersonController extends Controller
 		return $this->get('address.manager')->formatAddress($address);
 	}
 
-    public function removePhotoAction($id, $currentSearch)
+    public function removePhotoAction($id, $currentSearch, $limit)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $person = $this->getPerson($id, $currentSearch);
+        $person = $this->getPerson($id, $currentSearch, $limit);
 
         $em = $this->get('doctrine')->getManager();
 

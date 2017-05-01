@@ -69,6 +69,7 @@ class LearningGroups
     public function __construct()
     {
         $this->activities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setParticipants(0);
     }
 
     /**

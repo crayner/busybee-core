@@ -11,17 +11,19 @@
         {% if currentSearch == '_closeWindow' %}
             {{ closeButton()|raw }}
         {% else %}
-            {{ returnButton({'title': 'person.return', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_manage', {'currentSearch': currentSearch})}})|raw }}
+            {{ returnButton({'title': 'person.return', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_manage', {'currentSearch': currentSearch, 'limit': limit})}})|raw }}
         {% endif %}
         {% if id != 'Add' %}
-            {{ addButton({'title': 'person.add.title', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_edit', {'id': 'Add', 'currentSearch': currentSearch})}})|raw }}
+            {{ addButton({'title': 'person.add.title', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_edit', {'id': 'Add', 'currentSearch': currentSearch, 'limit': limit})}})|raw }}
 		{% endif %}
-        {{ resetButton({'type': 'button', 'windowOpen': {'route': path('person_edit', {'id': app.request.get('id'), 'currentSearch': currentSearch}) }})|raw }}
+        {{ resetButton({'type': 'button', 'windowOpen': {'route': path('person_edit', {'id': app.request.get('id'), 'currentSearch': currentSearch, 'limit': limit}) }})|raw }}
         {{ saveButton()|raw }}
 		{% if form.dob.vars.data is not empty %}
             {% set difference = date('now').diff(date(form.dob.vars.data)) %}
 			{% set years = difference.y %}
 			<span class="personIdentifier">{{ 'person.label.identifier'|trans({'%identifier%': identifier}) }}<br>{{ 'person.label.age'|trans({'%years%': difference.y, '%months%': difference.m, '%days%': difference.d}) }}</span>
-		{% endif %}
+        {% else %}
+            <span class="personIdentifier">{{ 'person.label.identifier'|trans({'%identifier%': identifier}) }}</span>
+        {% endif %}
 	</h3>
 </div>

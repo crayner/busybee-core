@@ -49,6 +49,7 @@ class LearningGroupsType extends AbstractType
                     'choice_label' => 'name',
                     'placeholder' => 'learninggroups.placeholder.course',
                     'label' => 'learninggroups.label.course',
+                    'required' => false,
                 ]
             )
             ->add('year', YearEntityType::class, [

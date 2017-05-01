@@ -2,6 +2,7 @@
 
 namespace Busybee\PaginationBundle\Model ;
 
+use Busybee\PaginationBundle\Form\PaginationType;
 use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\Request ;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
@@ -125,7 +126,7 @@ abstract class PaginationManager
         $this->setPagination($pagination);
         $this->manager = $container->get('doctrine.orm.entity_manager');
         $this->repository = $repository ;
-        $this->form = $container->get('form.factory')->createNamedBuilder('paginator', 'Busybee\PaginationBundle\Form\PaginationType', $this)->getForm();
+        $this->form = $container->get('form.factory')->createNamedBuilder('paginator', PaginationType::class, $this)->getForm();
     }
 
     /**
@@ -401,7 +402,7 @@ abstract class PaginationManager
      * @param Request $request
      * @return PaginationManager
      */
-    public function injectRequest(Request $request, $currentSearch = null)
+    public function injectRequest(Request $request, $currentSearch = null, $limit = 10)
     {
         $this->getForm()->handleRequest($request);
         if (! $this->form->isSubmitted()) {
@@ -411,6 +412,11 @@ abstract class PaginationManager
                 $this->setSearch($currentSearch);
                 $this->form['currentSearch']->setData($currentSearch);
             }
+            $this->setLimit($limit);
+            $this->form['limit']->setData($limit);
+            $this->setLastLimit($limit);
+            $this->form['lastLimit']->setData($limit);
+            $this->setting->limit = $limit;
             $this->getTotal();
         } else {
             $this->post = true;

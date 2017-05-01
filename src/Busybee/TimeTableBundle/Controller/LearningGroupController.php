@@ -6,6 +6,7 @@ use Busybee\TimeTableBundle\Entity\LearningGroups;
 use Busybee\TimeTableBundle\Form\LearningGroupsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -55,6 +56,9 @@ class LearningGroupController extends Controller
 
             $em->persist($entity);
             $em->flush();
+
+            if ($id == 'Add')
+                return new RedirectResponse($this->generateUrl('learning_group_manage', ['id' => $entity->getId()]));
         }
 
         return $this->render('BusybeeTimeTableBundle:LearningGroups:manage.html.twig',

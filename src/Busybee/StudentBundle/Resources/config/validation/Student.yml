@@ -8,9 +8,6 @@ Busybee\StudentBundle\Entity\Student:
             - Date: ~
         lastAtThisSchool:
             - Date: ~
-        status:
-            - Busybee\FormBundle\Validator\SettingChoice:
-                name: 'Student.Status.List'
         citizenship1PassportScan:
             - \Busybee\StudentBundle\Validator\PassportImage: ~
         person:

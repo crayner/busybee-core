@@ -107,6 +107,9 @@ class ButtonExtension extends \Twig_Extension
         if (isset($details['collectionName']))
             $button = str_replace('collection', $details['collectionName'], $button);
 
+        if (isset($details['colour']))
+            $button = str_replace(['btn-default', 'btn-success', 'btn-info', 'btn-warning', 'btn-danger', 'btn-primary', 'btn-link'], 'btn-' . $details['colour'], $button);
+
         return $button;
     }
 

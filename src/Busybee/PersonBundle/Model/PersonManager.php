@@ -11,6 +11,7 @@ use Busybee\PersonBundle\Entity\Phone;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StudentBundle\Entity\Student;
+use Busybee\StudentBundle\Entity\StudentGrade;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager ;
@@ -156,6 +157,12 @@ class PersonManager
 
         if (is_array($families) && count($families) > 0)
             return false;
+
+        $grades = $this->em->getRepository(StudentGrade::class)->findAll(['status' => 'Current', 'student' => $person->getStudent()->getId()]);
+
+        if (is_array($grades) && count($grades) > 0)
+            return false;
+
 
         if (is_array($parameters))
             foreach ($parameters as $data)

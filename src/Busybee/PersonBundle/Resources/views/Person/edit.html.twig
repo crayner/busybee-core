@@ -26,9 +26,12 @@
 {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
 {% set form_path = [] %}
 {% set form_path = form_path|merge({'id': id}) %}
-{% if currentSearch is not empty %}
-	{% set form_path = form_path|merge({'currentSearch': currentSearch}) %}
-{% endif %}
+    {% if currentSearch is not empty %}
+        {% set form_path = form_path|merge({'currentSearch': currentSearch}) %}
+    {% endif %}
+    {% if limit is not empty %}
+        {% set form_path = form_path|merge({'limit': limit}) %}
+    {% endif %}
 {{ form_start(form, {'action': path('person_edit', form_path)}) }}
 <div id="personTabs">
 	<ul class="nav nav-tabs" role="tablist">

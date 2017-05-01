@@ -6,11 +6,19 @@ class StudentModel
 {
     use \Busybee\PersonBundle\Model\FormatNameExtension;
 
+    /**
+     * @var string
+     */
+    public $activityList;
+
+    /**
+     * StudentModel constructor.
+     */
     public function __construct()
     {
-        $this->setStatus('Future');
         $this->setStartAtSchool(new \DateTime());
         $this->setStartAtThisSchool(new \DateTime());
+        $this->activityList = '';
     }
 
     public function canDelete()

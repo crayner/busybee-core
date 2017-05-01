@@ -16,9 +16,8 @@ Busybee\StudentBundle\Entity\Student:
         lastAtThisSchool:
             type: date
             nullable: true
-        status:
-            type: string
-            length: '32'
+        locker:
+            length: 16
         firstLanguage:
             type: string
             length: 16

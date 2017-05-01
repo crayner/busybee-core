@@ -84,16 +84,6 @@ class StudentType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('status', SettingChoiceType::class, array(
-                    'label' => 'student.label.status',
-                    'setting_name' => 'Student.Status.List',
-                    'attr' => array(
-                        'help' => 'student.help.status',
-                        'class' => 'student',
-                    ),
-                    'required' => true,
-                )
-            )
             ->add('firstLanguage', LanguageType::class, array(
                     'label' => 'student.label.language.first',
                     'placeholder' => 'student.placeholder.language',
@@ -157,6 +147,12 @@ class StudentType extends AbstractType
             ->add('citizenship2Passport', null,
                 array(
                     'label' => 'student.label.citizenship.passport',
+                    'required' => false,
+                )
+            )
+            ->add('locker', null,
+                array(
+                    'label' => 'student.label.locker',
                     'required' => false,
                 )
             )

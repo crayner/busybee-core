@@ -17,7 +17,7 @@
 	{% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('person_manage') } } %}
     {% set transDomain = 'BusybeePersonBundle' %}
 
-    {% set h3Content = addButton({'windowOpen': {'route': path('person_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''})})}})|raw %}
+    {% set h3Content = addButton({'windowOpen': {'route': path('person_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''}), 'limit': pagination.limit})}})|raw %}
 
     {% set h3Content = h3Content ~ uploadButton({'type': 'button', 'transDomain': transDomain, 'title': 'person.title.import', 'windowOpen': {'route': path('people_import')}})|raw %}
 
@@ -88,10 +88,7 @@
                     {{ person.email }}
                 </div>
                 <div class="col-md-2 col-sm-2 text-center form-inline">
-
-                    <button title='{{ 'person.title.edit'|trans }}' type="button"
-                            class="halflings halflings-edit btn btn-warning"
-                            onClick="window.open('{{ path('person_edit', {'id': person.id, 'currentSearch': pagination.search|replace({'%': ''}) }) }}', '_self')"></button>
+                    {{ editButton({'title': 'person.title.edit', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_edit', {'id': person.id, 'currentSearch': pagination.search|replace({'%': ''}), 'limit': pagination.limit })}, 'style': '', 'colour': 'warning'})|raw }}
                 </div>
                 <div class="col-md-3 hidden-sm hidden-xs">
                     <div class="row">

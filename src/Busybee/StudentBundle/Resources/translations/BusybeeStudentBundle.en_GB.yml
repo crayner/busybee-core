@@ -18,7 +18,6 @@ student:
         startAtSchool: 'First attended school on:'
         startAtThisSchool: 'First day at this school:'
         lastAtThisSchool: 'Last day at this school:'
-        status: Status of the Student
         language:
             first: First language spoken.
             second: Second language spoken.
@@ -35,6 +34,7 @@ student:
         nationalIDCardScan: Scan of National ID Card.
         residencyStatus: Residency Status
         religion: Religion
+        locker: Locker Details
     help:
         passportScan: Provide a landscape scan of the passport, 2:1 or less ratio. Maximum size, 1.5MB.
         visaExpiryDate: This date is only required if the student must have a visa to attend the school.
@@ -42,7 +42,6 @@ student:
         startAtSchool: The date the student first started formal schooling at any school.
         startAtThisSchool: The date the student first attended formal schooling at this school.
         lastAtThisSchool: The last date of formal schooling at this school.
-        status: The status of the student at this school.
         residencyStatus: Residency status in the country the school is located.
     activities:
         title: Manage Activities

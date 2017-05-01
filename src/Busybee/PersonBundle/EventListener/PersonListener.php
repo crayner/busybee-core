@@ -37,10 +37,6 @@ class PersonListener
             $this->em = $args->getEntityManager();
             $entity = $this->setIdentifierValue($entity);
         }
-        if ($entity instanceof Student) {
-            if (empty($entity->getStatus()))
-                $entity->setStatus('Future');
-        }
 
     }
 
@@ -115,10 +111,6 @@ class PersonListener
         if ($entity instanceof Person) {
             $this->em = $args->getEntityManager();
             $entity = $this->setIdentifierValue($entity);
-        }
-        if ($entity instanceof Student) {
-            if (empty($entity->getStatus()))
-                $entity->setStatus('Future');
         }
     }
 

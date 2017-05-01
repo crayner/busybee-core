@@ -43,6 +43,11 @@ class LearningGroupsManager
     private $students;
 
     /**
+     * @var ArrayCollection
+     */
+    private $duplicated;
+
+    /**
      * @var boolean
      */
     private $studentsGenerated = false;
@@ -71,26 +76,37 @@ class LearningGroupsManager
      * @var Translator
      */
     private $trans;
+
     /**
      * @var integer
      */
     private $possibleCount;
+
     /**
      * @var integer
      */
     private $studentCount;
+
     /**
      * @var integer
      */
     private $participantCount;
+
+    /**
+     * @var integer
+     */
+    private $duplicateCount;
+
     /**
      * @var bool
      */
     private $includeAll;
+
     /**
      * @var bool
      */
     private $exceededMax;
+
     /**
      * @var array
      */
@@ -106,6 +122,9 @@ class LearningGroupsManager
         $this->trans = $trans;
         $this->students = new ArrayCollection();
         $this->grades = new ArrayCollection();
+        $this->duplicated = new ArrayCollection();
+        $this->participant = new ArrayCollection();
+        $this->possible = new ArrayCollection();
     }
 
     /**
@@ -167,12 +186,17 @@ class LearningGroupsManager
         if ($this->participantGenerated)
             return $this;
         $this->participant = new ArrayCollection();
+        $this->duplicated = new ArrayCollection();
 
         foreach ($this->lg->getActivities()->toArray() as $activity)
-            foreach ($activity->getStudents()->toArray() as $student)
+            foreach ($activity->getStudents()->toArray() as $student) {
+                $student->activityList = empty($student->activityList) ? $activity->getNameShort() : $student->activityList . ', ' . $activity->getNameShort();
                 if (!$this->participant->contains($student))
                     $this->participant->add($student);
-
+                else
+                    if (!$this->duplicated->contains($student))
+                        $this->duplicated->add($student);
+            }
         $this->participantGenerated = true;
         return $this;
     }
@@ -224,7 +248,9 @@ class LearningGroupsManager
     }
 
     /**
+     * Get Report
      *
+     * @return string|html
      */
     public function getReport()
     {
@@ -232,10 +258,13 @@ class LearningGroupsManager
         $report['%learninggroup%'] = $this->lg->getName();
         $report['%possibleCount%'] = $this->possibleCount = $this->getPossibleCount();
         $report['%studentCount%'] = $this->studentCount = $this->getStudentCount();
+        $report['%duplicateCount%'] = $this->duplicateCount = $this->getDuplicateCount();
         $report['%participantCount%'] = $this->participantCount = $this->getParticipantCount();
         $report['%includeAll%'] = $this->getIncludeAll();
         $report['%exceededMax%'] = $this->getExceededMax();
         $report['%missingStudents%'] = $this->getMissingStudents();
+        $report['%allowed%'] = $this->lg->getParticipants();
+        $report['%class%'] = ' class="alert alert-warning"';
 
 
         $report['report'] = $this->trans->trans('learninggroups.report.header', $report, 'BusybeeTimeTableBundle');
@@ -247,6 +276,7 @@ class LearningGroupsManager
                 $data = [];
                 $data['%name%'] = $student->getFormatName();
                 $data['%identifier%'] = $student->getPerson()->getIdentifier();
+                $data['%activityList%'] = $student->activityList;
                 $report['report'] .= '<li>' . $this->trans->trans('learninggroups.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
             }
             $report['report'] .= '</ul>';
@@ -254,8 +284,21 @@ class LearningGroupsManager
 
         if ($this->exceededMax)
             $report['report'] .= $this->trans->trans('learninggroups.report.exceededMax', $report, 'BusybeeTimeTableBundle');
-        $report['report'] .= $this->trans->trans('learninggroups.report.footer', $report, 'BusybeeTimeTableBundle');
 
+        if ($this->getDuplicateCount() > 0) {
+            $report['report'] .= $this->trans->trans('learninggroups.report.duplicated', $report, 'BusybeeTimeTableBundle');
+            $report['report'] .= "<ul>";
+            foreach ($this->duplicated as $student) {
+                $data = [];
+                $data['%name%'] = $student->getFormatName();
+                $data['%identifier%'] = $student->getPerson()->getIdentifier();
+                $data['%activityList%'] = $student->activityList;
+                $report['report'] .= '<li>' . $this->trans->trans('learninggroups.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
+            }
+            $report['report'] .= '</ul>';
+        }
+
+        $report['report'] .= $this->trans->trans('learninggroups.report.footer', $report, 'BusybeeTimeTableBundle');
         return $report;
     }
 
@@ -275,6 +318,15 @@ class LearningGroupsManager
     {
         $this->studentCount = $this->students->count();
         return $this->studentCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDuplicateCount()
+    {
+        $this->duplicateCount = $this->duplicated->count();
+        return $this->duplicateCount;
     }
 
     /**
