@@ -15,6 +15,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ActivityType extends AbstractType
@@ -175,7 +177,11 @@ class ActivityType extends AbstractType
             [
                 'data_class' => Activity::class,
                 'translation_domain' => 'BusybeeStudentBundle',
-                'year_data' => null,
+            ]
+        );
+        $resolver->setRequired(
+            [
+                'year_data',
             ]
         );
     }
@@ -189,4 +195,11 @@ class ActivityType extends AbstractType
     }
 
 
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['year_data'] = $options['year_data'];
+    }
 }

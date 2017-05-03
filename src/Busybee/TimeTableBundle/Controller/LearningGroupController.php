@@ -47,7 +47,9 @@ class LearningGroupController extends Controller
         if ($id > 0)
             $entity = $this->get('learning.groups.repository')->find($id);
 
-        $form = $this->createForm(LearningGroupsType::class, $entity);
+        $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
+
+        $form = $this->createForm(LearningGroupsType::class, $entity, ['year_data' => $year]);
 
         $form->handleRequest($request);
 

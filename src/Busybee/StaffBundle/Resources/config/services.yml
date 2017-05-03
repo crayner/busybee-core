@@ -1,3 +1,35 @@
+parameters:
+    staffPagination:
+        alias: p
+        sortBy:
+            Family Name:
+                p.surname: ASC
+                p.firstName: ASC
+            Given Name:
+                p.firstName: ASC
+                p.surname: ASC
+            Email:
+                p.email: ASC
+                p.surname: ASC
+                p.firstName: ASC
+        limit: '25'
+        searchList:
+            - p.surname
+            - p.firstName
+            - p.email
+        choice:
+            all:
+                true: person_manage
+                false: person_manage
+            student:
+                true: student_manage
+                false: person_manage
+            staff:
+                true: staff_manage
+                false: person_manage
+            contact:
+                true: contact_manage
+                false: person_manage
 services:
     staff.repository:
         class: Busybee\StaffBundle\Repository\StaffRepository
@@ -13,3 +45,9 @@ services:
             - '@setting.manager'
         tags:
             - { name: form.type }
+    staff.pagination:
+        class: Busybee\StaffBundle\Model\StaffPagination
+        arguments:
+            - '%staffPagination%'
+            - '@person.repository'
+            - '@my_service_container'

@@ -1,0 +1,18 @@
+{# src/Busybee/StudentBundle/Resources/views/Student/index.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% extends "BusybeePersonBundle:Person:index.html.twig" %}
+
+{% block headerTitle %}{{ 'student.people.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'student.people.description'|trans }}{% endblock headerLead %}
+
+{% set header = 'student.people.header' %}
+{% block paginationContent %}
+    {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('student_manage') } } %}
+{% endblock paginationContent %}
+
+{% block contentContainer %}
+    {{ parent() }}
+{% endblock contentContainer %}
+

@@ -10,3 +10,6 @@ student_activity_edit:
 student_activity_list:
     path:     /activity/{id}/list/
     defaults: { _controller: BusybeeStudentBundle:Activity:studentList }
+student_manage:
+    path:     /manage/{limit}{currentSearch}
+    defaults: { _controller: BusybeeStudentBundle:Student:list, currentSearch: null, limit: null }

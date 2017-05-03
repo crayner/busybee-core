@@ -1,9 +1,9 @@
 person_manage:
     path:     /manage/{limit}/{currentSearch}
-    defaults: { _controller: BusybeePersonBundle:Person:index, currentSearch: null, limit: 10 }
+    defaults: { _controller: BusybeePersonBundle:Person:index, currentSearch: null, limit: null }
 person_edit:
     path:     /{id}/edit/{limit}/{currentSearch}
-    defaults: { _controller: BusybeePersonBundle:Person:edit, id: 'Add', currentSearch: null, limit: 10 }
+    defaults: { _controller: BusybeePersonBundle:Person:edit, id: 'Add', currentSearch: null, limit: null }
 address_check:
     path:     /address/
     defaults: { _controller: BusybeePersonBundle:Address:check }
@@ -28,12 +28,6 @@ address_fetch:
 phone_fetch:
     path:     /phone/fetch/
     defaults: { _controller: BusybeePersonBundle:Phone:fetch }
-student_manage:
-    path:     /student/
-    defaults: { _controller: BusybeePersonBundle:Student:index }
-student_edit:
-    path:     /student/{id}/edit/
-    defaults: { _controller: BusybeePersonBundle:Student:edit }
 person_toggle_caregiver:
     path:     /careGiver/{id}/toggle/
     defaults: { _controller: BusybeeFamilyBundle:CareGiver:toggle }
@@ -52,3 +46,6 @@ people_import_data:
 person_photo_remove:
     path:     /photo/{id}/remove/{currentSearch}
     defaults: { _controller: BusybeePersonBundle:Person:removePhoto, currentSearch: null }
+contact_manage:
+    path:     /contact/manage/{limit}/{currentSearch}
+    defaults: { _controller: BusybeePersonBundle:Person:contactList, currentSearch: null, limit: null }

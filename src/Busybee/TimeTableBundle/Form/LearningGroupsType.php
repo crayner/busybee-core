@@ -8,6 +8,7 @@ use Busybee\InstituteBundle\Form\YearEntityType;
 use Busybee\TimeTableBundle\Entity\LearningGroups;
 use Busybee\TimeTableBundle\Events\LearningGroupsSubscriber;
 use Busybee\TimeTableBundle\Events\LearningGroupSubscriber;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -21,6 +22,7 @@ class LearningGroupsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $year = $options['year_data'];
         $builder
             ->add('name', null, [
                     'label' => 'learninggroups.label.name',
@@ -56,6 +58,26 @@ class LearningGroupsType extends AbstractType
                     'placeholder' => 'learninggroups.placeholder.year',
                     'label' => 'learninggroups.label.year',
                 ]
+            )
+            ->add('changeRecord', EntityType::class,
+                array(
+                    'label' => false,
+                    'attr' => array(
+                        'class' => 'formChanged changeRecord',
+                    ),
+                    'class' => LearningGroups::class,
+                    'choice_label' => 'name',
+                    'mapped' => false,
+                    'required' => false,
+                    'query_builder' => function (EntityRepository $er) use ($year) {
+                        return $er->createQueryBuilder('l')
+                            ->leftJoin('l.year', 'y')
+                            ->where('y.id = :year_id')
+                            ->setParameter('year_id', $year->getId())
+                            ->orderBy('l.name', 'ASC');
+                    },
+                    'placeholder' => 'learninggroups.placeholder.changeRecord',
+                )
             );
         $builder->addEventSubscriber(new LearningGroupsSubscriber());
     }
@@ -65,10 +87,17 @@ class LearningGroupsType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => LearningGroups::class,
-            'translation_domain' => 'BusybeeTimeTableBundle',
-        ));
+        $resolver->setDefaults(
+            [
+                'data_class' => LearningGroups::class,
+                'translation_domain' => 'BusybeeTimeTableBundle',
+            ]
+        );
+        $resolver->setRequired(
+            [
+                'year_data',
+            ]
+        );
     }
 
     /**

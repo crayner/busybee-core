@@ -20,7 +20,7 @@ class PersonController extends Controller
      * @param null $currentSearch
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request, $currentSearch = null, $limit = 10)
+    public function indexAction(Request $request, $currentSearch = null, $limit = null)
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -175,5 +175,28 @@ class PersonController extends Controller
         $em->flush();
 
         return new Response("<script>window.close();</script>");
+    }
+
+    /**
+     * @param Request $request
+     * @param null $currentSearch
+     * @param int $limit
+     * @return Response
+     */
+    public function contactListAction(Request $request, $currentSearch = null, $limit = null)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $up = $this->get('contact.pagination');
+
+        $up->injectRequest($request, $currentSearch, $limit);
+
+        $up->getDataSet();
+
+        return $this->render('BusybeePersonBundle:Person:index.html.twig',
+            array(
+                'pagination' => $up,
+            )
+        );
     }
 }

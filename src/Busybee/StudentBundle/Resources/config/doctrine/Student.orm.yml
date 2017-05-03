@@ -18,6 +18,7 @@ Busybee\StudentBundle\Entity\Student:
             nullable: true
         locker:
             length: 16
+            nullable: true
         firstLanguage:
             type: string
             length: 16

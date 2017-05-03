@@ -21,6 +21,7 @@
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('learning_group_manage', {'id': 'Add', 'currentSearch': currentSearch}) }}) %}{% endif %}
     {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('learning_group_manage', {'id': app.request.get('id'), 'currentSearch': currentSearch})}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'learninggroups.title.manage', 'transDomain': 'BusybeeTimeTableBundle'} %}
     <div class="container-fluid">
         <div class="row">
@@ -89,6 +90,8 @@
     {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
     {% include '@BusybeeTimeTable/Activities/activityScript.html.twig' %}
     {% include '@BusybeeHome/Toggle/script.html.twig' %}
+    {% set route = 'learning_group_manage' %}
+    {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
     <script type="text/javascript" language="JavaScript">
         $('.testLG').click(function (e) {
             var path = '{{ path('learning_group_test', {'id': '__id__'}) }}';

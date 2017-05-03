@@ -19,3 +19,17 @@ Course Code: Course Code
 Activity Name: Activity Name
 Short Name: Short Name
 Year: Year
+people:
+    choice:
+        all:
+            title: All
+            label: All
+        student:
+            title: Students
+            label: Students
+        staff:
+            title: Staff
+            label: Staff
+        contact:
+            title: Contacts
+            label: Contacts

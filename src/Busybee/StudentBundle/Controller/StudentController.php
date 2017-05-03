@@ -4,6 +4,7 @@ namespace Busybee\StudentBundle\Controller;
 use Busybee\PersonBundle\Entity\Person;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class StudentController extends Controller
 {
@@ -71,4 +72,28 @@ class StudentController extends Controller
             }
         }
     }
+
+    /**
+     * @param Request $request
+     * @param null $currentSearch
+     * @param null $limit
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listAction(Request $request, $currentSearch = null, $limit = null)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $up = $this->get('student.pagination');
+
+        $up->injectRequest($request, $currentSearch, $limit);
+
+        $up->getDataSet();
+
+        return $this->render('BusybeeStaffBundle:Staff:index.html.twig',
+            array(
+                'pagination' => $up,
+            )
+        );
+    }
+
 }

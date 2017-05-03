@@ -159,6 +159,13 @@ student:
         removeSuccess: "The %name% was removed as a Student."
         removeRestricted: '%name% is set as a student, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a Student."
+    only:
+        title: Students Only
+        prompt: Students
+    people:
+        title: Manage Students
+        description: Add, modify and manage student data.
+        header: Student List
 address:
     label:
         propertyName: Building / Property Name
@@ -254,6 +261,9 @@ contact:
         saveWarning: Additions and removal of numbers are NOT saved until the person is saved.  Use the green Save button to save the person, or the light blue Cancel button to restore changes.  Each phone number is only stored once.
 people:
     title: People
+    all:
+        title: All people
+        prompt: All
     import:
         title: Import People
         description: Import people.
@@ -310,6 +320,13 @@ staff:
         removeSuccess: "The %name% was removed as a Staff Member."
         removeRestricted: '%name% is set as a staff member, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a Staff Member."
+    people:
+        title: Manage Staff
+        description: Add, modify and manage staff data.
+        header: Staff List
+    only:
+        prompt: Staff
+        title: Staff Only
 user:
     toggle:
         personMissing: The person to toggle system user status was not found.

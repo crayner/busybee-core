@@ -87,6 +87,11 @@ abstract class PaginationManager
     private $pages;
 
     /**
+     * @var array
+     */
+    private $choice;
+
+    /**
      * @var string
      */
     private $lastSearch;
@@ -306,7 +311,7 @@ abstract class PaginationManager
         if (! empty($this->getSearch())) {
             $x = 0;
             foreach($this->getSearchList() as $field) {
-                $this->query->orwhere($field . ' LIKE :search' . $x);
+                $this->query->orWhere($field . ' LIKE :search' . $x);
                 $this->query->setParameter('search'. $x++, '%'.$this->getSearch().'%');
             }
         }
@@ -402,21 +407,23 @@ abstract class PaginationManager
      * @param Request $request
      * @return PaginationManager
      */
-    public function injectRequest(Request $request, $currentSearch = null, $limit = 10)
+    public function injectRequest(Request $request, $currentSearch = null, $limit = null)
     {
         $this->getForm()->handleRequest($request);
         if (! $this->form->isSubmitted()) {
             $this->post = false;
             $this->resetPagination();
-            if (! empty($currentSearch)) {
+            if (!is_null($currentSearch)) {
                 $this->setSearch($currentSearch);
                 $this->form['currentSearch']->setData($currentSearch);
             }
-            $this->setLimit($limit);
-            $this->form['limit']->setData($limit);
-            $this->setLastLimit($limit);
-            $this->form['lastLimit']->setData($limit);
-            $this->setting->limit = $limit;
+            if (!is_null($limit)) {
+                $this->setLimit($limit);
+                $this->form['limit']->setData($limit);
+                $this->setLastLimit($limit);
+                $this->form['lastLimit']->setData($limit);
+                $this->setting->limit = $limit;
+            }
             $this->getTotal();
         } else {
             $this->post = true;
@@ -666,6 +673,18 @@ abstract class PaginationManager
     public function getLastRecord()
     {
         return $this->offSet + $this->getLimit() > $this->getTotal() ? $this->getTotal() : $this->offSet + $this->getLimit();
+    }
+
+    public function getChoice()
+    {
+        return $this->choice;
+    }
+
+    public function setChoice($choice)
+    {
+        $this->choice = $choice;
+
+        return $this;
     }
 
     /**

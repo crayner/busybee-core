@@ -2,10 +2,12 @@
 
 namespace Busybee\PaginationBundle\Form;
 
+use Busybee\PaginationBundle\Type\ChoiceToggleType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvents;
@@ -20,58 +22,57 @@ class PaginationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-		$builder = $this->addLimit($builder, $options); 
-        $builder = $this->addHidden($builder, $options);
-        $builder = $this->addSort($builder, $options);
-        $builder = $this->addSearch($builder, $options);
-		$builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-				$event->stopPropagation();
-			}, 900); // Always set a higher priority than ValidationListener
-		return $builder;
+        $this->addLimit($builder, $options);
+        $this->addHidden($builder, $options);
+        $this->addSort($builder, $options);
+        $this->addSearch($builder, $options);
+        $this->addChoice($builder, $options);
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            $event->stopPropagation();
+        }, 900); // Always set a higher priority than ValidationListener
+        return $builder;
     }
-    
-	/**
-	 * @return FormBuilderInterface
-	 */
+
+    /**
+     * @return FormBuilderInterface
+     */
     protected function addLimit(FormBuilderInterface $builder, $options)
-	{
-		$choices = array();
-		$choices[10] = '10';
-		$choices[25] = '25';
-		$choices[100] = '100';
-		$limit = $options['data']->getLimit() < 10 ? 10 : $options['data']->getLimit() ;
-		$choices[$limit] = $limit;
-		ksort($choices,	SORT_NUMERIC);
-		if( $options['data']->getTotal() > 10)
+    {
+        $choices = array();
+        $choices[10] = '10';
+        $choices[25] = '25';
+        $choices[100] = '100';
+        $limit = $options['data']->getLimit() < 25 ? 25 : $options['data']->getLimit();
+        $choices[$limit] = $limit;
+        ksort($choices, SORT_NUMERIC);
+        if ($options['data']->getTotal() > 10)
             return $builder
                 ->add('limit', ChoiceType::class, array(
-							'label'					=> 'pagination.limit',
-							'choices'				=> $choices,
-							'required'				=> true,
-							'attr'					=> array(
+                        'label' => 'pagination.limit',
+                        'choices' => $choices,
+                        'required' => true,
+                        'attr' => array(
 //								'disabled'				=> 'disabled',
-								'onChange'				=> '$(this.form).submit()',
-							),
-							'data'					=> $limit,
-						)
-					)
-					->add('lastLimit', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
-							'data'					=> $limit,
-						)
-					)
-				;
-		else
+                            'onChange' => '$(this.form).submit()',
+                        ),
+                        'data' => $limit,
+                    )
+                )
+                ->add('lastLimit', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+                        'data' => $limit,
+                    )
+                );
+        else
             return $builder
-				->add('limit', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
-						'data'					=> $limit,
-					)
-				)
-				->add('lastLimit', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
-						'data'					=> $limit,
-					)
-				)
-			;
-	}
+                ->add('limit', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+                        'data' => $limit,
+                    )
+                )
+                ->add('lastLimit', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+                        'data' => $limit,
+                    )
+                );
+    }
 
     /**
      * @return FormBuilderInterface
@@ -133,6 +134,21 @@ class PaginationType extends AbstractType
     }
 
     /**
+     * @return FormBuilderInterface
+     */
+    protected function addChoice(FormBuilderInterface $builder, $options)
+    {
+        if (empty($options['data']->getChoice()))
+            return $builder;
+
+        $choices = new ArrayCollection();
+        foreach ($options['data']->getChoice() as $choice)
+            $choices->add($choice);
+
+        return $builder;
+    }
+
+    /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -155,5 +171,4 @@ class PaginationType extends AbstractType
     {
         return 'paginator';
     }
-
 }

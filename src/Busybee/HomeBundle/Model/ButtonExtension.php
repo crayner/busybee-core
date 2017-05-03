@@ -75,7 +75,7 @@ class ButtonExtension extends \Twig_Extension
      */
     private function generateButton($defaults, $details = array())
     {
-        $button = '<button title="%title%" type="%type%" class="%class%" style="%style%" %additional%></button>';
+        $button = '<button title="%title%" type="%type%" class="%class%" style="%style%" %additional%>%prompt%</button>';
 
         if (!empty($details['windowOpen'])) {
             $target = empty($details['windowOpen']['target']) ? '_self' : $this->translator->trans($details['windowOpen']['target'], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);
@@ -98,7 +98,7 @@ class ButtonExtension extends \Twig_Extension
                 unset($defaults[$q]);
                 $button = str_replace(array($q . '="%' . $q . '%"', '%' . $q . '%'), '', $button);
             } else {
-                if ($q == 'title')
+                if (in_array($q, ['title', 'prompt']))
                     $defaults[$q] = $this->translator->trans($defaults[$q], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);
                 $button = str_replace('%' . $q . '%', $defaults[$q], $button);
             }

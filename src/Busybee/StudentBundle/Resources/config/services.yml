@@ -30,6 +30,37 @@ parameters:
             - a.id
             - a.grades
             - y.name as year
+    studentPagination:
+        alias: p
+        sortBy:
+            Family Name:
+                p.surname: ASC
+                p.firstName: ASC
+            Given Name:
+                p.firstName: ASC
+                p.surname: ASC
+            Email:
+                p.email: ASC
+                p.surname: ASC
+                p.firstName: ASC
+        limit: '25'
+        searchList:
+            - p.surname
+            - p.firstName
+            - p.email
+        choice:
+            all:
+                true: person_manage
+                false: person_manage
+            student:
+                true: student_manage
+                false: person_manage
+            staff:
+                true: staff_manage
+                false: person_manage
+            contact:
+                true: contact_manage
+                false: person_manage
 services:
     student.repository:
         class: Busybee\StudentBundle\Repository\StudentRepository
@@ -85,4 +116,10 @@ services:
         class: Busybee\StudentBundle\Validator\Constraints\GradesValidator
         tags:
             - { name: validator.constraint_validator, alias: student_grades_validator }
+    student.pagination:
+        class: Busybee\StudentBundle\Model\StudentPagination
+        arguments:
+            - '%studentPagination%'
+            - '@person.repository'
+            - '@my_service_container'
 

@@ -1,32 +1,5 @@
 #PersonBundle
 parameters:
-    staffPagination:
-        alias: s
-        sortBy:
-            Family Name: 
-                p.surname: ASC
-                p.firstName: ASC
-            Given Name: 
-                p.firstName: ASC
-                p.surname: ASC
-            Email: 
-                p.email: ASC
-                p.surname: ASC
-                p.firstName: ASC
-        limit: '10'
-        searchList:
-            - p.surname
-            - p.firstName
-            - p.email
-        join:
-            s.person:
-                alias: p
-                type: leftJoin
-        select:
-            - p.surname
-            - p.firstName
-            - s.id
-            - p.email
     personPagination:
         alias: p
         sortBy:
@@ -40,38 +13,24 @@ parameters:
                 p.email: ASC
                 p.surname: ASC
                 p.firstName: ASC
-        limit: '10'
+        limit: '25'
         searchList:
             - p.surname
             - p.firstName
             - p.email
-    studentPagination:
-        alias: s
-        sortBy:
-            Family Name:
-                p.surname: ASC
-                p.firstName: ASC
-            Given Name:
-                p.firstName: ASC
-                p.surname: ASC
-            Email:
-                p.email: ASC
-                p.surname: ASC
-                p.firstName: ASC
-        limit: '10'
-        searchList:
-            - p.surname
-            - p.firstName
-            - p.email
-        join:
-            s.person:
-                alias: p
-                type: leftJoin
-        select:
-            - p.surname
-            - p.firstName
-            - s.id
-            - p.email
+        choice:
+            all:
+                true: person_manage
+                false: person_manage
+            student:
+                true: student_manage
+                false: person_manage
+            staff:
+                true: staff_manage
+                false: person_manage
+            contact:
+                true: contact_manage
+                false: person_manage
 services:
     person.repository:
         class: Busybee\PersonBundle\Repository\PersonRepository
@@ -83,6 +42,12 @@ services:
     person.pagination:
         class: Busybee\PersonBundle\Model\PersonPagination
         arguments: 
+            - '%personPagination%'
+            - '@person.repository'
+            - '@my_service_container'
+    contact.pagination:
+        class: Busybee\PersonBundle\Model\ContactPagination
+        arguments:
             - '%personPagination%'
             - '@person.repository'
             - '@my_service_container'

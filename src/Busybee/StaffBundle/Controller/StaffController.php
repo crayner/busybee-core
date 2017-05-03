@@ -4,6 +4,7 @@ namespace Busybee\StaffBundle\Controller;
 use Busybee\PersonBundle\Entity\Person;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class StaffController extends Controller
@@ -68,5 +69,27 @@ class StaffController extends Controller
                 );
             }
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param null $currentSearch
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listAction(Request $request, $currentSearch = null, $limit = null)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $up = $this->get('staff.pagination');
+
+        $up->injectRequest($request, $currentSearch, $limit);
+
+        $up->getDataSet();
+
+        return $this->render('BusybeeStaffBundle:Staff:index.html.twig',
+            array(
+                'pagination' => $up,
+            )
+        );
     }
 }

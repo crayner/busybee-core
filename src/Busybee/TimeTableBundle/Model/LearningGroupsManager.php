@@ -272,6 +272,13 @@ class LearningGroupsManager
         if (!$this->includeAll) {
             $report['report'] .= $this->trans->trans('learninggroups.report.includeAll', $report, 'BusybeeTimeTableBundle');
             $report['report'] .= "<ul>";
+
+            $iterator = $this->possible->getIterator();
+            $iterator->uasort(function ($a, $b) {
+                return ($a->getPerson()->getSurname() < $b->getPerson()->getSurname()) ? -1 : 1;
+            });
+            $this->possible = new ArrayCollection(iterator_to_array($iterator, false));
+
             foreach ($this->possible as $student) {
                 $data = [];
                 $data['%name%'] = $student->getFormatName();
@@ -288,6 +295,13 @@ class LearningGroupsManager
         if ($this->getDuplicateCount() > 0) {
             $report['report'] .= $this->trans->trans('learninggroups.report.duplicated', $report, 'BusybeeTimeTableBundle');
             $report['report'] .= "<ul>";
+
+            $iterator = $this->duplicated->getIterator();
+            $iterator->uasort(function ($a, $b) {
+                return ($a->getPerson()->getSurname() < $b->getPerson()->getSurname()) ? -1 : 1;
+            });
+            $this->duplicated = new ArrayCollection(iterator_to_array($iterator, false));
+
             foreach ($this->duplicated as $student) {
                 $data = [];
                 $data['%name%'] = $student->getFormatName();
@@ -298,7 +312,32 @@ class LearningGroupsManager
             $report['report'] .= '</ul>';
         }
 
+        if ($this->participantCount > $this->studentCount) {
+            $report['%class%'] = ' class="alert alert-danger"';
+            $report['report'] .= $this->trans->trans('learninggroups.report.extra', $report, 'BusybeeTimeTableBundle');
+            $report['report'] .= "<ul>";
+
+            $iterator = $this->participant->getIterator();
+            $iterator->uasort(function ($a, $b) {
+                return ($a->getPerson()->getSurname() < $b->getPerson()->getSurname()) ? -1 : 1;
+            });
+            $this->participant = new ArrayCollection(iterator_to_array($iterator, false));
+
+            foreach ($this->participant as $student) {
+                if (!$this->students->contains($student)) {
+                    $data = [];
+                    $data['%name%'] = $student->getFormatName();
+                    $data['%identifier%'] = $student->getPerson()->getIdentifier();
+                    $data['%activityList%'] = $student->activityList;
+                    $report['report'] .= '<li>' . $this->trans->trans('learninggroups.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
+                }
+            }
+            $report['report'] .= '</ul>';
+        }
+
         $report['report'] .= $this->trans->trans('learninggroups.report.footer', $report, 'BusybeeTimeTableBundle');
+
+        dump($this);
         return $report;
     }
 
