@@ -12,26 +12,35 @@
 {% set form_array = form_array|merge({'attr': {'id': 'paginator'}}) %}
 
 {{ form_start(form, form_array) }}
-<div class="container-fluid well">
+<div class="container-fluid well" style="padding: 0 15px;">
     <div class="row">
         <div class="col-sm-3">
             <div class="input-group">
+                <label class="control-label" style="text-align: left">{{ form.currentSearch.vars.label|trans }}</label>
                 {{ form_widget(form.currentSearch) }}
                 <div class="input-group-btn">
                     <button class="btn btn-success halflings halflings-search" type="submit"
                             name="paginator[startSearch]"
-                            id="paginator_startSearch" style="height: 34px; margin-top: -1px; ">
+                            id="paginator_startSearch" style="height: 33px; margin-top: 24px; ">
                     </button>
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
+            <label class="control-label" style="text-align: left">{{ form.currentSort.vars.label|trans }}</label>
             {{ form_widget(form.currentSort) }}
         </div>
+        <div class="col-sm-3 text-left">
+            {% if form.choice is defined %}
+                <label class="control-label" style="text-align: left">{{ form.choice.vars.label|trans }}</label>
+                {{ form_widget(form.choice, {'value': form.vars.route}) }}
+            {% endif %}
+        </div>
         {% if pagination.getTotal > pagination.getLimit %}
-            <div class="col-sm-offset-4 col-sm-2">
+            <div class="col-sm-2 col-sm-offset-1">
                 {{ form_widget(form.lastSearch, {value: pagination.getSearch }) }}
                 {{ form_widget(form.offSet, {value: pagination.getOffSet}) }}
+                <label class="control-label" style="text-align: left">{{ form.limit.vars.label|trans }}</label>
                 <div class="input-group">
                     <div class="input-group-btn">
                         {{ saveButton({'class': 'btn btn-info halflings halflings-backward', 'additional': 'id="paginator_prev"', 'style': 'height: 34px; margin-top: -1px;'})|raw }}
@@ -44,8 +53,15 @@
                 {{ form_widget(form.total, {value: pagination.getTotal}) }}
             </div>
         {% elseif pagination.getTotal > 10 %}
-            <div class="col-sm-offset-4 col-sm-2">
+            <div class="col-sm-2 col-sm-offset-1">
+                <label class="control-label" style="text-align: left">{{ form.limit.vars.label|trans }}</label>
                 {{ form_widget(form.limit, {'value': '' ~ pagination.limit}) }}
+                {% set pages = pagination.getTotalPages %}
+
+                {% transchoice pages with {'%total%': pagination.getTotal, '%current%': pagination.getCurrentPage, '%pages%': pages, '%first%': pagination.getFirstRecord, '%last%': pagination.getLastRecord} %}
+                pagination.figures
+                {% endtranschoice %}
+
             </div>
         {% else %}
             {% do form.limit.setRendered %}
@@ -53,46 +69,7 @@
         {% endif %}
     </div>
     <div class="row">
-        <div class="col-sm-6">
-            {% if pagination.choice is defined %}
-                <div>
-                    {% for name,choice in pagination.choice %}
-                        {% set title = 'people.choice.' ~ name ~ '.title' %}
-                        {% set label = 'people.choice.' ~ name ~ '.label' %}
-
-                        {% set title = title|trans %}
-                        {% set label = label|trans %}
-
-                        {% set values = app.request.get('paginator') %}
-
-                        {% if values['choice'] is defined %}
-                            {% set values = values['choice'] %}
-                        {% else %}
-                            {% set values = {'all': 'on'} %}
-                        {% endif %}
-
-                        {% set toggle = 'data-toggle=toggle data-onstyle=success data-offstyle=warning data-height=25 data-size=small data-on="' ~ label ~ '" data-off="' ~ label ~ '"' %}
-                        {% set checked = '' %}
-                        {% if values[name] is defined %}
-                            {% set checked = 'checked' %}
-                        {% endif %}
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="paginator[choice][{{ name }}]"
-                                   id="pagination_choice_{{ name }}"
-                                   title="{{ title }}"
-                                   class="choice{{ name }}Toggle paginationChoice" {{ toggle|raw }} {{ checked }} />
-                        </label>
-                    {% endfor %}
-                </div>
-
-            {% endif %}
-        </div>
-        <div class="col-sm-6 text-right">
-            {% set pages = pagination.getTotalPages %}
-
-            {% transchoice pages with {'%total%': pagination.getTotal, '%current%': pagination.getCurrentPage, '%pages%': pages, '%first%': pagination.getFirstRecord, '%last%': pagination.getLastRecord} %}
-            pagination.figures
-            {% endtranschoice %}
+        <div class="col-sm-6 col-sm-offset-6 text-right">
         </div>
     </div>
 </div>

@@ -28,9 +28,9 @@ class PersonController extends Controller
 
         $up->injectRequest($request, $currentSearch, $limit);
 
-		$up->getDataSet();
+        $up->getDataSet();
 
-        return $this->render('BusybeePersonBundle:Person:index.html.twig', 
+        return $this->render('BusybeePersonBundle:Person:index.html.twig',
 			array(
             	'pagination' => $up,
         	)
@@ -193,7 +193,7 @@ class PersonController extends Controller
 
         $up->getDataSet();
 
-        return $this->render('BusybeePersonBundle:Person:index.html.twig',
+        return $this->render('BusybeePersonBundle:Person:contactlist.html.twig',
             array(
                 'pagination' => $up,
             )

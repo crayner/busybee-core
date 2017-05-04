@@ -2,15 +2,26 @@
 User Name: User Name
 Email: Email
 pagination:
-    search: ''
+    search:
+        label: Search
     placeholder:
         search: 'Search for ...'
-    sort: ''
-    limit: ''
+    sort:
+        label: Sort
+    limit:
+        label: Limit Results
     startSearch: ''
     figures: "{0,1}Records %first% to %last% of %total%.|]1,Inf]Records %first% to %last% of %total%. %pages% Pages"
     next: ''
     prev: ''
+    choice:
+        default: ''
+        label: 'Limit Choice'
+    person:
+        all: All People
+        student: Students Only
+        staff: Staff Only
+        contact: All except Staff and Students
 Family Name: Family Name
 Given Name: Given Name
 Name: Name
@@ -19,17 +30,3 @@ Course Code: Course Code
 Activity Name: Activity Name
 Short Name: Short Name
 Year: Year
-people:
-    choice:
-        all:
-            title: All
-            label: All
-        student:
-            title: Students
-            label: Students
-        staff:
-            title: Staff
-            label: Staff
-        contact:
-            title: Contacts
-            label: Contacts

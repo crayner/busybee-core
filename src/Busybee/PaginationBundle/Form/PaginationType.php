@@ -2,20 +2,34 @@
 
 namespace Busybee\PaginationBundle\Form;
 
-use Busybee\PaginationBundle\Type\ChoiceToggleType;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Routing\Router;
 
 
 class PaginationType extends AbstractType
 {
+    /**
+     * @var Router
+     */
+    private $router;
+
+    /**
+     * PaginationType constructor.
+     * @param Router $router
+     */
+    public function __construct(Router $router)
+    {
+        $this->router = $router;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -30,6 +44,7 @@ class PaginationType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             $event->stopPropagation();
         }, 900); // Always set a higher priority than ValidationListener
+
         return $builder;
     }
 
@@ -48,7 +63,7 @@ class PaginationType extends AbstractType
         if ($options['data']->getTotal() > 10)
             return $builder
                 ->add('limit', ChoiceType::class, array(
-                        'label' => 'pagination.limit',
+                        'label' => 'pagination.limit.label',
                         'choices' => $choices,
                         'required' => true,
                         'attr' => array(
@@ -101,7 +116,7 @@ class PaginationType extends AbstractType
     {
         return $builder
             ->add('currentSort', ChoiceType::class, array(
-                    'label' => 'pagination.sort',
+                    'label' => 'pagination.sort.label',
                     'choices' => $options['data']->getSortList(),
                     'required' => true,
                     'attr' => array(
@@ -122,7 +137,7 @@ class PaginationType extends AbstractType
     {
         return $builder
             ->add('currentSearch', null, array(
-                    'label' => 'pagination.search',
+                    'label' => 'pagination.search.label',
                     'required' => false,
                     'mapped' => false,
                     'attr' => array(
@@ -141,9 +156,21 @@ class PaginationType extends AbstractType
         if (empty($options['data']->getChoice()))
             return $builder;
 
-        $choices = new ArrayCollection();
+        $choices = [];
         foreach ($options['data']->getChoice() as $choice)
-            $choices->add($choice);
+            $choices[$choice['prompt']] = $this->router->getGenerator()->generate($choice['route']);
+
+        $builder->add('choice', ChoiceType::class,
+            [
+                'required' => true,
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'paginatorChoice'
+                ],
+                'choices' => $choices,
+                'label' => 'pagination.choice.label'
+            ]
+        );
 
         return $builder;
     }
@@ -162,6 +189,11 @@ class PaginationType extends AbstractType
                 ),
             )
         );
+        $resolver->setRequired(
+            [
+                'route',
+            ]
+        );
     }
 
     /**
@@ -170,5 +202,15 @@ class PaginationType extends AbstractType
     public function getName()
     {
         return 'paginator';
+    }
+
+    /**
+     * @param FormView $view
+     * @param FormInterface $form
+     * @param array $options
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['route'] = $options['route'];
     }
 }

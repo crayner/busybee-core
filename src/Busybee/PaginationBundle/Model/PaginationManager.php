@@ -131,7 +131,11 @@ abstract class PaginationManager
         $this->setPagination($pagination);
         $this->manager = $container->get('doctrine.orm.entity_manager');
         $this->repository = $repository ;
-        $this->form = $container->get('form.factory')->createNamedBuilder('paginator', PaginationType::class, $this)->getForm();
+
+        $params = [];
+        $params['route'] = parse_url($container->get('request_stack')->getCurrentRequest()->getUri(), PHP_URL_PATH);
+
+        $this->form = $container->get('form.factory')->createNamedBuilder('paginator', PaginationType::class, $this, $params)->getForm();
     }
 
     /**

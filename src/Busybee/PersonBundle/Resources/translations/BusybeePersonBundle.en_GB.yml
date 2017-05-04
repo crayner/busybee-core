@@ -255,6 +255,10 @@ Male: Male
 Female: Female
 Other: Other
 contact:
+    people:
+        title: Manage Non-Staff and Non-Students
+        description: Add, modify and manage contact data.
+        header: Non-Staff and Non-Students List
     phone:
         remove: Remove Phone
         add: Add Phone

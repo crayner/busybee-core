@@ -20,17 +20,17 @@ parameters:
             - p.email
         choice:
             all:
-                true: person_manage
-                false: person_manage
+                route: person_manage
+                prompt: pagination.person.all
             student:
-                true: student_manage
-                false: person_manage
+                route: student_manage
+                prompt: pagination.person.student
             staff:
-                true: staff_manage
-                false: person_manage
+                route: staff_manage
+                prompt: pagination.person.staff
             contact:
-                true: contact_manage
-                false: person_manage
+                route: contact_manage
+                prompt: pagination.person.contact
 services:
     person.repository:
         class: Busybee\PersonBundle\Repository\PersonRepository

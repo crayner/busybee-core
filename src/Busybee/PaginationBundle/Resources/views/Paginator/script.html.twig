@@ -1,0 +1,9 @@
+{% if pagination.choice is defined %}
+    <script type="text/javascript" language="JavaScript">
+        $('.paginatorChoice').change(function () {
+            $('#paginator').prop('action', $(this).val());
+            $('#paginator').submit();
+        });
+    </script>
+{% endif %}
+
