@@ -18,10 +18,10 @@ year_delete:
     defaults: { _controller: BusybeeInstituteBundle:Calendar:deleteYear }
 term_delete:
     path:     /term/{id}/{year}/delete/
-    defaults: { _controller: BusybeeInstituteBundle:Calendar:deleteTerm }
+    defaults: { _controller: BusybeeInstituteBundle:Term:delete }
 specialday_delete:
     path:     /special_day/{id}/{year}/delete/
-    defaults: { _controller: BusybeeInstituteBundle:Calendar:deleteSpecialDay }
+    defaults: { _controller: BusybeeInstituteBundle:SpecialDay:delete }
 year_calendar_change:
     path:     /year/change/
     defaults: { _controller: BusybeeInstituteBundle:Calendar:calendarChange }

@@ -373,12 +373,12 @@ class Year extends YearModel
      *
      * @return null|\Doctrine\Common\Collections\Collection
      */
-    public function getSpecialDays()
+    public function getSpecialDays($renew = false)
     {
         if (count($this->specialDays) == 0)
             return null ;
 
-        if ($this->specialDaysSorted)
+        if ($this->specialDaysSorted && !$renew)
         	return $this->specialDays;
 
 		$iterator = $this->specialDays->getIterator();

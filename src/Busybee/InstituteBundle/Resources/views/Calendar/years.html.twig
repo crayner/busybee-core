@@ -10,7 +10,7 @@
 
 {% block contentContainer %}
     {% set h3Content = addButton({'windowOpen': {'route': path('year_edit', {'id': 'Add'})}}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstituteBundle', 'header': 'years.list'} %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstituteBundle', 'header': 'years.list', 'saveName': 'year'} %}
     <div class="container-fluid">
         {% if Years|length > 0 %}
         <div class="row row-header">

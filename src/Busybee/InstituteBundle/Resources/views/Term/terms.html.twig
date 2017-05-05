@@ -2,7 +2,7 @@
 
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
-{% include '@BusybeeInstitute/Calendar/calendarMenu.html.twig' with {'header': 'calendar.term.title', 'name': form.name.vars.value, 'panelParagraph': 'calendar.help.terms'} %}
+{% include '@BusybeeInstitute/Calendar/calendarMenu.html.twig' with {'header': 'calendar.term.title', 'name': form.name.vars.value, 'panelParagraph': 'calendar.help.terms', 'saveName': 'terms'} %}
 	{{ form_widget(form.terms) }}
 {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% do form.terms.setRendered %}

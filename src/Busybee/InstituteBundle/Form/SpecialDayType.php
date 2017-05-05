@@ -122,6 +122,7 @@ class SpecialDayType extends AbstractType
                 )
             )
             ->add('year', HiddenType::class);
+
         $builder->get('year')
             ->addModelTransformer(new EntityToStringTransformer($this->manager, Year::class));
     }

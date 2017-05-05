@@ -8,7 +8,7 @@
         {% if form.grade.vars.value is empty %}{% set gradeTitle = 'year.add.title'|trans %}{% else %}{% set gradeTitle = array_flip(get_setting('student.groups'))[form.grade.vars.value] %}{% endif %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
         {% set h3Content = h3Content ~ deleteButton({'title': 'grade.remove.title', 'transDomain': 'BusybeeInstituteBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'}) %}
-        {% set h3Content = h3Content ~ saveButton() %}
+        {% set h3Content = h3Content ~ saveButton({'name': 'grades'}) %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton()|raw %}
         {% set h3Content = h3Content ~ '</div>' %}

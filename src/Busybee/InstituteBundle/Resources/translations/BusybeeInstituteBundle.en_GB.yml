@@ -86,6 +86,9 @@ year:
     specialday:
         add: Add Special Day
         remove: Erase Special Day
+        delete:
+            success: 'The special day %name% was deleted successfully.'
+            warning: 'The special day %name% was not deleted.'
 calendar:
     title: Define Calendars
     description: Create and modify calendar definitions.

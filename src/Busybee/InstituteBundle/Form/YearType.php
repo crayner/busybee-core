@@ -131,7 +131,7 @@ class YearType extends AbstractType
                 )
             );
 
-        $builder->addEventSubscriber(new YearSubscriber());
+        $builder->addEventSubscriber(new YearSubscriber($this->manager));
     }
 
     /**

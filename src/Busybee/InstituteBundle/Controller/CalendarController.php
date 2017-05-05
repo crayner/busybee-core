@@ -20,8 +20,8 @@ class CalendarController extends Controller
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 		
 		$repo = $this->get('year.repository');
-		
-		$years = $repo->findBy(array(), array('firstDay'=>'ASC', 'lastDay'=>'ASC'));
+
+        $years = $repo->findBy(array(), array('firstDay' => 'DESC', 'lastDay' => 'DESC'));
 
 		return $this->render('BusybeeInstituteBundle:Calendar:years.html.twig', array('Years' => $years));
     }
@@ -75,56 +75,6 @@ class CalendarController extends Controller
 		$em->flush();
 		
 		return new RedirectResponse($this->generateUrl('calendar_years'));
-    }
-
-    public function deleteSpecialDayAction($id, $year)
-    {
-		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
-		
-		$repo = $this->get('specialDay.repository');
-		
-		$day = $repo->find($id);
-	
-		$em = $this->get('doctrine')->getManager();
-		$em->remove($day);
-		$em->flush();
-		
-		return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year)));
-    }
-
-    public function deleteTermAction($id, $year)
-    {
-        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
-
-        $repo = $this->get('term.repository');
-
-        $term = $repo->find($id);
-
-        if ($term->canDelete()) {
-            $em = $this->get('doctrine')->getManager();
-//            $em->remove($term);
-//            $em->flush();
-            $this->get('session')->getFlashBag()->add(
-                'success',
-                $this->get('translator')->trans(
-                    'year.term.delete.success',
-                    [
-                        '%name%' => $term->getName(),
-                    ],
-                    'BusybeeInstituteBundle')
-            );
-        } else {
-            $this->get('session')->getFlashBag()->add(
-                'warning',
-                $this->get('translator')->trans(
-                    'year.term.delete.warning',
-                    [
-                        '%name%' => $term->getName(),
-                    ],
-                    'BusybeeInstituteBundle')
-            );
-        }
-        return new RedirectResponse($this->generateUrl('year_edit', ['id' => $year, '_fragment' => 'terms']));
     }
 
     /**
