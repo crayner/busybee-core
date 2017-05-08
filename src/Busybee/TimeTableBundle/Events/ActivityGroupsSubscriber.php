@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class LearningGroupsSubscriber implements EventSubscriberInterface
+class ActivityGroupsSubscriber implements EventSubscriberInterface
 {
     /**
      * @return array
@@ -35,12 +35,12 @@ class LearningGroupsSubscriber implements EventSubscriberInterface
             $year = $data->getYear();
             $form->add('activities', CollectionType::class, [
                     'attr' => [
-                        'help' => 'learninggroups.help.activities',
+                        'help' => 'activitygroups.help.activities',
                         'class' => 'activityList',
                     ],
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'label' => 'learninggroups.label.activities',
+                    'label' => 'activitygroups.label.activities',
                     'entry_type' => ActivitiesEntityType::class,
                     'entry_options' => [
                         'query_builder' => function (EntityRepository $er) use ($year) {

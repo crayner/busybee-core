@@ -116,7 +116,7 @@ menu:
     timetable:
         manage: Manage Timetables
         title: Timetables
-        learninggroups: Learning Groups
+        activitygroups: Activity Groups
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

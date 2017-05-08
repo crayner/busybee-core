@@ -4,7 +4,7 @@ namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\PaginationBundle\Model\PaginationManager;
 
-class LearningGroupsPagination extends PaginationManager
+class ActivityGroupsPagination extends PaginationManager
 {
 
     /**

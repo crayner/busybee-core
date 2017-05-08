@@ -1,40 +1,27 @@
 timetable:
     list:
-        title: Timetable List
+        title: TimeTable List
         description: ''
-    line:
-        add: Add line.
-        remove: Remove line.
-        header: 'Line %name%'
-        learninggroup:
-            add: Add Learning Group
-            remove: Remove Learning Group
-            header: Learning Group
-        placeholder:
-            learningGroups: Select Learning Group
     label:
         name: Name
         nameShort: Short Name
         year: Year
-        lines: Timetable Lines
     add:
         title: Add Timetable
     edit:
-        title: Timetable
+        title: '%name%'
         description: Modify the details of the timetable.
     placeholder:
         year: Select Year
-    help:
-        lines: Line Help
-learninggroups:
+activitygroups:
     title:
-        list: Manage Learning Groups
-        add: Add Learning Group
-        edit: Edit Learning Group
-        manage: Manage Learning Group
-        report: Learning Group Report
+        list: Manage Activity Groups
+        add: Add Activity Group
+        edit: Edit Activity Group
+        manage: Manage Activity Group
+        report: Activity Group Report
     label:
-        name: Learning Group
+        name: Activity Group
         nameShort: Code
         course: Course
         activities: Activity List
@@ -42,26 +29,26 @@ learninggroups:
         course: Attach a Course
         includeAll: Include all Students in the Grades
         participants: Maximum Participants
-        test: Test Learning Groups
+        test: Test Activity Groups
     description:
-        manage: Create, edit and test a Learning Group
+        manage: Create, edit and test an Activity Group
     help:
         activities: ''
         includeAll: The available list is generated from the included activities, and the selected participants are tested against this list.
         participants: Limit the participants to a maximum number.  A selection of zero (0) turns this test off.
-        test: Generate a report on the Learning Group
+        test: Generate a report on the Activity Group
     placeholder:
         activity: Select an Activity for this Group
         year: Select the year
         course: Select the course
-        changeRecord: Add or edit selected Learning Group
+        changeRecord: Add or edit selected Activity Group
     report:
         header: |
-            <h3>Learning Group Report</h3>
-            <p>Learning Group: <strong>%learninggroup%</strong></p>
+            <h3>Activity Group Report</h3>
+            <p>Activity Group: <strong>%learninggroup%</strong></p>
             <p>Participating Student Count: <strong>%participantCount%</strong> of a possible <strong>%studentCount%</strong> students.</p>
         includeAll: |
-            <p%class%>Some students have not been included in the Learning group.  All students should be included.</p>
+            <p%class%>Some students have not been included in the Activity group.  All students should be included.</p>
             <h4>Possible Students</h4>
         student: |
             %identifier%: %name% %activityList%
@@ -72,7 +59,7 @@ learninggroups:
             <p%class%>An extra student has been found in the participant list.  This can happen if the grade of a student has been changed.</p>
             <h4>Extra Student</h4>
         duplicated: |
-            <p%class%>Some students appear in this Learning Group more than once.</p>
+            <p%class%>Some students appear in this Activity Group more than once.</p>
             <h4>Duplicated Students</h4>
 activity:
     title:

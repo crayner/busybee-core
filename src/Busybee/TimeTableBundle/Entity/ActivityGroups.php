@@ -3,9 +3,9 @@
 namespace Busybee\TimeTableBundle\Entity;
 
 /**
- * LearningGroups
+ * ActivityGroups
  */
-class LearningGroups
+class ActivityGroups
 {
     /**
      * @var integer

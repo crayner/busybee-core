@@ -6,11 +6,10 @@
 
 {% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
 '@BusybeeForm/Template/jquery.collection.html.twig'
-'BusybeeTimeTableBundle:LearningGroups:learningGroupsCollection.html.twig'
-'BusybeeTimeTableBundle:Lines:lineCollection.html.twig' %}
+'BusybeeTimeTableBundle:ActivityGroups:activityGroupsCollection.html.twig' %}
 
-{% block title %}{{ parent() }}{{ 'timetable.edit.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'timetable.edit.title'|trans }}{% endblock headerTitle %}
+{% block title %}{{ parent() }}{{ 'timetable.edit.title'|trans({'%name%': form.vars.value.getFullName}) }}{% endblock title %}
+{% block headerTitle %}{{ 'timetable.edit.title'|trans({'%name%': form.vars.value.getFullName}) }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'timetable.edit.description'|trans }}{% endblock headerLead %}
 
 
@@ -20,31 +19,19 @@
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('timetable_edit', {'id': 'Add', 'currentSearch': currentSearch}) }}) %}{% endif %}
     {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('timetable_edit', {'id': app.request.get('id'), 'currentSearch': currentSearch})}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.edit.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.edit.description'} %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.edit.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.edit.description', 'name': form.vars.value.getFullName} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6 well">
-                <div class="row">
-                    <div class="col-sm-12 well">
-                        {{ form_row(form.name) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 well">
-                        {{ form_row(form.nameShort) }}
-                    </div>
-                    <div class="col-sm-6 well">
-                        {% set data = form.year.vars.value %}
-                        {% if data is empty %}{% set data = form.year.vars.data %}{% endif %}
-                        {{ form_row(form.year, {'value': data}) }}
-                    </div>
-                </div>
+                {{ form_row(form.name) }}
             </div>
-            <div class="col-sm-6 well">
-                {% set h3Content = '' %}
-                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': form.lines.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.lines.vars.attr.help, 'panelStyle': 'info'} %}
-                {{ form_widget(form.lines) }}
-                {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+            <div class="col-sm-3 well">
+                {{ form_row(form.nameShort) }}
+            </div>
+            <div class="col-sm-3 well">
+                {% set data = form.year.vars.value %}
+                {% if data is empty %}{% set data = form.year.vars.data %}{% endif %}
+                {{ form_row(form.year, {'value': data}) }}
             </div>
         </div>
     </div>
@@ -56,5 +43,4 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
-    {% include '@BusybeeTimeTable/Lines/lineScript.html.twig' %}
 {% endblock javascripts %}

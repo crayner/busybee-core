@@ -12,7 +12,7 @@
 {% set form_array = form_array|merge({'attr': {'id': 'paginator'}}) %}
 
 {{ form_start(form, form_array) }}
-<div class="container-fluid well" style="padding: 0 15px;">
+<div class="container-fluid well" style="padding: 0 15px 5px;">
     <div class="row">
         <div class="col-sm-2 text-right">
             <label class="control-label">{{ form.currentSearch.vars.label|trans }}</label>
@@ -27,8 +27,11 @@
             </div>
         </div>
         <div class="col-sm-2 text-right">
-            <label class="control-label">{{ form.currentSort.vars.label|trans }}</label>
-            {{ form_widget(form.currentSort) }}
+            {% if form.currentSort.vars.choices is not empty %}
+                <label class="control-label">{{ form.currentSort.vars.label|trans }}</label>
+                {{ form_widget(form.currentSort) }}
+            {% endif %}
+            {% do form.currentSort.setRendered %}
         </div>
         <div class="col-sm-2 text-right">
             {% if form.choice is defined %}
@@ -76,10 +79,6 @@
             {% do form.limit.setRendered %}
             <input type="hidden" name="paginator[limit]" id="paginator_limit" value="{{ pagination.limit }}"/>
         {% endif %}
-    </div>
-    <div class="row">
-        <div class="col-sm-6 col-sm-offset-6 text-right">
-        </div>
     </div>
 </div>
 {{ form_end(form) }}

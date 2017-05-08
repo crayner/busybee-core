@@ -1,7 +1,7 @@
-Busybee\TimeTableBundle\Entity\LearningGroups:
+Busybee\TimeTableBundle\Entity\ActivityGroups:
     type: entity
-    table: learning_groups
-    repositoryClass: Busybee\TimeTableBundle\Repository\LearningGroupsRepository
+    table: activity_groups
+    repositoryClass: Busybee\TimeTableBundle\Repository\ActivityGroupsRepository
     uniqueConstraints:
         name_year:
             columns:
@@ -36,9 +36,9 @@ Busybee\TimeTableBundle\Entity\LearningGroups:
         activities:
             targetEntity: Busybee\StudentBundle\Entity\Activity
             joinTable:
-                name: learning_group_activity
+                name: activity_group_activity
                 joinColumns:
-                    lg_id:
+                    group_id:
                         referencedColumnName: id
                 inverseJoinColumns:
                     activity_id:
@@ -46,11 +46,13 @@ Busybee\TimeTableBundle\Entity\LearningGroups:
     manyToOne:
         year:
             targetEntity: Busybee\InstituteBundle\Entity\Year
+            nullable: false
             joinColumns:
                 year:
                     referencedColumnName: id
         course:
             targetEntity: Busybee\CurriculumBundle\Entity\Course
+            nullable: true
             joinColumns:
                 course:
                     referencedColumnName: id

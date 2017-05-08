@@ -45,6 +45,8 @@ class TimeTableController extends Controller
         $entity = new TimeTable();
         if ($id > 0)
             $entity = $this->get('timetable.repository')->find($id);
+        else
+            $entity = new TimeTable();
 
         $form = $this->createForm(TimeTableType::class, $entity);
 

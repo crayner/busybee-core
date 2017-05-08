@@ -9,7 +9,7 @@ parameters:
                 t.nameShort: ASC
                 y.firstDay: ASC
             Year:
-                y.firstDay: ASC
+                y.firstDay: DESC
                 t.name: ASC
         limit: '25'
         join:
@@ -25,32 +25,32 @@ parameters:
             - t.nameShort
             - t.id
             - y.name as year
-    LearningGroupsPagination:
-        alias: l
+    ActivityGroupsPagination:
+        alias: a
         sortBy:
             Name:
-                l.name: ASC
-                l.nameShort: ASC
+                a.name: ASC
+                a.nameShort: ASC
             Short Name:
-                l.nameShort: ASC
-                l.name: ASC
+                a.nameShort: ASC
+                a.name: ASC
             Course:
                 c.name: ASC
-                l.name: ASC
+                a.name: ASC
         limit: '25'
         join:
-            l.course:
+            a.course:
                 alias: c
                 type: leftJoin
         searchList:
-            - l.name
-            - l.nameShort
+            - a.name
+            - a.nameShort
             - c.name
         select:
-            - l.name
-            - l.nameShort
+            - a.name
+            - a.nameShort
             - c.name as course
-            - l.id
+            - a.id
 services:
     timetable.repository:
         class: Busybee\TimeTableBundle\Repository\TimeTableRepository
@@ -71,27 +71,21 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
-    form.timetable.line.type:
-        class: Busybee\TimeTableBundle\Form\LineType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags:
-            - { name: form.type }
-    learning.groups.repository:
-        class: Busybee\TimeTableBundle\Repository\LearningGroupsRepository
+    activity.groups.repository:
+        class: Busybee\TimeTableBundle\Repository\ActivityGroupsRepository
         factory:
             - '@doctrine'
             - 'getRepository'
         arguments:
-            - "BusybeeTimeTableBundle:LearningGroups"
-    learning.groups.pagination:
-        class: Busybee\TimeTableBundle\Model\LearningGroupsPagination
+            - "BusybeeTimeTableBundle:ActivityGroups"
+    activity.groups.pagination:
+        class: Busybee\TimeTableBundle\Model\ActivityGroupsPagination
         arguments:
-            - '%LearningGroupsPagination%'
-            - '@learning.groups.repository'
+            - '%ActivityGroupsPagination%'
+            - '@activity.groups.repository'
             - '@my_service_container'
-    learning.groups.manager:
-        class: Busybee\TimeTableBundle\Model\LearningGroupsManager
+    activity.groups.manager:
+        class: Busybee\TimeTableBundle\Model\ActivityGroupsManager
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@translator'

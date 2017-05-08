@@ -2,10 +2,12 @@
 
 namespace Busybee\TimeTableBundle\Entity;
 
+use Busybee\TimeTableBundle\Model\TimeTableModel;
+
 /**
  * TimeTable
  */
-class TimeTable
+class TimeTable extends TimeTableModel
 {
     /**
      * @var integer

@@ -1,16 +1,21 @@
 <script type="text/javascript">
 
-    $('.monitorChange').change(function (e) {
+    $('.monitorChange').change(function () {
         $('.formChanged').prop("disabled", true);
         $('button[title="Add"]').prop('disabled', true);
     });
 
-    $(".changeRecord").change(function (e) {
-        {% if currentSearch is defined %}
-        var path = "{{ path(route, {'id': '__id__', 'currentSearch': currentSearch}) }}";
+    $(".changeRecord").change(function () {
+        {% if app.request.get('currentSearch') is defined and app.request.get('limit') is defined %}
+        var path = "{{ path(route, {'id': '__id__', 'currentSearch': app.request.get('currentSearch'), 'limit': app.request.get('limit')}) }}";
+        {% elseif app.request.get('limit') is defined %}
+        var path = "{{ path(route, {'id': '__id__', 'limit': limit}) }}";
+        {% elseif app.request.get('currentSearch') is defined %}
+        var path = "{{ path(route, {'id': '__id__', 'currentSearch': app.request.get('currentSearch')}) }}";
         {% else %}
         var path = "{{ path(route, {'id': '__id__'}) }}";
         {% endif %}
+
         var id = $(this).val();
         if (id == '') {
             id = 'Add';

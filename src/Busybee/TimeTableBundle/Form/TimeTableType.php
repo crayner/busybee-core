@@ -52,25 +52,9 @@ class TimeTableType extends AbstractType
                     'choice_label' => 'name',
                     'placeholder' => 'timetable.placeholder.year'
                 ]
-            )
-            ->add('lines', CollectionType::class,
-                [
-                    'label' => 'timetable.label.lines',
-                    'entry_type' => LineType::class,
-                    'allow_add' => true,
-                    'by_reference' => false,
-                    'allow_delete' => true,
-                    'prototype_name' => '__linename__',
-                    'attr' => array(
-                        'class' => 'lineList',
-                        'help' => 'timetable.help.lines',
-                    ),
-                    'required' => false,
-                ]
             );
 
         $builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
-        $builder->addEventSubscriber(new TimeTableSubscriber());
     }
 
     /**

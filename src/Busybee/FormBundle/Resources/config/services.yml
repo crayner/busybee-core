@@ -68,3 +68,7 @@ services:
             entityManager: '@doctrine.orm.entity_manager'
         tags:
             - { name: validator.constraint_validator, alias: unique_or_blank_validator }
+    validator.integer.constraint:
+        class: Busybee\FormBundle\Validator\Constraints\IntegerValidator
+        tags:
+            - { name: validator.constraint_validator, alias: integer_validator }

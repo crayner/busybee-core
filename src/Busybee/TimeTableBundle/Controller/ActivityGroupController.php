@@ -2,15 +2,15 @@
 
 namespace Busybee\TimeTableBundle\Controller;
 
-use Busybee\TimeTableBundle\Entity\LearningGroups;
-use Busybee\TimeTableBundle\Form\LearningGroupsType;
+use Busybee\TimeTableBundle\Entity\ActivityGroups;
+use Busybee\TimeTableBundle\Form\ActivityGroupsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class LearningGroupController extends Controller
+class ActivityGroupController extends Controller
 {
     use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
 
@@ -22,13 +22,13 @@ class LearningGroupController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
-        $up = $this->get('learning.groups.pagination');
+        $up = $this->get('activity.groups.pagination');
 
         $up->injectRequest($request);
 
         $up->getDataSet();
 
-        return $this->render('BusybeeTimeTableBundle:LearningGroups:list.html.twig',
+        return $this->render('BusybeeTimeTableBundle:ActivityGroups:list.html.twig',
             [
                 'pagination' => $up,
             ]
@@ -43,13 +43,13 @@ class LearningGroupController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
-        $entity = new LearningGroups();
+        $entity = new ActivityGroups();
         if ($id > 0)
-            $entity = $this->get('learning.groups.repository')->find($id);
+            $entity = $this->get('activity.groups.repository')->find($id);
 
         $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
 
-        $form = $this->createForm(LearningGroupsType::class, $entity, ['year_data' => $year]);
+        $form = $this->createForm(ActivityGroupsType::class, $entity, ['year_data' => $year]);
 
         $form->handleRequest($request);
 
@@ -60,10 +60,10 @@ class LearningGroupController extends Controller
             $em->flush();
 
             if ($id == 'Add')
-                return new RedirectResponse($this->generateUrl('learning_group_manage', ['id' => $entity->getId()]));
+                return new RedirectResponse($this->generateUrl('activity_group_manage', ['id' => $entity->getId()]));
         }
 
-        return $this->render('BusybeeTimeTableBundle:LearningGroups:manage.html.twig',
+        return $this->render('BusybeeTimeTableBundle:ActivityGroups:manage.html.twig',
             [
                 'form' => $form->createView(),
                 'currentSearch' => $currentSearch,
@@ -79,7 +79,7 @@ class LearningGroupController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
-        $lgm = $this->get('learning.groups.manager');
+        $lgm = $this->get('activity.groups.manager');
 
         $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
 
@@ -87,7 +87,7 @@ class LearningGroupController extends Controller
 
         $data = $lgm->getReport();
 
-        return $this->render('BusybeeTimeTableBundle:LearningGroups:report.html.twig',
+        return $this->render('BusybeeTimeTableBundle:ActivityGroups:report.html.twig',
             [
                 'report' => $data['report']
             ]

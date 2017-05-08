@@ -10,7 +10,7 @@
 
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
-    {% set h3Content = addButton({'windowOpen': {'route': path('campus_resource_edit', {'id': 'Add'})}}) %}
+    {% set h3Content = addButton({'windowOpen': {'route': path('campus_space_edit', {'id': 'Add'})}}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.spaces.title', 'transDomain': 'BusybeeInstituteBundle'} %}
     <div class="container-fluid">
         <div class="row row-header">
@@ -40,7 +40,7 @@
                 <div class="col-sm-3 col-md-3 form-inline">
                     <button title='{{ 'campus.space.edit.title'|trans }}' type="button"
                             class="halflings halflings-edit btn btn-warning"
-                            onClick="window.open('{{ path('campus_resource_edit', {'id': resource.id}) }}','_self')"></button>
+                            onClick="window.open('{{ path('campus_space_edit', {'id': resource.id}) }}','_self')"></button>
                 </div>
             </div>
         {% endfor %}

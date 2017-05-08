@@ -2,8 +2,6 @@
 namespace Busybee\FormBundle\Validator\Constraints ;
 
 use Symfony\Component\Validator\Constraint ;
-use Symfony\Component\Validator\Constraints\ChoiceValidator;
-use Busybee\SystemBundle\Setting\SettingManager ;
 use Symfony\Component\Validator\ConstraintValidator;
 
 

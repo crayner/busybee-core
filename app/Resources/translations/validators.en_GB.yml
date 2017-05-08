@@ -64,3 +64,6 @@ year:
             overlapped: "The term dates must not overlap. Check the terms: %name1% and %name2%"
             order: The first day of the term must be before the last day of the term.
             delete: 'You are not able to delete the term (%term%).'
+integer:
+    invalid:
+        message: '%value% must be an integer. %type% detected.'

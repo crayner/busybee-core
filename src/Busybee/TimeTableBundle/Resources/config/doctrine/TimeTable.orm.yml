@@ -27,11 +27,6 @@ Busybee\TimeTableBundle\Entity\TimeTable:
             type: datetime
         createdOn:
             type: datetime
-    oneToMany:
-        lines:
-            targetEntity: Busybee\TimeTableBundle\Entity\Line
-            mappedBy: timetable
-            cascade: [ all ]
     manyToOne:
         year:
             targetEntity: Busybee\InstituteBundle\Entity\Year

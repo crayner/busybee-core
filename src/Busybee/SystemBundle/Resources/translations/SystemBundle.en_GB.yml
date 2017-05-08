@@ -50,6 +50,8 @@ system:
             displayName: 'The display name is available to change for your system, but it must be unique on your system.'
             image: 'Upload an image.'
             default: "The default file is loaded when you upgrade the system to a new version. The upgrade process will overwrite defaults, and this setting will then refresh your school's default settings."
+        integer:
+            help: Enter a vaild integer value.
     upload:
         title: Upload Setting Package
         description: 'Upload a set of pre coded default settings.'

@@ -33,7 +33,7 @@
         {% set form_path = form_path|merge({'limit': limit}) %}
     {% endif %}
 {{ form_start(form, {'action': path('person_edit', form_path)}) }}
-<div id="personTabs">
+    <div id="formTabs">
 	<ul class="nav nav-tabs" role="tablist">
 		{% for name,tab in tabs %}
 			{% set translation = 'BusybeePersonBundle' %}
@@ -98,4 +98,5 @@
     {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
     {% include 'BusybeePersonBundle:Person:script.html.twig' %}
     {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'person_manage'} %}
+    {% include '@BusybeeHome/Scripts/formTabSubmitScript.html.twig' with {'route': 'person_edit'} %}
 {% endblock javascripts %}

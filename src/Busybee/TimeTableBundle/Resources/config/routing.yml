@@ -4,12 +4,12 @@ timetable_manage:
 timetable_edit:
     path:     /{id}/edit/{currentSearch}
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:edit, currentSearch: null }
-learning_group_list:
+activity_group_list:
     path:     /lgs/list/{currentSearch}
-    defaults: { _controller: BusybeeTimeTableBundle:LearningGroup:list, currentSearch: null }
-learning_group_manage:
+    defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:list, currentSearch: null }
+activity_group_manage:
     path:     /lgs/{id}/manage/{currentSearch}
-    defaults: { _controller: BusybeeTimeTableBundle:LearningGroup:manage, id: 'Add', currentSearch: null }
-learning_group_test:
+    defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:manage, id: 'Add', currentSearch: null }
+activity_group_test:
     path:     /lgs/{id}/test/
-    defaults: { _controller: BusybeeTimeTableBundle:LearningGroup:test, id: 'Add' }
+    defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:test, id: 'Add' }

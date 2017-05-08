@@ -117,6 +117,11 @@ abstract class PaginationManager
     private $alias = 'a';
 
     /**
+     * @var string
+     */
+    private $sortBy = '';
+
+    /**
      * Constructor
      *
      * @version	25th October 2016
@@ -300,7 +305,32 @@ abstract class PaginationManager
      */
     public function getSortBy()
     {
-        return $this->setting->sortBy[$this->sortBy] ;
+        if (!empty($this->setting->sortBy[$this->sortBy]))
+            return $this->setting->sortBy[$this->sortBy];
+        return [];
+    }
+
+    /**
+     * set Sort By
+     *
+     * @version    25th October 2016
+     * @since    25th October 2016
+     * @param    array /string    $sortBy
+     * @return    PaginationManager
+     */
+    public function setSortBy($sortBy)
+    {
+        if (is_array($sortBy)) {
+            reset($sortBy);
+            $sortBy = key($sortBy);
+        }
+        if (array_key_exists($sortBy, $this->setting->sortBy))
+            $this->sortBy = $sortBy;
+        else {
+            reset($this->setting->sortBy);
+            $this->sortBy = key($this->setting->sortBy);
+        }
+        return $this;
     }
 
     /**
@@ -501,29 +531,6 @@ abstract class PaginationManager
         $this->lastSearch = $lastSearch ;
         if (empty($lastSearch))
             $this->lastSearch = null;
-        return $this ;
-    }
-
-    /**
-     * set Sort By
-     *
-     * @version	25th October 2016
-     * @since	25th October 2016
-     * @param	array/string	$sortBy
-     * @return    PaginationManager
-     */
-    public function setSortBy($sortBy)
-    {
-        if (is_array($sortBy)) {
-            reset($sortBy);
-            $sortBy = key($sortBy);
-        }
-        if (array_key_exists($sortBy, $this->setting->sortBy))
-            $this->sortBy = $sortBy ;
-        else {
-            reset($this->setting->sortBy);
-            $this->sortBy = key($this->setting->sortBy);
-        }
         return $this ;
     }
 

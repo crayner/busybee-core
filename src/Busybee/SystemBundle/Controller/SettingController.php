@@ -3,11 +3,13 @@
 namespace Busybee\SystemBundle\Controller ;
 
 use Busybee\FormBundle\Type\ToggleType;
+use Busybee\FormBundle\Validator\Integer;
 use Busybee\SystemBundle\Entity\Setting;
 use Busybee\SystemBundle\Form\CreateType;
 use Busybee\SystemBundle\Form\SettingType;
 use Busybee\SystemBundle\Form\UploadType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml ;
@@ -124,6 +126,22 @@ class SettingController extends Controller
                             'attr'          => array(
                                 'help' 			=> 'system.setting.help.boolean',
                             )
+                        )
+                    )
+                );
+                break;
+            case 'integer':
+                $form->add('value', NumberType::class, array_merge($options, array(
+                            'data' => $sm->get($setting->getName()),
+                            'attr' => array(
+                                'help' => 'system.setting.integer.help',
+                            ),
+                            'constraints' => array_merge(
+                                $constraints,
+                                array(
+                                    new Integer(),
+                                )
+                            ),
                         )
                     )
                 );

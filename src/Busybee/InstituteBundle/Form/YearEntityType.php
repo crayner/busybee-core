@@ -19,7 +19,7 @@ class YearEntityType extends AbstractType
             [
                 'data_class' => null,
                 'translation_domain' => 'BusybeeTimeTableBundle',
-                'placeholder' => 'learninggroups.placeholder.activity',
+                'placeholder' => 'activitygroups.placeholder.activity',
                 'class' => Year::class,
                 'choice_label' => 'name',
                 'query_builder' => function (EntityRepository $er) {

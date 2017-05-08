@@ -18,9 +18,9 @@ parameters:
             node: 59
             order: 590
         591:
-            label: menu.timetable.learninggroups
-            name: Manage Learning Groups
-            route: learning_group_list
+            label: menu.timetable.activitygroups
+            name: Manage Activity Groups
+            route: activity_group_list
             role: ROLE_PRINCIPAL
             parameters: []
             node: 59

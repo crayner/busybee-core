@@ -4,35 +4,35 @@
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
-{% block title %}{{ 'learninggroups.title.list'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'learninggroups.title.list'|trans }}{% endblock headerTitle %}
+{% block title %}{{ 'activitygroups.title.list'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'activitygroups.title.list'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{% endblock headerLead %}
 
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
-    {% set h3Content = addButton({'title': 'learninggroups.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('learning_group_manage', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''})})}}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'learninggroups.title.list', 'transDomain': 'BusybeeTimeTableBundle'} %}
+    {% set h3Content = addButton({'title': 'activitygroups.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('activity_group_manage', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''})})}}) %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activitygroups.title.list', 'transDomain': 'BusybeeTimeTableBundle'} %}
     <div class="container-fluid well">
         <div class="row row-header">
             <div class="col-sm-3" style="display: inline-block;">
                 {% if pagination.getSortByName == 'Name' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'learninggroups.label.name'|trans }}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'activitygroups.label.name'|trans }}
                 {% else %}
-                    {{ 'learninggroups.label.name'|trans }}
+                    {{ 'activitygroups.label.name'|trans }}
                 {% endif %}
             </div>
             <div class="col-sm-3" style="display: inline-block;">
                 {% if pagination.getSortByName == 'Short Name' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'learninggroups.label.nameShort'|trans }}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'activitygroups.label.nameShort'|trans }}
                 {% else %}
-                    {{ 'learninggroups.label.nameShort'|trans }}
+                    {{ 'activitygroups.label.nameShort'|trans }}
                 {% endif %}
             </div>
             <div class="col-sm-3 form-inline">
                 {% if pagination.getSortByName == 'Course' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'learninggroups.label.course'|trans }}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'activitygroups.label.course'|trans }}
                 {% else %}
-                    {{ 'learninggroups.label.course'|trans }}
+                    {{ 'activitygroups.label.course'|trans }}
                 {% endif %}
             </div>
             <div class="col-sm-3 withAdd">
@@ -51,7 +51,7 @@
                     {{ timetable.course }}
                 </div>
                 <div class="col-sm-3 form-inline">
-                    {{ editButton({'style': '', 'class': 'halflings halflings-edit btn btn-warning','title': 'learninggroups.title.edit', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('learning_group_manage', {'id': timetable.id, 'currentSearch': pagination.search|replace({'%': ''})})}})|raw }}
+                    {{ editButton({'style': '', 'class': 'halflings halflings-edit btn btn-warning','title': 'activitygroups.title.edit', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('activity_group_manage', {'id': timetable.id, 'currentSearch': pagination.search|replace({'%': ''})})}})|raw }}
                 </div>
             </div>
         {% endfor %}

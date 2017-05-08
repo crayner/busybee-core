@@ -6,9 +6,9 @@
 '@BusybeeForm/Template/jquery.collection.html.twig'
 'BusybeeTimeTableBundle:Activities:activityCollection.html.twig' %}
 
-{% block title %}{{ parent() }}{{ 'learninggroups.title.manage'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'learninggroups.title.manage'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'learninggroups.description.manage'|trans }}{% endblock headerLead %}
+{% block title %}{{ parent() }}{{ 'activitygroups.title.manage'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'activitygroups.title.manage'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'activitygroups.description.manage'|trans }}{% endblock headerLead %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -17,12 +17,12 @@
 
 {% block contentContainer %}
     {{ form_start(form) }}
-    {% set h3Content = returnButton({'windowOpen': {'route': path('learning_group_list', {'currentSearch': currentSearch})}}) %}
-    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('learning_group_manage', {'id': 'Add', 'currentSearch': currentSearch}) }}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('learning_group_manage', {'id': app.request.get('id'), 'currentSearch': currentSearch})}}) %}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('activity_group_list', {'currentSearch': currentSearch})}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('activity_group_manage', {'id': 'Add', 'currentSearch': currentSearch}) }}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('activity_group_manage', {'id': app.request.get('id'), 'currentSearch': currentSearch})}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'learninggroups.title.manage', 'transDomain': 'BusybeeTimeTableBundle'} %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activitygroups.title.manage', 'transDomain': 'BusybeeTimeTableBundle'} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
@@ -55,8 +55,8 @@
                         <div class="col-sm-6 col-sm-offset-6 well">
                             <div>
                                 {{ miscButton({'class': 'btn btn-info halflings halflings-tick testLG'})|raw }}
-                                <label class="control-label">{{ 'learninggroups.label.test'|trans }}</label><br>
-                                <span class="field-help">{{ 'learninggroups.help.test'|trans }}</span>
+                                <label class="control-label">{{ 'activitygroups.label.test'|trans }}</label><br>
+                                <span class="field-help">{{ 'activitygroups.help.test'|trans }}</span>
                             </div>
                         </div>
                     </div>
@@ -90,11 +90,11 @@
     {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
     {% include '@BusybeeTimeTable/Activities/activityScript.html.twig' %}
     {% include '@BusybeeHome/Toggle/script.html.twig' %}
-    {% set route = 'learning_group_manage' %}
+    {% set route = 'activity_group_manage' %}
     {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
     <script type="text/javascript" language="JavaScript">
         $('.testLG').click(function (e) {
-            var path = '{{ path('learning_group_test', {'id': '__id__'}) }}';
+            var path = '{{ path('activity_group_test', {'id': '__id__'}) }}';
             path = path.replace('__id__', '{{ app.request.get('id') }}');
             window.open(path, 'Report', 'width=500,height=500,menubar=no,top=200,left=200');
         })
