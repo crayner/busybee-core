@@ -3,6 +3,7 @@
 namespace Busybee\TimeTableBundle\Entity;
 
 use Busybee\TimeTableBundle\Model\TimeTableModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * TimeTable
@@ -50,14 +51,24 @@ class TimeTable extends TimeTableModel
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $lines;
+    private $columns;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $days;
+    /**
+     * @var boolean
+     */
+    private $specialDaySkip;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->lines = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->columns = new ArrayCollection();
+        $this->days = new ArrayCollection();
+        parent::__construct();
     }
 
     /**
@@ -239,41 +250,104 @@ class TimeTable extends TimeTableModel
     }
 
     /**
-     * Add line
+     * Add column
      *
-     * @param \Busybee\TimeTableBundle\Entity\Line $line
+     * @param \Busybee\TimeTableBundle\Entity\Column $column
      *
      * @return TimeTable
      */
-    public function addLine(\Busybee\TimeTableBundle\Entity\Line $line)
+    public function addColumn(\Busybee\TimeTableBundle\Entity\Column $column)
     {
-        if ($this->lines->contains($line))
+        if ($this->columns->contains($column))
             return $this;
 
-        $line->setTimetable($this);
+        $column->setTimetable($this);
 
-        $this->lines->add($line);
+        $this->columns->add($column);
 
         return $this;
     }
 
     /**
-     * Remove line
+     * Remove column
      *
-     * @param \Busybee\TimeTableBundle\Entity\Line $line
+     * @param \Busybee\TimeTableBundle\Entity\Column $column
      */
-    public function removeLine(\Busybee\TimeTableBundle\Entity\Line $line)
+    public function removeColumn(\Busybee\TimeTableBundle\Entity\Column $column)
     {
-        $this->lines->removeElement($line);
+        $this->columns->removeElement($column);
     }
 
     /**
-     * Get lines
+     * Get columns
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getLines()
+    public function getColumns()
     {
-        return $this->lines;
+        return $this->columns;
+    }
+
+    /**
+     * Add day
+     *
+     * @param \Busybee\TimeTableBundle\Entity\Day $day
+     *
+     * @return TimeTable
+     */
+    public function addDay(\Busybee\TimeTableBundle\Entity\Day $day)
+    {
+        if ($this->days->contains($day))
+            return $this;
+
+        $day->setTimetable($this);
+
+        $this->days->add($day);
+
+        return $this;
+    }
+
+    /**
+     * Remove day
+     *
+     * @param \Busybee\TimeTableBundle\Entity\Day $day
+     */
+    public function removeDay(\Busybee\TimeTableBundle\Entity\Day $day)
+    {
+        $this->days->removeElement($day);
+    }
+
+    /**
+     * Get days
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDays()
+    {
+        return $this->days;
+    }
+
+    /**
+     * Get specialDaySkip
+     *
+     * @return boolean
+     */
+    public function getSpecialDaySkip()
+    {
+        return $this->specialDaySkip;
+    }
+
+    /**
+     * Set specialDaySkip
+     *
+     * @param boolean $specialDaySkip
+     *
+     * @return TimeTable
+     */
+    public function setSpecialDaySkip($specialDaySkip)
+    {
+        $this->specialDaySkip = $specialDaySkip;
+
+        return $this;
     }
 }

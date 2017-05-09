@@ -2,15 +2,15 @@ parameters:
     TimeTablePagination:
         alias: t
         sortBy:
-            Name:
-                t.name: ASC
-                y.firstDay: ASC
-            Short Name:
-                t.nameShort: ASC
-                y.firstDay: ASC
             Year:
                 y.firstDay: DESC
                 t.name: ASC
+            Name:
+                t.name: ASC
+                y.firstDay: DESC
+            Short Name:
+                t.nameShort: ASC
+                y.firstDay: DESC
         limit: '25'
         join:
             t.year:
@@ -69,6 +69,7 @@ services:
         class: Busybee\TimeTableBundle\Form\TimeTableType
         arguments:
             - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
         tags:
             - { name: form.type }
     activity.groups.repository:
@@ -89,4 +90,16 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@translator'
+    form.timetable.columns.type:
+        class: Busybee\TimeTableBundle\Form\ColumnEntityType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    form.timetable.days.type:
+        class: Busybee\TimeTableBundle\Form\DayEntityType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
 

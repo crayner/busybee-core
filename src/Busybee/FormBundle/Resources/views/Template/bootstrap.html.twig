@@ -93,7 +93,7 @@
     {%- if required %} required="required"{% endif -%}
     {%- for attrname, attrvalue in attr -%}
         {{- " " -}}
-        {%- if attrname in ['placeholder', 'title'] -%}
+        {%- if attrname in ['placeholder', 'title', 'data-on', 'data-off'] -%}
             {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"
         {%- elseif attrname in ['help', 'imageClass'] -%}
 			

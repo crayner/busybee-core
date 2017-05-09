@@ -1,0 +1,18 @@
+Busybee\TimeTableBundle\Entity\Column:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, timetable]
+            errorPath: name
+            message: 'column.timetable.name.unique'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [nameShort, timetable]
+            errorPath: nameShort
+            message: 'column.timetable.nameshort.unique'
+    properties:
+        timetable:
+            - Valid: ~
+            - NotBlank: ~
+        name:
+            - NotBlank: ~
+        nameShort:
+            - NotBlank: ~

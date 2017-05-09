@@ -2,11 +2,15 @@
 
 namespace Busybee\TimeTableBundle\Form;
 
+use Busybee\FormBundle\Type\ToggleType;
 use Busybee\InstituteBundle\Entity\Year;
+use Busybee\InstituteBundle\Form\YearEntityType;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Events\TimeTableSubscriber;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -21,12 +25,18 @@ class TimeTableType extends AbstractType
     private $om;
 
     /**
+     * @var SettingManager
+     */
+    private $sm;
+
+    /**
      * TimeTableType constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, SettingManager $sm)
     {
         $this->om = $om;
+        $this->sm = $sm;
     }
 
     /**
@@ -45,15 +55,49 @@ class TimeTableType extends AbstractType
                     'label' => 'timetable.label.nameShort',
                 ]
             )
-            ->add('year', EntityType::class,
+            ->add('year', YearEntityType::class,
                 [
-                    'class' => Year::class,
                     'label' => 'timetable.label.year',
-                    'choice_label' => 'name',
-                    'placeholder' => 'timetable.placeholder.year'
+                    'placeholder' => 'timetable.placeholder.year',
+                ]
+            )
+            ->add('columns', CollectionType::class,
+                [
+                    'entry_type' => ColumnEntityType::class,
+                    'attr' =>
+                        [
+                            'class' => 'columnList',
+                            'help' => 'timetable.columns.help',
+                        ],
+                    'label' => 'timetable.columns.label',
+                    'allow_delete' => true,
+                    'allow_add' => true,
+                ]
+            )
+            ->add('days', CollectionType::class,
+                [
+                    'entry_type' => DayEntityType::class,
+                    'attr' =>
+                        [
+                            'class' => 'dayList',
+                            'help' => 'timetable.days.help',
+                        ],
+                    'label' => 'timetable.days.label',
+                    'allow_delete' => false,
+                    'allow_add' => false,
+                ]
+            )
+            ->add('specialDaySkip', ToggleType::class,
+                [
+                    'label' => 'timetable.specialDaySkip.label',
+                    'attr' =>
+                        [
+                            'help' => 'timetable.specialDaySkip.help',
+                        ],
                 ]
             );
 
+        $builder->addEventSubscriber(new TimeTableSubscriber($this->sm));
         $builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
     }
 

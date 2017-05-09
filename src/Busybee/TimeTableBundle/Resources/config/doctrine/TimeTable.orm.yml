@@ -23,13 +23,25 @@ Busybee\TimeTableBundle\Entity\TimeTable:
         nameShort:
             type: string
             length: '16'
+        specialDaySkip:
+            type: boolean
         lastModified:
             type: datetime
         createdOn:
             type: datetime
+    oneToMany:
+        columns:
+            targetEntity: Busybee\TimeTableBundle\Entity\Column
+            mappedBy: timetable
+            cascade: [ 'persist' ]
+        days:
+            targetEntity: Busybee\TimeTableBundle\Entity\Day
+            mappedBy: timetable
+            cascade: [ 'persist' ]
     manyToOne:
         year:
             targetEntity: Busybee\InstituteBundle\Entity\Year
+            orderBy: { 'firstDay': 'DESC' }
             joinColumns:
                 year:
                     referencedColumnName: id

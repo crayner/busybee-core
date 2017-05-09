@@ -13,6 +13,38 @@ timetable:
         description: Modify the details of the timetable.
     placeholder:
         year: Select Year
+    specialDaySkip:
+        label: Skip Special Days
+        help: When mapping rotating timetable days to available days in the week, should the timetable day be skipped when a special day is encountered.
+    column:
+        add:
+            title: Add Column
+        remove:
+            title: Remove Column
+        header:
+            title: '%name%'
+        name:
+            label: Column Name
+        nameShort:
+            label: Column Code
+        dayType:
+            label: Column Type
+            help: ''
+    columns:
+        label: Time Table Columns
+        help: A column represents a day of school.
+    days:
+        label: School Days
+        help: Set the type of day for the timetable to use when generating the timetable.
+    day:
+        name:
+            label: Day Code
+        dayType:
+            label: Day Type
+            help: ''
+    dayType:
+        rotate: Rotate
+        fixed: Fixed
 activitygroups:
     title:
         list: Manage Activity Groups

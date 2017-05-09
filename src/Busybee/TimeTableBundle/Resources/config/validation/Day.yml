@@ -1,0 +1,10 @@
+Busybee\TimeTableBundle\Entity\Column:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, timetable]
+            errorPath: name
+            message: 'day.timetable.name.unique'
+    properties:
+        timetable:
+            - Valid: ~
+            - NotBlank: ~

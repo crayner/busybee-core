@@ -1,0 +1,12 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+<script type="text/javascript">
+    $(".dayList").collection({
+        name_prefix: '{{ form.days.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '<button title="{{ 'timetable.day.add.title'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+        remove: '<button title="{{ 'timetable.day.remove.title'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        add_at_the_end: true,
+    });
+</script>

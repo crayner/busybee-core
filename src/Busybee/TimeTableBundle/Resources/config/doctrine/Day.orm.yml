@@ -1,0 +1,35 @@
+Busybee\TimeTableBundle\Entity\Day:
+    type: entity
+    table: tt_day
+    repositoryClass: Busybee\TimeTableBundle\Repository\DayRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            length: '8'
+        dayType:
+            type: boolean
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        timetable:
+            targetEntity: Busybee\TimeTableBundle\Entity\TimeTable
+            inversedBy: columns
+            joinColumn:
+                name: tt_id
+                referencedColumnName: id
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id
