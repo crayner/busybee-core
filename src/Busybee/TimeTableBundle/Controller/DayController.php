@@ -14,8 +14,21 @@ class DayController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
+        $tm = $this->get('timetable.manager');
+
+        /*        $specialDays = $this->get('specialDay.repository')->createQueryBuilder('s')
+                    ->leftJoin('s.year', 'y')
+                    ->where('y.id = :year_id')
+                    ->setParameter('year_id', $year->getId())
+                    ->orderBy('s.day', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+        */
+
+
         return $this->render('BusybeeTimeTableBundle:Days:assign.html.twig',
             [
+                'tm' => $tm,
             ]
         );
     }

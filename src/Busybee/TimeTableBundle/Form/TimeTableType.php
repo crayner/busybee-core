@@ -72,6 +72,10 @@ class TimeTableType extends AbstractType
                     'label' => 'timetable.columns.label',
                     'allow_delete' => true,
                     'allow_add' => true,
+                    'entry_options' =>
+                        [
+                            'timetable_id' => $options['data']->getId(),
+                        ],
                 ]
             )
             ->add('days', CollectionType::class,

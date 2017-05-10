@@ -27,9 +27,9 @@ timetable:
             label: Column Name
         nameShort:
             label: Column Code
-        dayType:
-            label: Column Type
-            help: ''
+        mappingInfo:
+            label: Mapping Information
+            help: Map the timetable day to this school day.
     columns:
         label: Time Table Columns
         help: A column represents a day of school.

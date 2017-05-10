@@ -19,7 +19,7 @@ Busybee\TimeTableBundle\Entity\Day:
     manyToOne:
         timetable:
             targetEntity: Busybee\TimeTableBundle\Entity\TimeTable
-            inversedBy: columns
+            inversedBy: days
             joinColumn:
                 name: tt_id
                 referencedColumnName: id

@@ -14,8 +14,8 @@ Busybee\TimeTableBundle\Entity\Column:
         nameShort:
             type: string
             length: '8'
-        dayType:
-            type: boolean
+        mappingInfo:
+            length: '8'
         lastModified:
             type: datetime
         createdOn:

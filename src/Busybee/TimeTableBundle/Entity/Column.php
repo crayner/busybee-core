@@ -46,10 +46,11 @@ class Column
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+
     /**
-     * @var boolean
+     * @var string
      */
-    private $dayType;
+    private $mappingInfo;
 
     /**
      * Get id
@@ -230,25 +231,27 @@ class Column
     }
 
     /**
-     * Get dayType
+     * Get mappingInfo
      *
-     * @return boolean
+     * @return string
      */
-    public function getDayType()
+    public function getMappingInfo()
     {
-        return $this->dayType;
+        if (empty($this->mappingInfo))
+            $this->mappingInfo = 'Rotate';
+        return $this->mappingInfo;
     }
 
     /**
-     * Set dayType
+     * Set mappingInfo
      *
-     * @param boolean $dayType
+     * @param string $mappingInfo
      *
      * @return Column
      */
-    public function setDayType($dayType)
+    public function setMappingInfo($mappingInfo)
     {
-        $this->dayType = $dayType;
+        $this->mappingInfo = $mappingInfo;
 
         return $this;
     }

@@ -102,4 +102,11 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
+    timetable.manager:
+        class: Busybee\TimeTableBundle\Model\TimeTableManager
+        arguments:
+            - '@security.token_storage'
+            - '@busybee_security.user_manager'
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
 

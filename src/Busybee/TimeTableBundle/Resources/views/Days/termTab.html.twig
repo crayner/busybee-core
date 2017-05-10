@@ -1,0 +1,23 @@
+{% set header = tab.label %}
+{% include '@BusybeeHome/Page/panelStart.html.twig' %}
+{% set weekStart = 1 %}
+{% if get_setting('firstDayofWeek') == 'Sunday' %}{% set weekStart = 0 %}{% endif %}
+{% set weekEnd = weekStart + 6 %}
+{% set pointer = weekStart %}
+{% for day in tm.days(key) %}
+
+    {% if pointer == weekStart %}
+        <div class="row">
+    {% endif %}
+
+    {% if pointer == weekStart %}
+        </div>
+    {% endif %}
+
+
+
+    {% set pointer = pointer + 1 %}
+    {% if pointer > weekEnd %}{% set pointer = weekStart %}{% endif %}
+{% endfor %}
+{{ dump() }}
+{% include '@BusybeeHome/Page/panelEnd.html.twig' %}
