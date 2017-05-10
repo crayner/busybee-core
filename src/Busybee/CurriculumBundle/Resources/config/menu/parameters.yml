@@ -15,10 +15,3 @@ parameters:
             order: 52
             role: ROLE_TEACHER
             route: course_manage
-        50:
-            label: menu.student.activities
-            name: Manage Activities
-            role: ROLE_ADMIN
-            node: 5
-            order: 50
-            route: student_activities

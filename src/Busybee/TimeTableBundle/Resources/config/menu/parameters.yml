@@ -9,19 +9,49 @@ parameters:
             node: 5
             order: 59
             menu: 59
-        590:
-            label: menu.timetable.manage
+        592:
+            label: menu.timetable.title
             name: Manage Timetable
-            route: timetable_manage
             role: ROLE_PRINCIPAL
             parameters: []
             node: 59
-            order: 590
-        591:
+            order: 592
+            menu: 592
+        5910:
+            label: menu.student.activities.manage
+            name: Manage Activities
+            role: ROLE_ADMIN
+            node: 591
+            order: 5910
+            route: student_activities
+        5911:
             label: menu.timetable.activitygroups
             name: Manage Activity Groups
             route: activity_group_list
             role: ROLE_PRINCIPAL
             parameters: []
+            node: 591
+            order: 5911
+        591:
+            label: menu.student.activities.submenu
+            name: Activity Menu
+            role: ROLE_ADMIN
             node: 59
             order: 591
+            menu: 591
+        5920:
+            label: menu.timetable.manage
+            name: Manage Timetable
+            route: timetable_manage
+            role: ROLE_PRINCIPAL
+            parameters: []
+            node: 592
+            order: 5920
+        5921:
+            label: menu.timetable.assigndays
+            name: Assign TimeTable Days
+            route: timetable_day_assignment
+            role: ROLE_PRINCIPAL
+            parameters: []
+            node: 592
+            order: 5921

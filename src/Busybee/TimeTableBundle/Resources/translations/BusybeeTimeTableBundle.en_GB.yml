@@ -45,6 +45,9 @@ timetable:
     dayType:
         rotate: Rotate
         fixed: Fixed
+    daysassign:
+        title: 'Assign TimeTable Days'
+        description: ''
 activitygroups:
     title:
         list: Manage Activity Groups

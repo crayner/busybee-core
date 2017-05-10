@@ -1,0 +1,13 @@
+{% set containerThemeOverwrite = '' %}
+{% set headerNotices = '' %}
+{% if app.user is not null %}
+    {% if app.user.year is not null %}
+        {% set headerNotices = headerNotices ~ miscButton({'transDomain': 'BusybeeHomeBundle', 'style': 'float: left;', 'title': 'year.system.current', 'class': 'btn btn-warning btn-header', 'prompt': get_SystemYear(app.user).name, 'windowOpen': {'route': path('person_edit', {'id': app.user.person.id, '_fragment': 'user'})}}) %}
+        {% set containerThemeOverwrite = ' containerWarning' %}
+    {% else %}
+        {% set headerNotices = headerNotices ~ miscButton({'transDomain': 'BusybeeHomeBundle', 'style': 'float: left;', 'title': 'year.system.current', 'class': 'btn btn-success btn-header', 'prompt': get_SystemYear(app.user).name, 'windowOpen': {'route': path('person_edit', {'id': app.user.person.id, '_fragment': 'user'})}}) %}
+    {% endif %}
+{% endif %}
+
+{% block htmlContent %}
+{% endblock htmlContent %}

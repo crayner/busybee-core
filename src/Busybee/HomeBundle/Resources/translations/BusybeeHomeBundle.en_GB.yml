@@ -112,11 +112,14 @@ menu:
         homerooms: Manage Home Rooms
     student:
         manage: Manage Students
-        activities: Activities
+        activities:
+            submenu: Activities
+            manage: Manage Activities
     timetable:
         manage: Manage Timetables
         title: Timetables
         activitygroups: Activity Groups
+        assigndays: Assign Days
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security
@@ -161,5 +164,5 @@ idletimeout:
     timeRemaining: 'Time Remaining'
 year:
     system:
-        current: '<span class="label label-success" title="You are working in the current system year.">%year%</span>'
-        warning: '<span class="label label-warning" title="Warning: You are not working in the current system year.  Changes made may not alter current details in the system. Proceed with caution.">%year%</span>'
+        current: 'You are working in the current system year.'
+        warning: 'Warning: You are not working in the current system year.  Changes made may not alter current details in the system. Proceed with caution.'

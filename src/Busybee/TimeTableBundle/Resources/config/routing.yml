@@ -13,3 +13,6 @@ activity_group_manage:
 activity_group_test:
     path:     /lgs/{id}/test/
     defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:test, id: 'Add' }
+timetable_day_assignment:
+    path:     /day/assign/
+    defaults: { _controller: BusybeeTimeTableBundle:Day:dayAssign }
