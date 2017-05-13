@@ -14,7 +14,7 @@ use Busybee\PersonBundle\Validator\Phone ;
 /**
  * Setting Manager
  *
- * @version	22nd October 2016
+ * @version    13th May 2017
  * @since	20th October 2016
  * @author	Craig Rayner
  */
@@ -25,6 +25,7 @@ class SettingManager
 	private	$setting ;
 	private	$currentUser ;
 	private $settings ;
+    private $settingExists;
 
     public function __construct(Container $container)
     {
@@ -94,6 +95,7 @@ class SettingManager
      */
     public function getSetting($name, $default = null, $options = array())
     {
+        $this->settingExists = false;
         try {
             $this->setting = $this->repo->findOneByName($name);
         } catch (\Exception $e) {
@@ -111,8 +113,10 @@ class SettingManager
             return $default;
         }
 
+        $this->settingExists = true;
 
-		switch ($this->setting->getType())
+
+        switch ($this->setting->getType())
 		{
             case 'system':
 		    case 'regex':
@@ -321,7 +325,15 @@ class SettingManager
 	 */
     public function get($name, $default = null, $options = array())
     {
-        return $this->getSetting($name, $default, $options);
+        $this->settingExists = false;
+        if (isset($this->settings[$name])) {
+            $this->settingExists = true;
+            return $this->settings[$name];
+        }
+        $value = $this->getSetting($name, $default, $options);
+        if ($this->settingExists)
+            $this->settings[$name] = $value;
+        return $value;
     }
 
 	/**
@@ -445,10 +457,8 @@ class SettingManager
      */
     public function settingExists($name)
     {
-        $setting = $this->repo->findOneByName($name);
-        if ($setting instanceof Setting && !is_null($setting->getId()))
-            return true;
-        return false;
+        $this->get($name);
+        return $this->settingExists;
     }
 
     /**
@@ -493,7 +503,7 @@ class SettingManager
         if (empty($results))
             return '';
         $return = ' Did you mean ';
-        dump($results);
+
         foreach ($results as $setting) {
             $return .= $setting['name'] . ' (' . $setting['displayName'] . ') ';
         }

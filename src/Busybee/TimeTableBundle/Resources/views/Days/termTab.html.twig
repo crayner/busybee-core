@@ -1,23 +1,70 @@
-{% set header = tab.label %}
+{% spaceless %}
+
+    {% trans_default_domain 'BusybeeTimeTableBundle' %}
+
+    {% set header = termName %}
 {% include '@BusybeeHome/Page/panelStart.html.twig' %}
-{% set weekStart = 1 %}
-{% if get_setting('firstDayofWeek') == 'Sunday' %}{% set weekStart = 0 %}{% endif %}
-{% set weekEnd = weekStart + 6 %}
-{% set pointer = weekStart %}
-{% for day in tm.days(key) %}
 
-    {% if pointer == weekStart %}
-        <div class="row">
-    {% endif %}
+    {% set schoolDays = get_setting('schoolWeek') %}
 
-    {% if pointer == weekStart %}
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3">
+            <div class="row row-header">
+                {% for x,y in schoolDays %}
+                    <div class="col-sm-2 well text-center">
+                        {{ x }}<br>({{ y }})
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    {% endif %}
+    </div>
 
 
-
-    {% set pointer = pointer + 1 %}
-    {% if pointer > weekEnd %}{% set pointer = weekStart %}{% endif %}
+    {% for week in term.weeks %}
+        <div class="row">
+            <div class="col-sm-3 well">
+                <div class="row-header row">
+                    <div class="col-sm-12 well text-center">
+                        {% set fd = week|first %}
+                        {% set ld = week|last %}
+                        <div class="small">{% if fd != 'blank' %}{{ fd.date|date(get_setting('date.format.long')) }}{% endif %}
+                            <br>-<br>{% if ld != 'blank' %}{{ ld.date|date(get_setting('date.format.long')) }}{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 well">
+                <div class="row">
+                    {% set offset = 0 %}
+                    {% for day in week %}
+                        {% if day.specialDay is defined and day.specialDay == 'blank' %}
+                            {% set offset = offset + 2 %}
+                        {% else %}
+                            {% set alert = '' %}
+                            {% if day.startRotate %}{% set alert = ' well-info' %}{% endif %}
+                            {% if day.specialDay is defined %}{% set alert = ' well-danger' %}{% endif %}
+                            {% if day.specialDay is defined and day.specialDay.type == 'alter' %}{% set alert = ' well-warning' %}{% endif %}
+                            <div class="col-sm-2 well text-center{{ alert }}{% if offset > 0 %} col-sm-offset-{{ offset }}{% set offset = 0 %}{% endif %}"
+                                 onclick="toggleRotateStart('{{ day.date|date('Ymd') }}','{{ termName|replace({' ': '_'}) }}')">
+                                <div>
+                                    {% if day.specialDay is defined %}<span class="glyphicons-important-day glyphicons"
+                                                                            title="{{ day.specialDay.description }}"></span>{% endif %}
+                                    {% if day.startRotate %}<span class="glyphicons-star-empty glyphicons"
+                                                                  title="{{ 'timetable.rotate.title'|trans }}"></span>{% endif %}
+                                </div>
+                                {% if day.specialDay is defined %}
+                                    {{ day.specialDay.name }}
+                                {% else %}
+                                    {{ day.ttday.name }}{% if day.ttday.nameShort is not empty %} ({{ day.ttday.nameShort }}){% endif %}
+                                {% endif %}
+                                <br>
+                                <div class="small">{{ day.date|date(get_setting('date.format.short')) }}</div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
 {% endfor %}
-{{ dump() }}
 {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% endspaceless %}

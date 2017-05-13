@@ -90,15 +90,6 @@ class TimeTableType extends AbstractType
                     'allow_delete' => false,
                     'allow_add' => false,
                 ]
-            )
-            ->add('specialDaySkip', ToggleType::class,
-                [
-                    'label' => 'timetable.specialDaySkip.label',
-                    'attr' =>
-                        [
-                            'help' => 'timetable.specialDaySkip.help',
-                        ],
-                ]
             );
 
         $builder->addEventSubscriber(new TimeTableSubscriber($this->sm));

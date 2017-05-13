@@ -23,8 +23,6 @@ Busybee\TimeTableBundle\Entity\TimeTable:
         nameShort:
             type: string
             length: '16'
-        specialDaySkip:
-            type: boolean
         lastModified:
             type: datetime
         createdOn:

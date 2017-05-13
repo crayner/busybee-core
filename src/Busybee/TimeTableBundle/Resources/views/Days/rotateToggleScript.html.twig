@@ -1,0 +1,24 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+<script type="text/javascript">
+    function toggleRotateStart(data, termName) {
+        var path = '{{ path('timetable_day_rotate_toggle', {'date': '__date__', 'termName': '__termName__'}) }}';
+        path = path.replace('__date__', data);
+        path = path.replace('__termName__', termName);
+
+        $.ajax({
+            url: path,
+            type: 'POST',
+            success: function (result) {
+                $('#messageNotice').html(result.message);
+                $('#messageNotice').fadeIn(2);
+                if (result.data !== undefined) {
+                    $('#' + termName).html(result.data);
+                }
+                $('#messageNotice').fadeOut(3000);
+            }
+        });
+    }
+
+    $('#messageNotice').fadeOut(5);
+</script>

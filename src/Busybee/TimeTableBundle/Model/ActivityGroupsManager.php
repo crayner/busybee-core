@@ -336,7 +336,6 @@ class ActivityGroupsManager
 
         $report['report'] .= $this->trans->trans('activitygroups.report.footer', $report, 'BusybeeTimeTableBundle');
 
-        dump($this);
         return $report;
     }
 

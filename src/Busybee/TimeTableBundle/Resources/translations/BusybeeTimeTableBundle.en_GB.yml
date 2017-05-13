@@ -13,9 +13,6 @@ timetable:
         description: Modify the details of the timetable.
     placeholder:
         year: Select Year
-    specialDaySkip:
-        label: Skip Special Days
-        help: When mapping rotating timetable days to available days in the week, should the timetable day be skipped when a special day is encountered.
     column:
         add:
             title: Add Column
@@ -47,7 +44,13 @@ timetable:
         fixed: Fixed
     daysassign:
         title: 'Assign TimeTable Days'
-        description: ''
+        description: 'This page only works with the system year. Change the system year in the user settings, by clicking the year button.'
+    rotate:
+        toggle:
+            create: 'A restart of timetable rotation was created on %date%.'
+            remove: 'A restart of timetable rotation was removed on %date%.'
+            failed: The date was not toggled correctly.
+        title: The timetable rotate is forced to start on this date.
 activitygroups:
     title:
         list: Manage Activity Groups

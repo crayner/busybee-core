@@ -4,11 +4,6 @@ namespace Busybee\TimeTableBundle\Model;
 
 abstract class TimeTableModel
 {
-    public function __construct()
-    {
-        $this->setSpecialDaySkip(true);
-    }
-
     /**
      * Get Full Name
      * @return string

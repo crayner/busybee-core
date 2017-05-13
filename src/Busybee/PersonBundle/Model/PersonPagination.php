@@ -5,7 +5,6 @@ use Busybee\PaginationBundle\Model\PaginationManager ;
 
 class PersonPagination extends PaginationManager
 {
-
 	/**
 	 * build Query
 	 *

@@ -1,0 +1,28 @@
+Busybee\TimeTableBundle\Entity\StartRotate:
+    type: entity
+    table: tt_start_rotate
+    repositoryClass: Busybee\TimeTableBundle\Repository\StartRotateRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        day:
+            type: date
+            unique: true
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

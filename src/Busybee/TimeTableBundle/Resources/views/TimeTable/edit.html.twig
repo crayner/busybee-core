@@ -33,15 +33,10 @@
                     <div class="col-sm-6 well">
                         {{ form_row(form.name) }}
                     </div>
-                    <div class="col-sm-6 well">
-                        {{ form_row(form.specialDaySkip) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 well">
+                    <div class="col-sm-3 well">
                         {{ form_row(form.nameShort) }}
                     </div>
-                    <div class="col-sm-6 well">
+                    <div class="col-sm-3 well">
                         {% set data = form.year.vars.value %}
                         {% if data is empty %}{% set data = form.year.vars.data %}{% endif %}
                         {{ form_row(form.year, {'value': data}) }}

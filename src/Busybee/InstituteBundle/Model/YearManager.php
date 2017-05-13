@@ -88,10 +88,10 @@ class YearManager
             $query->execute();
         } catch (PDOException $e) {
             if (!in_array($e->getErrorCode(), []))
-                dump($e);
+                throw new \Exception($e->getMessage());
         } catch (DriverException $e) {
             if (!in_array($e->getErrorCode(), ['1091']))
-                dump($e);
+                throw new \Exception($e->getMessage());
         }
 
     }

@@ -6,22 +6,19 @@
 {% block headerTitle %}{{ 'timetable.daysassign.title'|trans() }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'timetable.daysassign.description'|trans }}{% endblock headerLead %}
 
-{% block stylesheets %}
-    {{ parent() }}
-{% endblock stylesheets %}
-
 {% block contentContainer %}
     <div id="formTabs">
         <ul class="nav nav-tabs" role="tablist">
-            {% for tab in tm.getTerms %}
-                <li role="presentation"><a href="#{{ tab.label|replace({' ': '_'}) }}" role="tab"
-                                           data-toggle="tab">{{ tab.label }}</a></li>
+            {% for termName,term in year.terms %}
+                <li role="presentation"><a href="#{{ termName|replace({' ': '_'}) }}" role="tab"
+                                           data-toggle="tab">{{ termName }}</a></li>
             {% endfor %}
         </ul>
         <div class="tab-content">
+            <div id="messageNotice"></div>
             {% set active = ' active' %}
-            {% for key,tab in tm.getTerms %}
-                <div class="tab-pane{{ active }}" id="{{ tab.label|replace({' ': '_'}) }}">
+            {% for termName,term in year.terms %}
+                <div class="tab-pane{{ active }}" id="{{ termName|replace({' ': '_'}) }}">
                     {% include '@BusybeeTimeTable/Days/termTab.html.twig' %}
                 </div>
                 {% set active = '' %}
@@ -32,6 +29,8 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
     {% set route = 'timetable_day_assignment' %}
     {% include '@BusybeeHome/Scripts/formTabSubmitScript.html.twig' %}
+    {% include '@BusybeeTimeTable/Days/rotateToggleScript.html.twig' %}
 {% endblock %}

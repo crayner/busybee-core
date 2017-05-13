@@ -44,22 +44,21 @@ class TimeTable extends TimeTableModel
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+
     /**
      * @var \Busybee\InstituteBundle\Entity\Year
      */
     private $year;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $columns;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $days;
-    /**
-     * @var boolean
-     */
-    private $specialDaySkip;
 
     /**
      * Constructor
@@ -68,7 +67,6 @@ class TimeTable extends TimeTableModel
     {
         $this->columns = new ArrayCollection();
         $this->days = new ArrayCollection();
-        parent::__construct();
     }
 
     /**
@@ -325,29 +323,5 @@ class TimeTable extends TimeTableModel
     public function getDays()
     {
         return $this->days;
-    }
-
-    /**
-     * Get specialDaySkip
-     *
-     * @return boolean
-     */
-    public function getSpecialDaySkip()
-    {
-        return $this->specialDaySkip;
-    }
-
-    /**
-     * Set specialDaySkip
-     *
-     * @param boolean $specialDaySkip
-     *
-     * @return TimeTable
-     */
-    public function setSpecialDaySkip($specialDaySkip)
-    {
-        $this->specialDaySkip = $specialDaySkip;
-
-        return $this;
     }
 }
