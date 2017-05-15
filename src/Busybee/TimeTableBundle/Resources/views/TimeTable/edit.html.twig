@@ -1,5 +1,3 @@
-{# src/Busybee/CurriculumBundle/Resources/views/Course/edit.html.twig #}
-
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
@@ -20,6 +18,7 @@
 {% endblock stylesheets %}
 
 {% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {{ form_start(form) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage', {'currentSearch': currentSearch})}}) %}
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('timetable_edit', {'id': 'Add', 'currentSearch': currentSearch}) }}) %}{% endif %}
@@ -74,4 +73,5 @@
     {% include '@BusybeeTimeTable/Columns/columnScript.html.twig' %}
     {% include '@BusybeeTimeTable/Days/dayScript.html.twig' %}
     {% include '@BusybeeHome/Toggle/script.html.twig' %}
+    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

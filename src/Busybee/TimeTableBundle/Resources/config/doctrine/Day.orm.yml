@@ -2,6 +2,11 @@ Busybee\TimeTableBundle\Entity\Day:
     type: entity
     table: tt_day
     repositoryClass: Busybee\TimeTableBundle\Repository\DayRepository
+    uniqueConstraints:
+        name_tt:
+            columns:
+                - name
+                - tt_id
     id:
         id:
             type: integer

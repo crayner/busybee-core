@@ -16,3 +16,7 @@ Busybee\TimeTableBundle\Entity\TimeTable:
             - NotBlank: ~
         nameShort:
             - NotBlank: ~
+        columns:
+            - Valid: ~
+        days:
+            - Valid: ~

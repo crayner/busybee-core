@@ -52,6 +52,8 @@ form:
     button:
         save: ''
         return: ''
+    submit:
+        success: The form was successfully saved.
 menu:
     site:
         manage: Configuration

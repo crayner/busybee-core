@@ -188,13 +188,14 @@ abstract class PaginationManager
      * @version	25th October 2016
      * @since	25th October 2016
      * @param	boolean		$count
-     * @return	query
+     * @return    integer
      */
     public function getTotal()
     {
-        $this->total = intval($this->buildQuery(true)
-            ->getQuery()
-            ->getSingleScalarResult());
+        if (empty($this->total))
+            $this->total = intval($this->buildQuery(true)
+                ->getQuery()
+                ->getSingleScalarResult());
         return $this->total;
     }
 
@@ -208,7 +209,7 @@ abstract class PaginationManager
      */
     public function setTotal($total)
     {
-        $this->total = intval($total) > 0 ? 0 : intval($total) ;
+        $this->total = intval($total) > 0 ? intval($total) : 0;
         return $this;
     }
 

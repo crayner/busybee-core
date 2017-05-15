@@ -67,3 +67,9 @@ year:
 integer:
     invalid:
         message: '%value% must be an integer. %type% detected.'
+column:
+    timetable:
+        nameshort:
+            unique: The short name must be unique in the timetable.
+        name:
+            unique: The name must be unique in the timetable.

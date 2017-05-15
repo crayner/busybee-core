@@ -58,7 +58,7 @@ class FormErrorsExtension extends \Twig_Extension
      * @param   string         $class  Class of each error. Default is none.
      * @return  string
      */
-    public function getFormErrors(FormInterface $form, $tag = 'li', $class = '', $noErrorMessage = '', $noErrorClass = '')
+    public function getFormErrors(FormInterface $form, $tag = 'li', $class = '', $noErrorMessage = 'form.submit.success', $noErrorClass = 'alert alert-success fadeAlert')
     {
 		if (! $form->isSubmitted()) return '';
         $errorsList = $this->parser->parseErrors($form);
@@ -74,19 +74,20 @@ class FormErrorsExtension extends \Twig_Extension
                 $return .= '</ul>';
             }
         }
-		if (empty($return) && ! empty($noErrorMessage))
+        if (count($errorsList) == 0 && !empty($noErrorMessage))
 		{
             if ($tag == 'li') {
                 $return .= '<ul>';
             }
 			$return .= '<'. $tag .' class="'. $noErrorClass .'">';
-			$return .= $noErrorMessage;
+            $return .= $this->trans->trans($noErrorMessage, [], 'BusybeeHomeBundle');
 			$return .= '</'. $tag . '>';
 			
             if ($tag == 'li') {
                 $return .= '</ul>';
             }
 		}
+
         return $return;
     }
     /**

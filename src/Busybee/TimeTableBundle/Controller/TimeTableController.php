@@ -62,6 +62,7 @@ class TimeTableController extends Controller
             [
                 'form' => $form->createView(),
                 'currentSearch' => $currentSearch,
+                'fullForm' => $form,
             ]
         );
     }

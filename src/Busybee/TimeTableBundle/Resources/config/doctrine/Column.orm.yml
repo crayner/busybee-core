@@ -2,6 +2,15 @@ Busybee\TimeTableBundle\Entity\Column:
     type: entity
     table: tt_column
     repositoryClass: Busybee\TimeTableBundle\Repository\ColumnRepository
+    uniqueConstraints:
+        name_tt:
+            columns:
+                - name
+                - tt_id
+        nameshort_tt:
+            columns:
+                - nameShort
+                - tt_id
     id:
         id:
             type: integer

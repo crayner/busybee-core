@@ -1,4 +1,4 @@
-Busybee\TimeTableBundle\Entity\Column:
+Busybee\TimeTableBundle\Entity\Day:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, timetable]
