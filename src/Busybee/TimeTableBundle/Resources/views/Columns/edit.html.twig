@@ -1,0 +1,39 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
+'@BusybeeForm/Template/jquery.collection.html.twig'
+'@BusybeeTimeTable/Periods/periodCollection.html.twig' %}
+
+{% block title %}{{ parent() }}{{ 'timetable.periods.manage.title'|trans({'%name%': timetable.getFullName}) }}{% endblock title %}
+{% block headerTitle %}{{ 'timetable.periods.manage.title'|trans({'%name%': timetable.getFullName}) }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'timetable.periods.manage.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
+    {{ form_start(form) }}
+    <div class="messageWindow">
+
+    </div>
+    <div id="formTabs">
+        <ul class="nav nav-tabs" role="tablist">
+            {% for name,col in form.columns %}
+                <li role="presentation"><a href="#{{ col.nameShort.vars.value }}" role="tab"
+                                           data-toggle="tab">{{ col.name.vars.value }}</a></li>
+                {% do col.setRendered %}
+            {% endfor %}
+        </ul>
+        {% include '@BusybeeTimeTable/Columns/column.html.twig' %}
+    </div>
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
+    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeHome/Scripts/formTabSubmitScript.html.twig' with {'route': 'timetable_days_edit'} %}
+    {% include '@BusybeeTimeTable/Periods/periodScript.html.twig' %}
+{% endblock javascripts %}

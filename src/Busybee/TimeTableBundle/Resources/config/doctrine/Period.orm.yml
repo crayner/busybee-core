@@ -1,16 +1,16 @@
-Busybee\TimeTableBundle\Entity\Column:
+Busybee\TimeTableBundle\Entity\Period:
     type: entity
-    table: tt_column
-    repositoryClass: Busybee\TimeTableBundle\Repository\ColumnRepository
+    table: tt_period
+    repositoryClass: Busybee\TimeTableBundle\Repository\PeriodRepository
     uniqueConstraints:
-        name_tt:
+        name_column:
             columns:
                 - name
-                - tt_id
-        nameshort_tt:
+                - column_id
+        nameshort_column:
             columns:
                 - nameShort
-                - tt_id
+                - column_id
     id:
         id:
             type: integer
@@ -18,28 +18,23 @@ Busybee\TimeTableBundle\Entity\Column:
                 strategy: AUTO
     fields:
         name:
-            type: string
-            length: '100'
+            length: '24'
         nameShort:
-            type: string
-            length: '8'
-        mappingInfo:
-            length: '8'
+            length: '3'
+        start:
+            type: time
+        end:
+            type: time
         lastModified:
             type: datetime
         createdOn:
             type: datetime
-    oneToMany:
-        periods:
-            targetEntity: Busybee\TimeTableBundle\Entity\Period
-            mappedBy: column
-            cascade: [ 'all' ]
     manyToOne:
-        timetable:
-            targetEntity: Busybee\TimeTableBundle\Entity\TimeTable
-            inversedBy: columns
+        column:
+            targetEntity: Busybee\TimeTableBundle\Entity\Column
+            inversedBy: periods
             joinColumn:
-                name: tt_id
+                name: column_id
                 referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

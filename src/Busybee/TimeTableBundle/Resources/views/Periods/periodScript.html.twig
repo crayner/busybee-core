@@ -1,0 +1,44 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+<script type="text/javascript">
+    {% for name,col in form.columns %}
+    $(".periodList_{{ name }}").collection({
+        name_prefix: '{{ col.periods.vars.full_name }}',
+        allow_up: false,
+        allow_down: false,
+        add: '<button title="{{ 'timetable.period.add.title'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+        remove: '<button title="{{ 'timetable.period.remove.title'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        add_at_the_end: true,
+    });
+    {% endfor %}
+
+    function removePeriod(id, page) {
+        if (id > 0) {
+            var path = '{{ path('period_remove', {'id': '__id__', 'page': '__page__'}) }}';
+            path = path.replace('__id__', id);
+            var fragment = $('.tab-content > .active').attr('id');
+            path = path.replace('__page__', page);
+
+
+            $.ajax({
+                url: path,
+                type: 'POST',
+                success: function (data) {
+                    if (data['status'] == 'success') {
+                        //  $('#' + fragment).html(data['page']);
+                        $('.messageWindow').html(data['message']);
+                        $('.messageWindow').fadeOut(3000);
+                        return true;
+                    } else if (data['status'] == 'error') {
+                        $('.messageWindow').html(data['message']);
+                        $('.messageWindow').fadeOut(3000);
+                        return false;
+                    } else if (data['status'] == 'warning') {
+                        $('.messageWindow').html(data['message']);
+                        $('.messageWindow').fadeOut(3000);
+                        return false;
+                    }
+                }
+            });
+        }
+    }
+</script>

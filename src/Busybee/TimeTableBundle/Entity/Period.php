@@ -2,10 +2,12 @@
 
 namespace Busybee\TimeTableBundle\Entity;
 
+use Busybee\TimeTableBundle\Model\PeriodModel;
+
 /**
- * Column
+ * Period
  */
-class Column
+class Period extends PeriodModel
 {
     /**
      * @var integer
@@ -25,6 +27,16 @@ class Column
     /**
      * @var \DateTime
      */
+    private $start;
+
+    /**
+     * @var \DateTime
+     */
+    private $end;
+
+    /**
+     * @var \DateTime
+     */
     private $lastModified;
 
     /**
@@ -33,9 +45,9 @@ class Column
     private $createdOn;
 
     /**
-     * @var \Busybee\TimeTableBundle\Entity\TimeTable
+     * @var \Busybee\TimeTableBundle\Entity\Day
      */
-    private $timetable;
+    private $day;
 
     /**
      * @var \Busybee\SecurityBundle\Entity\User
@@ -46,23 +58,10 @@ class Column
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
-
     /**
-     * @var string
+     * @var \Busybee\TimeTableBundle\Entity\Column
      */
-    private $mappingInfo;
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $periods;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->periods = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $column;
 
     /**
      * Get id
@@ -89,7 +88,7 @@ class Column
      *
      * @param string $name
      *
-     * @return Column
+     * @return Period
      */
     public function setName($name)
     {
@@ -113,11 +112,59 @@ class Column
      *
      * @param string $nameShort
      *
-     * @return Column
+     * @return Period
      */
     public function setNameShort($nameShort)
     {
         $this->nameShort = $nameShort;
+
+        return $this;
+    }
+
+    /**
+     * Get start
+     *
+     * @return \DateTime
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set start
+     *
+     * @param \DateTime $start
+     *
+     * @return Period
+     */
+    public function setStart($start)
+    {
+        $this->start = $start;
+
+        return $this;
+    }
+
+    /**
+     * Get end
+     *
+     * @return \DateTime
+     */
+    public function getEnd()
+    {
+        return $this->end;
+    }
+
+    /**
+     * Set end
+     *
+     * @param \DateTime $end
+     *
+     * @return Period
+     */
+    public function setEnd($end)
+    {
+        $this->end = $end;
 
         return $this;
     }
@@ -137,7 +184,7 @@ class Column
      *
      * @param \DateTime $lastModified
      *
-     * @return Column
+     * @return Period
      */
     public function setLastModified($lastModified)
     {
@@ -161,7 +208,7 @@ class Column
      *
      * @param \DateTime $createdOn
      *
-     * @return Column
+     * @return Period
      */
     public function setCreatedOn($createdOn)
     {
@@ -171,25 +218,25 @@ class Column
     }
 
     /**
-     * Get timetable
+     * Get day
      *
-     * @return \Busybee\TimeTableBundle\Entity\TimeTable
+     * @return \Busybee\TimeTableBundle\Entity\Day
      */
-    public function getTimetable()
+    public function getDay()
     {
-        return $this->timetable;
+        return $this->day;
     }
 
     /**
-     * Set timetable
+     * Set day
      *
-     * @param \Busybee\TimeTableBundle\Entity\TimeTable $timetable
+     * @param \Busybee\TimeTableBundle\Entity\Day $day
      *
-     * @return Column
+     * @return Period
      */
-    public function setTimetable(\Busybee\TimeTableBundle\Entity\TimeTable $timetable = null)
+    public function setDay(\Busybee\TimeTableBundle\Entity\Day $day = null)
     {
-        $this->timetable = $timetable;
+        $this->day = $day;
 
         return $this;
     }
@@ -209,7 +256,7 @@ class Column
      *
      * @param \Busybee\SecurityBundle\Entity\User $createdBy
      *
-     * @return Column
+     * @return Period
      */
     public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
     {
@@ -233,7 +280,7 @@ class Column
      *
      * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
      *
-     * @return Column
+     * @return Period
      */
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
@@ -243,70 +290,26 @@ class Column
     }
 
     /**
-     * Get mappingInfo
+     * Get column
      *
-     * @return string
+     * @return \Busybee\TimeTableBundle\Entity\Column
      */
-    public function getMappingInfo()
+    public function getColumn()
     {
-        if (empty($this->mappingInfo))
-            $this->mappingInfo = 'Rotate';
-        return $this->mappingInfo;
+        return $this->column;
     }
 
     /**
-     * Set mappingInfo
+     * Set column
      *
-     * @param string $mappingInfo
+     * @param \Busybee\TimeTableBundle\Entity\Column $column
      *
-     * @return Column
+     * @return Period
      */
-    public function setMappingInfo($mappingInfo)
+    public function setColumn(\Busybee\TimeTableBundle\Entity\Column $column = null)
     {
-        $this->mappingInfo = $mappingInfo;
+        $this->column = $column;
 
         return $this;
-    }
-
-    /**
-     * Add Period
-     *
-     * @param \Busybee\TimeTableBundle\Entity\Period $period
-     *
-     * @return Column
-     */
-    public function addPeriod(\Busybee\TimeTableBundle\Entity\Period $period)
-    {
-        if ($this->periods->contains($period))
-            return $this;
-
-        $period->setColumn($this);
-        $this->periods->add($period);
-
-        return $this;
-    }
-
-    /**
-     * Remove Period
-     *
-     * @param \Busybee\TimeTableBundle\Entity\Period $period
-     *
-     * @return Column
-     */
-    public function removePeriod(\Busybee\TimeTableBundle\Entity\Period $period)
-    {
-        $this->periods->removeElement($period);
-
-        return $this;
-    }
-
-    /**
-     * Get periods
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPeriods()
-    {
-        return $this->periods;
     }
 }

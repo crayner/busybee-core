@@ -30,9 +30,13 @@ timetable:
     columns:
         label: Time Table Columns
         help: A column represents a day of school.
+        edit:
+            missing: A valid TimeTable was not available.
     days:
         label: School Days
         help: Set the type of day for the timetable to use when generating the timetable.
+        edit:
+            button: 'Edit Timetable Days'
     day:
         name:
             label: Day Code
@@ -51,6 +55,17 @@ timetable:
             remove: 'A restart of timetable rotation was removed on %date%.'
             failed: The date was not toggled correctly.
         title: The timetable rotate is forced to start on this date.
+    periods:
+        manage:
+            title: Manage TimeTable Periods
+            description: ''
+        add:
+            title: Add Period
+    period:
+        add:
+            title: Add Period
+        remove:
+            title: Remove Period
 activitygroups:
     title:
         list: Manage Activity Groups

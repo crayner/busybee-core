@@ -1,0 +1,13 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% set active = ' active' %}
+<div class="tab-content">
+    {% for name,col in form.columns %}
+        <div class="tab-pane{{ active }}" id="{{ col.nameShort.vars.value }}">
+            {% include '@BusybeeTimeTable/Columns/columnContent.html.twig' %}
+        </div>
+        {% do col.setRendered %}
+        {% set active = '' %}
+    {% endfor %}
+</div>
+

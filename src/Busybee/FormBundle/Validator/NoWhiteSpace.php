@@ -1,0 +1,22 @@
+<?php
+
+namespace Busybee\FormBundle\Validator;
+
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
+
+class NoWhiteSpace extends Constraint
+{
+    /**
+     * @var string
+     */
+    public $message = 'nowhitespace.error';
+
+    /**
+     * @return string
+     */
+    public function validatedBy()
+    {
+        return 'nowhitespace_validator';
+    }
+}

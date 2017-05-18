@@ -16,3 +16,6 @@ Busybee\TimeTableBundle\Entity\Column:
             - NotBlank: ~
         nameShort:
             - NotBlank: ~
+            - Busybee\FormBundle\Validator\NoWhiteSpace: ~
+        periods:
+            - Valid: ~

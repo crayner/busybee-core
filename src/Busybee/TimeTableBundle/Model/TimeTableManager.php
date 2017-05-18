@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\InstituteBundle\Entity\SpecialDay;
@@ -13,6 +12,8 @@ use Busybee\TimeTableBundle\Entity\Day;
 use Busybee\TimeTableBundle\Entity\StartRotate;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class TimeTableManager
@@ -435,5 +436,17 @@ class TimeTableManager
             }
         }
 
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param Request $request
+     */
+    public function handleRequest(FormInterface $form, Request $request)
+    {
+        if (empty($request->request->all()))
+            return;
+        dump($form);
+        dump($request->request->all());
     }
 }

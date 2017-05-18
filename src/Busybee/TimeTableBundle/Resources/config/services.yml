@@ -90,13 +90,13 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@translator'
-    form.timetable.columns.type:
+    form.timetable.column.type:
         class: Busybee\TimeTableBundle\Form\ColumnEntityType
         arguments:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
-    form.timetable.days.type:
+    form.timetable.day.type:
         class: Busybee\TimeTableBundle\Form\DayEntityType
         arguments:
             - '@doctrine.orm.entity_manager'
@@ -109,4 +109,55 @@ services:
             - '@busybee_security.user_manager'
             - '@doctrine.orm.entity_manager'
             - '@setting.manager'
+    form.timetable.days.type:
+        class: Busybee\TimeTableBundle\Form\TimeTableDaysType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }
+    form.timetable.hidden.day.type:
+        class: Busybee\TimeTableBundle\Form\DayHiddenType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    form.timetable.columns.type:
+        class: Busybee\TimeTableBundle\Form\ColumnType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }
+    form.timetable.period.type:
+        class: Busybee\TimeTableBundle\Form\PeriodType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }
+    column.repository:
+        class: Busybee\TimeTableBundle\Repository\ColumnRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeTimeTableBundle:Column"
+    form.timetable.column.period.type:
+        class: Busybee\TimeTableBundle\Form\ColumnPeriodType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    period.repository:
+        class: Busybee\TimeTableBundle\Repository\PeriodRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeTimeTableBundle:Period"
+    period.manager:
+        class: Busybee\TimeTableBundle\Model\PeriodManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
 

@@ -2,10 +2,8 @@
 namespace Busybee\FormBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\HttpFoundation\File\File ;
-use Busybee\FormBundle\Model\ImageUploader ;
-use DateTime ;
-use DateTimeZone ;
+use DateTime;
+use DateTimeZone;
 
 class TimeToStringTransformer implements DataTransformerInterface
 {
@@ -28,7 +26,7 @@ class TimeToStringTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a string (number) to an object (person).
+     * Transforms a string (number) to a Time.
      *
      * @param  string $personNumber
      * @return Person|null
@@ -38,6 +36,12 @@ class TimeToStringTransformer implements DataTransformerInterface
     {
 		if (empty($data)) return $data ;
 
-		return $data->format('H:i');
+        if ($data instanceof DateTime)
+            return $data;
+
+        if (is_string($data))
+            $data = new DateTime($data);
+
+        return $data;
     }
 }

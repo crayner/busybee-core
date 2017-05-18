@@ -19,3 +19,9 @@ timetable_day_assignment:
 timetable_day_rotate_toggle:
     path:     /day/{date}/{termName}/rotate/
     defaults: { _controller: BusybeeTimeTableBundle:Day:rotateToggle }
+timetable_days_edit:
+    path:     /{id}/editdays/{currentSearch}
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:editTimeTableDays, currentSearch: null }
+period_remove:
+    path:     /period/{id}/{page}/
+    defaults: { _controller: BusybeeTimeTableBundle:Period:remove}

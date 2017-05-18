@@ -72,3 +72,7 @@ services:
         class: Busybee\FormBundle\Validator\Constraints\IntegerValidator
         tags:
             - { name: validator.constraint_validator, alias: integer_validator }
+    validator.nowhitespace.constraint:
+        class: Busybee\FormBundle\Validator\Constraints\NoWhiteSpaceValidator
+        tags:
+            - { name: validator.constraint_validator, alias: nowhitespace_validator }

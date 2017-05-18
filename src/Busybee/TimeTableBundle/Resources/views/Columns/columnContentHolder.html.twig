@@ -1,0 +1,7 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
+'@BusybeeForm/Template/jquery.collection.html.twig'
+'@BusybeeTimeTable/Periods/periodCollection.html.twig' %}
+
+{% include '@BusybeeTimeTable/Columns/columnContent.html.twig' with {'col': form} %}

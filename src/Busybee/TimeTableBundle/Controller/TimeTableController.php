@@ -3,6 +3,8 @@
 namespace Busybee\TimeTableBundle\Controller;
 
 use Busybee\TimeTableBundle\Entity\TimeTable;
+use Busybee\TimeTableBundle\Form\ColumnType;
+use Busybee\TimeTableBundle\Form\TimeTableDaysType;
 use Busybee\TimeTableBundle\Form\TimeTableType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,6 +65,39 @@ class TimeTableController extends Controller
                 'form' => $form->createView(),
                 'currentSearch' => $currentSearch,
                 'fullForm' => $form,
+            ]
+        );
+    }
+
+    /**
+     * @param   Request $request
+     * @return  \Symfony\Component\HttpFoundation\Response
+     */
+    public function editTimeTableDaysAction(Request $request, $id, $currentSearch = null)
+    {
+        $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
+
+        if ($id == 0)
+            throw new \InvalidArgumentException($this->get('translator')->trans('timetable.columns.edit.missing', [], 'BusybeeTimeTableBundle'));
+
+        $entity = $this->get('timetable.repository')->find($id);
+
+        $form = $this->createForm(ColumnType::class, $entity, ['tt_id' => $id]);
+        dump($form);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $om = $this->get('doctrine')->getManager();
+            $om->persist($entity);
+            $om->flush();
+        }
+
+        return $this->render('BusybeeTimeTableBundle:Columns:edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'currentSearch' => $currentSearch,
+                'fullForm' => $form,
+                'timetable' => $entity,
             ]
         );
     }
