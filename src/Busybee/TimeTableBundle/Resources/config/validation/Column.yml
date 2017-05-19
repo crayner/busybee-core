@@ -19,3 +19,4 @@ Busybee\TimeTableBundle\Entity\Column:
             - Busybee\FormBundle\Validator\NoWhiteSpace: ~
         periods:
             - Valid: ~
+            - Busybee\TimeTableBundle\Validator\Periods: ~

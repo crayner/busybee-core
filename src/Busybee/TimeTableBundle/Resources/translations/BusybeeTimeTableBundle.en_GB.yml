@@ -27,6 +27,12 @@ timetable:
         mappingInfo:
             label: Mapping Information
             help: Map the timetable day to this school day.
+        start:
+            label: Start of Instruction Time
+            help: All periods must be within these times.
+        end:
+            label: Finish of Instruction Time
+            help: All periods must be within these times.
     columns:
         label: Time Table Columns
         help: A column represents a day of school.
@@ -120,3 +126,8 @@ activity:
         remove: Remove Activity
         header: '%name%'
         new: New Activity
+period:
+    remove:
+        success: The period selected was removed.
+        locked: The period selected is locked by the system and cannot be removed.
+        missing: The period selected was not found.

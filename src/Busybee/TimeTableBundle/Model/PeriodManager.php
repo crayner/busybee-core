@@ -25,6 +25,9 @@ class PeriodManager
      */
     private $om;
 
+    /**
+     * @var \Busybee\TimeTableBundle\Repository\PeriodRepository
+     */
     private $pr;
 
     /**
@@ -37,11 +40,13 @@ class PeriodManager
         $this->pr = $om->getRepository(Period::class);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function canDelete($id)
     {
         $period = $this->pr->find($id);
-        if ($period->canDelete())
-            return true;
-        return false;
+        return $period->canDelete();
     }
 }

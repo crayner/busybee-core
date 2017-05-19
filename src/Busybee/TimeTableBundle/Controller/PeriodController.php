@@ -43,7 +43,7 @@ class PeriodController extends Controller
 
         $message = '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('period.remove.locked', [], 'BusybeeTimeTableBundle') . '</div>';
 
-        if (!$this->get('period.manager')->canDelete($id) || true)
+        if (!$this->get('period.manager')->canDelete($id))
             return new JsonResponse(
                 array(
                     'status' => 'warning',
@@ -53,8 +53,8 @@ class PeriodController extends Controller
             );
 
         $om = $this->get('doctrine')->getManager();
-//        $om->remove($period);
-//        $om->flush();
+        $om->remove($period);
+        $om->flush();
 
 
         $message = '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('period.remove.success', [], 'BusybeeTimeTableBundle') . '</div>';

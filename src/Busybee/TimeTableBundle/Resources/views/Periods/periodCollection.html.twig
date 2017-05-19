@@ -11,15 +11,18 @@
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
         {% set period_id = 0 %}
         {% if form.vars.data is not empty %}{% set period_id = form.vars.data.id %}{% endif %}
-        {% set h3Content = h3Content ~ deleteButton({'title': 'timetable.period.remove.title', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;', 'javascript': {'function': 'return removePeriod', 'options': [period_id, form.parent.parent.vars.name, app.request.get('currentSearch')]}})|raw %}
+        {% set canDelete = {'additional': 'disabled'} %}
+        {% if form.vars.data is not empty and form.vars.data.canDelete() %}{% set canDelete = {} %}{% endif %}
+        {% set h3Content = h3Content ~ deleteButton({'title': 'timetable.period.remove.title', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'}|merge(canDelete))|raw %}
         {% set h3Content = h3Content ~ saveButton()|raw %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton()|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
         {% set title = 'timetable.period.add.title'|trans %}
+        <div class="PeriodIdentifier" period="{{ period_id }}" page="{{ form.parent.parent.vars.name }}"></div>
         {% if form.vars.data is not empty %}{% set title = form.vars.data.name ~ ' (' ~ form.vars.data.nameShort ~ ')' %}{% endif %}
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': title} %}
-        <div class="container-fluid">
+        <div class="container-fluid period">
             <div class="row">
                 <div class="col-sm-4 well">
                     {{ form_row(form.name) }}
@@ -32,9 +35,10 @@
                 </div>
                 <div class="col-sm-3 well">
                     {{ form_row(form.end) }}
-                    {{ form_widget(form.column) }}
+                    {{ form_widget(form.column, {'value': form.column.parent.parent.vars.value.owner.id}) }}
                 </div>
             </div>
+            <div class="messageWindow"></div>
         </div>
         {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
     {% endspaceless %}

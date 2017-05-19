@@ -2,11 +2,13 @@
 
 namespace Busybee\TimeTableBundle\Form;
 
-use Busybee\FormBundle\Type\ToggleType;
+use Busybee\FormBundle\Type\TimeType;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\Column;
 use Busybee\TimeTableBundle\Entity\Day;
 use Busybee\TimeTableBundle\Entity\TimeTable;
+use Busybee\TimeTableBundle\Events\TimeTableColumnSubscriber;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -22,12 +24,18 @@ class ColumnEntityType extends AbstractType
     private $om;
 
     /**
+     * @var SettingManager
+     */
+    private $sm;
+
+    /**
      * TimeTableType constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, SettingManager $sm)
     {
         $this->om = $om;
+        $this->sm = $sm;
     }
 
 
@@ -101,8 +109,26 @@ class ColumnEntityType extends AbstractType
                     'empty_data' => 'Rotate',
                 ]
             )
+            ->add('start', TimeType::class,
+                [
+                    'label' => 'timetable.column.start.label',
+                    'attr' => [
+                        'help' => 'timetable.column.start.help',
+                    ],
+                ]
+            )
+            ->add('end', TimeType::class,
+                [
+                    'label' => 'timetable.column.end.label',
+                    'attr' => [
+                        'help' => 'timetable.column.end.help',
+                    ],
+                ]
+            )
             ->add('timetable', HiddenType::class);
 
         $builder->get('timetable')->addModelTransformer(new EntityToStringTransformer($this->om, TimeTable::class));
+
+        $builder->addEventSubscriber(new TimeTableColumnSubscriber($this->sm));
     }
 }

@@ -94,6 +94,7 @@ services:
         class: Busybee\TimeTableBundle\Form\ColumnEntityType
         arguments:
             - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
         tags:
             - { name: form.type }
     form.timetable.day.type:
@@ -160,4 +161,10 @@ services:
         class: Busybee\TimeTableBundle\Model\PeriodManager
         arguments:
             - '@doctrine.orm.entity_manager'
+    periods.validator:
+        class: Busybee\TimeTableBundle\Validator\Constraints\PeriodsValidator
+        arguments:
+            - "@setting.manager"
+        tags:
+            - { name: validator.constraint_validator, alias: periods_validator }
 

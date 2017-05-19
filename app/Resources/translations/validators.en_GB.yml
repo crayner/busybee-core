@@ -75,3 +75,11 @@ column:
             unique: The name must be unique in the timetable.
 nowhitespace:
     error: 'The value cannot contain any white space characters. (No space, tab, carriage return, new line, vertical tab or form feed character'
+periods:
+    constraint:
+        late: 'The period time exceeds the limit of the day. (%limit%)'
+        early: 'The period time starts before the day time (%limit%)'
+        overlap: 'The period starts before the end (%end%) of the previous period.'
+        break: 'The period does not start at the end (%end%) of the previous period.'
+        complete: 'The set periods do not cover the complete day. %start% - %end%'
+        order: 'The end time must be after the start time.'

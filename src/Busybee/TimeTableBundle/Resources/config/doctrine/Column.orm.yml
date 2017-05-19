@@ -25,6 +25,10 @@ Busybee\TimeTableBundle\Entity\Column:
             length: '8'
         mappingInfo:
             length: '8'
+        start:
+            type: time
+        end:
+            type: time
         lastModified:
             type: datetime
         createdOn:

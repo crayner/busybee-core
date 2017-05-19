@@ -83,7 +83,7 @@ class TimeTableController extends Controller
         $entity = $this->get('timetable.repository')->find($id);
 
         $form = $this->createForm(ColumnType::class, $entity, ['tt_id' => $id]);
-        dump($form);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

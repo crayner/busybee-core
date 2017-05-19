@@ -30,6 +30,14 @@
                     {{ form_row(form.mappingInfo) }}
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-6 well">
+                    {{ form_row(form.start) }}
+                </div>
+                <div class="col-sm-6 well">
+                    {{ form_row(form.end) }}
+                </div>
+            </div>
         </div>
         {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
     {% endspaceless %}

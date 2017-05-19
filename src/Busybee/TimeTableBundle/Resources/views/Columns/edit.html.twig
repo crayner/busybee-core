@@ -13,9 +13,7 @@
 {% block contentContainer %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {{ form_start(form) }}
-    <div class="messageWindow">
-
-    </div>
+    <div class="messageWindow"></div>
     <div id="formTabs">
         <ul class="nav nav-tabs" role="tablist">
             {% for name,col in form.columns %}

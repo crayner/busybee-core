@@ -45,11 +45,6 @@ class Period extends PeriodModel
     private $createdOn;
 
     /**
-     * @var \Busybee\TimeTableBundle\Entity\Day
-     */
-    private $day;
-
-    /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $createdBy;
@@ -213,30 +208,6 @@ class Period extends PeriodModel
     public function setCreatedOn($createdOn)
     {
         $this->createdOn = $createdOn;
-
-        return $this;
-    }
-
-    /**
-     * Get day
-     *
-     * @return \Busybee\TimeTableBundle\Entity\Day
-     */
-    public function getDay()
-    {
-        return $this->day;
-    }
-
-    /**
-     * Set day
-     *
-     * @param \Busybee\TimeTableBundle\Entity\Day $day
-     *
-     * @return Period
-     */
-    public function setDay(\Busybee\TimeTableBundle\Entity\Day $day = null)
-    {
-        $this->day = $day;
 
         return $this;
     }

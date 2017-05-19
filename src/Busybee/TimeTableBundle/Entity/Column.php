@@ -55,6 +55,14 @@ class Column
      * @var \Doctrine\Common\Collections\Collection
      */
     private $periods;
+    /**
+     * @var \DateTime
+     */
+    private $start;
+    /**
+     * @var \DateTime
+     */
+    private $end;
 
     /**
      * Constructor
@@ -308,5 +316,53 @@ class Column
     public function getPeriods()
     {
         return $this->periods;
+    }
+
+    /**
+     * Get start
+     *
+     * @return \DateTime
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set start
+     *
+     * @param \DateTime $start
+     *
+     * @return Column
+     */
+    public function setStart($start)
+    {
+        $this->start = $start;
+
+        return $this;
+    }
+
+    /**
+     * Get end
+     *
+     * @return \DateTime
+     */
+    public function getEnd()
+    {
+        return $this->end;
+    }
+
+    /**
+     * Set end
+     *
+     * @param \DateTime $end
+     *
+     * @return Column
+     */
+    public function setEnd($end)
+    {
+        $this->end = $end;
+
+        return $this;
     }
 }
