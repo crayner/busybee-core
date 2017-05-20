@@ -5,6 +5,7 @@ namespace Busybee\TimeTableBundle\Form;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\TimeTableBundle\Entity\Column;
 use Busybee\TimeTableBundle\Entity\TimeTable;
+use Busybee\TimeTableBundle\Validator\Periods;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -70,6 +71,9 @@ class ColumnPeriodType extends AbstractType
                     'entry_type' => PeriodType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'constraints' => [
+                        new Periods(),
+                    ],
                 ]
             )
             ->add('timetable', HiddenType::class);

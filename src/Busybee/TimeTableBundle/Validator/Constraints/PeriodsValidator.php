@@ -44,19 +44,21 @@ class PeriodsValidator extends ConstraintValidator
         });
 
         $column = $value->getOwner();
-
+        dump($column);
         $value = new ArrayCollection(iterator_to_array($iterator, false));
 
         $data = $value->toArray();
         $x = reset($data);
         $start = $x->getStart();
         $end = $x->getEnd();
+        $keep = clone $x;
         $q = 0;
         while (!$error && false !== ($day = next($data))) {
             if (!$error) {
                 if ($day->getStart() < $end) {
                     $error = true;
                     $overlap = true;
+                    $keep = clone $day;
                 }
                 if ($day->getStart() >= $day->getEnd()) {
                     $error = true;

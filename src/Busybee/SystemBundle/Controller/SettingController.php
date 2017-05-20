@@ -243,7 +243,7 @@ class SettingController extends Controller
                 break ;
             case 'time':
                 $form->add('value', 'Busybee\FormBundle\Type\TimeType', array_merge($options, array(
-                            'data' 			=> $sm->get($setting->getName()),
+                            'data' => new \DateTime($sm->get($setting->getName())),
                             'constraints' => $constraints,
                             'attr'	=> $attr,
                         )
@@ -261,6 +261,12 @@ class SettingController extends Controller
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+            switch ($setting->getType()) {
+                case 'time':
+                    if ($setting->getValue() instanceof \DateTime)
+                        $setting->setValue($setting->getValue()->format('H:i:s'));
+                    break;
+            }
             $em = $this->get('doctrine')->getManager();
             $em->persist($setting);
             $em->flush();

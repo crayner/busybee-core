@@ -3,25 +3,10 @@ namespace Busybee\FormBundle\Type ;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface ;
-use Busybee\FormBundle\Form\DataTransformer\TimeToStringTransformer ;
 use Symfony\Component\Form\Extension\Core\Type\TimeType as TimeCoreType;
 
 class TimeType extends AbstractType
 {
-    /**
-     * @var DateTimeZone
-     */
-	private $tz;
-
-    /**
-     * TimeType constructor.
-     * @param $tz
-     */
-    public function __construct($tz)
-	{
-		$this->tz = $tz;
-	}
    	/**
      * {@inheritdoc}
      */
@@ -43,10 +28,5 @@ class TimeType extends AbstractType
     public function getParent()
     {
         return TimeCoreType::class ;
-    }
-
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->addModelTransformer(new TimetoStringTransformer($this->tz));
     }
 }

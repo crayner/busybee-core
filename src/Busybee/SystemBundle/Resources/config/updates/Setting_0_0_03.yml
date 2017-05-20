@@ -58,7 +58,7 @@ date.format.short:
       displayName: Date Format (Short)
       description: Display the date in reports in this format. Formats are found at http://php.net/manual/en/function.date.php
       role: ROLE_REGISTRAR
-timetable.day.periods:
+SchoolDay.Periods:
       type: array
       value: |
           Housekeeping:

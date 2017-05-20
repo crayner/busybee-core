@@ -37,7 +37,7 @@ class ColumnSubscriber implements EventSubscriberInterface
     public function __construct(ObjectManager $om, SettingManager $sm, $tt_id)
     {
         $this->om = $om;
-        $this->days = $sm->get('timetable.day.periods');
+        $this->days = $sm->get('SchoolDay.Periods');
         $this->tt_id = $tt_id;
     }
 
