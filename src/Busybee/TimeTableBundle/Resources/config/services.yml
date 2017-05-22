@@ -167,4 +167,10 @@ services:
             - "@setting.manager"
         tags:
             - { name: validator.constraint_validator, alias: periods_validator }
+    columns.validator:
+        class: Busybee\TimeTableBundle\Validator\Constraints\ColumnsValidator
+        arguments:
+            - "@setting.manager"
+        tags:
+            - { name: validator.constraint_validator, alias: columns_validator }
 

@@ -28,3 +28,6 @@ period_remove:
 column_remove:
     path:     /column/{id}/{currentSearch}/
     defaults: { _controller: BusybeeTimeTableBundle:Column:remove, currentSearch: null }
+column_resettimes:
+    path:     /column/reset/times/{id}/{currentSearch}/
+    defaults: { _controller: BusybeeTimeTableBundle:Column:resetTimes, currentSearch: null }

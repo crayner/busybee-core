@@ -26,4 +26,18 @@
             return false;
         }
     });
+
+    function resetColumnTimes(id, currentSearch) {
+        var reset = confirm('{{ 'column.resettime.confirm'|trans }}');
+
+        if (reset === false) {
+
+        } else {
+            var path = '{{ path('column_resettimes', {'id': '__id__', 'currentSearch': '__currentSearch__'}) }}';
+            path = path.replace('__id__', id);
+            path = path.replace('__currentSearch__', currentSearch);
+            window.open(path, '_self');
+
+        }
+    }
 </script>

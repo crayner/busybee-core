@@ -437,16 +437,4 @@ class TimeTableManager
         }
 
     }
-
-    /**
-     * @param FormInterface $form
-     * @param Request $request
-     */
-    public function handleRequest(FormInterface $form, Request $request)
-    {
-        if (empty($request->request->all()))
-            return;
-        dump($form);
-        dump($request->request->all());
-    }
 }

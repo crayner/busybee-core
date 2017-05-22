@@ -44,7 +44,7 @@ class PeriodsValidator extends ConstraintValidator
         });
 
         $column = $value->getOwner();
-        dump($column);
+
         $value = new ArrayCollection(iterator_to_array($iterator, false));
 
         $data = $value->toArray();

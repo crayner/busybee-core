@@ -85,3 +85,8 @@ periods:
         break: 'The period does not start at the end (%end%) of the previous period.'
         complete: 'The set periods do not cover the complete day. %start% - %end%'
         order: 'The end time must be after the start time.'
+columns:
+    message:
+        open: 'Lesson must start after school opens at %open%.'
+        order: 'School must start before it ends.'
+        close: 'Lesson must end before the school closes at %close%.'

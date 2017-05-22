@@ -137,3 +137,9 @@ column:
         success: 'The column detail was removed from the timetable.'
         error: 'A database error occurred when trying to remove the column from the timetable.'
         missing: 'The column detail where not found to remove.'
+    resettime:
+        title: 'Reset ALL day times.'
+        confirm: 'You wish to reset all column times to the default values?'
+        success: 'The times in the columns were successfully reset.'
+        error: 'A failure in accessing the database may have lost some changes.  Check your results.'
+        missing: 'The timetable containing the columns was not found.'

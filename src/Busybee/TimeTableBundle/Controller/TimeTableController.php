@@ -43,6 +43,8 @@ class TimeTableController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
+        $currentSearch = $currentSearch === 'null' ? null : $currentSearch;
+
         $entity = new TimeTable();
         if ($id > 0)
             $entity = $this->get('timetable.repository')->find($id);
@@ -76,6 +78,8 @@ class TimeTableController extends Controller
     public function editTimeTableDaysAction(Request $request, $id, $currentSearch = null)
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
+
+        $currentSearch = $currentSearch === 'null' ? null : $currentSearch;
 
         if ($id == 0)
             throw new \InvalidArgumentException($this->get('translator')->trans('timetable.columns.edit.missing', [], 'BusybeeTimeTableBundle'));

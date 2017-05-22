@@ -20,5 +20,6 @@ Busybee\TimeTableBundle\Entity\TimeTable:
             - Valid: ~
             - Count:
                 max: 50
+            - Busybee\TimeTableBundle\Validator\Columns: ~
         days:
             - Valid: ~

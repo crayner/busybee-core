@@ -84,14 +84,17 @@ class TimeTableSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
 
         $offset = 500;
+        $useOffSet = false;
 
         if (!empty($data['columns'])) {
             $cols = new ArrayCollection();
             $c = 1;
             foreach ($data['columns'] as $q => $w) {
                 $column = $this->om->getRepository(Column::class)->find($w['id']);
-                if (intval($w['sequence']) !== $c && intval($w['sequence']) <= 500)
+                if (intval($w['sequence']) !== $c && intval($w['sequence']) <= 500 || $useOffSet) {
                     $w['sequence'] = $c + $offset;
+                    $useOffSet = true;
+                }
                 else
                     $w['sequence'] = $c;
 

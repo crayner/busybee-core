@@ -50,7 +50,6 @@ class ColumnSubscriber implements EventSubscriberInterface
         // event and that the preSubmit method should be called.
         return array(
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_SUBMIT => 'preSubmit',
         );
     }
 
@@ -82,15 +81,5 @@ class ColumnSubscriber implements EventSubscriberInterface
         }
 
         $event->setData($data);
-    }
-
-    /**
-     * @param FormEvent $event
-     */
-    public function preSubmit(FormEvent $event)
-    {
-        $data = $event->getData();
-//        dump($data);
-//        die();
     }
 }

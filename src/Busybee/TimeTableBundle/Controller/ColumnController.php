@@ -20,8 +20,7 @@ class ColumnController extends Controller
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $column = $this->get('column.repository')->find($id);
-        if ($currentSearch == 'null')
-            $currentSearch = null;
+        $currentSearch = $currentSearch === 'null' ? null : $currentSearch;
 
 
         if (empty($column)) {
@@ -46,6 +45,46 @@ class ColumnController extends Controller
 
         $this->get('session')->getFlashBag()->add('success', 'column.remove.success');
 
+        return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $column->getTimeTable()->getId()]));
+    }
+
+    /**
+     * @param $id
+     * @param $currentSearch
+     * @return RedirectResponse
+     */
+    public function resetTimesAction($id, $currentSearch)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $currentSearch = $currentSearch === 'null' ? null : $currentSearch;
+
+        $tt = $this->get('timetable.repository')->find($id);
+        if (empty($tt)) {
+            $this->get('session')->getFlashBag()->add('warning', 'column.resettime.missing');
+            return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $id]));
+        }
+
+        $sm = $this->get('setting.manager');
+        $begin = new \DateTime('1970-01-01 ' . $sm->get('SchoolDay.Begin'));
+        $finish = new \DateTime('1970-01-01 ' . $sm->get('SchoolDay.Finish'));
+        $om = $this->get('doctrine')->getManager();
+
+        if ($tt->getColumns()->count() > 0) {
+            try {
+                foreach ($tt->getColumns() as $column) {
+                    $column->setStart($begin);
+                    $column->setEnd($finish);
+                    $om->persist($column);
+                }
+                $om->flush();
+            } catch (\Exception $e) {
+                $this->get('session')->getFlashBag()->add('danger', 'column.resettime.error');
+                return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $column->getTimeTable()->getId()]));
+            }
+        }
+
+        $this->get('session')->getFlashBag()->add('success', 'column.resettime.success');
         return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $column->getTimeTable()->getId()]));
     }
 }
