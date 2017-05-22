@@ -11,6 +11,10 @@ Busybee\TimeTableBundle\Entity\Column:
             columns:
                 - nameShort
                 - tt_id
+        seq_tt:
+            columns:
+                - sequence
+                - tt_id
     id:
         id:
             type: integer
@@ -29,6 +33,9 @@ Busybee\TimeTableBundle\Entity\Column:
             type: time
         end:
             type: time
+        sequence:
+            type: integer
+            length: '3'
         lastModified:
             type: datetime
         createdOn:

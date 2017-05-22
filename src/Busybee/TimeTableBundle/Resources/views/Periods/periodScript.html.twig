@@ -29,15 +29,16 @@
             $.ajax({
                 url: path,
                 type: 'POST',
+                async: false,
                 success: function (data) {
                     if (data['status'] === 'success') {
-                        $('.messageWindow').html(data['message']).fadeOut(3000);
+                        $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
                         return true;
                     } else if (data['status'] === 'error') {
-                        $('.messageWindow').html(data['message']).fadeOut(3000);
+                        $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
                         return false;
                     } else if (data['status'] === 'warning') {
-                        $('.messageWindow').html(data['message']).fadeOut(3000);
+                        $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
                         return false;
                     }
                 }

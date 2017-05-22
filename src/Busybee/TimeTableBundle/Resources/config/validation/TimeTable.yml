@@ -18,5 +18,7 @@ Busybee\TimeTableBundle\Entity\TimeTable:
             - NotBlank: ~
         columns:
             - Valid: ~
+            - Count:
+                max: 50
         days:
             - Valid: ~

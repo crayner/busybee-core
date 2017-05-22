@@ -28,6 +28,6 @@ class MathExtension extends \Twig_Extension
      */
     public function intVal($value)
     {
-        return intval($value);
+        return intval(trim($value));
     }
 }

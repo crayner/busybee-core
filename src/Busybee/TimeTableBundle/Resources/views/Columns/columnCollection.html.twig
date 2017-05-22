@@ -16,7 +16,11 @@
         {% set h3Content = h3Content ~ '</div>' %}
         {% set title = 'timetable.column.add.title'|trans %}
         {% if form.vars.data is not empty %}{% set title = form.vars.data.name ~ ' (' ~ form.vars.data.nameShort ~ ')' %}{% endif %}
+        <div class="messageWindow"></div>
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': title} %}
+        {% set column_id = 0 %}
+        {% if form.vars.data is not empty %}{% set column_id = form.vars.data.id %}{% endif %}
+        <div class="ColumnIdentifier" column="{{ column_id }}" search="{{ app.request.get('currentSearch') }}"></div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4 well">
@@ -36,6 +40,8 @@
                 </div>
                 <div class="col-sm-6 well">
                     {{ form_row(form.end) }}
+                    {{ form_row(form.sequence) }}
+                    {{ form_row(form.id) }}
                 </div>
             </div>
         </div>

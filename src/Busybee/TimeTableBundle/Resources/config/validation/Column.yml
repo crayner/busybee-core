@@ -8,6 +8,10 @@ Busybee\TimeTableBundle\Entity\Column:
             fields: [nameShort, timetable]
             errorPath: nameShort
             message: 'column.timetable.nameshort.unique'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [sequence, timetable]
+            errorPath: name
+            message: 'column.timetable.sequence.unique'
     properties:
         timetable:
             - Valid: ~
@@ -19,3 +23,8 @@ Busybee\TimeTableBundle\Entity\Column:
             - Busybee\FormBundle\Validator\NoWhiteSpace: ~
         periods:
             - Valid: ~
+        sequence:
+            - NotBlank: ~
+            - Range:
+                min: 1
+                max: 999

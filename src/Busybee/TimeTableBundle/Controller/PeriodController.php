@@ -2,7 +2,6 @@
 
 namespace Busybee\TimeTableBundle\Controller;
 
-use Busybee\TimeTableBundle\Form\ColumnPeriodType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

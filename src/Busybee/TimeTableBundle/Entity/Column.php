@@ -1,11 +1,12 @@
 <?php
-
 namespace Busybee\TimeTableBundle\Entity;
+
+use Busybee\TimeTableBundle\Model\ColumnModel;
 
 /**
  * Column
  */
-class Column
+class Column extends ColumnModel
 {
     /**
      * @var integer
@@ -51,18 +52,26 @@ class Column
      * @var string
      */
     private $mappingInfo;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $periods;
+
     /**
      * @var \DateTime
      */
     private $start;
+
     /**
      * @var \DateTime
      */
     private $end;
+
+    /**
+     * @var integer
+     */
+    private $sequence;
 
     /**
      * Constructor
@@ -80,6 +89,18 @@ class Column
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set Id
+     *
+     * @return Column
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -362,6 +383,30 @@ class Column
     public function setEnd($end)
     {
         $this->end = $end;
+
+        return $this;
+    }
+
+    /**
+     * Get Sequence
+     *
+     * @return integer
+     */
+    public function getSequence()
+    {
+        return intval($this->sequence);
+    }
+
+    /**
+     * Set sequence
+     *
+     * @param integer $sequence
+     *
+     * @return Column
+     */
+    public function setSequence($sequence)
+    {
+        $this->sequence = intval($sequence);
 
         return $this;
     }

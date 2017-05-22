@@ -32,6 +32,7 @@ Busybee\TimeTableBundle\Entity\TimeTable:
             targetEntity: Busybee\TimeTableBundle\Entity\Column
             mappedBy: timetable
             cascade: [ 'persist' ]
+            orderBy: { 'sequence': 'ASC' }
         days:
             targetEntity: Busybee\TimeTableBundle\Entity\Day
             mappedBy: timetable

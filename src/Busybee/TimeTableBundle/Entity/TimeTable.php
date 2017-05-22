@@ -283,6 +283,16 @@ class TimeTable extends TimeTableModel
      */
     public function getColumns()
     {
+        if (!$this->columnSort && $this->columns->count() > 0) {
+            $iterator = $this->columns->getIterator();
+            $iterator->uasort(function ($a, $b) {
+                return ($a->getSequence() < $b->getSequence()) ? -1 : 1;
+            });
+
+            $this->columns = new ArrayCollection(iterator_to_array($iterator, false));
+
+            $this->columnSorted = true;
+        }
         return $this->columns;
     }
 

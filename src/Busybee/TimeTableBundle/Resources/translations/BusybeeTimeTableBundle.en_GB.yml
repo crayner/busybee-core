@@ -131,3 +131,9 @@ period:
         success: The period selected was removed.
         locked: The period selected is locked by the system and cannot be removed.
         missing: The period selected was not found.
+column:
+    remove:
+        locked: 'The column has been locked and cannot be removed.'
+        success: 'The column detail was removed from the timetable.'
+        error: 'A database error occurred when trying to remove the column from the timetable.'
+        missing: 'The column detail where not found to remove.'

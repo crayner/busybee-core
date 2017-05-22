@@ -125,7 +125,9 @@ class ColumnEntityType extends AbstractType
                     ],
                 ]
             )
-            ->add('timetable', HiddenType::class);
+            ->add('sequence', HiddenType::class)
+            ->add('timetable', HiddenType::class)
+            ->add('id', HiddenType::class);
 
         $builder->get('timetable')->addModelTransformer(new EntityToStringTransformer($this->om, TimeTable::class));
 

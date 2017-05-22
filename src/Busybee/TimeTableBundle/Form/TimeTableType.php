@@ -89,7 +89,7 @@ class TimeTableType extends AbstractType
                 ]
             );
 
-        $builder->addEventSubscriber(new TimeTableSubscriber($this->sm));
+        $builder->addEventSubscriber(new TimeTableSubscriber($this->sm, $this->om));
         $builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
     }
 

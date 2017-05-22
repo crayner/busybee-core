@@ -19,6 +19,9 @@
 
 {% block contentContainer %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
+    {% block flashMessages %}
+        {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
+    {% endblock flashMessages %}
     {{ form_start(form) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage', {'currentSearch': currentSearch})}}) %}
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('timetable_edit', {'id': 'Add', 'currentSearch': currentSearch}) }}) %}{% endif %}
@@ -55,7 +58,9 @@
                     <div class="col-sm-12" style="padding-right: inherit; padding-left: inherit;">
                         {% set h3Content = '' %}
                         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': form.columns.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.columns.vars.attr.help, 'panelStyle': 'info'} %}
-                        {{ form_widget(form.columns) }}
+                        <div id="TimeTableColumns">
+                            {{ form_widget(form.columns) }}
+                        </div>
                         {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
                     </div>
                 </div>

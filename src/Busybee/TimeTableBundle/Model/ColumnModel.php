@@ -1,14 +1,17 @@
 <?php
+
 namespace Busybee\TimeTableBundle\Model;
 
-abstract class PeriodModel
+abstract class ColumnModel
 {
     /**
      * @return bool
-     * @todo    Build canDelete Test for Period
      */
     public function canDelete()
     {
+        if ($this->getPeriods()->count() > 0)
+            return false;
+
         return true;
     }
 }

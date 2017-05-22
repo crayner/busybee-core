@@ -3,10 +3,27 @@
 <script type="text/javascript">
     $(".columnList").collection({
         name_prefix: '{{ form.columns.vars.full_name }}',
-        allow_up: false,
-        allow_down: false,
+        allow_up: true,
+        allow_down: true,
         add: '<button title="{{ 'timetable.column.add.title'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
         remove: '<button title="{{ 'timetable.column.remove.title'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
         add_at_the_end: true,
+        before_remove: function (collection, element) {
+            var source = $(element[0]).find('.ColumnIdentifier');
+            var id = source.attr('column');
+            if (parseInt(id) === 0) {
+                return true;
+            }
+            var currentSearch = source.attr('search');
+            if (!currentSearch || currentSearch.length == 0) {
+                currentSearch = 'null';
+            }
+            var path = '{{ path('column_remove', {'id': '__id__', 'currentSearch': '__currentSearch__'}) }}';
+            path = path.replace('__id__', id);
+            path = path.replace('__currentSearch__', currentSearch);
+
+            window.open(path, '_self');
+            return false;
+        }
     });
 </script>

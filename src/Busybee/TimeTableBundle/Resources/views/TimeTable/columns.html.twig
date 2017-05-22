@@ -1,0 +1,11 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
+'@BusybeeForm/Template/jquery.collection.html.twig'
+'BusybeeTimeTableBundle:ActivityGroups:activityGroupsCollection.html.twig'
+'@BusybeeTimeTable/Columns/columnCollection.html.twig'
+'@BusybeeTimeTable/Days/dayCollection.html.twig' %}
+
+
+{{ form_widget(form.columns) }}
+{{ miscButton({'class': 'halflings halflings-plus-sign btn btn-primary collection-action collection-rescue-add', 'title': 'timetable.column.add.title', 'transDomain': 'BusybeeTimeTableBundle'})|raw }}

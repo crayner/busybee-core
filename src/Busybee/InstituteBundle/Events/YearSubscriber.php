@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\InstituteBundle\Events;
 
 use Busybee\InstituteBundle\Model\YearManager;

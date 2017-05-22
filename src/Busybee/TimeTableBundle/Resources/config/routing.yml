@@ -25,3 +25,6 @@ timetable_days_edit:
 period_remove:
     path:     /period/{id}/{page}/
     defaults: { _controller: BusybeeTimeTableBundle:Period:remove}
+column_remove:
+    path:     /column/{id}/{currentSearch}/
+    defaults: { _controller: BusybeeTimeTableBundle:Column:remove, currentSearch: null }
