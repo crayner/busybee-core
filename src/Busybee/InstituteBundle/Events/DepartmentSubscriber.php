@@ -2,12 +2,29 @@
 
 namespace Busybee\InstituteBundle\Events;
 
+use Busybee\InstituteBundle\Form\DepartmentStaffType;
+use Busybee\SystemBundle\Setting\SettingManager;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DepartmentSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var SettingManager
+     */
+    private $sm;
+
+    /**
+     * DepartmentType constructor.
+     * @param SettingManager $om
+     */
+    public function __construct(SettingManager $sm)
+    {
+        $this->sm = $sm;
+    }
+
     /**
      * @return array
      */
@@ -17,6 +34,7 @@ class DepartmentSubscriber implements EventSubscriberInterface
         // event and that the preSetData method should be called.
         return array(
             FormEvents::PRE_SUBMIT => 'preSubmit',
+            FormEvents::PRE_SET_DATA => 'preSetData',
         );
     }
 
@@ -43,7 +61,33 @@ class DepartmentSubscriber implements EventSubscriberInterface
                 else
                     unset($data['staff'][$q]);
         }
-
         $event->setData($data);
+    }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function preSetData(FormEvent $event)
+    {
+        $data = $event->getData();
+        $form = $event->getForm();
+
+        if (!is_null($data->getType())) {
+
+            $form->add('staff', CollectionType::class,
+                [
+                    'entry_type' => DepartmentStaffType::class,
+                    'attr' =>
+                        [
+                            'class' => 'staffList',
+                            'help' => 'department.help.staff',
+                        ],
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_options' => [
+                        'staff_type' => $data->getType(),
+                    ],
+                ]);
+        }
     }
 }

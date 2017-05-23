@@ -53,19 +53,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 well">
-                {% set h3Content = '' %}
-                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'department.staff.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': form.staff.vars.attr.help, 'panelStyle': 'info'} %}
-                {% for error in form.staff.parent.vars.errors %}
-                    {% set printMe = error.messageTemplate|replace({'department.staff.uniquestaff': 'print_me'}) %}
-                    {% if printMe == 'print_me' %}
-                        <p class="alert alert-danger"><span
-                                    class="glyphicons glyphicons-exclamation-sign"></span>{{ error.message }}</p>
-                    {% endif %}
-                {% endfor %}
-                {{ form_widget(form.staff) }}
-                {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-            </div>
+            {% if form.staff is defined %}
+                <div class="col-sm-6 well">
+                    {% set h3Content = '' %}
+                    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'department.staff.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': form.staff.vars.attr.help, 'panelStyle': 'info'} %}
+                    {% for error in form.staff.parent.vars.errors %}
+                        {% set printMe = error.messageTemplate|replace({'department.staff.uniquestaff': 'print_me'}) %}
+                        {% if printMe == 'print_me' %}
+                            <p class="alert alert-danger"><span
+                                        class="glyphicons glyphicons-exclamation-sign"></span>{{ error.message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    {{ form_widget(form.staff) }}
+                    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+                </div>
+            {% endif %}
         </div>
     </div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}

@@ -1,6 +1,6 @@
 Busybee\TimeTableBundle\Entity\TimeTable:
     type: entity
-    table: timetable
+    table: tt
     repositoryClass: Busybee\TimeTableBundle\Repository\TimeTableRepository
     uniqueConstraints:
         name_year:

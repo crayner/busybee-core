@@ -12,3 +12,9 @@ Busybee\TimeTableBundle\Entity\Period:
         column:
             - Valid: ~
             - NotBlank: ~
+        name:
+            - NotBlank: ~
+        nameShort:
+            - NotBlank: ~
+            - Length:
+                max: 3

@@ -74,7 +74,7 @@ timetable:
             title: Remove Period
     assign:
         days:
-            help: 'Toggle the start of the rotation cycle by clicking any date.'
+            help: 'Toggle the start of the rotation cycle by clicking any date. The rotation will begin on that date, or the first non-fixed day after the date selected.'
 activitygroups:
     title:
         list: Manage Activity Groups
@@ -85,7 +85,6 @@ activitygroups:
     label:
         name: Activity Group
         nameShort: Code
-        course: Course
         activities: Activity List
         year: Attach to Year
         course: Attach a Course
@@ -134,6 +133,15 @@ period:
         success: The period selected was removed.
         locked: The period selected is locked by the system and cannot be removed.
         missing: The period selected was not found.
+    name:
+        label: Period Name.
+    nameShort:
+        label: Period Code.
+        help: Maximum 3 characters.
+    start:
+        label: Start of Period.
+    end:
+        label: End of Period.
 column:
     remove:
         locked: 'The column has been locked and cannot be removed.'

@@ -1,5 +1,5 @@
 {% trans_default_domain "BusybeeInstituteBundle" %}
-
+{% if form.staff is defined %}
 <script type="text/javascript">
     $(".staffList").collection({
         name_prefix: '{{ form.staff.vars.full_name }}',
@@ -10,3 +10,4 @@
         add_at_the_end: true
     });
 </script>
+{% endif %}

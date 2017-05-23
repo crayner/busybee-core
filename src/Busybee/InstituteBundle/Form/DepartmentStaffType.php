@@ -7,6 +7,7 @@ use Busybee\InstituteBundle\Entity\Department;
 use Busybee\InstituteBundle\Entity\DepartmentStaff;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StaffBundle\Entity\Staff;
+use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -26,9 +27,10 @@ class DepartmentStaffType extends AbstractType
      * DepartmentStaffType constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, SettingManager $sm)
     {
         $this->om = $om;
+        $this->sm = $sm;
     }
 
     /**
@@ -36,6 +38,7 @@ class DepartmentStaffType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $options['staff_type'] = $options['staff_type'] === 'Learning Area' ? 'Learning' : 'Administration';
         $builder
             ->add('staff', EntityType::class,
                 [
@@ -54,7 +57,7 @@ class DepartmentStaffType extends AbstractType
             ->add('staffType', SettingChoiceType::class,
                 [
                     'label' => 'department.staff.label.type',
-                    'setting_name' => 'department.staff.type.list',
+                    'setting_name' => 'department.staff.type.list.' . $options['staff_type'],
                     'placeholder' => 'department.staff.placeholder.type',
                 ]
             )
@@ -72,6 +75,11 @@ class DepartmentStaffType extends AbstractType
             'data_class' => DepartmentStaff::class,
             'translation_domain' => 'BusybeeInstituteBundle',
         ));
+        $resolver->setRequired(
+            [
+                'staff_type',
+            ]
+        );
     }
 
     /**

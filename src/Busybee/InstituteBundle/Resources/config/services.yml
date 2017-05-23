@@ -144,12 +144,13 @@ services:
         class: Busybee\InstituteBundle\Form\DepartmentStaffType
         arguments:
             - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
         tags:
             - { name: form.type }
     form.department.type:
         class: Busybee\InstituteBundle\Form\DepartmentType
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
         tags:
             - { name: form.type }
     grade.repository:

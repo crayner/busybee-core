@@ -98,7 +98,10 @@ class ButtonExtension extends \Twig_Extension
                 $button = str_replace(array($q . '="%' . $q . '%"', '%' . $q . '%'), '', $button);
             } else {
                 if (in_array($q, ['title', 'prompt']))
-                    $defaults[$q] = $this->translator->trans($defaults[$q], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);
+                    if (is_array($defaults[$q]))
+                        $defaults[$q] = $this->translator->trans($defaults[$q]['message'], $defaults[$q]['params'], empty($details['transDomain']) ? 'messages' : $details['transDomain']);
+                    else
+                        $defaults[$q] = $this->translator->trans($defaults[$q], [], empty($details['transDomain']) ? 'messages' : $details['transDomain']);
                 $button = str_replace('%' . $q . '%', $defaults[$q], $button);
             }
         }

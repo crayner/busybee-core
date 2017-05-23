@@ -6,7 +6,7 @@ use Busybee\CurriculumBundle\Entity\Course;
 use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Department;
 use Busybee\InstituteBundle\Events\DepartmentSubscriber;
-use Doctrine\Common\Persistence\ObjectManager;
+use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -17,17 +17,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DepartmentType extends AbstractType
 {
     /**
-     * @var ObjectManager
+     * @var SettingManager
      */
-    private $om;
+    private $sm;
 
     /**
      * DepartmentType constructor.
-     * @param ObjectManager $om
+     * @param SettingManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(SettingManager $sm)
     {
-        $this->om = $om;
+        $this->sm = $sm;
     }
 
     /**
@@ -51,18 +51,6 @@ class DepartmentType extends AbstractType
             ->add('nameShort', null,
                 [
                     'label' => 'department.label.nameShort'
-                ]
-            )
-            ->add('staff', CollectionType::class,
-                [
-                    'entry_type' => DepartmentStaffType::class,
-                    'attr' =>
-                        [
-                            'class' => 'staffList',
-                            'help' => 'department.help.staff',
-                        ],
-                    'allow_add' => true,
-                    'allow_delete' => true,
                 ]
             )
             ->add('courses', CollectionType::class,
@@ -105,7 +93,7 @@ class DepartmentType extends AbstractType
                 )
             );
 
-        $builder->addEventSubscriber(new DepartmentSubscriber());
+        $builder->addEventSubscriber(new DepartmentSubscriber($this->sm));
     }
 
     /**
