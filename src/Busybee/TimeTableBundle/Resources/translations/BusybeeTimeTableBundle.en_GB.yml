@@ -72,6 +72,9 @@ timetable:
             title: Add Period
         remove:
             title: Remove Period
+    assign:
+        days:
+            help: 'Toggle the start of the rotation cycle by clicking any date.'
 activitygroups:
     title:
         list: Manage Activity Groups

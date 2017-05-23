@@ -3,6 +3,9 @@
     {% trans_default_domain 'BusybeeTimeTableBundle' %}
 
     {% set header = termName %}
+    {% set panelParagraph = 'timetable.assign.days.help' %}
+    {% set transDomain = 'BusybeeTimeTableBundle' %}
+
 {% include '@BusybeeHome/Page/panelStart.html.twig' %}
 
     {% set schoolDays = get_setting('schoolWeek') %}
