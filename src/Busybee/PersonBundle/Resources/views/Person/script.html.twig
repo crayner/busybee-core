@@ -179,4 +179,32 @@
         });
         {% endif %}
 
+        function resetForm() {
+            var fragment = $('.tab-content > .active').attr('id');
+            var limit = '{{ app.request.get('limit') }}';
+            var id = '{{ app.request.get('id') }}';
+
+            var currentSearch = '{{ app.request.get('currentSearch') }}';
+
+            if (limit.length === 0) {
+                limit = '0';
+            }
+
+            if (currentSearch.length === 0) {
+                currentSearch = 'null';
+            }
+
+            if (id.length === 0) {
+                id = '0';
+            }
+
+            var path = '{{ path('person_edit', {'currentSearch': '__currentSearch__', 'id': '__id__', 'limit': '__limit__', '_fragment': '__fragment__'}) }}';
+            path = path.replace('__id__', id);
+            path = path.replace('__currentSearch__', currentSearch);
+            path = path.replace('__limit__', limit);
+            path = path.replace('__fragment__', fragment);
+
+            location.assign(path);
+            location.reload(true);
+        }
     </script>

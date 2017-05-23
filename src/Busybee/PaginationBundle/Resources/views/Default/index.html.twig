@@ -19,10 +19,7 @@
             <div class="input-group">
                 {{ form_widget(form.currentSearch) }}
                 <div class="input-group-btn">
-                    <button class="btn btn-success halflings halflings-search" type="submit"
-                            name="paginator[startSearch]"
-                            id="paginator_startSearch" style="height: 33px; margin-top: -2px; ">
-                    </button>
+                    {{ saveButton({'class': 'btn btn-success halflings halflings-search', 'additional': 'id="paginator_startSearch" name="paginator[startSearch]"', 'style': 'height: 33px; margin-top: -2px; '})|raw }}
                 </div>
             </div>
         </div>
@@ -47,11 +44,11 @@
                 <div class="text-right">
                 <div class="input-group">
                     <div class="input-group-btn">
-                        {{ saveButton({'class': 'btn btn-info halflings halflings-backward', 'additional': 'id="paginator_prev"', 'style': 'height: 33px; margin-top: -2px; '})|raw }}
+                        {{ saveButton({'class': 'btn btn-info halflings halflings-backward', 'additional': 'id="paginator_prev" name="paginator[prev]"', 'style': 'height: 33px; margin-top: -2px; '})|raw }}
                     </div>
                     {{ form_widget(form.limit, {'value': '' ~ pagination.limit}) }}
                     <div class="input-group-btn">
-                        {{ saveButton({'class': 'btn btn-info halflings halflings-forward', 'additional': 'id="paginator_next"', 'style': 'height: 33px; margin-top: -2px;'})|raw }}
+                        {{ saveButton({'class': 'btn btn-info halflings halflings-forward', 'additional': 'id="paginator_next" name="paginator[next]"', 'style': 'height: 33px; margin-top: -2px;'})|raw }}
                     </div>
                 </div>
                 </div>

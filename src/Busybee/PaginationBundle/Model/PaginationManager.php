@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\PaginationBundle\Model ;
 
 use Busybee\PaginationBundle\Form\PaginationType;
@@ -22,30 +21,37 @@ abstract class PaginationManager
      * @var EntityRepository
      */
     protected $repository ;
+
     /**
      * @var EntityManager
      */
     protected $manager ;
+
     /**
      * @var EntityManager
      */
     protected $container ;
+
     /**
      * @var Query
      */
     protected $query ;
+
     /**
      * @var Result
      */
     protected $result;
+
     /**
      * @var array
      */
     private $initialSettings ;
+
     /**
      * @var
      */
     private $form ;
+
     /**
      * @var stdClass
      */
@@ -343,7 +349,7 @@ abstract class PaginationManager
      */
     public function setSearchWhere()
     {
-        if (! empty($this->getSearch())) {
+        if (!is_null($this->getSearch())) {
             $x = 0;
             foreach($this->getSearchList() as $field) {
                 $this->query->orWhere($field . ' LIKE :search' . $x);
@@ -362,7 +368,7 @@ abstract class PaginationManager
      */
     public function getSearch()
     {
-        return $x = empty($this->search) ? '' : '%'.$this->search.'%' ;
+        return $x = empty($this->search) ? null : '%' . $this->search . '%';
     }
 
     /**
@@ -406,6 +412,18 @@ abstract class PaginationManager
     }
 
     /**
+     * get Search Property
+     *
+     * @version    25th October 2016
+     * @since    25th October 2016
+     * @return    string
+     */
+    public function getSearchProperty()
+    {
+        return empty($this->search) ? 'null' : $this->search;
+    }
+
+    /**
      * get Pages
      *
      * @version	25th October 2016
@@ -444,6 +462,8 @@ abstract class PaginationManager
      */
     public function injectRequest(Request $request, $currentSearch = null, $limit = null)
     {
+        $limit = intval($limit) === 0 ? null : $limit;
+        $currentSearch = $currentSearch === 'null' ? null : $currentSearch;
         $this->getForm()->handleRequest($request);
         if (! $this->form->isSubmitted()) {
             $this->post = false;
@@ -461,6 +481,7 @@ abstract class PaginationManager
             }
             $this->getTotal();
         } else {
+            dump($this->form);
             $this->post = true;
             $this->setSearch($this->form['currentSearch']->getData());
             $this->setLastSearch($this->form['lastSearch']->getData());
@@ -545,6 +566,7 @@ abstract class PaginationManager
     public function managePost()
     {
         $data = $this->form->getExtraData();
+        dump($data);
         if (array_key_exists('prev', $data))
             $this->getPrev();
         if (array_key_exists('next', $data))

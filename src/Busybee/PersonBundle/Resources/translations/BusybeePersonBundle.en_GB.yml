@@ -126,6 +126,8 @@ person:
         caregiver: Care Giver
         user: User
         student: Student
+    reset:
+        button: Reset Form
 student:
     title:
         list: Student List

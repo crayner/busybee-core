@@ -25,11 +25,11 @@ class PersonController extends Controller
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
 		$up = $this->get('person.pagination');
-
+        dump($request->request);
         $up->injectRequest($request, $currentSearch, $limit);
 
         $up->getDataSet();
-
+        dump($up);
         return $this->render('BusybeePersonBundle:Person:index.html.twig',
 			array(
             	'pagination' => $up,
@@ -45,6 +45,8 @@ class PersonController extends Controller
     public function editAction(Request $request, $id, $currentSearch, $limit)
     {
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $currentSearch = $currentSearch === 'null' ? 'null' : $currentSearch;
 
         $person = $this->getPerson($id, $currentSearch, $limit);
 		
