@@ -67,8 +67,9 @@
  	   		$(".fadeAlert").fadeOut(3000);
 		}
 	</script>
-    {% include '@BusybeeHome/Scripts/formTabSubmitScript.html.twig' with {'route': 'year_edit'} %}
     {% include '@BusybeeInstitute/Grade/gradesScript.html.twig' %}
     {% include '@BusybeeInstitute/Term/termScript.html.twig' %}
     {% include "@BusybeeInstitute/SpecialDays/specialDaysScript.html.twig" %}
+    {% include 'BusybeeInstituteBundle:Calendar:script.html.twig' %}
+    {% include '@BusybeeHome/Scripts/formTabSubmitScript.html.twig' with {'route': 'year_edit'} %}
 {% endblock javascripts %}

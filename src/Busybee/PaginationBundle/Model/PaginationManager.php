@@ -414,8 +414,8 @@ abstract class PaginationManager
     /**
      * get Search Property
      *
-     * @version    25th October 2016
-     * @since    25th October 2016
+     * @version    23rd May 2017
+     * @since    23rd May 2017
      * @return    string
      */
     public function getSearchProperty()
@@ -481,7 +481,7 @@ abstract class PaginationManager
             }
             $this->getTotal();
         } else {
-            dump($this->form);
+
             $this->post = true;
             $this->setSearch($this->form['currentSearch']->getData());
             $this->setLastSearch($this->form['lastSearch']->getData());
@@ -566,7 +566,7 @@ abstract class PaginationManager
     public function managePost()
     {
         $data = $this->form->getExtraData();
-        dump($data);
+
         if (array_key_exists('prev', $data))
             $this->getPrev();
         if (array_key_exists('next', $data))

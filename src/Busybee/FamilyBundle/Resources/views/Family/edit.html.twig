@@ -30,6 +30,8 @@
     {% set form_path = form_path|merge({'id': id}) %}
     {% if currentSearch is not empty %}
         {% set form_path = form_path|merge({'currentSearch': currentSearch}) %}
+    {% else %}
+        {% set form_path = form_path|merge({'currentSearch': 'null'}) %}
     {% endif %}
     {{ form_start(form, {'action': path('family_edit', form_path)}) }}
 

@@ -8,17 +8,11 @@
 
 <div class="panel-heading">
     <h3 class="panel-title">{{ header|trans({'%name%': form.name.vars.value}) }}
-        <button title='{{ 'family.return'|trans }}' type="button" class="halflings halflings-hand-left btn btn-primary"
-                onClick="window.open('{{ path('family_manage', {'currentSearch': currentSearch}) }}','_self')"
-                style="float: right"></button>
+        {{ returnButton({'title': 'family.return', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_manage', {'currentSearch': currentSearch}) }})|raw }}
         {% if id != 'Add' %}
-            <button title='{{ 'family.title.add'|trans }}' type="button"
-                    class="halflings halflings-plus-sign btn btn-info"
-                    onClick="window.open('{{ path('family_edit', {'id': 'Add', 'currentSearch': currentSearch}) }}','_self')"
-                    style="float: right"></button>
+            {{ addButton({'title': 'family.title.add', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': 'Add', 'currentSearch': currentSearch}) }})|raw }}
         {% endif %}
-        {{ resetButton({'type': 'button', 'windowOpen': {'route': path('family_edit', {'id': app.request.get('id'), 'currentSearch': currentSearch})}})|raw }}
-        <button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle') }}' type="submit"
-                class="halflings halflings-save btn btn-success" style="float: right"></button>
+        {{ resetButton({'type': 'button', 'javascript': {'function': 'resetFamily', 'options': []} })|raw }}
+        {{ saveButton()|raw }}
     </h3>
 </div>

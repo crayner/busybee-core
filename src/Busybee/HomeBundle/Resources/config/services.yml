@@ -29,7 +29,7 @@ parameters:
             additional: ''
             prompt: ''
         edit:
-            class: "halflings halflings-edit btn btn-primary"
+            class: "halflings halflings-edit btn btn-info"
             type: button
             title: 'form.edit'
             style: 'float: right;'

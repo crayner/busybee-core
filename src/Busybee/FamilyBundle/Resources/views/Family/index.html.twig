@@ -25,9 +25,8 @@
                         {% endif %}
                     </div>
                     <div class="col-sm-3 col-md-3 withAdd">
-                        <button title='{{ 'family.title.add'|trans }}' type="button"
-                                class="halflings halflings-plus-sign btn btn-primary"
-                                onClick="window.open('{{ path('family_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''}) }) }}','_self')"></button> {{ 'family.actions'|trans }}
+                        {{ addButton({'title': 'family.title.add', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': 'Add', 'currentSearch': pagination.getSearchProperty()})}, 'style': 'float: left;'})|raw }}
+                        &nbsp;{{ 'family.actions'|trans }}
                     </div>
                 </div>
                 {% for family in pagination.getResult %}
@@ -36,9 +35,7 @@
                             {{ family.name }}
                         </div>
                         <div class="col-sm-3 col-md-3 form-inline">
-                            <button title='{{ 'family.title.edit'|trans }}' type="button"
-                                    class="halflings halflings-edit btn btn-warning"
-                                    onClick="window.open('{{ path('family_edit', {'id': family.id, 'currentSearch': pagination.search|replace({'%': ''})}) }}','_self')"></button>
+                            {{ editButton({'title': 'family.title.edit', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': family.id, 'currentSearch': pagination.getSearchProperty()})}, 'style': 'float: left;'})|raw }}
                         </div>
                     </div>
                 {% endfor %}

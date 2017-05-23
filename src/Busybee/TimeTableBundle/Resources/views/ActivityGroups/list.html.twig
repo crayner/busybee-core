@@ -51,7 +51,7 @@
                     {{ timetable.course }}
                 </div>
                 <div class="col-sm-3 form-inline">
-                    {{ editButton({'style': '', 'class': 'halflings halflings-edit btn btn-warning','title': 'activitygroups.title.edit', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('activity_group_manage', {'id': timetable.id, 'currentSearch': pagination.search|replace({'%': ''})})}})|raw }}
+                    {{ editButton({'style': '', 'title': 'activitygroups.title.edit', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('activity_group_manage', {'id': timetable.id, 'currentSearch': pagination.getSearchProperty()})}})|raw }}
                 </div>
             </div>
         {% endfor %}
