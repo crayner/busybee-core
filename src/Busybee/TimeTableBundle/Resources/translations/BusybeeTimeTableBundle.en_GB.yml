@@ -75,6 +75,8 @@ timetable:
     assign:
         days:
             help: 'Toggle the start of the rotation cycle by clicking any date. The rotation will begin on that date, or the first non-fixed day after the date selected.'
+    year:
+        mapdaysfailed: 'Time table days are not mapped correctly. The error captured was: %message%. This most often happens if fixed days are defined but the column does not have that the same fixed day.'
 activitygroups:
     title:
         list: Manage Activity Groups

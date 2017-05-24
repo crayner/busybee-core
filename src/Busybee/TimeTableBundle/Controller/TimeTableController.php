@@ -4,7 +4,6 @@ namespace Busybee\TimeTableBundle\Controller;
 
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Form\ColumnType;
-use Busybee\TimeTableBundle\Form\TimeTableDaysType;
 use Busybee\TimeTableBundle\Form\TimeTableType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

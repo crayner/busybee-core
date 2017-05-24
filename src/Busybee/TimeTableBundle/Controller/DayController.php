@@ -25,7 +25,7 @@ class DayController extends Controller
                 ]
             );
 
-        $this->get('session')->getFlashBag()->add('warning', $this->get('translator')->trans($year->message, [], 'BusybeeTimeTableBundle'));
+        $this->get('session')->getFlashBag()->add('warning', $this->get('translator')->trans($year->message, empty($year->options) ? [] : $year->options, 'BusybeeTimeTableBundle'));
 
         return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $year->tt->getId()]));
     }

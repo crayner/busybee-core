@@ -234,9 +234,10 @@ class TimeTableManager
             $this->mapDays();
 
         } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+            //throw new \Exception($e->getMessage());
             $year->status = 'failure';
             $year->message = 'timetable.year.mapdaysfailed';
+            $year->options = ['%message%' => $e->getMessage()];
         }
 
         return $year;
@@ -407,34 +408,45 @@ class TimeTableManager
      */
     private function mapDays()
     {
-
         foreach ($this->terms as $t => $term) {
-            $col = reset($this->columns['rotate']);
+            if (!empty($this->columns['rotate']) && is_array($this->columns['rotate'])) {
+                $col = reset($this->columns['rotate']);
 
-            foreach ($term->weeks as $w => $week) {
-                foreach ($week as $d => $day) {
-                    if (in_array($day->date, $this->getStartRotateDays()))
-                        $col = reset($this->columns['rotate']);
-                    if ($day->useDay) {
-                        $code = strtoupper($day->date->format('D'));
-                        if ($this->schoolDays[$code] == 'rotate') {
-                            $day->ttday = $this->tt->getColumns()->get($col);
-
-                            $col = next($this->columns['rotate']);
-                            if (false === $col)
-                                $col = reset($this->columns['rotate']);
-
-                        } else {
-                            $day->ttday = $this->tt->getColumns()->get($this->columns['fixed'][$code]);
-                        }
+                foreach ($term->weeks as $w => $week) {
+                    foreach ($week as $d => $day) {
                         if (in_array($day->date, $this->getStartRotateDays()))
-                            $day->startRotate = true;
+                            $col = reset($this->columns['rotate']);
+                        if ($day->useDay) {
+                            $code = strtoupper($day->date->format('D'));
+                            if ($this->schoolDays[$code] == 'rotate') {
+                                $day->ttday = $this->tt->getColumns()->get($col);
 
-                        $this->terms[$t]->weeks[$w][$d] = $day;
+                                $col = next($this->columns['rotate']);
+                                if (false === $col)
+                                    $col = reset($this->columns['rotate']);
+
+                            } else {
+                                $day->ttday = $this->tt->getColumns()->get($this->columns['fixed'][$code]);
+                            }
+                            if (in_array($day->date, $this->getStartRotateDays()))
+                                $day->startRotate = true;
+
+                            $this->terms[$t]->weeks[$w][$d] = $day;
+                        }
+                    }
+                }
+            } else {
+                // Handle if system is set as all fixed.
+                foreach ($term->weeks as $w => $week) {
+                    foreach ($week as $d => $day) {
+                        if ($day->useDay) {
+                            $code = strtoupper($day->date->format('D'));
+                            $day->ttday = $this->tt->getColumns()->get($this->columns['fixed'][$code]);
+                            $this->terms[$t]->weeks[$w][$d] = $day;
+                        }
                     }
                 }
             }
         }
-
     }
 }
