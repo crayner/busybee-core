@@ -1,6 +1,6 @@
 Busybee\InstituteBundle\Entity\Space:
     type: entity
-    table: campus_space
+    table: space
     repositoryClass: Busybee\InstituteBundle\Repository\SpaceRepository
     uniqueConstraints:
         name_campus:
@@ -54,21 +54,16 @@ Busybee\InstituteBundle\Entity\Space:
             type: datetime
         createdOn:
             type: datetime
+    oneToOne:
+        staff:
+            targetEntity: Busybee\StaffBundle\Entity\Staff
+            inversedBy: homeroom
+            cascade: [ all ]
     manyToOne:
         campus:
             targetEntity: Busybee\InstituteBundle\Entity\Campus
             joinColumns:
                 campus:
-                    referencedColumnName: id
-        staff1:
-            targetEntity: Busybee\StaffBundle\Entity\Staff
-            joinColumns:
-                staff1:
-                    referencedColumnName: id
-        staff2:
-            targetEntity: Busybee\StaffBundle\Entity\Staff
-            joinColumns:
-                staff2:
                     referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

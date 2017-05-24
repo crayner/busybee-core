@@ -59,6 +59,10 @@ class Staff extends StaffModel
      * @var \Doctrine\Common\Collections\Collection
      */
     private $department;
+    /**
+     * @var \Busybee\InstituteBundle\Entity\Space
+     */
+    private $homeroom;
 
     /**
      * Staff constructor.
@@ -307,5 +311,29 @@ class Staff extends StaffModel
     public function getDepartment()
     {
         return $this->department;
+    }
+
+    /**
+     * Get homeroom
+     *
+     * @return \Busybee\InstituteBundle\Entity\Space
+     */
+    public function getHomeroom()
+    {
+        return $this->homeroom;
+    }
+
+    /**
+     * Set homeroom
+     *
+     * @param \Busybee\InstituteBundle\Entity\Space $homeroom
+     *
+     * @return Staff
+     */
+    public function setHomeroom(\Busybee\InstituteBundle\Entity\Space $homeroom = null)
+    {
+        $this->homeroom = $homeroom;
+
+        return $this;
     }
 }

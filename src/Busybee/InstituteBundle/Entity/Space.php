@@ -95,6 +95,11 @@ class Space
     private $createdOn;
 
     /**
+     * @var \Busybee\StaffBundle\Entity\Staff
+     */
+    private $staff;
+
+    /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $createdBy;
@@ -108,16 +113,6 @@ class Space
      * @var \Busybee\InstituteBundle\Entity\Campus
      */
     private $campus;
-
-    /**
-     * @var Staff
-     */
-    private $staff1;
-
-    /**
-     * @var Staff
-     */
-    private $staff2;
 
 
     /**
@@ -587,49 +582,25 @@ class Space
     }
 
     /**
-     * Get staff1
+     * Get staff
      *
-     * @return Staff
+     * @return \Busybee\StaffBundle\Entity\Staff
      */
-    public function getStaff1()
+    public function getStaff()
     {
-        return $this->staff1;
+        return $this->staff;
     }
 
     /**
-     * Set staff1
+     * Set staff
      *
-     * @param Staff $staff1
+     * @param \Busybee\StaffBundle\Entity\Staff $staff
      *
      * @return Space
      */
-    public function setStaff1(Staff $staff1 = null)
+    public function setStaff(\Busybee\StaffBundle\Entity\Staff $staff = null)
     {
-        $this->staff1 = $staff1;
-
-        return $this;
-    }
-
-    /**
-     * Get staff2
-     *
-     * @return Staff
-     */
-    public function getStaff2()
-    {
-        return $this->staff2;
-    }
-
-    /**
-     * Set staff2
-     *
-     * @param Staff $staff2
-     *
-     * @return Space
-     */
-    public function setStaff2(Staff $staff2 = null)
-    {
-        $this->staff2 = $staff2;
+        $this->staff = $staff;
 
         return $this;
     }

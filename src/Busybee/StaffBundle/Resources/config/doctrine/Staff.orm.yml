@@ -28,6 +28,10 @@ Busybee\StaffBundle\Entity\Staff:
         person:
             targetEntity: Busybee\PersonBundle\Entity\Person
             inversedBy: staff
+        homeroom:
+            targetEntity: Busybee\InstituteBundle\Entity\Space
+            mappedBy: staff
+            cascade: [ all ]
     oneToMany:
         department:
             targetEntity: Busybee\InstituteBundle\Entity\DepartmentStaff

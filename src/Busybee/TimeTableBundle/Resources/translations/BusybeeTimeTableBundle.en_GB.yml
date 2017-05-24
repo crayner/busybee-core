@@ -9,7 +9,7 @@ timetable:
     add:
         title: Add Timetable
     edit:
-        title: '%name%'
+        title: 'Edit %name%'
         description: Modify the details of the timetable.
     placeholder:
         year: Select Year

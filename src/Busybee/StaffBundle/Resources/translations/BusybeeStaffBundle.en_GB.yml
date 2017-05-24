@@ -8,8 +8,12 @@ staff:
     label:
         stafftype: Staff Category
         jobTitle: Position Title
+        homeroom: 'Home Room (Optional)'
     placeholder:
         stafftype: Select Staff Position Category
+        homeroom: 'Select a Home Room'
+    help:
+        homeroom: 'Assumes that the staff member uses the assigned room as both classroom and office. Added to the timetable by default when the staff member is added to a timetable period.'
 person:
     tab:
         staff: Staff

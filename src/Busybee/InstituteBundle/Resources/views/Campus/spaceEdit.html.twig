@@ -23,68 +23,65 @@
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.space.title', 'transDomain': 'BusybeeInstituteBundle'} %}
 	<div class=container-fluid">
 		<div class="row">
-			<div class="col-sm-4 col-md-4 well">
+			<div class="col-sm-4 well">
                 {{ form_row(form.name) }}
 			</div>
-			<div class="col-sm-4 col-md-4 well">
+			<div class="col-sm-4 well">
                 {{ form_row(form.type) }}
 			</div>
-			<div class="col-sm-4 col-md-4 well">
+			<div class="col-sm-4 well">
                 {{ form_row(form.campus, {'value': form.campus.vars.data }) }}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-4 col-md-4 well">
-                {{ form_row(form.staff1, {'value': form.staff1.vars.data }) }}
+			<div class="col-sm-4 well">
+                {{ form_row(form.staff, {'value': form.staff.vars.data }) }}
 			</div>
-			<div class="col-sm-4 col-md-4 well">
-                {{ form_row(form.staff2, {'value': form.staff2.vars.data }) }}
-			</div>
-			<div class="col-sm-4 col-md-4 well">
+			<div class="col-sm-2 well">
                 {{ form_row(form.capacity) }}
 			</div>
+			<div class="col-sm-4 well">
+                {{ form_row(form.phoneExt) }}
 			</div>
-		<div class="row">
-			<div class="col-sm-4 col-md-4 well">
-                {{ form_row(form.studentComputers) }}
-			</div>
-			<div class="col-sm-4 col-md-4 well">
-                {{ form_row(form.computer) }}
+			<div class="col-sm-2 well">
+                {{ form_row(form.phoneInt) }}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-4 col-md-4 well">
+			<div class="col-sm-12 well">
+                {{ form_row(form.comment) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3 well">
+                {{ form_row(form.computer) }}
+			</div>
+			<div class="col-sm-3 well">
                 {{ form_row(form.projector) }}
 			</div>
-			<div class="col-sm-4 col-md-4 well">
+			<div class="col-sm-3 well">
                 {{ form_row(form.tv) }}
 			</div>
-			<div class="col-sm-4 col-md-4 well">
+			<div class="col-sm-3 well">
                 {{ form_row(form.dvd) }}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-4 col-md-4 well">
+			<div class="col-sm-3 well">
                 {{ form_row(form.hifi) }}
 			</div>
-			<div class="col-sm-4 col-md-4 well">
+			<div class="col-sm-3 well">
                 {{ form_row(form.speakers) }}
 			</div>
-			<div class="col-sm-4 col-md-4 well">
+			<div class="col-sm-3 well">
                 {{ form_row(form.iwb) }}
+			</div>
+			<div class="col-sm-3 well">
+                {{ form_row(form.studentComputers) }}
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-sm-6 col-md-6 well">
-                {{ form_row(form.comment) }}
-			</div>
-			<div class="col-sm-4 col-md-4 well">
-                {{ form_row(form.phoneExt) }}
-			</div>
-			<div class="col-sm-2 col-md-2 well">
-                {{ form_row(form.phoneInt) }}
-			</div>
 		</div>
 	</div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}

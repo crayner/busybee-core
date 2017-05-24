@@ -70,7 +70,7 @@ class PersonSubscriber implements EventSubscriberInterface
         if ($person->getStaff() === null || $person->getStaff()->getId() === null)
             $form->add('staff', HiddenType::class);
         elseif ($this->personManager->canBeStaff($person))
-            $form->add('staff', StaffType::class);
+            $form->add('staff', StaffType::class, ['person_id' => $person->getId()]);
         else
             $form->add('staff', HiddenType::class);
 
@@ -111,7 +111,7 @@ class PersonSubscriber implements EventSubscriberInterface
             $data['staff']['jobTitle'] = 'Not Specified';
             $data['staff']['person'] = $form->getData()->getId();
             $form->remove('staff');
-            $form->add('staff', StaffType::class);
+            $form->add('staff', StaffType::class, ['person_id' => $person->getId()]);
         }
 
         if ($form->get('staff')->getData() instanceof Staff && !isset($data['staffQuestion']) && $this->personManager->canDeleteStaff($person)) {

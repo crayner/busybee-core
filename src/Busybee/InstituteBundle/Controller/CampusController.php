@@ -86,8 +86,7 @@ class CampusController extends Controller
             $campus = $this->get('space.repository')->find($id);
 
         if (! is_null($campus->getCampus())) $campus->getCampus()->getName();
-        if (! is_null($campus->getStaff1())) $campus->getStaff1()->getPerson();
-        if (! is_null($campus->getStaff2())) $campus->getStaff2()->getPerson();
+        if (!is_null($campus->getStaff())) $campus->getStaff()->getPerson();
 
         $campus->cancelURL = $this->get('router')->generate('campus_space_manage');
 
@@ -98,14 +97,6 @@ class CampusController extends Controller
         if ($form->isSubmitted() && $form->isValid())
         {
             $em = $this->get('doctrine')->getManager();
-
-            if (is_null($campus->getStaff1()) && ! is_null($campus->getStaff2()))
-            {
-                $campus->setStaff1($campus->getStaff2());
-                $campus->setStaff2(null);
-            }
-            if ($campus->getStaff1() == $campus->getStaff2() && ! is_null($campus->getStaff1()))
-                $campus->setStaff2(null);
 
             $em->persist($campus);
             $em->flush();

@@ -31,8 +31,7 @@ campus:
         title: Manage Space
         description: Add, Modify Space details.
         label:
-            staff1: Home Room Teacher
-            staff2: Home Room Teacher (2)
+            staff: Home Room Teacher
             type: Space Type
             name: Space Name
             campus: Campus Name

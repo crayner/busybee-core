@@ -8,6 +8,7 @@ use Busybee\InstituteBundle\Form\DataTransformer\CampusTransformer;
 use Busybee\StaffBundle\Form\DataTransformer\StaffTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\StaffBundle\Entity\Staff;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType ;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\Common\Persistence\ObjectManager ;
@@ -43,6 +44,7 @@ class SpaceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $person_id = empty($options['data']->getStaff()) ? null : $options['data']->getStaff()->getPerson()->getId();
         $builder
             ->add('name', null, array(
                     'label' => 'campus.space.label.name',
@@ -152,12 +154,12 @@ class SpaceType extends AbstractType
                     ),
                 )
             )
-            ->add('staff1', EntityType::class,
+            ->add('staff', EntityType::class,
                 array(
                     'class' => Staff::class,
                     'choice_label' => 'formatName',
                     'choice_value' => 'id',
-                    'label' => 'campus.space.label.staff1',
+                    'label' => 'campus.space.label.staff',
                     'placeholder' => 'campus.space.placeholder.staff',
                     'empty_data'    => null,
                     'attr' => array(
@@ -165,6 +167,16 @@ class SpaceType extends AbstractType
                         'class' => 'monitorChange',
                     ),
                     'required' => false,
+                    'query_builder' => function (EntityRepository $er) use ($person_id) {
+                        return $er->createQueryBuilder('s')
+                            ->leftJoin('s.homeroom', 'h')
+                            ->leftJoin('s.person', 'p')
+                            ->orderBy('p.surname', 'ASC')
+                            ->addOrderBy('p.firstName', 'ASC')
+                            ->where('s.person = :person_id')
+                            ->setParameter('person_id', $person_id)
+                            ->orWhere('h.staff IS NULL');
+                    },
                 )
             )
             ->add('campus', EntityType::class,
@@ -179,21 +191,6 @@ class SpaceType extends AbstractType
                     'choice_value' => 'id',
                     'empty_data' => $this->manager->getRepository('BusybeeInstituteBundle:Campus')->find(1),
                     'placeholder' => 'campus.space.placeholder.campus',
-                )
-            )
-            ->add('staff2', EntityType::class,
-                array(
-                    'class' => Staff::class,
-                    'choice_label' => 'formatName',
-                    'choice_value' => 'id',
-                    'label' => 'campus.space.label.staff2',
-                    'placeholder' => 'campus.space.placeholder.staff',
-                    'empty_data'    => null,
-                    'attr' => array(
-                        'help' => 'campus.space.help.staff',
-                        'class' => 'monitorChange',
-                    ),
-                    'required' => false,
                 )
             )
             ->add('changeRecord', EntityType::class,
@@ -213,8 +210,7 @@ class SpaceType extends AbstractType
         ;
 
         $builder->get('campus')->addModelTransformer(new CampusTransformer($this->manager));
-        $builder->get('staff1')->addModelTransformer(new StaffTransformer($this->manager));
-        $builder->get('staff2')->addModelTransformer(new StaffTransformer($this->manager));
+        $builder->get('staff')->addModelTransformer(new StaffTransformer($this->manager));
     }
     
     /**
@@ -222,10 +218,12 @@ class SpaceType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Space::class,
-            'translation_domain' => 'BusybeeInstituteBundle',
-        ));
+        $resolver->setDefaults(
+            [
+                'data_class' => Space::class,
+                'translation_domain' => 'BusybeeInstituteBundle',
+            ]
+        );
     }
 
     /**
