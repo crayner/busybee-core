@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request ;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
 use Doctrine\ORM\EntityRepository ;
 use stdClass ;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Router;
 
 /**
  * Pagination Manager
@@ -128,23 +130,36 @@ abstract class PaginationManager
     private $sortBy = '';
 
     /**
+     * @var Session
+     */
+    private $session;
+
+    /**
+     * @var Router
+     */
+    private $router;
+
+    /**
      * Constructor
      *
      * @version	25th October 2016
      * @since	25th October 2016
      * @param	array	$pagination  Pagination Settings from Parameters
      * @param	EntityRepository	$repository
-     * @param	EntityManager	$manager
+     * @param    Container $container
      * @return	void
      */
     public function __construct($pagination, EntityRepository $repository, Container $container)
     {
         $this->setPagination($pagination);
-        $this->manager = $container->get('doctrine.orm.entity_manager');
+        $this->manager = $container->get('doctrine')->getManager();
         $this->repository = $repository ;
+        $this->session = $container->get('session');
+        $this->router = $container->get('router');
 
         $params = [];
         $params['route'] = parse_url($container->get('request_stack')->getCurrentRequest()->getUri(), PHP_URL_PATH);
+        $this->setChoice(null);
 
         $this->form = $container->get('form.factory')->createNamedBuilder('paginator', PaginationType::class, $this, $params)->getForm();
     }
@@ -185,6 +200,7 @@ abstract class PaginationManager
             ->setMaxResults($this->getLimit())
             ->getQuery()
             ->getResult();
+        $this->writeSession();
         return $this->result;
     }
 
@@ -193,7 +209,6 @@ abstract class PaginationManager
      *
      * @version	25th October 2016
      * @since	25th October 2016
-     * @param	boolean		$count
      * @return    integer
      */
     public function getTotal()
@@ -224,7 +239,6 @@ abstract class PaginationManager
      *
      * @version	25th October 2016
      * @since	25th October 2016
-     * @param	integer		$limit
      * @return    PaginationManager
      */
     public function getLimit()
@@ -272,6 +286,28 @@ abstract class PaginationManager
     {
         $this->offSet = empty($offSet) ? 0 : intval($offSet);
         return $this ;
+    }
+
+    /**
+     * @return $this
+     */
+    private function writeSession()
+    {
+        $pag = empty($this->session->get('pagination')) ? [] : $this->session->get('pagination');
+
+        $cc = empty($pag[$this->paginationName]) ? [] : $pag[$this->paginationName];
+
+        $cc['limit'] = $this->limit;
+        $cc['search'] = $this->search;
+        $cc['offSet'] = $this->offSet;
+        $cc['choice'] = $this->choice;
+        $cc['sortBy'] = $this->sortBy;
+
+        $pag[$this->paginationName] = $cc;
+
+        $this->session->set('pagination', $pag);
+        dump($this->session);
+        return $this;
     }
 
     /**
@@ -460,25 +496,28 @@ abstract class PaginationManager
      * @param Request $request
      * @return PaginationManager
      */
-    public function injectRequest(Request $request, $currentSearch = null, $limit = null)
+    public function injectRequest(Request $request)
     {
-        $limit = intval($limit) === 0 ? null : $limit;
-        $currentSearch = $currentSearch === 'null' ? null : $currentSearch;
         $this->getForm()->handleRequest($request);
         if (! $this->form->isSubmitted()) {
+
             $this->post = false;
             $this->resetPagination();
-            if (!is_null($currentSearch)) {
-                $this->setSearch($currentSearch);
-                $this->form['currentSearch']->setData($currentSearch);
+            $last = $this->session->get('pagination');
+            if (!empty($last[$this->paginationName])) {
+                $last = $last[$this->paginationName];
+                $this->setSearch($last['search']);
+                $this->form['currentSearch']->setData($last['search']);
+                $this->setLimit($last['limit']);
+                $this->form['limit']->setData($last['limit']);
+                $this->setLastLimit($last['limit']);
+                $this->form['lastLimit']->setData($last['limit']);
+                $this->setting->limit = $last['limit'];
+                $this->setOffSet($last['offSet']);
+                $this->setChoice($last['choice']);
+                $this->setSortBy($last['sortBy']);
             }
-            if (!is_null($limit)) {
-                $this->setLimit($limit);
-                $this->form['limit']->setData($limit);
-                $this->setLastLimit($limit);
-                $this->form['lastLimit']->setData($limit);
-                $this->setting->limit = $limit;
-            }
+
             $this->getTotal();
         } else {
 
@@ -487,6 +526,9 @@ abstract class PaginationManager
             $this->setLastSearch($this->form['lastSearch']->getData());
             $this->setTotal($this->form['total']->getData());
             $this->setOffSet($this->form['offSet']->getData());
+            //     $this->setChoice($this->form['choice']->getData());
+            dump($this->form);
+
             if (trim($this->getSearch(), '%') !== trim($this->getLastSearch(), '%'))
                 $this->resetPagination();
             $this->setSearch($this->form['currentSearch']->getData());
@@ -709,14 +751,27 @@ abstract class PaginationManager
         return $this->offSet + $this->getLimit() > $this->getTotal() ? $this->getTotal() : $this->offSet + $this->getLimit();
     }
 
+    public function getChoices()
+    {
+        return $this->setting->choice;
+    }
+
     public function getChoice()
     {
+        if (is_array($this->choice)) {
+            $x = reset($this->choice);
+            $x = $this->router->generate($x['route']);
+            $this->setChoice($x);
+        }
         return $this->choice;
     }
 
     public function setChoice($choice)
     {
-        $this->choice = $choice;
+        if (is_array($choice))
+            $this->choices = $choice;
+        else
+            $this->choice = $choice;
 
         return $this;
     }

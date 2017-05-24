@@ -153,11 +153,12 @@ class PaginationType extends AbstractType
      */
     protected function addChoice(FormBuilderInterface $builder, $options)
     {
+        dump($options['data']);
         if (empty($options['data']->getChoice()))
             return $builder;
 
         $choices = [];
-        foreach ($options['data']->getChoice() as $choice)
+        foreach ($options['data']->getChoices() as $choice)
             $choices[$choice['prompt']] = $this->router->getGenerator()->generate($choice['route']);
 
         $builder->add('choice', ChoiceType::class,

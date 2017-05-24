@@ -33,7 +33,7 @@
         <div class="col-sm-2 text-right">
             {% if form.choice is defined %}
                 <label class="control-label">{{ form.choice.vars.label|trans }}</label>
-                {{ form_widget(form.choice, {'value': form.vars.route}) }}
+                {{ form_widget(form.choice) }}
             {% endif %}
         </div>
         {% if pagination.getTotal > pagination.getLimit %}
