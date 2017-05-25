@@ -16,7 +16,7 @@
 
     {% set h3Content = '<div class="collection-actions collection-panel">' %}
     {% if form.person.vars.value is defined and form.person.vars.value > 0 %}
-        {% set h3Content = h3Content ~ editButton({'title': 'family.student.edit', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('person_edit', {'id': form.person.vars.value, 'currentSearch': '_closeWindow', 'limit': '25'}), 'target': 'family.student.edit', 'params': 'width=1200,height=900'}, 'class': 'halflings halflings-edit btn btn-info'})|raw %}
+        {% set h3Content = h3Content ~ editButton({'title': 'family.student.edit', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('person_edit', {'id': form.person.vars.value, 'closeWindow': '_closeWindow'}), 'target': 'family.student.edit', 'params': 'width=1200,height=900'}, 'class': 'halflings halflings-edit btn btn-info'})|raw %}
     {% endif %}
     {% set h3Content = h3Content ~ deleteButton({'title': 'family.student.remove', 'transDomain': 'BusybeeFamilyBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw %}
     {% set h3Content = h3Content ~ saveButton()|raw %}

@@ -18,7 +18,7 @@ class ActivityGroupController extends Controller
      * @param   Request $request
      * @return  \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction(Request $request, $currentSearch = null)
+    public function listAction(Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
@@ -39,7 +39,7 @@ class ActivityGroupController extends Controller
      * @param   Request $request
      * @return  \Symfony\Component\HttpFoundation\Response
      */
-    public function manageAction(Request $request, $id, $currentSearch = null)
+    public function manageAction(Request $request, $id)
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
@@ -66,14 +66,13 @@ class ActivityGroupController extends Controller
         return $this->render('BusybeeTimeTableBundle:ActivityGroups:manage.html.twig',
             [
                 'form' => $form->createView(),
-                'currentSearch' => $currentSearch,
             ]
         );
     }
 
     /**
      * @param integer $id
-     * @return  JsonResponse
+     * @return  String
      */
     public function testAction($id)
     {
@@ -89,7 +88,7 @@ class ActivityGroupController extends Controller
 
         return $this->render('BusybeeTimeTableBundle:ActivityGroups:report.html.twig',
             [
-                'report' => $data['report']
+                'report' => $data['report'],
             ]
         );
 

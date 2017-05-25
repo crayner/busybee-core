@@ -135,6 +135,7 @@
         remove: '<button title="{{ 'family.student.remove'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
         add_at_the_end: true
     });
+
     function resetFamily() {
         var fragment = $('.tab-content > .active').attr('id');
 
@@ -143,15 +144,9 @@
             id = 'Add';
         }
 
-        var currentSearch = '{{ app.request.get('currentSearch') }}';
-        if (currentSearch.length === 0) {
-            currentSearch = 'null';
-        }
-
-        var path = '{{ path('family_edit', { 'id': '__id__', 'currentSearch': '__currentSearch__', '_fragment': '__fragment__'}) }}';
+        var path = '{{ path('family_edit', { 'id': '__id__', '_fragment': '__fragment__'}) }}';
         path = path.replace('__id__', id);
         path = path.replace('__fragment__', fragment);
-        path = path.replace('__currentSearch__', currentSearch);
 
         location.assign(path);
         location.reload(true);

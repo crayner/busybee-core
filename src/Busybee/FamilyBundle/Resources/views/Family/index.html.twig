@@ -25,7 +25,7 @@
                         {% endif %}
                     </div>
                     <div class="col-sm-3 col-md-3 withAdd">
-                        {{ addButton({'title': 'family.title.add', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': 'Add', 'currentSearch': pagination.getSearchProperty()})}, 'style': 'float: left;'})|raw }}
+                        {{ addButton({'title': 'family.title.add', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': 'Add'})}, 'style': 'float: left;'})|raw }}
                         &nbsp;{{ 'family.actions'|trans }}
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                             {{ family.name }}
                         </div>
                         <div class="col-sm-3 col-md-3 form-inline">
-                            {{ editButton({'title': 'family.title.edit', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': family.id, 'currentSearch': pagination.getSearchProperty()})}, 'style': 'float: left;'})|raw }}
+                            {{ editButton({'title': 'family.title.edit', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': family.id})}, 'style': 'float: left;'})|raw }}
                         </div>
                     </div>
                 {% endfor %}

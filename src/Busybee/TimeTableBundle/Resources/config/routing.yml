@@ -1,15 +1,15 @@
 timetable_manage:
-    path:     /manage/{currentSearch}
-    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:list, currentSearch: null }
+    path:     /manage/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:list }
 timetable_edit:
-    path:     /{id}/edit/{currentSearch}
-    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:edit, currentSearch: null }
+    path:     /{id}/edit/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:edit}
 activity_group_list:
-    path:     /lgs/list/{currentSearch}
-    defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:list, currentSearch: null }
+    path:     /lgs/list/
+    defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:list }
 activity_group_manage:
-    path:     /lgs/{id}/manage/{currentSearch}
-    defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:manage, id: 'Add', currentSearch: null }
+    path:     /lgs/{id}/manage/
+    defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:manage, id: 'Add' }
 activity_group_test:
     path:     /lgs/{id}/test/
     defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:test, id: 'Add' }
@@ -20,14 +20,14 @@ timetable_day_rotate_toggle:
     path:     /day/{date}/{termName}/rotate/
     defaults: { _controller: BusybeeTimeTableBundle:Day:rotateToggle }
 timetable_days_edit:
-    path:     /{id}/editdays/{currentSearch}
-    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:editTimeTableDays, currentSearch: null }
+    path:     /{id}/editdays/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:editTimeTableDays }
 period_remove:
     path:     /period/{id}/{page}/
-    defaults: { _controller: BusybeeTimeTableBundle:Period:remove}
+    defaults: { _controller: BusybeeTimeTableBundle:Period:remove }
 column_remove:
-    path:     /column/{id}/{currentSearch}/
-    defaults: { _controller: BusybeeTimeTableBundle:Column:remove, currentSearch: null }
+    path:     /column/{id}/remove/
+    defaults: { _controller: BusybeeTimeTableBundle:Column:remove }
 column_resettimes:
-    path:     /column/reset/times/{id}/{currentSearch}/
-    defaults: { _controller: BusybeeTimeTableBundle:Column:resetTimes, currentSearch: null }
+    path:     /column/{id}/reset/times/
+    defaults: { _controller: BusybeeTimeTableBundle:Column:resetTimes }

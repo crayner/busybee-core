@@ -15,15 +15,15 @@
 
 {% block contentContainer %}
     {% set transDomain = 'BusybeeStudentBundle' %}
-    {% if currentSearch == '_closeWindow' %}
+    {% if closeWindow == '_closeWindow' %}
         {% set h3Content = closeButton()|raw %}
     {% else %}
-        {% set h3Content = returnButton({'windowOpen': {'route': path('student_activities', {'currentSearch': currentSearch})}})|raw %}
+        {% set h3Content = returnButton({'windowOpen': {'route': path('student_activities')}})|raw %}
     {% endif %}
     {% if app.request.get('id') != 'Add' %}
-        {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add', 'currentSearch': currentSearch})}})|raw %}
+        {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add'})}})|raw %}
     {% endif %}
-    {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('student_activity_edit', {'id': app.request.get('id'), 'currentSearch': currentSearch})}})|raw %}
+    {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('student_activity_edit', {'id': app.request.get('id')})}})|raw %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
     {{ form_start(form, {'attr':{'id': 'activity_form'}}) }}

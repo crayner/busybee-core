@@ -8,9 +8,9 @@
 
 <div class="panel-heading">
     <h3 class="panel-title">{{ header|trans({'%name%': form.name.vars.value}) }}
-        {{ returnButton({'title': 'family.return', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_manage', {'currentSearch': currentSearch}) }})|raw }}
+        {{ returnButton({'title': 'family.return', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_manage') }})|raw }}
         {% if id != 'Add' %}
-            {{ addButton({'title': 'family.title.add', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': 'Add', 'currentSearch': currentSearch}) }})|raw }}
+            {{ addButton({'title': 'family.title.add', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': 'Add'}) }})|raw }}
         {% endif %}
         {{ resetButton({'type': 'button', 'javascript': {'function': 'resetFamily', 'options': []} })|raw }}
         {{ saveButton()|raw }}

@@ -12,7 +12,7 @@
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
         {% set h3Content = h3Content ~ deleteButton({'title': 'activity.title.remove', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'})|raw %}
         {% if name != '__name__' %}
-            {% set h3Content = h3Content ~ editButton({'windowOpen': {'route': path('student_activity_edit', {'id': form.vars.data.getId(),'currentSearch': '_closeWindow'}), 'target': 'Activity', 'params': 'width=1200,height=1000'}}) %}
+            {% set h3Content = h3Content ~ editButton({'windowOpen': {'route': path('student_activity_edit', {'id': form.vars.data.getId(), 'closeWindow': '_closeWindow'}), 'target': 'Activity', 'params': 'width=1200,height=1000'}}) %}
         {% endif %}
         {% set h3Content = h3Content ~ saveButton()|raw %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}

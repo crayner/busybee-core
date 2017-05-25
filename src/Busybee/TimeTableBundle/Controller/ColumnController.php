@@ -12,26 +12,24 @@ class ColumnController extends Controller
     /**
      * @param $id
      * @param $page
-     * @param $currentSearch
      * @return RedirectResponse
      */
-    public function removeAction($id, $currentSearch)
+    public function removeAction($id)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
         $column = $this->get('column.repository')->find($id);
-        $currentSearch = $currentSearch === 'null' ? null : $currentSearch;
 
 
         if (empty($column)) {
             $this->get('session')->getFlashBag()->add('success', 'column.remove.missing');
-            return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $column->getTimeTable()->getId()]));
+            return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
         }
 
 
         if (!$column->canDelete($id)) {
             $this->get('session')->getFlashBag()->add('warning', 'column.remove.locked');
-            return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $column->getTimeTable()->getId()]));
+            return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
         }
 
         try {
@@ -40,29 +38,27 @@ class ColumnController extends Controller
             $om->flush();
         } catch (\Exception $e) {
             $this->get('session')->getFlashBag()->add('danger', 'column.remove.error');
-            return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $column->getTimeTable()->getId()]));
+            return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
         }
 
         $this->get('session')->getFlashBag()->add('success', 'column.remove.success');
 
-        return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $column->getTimeTable()->getId()]));
+        return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
     }
 
     /**
      * @param $id
-     * @param $currentSearch
      * @return RedirectResponse
      */
-    public function resetTimesAction($id, $currentSearch)
+    public function resetTimesAction($id)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-        $currentSearch = $currentSearch === 'null' ? null : $currentSearch;
 
         $tt = $this->get('timetable.repository')->find($id);
         if (empty($tt)) {
             $this->get('session')->getFlashBag()->add('warning', 'column.resettime.missing');
-            return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $id]));
+            return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $id]));
         }
 
         $sm = $this->get('setting.manager');
@@ -80,11 +76,11 @@ class ColumnController extends Controller
                 $om->flush();
             } catch (\Exception $e) {
                 $this->get('session')->getFlashBag()->add('danger', 'column.resettime.error');
-                return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $column->getTimeTable()->getId()]));
+                return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
             }
         }
 
         $this->get('session')->getFlashBag()->add('success', 'column.resettime.success');
-        return new RedirectResponse($this->generateUrl('timetable_edit', ['currentSearch' => $currentSearch, 'id' => $column->getTimeTable()->getId()]));
+        return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $column->getTimeTable()->getId()]));
     }
 }

@@ -95,9 +95,14 @@ abstract class PaginationManager
     private $pages;
 
     /**
-     * @var array
+     * @var string
      */
     private $choice;
+
+    /**
+     * @var string
+     */
+    private $choices;
 
     /**
      * @var string
@@ -176,6 +181,7 @@ abstract class PaginationManager
     {
         $this->setting = new stdClass();
         $this->initialSettings = $pagination;
+        dump($pagination);
         if (! is_array($pagination)) return ;
         foreach ($pagination as $name => $value) {
             $setName = 'set'.ucwords($name);
@@ -306,7 +312,7 @@ abstract class PaginationManager
         $pag[$this->paginationName] = $cc;
 
         $this->session->set('pagination', $pag);
-        dump($this->session);
+
         return $this;
     }
 
@@ -753,25 +759,31 @@ abstract class PaginationManager
 
     public function getChoices()
     {
-        return $this->setting->choice;
+        return $this->choices;
+    }
+
+    public function setChoices($choices)
+    {
+        $this->choices = $choices;
+        $this->setting->choices = $choices;
+
+        return $this;
     }
 
     public function getChoice()
     {
-        if (is_array($this->choice)) {
-            $x = reset($this->choice);
-            $x = $this->router->generate($x['route']);
-            $this->setChoice($x);
-        }
+        if (is_array($this->choice))
+            throw new \InvalidArgumentException('NO NO NO Choice is not an array ever.');
+
         return $this->choice;
     }
 
     public function setChoice($choice)
     {
         if (is_array($choice))
-            $this->choices = $choice;
-        else
-            $this->choice = $choice;
+            throw new \InvalidArgumentException('NO NO NO Choice is not an array ever, so don\'t set it that way');
+
+        $this->choice = $choice;
 
         return $this;
     }

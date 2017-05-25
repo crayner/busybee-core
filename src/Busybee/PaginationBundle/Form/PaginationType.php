@@ -153,8 +153,7 @@ class PaginationType extends AbstractType
      */
     protected function addChoice(FormBuilderInterface $builder, $options)
     {
-        dump($options['data']);
-        if (empty($options['data']->getChoice()))
+        if (empty($options['data']->getChoices()))
             return $builder;
 
         $choices = [];

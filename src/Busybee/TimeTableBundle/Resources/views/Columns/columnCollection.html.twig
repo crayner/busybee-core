@@ -20,7 +20,7 @@
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': title} %}
         {% set column_id = 0 %}
         {% if form.vars.data is not empty %}{% set column_id = form.vars.data.id %}{% endif %}
-        <div class="ColumnIdentifier" column="{{ column_id }}" search="{{ app.request.get('currentSearch') }}"></div>
+        <div class="ColumnIdentifier" column="{{ column_id }}"></div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4 well">

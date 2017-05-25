@@ -14,28 +14,24 @@
             if (parseInt(id) === 0) {
                 return true;
             }
-            var currentSearch = source.attr('search');
-            if (!currentSearch || currentSearch.length == 0) {
-                currentSearch = 'null';
-            }
-            var path = '{{ path('column_remove', {'id': '__id__', 'currentSearch': '__currentSearch__'}) }}';
+
+            var path = '{{ path('column_remove', {'id': '__id__'
+            }) }}';
             path = path.replace('__id__', id);
-            path = path.replace('__currentSearch__', currentSearch);
 
             window.open(path, '_self');
             return false;
         }
     });
 
-    function resetColumnTimes(id, currentSearch) {
+    function resetColumnTimes(id) {
         var reset = confirm('{{ 'column.resettime.confirm'|trans }}');
 
         if (reset === false) {
 
         } else {
-            var path = '{{ path('column_resettimes', {'id': '__id__', 'currentSearch': '__currentSearch__'}) }}';
+            var path = '{{ path('column_resettimes', {'id': '__id__'}) }}';
             path = path.replace('__id__', id);
-            path = path.replace('__currentSearch__', currentSearch);
             window.open(path, '_self');
 
         }

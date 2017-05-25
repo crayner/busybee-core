@@ -12,7 +12,6 @@ class PeriodController extends Controller
     /**
      * @param $id
      * @param $page
-     * @param $currentSearch
      * @return JsonResponse
      */
     public function removeAction($id, $page)

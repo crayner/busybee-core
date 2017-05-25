@@ -10,7 +10,7 @@
 
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
-    {% set h3Content = addButton({'title': 'activitygroups.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('activity_group_manage', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''})})}}) %}
+    {% set h3Content = addButton({'title': 'activitygroups.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('activity_group_manage', {'id': 'Add'})}}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activitygroups.title.list', 'transDomain': 'BusybeeTimeTableBundle'} %}
     <div class="container-fluid well">
         <div class="row row-header">
@@ -51,7 +51,7 @@
                     {{ timetable.course }}
                 </div>
                 <div class="col-sm-3 form-inline">
-                    {{ editButton({'style': '', 'title': 'activitygroups.title.edit', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('activity_group_manage', {'id': timetable.id, 'currentSearch': pagination.getSearchProperty()})}})|raw }}
+                    {{ editButton({'style': '', 'title': 'activitygroups.title.edit', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('activity_group_manage', {'id': timetable.id})}})|raw }}
                 </div>
             </div>
         {% endfor %}

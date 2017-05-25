@@ -4,7 +4,7 @@
     {% set transDomain = 'BusybeeTimeTableBundle' %}
     {% set header = 'timetable.column.header.title' %}
     {% set h3Content = '<div class="collection-actions collection-panel">' %}
-    {% set h3Content = h3Content ~ returnButton({'windowOpen': {'route': path('timetable_manage', {'currentSearch': app.request.get('currentSearch')})}})|raw %}
+    {% set h3Content = h3Content ~ returnButton({'windowOpen': {'route': path('timetable_manage')}})|raw %}
     {% set h3Content = h3Content ~ saveButton()|raw %}
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
     {% set h3Content = h3Content ~ miscButton({'class': 'btn btn-success halflings halflings-cog'})|raw %}

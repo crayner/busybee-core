@@ -10,7 +10,7 @@
 
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
-    {% set h3Content = addButton({'title': 'timetable.add.title', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_edit', {'id': 'Add', 'currentSearch': pagination.search|replace({'%': ''})})}}) %}
+    {% set h3Content = addButton({'title': 'timetable.add.title', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_edit', {'id': 'Add'})}}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description'} %}
     <div class="container-fluid well">
         <div class="row row-header">
@@ -47,8 +47,8 @@
                     {{ timetable.year }}
                 </div>
                 <div class="col-sm-2 col-sm-offset-1 form-inline">
-                    {{ editButton({'style': '', 'class': 'halflings halflings-edit btn btn-warning', 'title': {'message': 'timetable.edit.title', 'params': {'%name%': timetable.name }}, 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_edit', {'id': timetable.id, 'currentSearch': pagination.search|replace({'%': ''})})}})|raw }}
-                    {{ editButton({'style': '', 'class': 'halflings halflings-asterisk btn btn-warning','title': 'timetable.days.edit.button', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_days_edit', {'id': timetable.id, 'currentSearch': pagination.search|replace({'%': ''})})}})|raw }}
+                    {{ editButton({'style': '', 'class': 'halflings halflings-edit btn btn-warning', 'title': {'message': 'timetable.edit.title', 'params': {'%name%': timetable.name }}, 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_edit', {'id': timetable.id})}})|raw }}
+                    {{ editButton({'style': '', 'class': 'halflings halflings-asterisk btn btn-warning','title': 'timetable.days.edit.button', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_days_edit', {'id': timetable.id})}})|raw }}
                 </div>
             </div>
         {% endfor %}

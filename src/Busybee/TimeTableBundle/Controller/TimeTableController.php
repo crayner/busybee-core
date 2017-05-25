@@ -38,11 +38,9 @@ class TimeTableController extends Controller
      * @param   Request $request
      * @return  \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, $id, $currentSearch = null)
+    public function editAction(Request $request, $id)
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
-
-        $currentSearch = $currentSearch === 'null' ? null : $currentSearch;
 
         $entity = new TimeTable();
         if ($id > 0)
@@ -64,7 +62,6 @@ class TimeTableController extends Controller
         return $this->render('BusybeeTimeTableBundle:TimeTable:edit.html.twig',
             [
                 'form' => $form->createView(),
-                'currentSearch' => $currentSearch,
                 'fullForm' => $form,
             ]
         );
@@ -74,11 +71,10 @@ class TimeTableController extends Controller
      * @param   Request $request
      * @return  \Symfony\Component\HttpFoundation\Response
      */
-    public function editTimeTableDaysAction(Request $request, $id, $currentSearch = null)
+    public function editTimeTableDaysAction(Request $request, $id)
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
-        $currentSearch = $currentSearch === 'null' ? null : $currentSearch;
 
         if ($id == 0)
             throw new \InvalidArgumentException($this->get('translator')->trans('timetable.columns.edit.missing', [], 'BusybeeTimeTableBundle'));
@@ -98,7 +94,6 @@ class TimeTableController extends Controller
         return $this->render('BusybeeTimeTableBundle:Columns:edit.html.twig',
             [
                 'form' => $form->createView(),
-                'currentSearch' => $currentSearch,
                 'fullForm' => $form,
                 'timetable' => $entity,
             ]

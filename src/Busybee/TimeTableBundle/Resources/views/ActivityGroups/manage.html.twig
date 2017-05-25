@@ -17,9 +17,9 @@
 
 {% block contentContainer %}
     {{ form_start(form) }}
-    {% set h3Content = returnButton({'windowOpen': {'route': path('activity_group_list', {'currentSearch': currentSearch})}}) %}
-    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('activity_group_manage', {'id': 'Add', 'currentSearch': currentSearch}) }}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('activity_group_manage', {'id': app.request.get('id'), 'currentSearch': currentSearch})}}) %}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('activity_group_list')}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('activity_group_manage', {'id': 'Add'}) }}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('activity_group_manage', {'id': app.request.get('id')})}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activitygroups.title.manage', 'transDomain': 'BusybeeTimeTableBundle'} %}

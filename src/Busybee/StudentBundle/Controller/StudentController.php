@@ -75,17 +75,16 @@ class StudentController extends Controller
 
     /**
      * @param Request $request
-     * @param null $currentSearch
      * @param null $limit
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction(Request $request, $currentSearch = null, $limit = null)
+    public function listAction(Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $up = $this->get('student.pagination');
 
-        $up->injectRequest($request, $currentSearch, $limit);
+        $up->injectRequest($request);
 
         $up->getDataSet();
 

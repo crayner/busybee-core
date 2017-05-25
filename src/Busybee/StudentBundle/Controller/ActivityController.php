@@ -15,16 +15,15 @@ class ActivityController extends Controller
 
     /**
      * @param Request $request
-     * @param null $currentSearch
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction(Request $request, $currentSearch = null)
+    public function listAction(Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $up = $this->get('activity.pagination');
 
-        $up->injectRequest($request, $currentSearch);
+        $up->injectRequest($request);
 
         $up->getDataSet();
 
@@ -40,7 +39,7 @@ class ActivityController extends Controller
      * @param $id
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, $id, $currentSearch)
+    public function editAction(Request $request, $id)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $em = $this->get('doctrine')->getManager();
@@ -58,14 +57,13 @@ class ActivityController extends Controller
             $em->flush();
             if ($id === 'Add') {
                 $id = $entity->getId();
-                return new RedirectResponse($this->generateUrl('student_activity_edit', array('id' => $id, 'currentSearch' => $currentSearch)));
+                return new RedirectResponse($this->generateUrl('student_activity_edit', array('id' => $id)));
             }
         }
 
         $editOptions['id'] = $id;
         $editOptions['form'] = $form->createView();
         $editOptions['fullForm'] = $form;
-        $editOptions['currentSearch'] = $currentSearch;
 
         return $this->render('BusybeeStudentBundle:Activity:edit.html.twig',
             $editOptions

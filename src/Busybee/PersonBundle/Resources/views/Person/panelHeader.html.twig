@@ -1,5 +1,3 @@
-{# src/Busybee/PersonBundle/Resources/views/Person/poanelHeader.html.twig #}
-
 {% trans_default_domain "BusybeePersonBundle" %}
 
 {% if header is not defined %}
@@ -8,15 +6,14 @@
 
 <div class="panel-heading">
     <h3 class="panel-title">{{ header|trans({'%name%': form.vars.value.formatName}) }}
-        {% if currentSearch == '_closeWindow' %}
+        {% if closeWindow == '_closeWindow' %}
             {{ closeButton()|raw }}
         {% else %}
-            {{ returnButton({'title': 'person.return', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_manage', {'currentSearch': currentSearch, 'limit': limit})}})|raw }}
+            {{ returnButton({'title': 'person.return', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_manage')}})|raw }}
         {% endif %}
-        {% if currentSearch|length == 0 %}{% set currentSearch = 'null' %}{% endif %}
         {% if limit|length == 0 %}{% set limit = 0 %}{% endif %}
         {% if id != 'Add' %}
-            {{ addButton({'title': 'person.add.title', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_edit', {'id': 'Add', 'currentSearch': currentSearch, 'limit': limit})}})|raw }}
+            {{ addButton({'title': 'person.add.title', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_edit', {'id': 'Add'})}})|raw }}
 		{% endif %}
         {{ resetButton({'type': 'button', 'javascript': {'function': 'resetForm', 'options': []}, 'title': 'person.reset.button', 'transDomain': 'BusybeePersonBundle'})|raw }}
         {{ saveButton()|raw }}

@@ -17,7 +17,7 @@ parameters:
             - p.surname
             - p.firstName
             - p.email
-        choice:
+        choices:
             all:
                 route: person_manage
                 prompt: pagination.person.all

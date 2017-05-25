@@ -19,17 +19,16 @@
 
 {% block contentContainer %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
-    {% if currentSearch|length == 0 %}{% set currentSearch = 'null' %}{% endif %}
     {% block flashMessages %}
         {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
     {% endblock flashMessages %}
     {{ form_start(form) }}
-    {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage', {'currentSearch': currentSearch})}}) %}
-    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('timetable_edit', {'id': 'Add', 'currentSearch': currentSearch}) }}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('timetable_edit', {'id': app.request.get('id'), 'currentSearch': currentSearch})}}) %}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('timetable_edit', {'id': 'Add'}) }}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('timetable_edit', {'id': app.request.get('id')})}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
-    {% set h3Content = h3Content ~ miscButton({'javascript': {'function': 'resetColumnTimes', 'options': [app.request.get('id'), currentSearch]}, 'class': 'btn btn-danger halflings halflings-asterisk', 'title': 'column.resettime.title', 'transDomain': 'BusybeeTimeTableBundle'}) %}
+    {% set h3Content = h3Content ~ miscButton({'javascript': {'function': 'resetColumnTimes', 'options': [app.request.get('id')]}, 'class': 'btn btn-danger halflings halflings-asterisk', 'title': 'column.resettime.title', 'transDomain': 'BusybeeTimeTableBundle'}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.edit.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.edit.description', 'name': form.vars.value.getFullName} %}
     <div class="container-fluid">
         <div class="row">
