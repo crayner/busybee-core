@@ -6,12 +6,15 @@
 
 <div class="panel-heading">
     <h3 class="panel-title">{{ header|trans({'%name%': form.vars.value.formatName}) }}
-        {% if closeWindow == '_closeWindow' %}
+        {% if app.request.get('closeWindow') is not empty %}
             {{ closeButton()|raw }}
         {% else %}
-            {{ returnButton({'title': 'person.return', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_manage')}})|raw }}
+            {% if app.request.get('returnRoute') is not empty %}
+                {{ returnButton({'title': 'person.return', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': app.request.get('returnRoute')}})|raw }}
+            {% else %}
+                {{ returnButton({'title': 'person.return', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_manage')}})|raw }}
+            {% endif %}
         {% endif %}
-        {% if limit|length == 0 %}{% set limit = 0 %}{% endif %}
         {% if id != 'Add' %}
             {{ addButton({'title': 'person.add.title', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_edit', {'id': 'Add'})}})|raw }}
 		{% endif %}

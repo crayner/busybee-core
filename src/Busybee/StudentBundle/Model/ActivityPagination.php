@@ -6,7 +6,7 @@ use Busybee\PaginationBundle\Model\PaginationManager;
 
 class ActivityPagination extends PaginationManager
 {
-
+    protected $paginationName = 'Activity';
     /**
      * build Query
      *

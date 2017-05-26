@@ -75,7 +75,6 @@ class StudentController extends Controller
 
     /**
      * @param Request $request
-     * @param null $limit
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction(Request $request)

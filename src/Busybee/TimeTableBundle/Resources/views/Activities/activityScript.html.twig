@@ -1,5 +1,5 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
-
+{% if form.activities is defined %}
 <script type="text/javascript">
     $(".activityList").collection({
         name_prefix: '{{ form.activities.vars.full_name }}',
@@ -10,3 +10,4 @@
         add_at_the_end: true,
     });
 </script>
+{% endif %}

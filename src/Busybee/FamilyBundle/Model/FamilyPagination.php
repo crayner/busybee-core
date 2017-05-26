@@ -5,6 +5,7 @@ use Busybee\PaginationBundle\Model\PaginationManager;
 
 class FamilyPagination extends PaginationManager
 {
+    protected $paginationName = 'Family';
 
     /**
      * build Query

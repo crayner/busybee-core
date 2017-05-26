@@ -128,7 +128,6 @@ class PersonController extends Controller
 		$editOptions['identifier'] = $person->getIdentifier();
         $editOptions['addresses'] = $this->get('person.manager')->getAddresses($person);
         $editOptions['phones'] = $this->get('person.manager')->getPhones($person);
-        $editOptions['limit'] = $limit;
         $editOptions['year'] = $year;
 
         return $this->render('BusybeePersonBundle:Person:edit.html.twig',
@@ -177,7 +176,6 @@ class PersonController extends Controller
 
     /**
      * @param Request $request
-     * @param int $limit
      * @return Response
      */
     public function contactListAction(Request $request)

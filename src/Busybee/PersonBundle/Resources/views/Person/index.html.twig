@@ -74,7 +74,6 @@
             </div>
         </div>
 
-
         {% for person in pagination.getResult %}
             <div class="row row-striped">
                 <div class="col-md-1 hidden-sm hidden-xs">
@@ -90,7 +89,11 @@
                     {{ person.email }}
                 </div>
                 <div class="col-md-2 col-sm-2 text-center form-inline">
-                    {{ editButton({'title': 'person.title.edit', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': path('person_edit', {'id': person.id})}, 'style': '', 'colour': 'warning'})|raw }}
+                    {% set route = path('person_edit', {'id': person.id, }) %}
+                    {% if pagination.getChoice is not empty %}
+                        {% set route = path('person_edit', {'id': person.id, 'returnRoute': pagination.getChoice }) %}
+                    {% endif %}
+                    {{ editButton({'title': 'person.title.edit', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': route}, 'style': '', 'colour': 'warning'})|raw }}
                 </div>
                 <div class="col-md-3 hidden-sm hidden-xs">
                     <div class="row">

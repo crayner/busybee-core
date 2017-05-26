@@ -12,7 +12,7 @@
 				{% endfor %}
 			</select>
 		{% endif %}
-        {% if closeWindow %}
+        {% if closeWindow is defined %}
             {{ closeButton()|raw }}
         {% else %}
             {{ returnButton({'title': 'calendar.year.return', 'transDomain': 'BusybeeInstituteBundle', 'windowOpen': {'route': path('calendar_years')}})|raw }}

@@ -9,6 +9,12 @@
 {% endif %}
 {% set form_array = form_array|merge({'attr': {'id': 'paginator'}}) %}
 
+{% if pagination.getReDirect != false %}
+    <script>
+        window.open('{{ pagination.getReDirect() }}', '_self');
+    </script>
+{% endif %}
+
 {{ form_start(form, form_array) }}
 <div class="container-fluid well" style="padding: 0 15px 5px;">
     <div class="row">
@@ -31,7 +37,8 @@
         <div class="col-sm-2 text-right">
             {% if form.choice is defined %}
                 <label class="control-label">{{ form.choice.vars.label|trans }}</label>
-                {{ form_widget(form.choice) }}
+                {{ form_widget(form.choice, {value: pagination.getChoice }) }}
+                {{ form_widget(form.lastChoice, {value: pagination.getChoice }) }}
             {% endif %}
         </div>
         {% if pagination.getTotal > pagination.getLimit %}
@@ -72,6 +79,12 @@
             </div>
         {% else %}
             {% do form.limit.setRendered %}
+            <div class="col-sm-3 col-sm-offset-3 text-right">
+                <label class="control-label">&nbsp;</label>
+                <div class="text-right">
+                    {{ 'pagination.records.only'|trans({'%total%': pagination.getTotal}, 'BusybeePaginationBundle') }}
+                </div>
+            </div>
             <input type="hidden" name="paginator[limit]" id="paginator_limit" value="{{ pagination.limit }}"/>
         {% endif %}
     </div>

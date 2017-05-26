@@ -15,7 +15,7 @@
 
 {% block contentContainer %}
     {% set transDomain = 'BusybeeStudentBundle' %}
-    {% if closeWindow == '_closeWindow' %}
+    {% if closeWindow is defined %}
         {% set h3Content = closeButton()|raw %}
     {% else %}
         {% set h3Content = returnButton({'windowOpen': {'route': path('student_activities')}})|raw %}

@@ -2,6 +2,7 @@
 namespace Busybee\PaginationBundle\Model ;
 
 use Busybee\PaginationBundle\Form\PaginationType;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\Request ;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\Router;
  * @since	25th October 2016
  * @author	Craig Rayner
  */
-abstract class PaginationManager
+abstract class PaginationManager implements PaginationInterface
 {
     /**
      * @var EntityRepository
@@ -25,12 +26,12 @@ abstract class PaginationManager
     protected $repository ;
 
     /**
-     * @var EntityManager
+     * @var ObjectManager
      */
     protected $manager ;
 
     /**
-     * @var EntityManager
+     * @var Container
      */
     protected $container ;
 
@@ -40,7 +41,7 @@ abstract class PaginationManager
     protected $query ;
 
     /**
-     * @var Result
+     * @var string
      */
     protected $result;
 
@@ -127,12 +128,12 @@ abstract class PaginationManager
     /**
      * @var string
      */
-    private $alias = 'a';
+    private $alias = 'z';
 
     /**
-     * @var string
+     * @var array
      */
-    private $sortBy = '';
+    private $sortBy = [];
 
     /**
      * @var Session
@@ -145,14 +146,18 @@ abstract class PaginationManager
     private $router;
 
     /**
+     * @var Router
+     */
+    private $reDirect;
+
+    /**
      * Constructor
      *
      * @version	25th October 2016
      * @since	25th October 2016
      * @param	array	$pagination  Pagination Settings from Parameters
      * @param	EntityRepository	$repository
-     * @param    Container $container
-     * @return	void
+     * @param   Container $container
      */
     public function __construct($pagination, EntityRepository $repository, Container $container)
     {
@@ -164,7 +169,9 @@ abstract class PaginationManager
 
         $params = [];
         $params['route'] = parse_url($container->get('request_stack')->getCurrentRequest()->getUri(), PHP_URL_PATH);
+        $this->path = $params['route'];
         $this->setChoice(null);
+        $this->setReDirect(false);
 
         $this->form = $container->get('form.factory')->createNamedBuilder('paginator', PaginationType::class, $this, $params)->getForm();
     }
@@ -179,13 +186,34 @@ abstract class PaginationManager
      */
     private function setPagination($pagination)
     {
-        $this->setting = new stdClass();
+        $this->initialiseSettings();
         $this->initialSettings = $pagination;
-        dump($pagination);
+
         if (! is_array($pagination)) return ;
         foreach ($pagination as $name => $value) {
             $setName = 'set'.ucwords($name);
             $this->setting->$name = $value ;
+            $this->$setName($value);
+        }
+        $this->total = 0;
+    }
+
+    private function initialiseSettings()
+    {
+        $this->setting = new stdClass();
+
+        $pagination = [];
+        $pagination['alias'] = 'default';
+        $pagination['sortBy'] = [];
+        $pagination['limit'] = 25;
+        $pagination['searchList'] = [];
+        $pagination['choices'] = [];
+        $pagination['join'] = [];
+        $pagination['select'] = [];
+
+        foreach ($pagination as $name => $value) {
+            $setName = 'set' . ucwords($name);
+            $this->setting->$name = $value;
             $this->$setName($value);
         }
         $this->total = 0;
@@ -306,7 +334,7 @@ abstract class PaginationManager
         $cc['limit'] = $this->limit;
         $cc['search'] = $this->search;
         $cc['offSet'] = $this->offSet;
-        $cc['choice'] = $this->choice;
+        $cc['choice'] = false !== $this->reDirect ? $this->reDirect : $this->choice;
         $cc['sortBy'] = $this->sortBy;
 
         $pag[$this->paginationName] = $cc;
@@ -418,7 +446,7 @@ abstract class PaginationManager
      *
      * @version	25th October 2016
      * @since	25th October 2016
-     * @param	array	$searchList
+     * @param    array $search
      * @return    PaginationManager
      */
     public function setSearch($search)
@@ -432,7 +460,7 @@ abstract class PaginationManager
      *
      * @version	25th October 2016
      * @since	25th October 2016
-     * @return    PaginationManager
+     * @return  array
      */
     public function getSearchList()
     {
@@ -521,6 +549,8 @@ abstract class PaginationManager
                 $this->setting->limit = $last['limit'];
                 $this->setOffSet($last['offSet']);
                 $this->setChoice($last['choice']);
+                if ($last['choice'] !== $this->path)
+                    $this->setReDirect($last['choice']);
                 $this->setSortBy($last['sortBy']);
             }
 
@@ -532,11 +562,14 @@ abstract class PaginationManager
             $this->setLastSearch($this->form['lastSearch']->getData());
             $this->setTotal($this->form['total']->getData());
             $this->setOffSet($this->form['offSet']->getData());
-            //     $this->setChoice($this->form['choice']->getData());
-            dump($this->form);
-
+            if ($this->form->has('lastChoice') && !empty($this->form['lastChoice']->getData()) && $this->form['lastChoice']->getData() !== $this->form['choice']->getData())
+                $this->resetPagination();
             if (trim($this->getSearch(), '%') !== trim($this->getLastSearch(), '%'))
                 $this->resetPagination();
+            if ($this->form->has('choice'))
+                $this->setChoice($this->form['choice']->getData());
+            else
+                $this->setChoice(null);
             $this->setSearch($this->form['currentSearch']->getData());
             $this->setLastSearch($this->form['lastSearch']->getData());
             $this->setLimit($this->form['limit']->getData());
@@ -788,6 +821,23 @@ abstract class PaginationManager
         return $this;
     }
 
+    public function getReDirect()
+    {
+        return $this->reDirect;
+    }
+
+    public function setReDirect($x)
+    {
+        $this->reDirect = $x;
+
+        return $this;
+    }
+
+    public function getLastChoice()
+    {
+        return $this->choice;
+    }
+
     /**
      * initiate Query
      *
@@ -842,7 +892,8 @@ abstract class PaginationManager
      */
     protected function setQuerySelect()
     {
-        if (! is_array($this->select)) return $this ;
+        dump($this);
+        if (!is_array($this->select) || empty($this->select)) return $this;
         foreach ($this->select as $name)
             $this->query->addSelect($name);
         return $this ;

@@ -23,10 +23,10 @@
             </div>
         </div>
         <div class="row row-header">
-            <div class="col-sm-2 hidden-sm hidden-xs">
+            <div class="col-sm-1 hidden-sm hidden-xs">
                 {{ 'activity.label.nameShort'|trans }}
             </div>
-            <div class="col-sm-2" style="display: inline-block;">
+            <div class="col-sm-3" style="display: inline-block;">
                 {% if pagination.getSortByName == 'Activity Name' %}
                     <span class="halflings halflings-sort-by-alphabet"></span> {{ 'activity.label.name'|trans }}
                 {% else %}
@@ -42,7 +42,7 @@
             </div>
             <div class="col-sm-2" style="display: inline-block;">
                 {% if pagination.getSortByName == 'Year' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'activity.label.year'|trans }}
+                    <span class="halflings halflings-sort-by-alphabet-alt"></span> {{ 'activity.label.year'|trans }}
                 {% else %}
                     {{ 'activity.label.year'|trans }}
                 {% endif %}
@@ -52,13 +52,12 @@
             </div>
         </div>
 
-
         {% for activity in pagination.getResult %}
             <div class="row row-striped">
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                     {{ activity.nameShort }}
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     {{ activity.name }}
                 </div>
                 <div class="col-sm-3">

@@ -5,6 +5,7 @@ use Busybee\PaginationBundle\Model\PaginationManager ;
 
 class SpacePagination extends PaginationManager
 {
+    protected $paginationName = 'Space';
 
 	/**
 	 * build Query

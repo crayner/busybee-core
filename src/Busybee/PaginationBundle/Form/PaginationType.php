@@ -153,24 +153,31 @@ class PaginationType extends AbstractType
      */
     protected function addChoice(FormBuilderInterface $builder, $options)
     {
-        if (empty($options['data']->getChoices()))
+        if (empty($options['data']->getChoices())) {
             return $builder;
+        }
 
         $choices = [];
         foreach ($options['data']->getChoices() as $choice)
             $choices[$choice['prompt']] = $this->router->getGenerator()->generate($choice['route']);
 
-        $builder->add('choice', ChoiceType::class,
-            [
-                'required' => true,
-                'mapped' => false,
-                'attr' => [
-                    'class' => 'paginatorChoice'
-                ],
-                'choices' => $choices,
-                'label' => 'pagination.choice.label'
-            ]
-        );
+        $builder
+            ->add('choice', ChoiceType::class,
+                [
+                    'required' => true,
+                    'mapped' => false,
+                    'attr' => [
+                        'class' => 'paginatorChoice'
+                    ],
+                    'choices' => $choices,
+                    'label' => 'pagination.choice.label'
+                ]
+            )
+            ->add('lastChoice', HiddenType::class,
+                [
+                    'mapped' => false,
+                ]
+            );
 
         return $builder;
     }
