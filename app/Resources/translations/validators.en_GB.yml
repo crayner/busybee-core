@@ -90,3 +90,6 @@ columns:
         open: 'Lesson must start after school opens at %open%.'
         order: 'School must start before it ends.'
         close: 'Lesson must end before the school closes at %close%.'
+activity:
+    space:
+        overload: 'The space can only hold %capacity%, but %studentCount% students allocated.'

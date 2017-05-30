@@ -1,0 +1,40 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+
+{% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
+'@BusybeeForm/Template/jquery.collection.html.twig'
+'@BusybeeTimeTable/Plan/planCollection.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock stylesheets %}
+
+{% block title %}{{ parent() }}{{ 'period.plan.banner.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'period.plan.banner.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'period.plan.banner.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
+    {{ form_start(form) }}
+    <div class="messageWindow"></div>
+    {% set header = 'period.plan.header' %}
+    {% set name = {'%day%': form.vars.value.columnName, '%period%': form.vars.value.fullName} %}
+    {% set panelParagraph = 'period.plan.panelparagraph' %}
+    {% set panelParams = {'%start%': form.vars.value.startTime, '%end%': form.vars.value.endTime} %}
+    {% set h3Content = closeButton()|raw %}
+    {% set transDomain = 'BusybeeTimeTableBundle' %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+    {{ form_widget(form.activities) }}
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
+    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTimeTable/Plan/planScript.html.twig' %}
+{% endblock javascripts %}

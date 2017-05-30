@@ -8,6 +8,7 @@ Busybee\StudentBundle\Entity\Activity:
             fields: [nameShort, year]
             errorPath: nameShort
             message: activity.unique.nameShort
+        - Callback: studentNumbersValidate
     properties:
         name:
             - NotBlank: ~

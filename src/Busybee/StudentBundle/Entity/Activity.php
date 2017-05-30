@@ -2,6 +2,7 @@
 namespace Busybee\StudentBundle\Entity;
 
 use Busybee\StudentBundle\Model\ActivityModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Activity
@@ -52,7 +53,7 @@ class Activity extends ActivityModel
      */
     private $grades;
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var ArrayCollection
      */
     private $students;
     /**
@@ -69,15 +70,25 @@ class Activity extends ActivityModel
     private $tutor3;
 
     /**
+     * @var \Busybee\InstituteBundle\Entity\Space
+     */
+    private $space;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $periods;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->students = new ArrayCollection();
+        $this->periods = new ArrayCollection();
     }
 
     /**
-     * Get id
+     * Get ids
      *
      * @return integer
      */
@@ -385,5 +396,67 @@ class Activity extends ActivityModel
         $this->tutor3 = $tutor3;
 
         return $this;
+    }
+
+    /**
+     * Get space
+     *
+     * @return \Busybee\InstituteBundle\Entity\Space
+     */
+    public function getSpace()
+    {
+        return $this->space;
+    }
+
+    /**
+     * Set space
+     *
+     * @param \Busybee\InstituteBundle\Entity\Space $space
+     *
+     * @return Activity
+     */
+    public function setSpace(\Busybee\InstituteBundle\Entity\Space $space = null)
+    {
+        $this->space = $space;
+
+        return $this;
+    }
+
+    /**
+     * Add period
+     *
+     * @param \Busybee\TimeTableBundle\Entity\PeriodActivity $period
+     *
+     * @return Activity
+     */
+    public function addPeriod(\Busybee\TimeTableBundle\Entity\PeriodActivity $period)
+    {
+        if ($this->periods->contains($period))
+            return $this;
+        $period->setActivity($this, false);
+
+        $this->periods->add($period);
+
+        return $this;
+    }
+
+    /**
+     * Remove period
+     *
+     * @param \Busybee\TimeTableBundle\Entity\PeriodActivity $period
+     */
+    public function removePeriod(\Busybee\TimeTableBundle\Entity\PeriodActivity $period)
+    {
+        $this->periods->removeElement($period);
+    }
+
+    /**
+     * Get periods
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPeriods()
+    {
+        return $this->periods;
     }
 }

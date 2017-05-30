@@ -3,6 +3,7 @@
 namespace Busybee\TimeTableBundle\Entity;
 
 use Busybee\TimeTableBundle\Model\PeriodModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Period
@@ -53,10 +54,28 @@ class Period extends PeriodModel
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+
     /**
      * @var \Busybee\TimeTableBundle\Entity\Column
      */
     private $column;
+
+    /**
+     * @var boolean
+     */
+    private $activitiesSorted = false;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $activities;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->activities = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -282,5 +301,53 @@ class Period extends PeriodModel
         $this->column = $column;
 
         return $this;
+    }
+
+    /**
+     * Add activity
+     *
+     * @param \Busybee\TimetableBundle\Entity\PeriodActivity $activity
+     *
+     * @return Period
+     */
+    public function addActivity(\Busybee\TimetableBundle\Entity\PeriodActivity $activity)
+    {
+        if ($this->activities->contains($activity))
+            return $this;
+
+        $activity->setPeriod($this, false);
+        $this->activities->add($activity);
+
+        return $this;
+    }
+
+    /**
+     * Remove activity
+     *
+     * @param \Busybee\TimetableBundle\Entity\PeriodActivity $activity
+     */
+    public function removeActivity(\Busybee\TimetableBundle\Entity\PeriodActivity $activity)
+    {
+        $this->activities->removeElement($activity);
+    }
+
+    /**
+     * Get activities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActivities()
+    {
+        if (!$this->activitiesSorted && $this->activities->count() > 0) {
+            $iterator = $this->activities->getIterator();
+            $iterator->uasort(function ($a, $b) {
+                return ($a->getName() < $b->getName()) ? -1 : 1;
+            });
+
+            $this->activities = new ArrayCollection(iterator_to_array($iterator, false));
+
+            $this->activitiesSorted = true;
+        }
+        return $this->activities;
     }
 }

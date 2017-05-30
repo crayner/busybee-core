@@ -2,10 +2,12 @@
 
 namespace Busybee\TimeTableBundle\Entity;
 
+use Busybee\TimeTableBundle\Model\ActivityGroupsModel;
+
 /**
  * ActivityGroups
  */
-class ActivityGroups
+class ActivityGroups extends ActivityGroupsModel
 {
     /**
      * @var integer

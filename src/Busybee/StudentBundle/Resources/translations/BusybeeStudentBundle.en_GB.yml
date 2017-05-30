@@ -98,6 +98,10 @@ activity:
             possibleList: 'Select Student Activity'
     students:
         title: 'Students in Activity. (%name% of %total% selected)'
+    space:
+        placeholder: 'Select a Space (Capacity)'
+        label: Activity Space
+        help: ''
 activities:
     title: Activities List
 grades:

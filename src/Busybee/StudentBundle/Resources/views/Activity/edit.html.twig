@@ -1,5 +1,3 @@
-{# src/Busybee/PersonBundle/Resources/views/Activity/edit.html.twig #}
-
 {% trans_default_domain "BusybeeStudentBundle" %}
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
@@ -14,18 +12,21 @@
 
 
 {% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {% set transDomain = 'BusybeeStudentBundle' %}
-    {% if closeWindow is defined %}
+    {% set route = {} %}
+    {% if app.request.get('closeWindow') is not empty %}
         {% set h3Content = closeButton()|raw %}
+        {% set route = route|merge({'closeWindow': '_closeWindow'}) %}
     {% else %}
         {% set h3Content = returnButton({'windowOpen': {'route': path('student_activities')}})|raw %}
     {% endif %}
     {% if app.request.get('id') != 'Add' %}
-        {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add'})}})|raw %}
+        {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add'}|merge(route))}})|raw %}
     {% endif %}
-    {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('student_activity_edit', {'id': app.request.get('id')})}})|raw %}
+    {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('student_activity_edit', {'id': app.request.get('id')}|merge(route))}})|raw %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
+    {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.get('id')}) %}
     {{ form_start(form, {'attr':{'id': 'activity_form'}}) }}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'student.activity.title', 'panelParagraph': 'student.activity.description'} %}
     <div class="container-fluid">
@@ -51,35 +52,42 @@
                         {{ form_row(form.grades) }}
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-8 well">
-                        {{ form_row(form.tutor1) }}
-                    </div>
-                    {% if form.tutor1.vars.data is not empty %}
-                        <div class="col-sm-4 well">
-                            <div class="text-center">{{ form.tutor1.vars.data.getPortrait()|raw }}</div>
+                <div class="well">
+                    <div class="row">
+                        <div class="col-sm-8 well">
+                            {{ form_row(form.tutor1) }}
                         </div>
-                    {% endif %}
+                        {% if form.tutor1.vars.data is not empty %}
+                            <div class="col-sm-4 well">
+                                <div class="text-center">{{ form.tutor1.vars.data.getPortrait()|raw }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 well">
+                            {{ form_row(form.tutor2) }}
+                        </div>
+                        {% if form.tutor2.vars.data is not empty %}
+                            <div class="col-sm-4 well">
+                                <div class="text-center">{{ form.tutor2.vars.data.getPortrait()|raw }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 well">
+                            {{ form_row(form.tutor3) }}
+                        </div>
+                        {% if form.tutor3.vars.data is not empty %}
+                            <div class="col-sm-4 well">
+                                <div class="text-center">{{ form.tutor3.vars.data.getPortrait()|raw }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-8 well">
-                        {{ form_row(form.tutor2) }}
+                    <div class="col-sm-12 well">
+                        {{ form_row(form.space) }}
                     </div>
-                    {% if form.tutor2.vars.data is not empty %}
-                        <div class="col-sm-4 well">
-                            <div class="text-center">{{ form.tutor2.vars.data.getPortrait()|raw }}</div>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="row">
-                    <div class="col-sm-8 well">
-                        {{ form_row(form.tutor3) }}
-                    </div>
-                    {% if form.tutor3.vars.data is not empty %}
-                        <div class="col-sm-4 well">
-                            <div class="text-center">{{ form.tutor3.vars.data.getPortrait()|raw }}</div>
-                        </div>
-                    {% endif %}
                 </div>
             </div>
             {% if form.students is defined %}
@@ -114,4 +122,5 @@
     {% include '@BusybeeStudent/Activity/studentScript.html.twig' %}
     {% set route = 'student_activity_edit' %}
     {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
+    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

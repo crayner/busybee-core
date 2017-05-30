@@ -52,6 +52,10 @@ class ActivityGroupsType extends AbstractType
                     'placeholder' => 'activitygroups.placeholder.course',
                     'label' => 'activitygroups.label.course',
                     'required' => false,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('c')
+                            ->orderBy('c.name', 'ASC');
+                    },
                 ]
             )
             ->add('year', YearEntityType::class, [

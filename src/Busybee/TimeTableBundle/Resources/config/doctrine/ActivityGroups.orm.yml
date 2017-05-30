@@ -53,6 +53,7 @@ Busybee\TimeTableBundle\Entity\ActivityGroups:
         course:
             targetEntity: Busybee\CurriculumBundle\Entity\Course
             nullable: true
+            orderBy: { 'name': 'ASC' }
             joinColumns:
                 course:
                     referencedColumnName: id

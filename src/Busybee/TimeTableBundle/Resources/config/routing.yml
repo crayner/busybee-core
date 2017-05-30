@@ -31,3 +31,6 @@ column_remove:
 column_resettimes:
     path:     /column/{id}/reset/times/
     defaults: { _controller: BusybeeTimeTableBundle:Column:resetTimes }
+period_plan:
+    path:     /plan/{id}/activity/
+    defaults: { _controller: BusybeeTimeTableBundle:Period:activityPlan }

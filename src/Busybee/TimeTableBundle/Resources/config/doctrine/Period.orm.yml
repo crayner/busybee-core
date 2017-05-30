@@ -29,6 +29,10 @@ Busybee\TimeTableBundle\Entity\Period:
             type: datetime
         createdOn:
             type: datetime
+    oneToMany:
+        activities:
+            targetEntity: Busybee\TimeTableBundle\Entity\PeriodActivity
+            mappedBy: period
     manyToOne:
         column:
             targetEntity: Busybee\TimeTableBundle\Entity\Column

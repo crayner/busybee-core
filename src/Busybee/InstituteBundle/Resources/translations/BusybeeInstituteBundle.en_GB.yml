@@ -303,3 +303,6 @@ student:
             grade: Select a Grade / Year
         help:
             year: The year selected must be unique for this student.
+space:
+    name:
+        capacity: '%name%: Capacity %capacity%'

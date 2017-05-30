@@ -1,0 +1,28 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% block period_activity_label %}{% endblock %}
+{% block period_activity_errors %}{% endblock %}
+
+{% block period_activity_widget %}
+    {% spaceless %}
+        {% set panelStyle = 'default' %}
+        {% set transDomain = 'BusybeeTimeTableBundle' %}
+        {% set header = 'period.plan.activity.title' %}
+        {% set name = 'Add Activity Group' %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ upDownButton()|raw %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+        <div class="container-fluid period">
+            <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.activity) }}
+                </div>
+            </div>
+            <div class="messageWindow"></div>
+        </div>
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock period_activity_widget %}

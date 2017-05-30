@@ -33,7 +33,7 @@ class AuthenticationController extends Controller
 		{
 			$session->getFlashBag()->add(
 				'warning',
-				$this->get('translator')->trans('security.authorisation.blocked_ip', array("%remoteIP%" => $request->server->get('REMOTE_ADDR')), 'BusybeeSecurityBundle')
+                $this->get('translator')->trans('security.authorisation.blocked_ip', ["%remoteIP%" => $request->server->get('REMOTE_ADDR')], 'BusybeeSecurityBundle')
 			);
 			$url = $this->generateUrl('home_page');
 			return new RedirectResponse($url);

@@ -5,7 +5,7 @@ use Busybee\PaginationBundle\Model\PaginationManager;
 
 class CoursePagination extends PaginationManager
 {
-
+    protected $paginationName = 'Course';
     /**
      * build Query
      *

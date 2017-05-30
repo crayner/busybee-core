@@ -24,9 +24,9 @@ class ActivityController extends Controller
         $up = $this->get('activity.pagination');
 
         $up->injectRequest($request);
-        dump($up);
+
         $up->getDataSet();
-        dump($up);
+
         return $this->render('BusybeeStudentBundle:Activity:list.html.twig',
             array(
                 'pagination' => $up,

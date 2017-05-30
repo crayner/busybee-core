@@ -6,7 +6,7 @@ use Busybee\PaginationBundle\Model\PaginationManager;
 
 class TimeTablePagination extends PaginationManager
 {
-
+    protected $paginationName = 'TimeTable';
     /**
      * build Query
      *

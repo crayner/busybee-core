@@ -1,12 +1,7 @@
-Busybee\StudentBundle\Entity\Activity:
+Busybee\TimeTableBundle\Entity\PeriodActivity:
     type: entity
-    table: activity
-    repositoryClass: Busybee\StudentBundle\Repository\ActivityRepository
-    uniqueConstraints:
-        name_year:
-            columns: [name, year]
-        nameshort_year:
-            columns: [nameShort, year]
+    table: tt_period_activity
+    repositoryClass: Busybee\TimeTableBundle\Repository\PeriodActivityRepository
     id:
         id:
             type: integer
@@ -14,44 +9,15 @@ Busybee\StudentBundle\Entity\Activity:
             generator:
                 strategy: AUTO
     fields:
-        name:
-            type: string
-            length: '100'
-        nameShort:
-            type: string
-            length: '8'
-        grades:
-            type: array
         lastModified:
             type: datetime
         createdOn:
             type: datetime
-    oneToMany:
-        periods:
-            targetEntity: Busybee\TimeTableBundle\Entity\PeriodActivity
-            mappedBy: activity
-    manyToMany:
-        students:
-            targetEntity: Busybee\StudentBundle\Entity\Student
-            joinTable:
-                name: activity_students
-                joinColumns:
-                    activity_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    student_id:
-                        referencedColumnName: id
     manyToOne:
         space:
             targetEntity: Busybee\InstituteBundle\Entity\Space
             joinColumns:
                 space:
-                    referencedColumnName: id
-        year:
-            targetEntity: Busybee\InstituteBundle\Entity\Year
-            orderBy: {'firstDay': 'DESC'}
-            joinColumns:
-                year:
                     referencedColumnName: id
         tutor1:
             targetEntity: Busybee\StaffBundle\Entity\Staff
@@ -67,6 +33,18 @@ Busybee\StudentBundle\Entity\Activity:
             targetEntity: Busybee\StaffBundle\Entity\Staff
             joinColumns:
                 tutor_3:
+                    referencedColumnName: id
+        activity:
+            targetEntity: Busybee\StudentBundle\Entity\Activity
+            inversedBy: periods
+            joinColumns:
+                activity_id:
+                    referencedColumnName: id
+        period:
+            targetEntity: Busybee\TimeTableBundle\Entity\Period
+            inversedBy: activities
+            joinColumns:
+                period_id:
                     referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User

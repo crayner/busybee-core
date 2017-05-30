@@ -2,8 +2,11 @@
 
 namespace Busybee\TimeTableBundle\Controller;
 
+use Busybee\TimeTableBundle\Form\PeriodActivityType;
+use Busybee\TimeTableBundle\Form\PeriodPlanType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class PeriodController extends Controller
 {
@@ -32,13 +35,6 @@ class PeriodController extends Controller
             );
         }
 
-        $column = $this->get('column.repository')->createQueryBuilder('c')
-            ->leftJoin('c.periods', 'p')
-            ->where('p.id = :period_id')
-            ->setParameter('period_id', $id)
-            ->getQuery()
-            ->getSingleResult();
-
         $message = '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('period.remove.locked', [], 'BusybeeTimeTableBundle') . '</div>';
 
         if (!$this->get('period.manager')->canDelete($id))
@@ -65,5 +61,32 @@ class PeriodController extends Controller
             ),
             200
         );
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function activityPlanAction($id, Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $period = $this->get('period.repository')->find($id);
+
+        $form = $this->createForm(PeriodActivityType::class, $period, ['year_data' => $this->get('busybee_security.user_manager')->getSystemYear($this->getUser())]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+        }
+        return $this->render('BusybeeTimeTableBundle:Plan:index.html.twig',
+            [
+                'form' => $form->createView(),
+                'fullForm' => $form,
+            ]
+        );
+
     }
 }

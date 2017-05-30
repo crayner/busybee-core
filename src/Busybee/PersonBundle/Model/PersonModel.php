@@ -133,7 +133,7 @@ abstract class PersonModel
 
             $hh = intval($div[1] / $xx);
 
-            $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto()->getPathName() . '" width="75" height="' . $hh . '" style="width: 75px; height: ' . $hh . 'px; float: ' . $float . '" />';
+            $photo = '<img class="img-thumbnail" title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto()->getPathName() . '" width="75" style="float: ' . $float . '" />';
 
         } elseif (is_string($this->getPhoto()) && file_exists($this->getPhoto())) {
             $div = getimagesize($this->getPhoto());
@@ -141,7 +141,7 @@ abstract class PersonModel
 
             $hh = intval($div[1] / $xx);
 
-            $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto() . '" width="75" height="' . $hh . '" style="width: 75px; height: ' . $hh . 'px; float: ' . $float . '" />';
+            $photo = '<img class="img-thumbnail" title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto() . '" width="75" style="float: ' . $float . '" />';
         }
 
         return $photo;
@@ -172,14 +172,14 @@ abstract class PersonModel
 
             $hh = intval($div[1] / $xx);
 
-            $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto()->getPathName() . '" width="250" height="' . $hh . '" style="width: 25opx; height: ' . $hh . 'px; float: ' . $float . '" />';
+            $photo = '<img class="img-thumbnail" title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto()->getPathName() . '" width="250" height="' . $hh . '" style="width: 25opx; height: ' . $hh . 'px; float: ' . $float . '" />';
         } elseif (is_string($this->getPhoto()) && file_exists($this->getPhoto())) {
             $div = getimagesize($this->getPhoto());
             $xx = $div[0] / 250;
 
             $hh = intval($div[1] / $xx);
 
-            $photo = '<img title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto() . '" width="250" height="' . $hh . '" style="width: 250px; height: ' . $hh . 'px; float: ' . $float . '" />';
+            $photo = '<img class="img-thumbnail" title="' . $this->getIdentifier() . '" src="/' . $this->getPhoto() . '" width="250" height="' . $hh . '" style="width: 250px; height: ' . $hh . 'px; float: ' . $float . '" />';
         }
         return $photo;
     }

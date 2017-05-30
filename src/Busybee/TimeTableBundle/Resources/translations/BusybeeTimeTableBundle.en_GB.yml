@@ -144,6 +144,21 @@ period:
         label: Start of Period.
     end:
         label: End of Period.
+    activities:
+        add: Add Activity Groups to Period
+    plan:
+        title:
+            add: Add Activity Group
+            remove: Remove Activity Group
+        header: 'Period %day% - %period%'
+        panelparagraph: '%start% - %end%'
+        banner:
+            title: Period Plan
+            description: "doin' the stuff"
+        activity:
+            title: '%name%'
+    activity:
+        placeholder: Select Activity
 column:
     remove:
         locked: 'The column has been locked and cannot be removed.'

@@ -3,6 +3,7 @@
 namespace Busybee\StudentBundle\Form;
 
 use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StaffBundle\Entity\Staff;
@@ -40,6 +41,7 @@ class ActivityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $year = $options['year_data'];
         $builder
             ->add('name', null,
                 [
@@ -142,6 +144,23 @@ class ActivityType extends AbstractType
                     'required' => false,
                 ]
             )
+            ->add('space', EntityType::class,
+                [
+                    'label' => 'activity.space.label',
+                    'class' => Space::class,
+                    'choice_label' => 'nameCapacity',
+                    'placeholder' => 'activity.space.placeholder',
+                    'attr' => [
+                        'class' => 'monitorChange',
+                        'help' => 'activity.space.help'
+                    ],
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('s')
+                            ->addOrderBy('s.name', 'ASC');
+                    },
+                    'required' => false,
+                ]
+            )
             ->add('changeRecord', EntityType::class,
                 array(
                     'label' => false,
@@ -152,12 +171,13 @@ class ActivityType extends AbstractType
                     'choice_label' => 'nameYear',
                     'mapped' => false,
                     'required' => false,
-                    'query_builder' => function (EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) use ($year) {
                         return $er->createQueryBuilder('a')
                             ->leftJoin('a.year', 'y')
-                            ->addOrderBy('y.firstDay', 'DESC')
                             ->addOrderBy('a.name', 'ASC')
-                            ->addOrderBy('a.nameShort', 'ASC');
+                            ->addOrderBy('a.nameShort', 'ASC')
+                            ->where('y.id = :year_id')
+                            ->setParameter('year_id', $year);
                     },
                     'placeholder' => 'activity.placeholder.changeRecord',
                 )

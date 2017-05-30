@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\HomeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
@@ -20,6 +19,7 @@ class DefaultController extends Controller
     private static function loadFixtures(Kernel $kernel)
     {
         $loader = new DataFixturesLoader($kernel->getContainer());
+
         $em = $kernel->getContainer()->get('doctrine')->getManager();
 
         foreach ($kernel->getBundles() as $bundle) {

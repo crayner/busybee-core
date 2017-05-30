@@ -2,12 +2,12 @@
 
 namespace Busybee\InstituteBundle\Entity;
 
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\InstituteBundle\Model\SpaceModel;
 
 /**
  * Space
  */
-class Space
+class Space extends SpaceModel
 {
     /**
      * @var integer

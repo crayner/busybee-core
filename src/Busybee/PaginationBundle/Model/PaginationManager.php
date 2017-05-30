@@ -892,7 +892,6 @@ abstract class PaginationManager implements PaginationInterface
      */
     protected function setQuerySelect()
     {
-        dump($this);
         if (!is_array($this->select) || empty($this->select)) return $this;
         foreach ($this->select as $name)
             $this->query->addSelect($name);
