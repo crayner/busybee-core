@@ -30,6 +30,7 @@ class PeriodActivityType extends AbstractType
                     'entry_options' =>
                         [
                             'year_data' => $options['year_data'],
+                            'manager' => $options['manager'],
                         ],
                 ]
             );
@@ -44,10 +45,12 @@ class PeriodActivityType extends AbstractType
             [
                 'data_class' => Period::class,
                 'translation_domain' => 'BusybeeTimeTableBundle',
+                'error_bubbling' => true,
             ]
         );
         $resolver->setRequired([
             'year_data',
+            'manager',
         ]);
     }
 

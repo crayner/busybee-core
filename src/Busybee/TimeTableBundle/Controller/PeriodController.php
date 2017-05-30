@@ -74,17 +74,23 @@ class PeriodController extends Controller
 
         $period = $this->get('period.repository')->find($id);
 
-        $form = $this->createForm(PeriodActivityType::class, $period, ['year_data' => $this->get('busybee_security.user_manager')->getSystemYear($this->getUser())]);
+        $pm = $this->get('period.manager')->injectPeriod($period->getId());
+
+        $form = $this->createForm(PeriodActivityType::class, $period, ['year_data' => $this->get('busybee_security.user_manager')->getSystemYear($this->getUser()), 'manager' => $pm]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $om = $this->get('doctrine')->getManager();
+            $om->persist($period);
+            $om->flush();
         }
+
         return $this->render('BusybeeTimeTableBundle:Plan:index.html.twig',
             [
                 'form' => $form->createView(),
                 'fullForm' => $form,
+                'period' => $pm,
             ]
         );
 

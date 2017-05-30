@@ -1,0 +1,54 @@
+{# src/Busybee/HomeBundle/Resources/views/Page/panelStart.html.twig #}
+
+{% if transDomain is not defined %}
+    {% set transDomain = "BusybeeHomeBundle" %}
+{% endif %}
+
+{% trans_default_domain transDomain %}
+
+{% if caption is not defined %}
+    {% set caption = 'table.caption.empty' %}
+{% endif %}
+
+{% if captionParams is not defined %}
+    {% set captionParams = {'%name%': 'Default'} %}
+{% endif %}
+
+{% if captionParams is not iterable %}
+    {% set captionParams = {'%name%': captionParams} %}
+{% endif %}
+
+{% if stripped is not defined %}
+    {% set striped = ' table-striped' %}
+{% endif %}
+
+{% if bordered is not defined %}
+    {% set bordered = ' table-bordered' %}
+{% endif %}
+
+{% if condensed is not defined %}
+    {% set condensed = '' %}  {# table-condensed #}
+{% endif %}
+
+{% if hover is not defined %}
+    {% set hover = '' %}  {# table-hover #}
+{% endif %}
+
+<div class="table-responsive">
+    <table class="table{{ bordered }}{{ striped }}{{ condensed }}{{ hover }}">
+        <caption>{{ caption|trans(captionParams) }}</caption>
+        <thead>
+        <tr>
+            {% for col in columns %}
+                {% set width = '' %}
+                {% if col.width is defined %}
+                    {% set width = ' width=' ~ col.width %}
+                {% endif %}
+                <th{{ width }}>{{ col.name }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody{% if tbodyClass is defined %} class="{{ tbodyClass }}"{% endif %}>
+
+
+

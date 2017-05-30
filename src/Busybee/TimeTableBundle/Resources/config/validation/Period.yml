@@ -8,6 +8,7 @@ Busybee\TimeTableBundle\Entity\Period:
             fields: [nameShort, column]
             errorPath: nameShort
             message: 'timetable.column.nameShort.unique'
+        - Callback: [ Busybee\TimeTableBundle\Validator\PeriodActivity, validate ]
     properties:
         column:
             - Valid: ~

@@ -159,6 +159,7 @@ period:
             title: '%name%'
     activity:
         placeholder: Select Activity
+        remove: Remove Activity
 column:
     remove:
         locked: 'The column has been locked and cannot be removed.'

@@ -180,4 +180,10 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeeTimeTableBundle:PeriodPlan"
+    form.period.activity.entity.type:
+        class: Busybee\TimeTableBundle\Form\PeriodActivityEntityType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
 

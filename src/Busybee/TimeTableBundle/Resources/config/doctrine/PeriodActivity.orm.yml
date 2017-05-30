@@ -2,6 +2,11 @@ Busybee\TimeTableBundle\Entity\PeriodActivity:
     type: entity
     table: tt_period_activity
     repositoryClass: Busybee\TimeTableBundle\Repository\PeriodActivityRepository
+    uniqueConstraints:
+        period_activity:
+            columns:
+                - period_id
+                - activity_id
     id:
         id:
             type: integer
@@ -17,7 +22,7 @@ Busybee\TimeTableBundle\Entity\PeriodActivity:
         space:
             targetEntity: Busybee\InstituteBundle\Entity\Space
             joinColumns:
-                space:
+                space_id:
                     referencedColumnName: id
         tutor1:
             targetEntity: Busybee\StaffBundle\Entity\Staff

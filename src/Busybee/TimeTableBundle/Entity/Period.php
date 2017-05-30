@@ -341,7 +341,7 @@ class Period extends PeriodModel
         if (!$this->activitiesSorted && $this->activities->count() > 0) {
             $iterator = $this->activities->getIterator();
             $iterator->uasort(function ($a, $b) {
-                return ($a->getName() < $b->getName()) ? -1 : 1;
+                return ($a->getActivity()->getName() < $b->getActivity()->getName()) ? -1 : 1;
             });
 
             $this->activities = new ArrayCollection(iterator_to_array($iterator, false));

@@ -127,6 +127,9 @@ class PeriodActivity
      */
     public function getSpace()
     {
+        if (empty($this->space) && !empty($this->getActivity()))
+            $this->setspace($this->getActivity()->getspace());
+
         return $this->space;
     }
 
@@ -140,78 +143,6 @@ class PeriodActivity
     public function setSpace(\Busybee\InstituteBundle\Entity\Space $space = null)
     {
         $this->space = $space;
-
-        return $this;
-    }
-
-    /**
-     * Get tutor1
-     *
-     * @return \Busybee\StaffBundle\Entity\Staff
-     */
-    public function getTutor1()
-    {
-        return $this->tutor1;
-    }
-
-    /**
-     * Set tutor1
-     *
-     * @param \Busybee\StaffBundle\Entity\Staff $tutor1
-     *
-     * @return PeriodActivity
-     */
-    public function setTutor1(\Busybee\StaffBundle\Entity\Staff $tutor1 = null)
-    {
-        $this->tutor1 = $tutor1;
-
-        return $this;
-    }
-
-    /**
-     * Get tutor2
-     *
-     * @return \Busybee\StaffBundle\Entity\Staff
-     */
-    public function getTutor2()
-    {
-        return $this->tutor2;
-    }
-
-    /**
-     * Set tutor2
-     *
-     * @param \Busybee\StaffBundle\Entity\Staff $tutor2
-     *
-     * @return PeriodActivity
-     */
-    public function setTutor2(\Busybee\StaffBundle\Entity\Staff $tutor2 = null)
-    {
-        $this->tutor2 = $tutor2;
-
-        return $this;
-    }
-
-    /**
-     * Get tutor3
-     *
-     * @return \Busybee\StaffBundle\Entity\Staff
-     */
-    public function getTutor3()
-    {
-        return $this->tutor3;
-    }
-
-    /**
-     * Set tutor3
-     *
-     * @param \Busybee\StaffBundle\Entity\Staff $tutor3
-     *
-     * @return PeriodActivity
-     */
-    public function setTutor3(\Busybee\StaffBundle\Entity\Staff $tutor3 = null)
-    {
-        $this->tutor3 = $tutor3;
 
         return $this;
     }
@@ -240,6 +171,87 @@ class PeriodActivity
             $activity->addPeriod($this);
 
         $this->activity = $activity;
+
+        return $this;
+    }
+
+    /**
+     * Get tutor1
+     *
+     * @return \Busybee\StaffBundle\Entity\Staff
+     */
+    public function getTutor1()
+    {
+        if (empty($this->tutor1) && !empty($this->getActivity()))
+            $this->setTutor1($this->getActivity()->getTutor1());
+
+        return $this->tutor1;
+    }
+
+    /**
+     * Set tutor1
+     *
+     * @param \Busybee\StaffBundle\Entity\Staff $tutor1
+     *
+     * @return PeriodActivity
+     */
+    public function setTutor1(\Busybee\StaffBundle\Entity\Staff $tutor1 = null)
+    {
+        $this->tutor1 = $tutor1;
+
+        return $this;
+    }
+
+    /**
+     * Get tutor2
+     *
+     * @return \Busybee\StaffBundle\Entity\Staff
+     */
+    public function getTutor2()
+    {
+        if (empty($this->tutor2) && !empty($this->getActivity()))
+            $this->setTutor2($this->getActivity()->getTutor2());
+
+        return $this->tutor2;
+    }
+
+    /**
+     * Set tutor2
+     *
+     * @param \Busybee\StaffBundle\Entity\Staff $tutor2
+     *
+     * @return PeriodActivity
+     */
+    public function setTutor2(\Busybee\StaffBundle\Entity\Staff $tutor2 = null)
+    {
+        $this->tutor2 = $tutor2;
+
+        return $this;
+    }
+
+    /**
+     * Get tutor3
+     *
+     * @return \Busybee\StaffBundle\Entity\Staff
+     */
+    public function getTutor3()
+    {
+        if (empty($this->tutor3) && !empty($this->getActivity()))
+            $this->setTutor3($this->getActivity()->getTutor3());
+
+        return $this->tutor3;
+    }
+
+    /**
+     * Set tutor3
+     *
+     * @param \Busybee\StaffBundle\Entity\Staff $tutor3
+     *
+     * @return PeriodActivity
+     */
+    public function setTutor3(\Busybee\StaffBundle\Entity\Staff $tutor3 = null)
+    {
+        $this->tutor3 = $tutor3;
 
         return $this;
     }

@@ -1,0 +1,8 @@
+Busybee\TimeTableBundle\Entity\PeriodActivity:
+    properties:
+        period:
+            - NotBlank: ~
+            - Valid: ~
+        activity:
+            - NotBlank: ~
+            - Valid: ~

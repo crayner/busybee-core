@@ -2,21 +2,9 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
-use Busybee\InstituteBundle\Entity\SpecialDay;
-use Busybee\InstituteBundle\Entity\Term;
-use Busybee\InstituteBundle\Entity\Year;
-use Busybee\SecurityBundle\Doctrine\UserManager;
-use Busybee\SecurityBundle\Entity\User;
-use Busybee\SystemBundle\Setting\SettingManager;
-use Busybee\TimeTableBundle\Entity\Column;
-use Busybee\TimeTableBundle\Entity\Day;
 use Busybee\TimeTableBundle\Entity\Period;
-use Busybee\TimeTableBundle\Entity\StartRotate;
-use Busybee\TimeTableBundle\Entity\TimeTable;
+use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class PeriodManager
 {
@@ -31,22 +19,67 @@ class PeriodManager
     private $pr;
 
     /**
+     * @var Period
+     */
+    private $period;
+
+    /**
+     * @var \stdClass
+     */
+    private $status;
+
+    /**
      * PeriodManager constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, $id = null)
     {
         $this->om = $om;
         $this->pr = $om->getRepository(Period::class);
+        $this->period = $this->injectPeriod($id);
+        $this->status = new \stdClass();
     }
 
     /**
      * @param $id
-     * @return mixed
+     * @return PeriodManager
+     */
+    public function injectPeriod($id)
+    {
+        if ($id)
+            $this->period = $this->pr->find($id);
+        if (!$this->period instanceof Period)
+            $this->period = new Period();
+        return $this;
+    }
+
+    /**
+     * @param $id
+     * @return boolean
      */
     public function canDelete($id)
     {
         $period = $this->pr->find($id);
         return $period->canDelete();
+    }
+
+    /**
+     * @param $activity
+     * @return \stdClass
+     */
+    public function getActivityStatus(PeriodActivity $activity = null)
+    {
+        if (!$activity instanceof PeriodActivity) {
+            $status = new \stdClass();
+            $status->class = 'default';
+            return $status;
+        }
+        if (isset($this->status->id) && $this->status->id === $activity->getId())
+            return $this->status;
+        $this->status = new \stdClass();
+        $this->status->id = $activity->getId();
+        $this->status->class = '';
+
+        return $this->status;
     }
 }

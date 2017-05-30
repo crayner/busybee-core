@@ -33,6 +33,7 @@ Busybee\TimeTableBundle\Entity\Period:
         activities:
             targetEntity: Busybee\TimeTableBundle\Entity\PeriodActivity
             mappedBy: period
+            cascade: [ 'all' ]
     manyToOne:
         column:
             targetEntity: Busybee\TimeTableBundle\Entity\Column
