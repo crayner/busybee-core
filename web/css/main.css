@@ -254,7 +254,6 @@ ul.nav li.disabled {
 button.btn.btn-header {
     padding: 1px 7px;
 }
-
 .well-danger {
     background-image: -webkit-linear-gradient(top, #f2dede 0, #e7c3c3 100%);
     background-image: -o-linear-gradient(top, #f2dede 0, #e7c3c3 100%);
@@ -265,7 +264,6 @@ button.btn.btn-header {
     border-color: #dca7a7;
     color: #a94442;
 }
-
 .well-warning {
     background-image: -webkit-linear-gradient(top, #fcf8e3 0, #f8efc0 100%);
     background-image: -o-linear-gradient(top, #fcf8e3 0, #f8efc0 100%);
@@ -276,7 +274,6 @@ button.btn.btn-header {
     border-color: #f5e79e;
     color: #8a6d3b;
 }
-
 .well-info {
     background-image: -webkit-linear-gradient(top, #d9edf7 0, #b9def0 100%);
     background-image: -o-linear-gradient(top, #d9edf7 0, #b9def0 100%);
@@ -287,7 +284,6 @@ button.btn.btn-header {
     border-color: #9acfea;
     color: #31708f;
 }
-
 .well-success {
     background-image: -webkit-linear-gradient(top, #dff0d8 0, #c8e5bc 100%);
     background-image: -o-linear-gradient(top, #dff0d8 0, #c8e5bc 100%);
@@ -297,4 +293,14 @@ button.btn.btn-header {
     background-repeat: repeat-x;
     border-color: #b2dba1;
     color: #3c763d;
+}
+
+.row-hover:hover {
+    background-color: #e0e0e0;
+}
+
+.row-border {
+    border: 1px solid darkgray;
+    border-radius: 8px;
+    margin-bottom: -1px;
 }

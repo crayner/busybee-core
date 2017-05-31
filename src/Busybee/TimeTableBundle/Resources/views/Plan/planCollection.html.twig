@@ -5,14 +5,38 @@
 
 {% block period_activity_widget %}
     {% spaceless %}
-        <div class="row row-striped{{ manager.ActivityStatus(value).class }}">
-            <div class="col-sm-4">{{ form_widget(form.activity) }}</div>
-            <div class="col-sm-4 col-sm-offset-4">{{ form_widget(form.period, {'value': app.request.get('id')}) }}
-                <div class="collection-actions collection-table">
-                    {{ saveButton()|raw }}
-                    {{ deleteButton({'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action'})|raw }}
-                    <span style="float: right;">&nbsp;</span>
-                    {{ upDownButton()|raw }}
+        <div class="row row-border row-hover">
+            <div class="col-sm-4">
+                {{ form_widget(form.activity) }}
+            </div>
+            <div class="col-sm-4 small{{ manager.ActivityStatus(value).class }}">
+                <p>{{ 'period.activities.activity.details.data'|trans(manager.ActivityDetails(value))|trim(', ') }}
+                    {% if manager.ActivityStatus(value).message is not empty %}<span
+                        title="{{ manager.ActivityStatus(value).message }}"
+                        class="halflings halflings-question-sign"></span>{% endif %}</p>
+            </div>
+            {% set transDomain = 'BusybeeTimeTableBundle' %}
+            <div class="col-sm-4">{{ form_widget(form.period, {'value': app.request.get('id')}) }}
+                <div class="collection-actions collection-table row">
+                    <div class="col-sm-4">
+                        <div>
+                            {{ upDownButton()|raw }}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div>
+                            {% if form.activity.vars.value is not empty %}
+                                {{ miscButton({'class': 'halflings halflings-cog btn btn-success', 'windowOpen': {'route': path('student_activity_edit', {'id': form.activity.vars.value, 'closeWindow': '_closeWindow'}), 'target': 'Activity', 'params': 'width=1200,height=800'}, 'title': 'period.activities.activity.edit.button', 'transDomain': transDomain})|raw }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div>
+                            {{ deleteButton({'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': ''})|raw }}
+                            {{ saveButton({'style': ''})|raw }}
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

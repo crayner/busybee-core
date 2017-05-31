@@ -161,6 +161,7 @@ services:
         class: Busybee\TimeTableBundle\Model\PeriodManager
         arguments:
             - '@doctrine.orm.entity_manager'
+            - '@translator'
     periods.validator:
         class: Busybee\TimeTableBundle\Validator\Constraints\PeriodsValidator
         arguments:

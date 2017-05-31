@@ -1,57 +1,57 @@
-# Person
+# TimeTable
 parameters:
     items:
-        59:
+        16:
             label: menu.timetable.title
             name: Timetable Menu
             role: ROLE_PRINCIPAL
             parameters: []
-            node: 5
-            order: 59
-            menu: 59
-        592:
+            node: 1
+            order: 16
+            menu: 16
+        161:
+            label: menu.student.activities.submenu
+            name: Activity Menu
+            role: ROLE_ADMIN
+            node: 16
+            order: 161
+            menu: 161
+        162:
             label: menu.timetable.title
             name: Manage Timetable
             role: ROLE_PRINCIPAL
             parameters: []
-            node: 59
-            order: 592
-            menu: 592
-        5910:
+            node: 16
+            order: 162
+            menu: 162
+        1610:
             label: menu.student.activities.manage
             name: Manage Activities
             role: ROLE_ADMIN
-            node: 591
-            order: 5910
+            node: 161
+            order: 1610
             route: student_activities
-        5911:
+        1611:
             label: menu.timetable.activitygroups
             name: Manage Activity Groups
             route: activity_group_list
             role: ROLE_PRINCIPAL
             parameters: []
-            node: 591
-            order: 5911
-        591:
-            label: menu.student.activities.submenu
-            name: Activity Menu
-            role: ROLE_ADMIN
-            node: 59
-            order: 591
-            menu: 591
-        5920:
+            node: 161
+            order: 1611
+        1620:
             label: menu.timetable.manage
             name: Manage Timetable
             route: timetable_manage
             role: ROLE_PRINCIPAL
             parameters: []
-            node: 592
-            order: 5920
-        5921:
+            node: 162
+            order: 1620
+        1621:
             label: menu.timetable.assigndays
             name: Assign TimeTable Days
             route: timetable_day_assignment
             role: ROLE_PRINCIPAL
             parameters: []
-            node: 592
-            order: 5921
+            node: 162
+            order: 1621

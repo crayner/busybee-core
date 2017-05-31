@@ -146,6 +146,21 @@ period:
         label: End of Period.
     activities:
         add: Add Activity Groups to Period
+        activity:
+            label: 'Activity'
+            details:
+                label: 'Details'
+                data: '%space%, %tutor1%, %tutor2%, %tutor3%'
+            space:
+                missing: No space allocated for this class.
+                duplicate: 'The space %space% is already allocated in this period.'
+            staff:
+                missing: No staff allocated for this class.
+                duplicate: 'The staff member %name% is already allocated in this period.'
+            failed:
+                count: 'Some activities are not correctly formated.  Found %count% activity not to specification.'
+            edit:
+                button: 'Edit Activity'
     plan:
         title:
             add: Add Activity Group

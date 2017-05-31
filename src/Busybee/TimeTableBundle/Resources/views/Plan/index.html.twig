@@ -24,8 +24,16 @@
     {% set panelParagraph = 'period.plan.panelparagraph' %}
     {% set panelParams = {'%start%': form.vars.value.startTime, '%end%': form.vars.value.endTime} %}
     {% set h3Content = closeButton()|raw %}
+    {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('period_plan', {'id': app.request.get('id')})}})|raw %}
     {% set transDomain = 'BusybeeTimeTableBundle' %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+    <div class="row row-header">
+        <div class="col-sm-4">{{ 'period.activities.activity.label'|trans }}</div>
+        <div class="col-sm-4">{{ 'period.activities.activity.details.label'|trans }}</div>
+        <div class="col-sm-4">{{ 'actions'|trans({}, 'BusybeeHomeBundle') }}
+        </div>
+    </div>
+
     {{ form_widget(form.activities) }}
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}

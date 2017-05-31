@@ -7,6 +7,8 @@ use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PeriodActivityType extends AbstractType
@@ -62,5 +64,13 @@ class PeriodActivityType extends AbstractType
         return 'tt_period_activity';
     }
 
-
+    /**
+     * @param FormView $view
+     * @param FormInterface $form
+     * @param array $options
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['manager'] = $options['manager'];
+    }
 }
