@@ -4,7 +4,11 @@ parameters:
         calendar.status.past: past
         calendar.status.current: current
         calendar.status.future: future
-    spacePagination: []
+    spacePagination:
+        alias: s
+        sortBy:
+            Space Name:
+                s.name: ASC
 services:
     campus.repository:
         class: Busybee\InstituteBundle\Repository\CampusRepository

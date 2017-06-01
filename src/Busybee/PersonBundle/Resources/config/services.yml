@@ -155,7 +155,7 @@ services:
     person.email.validator:
         class: Busybee\PersonBundle\Validator\Constraints\PersonEmailValidator
         arguments:
-            entityManager: "@doctrine.orm.entity_manager"
+            - "@doctrine.orm.entity_manager"
         tags:
             - { name: validator.constraint_validator, alias: person_email_validator }
     phone.manager:
@@ -167,7 +167,7 @@ services:
     person.name.validator:
         class: Busybee\PersonBundle\Validator\Constraints\PersonNameValidator
         arguments:
-            entityManager: "@doctrine.orm.entity_manager"
+            - "@doctrine.orm.entity_manager"
         tags:
             - { name: validator.constraint_validator, alias: person_name_validator }
     form.person.extra.type:

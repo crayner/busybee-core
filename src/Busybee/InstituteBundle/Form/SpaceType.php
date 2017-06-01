@@ -4,11 +4,10 @@ namespace Busybee\InstituteBundle\Form;
 
 use Busybee\FormBundle\Type\ToggleType;
 use Busybee\InstituteBundle\Entity\Space;
-use Busybee\InstituteBundle\Form\DataTransformer\CampusTransformer;
-use Busybee\StaffBundle\Form\DataTransformer\StaffTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\StaffBundle\Entity\Staff;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType ;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\Common\Persistence\ObjectManager ;
@@ -87,7 +86,7 @@ class SpaceType extends AbstractType
                         'max' => '999',
                         'class' => 'monitorChange',
                     ),
-                    'empty_data' => 0,
+                    'empty_data' => '0',
                 )
             )
             ->add('projector', ToggleType::class, array(
@@ -131,6 +130,10 @@ class SpaceType extends AbstractType
                         'class' => 'monitorChange',
                     ),
                 )
+            )
+            ->add('duplicateid', HiddenType::class, [
+                    'mapped' => false,
+                ]
             )
             ->add('phoneInt', null, array(
                     'label' => 'campus.space.label.phoneint',
@@ -205,12 +208,13 @@ class SpaceType extends AbstractType
                     'mapped' => false,
                     'required' => false,
                     'placeholder' => 'campus.space.placeholder.changeRecord',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('s')
+                            ->orderBy('s.name', 'ASC');
+                    },
                 )
             )
         ;
-
-        $builder->get('campus')->addModelTransformer(new CampusTransformer($this->manager));
-        $builder->get('staff')->addModelTransformer(new StaffTransformer($this->manager));
     }
     
     /**

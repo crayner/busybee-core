@@ -40,3 +40,6 @@ department_edit:
 grade_edit:
     path:     /grade/edit/
     defaults: { _controller: BusybeeInstituteBundle:Grade:edit }
+campus_space_duplicate:
+    path:     /campus/space/duplicate/
+    defaults: { _controller: BusybeeInstituteBundle:Campus:duplicateSpace }

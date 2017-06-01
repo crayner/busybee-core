@@ -79,18 +79,15 @@ class CampusController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
-        $campus = new Space();
+        $space = new Space();
 
         $id = $request->get('id');
         if (intval($id) > 0)
-            $campus = $this->get('space.repository')->find($id);
+            $space = $this->get('space.repository')->find($id);
 
-        if (! is_null($campus->getCampus())) $campus->getCampus()->getName();
-        if (!is_null($campus->getStaff())) $campus->getStaff()->getPerson();
+        $space->cancelURL = $this->get('router')->generate('campus_space_manage');
 
-        $campus->cancelURL = $this->get('router')->generate('campus_space_manage');
-
-        $form = $this->createForm(SpaceType::class, $campus);
+        $form = $this->createForm(SpaceType::class, $space);
 
         $form->handleRequest($request);
 
@@ -98,12 +95,58 @@ class CampusController extends Controller
         {
             $em = $this->get('doctrine')->getManager();
 
-            $em->persist($campus);
+            $em->persist($space);
             $em->flush();
 
-            return new RedirectResponse($this->get('router')->generate('campus_space_edit', array('id' => $campus->getId())));
+
+            if ($id === 'Add')
+                return new RedirectResponse($this->get('router')->generate('campus_space_edit', array('id' => $space->getId())));
         }
 
         return $this->render('BusybeeInstituteBundle:Campus:spaceEdit.html.twig', array('id' => $id, 'form' => $form->createView()));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function duplicateSpaceAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
+
+        $id = $request->get('space')['duplicateid'];
+
+        if ($id === "Add")
+            $space = new Space();
+        else
+            $space = $this->get('space.repository')->find($id);
+
+        $space->cancelURL = $this->generateUrl('campus_space_manage');
+
+        $form = $this->createForm(SpaceType::class, $space);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->get('doctrine')->getManager();
+
+            $em->persist($space);
+            $em->flush();
+
+            $route = $this->generateUrl('campus_space_edit', ['id' => 'Add']);
+            $space->setId(null);
+            $space->setName(null);
+            $form = $this->createForm(SpaceType::class, $space, ['action' => $route]);
+            $id = 'Add';
+        }
+
+
+        return $this->render('BusybeeInstituteBundle:Campus:spaceEdit.html.twig',
+            [
+                'id' => $id,
+                'form' => $form->createView(),
+            ]
+        );
     }
 }

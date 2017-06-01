@@ -114,7 +114,6 @@ class Space extends SpaceModel
      */
     private $campus;
 
-
     /**
      * Get id
      *
@@ -123,6 +122,18 @@ class Space extends SpaceModel
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @return Space
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**

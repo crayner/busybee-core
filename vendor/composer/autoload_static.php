@@ -24,6 +24,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
     public static $prefixLengthsPsr4 = array (
         'T' => 
         array (
+            'Twig\\Extensions\\' => 16,
             'Tests\\' => 6,
         ),
         'S' => 
@@ -49,8 +50,11 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
+            'Psr\\Link\\' => 9,
             'Psr\\Http\\Message\\' => 17,
+            'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
         ),
         'M' => 
@@ -71,6 +75,10 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
+        'F' =>
+            array(
+                'Fig\\Link\\' => 9,
+            ),
         'D' => 
         array (
             'Dompdf\\' => 7,
@@ -90,6 +98,10 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
     );
 
     public static $prefixDirsPsr4 = array (
+        'Twig\\Extensions\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/twig/extensions/src',
+            ),
         'Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
@@ -166,14 +178,26 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         array (
             0 => __DIR__ . '/..' . '/sensio/distribution-bundle',
         ),
+        'Psr\\SimpleCache\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+            ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'Psr\\Link\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/psr/link/src',
+            ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
+        'Psr\\Container\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/psr/container/src',
+            ),
         'Psr\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
@@ -203,6 +227,10 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
+        'Fig\\Link\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/fig/link-util/src',
+            ),
         'Dompdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',

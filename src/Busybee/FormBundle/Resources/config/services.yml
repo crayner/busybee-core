@@ -65,7 +65,7 @@ services:
     validator.unique.or.blank:
         class: Busybee\FormBundle\Validator\Constraints\UniqueOrBlankValidator
         arguments:
-            entityManager: '@doctrine.orm.entity_manager'
+            - '@doctrine.orm.entity_manager'
         tags:
             - { name: validator.constraint_validator, alias: unique_or_blank_validator }
     validator.integer.constraint:

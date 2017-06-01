@@ -14,12 +14,13 @@
 {% block headerLead %}{{ 'campus.space.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-{{ form_start(form) }}
+    {{ form_start(form, {'attr': {'id': 'SpaceForm'}}) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('campus_space_manage')}}) %}
-    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('campus_space_edit', {'id': 'Add'})}}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('campus_space_edit', {'id': app.request.get('id')}) }}) %}
-    {% set h3Content = h3Content ~ saveButton() %}
-    {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
+    {% if id != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('campus_space_edit', {'id': 'Add'})}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('campus_space_edit', {'id': id}) }}) %}
+    {% set h3Content = h3Content ~ saveButton({'class': 'btn btn-success halflings halflings-duplicate', 'title': 'campus.space.duplicate', 'transDomain': 'BusybeeInstituteBundle', 'additional': 'id="duplicate"'}) %}
+    {% set h3Content = h3Content ~ saveButton({'additional': 'id="save"'}) %}
+    {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': id}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.space.title', 'transDomain': 'BusybeeInstituteBundle'} %}
 	<div class=container-fluid">
 		<div class="row">
@@ -30,12 +31,12 @@
                 {{ form_row(form.type) }}
 			</div>
 			<div class="col-sm-4 well">
-                {{ form_row(form.campus, {'value': form.campus.vars.data }) }}
+                {{ form_row(form.campus) }}
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-4 well">
-                {{ form_row(form.staff, {'value': form.staff.vars.data }) }}
+                {{ form_row(form.staff) }}
 			</div>
 			<div class="col-sm-2 well">
                 {{ form_row(form.capacity) }}
@@ -75,9 +76,15 @@
 			</div>
 			<div class="col-sm-3 well">
                 {{ form_row(form.iwb) }}
+                {{ form_row(form.duplicateid, {'value': id}) }}
 			</div>
 			<div class="col-sm-3 well">
-                {{ form_row(form.studentComputers) }}
+                {% if form.studentComputers.vars.value is empty %}
+                    {% set value = '0' %}
+                {% else %}
+                    {% set value = form.studentComputers.vars.value %}
+                {% endif %}
+                {{ form_row(form.studentComputers, {'value': value}) }}
 			</div>
 		</div>
 
@@ -92,4 +99,5 @@
     {{ parent() }}
     {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
     {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'campus_space_edit'} %}
+    {% include '@BusybeeInstitute/Campus/spacesScript.html.twig' %}
 {% endblock javascripts %}

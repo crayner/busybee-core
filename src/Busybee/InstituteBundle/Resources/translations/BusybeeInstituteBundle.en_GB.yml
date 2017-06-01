@@ -30,6 +30,7 @@ campus:
             title: Edit Space
         title: Manage Space
         description: Add, Modify Space details.
+        duplicate: Duplicate Space
         label:
             staff: Home Room Teacher
             type: Space Type
@@ -56,7 +57,8 @@ campus:
             type: Select a Campus Resource Type
             campus: Select a Campus
             changeRecord: Edit another Resource
-
+        unique:
+            name: 'The space name is not unique'
 '': ""
 years:
     title: Adademic Year Definitions

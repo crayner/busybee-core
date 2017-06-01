@@ -671,60 +671,6 @@
         ]
     },
     {
-        "name": "twig/extensions",
-        "version": "v1.4.1",
-        "version_normalized": "1.4.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/twigphp/Twig-extensions.git",
-            "reference": "f0bb8431c8691f5a39f1017d9a5967a082bf01ff"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/f0bb8431c8691f5a39f1017d9a5967a082bf01ff",
-            "reference": "f0bb8431c8691f5a39f1017d9a5967a082bf01ff",
-            "shasum": ""
-        },
-        "require": {
-            "twig/twig": "~1.20|~2.0"
-        },
-        "require-dev": {
-            "symfony/translation": "~2.3"
-        },
-        "suggest": {
-            "symfony/translation": "Allow the time_diff output to be translated"
-        },
-        "time": "2016-10-25T17:34:14+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Twig_Extensions_": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Common additional features for Twig that do not directly belong in core",
-        "homepage": "http://twig.sensiolabs.org/doc/extensions/index.html",
-        "keywords": [
-            "i18n",
-            "text"
-        ]
-    },
-    {
         "name": "doctrine/cache",
         "version": "v1.6.1",
         "version_normalized": "1.6.1.0",
@@ -1990,89 +1936,6 @@
         ]
     },
     {
-        "name": "doctrine/doctrine-bundle",
-        "version": "1.6.7",
-        "version_normalized": "1.6.7.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/doctrine/DoctrineBundle.git",
-            "reference": "a01d99bc6c9a6c8a8ace0012690099dd957ce9b9"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/a01d99bc6c9a6c8a8ace0012690099dd957ce9b9",
-            "reference": "a01d99bc6c9a6c8a8ace0012690099dd957ce9b9",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/dbal": "~2.3",
-            "doctrine/doctrine-cache-bundle": "~1.0",
-            "jdorn/sql-formatter": "~1.1",
-            "php": ">=5.5.9",
-            "symfony/console": "~2.7|~3.0",
-            "symfony/dependency-injection": "~2.7|~3.0",
-            "symfony/doctrine-bridge": "~2.7|~3.0",
-            "symfony/framework-bundle": "~2.7|~3.0"
-        },
-        "require-dev": {
-            "doctrine/orm": "~2.3",
-            "phpunit/phpunit": "~4",
-            "satooshi/php-coveralls": "^1.0",
-            "symfony/phpunit-bridge": "~2.7|~3.0",
-            "symfony/property-info": "~2.8|~3.0",
-            "symfony/validator": "~2.7|~3.0",
-            "symfony/yaml": "~2.7|~3.0",
-            "twig/twig": "~1.10|~2.0"
-        },
-        "suggest": {
-            "doctrine/orm": "The Doctrine ORM integration is optional in the bundle.",
-            "symfony/web-profiler-bundle": "To use the data collector."
-        },
-        "time": "2017-01-16T12:01:26+00:00",
-        "type": "symfony-bundle",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.6.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Doctrine\\Bundle\\DoctrineBundle\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-            },
-            {
-                "name": "Benjamin Eberlei",
-                "email": "kontakt@beberlei.de"
-            },
-            {
-                "name": "Doctrine Project",
-                "homepage": "http://www.doctrine-project.org/"
-            },
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Symfony DoctrineBundle",
-        "homepage": "http://www.doctrine-project.org",
-        "keywords": [
-            "database",
-            "dbal",
-            "orm",
-            "persistence"
-        ]
-    },
-    {
         "name": "doctrine/dbal",
         "version": "v2.5.12",
         "version_normalized": "2.5.12.0",
@@ -2583,139 +2446,6 @@
     ]
   },
   {
-    "name": "symfony/swiftmailer-bundle",
-    "version": "v2.5.4",
-    "version_normalized": "2.5.4.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/symfony/swiftmailer-bundle.git",
-      "reference": "8ab32ce31a7156621fb92e0466586186beb89759"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/8ab32ce31a7156621fb92e0466586186beb89759",
-      "reference": "8ab32ce31a7156621fb92e0466586186beb89759",
-      "shasum": ""
-    },
-    "require": {
-      "php": ">=5.3.2",
-      "swiftmailer/swiftmailer": ">=4.2.0,~5.0",
-      "symfony/config": "~2.7|~3.0",
-      "symfony/dependency-injection": "~2.7|~3.0",
-      "symfony/http-kernel": "~2.7|~3.0"
-    },
-    "require-dev": {
-      "symfony/console": "~2.7|~3.0",
-      "symfony/framework-bundle": "~2.7|~3.0",
-      "symfony/phpunit-bridge": "~2.7|~3.0",
-      "symfony/yaml": "~2.7|~3.0"
-    },
-    "suggest": {
-      "psr/log": "Allows logging"
-    },
-    "time": "2017-03-21T21:47:36+00:00",
-    "type": "symfony-bundle",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "2.5-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "psr-4": {
-        "Symfony\\Bundle\\SwiftmailerBundle\\": ""
-      }
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "Symfony Community",
-        "homepage": "http://symfony.com/contributors"
-      },
-      {
-        "name": "Fabien Potencier",
-        "email": "fabien@symfony.com"
-      }
-    ],
-    "description": "Symfony SwiftmailerBundle",
-    "homepage": "http://symfony.com"
-  },
-  {
-    "name": "sensio/framework-extra-bundle",
-    "version": "v3.0.25",
-    "version_normalized": "3.0.25.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-      "reference": "472b339cf0c82f3a033b29f85d9d9cada3cd1a9c"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/472b339cf0c82f3a033b29f85d9d9cada3cd1a9c",
-      "reference": "472b339cf0c82f3a033b29f85d9d9cada3cd1a9c",
-      "shasum": ""
-    },
-    "require": {
-      "doctrine/common": "~2.2",
-      "symfony/dependency-injection": "~2.3|~3.0",
-      "symfony/framework-bundle": "~2.3|~3.0"
-    },
-    "require-dev": {
-      "doctrine/doctrine-bundle": "~1.5",
-      "doctrine/orm": "~2.4,>=2.4.5",
-      "symfony/asset": "~2.7|~3.0",
-      "symfony/browser-kit": "~2.3|~3.0",
-      "symfony/dom-crawler": "~2.3|~3.0",
-      "symfony/expression-language": "~2.4|~3.0",
-      "symfony/finder": "~2.3|~3.0",
-      "symfony/phpunit-bridge": "~3.2",
-      "symfony/psr-http-message-bridge": "^0.3",
-      "symfony/security-bundle": "~2.4|~3.0",
-      "symfony/templating": "~2.3|~3.0",
-      "symfony/translation": "~2.3|~3.0",
-      "symfony/twig-bundle": "~2.3|~3.0",
-      "symfony/yaml": "~2.3|~3.0",
-      "twig/twig": "~1.12|~2.0",
-      "zendframework/zend-diactoros": "^1.3"
-    },
-    "suggest": {
-      "symfony/expression-language": "",
-      "symfony/psr-http-message-bridge": "To use the PSR-7 converters",
-      "symfony/security-bundle": ""
-    },
-    "time": "2017-03-21T23:34:44+00:00",
-    "type": "symfony-bundle",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "3.0.x-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "psr-4": {
-        "Sensio\\Bundle\\FrameworkExtraBundle\\": ""
-      }
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "Fabien Potencier",
-        "email": "fabien@symfony.com"
-      }
-    ],
-    "description": "This bundle provides a way to configure your controllers with annotations",
-    "keywords": [
-      "annotations",
-      "controllers"
-    ]
-  },
-  {
     "name": "composer/ca-bundle",
     "version": "1.0.7",
     "version_normalized": "1.0.7.0",
@@ -2891,212 +2621,6 @@
     ]
   },
   {
-    "name": "symfony/symfony",
-    "version": "v3.2.7",
-    "version_normalized": "3.2.7.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/symfony/symfony.git",
-      "reference": "1631040ea8fc5e0e405c00d35cbf2c0b7b555f64"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/symfony/symfony/zipball/1631040ea8fc5e0e405c00d35cbf2c0b7b555f64",
-      "reference": "1631040ea8fc5e0e405c00d35cbf2c0b7b555f64",
-      "shasum": ""
-    },
-    "require": {
-      "doctrine/common": "~2.4",
-      "php": ">=5.5.9",
-      "psr/cache": "~1.0",
-      "psr/log": "~1.0",
-      "symfony/polyfill-intl-icu": "~1.0",
-      "symfony/polyfill-mbstring": "~1.0",
-      "symfony/polyfill-php56": "~1.0",
-      "symfony/polyfill-php70": "~1.0",
-      "symfony/polyfill-util": "~1.0",
-      "twig/twig": "~1.28|~2.0"
-    },
-    "conflict": {
-      "phpdocumentor/reflection-docblock": "<3.0",
-      "phpdocumentor/type-resolver": "<0.2.0",
-      "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0"
-    },
-    "provide": {
-      "psr/cache-implementation": "1.0"
-    },
-    "replace": {
-      "symfony/asset": "self.version",
-      "symfony/browser-kit": "self.version",
-      "symfony/cache": "self.version",
-      "symfony/class-loader": "self.version",
-      "symfony/config": "self.version",
-      "symfony/console": "self.version",
-      "symfony/css-selector": "self.version",
-      "symfony/debug": "self.version",
-      "symfony/debug-bundle": "self.version",
-      "symfony/dependency-injection": "self.version",
-      "symfony/doctrine-bridge": "self.version",
-      "symfony/dom-crawler": "self.version",
-      "symfony/event-dispatcher": "self.version",
-      "symfony/expression-language": "self.version",
-      "symfony/filesystem": "self.version",
-      "symfony/finder": "self.version",
-      "symfony/form": "self.version",
-      "symfony/framework-bundle": "self.version",
-      "symfony/http-foundation": "self.version",
-      "symfony/http-kernel": "self.version",
-      "symfony/inflector": "self.version",
-      "symfony/intl": "self.version",
-      "symfony/ldap": "self.version",
-      "symfony/monolog-bridge": "self.version",
-      "symfony/options-resolver": "self.version",
-      "symfony/process": "self.version",
-      "symfony/property-access": "self.version",
-      "symfony/property-info": "self.version",
-      "symfony/proxy-manager-bridge": "self.version",
-      "symfony/routing": "self.version",
-      "symfony/security": "self.version",
-      "symfony/security-bundle": "self.version",
-      "symfony/security-core": "self.version",
-      "symfony/security-csrf": "self.version",
-      "symfony/security-guard": "self.version",
-      "symfony/security-http": "self.version",
-      "symfony/serializer": "self.version",
-      "symfony/stopwatch": "self.version",
-      "symfony/templating": "self.version",
-      "symfony/translation": "self.version",
-      "symfony/twig-bridge": "self.version",
-      "symfony/twig-bundle": "self.version",
-      "symfony/validator": "self.version",
-      "symfony/var-dumper": "self.version",
-      "symfony/web-profiler-bundle": "self.version",
-      "symfony/workflow": "self.version",
-      "symfony/yaml": "self.version"
-    },
-    "require-dev": {
-      "cache/integration-tests": "dev-master",
-      "doctrine/cache": "~1.6",
-      "doctrine/data-fixtures": "1.0.*",
-      "doctrine/dbal": "~2.4",
-      "doctrine/doctrine-bundle": "~1.4",
-      "doctrine/orm": "~2.4,>=2.4.5",
-      "egulias/email-validator": "~1.2,>=1.2.8|~2.0",
-      "monolog/monolog": "~1.11",
-      "ocramius/proxy-manager": "~0.4|~1.0|~2.0",
-      "phpdocumentor/reflection-docblock": "^3.0",
-      "predis/predis": "~1.0",
-      "sensio/framework-extra-bundle": "^3.0.2",
-      "symfony/phpunit-bridge": "~3.2",
-      "symfony/polyfill-apcu": "~1.1",
-      "symfony/security-acl": "~2.8|~3.0"
-    },
-    "time": "2017-04-05T12:52:29+00:00",
-    "type": "library",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "3.2-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "psr-4": {
-        "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
-        "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
-        "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/",
-        "Symfony\\Bridge\\Swiftmailer\\": "src/Symfony/Bridge/Swiftmailer/",
-        "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
-        "Symfony\\Bundle\\": "src/Symfony/Bundle/",
-        "Symfony\\Component\\": "src/Symfony/Component/"
-      },
-      "classmap": [
-        "src/Symfony/Component/Intl/Resources/stubs"
-      ],
-      "exclude-from-classmap": [
-        "**/Tests/"
-      ]
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "Fabien Potencier",
-        "email": "fabien@symfony.com"
-      },
-      {
-        "name": "Symfony Community",
-        "homepage": "https://symfony.com/contributors"
-      }
-    ],
-    "description": "The Symfony PHP framework",
-    "homepage": "https://symfony.com",
-    "keywords": [
-      "framework"
-    ]
-  },
-  {
-    "name": "symfony/phpunit-bridge",
-    "version": "v2.8.19",
-    "version_normalized": "2.8.19.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/symfony/phpunit-bridge.git",
-      "reference": "bc240bf630ea49d5f86cef746254d64299029932"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/bc240bf630ea49d5f86cef746254d64299029932",
-      "reference": "bc240bf630ea49d5f86cef746254d64299029932",
-      "shasum": ""
-    },
-    "require": {
-      "php": ">=5.3.3"
-    },
-    "conflict": {
-      "phpunit/phpunit": ">=6.0"
-    },
-    "suggest": {
-      "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
-    },
-    "time": "2017-03-01T19:11:57+00:00",
-    "type": "symfony-bridge",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "2.8-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "files": [
-        "bootstrap.php"
-      ],
-      "psr-4": {
-        "Symfony\\Bridge\\PhpUnit\\": ""
-      },
-      "exclude-from-classmap": [
-        "/Tests/"
-      ]
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "Nicolas Grekas",
-        "email": "p@tchwork.com"
-      },
-      {
-        "name": "Symfony Community",
-        "homepage": "https://symfony.com/contributors"
-      }
-    ],
-    "description": "Symfony PHPUnit Bridge",
-    "homepage": "https://symfony.com"
-  },
-  {
     "name": "twig/twig",
     "version": "v2.3.2",
     "version_normalized": "2.3.2.0",
@@ -3162,18 +2686,464 @@
     ]
   },
   {
-    "name": "swiftmailer/swiftmailer",
-    "version": "v5.4.7",
-    "version_normalized": "5.4.7.0",
+    "name": "symfony/symfony",
+    "version": "v3.3.0",
+    "version_normalized": "3.3.0.0",
     "source": {
       "type": "git",
-      "url": "https://github.com/swiftmailer/swiftmailer.git",
-      "reference": "56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4"
+      "url": "https://github.com/symfony/symfony.git",
+      "reference": "5a7e31c48e7cd4831efa409fffb661beb9995174"
     },
     "dist": {
       "type": "zip",
-      "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4",
-      "reference": "56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4",
+      "url": "https://api.github.com/repos/symfony/symfony/zipball/5a7e31c48e7cd4831efa409fffb661beb9995174",
+      "reference": "5a7e31c48e7cd4831efa409fffb661beb9995174",
+      "shasum": ""
+    },
+    "require": {
+      "doctrine/common": "~2.4",
+      "fig/link-util": "^1.0",
+      "php": ">=5.5.9",
+      "psr/cache": "~1.0",
+      "psr/container": "^1.0",
+      "psr/link": "^1.0",
+      "psr/log": "~1.0",
+      "psr/simple-cache": "^1.0",
+      "symfony/polyfill-intl-icu": "~1.0",
+      "symfony/polyfill-mbstring": "~1.0",
+      "symfony/polyfill-php56": "~1.0",
+      "symfony/polyfill-php70": "~1.0",
+      "symfony/polyfill-util": "~1.0",
+      "twig/twig": "~1.32|~2.2"
+    },
+    "conflict": {
+      "phpdocumentor/reflection-docblock": "<3.0",
+      "phpdocumentor/type-resolver": "<0.2.0",
+      "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0"
+    },
+    "provide": {
+      "psr/cache-implementation": "1.0",
+      "psr/container-implementation": "1.0",
+      "psr/simple-cache-implementation": "1.0"
+    },
+    "replace": {
+      "symfony/asset": "self.version",
+      "symfony/browser-kit": "self.version",
+      "symfony/cache": "self.version",
+      "symfony/class-loader": "self.version",
+      "symfony/config": "self.version",
+      "symfony/console": "self.version",
+      "symfony/css-selector": "self.version",
+      "symfony/debug": "self.version",
+      "symfony/debug-bundle": "self.version",
+      "symfony/dependency-injection": "self.version",
+      "symfony/doctrine-bridge": "self.version",
+      "symfony/dom-crawler": "self.version",
+      "symfony/dotenv": "self.version",
+      "symfony/event-dispatcher": "self.version",
+      "symfony/expression-language": "self.version",
+      "symfony/filesystem": "self.version",
+      "symfony/finder": "self.version",
+      "symfony/form": "self.version",
+      "symfony/framework-bundle": "self.version",
+      "symfony/http-foundation": "self.version",
+      "symfony/http-kernel": "self.version",
+      "symfony/inflector": "self.version",
+      "symfony/intl": "self.version",
+      "symfony/ldap": "self.version",
+      "symfony/monolog-bridge": "self.version",
+      "symfony/options-resolver": "self.version",
+      "symfony/process": "self.version",
+      "symfony/property-access": "self.version",
+      "symfony/property-info": "self.version",
+      "symfony/proxy-manager-bridge": "self.version",
+      "symfony/routing": "self.version",
+      "symfony/security": "self.version",
+      "symfony/security-bundle": "self.version",
+      "symfony/security-core": "self.version",
+      "symfony/security-csrf": "self.version",
+      "symfony/security-guard": "self.version",
+      "symfony/security-http": "self.version",
+      "symfony/serializer": "self.version",
+      "symfony/stopwatch": "self.version",
+      "symfony/templating": "self.version",
+      "symfony/translation": "self.version",
+      "symfony/twig-bridge": "self.version",
+      "symfony/twig-bundle": "self.version",
+      "symfony/validator": "self.version",
+      "symfony/var-dumper": "self.version",
+      "symfony/web-link": "self.version",
+      "symfony/web-profiler-bundle": "self.version",
+      "symfony/web-server-bundle": "self.version",
+      "symfony/workflow": "self.version",
+      "symfony/yaml": "self.version"
+    },
+    "require-dev": {
+      "cache/integration-tests": "dev-master",
+      "doctrine/cache": "~1.6",
+      "doctrine/data-fixtures": "1.0.*",
+      "doctrine/dbal": "~2.4",
+      "doctrine/doctrine-bundle": "~1.4",
+      "doctrine/orm": "~2.4,>=2.4.5",
+      "egulias/email-validator": "~1.2,>=1.2.8|~2.0",
+      "monolog/monolog": "~1.11",
+      "ocramius/proxy-manager": "~0.4|~1.0|~2.0",
+      "phpdocumentor/reflection-docblock": "^3.0",
+      "predis/predis": "~1.0",
+      "sensio/framework-extra-bundle": "^3.0.2",
+      "symfony/phpunit-bridge": "~3.2",
+      "symfony/polyfill-apcu": "~1.1",
+      "symfony/security-acl": "~2.8|~3.0"
+    },
+    "time": "2017-05-29T21:02:32+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "3.3-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
+        "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
+        "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/",
+        "Symfony\\Bridge\\Swiftmailer\\": "src/Symfony/Bridge/Swiftmailer/",
+        "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
+        "Symfony\\Bundle\\": "src/Symfony/Bundle/",
+        "Symfony\\Component\\": "src/Symfony/Component/"
+      },
+      "classmap": [
+        "src/Symfony/Component/Intl/Resources/stubs"
+      ],
+      "exclude-from-classmap": [
+        "**/Tests/"
+      ]
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Fabien Potencier",
+        "email": "fabien@symfony.com"
+      },
+      {
+        "name": "Symfony Community",
+        "homepage": "https://symfony.com/contributors"
+      }
+    ],
+    "description": "The Symfony PHP framework",
+    "homepage": "https://symfony.com",
+    "keywords": [
+      "framework"
+    ]
+  },
+  {
+    "name": "psr/simple-cache",
+    "version": "1.0.0",
+    "version_normalized": "1.0.0.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/php-fig/simple-cache.git",
+      "reference": "753fa598e8f3b9966c886fe13f370baa45ef0e24"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/753fa598e8f3b9966c886fe13f370baa45ef0e24",
+      "reference": "753fa598e8f3b9966c886fe13f370baa45ef0e24",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.3.0"
+    },
+    "time": "2017-01-02T13:31:39+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.0.x-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Psr\\SimpleCache\\": "src/"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "PHP-FIG",
+        "homepage": "http://www.php-fig.org/"
+      }
+    ],
+    "description": "Common interfaces for simple caching",
+    "keywords": [
+      "cache",
+      "caching",
+      "psr",
+      "psr-16",
+      "simple-cache"
+    ]
+  },
+  {
+    "name": "psr/link",
+    "version": "1.0.0",
+    "version_normalized": "1.0.0.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/php-fig/link.git",
+      "reference": "eea8e8662d5cd3ae4517c9b864493f59fca95562"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/php-fig/link/zipball/eea8e8662d5cd3ae4517c9b864493f59fca95562",
+      "reference": "eea8e8662d5cd3ae4517c9b864493f59fca95562",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.3.0"
+    },
+    "time": "2016-10-28T16:06:13+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.0.x-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Psr\\Link\\": "src/"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "PHP-FIG",
+        "homepage": "http://www.php-fig.org/"
+      }
+    ],
+    "description": "Common interfaces for HTTP links",
+    "keywords": [
+      "http",
+      "http-link",
+      "link",
+      "psr",
+      "psr-13",
+      "rest"
+    ]
+  },
+  {
+    "name": "psr/container",
+    "version": "1.0.0",
+    "version_normalized": "1.0.0.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/php-fig/container.git",
+      "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+      "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.3.0"
+    },
+    "time": "2017-02-14T16:28:37+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.0.x-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Psr\\Container\\": "src/"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "PHP-FIG",
+        "homepage": "http://www.php-fig.org/"
+      }
+    ],
+    "description": "Common Container Interface (PHP FIG PSR-11)",
+    "homepage": "https://github.com/php-fig/container",
+    "keywords": [
+      "PSR-11",
+      "container",
+      "container-interface",
+      "container-interop",
+      "psr"
+    ]
+  },
+  {
+    "name": "fig/link-util",
+    "version": "1.0.0",
+    "version_normalized": "1.0.0.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/php-fig/link-util.git",
+      "reference": "1a07821801a148be4add11ab0603e4af55a72fac"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/php-fig/link-util/zipball/1a07821801a148be4add11ab0603e4af55a72fac",
+      "reference": "1a07821801a148be4add11ab0603e4af55a72fac",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.5.0",
+      "psr/link": "~1.0@dev"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "^5.1",
+      "squizlabs/php_codesniffer": "^2.3.1"
+    },
+    "time": "2016-10-17T18:31:11+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.0.x-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Fig\\Link\\": "src/"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "PHP-FIG",
+        "homepage": "http://www.php-fig.org/"
+      }
+    ],
+    "description": "Common utility implementations for HTTP links",
+    "keywords": [
+      "http",
+      "http-link",
+      "link",
+      "psr",
+      "psr-13",
+      "rest"
+    ]
+  },
+  {
+    "name": "doctrine/doctrine-bundle",
+    "version": "1.6.8",
+    "version_normalized": "1.6.8.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/doctrine/DoctrineBundle.git",
+      "reference": "6e96577cbbdbb5b6dcca2ff203d665976b51beb0"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/6e96577cbbdbb5b6dcca2ff203d665976b51beb0",
+      "reference": "6e96577cbbdbb5b6dcca2ff203d665976b51beb0",
+      "shasum": ""
+    },
+    "require": {
+      "doctrine/dbal": "~2.3",
+      "doctrine/doctrine-cache-bundle": "~1.2",
+      "jdorn/sql-formatter": "~1.1",
+      "php": ">=5.5.9",
+      "symfony/console": "~2.7|~3.0|~4.0",
+      "symfony/dependency-injection": "~2.7|~3.0|~4.0",
+      "symfony/doctrine-bridge": "~2.7|~3.0|~4.0",
+      "symfony/framework-bundle": "~2.7|~3.0|~4.0"
+    },
+    "require-dev": {
+      "doctrine/orm": "~2.3",
+      "phpunit/phpunit": "~4",
+      "satooshi/php-coveralls": "^1.0",
+      "symfony/phpunit-bridge": "~2.7|~3.0|~4.0",
+      "symfony/property-info": "~2.8|~3.0|~4.0",
+      "symfony/validator": "~2.7|~3.0|~4.0",
+      "symfony/yaml": "~2.7|~3.0|~4.0",
+      "twig/twig": "~1.12|~2.0"
+    },
+    "suggest": {
+      "doctrine/orm": "The Doctrine ORM integration is optional in the bundle.",
+      "symfony/web-profiler-bundle": "To use the data collector."
+    },
+    "time": "2017-05-18T08:15:18+00:00",
+    "type": "symfony-bundle",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.6.x-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Doctrine\\Bundle\\DoctrineBundle\\": ""
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Symfony Community",
+        "homepage": "http://symfony.com/contributors"
+      },
+      {
+        "name": "Benjamin Eberlei",
+        "email": "kontakt@beberlei.de"
+      },
+      {
+        "name": "Doctrine Project",
+        "homepage": "http://www.doctrine-project.org/"
+      },
+      {
+        "name": "Fabien Potencier",
+        "email": "fabien@symfony.com"
+      }
+    ],
+    "description": "Symfony DoctrineBundle",
+    "homepage": "http://www.doctrine-project.org",
+    "keywords": [
+      "database",
+      "dbal",
+      "orm",
+      "persistence"
+    ]
+  },
+  {
+    "name": "swiftmailer/swiftmailer",
+    "version": "v5.4.8",
+    "version_normalized": "5.4.8.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/swiftmailer/swiftmailer.git",
+      "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/9a06dc570a0367850280eefd3f1dc2da45aef517",
+      "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517",
       "shasum": ""
     },
     "require": {
@@ -3183,7 +3153,7 @@
       "mockery/mockery": "~0.9.1",
       "symfony/phpunit-bridge": "~3.2"
     },
-    "time": "2017-04-20T17:32:18+00:00",
+    "time": "2017-05-01T15:54:03+00:00",
     "type": "library",
     "extra": {
       "branch-alias": {
@@ -3218,18 +3188,79 @@
     ]
   },
   {
-    "name": "sensio/distribution-bundle",
-    "version": "v5.0.19",
-    "version_normalized": "5.0.19.0",
+    "name": "symfony/swiftmailer-bundle",
+    "version": "v2.6.2",
+    "version_normalized": "2.6.2.0",
     "source": {
       "type": "git",
-      "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-      "reference": "654c4fa3d11448c8005400a244987896243a990a"
+      "url": "https://github.com/symfony/swiftmailer-bundle.git",
+      "reference": "deabc81120c2086571f7c4484ab785c5e1b84f75"
     },
     "dist": {
       "type": "zip",
-      "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/654c4fa3d11448c8005400a244987896243a990a",
-      "reference": "654c4fa3d11448c8005400a244987896243a990a",
+      "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/deabc81120c2086571f7c4484ab785c5e1b84f75",
+      "reference": "deabc81120c2086571f7c4484ab785c5e1b84f75",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.3.2",
+      "swiftmailer/swiftmailer": "~4.2|~5.0",
+      "symfony/config": "~2.7|~3.0",
+      "symfony/dependency-injection": "~2.7|~3.0",
+      "symfony/http-kernel": "~2.7|~3.0"
+    },
+    "require-dev": {
+      "symfony/console": "~2.7|~3.0",
+      "symfony/framework-bundle": "~2.7|~3.0",
+      "symfony/phpunit-bridge": "~3.3@dev",
+      "symfony/yaml": "~2.7|~3.0"
+    },
+    "suggest": {
+      "psr/log": "Allows logging"
+    },
+    "time": "2017-05-22T04:58:24+00:00",
+    "type": "symfony-bundle",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "2.6-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Symfony\\Bundle\\SwiftmailerBundle\\": ""
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Symfony Community",
+        "homepage": "http://symfony.com/contributors"
+      },
+      {
+        "name": "Fabien Potencier",
+        "email": "fabien@symfony.com"
+      }
+    ],
+    "description": "Symfony SwiftmailerBundle",
+    "homepage": "http://symfony.com"
+  },
+  {
+    "name": "sensio/distribution-bundle",
+    "version": "v5.0.20",
+    "version_normalized": "5.0.20.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
+      "reference": "4b019d4c0bd64438c42e4b6b0726085b409be8d9"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/4b019d4c0bd64438c42e4b6b0726085b409be8d9",
+      "reference": "4b019d4c0bd64438c42e4b6b0726085b409be8d9",
       "shasum": ""
     },
     "require": {
@@ -3242,7 +3273,7 @@
       "symfony/http-kernel": "~2.3|~3.0",
       "symfony/process": "~2.3|~3.0"
     },
-    "time": "2017-04-23T22:28:23+00:00",
+    "time": "2017-05-11T16:21:03+00:00",
     "type": "symfony-bundle",
     "extra": {
       "branch-alias": {
@@ -3270,5 +3301,195 @@
       "configuration",
       "distribution"
     ]
+  },
+  {
+    "name": "sensio/framework-extra-bundle",
+    "version": "v3.0.26",
+    "version_normalized": "3.0.26.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
+      "reference": "6d6cbe971554f0a2cc84965850481eb04a2a0059"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/6d6cbe971554f0a2cc84965850481eb04a2a0059",
+      "reference": "6d6cbe971554f0a2cc84965850481eb04a2a0059",
+      "shasum": ""
+    },
+    "require": {
+      "doctrine/common": "~2.2",
+      "symfony/dependency-injection": "~2.3|~3.0",
+      "symfony/framework-bundle": "~2.3|~3.0"
+    },
+    "require-dev": {
+      "doctrine/doctrine-bundle": "~1.5",
+      "doctrine/orm": "~2.4,>=2.4.5",
+      "symfony/asset": "~2.7|~3.0",
+      "symfony/browser-kit": "~2.3|~3.0",
+      "symfony/dom-crawler": "~2.3|~3.0",
+      "symfony/expression-language": "~2.4|~3.0",
+      "symfony/finder": "~2.3|~3.0",
+      "symfony/phpunit-bridge": "~3.2",
+      "symfony/psr-http-message-bridge": "^0.3",
+      "symfony/security-bundle": "~2.4|~3.0",
+      "symfony/templating": "~2.3|~3.0",
+      "symfony/translation": "~2.3|~3.0",
+      "symfony/twig-bundle": "~2.3|~3.0",
+      "symfony/yaml": "~2.3|~3.0",
+      "twig/twig": "~1.12|~2.0",
+      "zendframework/zend-diactoros": "^1.3"
+    },
+    "suggest": {
+      "symfony/expression-language": "",
+      "symfony/psr-http-message-bridge": "To use the PSR-7 converters",
+      "symfony/security-bundle": ""
+    },
+    "time": "2017-05-11T17:01:57+00:00",
+    "type": "symfony-bundle",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "3.0.x-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Sensio\\Bundle\\FrameworkExtraBundle\\": ""
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Fabien Potencier",
+        "email": "fabien@symfony.com"
+      }
+    ],
+    "description": "This bundle provides a way to configure your controllers with annotations",
+    "keywords": [
+      "annotations",
+      "controllers"
+    ]
+  },
+  {
+    "name": "twig/extensions",
+    "version": "v1.5.0",
+    "version_normalized": "1.5.0.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/twigphp/Twig-extensions.git",
+      "reference": "d6d74d6f3213a9574c460c4390c25a1a67c17cc3"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/d6d74d6f3213a9574c460c4390c25a1a67c17cc3",
+      "reference": "d6d74d6f3213a9574c460c4390c25a1a67c17cc3",
+      "shasum": ""
+    },
+    "require": {
+      "twig/twig": "~1.27|~2.0"
+    },
+    "require-dev": {
+      "symfony/phpunit-bridge": "~3.3@dev",
+      "symfony/translation": "~2.3|~3.0"
+    },
+    "suggest": {
+      "symfony/translation": "Allow the time_diff output to be translated"
+    },
+    "time": "2017-05-24T06:24:07+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.5-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-0": {
+        "Twig_Extensions_": "lib/"
+      },
+      "psr-4": {
+        "Twig\\Extensions\\": "src/"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Fabien Potencier",
+        "email": "fabien@symfony.com"
+      }
+    ],
+    "description": "Common additional features for Twig that do not directly belong in core",
+    "homepage": "http://twig.sensiolabs.org/doc/extensions/index.html",
+    "keywords": [
+      "i18n",
+      "text"
+    ]
+  },
+  {
+    "name": "symfony/phpunit-bridge",
+    "version": "v2.8.21",
+    "version_normalized": "2.8.21.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/symfony/phpunit-bridge.git",
+      "reference": "34bfa4fe0439440323aab0982a77246b6b6dfd83"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/34bfa4fe0439440323aab0982a77246b6b6dfd83",
+      "reference": "34bfa4fe0439440323aab0982a77246b6b6dfd83",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.3.3"
+    },
+    "conflict": {
+      "phpunit/phpunit": ">=6.0"
+    },
+    "suggest": {
+      "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
+    },
+    "time": "2017-05-21T09:46:38+00:00",
+    "type": "symfony-bridge",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "2.8-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "files": [
+        "bootstrap.php"
+      ],
+      "psr-4": {
+        "Symfony\\Bridge\\PhpUnit\\": ""
+      },
+      "exclude-from-classmap": [
+        "/Tests/"
+      ]
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Nicolas Grekas",
+        "email": "p@tchwork.com"
+      },
+      {
+        "name": "Symfony Community",
+        "homepage": "https://symfony.com/contributors"
+      }
+    ],
+    "description": "Symfony PHPUnit Bridge",
+    "homepage": "https://symfony.com"
     }
 ]

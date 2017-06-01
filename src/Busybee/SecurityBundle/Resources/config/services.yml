@@ -182,7 +182,7 @@ services:
     failure_metadata:
         class: Doctrine\ORM\Mapping\ClassMetaData
         arguments: 
-            name: '%busybee_security.failure.entity%'
+            - '%busybee_security.failure.entity%'
     security.failure.repository:
         class: Busybee\SecurityBundle\Repository\FailureRepository
         arguments: 
