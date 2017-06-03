@@ -2,8 +2,11 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
+use Busybee\InstituteBundle\Entity\Space;
+use Busybee\StaffBundle\Entity\Staff;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -115,17 +118,11 @@ class PeriodManager
             $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.space.missing', [], 'BusybeeTimeTableBundle');
         } else {
             if (isset($this->spaces[$activity->getSpace()->getName()])) {
+                $act = $this->spaces[$activity->getSpace()->getName()];
                 $this->status->class = ' alert-warning';
-                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.space.duplicate', ['%space%' => $activity->getSpace()->getName()], 'BusybeeTimeTableBundle');
+                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.space.duplicate', ['%space%' => $activity->getSpace()->getName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
             }
-            $this->spaces[$activity->getSpace()->getName()] = $activity->getSpace()->getName();
-
-            if (!is_null($activity->getSpace()->getStaff()) && isset($this->staff[$activity->getSpace()->getStaff()->getId()])) {
-                $this->status->class = ' alert-warning';
-                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', [], 'BusybeeTimeTableBundle');
-            }
-            if (!is_null($activity->getSpace()->getStaff()))
-                $this->staff[$activity->getSpace()->getStaff()->getId()] = $activity->getSpace()->getStaff()->getFullName();
+            $this->spaces[$activity->getSpace()->getName()] = $activity->getActivity();
         }
 
         if (is_null($activity->getTutor1())) {
@@ -133,29 +130,33 @@ class PeriodManager
             $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.missing', [], 'BusybeeTimeTableBundle');
         } else {
             if (!is_null($activity->getTutor1()) && isset($this->staff[$activity->getTutor1()->getId()])) {
+                $act = $this->staff[$activity->getTutor1()->getId()];
                 $this->status->class = ' alert-warning';
-                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName()], 'BusybeeTimeTableBundle');
+                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
             }
             if (!is_null($activity->getTutor1()))
-                $this->staff[$activity->getTutor1()->getId()] = $activity->getTutor1()->getFullName();
+                $this->staff[$activity->getTutor1()->getId()] = $activity->getActivity();
 
             if (!is_null($activity->getTutor2()) && isset($this->staff[$activity->getTutor2()->getId()])) {
+                $act = $this->staff[$activity->getTutor2()->getId()];
                 $this->status->class = ' alert-warning';
-                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor2()->getFullName()], 'BusybeeTimeTableBundle');
+                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor2()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
             }
             if (!is_null($activity->getTutor2()))
-                $this->staff[$activity->getTutor2()->getId()] = $activity->getTutor2()->getFullName();
+                $this->staff[$activity->getTutor2()->getId()] = $activity->getActivity();
 
             if (!is_null($activity->getTutor3()) && isset($this->staff[$activity->getTutor3()->getId()])) {
+                $act = $this->staff[$activity->getTutor3()->getId()];
                 $this->status->class = ' alert-warning';
-                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor3()->getFullName()], 'BusybeeTimeTableBundle');
+                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor3()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
             }
             if (!is_null($activity->getTutor3()))
-                $this->staff[$activity->getTutor3()->getId()] = $activity->getTutor3()->getFullName();
+                $this->staff[$activity->getTutor3()->getId()] = $activity->getActivity();
         }
 
         if (!empty($this->status->message)) {
             $this->failedStatus[$this->status->id] = $this->status->class;
+            $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.report.button', [], 'BusybeeTimeTableBundle');
             $this->status->message = trim($this->status->message);
         }
         return $this->status;
@@ -179,14 +180,145 @@ class PeriodManager
         $data = [];
         $data['%space%'] = is_null($activity->getSpace()) ? '' : $activity->getSpace()->getName();
         $data['%tutor1%'] = is_null($activity->getTutor1()) ? '' : $activity->getTutor1()->getFullName();
-        $data['%tutor1%'] = is_null($activity->getSpace()) || is_null($activity->getSpace()->getStaff()) ? $data['%tutor1%'] : $activity->getSpace()->getStaff()->getFullName();
         $data['%tutor2%'] = is_null($activity->getTutor2()) ? '' : $activity->getTutor2()->getFullName();
         $data['%tutor3%'] = is_null($activity->getTutor3()) ? '' : $activity->getTutor3()->getFullName();
         return $data;
     }
 
+    /**
+     * @return int
+     */
     public function getFailedCount()
     {
         return count($this->failedStatus);
+    }
+
+    /**
+     * @param $id
+     */
+    public function generatePeriodReport($id)
+    {
+        $this->injectPeriod($id);
+
+        if (!$this->period instanceof Period)
+            throw new \InvalidArgumentException('The period has not been injected.');
+
+        $result = $this->om->getRepository(Space::class)->findBy([], ['name' => 'ASC']);
+
+        $spaces = new ArrayCollection();
+        foreach ($result as $space)
+            $spaces->add($space);
+
+        $return = new \stdClass();
+
+        $return->spaces = $this->removeUsedSpaces($spaces);
+
+
+        $result = $this->om->getRepository(Staff::class)->findAll();
+
+        $staff = new ArrayCollection();
+        foreach ($result as $member)
+            $staff->add($member);
+
+        $iterator = $staff->getIterator();
+        $iterator->uasort(function ($a, $b) {
+            return ($a->getFullName() < $b->getFullName()) ? -1 : 1;
+        });
+        $staff = new ArrayCollection(iterator_to_array($iterator, false));
+
+        $return->staff = $this->removeUsedStaff($staff);
+
+        return $return;
+    }
+
+    /**
+     * Remove Used Spaces
+     *
+     * @param $spaces
+     * @return mixed
+     */
+    private function removeUsedSpaces($spaces)
+    {
+        $used = $this->getSpaces();
+        foreach ($used as $space)
+            if ($spaces->contains($space))
+                $spaces->removeElement($space);
+
+        return $spaces;
+    }
+
+    /**
+     * Get Spaces
+     *
+     * @return ArrayCollection
+     */
+    private function getSpaces()
+    {
+        $spaces = new ArrayCollection();
+
+        $acts = $this->period->getActivities();
+
+        foreach ($acts as $act)
+            if ($act->getSpace() instanceof Space and !$spaces->contains($act->getSpace()))
+                $spaces->add($act->getSpace());
+
+        return $spaces;
+    }
+
+    /**
+     * Remove Used Staff
+     *
+     * @param $spaces
+     * @return mixed
+     */
+    private function removeUsedStaff($staff)
+    {
+        $used = $this->getStaff();
+
+        foreach ($used as $member)
+            if ($staff->contains($member))
+                $staff->removeElement($member);
+
+
+        return $staff;
+    }
+
+    /**
+     * Get Staff
+     *
+     * @return ArrayCollection
+     */
+    private function getStaff()
+    {
+        $staff = new ArrayCollection();
+
+        $acts = $this->period->getActivities();
+
+        foreach ($acts as $act) {
+            dump($act->getTutor1());
+            if ($act->getTutor1() instanceof Staff and !$staff->contains($act->getTutor1()))
+                $staff->add($act->getTutor1());
+
+            if ($act->getTutor2() instanceof Staff and !$staff->contains($act->getTutor2()))
+                $staff->add($act->getTutor2());
+
+            if ($act->getTutor3() instanceof Staff and !$staff->contains($act->getTutor3()))
+                $staff->add($act->getTutor3());
+
+        }
+
+        return $staff;
+    }
+
+    /**
+     * Get Period
+     *
+     * @return Period
+     */
+    public function getPeriod()
+    {
+        if (!$this->period instanceof Period)
+            throw new \InvalidArgumentException('The period has not been injected.');
+        return $this->period;
     }
 }

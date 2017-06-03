@@ -129,6 +129,8 @@ class PeriodActivity
     {
         if (empty($this->space) && !empty($this->getActivity()))
             $this->setspace($this->getActivity()->getspace());
+        if (empty($this->space) && !empty($this->getActivity()) && !empty($this->getActivity()->getTutor1()))
+            $this->setspace($this->getActivity()->getTutor1()->getHomeroom());
 
         return $this->space;
     }
@@ -184,6 +186,12 @@ class PeriodActivity
     {
         if (empty($this->tutor1) && !empty($this->getActivity()))
             $this->setTutor1($this->getActivity()->getTutor1());
+
+        if (empty($this->tutor1) && !empty($this->getActivity())) {
+            if (!empty($this->getActivity()->getSpace())) {
+                $this->setTutor1($this->getActivity()->getSpace()->getStaff());
+            }
+        }
 
         return $this->tutor1;
     }

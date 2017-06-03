@@ -174,13 +174,13 @@ services:
             - "@setting.manager"
         tags:
             - { name: validator.constraint_validator, alias: columns_validator }
-    period.plan.repository:
-        class: Busybee\TimeTableBundle\Repository\PeriodPlanRepository
+    period.activity.repository:
+        class: Busybee\TimeTableBundle\Repository\PeriodActivityRepository
         factory:
             - "@doctrine"
             - 'getRepository'
         arguments:
-            - "BusybeeTimeTableBundle:PeriodPlan"
+            - "BusybeeTimeTableBundle:PeriodActivity"
     form.period.activity.entity.type:
         class: Busybee\TimeTableBundle\Form\PeriodActivityEntityType
         arguments:

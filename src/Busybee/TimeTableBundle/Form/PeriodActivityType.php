@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\TimeTableBundle\Form;
 
 use Busybee\TimeTableBundle\Entity\Period;

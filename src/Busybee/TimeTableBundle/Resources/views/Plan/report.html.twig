@@ -1,0 +1,46 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock stylesheets %}
+
+{% block title %}{{ parent() }}{{ 'period.activities.activity.report.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'period.activities.activity.report.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'period.activities.activity.report.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    <div class="messageWindow"></div>
+    {% set header = 'period.plan.header' %}
+    {% set name = {'%day%': manager.period.columnName, '%period%': manager.period.fullName} %}
+    {% set panelParagraph = 'period.plan.panelparagraph' %}
+    {% set panelParams = {'%start%': manager.period.startTime, '%end%': manager.period.endTime} %}
+    {% set transDomain = 'BusybeeTimeTableBundle' %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+
+    <div>{{ closeButton()|raw }}
+        {{ resetButton({'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
+    </div>
+    <h3>{{ 'period.activities.activity.report.availableStaff'|trans({'%count%': report.staff.count}) }}</h3>
+    <ul>
+        {% for staff in report.staff %}
+            <li>{{ staff.fullName }} <span class="small alert-warning">{{ staff.departments }}</span></li>
+        {% endfor %}
+    </ul>
+    <div>{{ closeButton()|raw }}
+        {{ resetButton({'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
+    </div>
+    <h3>{{ 'period.activities.activity.report.availableSpace'|trans({'%count%': report.staff.count}) }}</h3>
+    <ul>
+        {% for space in report.spaces %}
+            <li>{{ space.nameCapacity }}</li>
+        {% endfor %}
+    </ul>
+
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}

@@ -34,3 +34,6 @@ column_resettimes:
 period_plan:
     path:     /plan/{id}/activity/
     defaults: { _controller: BusybeeTimeTableBundle:Period:activityPlan }
+period_plan_report:
+    path:     /plan/{id}/activity/report/
+    defaults: { _controller: BusybeeTimeTableBundle:Period:report }

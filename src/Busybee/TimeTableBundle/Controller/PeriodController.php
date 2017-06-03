@@ -2,6 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Controller;
 
+use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Busybee\TimeTableBundle\Form\PeriodActivityType;
 use Busybee\TimeTableBundle\Form\PeriodPlanType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -93,6 +94,25 @@ class PeriodController extends Controller
                 'period' => $pm,
             ]
         );
+    }
 
+    /**
+     * @param $id Period Id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function reportAction($id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $pm = $this->get('period.manager');
+
+        $report = $pm->generatePeriodReport($id);
+
+        return $this->render('BusybeeTimeTableBundle:Plan:report.html.twig',
+            [
+                'report' => $report,
+                'manager' => $pm,
+            ]
+        );
     }
 }

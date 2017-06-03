@@ -46,6 +46,8 @@ form:
     reset:
         success: The password for the user was successfully altered and saved.  You can know sign into the site using the new password. 
         button: Reset
+    refresh:
+        button: 'Refresh'
     start_search: ""
     next: ""
     prev: ""
