@@ -27,7 +27,8 @@
                     </div>
                     <div class="col-sm-4">
                         <div>
-                            {{ deleteButton({'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': ''})|raw }}
+                            {% set pa_id = '' %}{% if form.vars.value is not empty %}{% set pa_id = form.vars.value.id %}{% endif %}
+                            {{ deleteButton({'class': 'removeActivity halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': '', 'additional': 'id="removeActivity' ~ pa_id ~ '"'})|raw }}
                             {{ saveButton({'style': ''})|raw }}
                         </div>
                     </div>

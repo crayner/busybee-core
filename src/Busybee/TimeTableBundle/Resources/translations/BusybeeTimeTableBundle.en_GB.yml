@@ -167,6 +167,13 @@ period:
                 description: ''
                 availableStaff: 'Available Staff (%count%)'
                 availableSpace: 'Available Spaces (Capacity) (%count%)'
+            addline:
+                placeholder: Add Line Activities
+            remove:
+                success: 'The activity %name% was removed.'
+        line:
+            added: Activities where successfully added to the period.
+            none: No activities were added to the period.
     plan:
         title:
             add: Add Activity Group

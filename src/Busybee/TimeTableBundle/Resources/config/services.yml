@@ -162,6 +162,7 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@translator'
+            - '@session.flash_bag'
     periods.validator:
         class: Busybee\TimeTableBundle\Validator\Constraints\PeriodsValidator
         arguments:

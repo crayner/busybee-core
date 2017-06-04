@@ -69,7 +69,7 @@ class PeriodController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function activityPlanAction($id, Request $request)
+    public function periodPlanAction($id, Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
@@ -115,4 +115,60 @@ class PeriodController extends Controller
             ]
         );
     }
+
+    /**
+     * @param $id
+     * @param $line
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function addActivitiesToPlanAction($id, $line)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $period = $this->get('period.repository')->find($id);
+
+        $pm = $this->get('period.manager')->injectPeriod($period);
+
+        $pm->injectLineGroup($line);
+
+        return $this->redirect($this->generateUrl('period_plan', ['id' => $id]));
+    }
+
+    /**
+     * @param $id
+     * @param $activity
+     * @return JsonResponse
+     */
+    public function removePeriodActivityAction($id, $activity)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $period = $this->get('period.repository')->find($id);
+
+        $pa = $this->get('period.activity.repository')->find($activity);
+
+        $name = $pa->getActivity()->getFullName();
+
+        $period->getActivities()->removeElement($pa);
+
+        $om = $this->get('doctrine')->getManager();
+
+        $om->persist($period);
+        $om->remove($pa);
+        $om->flush();
+
+        return new JsonResponse(
+            array(
+                'message' => '<div class="alert alert-success">' . $this->get('translator')->trans('period.activities.activity.remove.success', ['%name%' => $name], 'BusybeeTimeTableBundle') . '</div>',
+                'status' => 'success',
+            ),
+            200
+        );
+    }
+
+    public function editPeriodActivityAction($activity)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $period = $this->get('period.repository')->find($id);
 }

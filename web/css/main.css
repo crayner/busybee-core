@@ -211,6 +211,7 @@ img.imageWidth200 {
     margin-top: 1px;
 	height: 28px;
 	font-weight: normal ;
+    padding: 0 5px;
 }
 .halflings.x075 {
 	font-size: 9px;
@@ -294,11 +295,9 @@ button.btn.btn-header {
     border-color: #b2dba1;
     color: #3c763d;
 }
-
 .row-hover:hover {
     background-color: #e0e0e0;
 }
-
 .row-border {
     border: 1px solid darkgray;
     border-radius: 8px;

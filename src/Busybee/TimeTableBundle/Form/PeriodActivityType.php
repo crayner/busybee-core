@@ -1,8 +1,11 @@
 <?php
 namespace Busybee\TimeTableBundle\Form;
 
+use Busybee\TimeTableBundle\Entity\ActivityGroups;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,6 +20,7 @@ class PeriodActivityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $year = $options['year_data'];
         $builder
             ->add('activities', CollectionType::class,
                 [
@@ -33,6 +37,24 @@ class PeriodActivityType extends AbstractType
                             'year_data' => $options['year_data'],
                             'manager' => $options['manager'],
                         ],
+                ]
+            )
+            ->add('line', EntityType::class,
+                [
+                    'mapped' => false,
+                    'class' => ActivityGroups::class,
+                    'choice_label' => 'fullName',
+                    'query_builder' => function (EntityRepository $er) use ($year) {
+                        return $er->createQueryBuilder('l')
+                            ->where('l.year = :year_id')
+                            ->setParameter('year_id', $year->getId())
+                            ->orderBy('l.name', 'ASC');
+                    },
+                    'attr' => [
+                        'class' => 'lineList changeRecord',
+                    ],
+                    'placeholder' => 'period.activities.activity.addline.placeholder',
+                    'required' => false,
                 ]
             );
     }

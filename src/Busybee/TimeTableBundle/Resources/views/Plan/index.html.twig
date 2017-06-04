@@ -16,6 +16,9 @@
 {% block headerLead %}{{ 'period.plan.banner.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
+    {% block flashMessages %}
+        {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
+    {% endblock %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {{ form_start(form) }}
     <div class="messageWindow"></div>
@@ -25,6 +28,7 @@
     {% set panelParams = {'%start%': form.vars.value.startTime, '%end%': form.vars.value.endTime} %}
     {% set h3Content = closeButton()|raw %}
     {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('period_plan', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw %}
+    {% set h3Content = h3Content ~ form_widget(form.line) %}
     {% set transDomain = 'BusybeeTimeTableBundle' %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' %}
     <div class="row row-header">

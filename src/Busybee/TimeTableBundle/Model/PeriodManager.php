@@ -4,10 +4,12 @@ namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\StaffBundle\Entity\Staff;
+use Busybee\TimeTableBundle\Entity\ActivityGroups;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -54,10 +56,15 @@ class PeriodManager
     private $staff;
 
     /**
+     * @var FlashBagInterface
+     */
+    private $flashbag;
+
+    /**
      * PeriodManager constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om, TranslatorInterface $translator, $id = null)
+    public function __construct(ObjectManager $om, TranslatorInterface $translator, FlashBagInterface $flashbag, $id = null)
     {
         $this->om = $om;
         $this->pr = $om->getRepository(Period::class);
@@ -67,6 +74,7 @@ class PeriodManager
         $this->failedStatus = [];
         $this->spaces = [];
         $this->staff = [];
+        $this->flashbag = $flashbag;
     }
 
     /**
@@ -320,5 +328,38 @@ class PeriodManager
         if (!$this->period instanceof Period)
             throw new \InvalidArgumentException('The period has not been injected.');
         return $this->period;
+    }
+
+    /**
+     * @param $line
+     */
+    public function injectLineGroup($line)
+    {
+        $line = $this->om->getRepository(ActivityGroups::class)->find($line);
+
+        $count = 0;
+
+        $exists = new ArrayCollection();
+        foreach ($this->period->getActivities() as $act)
+            $exists->add($act->getActivity());
+
+        foreach ($line->getActivities() as $activity)
+            if (!$exists->contains($activity)) {
+                $act = new PeriodActivity();
+                $act->setPeriod($this->period);
+                $act->setActivity($activity);
+                $this->period->getActivities()->add($act);
+                $count++;
+            }
+
+        if ($count > 0) {
+            $this->flashbag->add('success', 'period.activities.line.added');
+            $this->om->persist($this->period);
+            $this->om->flush();
+        } else
+            $this->flashbag->add('warning', 'period.activities.line.none');
+
+        return;
+
     }
 }
