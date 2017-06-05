@@ -39,6 +39,10 @@
     </div>
 
     {{ form_widget(form.activities) }}
+    <div>
+        {{ addButton({'title': 'period.plan.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-plus-sign btn btn-primary collection-action collection-rescue-add', 'additional': 'data-collection="tt_period_activity_activities"'})|raw }}
+    </div>
+    {{ 'period.activities.activity.details.help'|trans|raw }}
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}

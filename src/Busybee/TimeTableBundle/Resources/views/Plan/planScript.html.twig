@@ -6,7 +6,7 @@
         allow_down: false,
         add: '<button title="{{ 'period.plan.title.add'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
         remove: '<button title="{{ 'period.plan.title.remove'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
-        add_at_the_end: true,
+        custom_add_location: true,
         before_remove: function (collection, element) {
             var source = $(element[0]).find('.removeActivity');
             var id = source.attr('id');
@@ -14,7 +14,6 @@
             if (id === '') {
                 return true;
             }
-
             return removeActivity(id);
         }
     });
@@ -22,7 +21,7 @@
     {% if form.vars.manager.failedCount > 0 %}
     $(document).ready(function () {
         var data = '<div class="alert alert-warning">{{ 'period.activities.activity.failed.count'|trans({'%count%': form.vars.manager.failedCount}) }}</div>';
-        $('.messageWindow').html(data).fadeIn(5).fadeOut(3000);
+        $('.messageWindow').html(data);
     });
     {% endif %}
 

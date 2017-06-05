@@ -151,6 +151,15 @@ period:
             details:
                 label: 'Details'
                 data: '%space%, %tutor1%, %tutor2%, %tutor3%'
+                help: |
+                  <div class="alert alert-info" style="clear: both;">
+                  <p>Details for a period activity are drawn from a number of sources and have the following priority.</p>
+                  <ul>
+                  <li>Details in the Period Activity have the highest priority, but only apply to the current period and activity.</li>
+                  <li>Details in the Activity are applied to the period when the activity is added to the period.  These details are second in priority, and are usually the most common in use.</li>
+                  <li>Staff members can be assigned a home room.  If the space is selected for the activity and no staff memeber, then the staff member attached to the space is used for the activity.  Should the staff member be selected in tutor position one, then the space is applied to the activity.</li>
+                  </ul>
+                  </div>
             space:
                 missing: No space allocated for this class.
                 duplicate: 'The space %space% is already allocated to %activity% in this period.'
@@ -174,6 +183,7 @@ period:
                 placeholder: Add Line Activities
             remove:
                 success: 'The activity %name% was removed.'
+                error: 'Error: %error%'
         line:
             added: Activities where successfully added to the period.
             none: No activities were added to the period.

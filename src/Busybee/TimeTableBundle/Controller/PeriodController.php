@@ -153,9 +153,20 @@ class PeriodController extends Controller
 
         $om = $this->get('doctrine')->getManager();
 
-        $om->persist($period);
-        $om->remove($pa);
-        $om->flush();
+        try {
+            $om->persist($period);
+            $om->remove($pa);
+            $om->flush();
+        } catch (\Exception $e) {
+            return new JsonResponse(
+                array(
+                    'message' => '<div class="alert alert-danger">' . $this->get('translator')->trans('period.activities.activity.remove.error', ['%error%' => $e->getMessage()], 'BusybeeTimeTableBundle') . '</div>',
+                    'status' => 'error',
+                ),
+                200
+            );
+
+        }
 
         return new JsonResponse(
             array(
