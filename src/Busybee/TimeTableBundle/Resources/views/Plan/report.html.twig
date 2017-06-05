@@ -1,6 +1,6 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+{% extends "@BusybeeHome/Popup/template.html.twig" %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -17,8 +17,10 @@
     {% set panelParagraph = 'period.plan.panelparagraph' %}
     {% set panelParams = {'%start%': manager.period.startTime, '%end%': manager.period.endTime} %}
     {% set transDomain = 'BusybeeTimeTableBundle' %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
-
+    <div class="row alert-primary">
+        <h2>{{ header|trans(name) }}</h2>
+        <h3>{{ panelParagraph|trans(panelParams) }}</h3>
+    </div>
     <div>{{ closeButton()|raw }}
         {{ resetButton({'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
     </div>
@@ -28,6 +30,7 @@
             <li>{{ staff.fullName }} <span class="small alert-warning">{{ staff.departments }}</span></li>
         {% endfor %}
     </ul>
+
     <div>{{ closeButton()|raw }}
         {{ resetButton({'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
     </div>
@@ -38,7 +41,6 @@
         {% endfor %}
     </ul>
 
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}

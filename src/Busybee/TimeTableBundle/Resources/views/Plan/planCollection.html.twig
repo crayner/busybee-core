@@ -12,7 +12,7 @@
             <div class="col-sm-4 small{{ manager.ActivityStatus(value).class }}">
                 <p>{{ 'period.activities.activity.details.data'|trans(manager.ActivityDetails(value))|trim(', ') }}
                     {% if manager.ActivityStatus(value).message is not empty %}
-                        {{ miscButton({'title': manager.ActivityStatus(value).message, 'class': 'halflings halflings-question-sign btn btn-warning','style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')}), 'target': 'PeriodReport', 'params': 'width=600,height=600'}})|raw }}
+                        {{ miscButton({'title': manager.ActivityStatus(value).message, 'class': 'halflings halflings-question-sign btn btn-warning','style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
                     {% endif %}</p>
             </div>
             {% set transDomain = 'BusybeeTimeTableBundle' %}
@@ -21,6 +21,8 @@
                     <div class="col-sm-4 col-sm-offset-4">
                         <div>
                             {% if form.activity.vars.value is not empty %}
+                                {{ miscButton({'class': 'halflings halflings-pencil btn btn-primary', 'windowOpen': {'route': path('period_activity_edit', {'activity': form.vars.value.id, 'closeWindow': '_closeWindow'}), 'target': 'PeriodActivity', 'params': 'width=500,height=600'}, 'title': 'period.activities.activity.overwrite.button', 'transDomain': transDomain})|raw }}
+
                                 {{ miscButton({'class': 'halflings halflings-cog btn btn-success', 'windowOpen': {'route': path('student_activity_edit', {'id': form.activity.vars.value, 'closeWindow': '_closeWindow'}), 'target': 'Activity', 'params': 'width=1200,height=800'}, 'title': 'period.activities.activity.edit.button', 'transDomain': transDomain})|raw }}
                             {% endif %}
                         </div>

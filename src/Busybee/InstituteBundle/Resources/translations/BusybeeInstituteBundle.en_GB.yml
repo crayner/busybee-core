@@ -306,5 +306,7 @@ student:
         help:
             year: The year selected must be unique for this student.
 space:
+    placeholder: 'Select/Clear a Space'
+    help: 'The space is inherited from the activity space.  The Activity space can be inherited from the space attache to the first tutor attached to the activity, as the space connected as a home room. Inherited Space: %space% '
     name:
         capacity: '%name%: Capacity %capacity%'

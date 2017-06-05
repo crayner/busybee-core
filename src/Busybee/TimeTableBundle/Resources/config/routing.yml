@@ -43,3 +43,6 @@ period_add_activities_to_plan:
 period_remove_activity:
     path:     /plan/{id}/remove/{activity}/activities/
     defaults: { _controller: BusybeeTimeTableBundle:Period:removePeriodActivity }
+period_activity_edit:
+    path:     /plan/{activity}/edit/activity/
+    defaults: { _controller: BusybeeTimeTableBundle:Period:editPeriodActivity }

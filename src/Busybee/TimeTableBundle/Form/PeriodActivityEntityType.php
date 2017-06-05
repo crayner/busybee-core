@@ -57,7 +57,6 @@ class PeriodActivityEntityType extends AbstractType
             )
             ->add('period', HiddenType::class);
         $builder->get('period')->addModelTransformer(new EntityToStringTransformer($this->om, Period::class));
-        $builder->addEventSubscriber(new PeriodActivitySubscriber());
     }
 
 

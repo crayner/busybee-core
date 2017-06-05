@@ -1,11 +1,12 @@
 <?php
-
 namespace Busybee\TimeTableBundle\Entity;
+
+use Busybee\TimeTableBundle\Model\PeriodActivityModel;
 
 /**
  * PeriodActivity
  */
-class PeriodActivity
+class PeriodActivity extends PeriodActivityModel
 {
     /**
      * @var integer
@@ -127,6 +128,9 @@ class PeriodActivity
      */
     public function getSpace()
     {
+        if ($this->getLocal())
+            return $this->getLocalSpace();
+
         if (empty($this->space) && !empty($this->getActivity()))
             $this->setspace($this->getActivity()->getspace());
         if (empty($this->space) && !empty($this->getActivity()) && !empty($this->getActivity()->getTutor1()))
@@ -184,6 +188,9 @@ class PeriodActivity
      */
     public function getTutor1()
     {
+        if ($this->getLocal())
+            return $this->getLocalTutor1();
+
         if (empty($this->tutor1) && !empty($this->getActivity()))
             $this->setTutor1($this->getActivity()->getTutor1());
 
@@ -217,6 +224,9 @@ class PeriodActivity
      */
     public function getTutor2()
     {
+        if ($this->getLocal())
+            return $this->getLocalTutor2();
+
         if (empty($this->tutor2) && !empty($this->getActivity()))
             $this->setTutor2($this->getActivity()->getTutor2());
 
@@ -244,6 +254,9 @@ class PeriodActivity
      */
     public function getTutor3()
     {
+        if ($this->getLocal())
+            return $this->getLocalTutor3();
+
         if (empty($this->tutor3) && !empty($this->getActivity()))
             $this->setTutor3($this->getActivity()->getTutor3());
 

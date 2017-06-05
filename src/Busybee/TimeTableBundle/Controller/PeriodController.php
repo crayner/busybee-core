@@ -2,7 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Controller;
 
-use Busybee\TimeTableBundle\Entity\PeriodActivity;
+use Busybee\TimeTableBundle\Form\EditPeriodActivityType;
 use Busybee\TimeTableBundle\Form\PeriodActivityType;
 use Busybee\TimeTableBundle\Form\PeriodPlanType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -166,9 +166,29 @@ class PeriodController extends Controller
         );
     }
 
-    public function editPeriodActivityAction($activity)
+    public function editPeriodActivityAction(Request $request, $activity)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-        $period = $this->get('period.repository')->find($id);
+        $act = $this->get('period.activity.repository')->find($activity);
+
+        $act->setLocal(true);
+
+        $form = $this->createForm(EditPeriodActivityType::class, $act, ['year_data' => $this->get('busybee_security.user_manager')->getSystemYear($this->getUser())]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $om = $this->get('doctrine')->getManager();
+            $om->persist($act);
+            $om->flush();
+        }
+
+        return $this->render('BusybeeTimeTableBundle:Periods:activity.html.twig',
+            [
+                'form' => $form->createView(),
+                'fullForm' => $form,
+            ]
+        );
+    }
 }

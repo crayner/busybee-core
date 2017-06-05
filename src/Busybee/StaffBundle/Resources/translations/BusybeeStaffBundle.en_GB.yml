@@ -17,3 +17,8 @@ staff:
 person:
     tab:
         staff: Staff
+tutor:
+    placeholder: 'Select/Clear a Tutor'
+    help:
+        tutor: 'This tutor inherits the tutor assigned in the activity. Inherited Tutor: %name%'
+        tutor1: 'This tutor inherits the tutor assigned in the activity. The activity can inherit the tutor from the space assigned in the activity, should it have a homeroom tutor. Inherited Tutor: %name%'

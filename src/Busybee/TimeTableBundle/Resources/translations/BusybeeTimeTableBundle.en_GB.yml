@@ -161,6 +161,9 @@ period:
                 count: 'Some activities are not correctly formated.  Found %count% activity not to specification.'
             edit:
                 button: 'Edit Activity'
+                title: 'Edit Period Activity'
+            overwrite:
+                button: 'Overwite Activity Space or Staff'
             report:
                 button: 'Click here for a report on free resources for this period.'
                 title: 'Period Activity Report'

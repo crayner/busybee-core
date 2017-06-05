@@ -188,4 +188,10 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
+    form.period.activity.edit.type:
+        class: Busybee\TimeTableBundle\Form\EditPeriodActivityType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
 
