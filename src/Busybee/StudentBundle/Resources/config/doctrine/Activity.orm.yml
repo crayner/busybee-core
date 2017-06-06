@@ -20,8 +20,6 @@ Busybee\StudentBundle\Entity\Activity:
         nameShort:
             type: string
             length: '8'
-        grades:
-            type: array
         lastModified:
             type: datetime
         createdOn:
@@ -31,8 +29,21 @@ Busybee\StudentBundle\Entity\Activity:
             targetEntity: Busybee\TimeTableBundle\Entity\PeriodActivity
             mappedBy: activity
     manyToMany:
+        grades:
+            targetEntity: Busybee\InstituteBundle\Entity\Grade
+            inversedBy: activities
+            cascade: [ 'all' ]
+            joinTable:
+                name: activity_grade
+                joinColumns:
+                    activity_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    grade_id:
+                        referencedColumnName: id
         students:
             targetEntity: Busybee\StudentBundle\Entity\Student
+            inversedBy: activities
             joinTable:
                 name: activity_students
                 joinColumns:

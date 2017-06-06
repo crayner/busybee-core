@@ -2,8 +2,12 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
+use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
+use Busybee\InstituteBundle\Entity\Year;
+use Busybee\InstituteBundle\Model\CurrentYear;
 use Busybee\StaffBundle\Entity\Staff;
+use Busybee\StudentBundle\Entity\Student;
 use Busybee\TimeTableBundle\Entity\ActivityGroups;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
@@ -56,15 +60,25 @@ class PeriodManager
     private $staff;
 
     /**
+     * @var array
+     */
+    private $students;
+
+    /**
      * @var FlashBagInterface
      */
     private $flashbag;
 
     /**
+     * @var Year
+     */
+    private $currentYear;
+
+    /**
      * PeriodManager constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om, TranslatorInterface $translator, FlashBagInterface $flashbag, $id = null)
+    public function __construct(ObjectManager $om, TranslatorInterface $translator, FlashBagInterface $flashbag, CurrentYear $cy, $id = null)
     {
         $this->om = $om;
         $this->pr = $om->getRepository(Period::class);
@@ -74,7 +88,9 @@ class PeriodManager
         $this->failedStatus = [];
         $this->spaces = [];
         $this->staff = [];
+        $this->students = [];
         $this->flashbag = $flashbag;
+        $this->currentYear = $cy->getCurrentYear();
     }
 
     /**
@@ -361,5 +377,40 @@ class PeriodManager
 
         return;
 
+    }
+
+    /**
+     * @param $id
+     */
+    public function generateFullPeriodReport($id)
+    {
+        $this->injectPeriod($id);
+
+        $this->students = new ArrayCollection();
+        $rrr = $this->om->getRepository(Grade::class)->createQueryBuilder('g')
+            ->leftJoin('g.year', 'y')
+            ->leftJoin('g.students', 'i')
+            ->where('y.id = :year_id')
+            ->setParameter('year_id', $this->currentYear->getId())
+            ->select('g')
+            ->addSelect('i')
+            ->getQuery()
+            ->getResult();
+
+        foreach ($this->period->getActivities() as $q => $pa) {
+            $act = $pa->getActivity();
+            $students = $this->om->getRepository(Student::class)->createQueryBuilder('s')
+                ->leftJoin('s.activities', 'a')
+                ->leftJoin('s.grades', 'i')
+                ->leftJoin('i.grade', 'g')
+                ->where('a.id = :activity_id')
+                ->andWhere
+                ->setParameter('activity_id', $act->getId())
+                ->getQuery()
+                ->getResult();
+            dump($act);
+            dump($students);
+        }
+        return $students;
     }
 }

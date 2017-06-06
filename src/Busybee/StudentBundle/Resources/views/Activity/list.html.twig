@@ -62,9 +62,7 @@
                 </div>
                 <div class="col-sm-3">
                     {% set groups = array_flip(get_setting('student.groups')) %}
-                    {% for grade in activity.grades %}
-                        {{ groups[grade] }},
-                    {% endfor %}
+                    {{ activity.0.gradeString }}
                 </div>
                 <div class="col-sm-2">
                     {{ activity.year }}

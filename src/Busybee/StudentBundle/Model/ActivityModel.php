@@ -1,10 +1,9 @@
 <?php
-
 namespace Busybee\StudentBundle\Model;
 
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-class ActivityModel
+abstract class ActivityModel
 {
     /**
      * @return string
@@ -36,9 +35,23 @@ class ActivityModel
         return $this->getStudents()->count();
     }
 
+    /**
+     * @return string
+     */
     public function getFullName()
     {
         return $this->getName() . ' (' . $this->getNameShort() . ') ' . $this->getYear()->getName();
     }
 
+    /**
+     * @return string
+     */
+    public function getGradeString()
+    {
+        $result = '';
+        foreach ($this->getGrades() as $grade)
+            $result .= $grade->getGrade() . ',';
+
+        return trim($result, ',');
+    }
 }

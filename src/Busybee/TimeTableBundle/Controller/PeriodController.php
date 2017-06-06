@@ -202,4 +202,24 @@ class PeriodController extends Controller
             ]
         );
     }
+
+    /**
+     * @param $id Period Id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function fullReportAction($id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $pm = $this->get('period.manager');
+
+        $report = $pm->generateFullPeriodReport($id);
+
+        return $this->render('BusybeeTimeTableBundle:Plan:fullreport.html.twig',
+            [
+                'report' => $report,
+                'manager' => $pm,
+            ]
+        );
+    }
 }

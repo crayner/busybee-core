@@ -6,10 +6,6 @@ parameters:
                 a.name: ASC
                 a.nameShort: ASC
                 y.firstDay: DESC
-            Grades:
-                a.grades: ASC
-                a.name: ASC
-                y.firstDay: DESC
             Year:
                 y.firstDay: DESC
                 a.name: ASC
@@ -18,17 +14,19 @@ parameters:
         searchList:
             - a.name
             - a.nameShort
-            - a.grades
+            - g.grade
             - y.name
         join:
             a.year:
                 alias: y
                 type: leftJoin
+            a.grades:
+                alias: g
+                type: leftJoin
         select:
             - a.name
             - a.nameShort
             - a.id
-            - a.grades
             - y.name as year
     studentPagination:
         alias: p

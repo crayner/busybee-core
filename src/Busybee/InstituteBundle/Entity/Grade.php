@@ -46,11 +46,17 @@ class Grade extends GradeModel
     private $students;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $activities;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->students = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
     /**
@@ -268,5 +274,39 @@ class Grade extends GradeModel
     public function getStudents()
     {
         return $this->students;
+    }
+
+    /**
+     * Add activity
+     *
+     * @param \Busybee\StudentBundle\Entity\Activity $activity
+     *
+     * @return Grade
+     */
+    public function addActivity(\Busybee\StudentBundle\Entity\Activity $activity)
+    {
+        $this->activities[] = $activity;
+
+        return $this;
+    }
+
+    /**
+     * Remove activity
+     *
+     * @param \Busybee\StudentBundle\Entity\Activity $activity
+     */
+    public function removeActivity(\Busybee\StudentBundle\Entity\Activity $activity)
+    {
+        $this->activities->removeElement($activity);
+    }
+
+    /**
+     * Get activities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActivities()
+    {
+        return $this->activities;
     }
 }

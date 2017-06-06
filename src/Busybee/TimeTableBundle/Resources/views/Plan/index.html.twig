@@ -40,6 +40,7 @@
 
     {{ form_widget(form.activities) }}
     <div>
+        {{ miscButton({'class': 'halflings halflings-list btn btn-info', windowOpen: {route: path('period_full_report', {'id': app.request.get('id')}), 'target': 'FullReport', params: 'width=500,height=650'}, 'title': 'period.full.report', transDomain: 'BusybeeTimeTableReport'})|raw }}
         {{ addButton({'title': 'period.plan.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-plus-sign btn btn-primary collection-action collection-rescue-add', 'additional': 'data-collection="tt_period_activity_activities"'})|raw }}
     </div>
     {{ 'period.activities.activity.details.help'|trans|raw }}

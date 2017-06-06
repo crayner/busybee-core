@@ -5,6 +5,8 @@ namespace Busybee\StudentBundle\Events;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Form\StudentActivityType;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
@@ -22,7 +24,6 @@ class ActivitySubscriber implements EventSubscriberInterface
         // event and that the preSubmit method should be called.
         return array(
             FormEvents::POST_SET_DATA => 'preSetData',
-            FormEvents::PRE_SUBMIT => 'preSubmit',
         );
     }
 
@@ -37,23 +38,21 @@ class ActivitySubscriber implements EventSubscriberInterface
 
         if (!empty($entity->getGrades()) && !empty($entity->getYear())) {
             $grades = $entity->getGrades();
+            $gstring = [];
+            foreach ($grades as $grade)
+                $gstring[] = strval($grade->getId());
             $year = $entity->getYear();
+
             $form->add('students', StudentActivityType::class,
                 [
                     'class' => Student::class,
                     'choice_label' => 'formatName',
-                    'query_builder' => function (EntityRepository $er) use ($grades, $year) {
+                    'query_builder' => function (EntityRepository $er) use ($gstring, $year) {
                         return $er->createQueryBuilder('s')
-                            ->leftJoin('s.grades', 'r')
-                            ->leftJoin('r.grade', 'g')
-                            ->leftJoin('s.person', 'p')
-                            ->orderBy('p.surname', 'ASC')
-                            ->addOrderBy('p.firstName', 'ASC')
-                            ->setParameter('grades', $grades)
-                            ->where('g.grade IN (:grades)')
-                            ->leftJoin('g.year', 'y')
-                            ->andWhere('y.id = :year_id')
-                            ->setParameter('year_id', $year->getId());
+                            ->leftJoin('s.grades', 'i')
+                            ->leftJoin('i.grade', 'g')
+                            ->where('g.id IN (:grades)')
+                            ->setParameter('grades', $gstring, Connection::PARAM_STR_ARRAY);
                     },
                     'label' => 'activity.student.label.list',
                     'multiple' => true,
@@ -71,14 +70,15 @@ class ActivitySubscriber implements EventSubscriberInterface
                     'mapped' => false,
                     'class' => Activity::class,
                     'choice_label' => 'name',
-                    'query_builder' => function (EntityRepository $er) use ($grades, $year) {
+                    'query_builder' => function (EntityRepository $er) use ($gstring, $year) {
                         return $er->createQueryBuilder('a')
                             ->leftJoin('a.year', 'y')
+                            ->leftJoin('a.grades', 'g')
                             ->orderBy('a.name', 'ASC')
                             ->where('y.id = :year_id')
-                            ->andWhere('a.grades LIKE :grades')
+                            ->andWhere('g.id IN (:grades)')
                             ->setParameter('year_id', $year->getId())
-                            ->setParameter('grades', '%' . implode('%', $grades) . '%');
+                            ->setParameter('grades', $gstring, Connection::PARAM_STR_ARRAY);
                     },
                     'attr' => [
                         'help' => 'activity.student.help.possibleList',

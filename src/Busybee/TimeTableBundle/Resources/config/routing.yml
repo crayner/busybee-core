@@ -46,3 +46,6 @@ period_remove_activity:
 period_activity_edit:
     path:     /plan/{activity}/edit/activity/
     defaults: { _controller: BusybeeTimeTableBundle:Period:editPeriodActivity }
+period_full_report:
+    path:     /period/{id}/full/report/
+    defaults: { _controller: BusybeeTimeTableBundle:Period:fullReport }

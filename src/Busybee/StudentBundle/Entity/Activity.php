@@ -48,33 +48,38 @@ class Activity extends ActivityModel
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
-    /**
-     * @var array
-     */
-    private $grades;
+
     /**
      * @var ArrayCollection
      */
     private $students;
+
     /**
      * @var \Busybee\StaffBundle\Entity\Staff
      */
     private $tutor1;
+
     /**
      * @var \Busybee\StaffBundle\Entity\Staff
      */
     private $tutor2;
+
     /**
      * @var \Busybee\StaffBundle\Entity\Staff
      */
     private $tutor3;
 
     /**
+     * @var ArrayCollection
+     */
+    private $grades;
+
+    /**
      * @var \Busybee\InstituteBundle\Entity\Space
      */
     private $space;
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var ArrayCollection
      */
     private $periods;
 
@@ -85,6 +90,7 @@ class Activity extends ActivityModel
     {
         $this->students = new ArrayCollection();
         $this->periods = new ArrayCollection();
+        $this->grades = new ArrayCollection();
     }
 
     /**
@@ -266,30 +272,6 @@ class Activity extends ActivityModel
     }
 
     /**
-     * Get grades
-     *
-     * @return array
-     */
-    public function getGrades()
-    {
-        return $this->grades;
-    }
-
-    /**
-     * Set grades
-     *
-     * @param array $grades
-     *
-     * @return Activity
-     */
-    public function setGrades($grades)
-    {
-        $this->grades = $grades;
-
-        return $this;
-    }
-
-    /**
      * Add student
      *
      * @param \Busybee\StudentBundle\Entity\Student $student
@@ -319,7 +301,7 @@ class Activity extends ActivityModel
     /**
      * Get students
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getStudents()
     {
@@ -453,10 +435,49 @@ class Activity extends ActivityModel
     /**
      * Get periods
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getPeriods()
     {
         return $this->periods;
+    }
+
+    /**
+     * Add grade
+     *
+     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     *
+     * @return Activity
+     */
+    public function addGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+    {
+        if ($this->grades->contains($grade))
+            return $this;
+
+        $grade->setActivity($this);
+
+        $this->grades->add($grade);
+
+        return $this;
+    }
+
+    /**
+     * Remove grade
+     *
+     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     */
+    public function removeGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+    {
+        $this->grades->removeElement($grade);
+    }
+
+    /**
+     * Get grades
+     *
+     * @return ArrayCollection
+     */
+    public function getGrades()
+    {
+        return $this->grades;
     }
 }

@@ -214,9 +214,9 @@ class ActivityGroupsManager
                 ->leftJoin('s.grades', 'r')
                 ->leftJoin('r.grade', 'g')
                 ->leftJoin('g.year', 'y')
-                ->where('g.grade = :grade')
+                ->where('g.id = :grade_id')
                 ->andWhere('y.id = :year_id')
-                ->setParameter('grade', $grade)
+                ->setParameter('grade_id', $grade->getId())
                 ->setParameter('year_id', $this->year->getId())
                 ->getQuery()
                 ->getResult();
@@ -224,6 +224,7 @@ class ActivityGroupsManager
                 if (!$this->students->contains($student))
                     $this->students->add($student);
         }
+
         $this->studentsGenerated = true;
         return $this;
     }
@@ -242,6 +243,7 @@ class ActivityGroupsManager
                 if (!$this->grades->contains($grade))
                     $this->grades->add($grade);
         }
+
         $this->gradesGenerated = true;
         return $this;
     }

@@ -159,6 +159,7 @@ period:
                   <li>Details in the Activity are applied to the period when the activity is added to the period.  These details are second in priority, and are usually the most common in use.</li>
                   <li>Staff members can be assigned a home room.  If the space is selected for the activity and no staff memeber, then the staff member attached to the space is used for the activity.  Should the staff member be selected in tutor position one, then the space is applied to the activity.</li>
                   </ul>
+                  <p>Students are allocated at the activity ONLY!
                   </div>
             space:
                 missing: No space allocated for this class.
@@ -201,6 +202,8 @@ period:
     activity:
         placeholder: Select Activity
         remove: Remove Activity
+    full:
+        report: Generate Full Period Report
 column:
     remove:
         locked: 'The column has been locked and cannot be removed.'

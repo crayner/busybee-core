@@ -19,6 +19,10 @@ Busybee\InstituteBundle\Entity\Grade:
             targetEntity: Busybee\StudentBundle\Entity\StudentGrade
             mappedBy: grade
             cascade: [ 'persist' ]
+    manyToMany:
+        activities:
+            targetEntity: Busybee\StudentBundle\Entity\Activity
+            mappedBy: grades
     manyToOne:
         year:
             targetEntity: Busybee\InstituteBundle\Entity\Year

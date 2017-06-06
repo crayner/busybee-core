@@ -110,3 +110,7 @@ Busybee\StudentBundle\Entity\Student:
             joinColumns:
                 modified_by:
                     referencedColumnName: id
+    manyToMany:
+        activities:
+            targetEntity: Busybee\StudentBundle\Entity\Activity
+            mappedBy: students

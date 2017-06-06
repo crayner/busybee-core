@@ -3,6 +3,7 @@
 namespace Busybee\StudentBundle\Form;
 
 use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
@@ -75,16 +76,25 @@ class ActivityType extends AbstractType
                     },
                 ]
             )
-            ->add('grades', SettingChoiceType::class,
+            ->add('grades', EntityType::class,
                 [
                     'label' => 'activity.label.grades',
+                    'class' => Grade::class,
                     'placeholder' => 'activity.placeholder.grades',
-                    'setting_name' => 'student.groups',
                     'multiple' => true,
+                    'required' => false,
                     'attr' => [
                         'help' => 'activity.help.grades',
                         'class' => 'monitorChange',
                     ],
+                    'choice_label' => 'grade',
+                    'query_builder' => function (EntityRepository $er) use ($year) {
+                        return $er->createQueryBuilder('g')
+                            ->leftJoin('g.year', 'y')
+                            ->where('y.id = :year_id')
+                            ->setParameter('year_id', $year->getId())
+                            ->orderBy('g.sequence', 'DESC');
+                    },
                 ]
             )
             ->add('tutor1', EntityType::class,

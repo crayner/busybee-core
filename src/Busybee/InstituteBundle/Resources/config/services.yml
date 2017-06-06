@@ -176,3 +176,8 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: validator.constraint_validator, alias: calendar_grade_validator }
+    current.year:
+        class: Busybee\InstituteBundle\Model\CurrentYear
+        arguments:
+            - '@busybee_security.user_manager'
+            - '@security.token_storage'

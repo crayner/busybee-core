@@ -3,6 +3,7 @@
 namespace Busybee\StudentBundle\Controller;
 
 use Busybee\StudentBundle\Entity\Activity;
+use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Form\ActivityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -48,7 +49,7 @@ class ActivityController extends Controller
 
         $editOptions = array();
 
-        $form = $this->createForm(ActivityType::class, $entity, ['year_data' => $this->get('busybee_security.user_manager')->getSystemYear($this->getUser())]);
+        $form = $this->createForm(ActivityType::class, $entity, ['year_data' => $this->get('current.year')->getCurrentYear()]);
 
         $form->handleRequest($request);
 
@@ -75,6 +76,7 @@ class ActivityController extends Controller
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $activity = $this->get('activity.repository')->find($id);
+
         $data = empty($activity) || empty($activity->getStudents()) ? [] : $activity->getStudents()->toArray();
 
         $students = [];

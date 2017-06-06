@@ -154,6 +154,10 @@ class Student extends StudentModel
      * @var string
      */
     private $locker;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $activities;
 
     /**
      * Student constructor.
@@ -849,5 +853,39 @@ class Student extends StudentModel
         $this->locker = $locker;
 
         return $this;
+    }
+
+    /**
+     * Add activity
+     *
+     * @param \Busybee\StudentBundle\Entity\Activity $activity
+     *
+     * @return Student
+     */
+    public function addActivity(\Busybee\StudentBundle\Entity\Activity $activity)
+    {
+        $this->activities[] = $activity;
+
+        return $this;
+    }
+
+    /**
+     * Remove activity
+     *
+     * @param \Busybee\StudentBundle\Entity\Activity $activity
+     */
+    public function removeActivity(\Busybee\StudentBundle\Entity\Activity $activity)
+    {
+        $this->activities->removeElement($activity);
+    }
+
+    /**
+     * Get activities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActivities()
+    {
+        return $this->activities;
     }
 }
