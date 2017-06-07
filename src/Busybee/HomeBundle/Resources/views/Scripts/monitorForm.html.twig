@@ -6,8 +6,11 @@
     });
 
     $(".changeRecord").change(function () {
-
+        {% if app.request.get('closeWindow') is not empty %}
+        var path = "{{ path(route, {'id': '__id__', 'closeWindow': '_closeWindow'}) }}";
+        {% else %}
         var path = "{{ path(route, {'id': '__id__'}) }}";
+        {% endif %}
 
         var id = $(this).val();
         if (id == '') {

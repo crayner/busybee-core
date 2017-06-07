@@ -52,41 +52,19 @@
                         {{ form_row(form.grades) }}
                     </div>
                 </div>
-                <div class="well">
-                    <div class="row">
-                        <div class="col-sm-8 well">
-                            {{ form_row(form.tutor1) }}
-                        </div>
-                        {% if form.tutor1.vars.data is not empty %}
-                            <div class="col-sm-4 well">
-                                <div class="text-center">{{ form.tutor1.vars.data.getPortrait()|raw }}</div>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-8 well">
-                            {{ form_row(form.tutor2) }}
-                        </div>
-                        {% if form.tutor2.vars.data is not empty %}
-                            <div class="col-sm-4 well">
-                                <div class="text-center">{{ form.tutor2.vars.data.getPortrait()|raw }}</div>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-8 well">
-                            {{ form_row(form.tutor3) }}
-                        </div>
-                        {% if form.tutor3.vars.data is not empty %}
-                            <div class="col-sm-4 well">
-                                <div class="text-center">{{ form.tutor3.vars.data.getPortrait()|raw }}</div>
-                            </div>
-                        {% endif %}
+
+                {% if form.students is defined %}
+                    {% include '@BusybeeStudent/Activity/tutorList.html.twig' %}
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-sm-12 well">
+                        {{ form_row(form.space) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 well">
-                        {{ form_row(form.space) }}
+                        {{ form_row(form.studentReference) }}
                     </div>
                 </div>
             </div>
@@ -97,18 +75,10 @@
                             {{ form_row(form.students) }}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12 well">
-                            <div class="input-group">
-                                {{ form_widget(form.possibleList) }}
-                                <div class="input-group-btn">
-                                    {{ miscButton({'class': 'btn btn-warning halflings halflings-saved possibleList', 'title': 'activity.student.button.possibleList', 'style': 'height: 34px; margin-top: -1px; float: right; '})|raw }}
-                                </div>
-                            </div>
-                            {{ form_label(form.possibleList) }}
-                            <span class="field-help">{{ form.possibleList.vars.attr.help|trans }}</span>
-                        </div>
-                    </div>
+                </div>
+            {% else %}
+                <div class="col-sm-6">
+                    {% include '@BusybeeStudent/Activity/tutorList.html.twig' %}
                 </div>
             {% endif %}
         </div>

@@ -2,23 +2,21 @@
 
 namespace Busybee\StudentBundle\Form;
 
-use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StudentBundle\Entity\Activity;
-use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Events\ActivitySubscriber;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ActivityType extends AbstractType
@@ -29,12 +27,17 @@ class ActivityType extends AbstractType
     private $om;
 
     /**
+     * @var RequestStack
+     */
+    private $request;
+    /**
      * ActivityType constructor.
      * @param   ObjectManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, RequestStack $request)
     {
         $this->om = $om;
+        $this->request = $request;
     }
 
     /**
@@ -43,6 +46,7 @@ class ActivityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $year = $options['year_data'];
+        $this_id = $options['data']->getId();
         $builder
             ->add('name', null,
                 [
@@ -172,7 +176,7 @@ class ActivityType extends AbstractType
                 ]
             )
             ->add('changeRecord', EntityType::class,
-                array(
+                [
                     'label' => false,
                     'attr' => array(
                         'class' => 'formChanged changeRecord',
@@ -190,12 +194,35 @@ class ActivityType extends AbstractType
                             ->setParameter('year_id', $year);
                     },
                     'placeholder' => 'activity.placeholder.changeRecord',
-                )
+                ]
+            )
+            ->add('studentReference', EntityType::class,
+                [
+                    'label' => 'activity.studentReference.label',
+                    'attr' => array(
+                        'class' => 'monitorChange',
+                        'help' => 'activity.studentReference.help',
+                    ),
+                    'class' => Activity::class,
+                    'choice_label' => 'nameYear',
+                    'required' => false,
+                    'query_builder' => function (EntityRepository $er) use ($year, $this_id) {
+                        return $er->createQueryBuilder('a')
+                            ->leftJoin('a.year', 'y')
+                            ->addOrderBy('a.name', 'ASC')
+                            ->addOrderBy('a.nameShort', 'ASC')
+                            ->where('y.id = :year_id')
+                            ->setParameter('year_id', $year)
+                            ->andWhere('a.id != :this_id')
+                            ->setParameter('this_id', $this_id);
+                    },
+                    'placeholder' => 'activity.studentReference.placeholder',
+                ]
             );
 
         $builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
 
-        $builder->addEventSubscriber(new ActivitySubscriber());
+        $builder->addEventSubscriber(new ActivitySubscriber($this->request));
     }
 
     /**

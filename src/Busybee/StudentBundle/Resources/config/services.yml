@@ -95,6 +95,7 @@ services:
         class: Busybee\StudentBundle\Form\ActivityType
         arguments:
             - '@doctrine.orm.entity_manager'
+            - '@request_stack'
         tags:
             - { name: form.type }
     student.extension:

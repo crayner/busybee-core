@@ -79,6 +79,11 @@ Busybee\StudentBundle\Entity\Activity:
             joinColumns:
                 tutor_3:
                     referencedColumnName: id
+        studentReference:
+            targetEntity: Busybee\StudentBundle\Entity\Activity
+            joinColumns:
+                student_reference_id:
+                    referencedColumnName: id
         createdBy:
             targetEntity: Busybee\SecurityBundle\Entity\User
             joinColumns:

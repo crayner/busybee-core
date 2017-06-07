@@ -1,0 +1,37 @@
+{% trans_default_domain "BusybeeStudentBundle" %}
+
+
+<div class="row">
+    <div class="col-sm-12 well well-info">
+        <div class="row">
+            <div class="col-sm-8 well">
+                {{ form_row(form.tutor1) }}
+            </div>
+            {% if form.tutor1.vars.data is not empty %}
+                <div class="col-sm-4 well">
+                    <div class="text-center">{{ form.tutor1.vars.data.getPortrait()|raw }}</div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-sm-8 well">
+                {{ form_row(form.tutor2) }}
+            </div>
+            {% if form.tutor2.vars.data is not empty %}
+                <div class="col-sm-4 well">
+                    <div class="text-center">{{ form.tutor2.vars.data.getPortrait()|raw }}</div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-sm-8 well">
+                {{ form_row(form.tutor3) }}
+            </div>
+            {% if form.tutor3.vars.data is not empty %}
+                <div class="col-sm-4 well">
+                    <div class="text-center">{{ form.tutor3.vars.data.getPortrait()|raw }}</div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

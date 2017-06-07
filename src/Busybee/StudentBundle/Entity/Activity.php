@@ -84,6 +84,11 @@ class Activity extends ActivityModel
     private $periods;
 
     /**
+     * @var \Busybee\StudentBundle\Entity\Activity
+     */
+    private $studentReference;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -91,16 +96,6 @@ class Activity extends ActivityModel
         $this->students = new ArrayCollection();
         $this->periods = new ArrayCollection();
         $this->grades = new ArrayCollection();
-    }
-
-    /**
-     * Get ids
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -305,7 +300,48 @@ class Activity extends ActivityModel
      */
     public function getStudents()
     {
+        if ($this->getStudentReference() instanceof Activity)
+            $this->students = $this->getStudentReference()->getStudents();
+
         return $this->students;
+    }
+
+    /**
+     * Get studentReference
+     *
+     * @return \Busybee\StudentBundle\Entity\Activity
+     */
+    public function getStudentReference()
+    {
+        return $this->studentReference;
+    }
+
+    /**
+     * Set studentReference
+     *
+     * @param \Busybee\StudentBundle\Entity\Activity $studentReference
+     *
+     * @return Activity
+     */
+    public function setStudentReference(\Busybee\StudentBundle\Entity\Activity $studentReference = null)
+    {
+        // stop self reference
+        if ($studentReference instanceof Activity && $studentReference->getId() == $this->getId())
+            $studentReference = null;
+
+        $this->studentReference = $studentReference;
+
+        return $this;
+    }
+
+    /**
+     * Get ids
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
