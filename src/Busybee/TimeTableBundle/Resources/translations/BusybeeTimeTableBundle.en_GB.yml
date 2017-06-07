@@ -204,6 +204,13 @@ period:
         remove: Remove Activity
     full:
         report: Generate Full Period Report
+    report:
+        full:
+            header: '%day% - %period%'
+    grade:
+        missingStudents:
+            none: All students found.
+            missing: "%count% students missing."
 column:
     remove:
         locked: 'The column has been locked and cannot be removed.'

@@ -49,7 +49,7 @@ class ActivityController extends Controller
 
         $editOptions = array();
 
-        $form = $this->createForm(ActivityType::class, $entity, ['year_data' => $this->get('current.year')->getCurrentYear()]);
+        $form = $this->createForm(ActivityType::class, $entity, ['year_data' => $this->get('current.year.currentYear')]);
 
         $form->handleRequest($request);
 

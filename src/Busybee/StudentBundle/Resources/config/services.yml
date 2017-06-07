@@ -6,10 +6,6 @@ parameters:
                 a.name: ASC
                 a.nameShort: ASC
                 y.firstDay: DESC
-            Year:
-                y.firstDay: DESC
-                a.name: ASC
-                a.nameShort: ASC
         limit: '25'
         searchList:
             - a.name
@@ -84,6 +80,7 @@ services:
             - '%activityPagination%'
             - '@activity.repository'
             - '@my_service_container'
+            - '@current.year.currentYear'
     activity.repository:
         class: Busybee\StudentBundle\Repository\ActivityRepository
         factory:

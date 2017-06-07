@@ -2,6 +2,8 @@
 
 namespace Busybee\StudentBundle\Model;
 
+use Busybee\InstituteBundle\Entity\Year;
+
 class StudentModel
 {
     use \Busybee\PersonBundle\Model\FormatNameExtension;
@@ -21,9 +23,26 @@ class StudentModel
         $this->activityList = '';
     }
 
+    /**
+     * @return bool
+     */
     public function canDelete()
     {
         return true;
     }
 
+    /**
+     * @param Year $year
+     */
+    public function getStudentGrade(Year $year)
+    {
+        $grades = $this->getGrades();
+
+        foreach ($grades as $grade) {
+            if ($grade->getGrade()->getYear() == $year)
+                return $grade->getGrade();
+        }
+
+        return null;
+    }
 }

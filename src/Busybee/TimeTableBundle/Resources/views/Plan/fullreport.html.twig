@@ -17,14 +17,37 @@
     {% set panelParagraph = 'period.plan.panelparagraph' %}
     {% set panelParams = {'%start%': manager.period.startTime, '%end%': manager.period.endTime} %}
     {% set transDomain = 'BusybeeTimeTableBundle' %}
-    <div class="row alert alert-primary">
-        <h2>{{ header|trans(name) }}</h2>
-        <h3>{{ panelParagraph|trans(panelParams) }}</h3>
+    <div class="container-fluid">
+        <div class="row well well-warning">
+            <h2>{{ header|trans(name) }}</h2>
+            <h3>{{ panelParagraph|trans(panelParams) }}</h3>
+        </div>
+        {% for id,grade in report.grades %}
+            <div class="row well">
+                <span style="width: 100%">
+                    {{ closeButton()|raw }}
+                    {{ resetButton({'windowOpen': {'route': path('period_full_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
+                </span>
+            </div>
+            <div class="row well">
+                <div class="col-sm-6"><h3>{{ grade.grade }}</h3></div>
+                {% if report.missingStudents[id]|length == 0 %}
+                    <div class="col-sm-6">
+                        <p class="alert alert-success">{{ 'period.grade.missingStudents.none'|trans }}</p>
+                    </div>
+                {% else %}
+                    <div class="col-sm-6">
+                        <p class="alert alert-danger">{{ 'period.grade.missingStudents.missing'|trans({'%count%': report.missingStudents[id]|length}) }}</p>
+                        <ul>
+                            {% for student in report.missingStudents[id] %}
+                                <li>{{ student.formatName({'surnameFirst': 1, 'preferredOnly': 0}) }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
     </div>
-    <div>{{ closeButton()|raw }}
-        {{ resetButton({'windowOpen': {'route': path('period_full_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
-    </div>
-    {{ dump() }}
 {% endblock contentContainer %}
 
 {% block javascripts %}

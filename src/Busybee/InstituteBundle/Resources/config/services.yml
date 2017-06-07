@@ -181,3 +181,8 @@ services:
         arguments:
             - '@busybee_security.user_manager'
             - '@security.token_storage'
+    current.year.currentYear:
+        class: CurrentYear
+        factory:
+            - '@current.year'
+            - 'getCurrentYear'

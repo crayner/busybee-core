@@ -163,7 +163,7 @@ abstract class PaginationManager implements PaginationInterface
     {
         $this->setPagination($pagination);
         $this->manager = $container->get('doctrine')->getManager();
-        $this->repository = $repository ;
+        $this->repository = $repository;
         $this->session = $container->get('session');
         $this->router = $container->get('router');
 
