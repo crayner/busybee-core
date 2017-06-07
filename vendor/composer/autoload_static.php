@@ -25,6 +25,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'T' => 
         array (
             'Twig\\Extensions\\' => 16,
+            'Twig\\' => 5,
             'Tests\\' => 6,
         ),
         'S' => 
@@ -101,6 +102,10 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Twig\\Extensions\\' =>
             array(
                 0 => __DIR__ . '/..' . '/twig/extensions/src',
+            ),
+        'Twig\\' =>
+            array(
+                0 => __DIR__ . '/..' . '/twig/twig/src',
             ),
         'Tests\\' => 
         array (
