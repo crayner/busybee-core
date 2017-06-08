@@ -1,7 +1,7 @@
-Busybee\TimeTableBundle\Entity\ActivityGroups:
+Busybee\TimeTableBundle\Entity\Line:
     type: entity
-    table: activity_groups
-    repositoryClass: Busybee\TimeTableBundle\Repository\ActivityGroupsRepository
+    table: line
+    repositoryClass: Busybee\TimeTableBundle\Repository\LineRepository
     uniqueConstraints:
         name_year:
             columns:
@@ -36,9 +36,9 @@ Busybee\TimeTableBundle\Entity\ActivityGroups:
         activities:
             targetEntity: Busybee\StudentBundle\Entity\Activity
             joinTable:
-                name: activity_group_activity
+                name: line_activity
                 joinColumns:
-                    group_id:
+                    line_id:
                         referencedColumnName: id
                 inverseJoinColumns:
                     activity_id:

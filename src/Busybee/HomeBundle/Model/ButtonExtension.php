@@ -85,7 +85,7 @@ class ButtonExtension extends \Twig_Extension
         }
 
         if (!empty($details['javascript'])) {
-            $target = implode(',', $details['javascript']['options']);
+            $target = implode(',', empty($details['javascript']['options']) ? [] : $details['javascript']['options']);
             $route = 'onClick="' . $details['javascript']['function'] . '(' . $target . ');"';
             $details['additional'] = empty($details['additional']) ? $route : trim($details['additional'] . ' ' . $route);
         }

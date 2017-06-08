@@ -23,7 +23,7 @@
     {{ form_start(form) }}
     <div class="messageWindow"></div>
     {% set header = 'period.plan.header' %}
-    {% set name = {'%day%': form.vars.value.columnName, '%period%': form.vars.value.fullName} %}
+    {% set name = {'%day%': form.vars.value.columnName} %}
     {% set panelParagraph = 'period.plan.panelparagraph' %}
     {% set panelParams = {'%start%': form.vars.value.startTime, '%end%': form.vars.value.endTime} %}
     {% set h3Content = closeButton()|raw %}
@@ -34,14 +34,24 @@
     <div class="row row-header">
         <div class="col-sm-4 text-center">{{ 'period.activities.activity.label'|trans }}</div>
         <div class="col-sm-4 text-center">{{ 'period.activities.activity.details.label'|trans }}</div>
-        <div class="col-sm-4 text-center">{{ 'actions'|trans({}, 'BusybeeHomeBundle') }}
-        </div>
+        <div class="col-sm-4 text-center">{{ 'actions'|trans({}, 'BusybeeHomeBundle') }}</div>
     </div>
 
     {{ form_widget(form.activities) }}
     <div>
         {{ miscButton({'class': 'halflings halflings-list btn btn-info', windowOpen: {route: path('period_full_report', {'id': app.request.get('id')}), 'target': 'FullReport', params: 'width=500,height=650'}, 'title': 'period.report.full.button', transDomain: 'BusybeeTimeTableReport'})|raw }}
         {{ addButton({'title': 'period.plan.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'class': 'halflings halflings-plus-sign btn btn-primary collection-action collection-rescue-add', 'additional': 'data-collection="tt_period_activity_activities"'})|raw }}
+        {{ saveButton()|raw }}
+        <span style="float: right;">&nbsp;</span>
+        <div class="input-group" style="float: right; max-width: 300px;">
+            <span class="input-group-btn">
+                {{ miscButton({'class': 'btn btn-success halflings halflings-log-in', 'style': '', 'transDomain': 'BusybeeTimeTableBundle', 'title': 'period.activities.duplicate.target', 'javascript': {'function': 'duplicateTo'}})|raw }}
+            </span>
+            {{ form_widget(form.periods) }}
+            <span class="input-group-btn">
+                {{ miscButton({'class': 'btn btn-success halflings halflings-log-out', 'style': '', 'transDomain': 'BusybeeTimeTableBundle', 'title': 'period.activities.duplicate.source', 'javascript': {'function': 'duplicateFrom'}})|raw }}
+            </span>
+        </div>
     </div>
     {{ 'period.activities.activity.details.help'|trans|raw }}
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}

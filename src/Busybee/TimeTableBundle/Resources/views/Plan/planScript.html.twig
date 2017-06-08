@@ -61,4 +61,33 @@
         return true;
     }
 
+    function duplicatePeriod(source, target) {
+        if (isNaN(source)) {
+            return false;
+        }
+        if (isNaN(target)) {
+            return false;
+        }
+        if (source < 1) {
+            return false;
+        }
+        if (target < 1) {
+            return false;
+        }
+        var path = "{{ path('period_duplicate', {'source': '__source__', 'target': '__target__'}) }}";
+        path = path.replace('__target__', target);
+        path = path.replace('__source__', source);
+        window.open(path, '_self');
+    }
+    function duplicateTo() {
+        var source = '{{ app.request.get('id') }}';
+        var target = $('#tt_period_activity_periods').val();
+        return duplicatePeriod(source, target);
+
+    }
+    function duplicateFrom() {
+        var target = '{{ app.request.get('id') }}';
+        var source = $('#tt_period_activity_periods').val();
+        return duplicatePeriod(source, target);
+    }
 </script>

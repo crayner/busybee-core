@@ -2,7 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
-abstract class ActivityGroupsModel
+abstract class LineModel
 {
     public function getFullName()
     {

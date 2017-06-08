@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\TimeTableBundle\Form;
 
-use Busybee\TimeTableBundle\Entity\ActivityGroups;
+use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Doctrine\ORM\EntityRepository;
@@ -21,6 +21,7 @@ class PeriodActivityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $year = $options['year_data'];
+        $tt = $options['manager']->getTimeTable();
         $builder
             ->add('activities', CollectionType::class,
                 [
@@ -42,7 +43,7 @@ class PeriodActivityType extends AbstractType
             ->add('line', EntityType::class,
                 [
                     'mapped' => false,
-                    'class' => ActivityGroups::class,
+                    'class' => Line::class,
                     'choice_label' => 'fullName',
                     'query_builder' => function (EntityRepository $er) use ($year) {
                         return $er->createQueryBuilder('l')
@@ -54,6 +55,27 @@ class PeriodActivityType extends AbstractType
                         'class' => 'lineList changeRecord',
                     ],
                     'placeholder' => 'period.activities.activity.addline.placeholder',
+                    'required' => false,
+                ]
+            )
+            ->add('periods', EntityType::class,
+                [
+                    'mapped' => false,
+                    'class' => Period::class,
+                    'choice_label' => 'columnName',
+                    'query_builder' => function (EntityRepository $er) use ($tt) {
+                        return $er->createQueryBuilder('p')
+                            ->leftJoin('p.column', 'c')
+                            ->leftJoin('c.timetable', 't')
+                            ->where('t.id = :tt_id')
+                            ->orderBy('c.sequence', 'ASC')
+                            ->addOrderBy('p.start', 'ASC')
+                            ->setParameter('tt_id', $tt->getId());
+                    },
+                    'attr' => [
+                        'class' => 'periodList changeRecord',
+                    ],
+                    'placeholder' => 'period.activities.duplicate.placeholder',
                     'required' => false,
                 ]
             );

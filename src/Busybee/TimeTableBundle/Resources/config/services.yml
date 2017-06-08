@@ -25,32 +25,32 @@ parameters:
             - t.nameShort
             - t.id
             - y.name as year
-    ActivityGroupsPagination:
-        alias: a
+    LinePagination:
+        alias: l
         sortBy:
             Name:
-                a.name: ASC
-                a.nameShort: ASC
+                l.name: ASC
+                l.nameShort: ASC
             Short Name:
-                a.nameShort: ASC
-                a.name: ASC
+                l.nameShort: ASC
+                l.name: ASC
             Course:
                 c.name: ASC
-                a.name: ASC
+                l.name: ASC
         limit: '25'
         join:
-            a.course:
+            l.course:
                 alias: c
                 type: leftJoin
         searchList:
-            - a.name
-            - a.nameShort
+            - l.name
+            - l.nameShort
             - c.name
         select:
-            - a.name
-            - a.nameShort
+            - l.name
+            - l.nameShort
             - c.name as course
-            - a.id
+            - l.id
 services:
     timetable.repository:
         class: Busybee\TimeTableBundle\Repository\TimeTableRepository
@@ -72,21 +72,21 @@ services:
             - '@setting.manager'
         tags:
             - { name: form.type }
-    activity.groups.repository:
-        class: Busybee\TimeTableBundle\Repository\ActivityGroupsRepository
+    line.repository:
+        class: Busybee\TimeTableBundle\Repository\LineRepository
         factory:
             - '@doctrine'
             - 'getRepository'
         arguments:
-            - "BusybeeTimeTableBundle:ActivityGroups"
-    activity.groups.pagination:
-        class: Busybee\TimeTableBundle\Model\ActivityGroupsPagination
+            - "BusybeeTimeTableBundle:Line"
+    line.pagination:
+        class: Busybee\TimeTableBundle\Model\LinePagination
         arguments:
-            - '%ActivityGroupsPagination%'
-            - '@activity.groups.repository'
+            - '%LinePagination%'
+            - '@line.repository'
             - '@my_service_container'
-    activity.groups.manager:
-        class: Busybee\TimeTableBundle\Model\ActivityGroupsManager
+    line.manager:
+        class: Busybee\TimeTableBundle\Model\LineManager
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@translator'
@@ -110,13 +110,6 @@ services:
             - '@busybee_security.user_manager'
             - '@doctrine.orm.entity_manager'
             - '@setting.manager'
-    form.timetable.days.type:
-        class: Busybee\TimeTableBundle\Form\TimeTableDaysType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
-        tags:
-            - { name: form.type }
     form.timetable.hidden.day.type:
         class: Busybee\TimeTableBundle\Form\DayHiddenType
         arguments:

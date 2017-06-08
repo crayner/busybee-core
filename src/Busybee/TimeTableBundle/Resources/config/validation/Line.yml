@@ -1,13 +1,13 @@
-Busybee\TimeTableBundle\Entity\ActivityGroups:
+Busybee\TimeTableBundle\Entity\Line:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, year]
             errorPath: name
-            message: 'activitygroups.error.nameyear'
+            message: 'line.error.nameyear'
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, year]
             errorPath: name
-            message: 'activitygroups.error.nameshortyear'
+            message: 'line.error.nameshortyear'
     properties:
         name:
             - NotBlank: ~

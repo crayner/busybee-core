@@ -6,7 +6,7 @@ use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;
-use Busybee\TimeTableBundle\Entity\ActivityGroups;
+use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -346,39 +346,6 @@ class PeriodManager
     }
 
     /**
-     * @param $line
-     */
-    public function injectLineGroup($line)
-    {
-        $line = $this->om->getRepository(ActivityGroups::class)->find($line);
-
-        $count = 0;
-
-        $exists = new ArrayCollection();
-        foreach ($this->period->getActivities() as $act)
-            $exists->add($act->getActivity());
-
-        foreach ($line->getActivities() as $activity)
-            if (!$exists->contains($activity)) {
-                $act = new PeriodActivity();
-                $act->setPeriod($this->period);
-                $act->setActivity($activity);
-                $this->period->getActivities()->add($act);
-                $count++;
-            }
-
-        if ($count > 0) {
-            $this->flashbag->add('success', 'period.activities.line.added');
-            $this->om->persist($this->period);
-            $this->om->flush();
-        } else
-            $this->flashbag->add('warning', 'period.activities.line.none');
-
-        return;
-
-    }
-
-    /**
      * @param $id
      */
     public function generateFullPeriodReport($id)
@@ -430,5 +397,81 @@ class PeriodManager
         $data->missingStudents = $grades;
         dump($grades);
         return $data;
+    }
+
+    /**
+     * @return \Busybee\TimeTableBundle\Entity\TimeTable
+     */
+    public function getTimeTable()
+    {
+        $x = $this->period->getColumn()->getTimetable();
+        $x->getName();
+
+        return $x;
+    }
+
+    /**
+     * @param $line
+     */
+    public function injectLineGroup($line)
+    {
+        $line = $this->om->getRepository(line::class)->find($line);
+
+        $count = 0;
+
+        $exists = new ArrayCollection();
+        foreach ($this->period->getActivities() as $act)
+            $exists->add($act->getActivity());
+
+        foreach ($line->getActivities() as $activity)
+            if (!$exists->contains($activity)) {
+                $act = new PeriodActivity();
+                $act->setPeriod($this->period);
+                $act->setActivity($activity);
+                $this->period->getActivities()->add($act);
+                $count++;
+            }
+
+        if ($count > 0) {
+            $this->flashbag->add('success', 'period.activities.line.added');
+            $this->om->persist($this->period);
+            $this->om->flush();
+        } else
+            $this->flashbag->add('warning', 'period.activities.line.none');
+
+        return;
+
+    }
+
+    public function duplicatePeriod($source, $target)
+    {
+        $this->injectPeriod($source);
+
+        $source = clone $this->period;
+
+        $this->injectPeriod($target);
+
+        $exists = new ArrayCollection();
+        foreach ($this->period->getActivities() as $act)
+            $exists->add($act->getActivity());
+
+        $save = false;
+        foreach ($source->getActivities() as $pa)
+            if (!$exists->contains($pa->getActivity())) {
+                $act = new PeriodActivity();
+                $act->setActivity($pa->getActivity());
+                $act->setPeriod($this->period);
+                $act->setSpace($pa->getLocalSpace());
+                $act->setTutor1($pa->getLocalTutor1());
+                $act->setTutor2($pa->getLocalTutor2());
+                $act->setTutor3($pa->getLocalTutor3());
+                $this->period->addActivity($act);
+                $save = true;
+            }
+
+        if ($save) {
+            $this->om->persist($this->period);
+            $this->om->flush();
+        }
     }
 }

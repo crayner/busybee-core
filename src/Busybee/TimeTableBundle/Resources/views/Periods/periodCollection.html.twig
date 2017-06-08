@@ -23,7 +23,7 @@
         {% set h3Content = h3Content ~ '</div>' %}
         {% set title = 'timetable.period.add.title'|trans %}
         <div class="PeriodIdentifier" period="{{ period_id }}" page="{{ form.parent.parent.vars.name }}"></div>
-        {% if form.vars.data is not empty %}{% set title = form.vars.data.name ~ ' (' ~ form.vars.data.nameShort ~ ')' %}{% endif %}
+        {% if form.vars.data is not empty %}{% set title = form.vars.data.columnName %}{% endif %}
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': title} %}
         <div class="container-fluid period">
             <div class="row">

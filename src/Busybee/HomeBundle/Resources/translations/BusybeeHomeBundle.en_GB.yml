@@ -122,7 +122,7 @@ menu:
     timetable:
         manage: Manage Timetables
         title: Timetables
-        activitygroups: Activity Groups
+        line: Activity Lines
         assigndays: Assign Days
 ajax:
     wait_message: saving data.. please wait.. 

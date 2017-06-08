@@ -4,9 +4,9 @@ namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\PaginationBundle\Model\PaginationManager;
 
-class ActivityGroupsPagination extends PaginationManager
+class LinePagination extends PaginationManager
 {
-    protected $paginationName = 'ActivityGroups';
+    protected $paginationName = 'line';
 
     /**
      * build Query

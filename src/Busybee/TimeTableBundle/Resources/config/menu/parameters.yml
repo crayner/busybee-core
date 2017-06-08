@@ -32,9 +32,9 @@ parameters:
             order: 1610
             route: student_activities
         1611:
-            label: menu.timetable.activitygroups
-            name: Manage Activity Groups
-            route: activity_group_list
+            label: menu.timetable.line
+            name: Manage Activity Lines
+            route: line_list
             role: ROLE_PRINCIPAL
             parameters: []
             node: 161

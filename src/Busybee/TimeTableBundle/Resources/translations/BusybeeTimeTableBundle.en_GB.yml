@@ -77,41 +77,41 @@ timetable:
             help: 'Toggle the start of the rotation cycle by clicking any date. The rotation will begin on that date, or the first non-fixed day after the date selected.'
     year:
         mapdaysfailed: 'Time table days are not mapped correctly. The error captured was: %message%. This most often happens if fixed days are defined but the column does not have that the same fixed day.'
-activitygroups:
+line:
     title:
-        list: Manage Activity Groups
-        add: Add Activity Group
-        edit: Edit Activity Group
-        manage: Manage Activity Group
-        report: Activity Group Report
+        list: Manage Activity Lines
+        add: Add Activity Line
+        edit: Edit Activity Line
+        manage: Manage Activity Line
+        report: Activity Line Report
     label:
-        name: Activity Group
+        name: Activity Line
         nameShort: Code
         activities: Activity List
         year: Attach to Year
         course: Attach a Course
         includeAll: Include all Students in the Grades
         participants: Maximum Participants
-        test: Test Activity Groups
+        test: Test Activity Lines
     description:
-        manage: Create, edit and test an Activity Group
+        manage: Create, edit and test an Activity Line
     help:
         activities: ''
         includeAll: The available list is generated from the included activities, and the selected participants are tested against this list.
         participants: Limit the participants to a maximum number.  A selection of zero (0) turns this test off.
-        test: Generate a report on the Activity Group
+        test: Generate a report on the Activity Line
     placeholder:
         activity: Select an Activity for this Group
         year: Select the year
         course: Select the course
-        changeRecord: Add or edit selected Activity Group
+        changeRecord: Add or edit selected Activity Line
     report:
         header: |
-            <h3>Activity Group Report</h3>
-            <p>Activity Group: <strong>%learninggroup%</strong></p>
+            <h3>Activity Line Report</h3>
+            <p>Activity Line: <strong>%learninggroup%</strong></p>
             <p>Participating Student Count: <strong>%participantCount%</strong> of a possible <strong>%studentCount%</strong> students.</p>
         includeAll: |
-            <p%class%>Some students have not been included in the Activity group.  All students should be included.</p>
+            <p%class%>Some students have not been included in the Activity Line.  All students should be included.</p>
             <h4>Possible Students</h4>
         student: |
             %identifier%: %name% %activityList%
@@ -122,7 +122,7 @@ activitygroups:
             <p%class%>An extra student has been found in the participant list.  This can happen if the grade of a student has been changed.</p>
             <h4>Extra Student</h4>
         duplicated: |
-            <p%class%>Some students appear in this Activity Group more than once.</p>
+            <p%class%>Some students appear in this Activity Line more than once.</p>
             <h4>Duplicated Students</h4>
 activity:
     title:
@@ -145,7 +145,7 @@ period:
     end:
         label: End of Period.
     activities:
-        add: Add Activity Groups to Period
+        add: Add Activity Lines to Period
         activity:
             label: 'Activity'
             details:
@@ -188,11 +188,15 @@ period:
         line:
             added: Activities where successfully added to the period.
             none: No activities were added to the period.
+        duplicate:
+            placeholder: Source/Target Period
+            source: Copy selected period to the period displayed.
+            target: Copy the displayed period to the selected period.
     plan:
         title:
-            add: Add Activity Group
-            remove: Remove Activity Group
-        header: 'Period %day% - %period%'
+            add: Add Activity Line
+            remove: Remove Activity Line
+        header: 'Period %day%'
         panelparagraph: '%start% - %end%.  You can add a line of activities to this period by selecting a line from the select list above.  Any duplicates are ignored.'
         reportparagraph: '%start% - %end%'
         banner:

@@ -1,9 +1,9 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% block tt_activity_groups_label %}{% endblock %}
-{% block tt_activity_groups_errors %}{% endblock %}
+{% block tt_line_label %}{% endblock %}
+{% block tt_line_errors %}{% endblock %}
 
-{% block tt_activity_groups_widget %}
+{% block tt_line_widget %}
     {% spaceless %}
         {% set panelStyle = 'warning' %}
         {% set transDomain = 'BusybeeTimeTableBundle' %}
@@ -27,4 +27,4 @@
         </div>
         {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
     {% endspaceless %}
-{% endblock tt_activity_groups_widget %}
+{% endblock tt_line_widget %}

@@ -1,20 +1,19 @@
 <?php
-
 namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\StudentBundle\Entity\Student;
-use Busybee\TimeTableBundle\Entity\ActivityGroups;
+use Busybee\TimeTableBundle\Entity\Line;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
-class ActivityGroupsManager
+class LineManager
 {
     /**
-     * @var ActivityGroups
+     * @var Line
      */
-    private $lg;
+    private $line;
 
     /**
      * @var ObjectManager
@@ -112,7 +111,7 @@ class ActivityGroupsManager
     private $missingStudents;
 
     /**
-     * ActivityGroupsManager constructor.
+     * lineManager constructor.
      * @param ObjectManager $om
      */
     public function __construct(ObjectManager $om, Translator $trans)
@@ -144,24 +143,24 @@ class ActivityGroupsManager
 
     /**
      * @param null $id
-     * @return ActivityGroups
+     * @return line
      */
     public function getActivityGroup($id = null)
     {
         if (is_null($id))
-            return $this->lg;
+            return $this->line;
 
-        $this->lg = $this->om->getRepository(ActivityGroups::class)->find($id);
+        $this->line = $this->om->getRepository(line::class)->find($id);
         $this->gradesGenerated = false;
         $this->studentsGenerated = false;
         $this->participantGenerated = false;
         $this->possibleGenerated = false;
 
-        return $this->lg;
+        return $this->line;
     }
 
     /**
-     * @return ActivityGroupsManager
+     * @return lineManager
      */
     private function generatePossibleList()
     {
@@ -178,7 +177,7 @@ class ActivityGroupsManager
     }
 
     /**
-     * @return ActivityGroupsManager
+     * @return lineManager
      */
     private function generateParticipantList()
     {
@@ -187,7 +186,7 @@ class ActivityGroupsManager
         $this->participant = new ArrayCollection();
         $this->duplicated = new ArrayCollection();
 
-        foreach ($this->lg->getActivities()->toArray() as $activity)
+        foreach ($this->line->getActivities()->toArray() as $activity)
             foreach ($activity->getStudents()->toArray() as $student) {
                 $student->activityList = empty($student->activityList) ? $activity->getNameShort() : $student->activityList . ', ' . $activity->getNameShort();
                 if (!$this->participant->contains($student))
@@ -201,7 +200,7 @@ class ActivityGroupsManager
     }
 
     /**
-     * @return ActivityGroupsManager
+     * @return lineManager
      */
     private function generateStudentList()
     {
@@ -230,7 +229,7 @@ class ActivityGroupsManager
     }
 
     /**
-     * @return ActivityGroupsManager
+     * @return lineManager
      */
     private function generateGrades()
     {
@@ -238,7 +237,7 @@ class ActivityGroupsManager
             return $this;
         $this->grades = new ArrayCollection();
 
-        foreach ($this->lg->getActivities()->toArray() as $activity) {
+        foreach ($this->line->getActivities()->toArray() as $activity) {
             foreach ($activity->getGrades() as $grade)
                 if (!$this->grades->contains($grade))
                     $this->grades->add($grade);
@@ -256,7 +255,7 @@ class ActivityGroupsManager
     public function getReport()
     {
         $report = [];
-        $report['%learninggroup%'] = $this->lg->getName();
+        $report['%learninggroup%'] = $this->line->getName();
         $report['%possibleCount%'] = $this->possibleCount = $this->getPossibleCount();
         $report['%studentCount%'] = $this->studentCount = $this->getStudentCount();
         $report['%duplicateCount%'] = $this->duplicateCount = $this->getDuplicateCount();
@@ -264,14 +263,14 @@ class ActivityGroupsManager
         $report['%includeAll%'] = $this->getIncludeAll();
         $report['%exceededMax%'] = $this->getExceededMax();
         $report['%missingStudents%'] = $this->getMissingStudents();
-        $report['%allowed%'] = $this->lg->getParticipants();
+        $report['%allowed%'] = $this->line->getParticipants();
         $report['%class%'] = ' class="alert alert-warning"';
 
 
-        $report['report'] = $this->trans->trans('activitygroups.report.header', $report, 'BusybeeTimeTableBundle');
+        $report['report'] = $this->trans->trans('line.report.header', $report, 'BusybeeTimeTableBundle');
 
         if (!$this->includeAll) {
-            $report['report'] .= $this->trans->trans('activitygroups.report.includeAll', $report, 'BusybeeTimeTableBundle');
+            $report['report'] .= $this->trans->trans('line.report.includeAll', $report, 'BusybeeTimeTableBundle');
             $report['report'] .= "<ul>";
 
             $iterator = $this->possible->getIterator();
@@ -285,16 +284,16 @@ class ActivityGroupsManager
                 $data['%name%'] = $student->getFormatName();
                 $data['%identifier%'] = $student->getPerson()->getIdentifier();
                 $data['%activityList%'] = $student->activityList;
-                $report['report'] .= '<li>' . $this->trans->trans('activitygroups.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
+                $report['report'] .= '<li>' . $this->trans->trans('line.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
             }
             $report['report'] .= '</ul>';
         }
 
         if ($this->exceededMax)
-            $report['report'] .= $this->trans->trans('activitygroups.report.exceededMax', $report, 'BusybeeTimeTableBundle');
+            $report['report'] .= $this->trans->trans('line.report.exceededMax', $report, 'BusybeeTimeTableBundle');
 
         if ($this->getDuplicateCount() > 0) {
-            $report['report'] .= $this->trans->trans('activitygroups.report.duplicated', $report, 'BusybeeTimeTableBundle');
+            $report['report'] .= $this->trans->trans('line.report.duplicated', $report, 'BusybeeTimeTableBundle');
             $report['report'] .= "<ul>";
 
             $iterator = $this->duplicated->getIterator();
@@ -308,14 +307,14 @@ class ActivityGroupsManager
                 $data['%name%'] = $student->getFormatName();
                 $data['%identifier%'] = $student->getPerson()->getIdentifier();
                 $data['%activityList%'] = $student->activityList;
-                $report['report'] .= '<li>' . $this->trans->trans('activitygroups.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
+                $report['report'] .= '<li>' . $this->trans->trans('line.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
             }
             $report['report'] .= '</ul>';
         }
 
         if ($this->participantCount > $this->studentCount) {
             $report['%class%'] = ' class="alert alert-danger"';
-            $report['report'] .= $this->trans->trans('activitygroups.report.extra', $report, 'BusybeeTimeTableBundle');
+            $report['report'] .= $this->trans->trans('line.report.extra', $report, 'BusybeeTimeTableBundle');
             $report['report'] .= "<ul>";
 
             $iterator = $this->participant->getIterator();
@@ -330,13 +329,13 @@ class ActivityGroupsManager
                     $data['%name%'] = $student->getFormatName();
                     $data['%identifier%'] = $student->getPerson()->getIdentifier();
                     $data['%activityList%'] = $student->activityList;
-                    $report['report'] .= '<li>' . $this->trans->trans('activitygroups.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
+                    $report['report'] .= '<li>' . $this->trans->trans('line.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
                 }
             }
             $report['report'] .= '</ul>';
         }
 
-        $report['report'] .= $this->trans->trans('activitygroups.report.footer', $report, 'BusybeeTimeTableBundle');
+        $report['report'] .= $this->trans->trans('line.report.footer', $report, 'BusybeeTimeTableBundle');
 
         return $report;
     }
@@ -386,7 +385,7 @@ class ActivityGroupsManager
 
         // Test OK if includeAll not set
 
-        if (!$this->lg->getIncludeAll())
+        if (!$this->line->getIncludeAll())
             return $this->includeAll;
 
         if ($this->getPossibleCount() > 0)
@@ -404,10 +403,10 @@ class ActivityGroupsManager
 
         // Test OK if includeAll not set
 
-        if ($this->lg->getParticipants() == 0)
+        if ($this->line->getParticipants() == 0)
             return $this->exceededMax;
 
-        if ($this->getParticipantCount() > $this->lg->getParticipants())
+        if ($this->getParticipantCount() > $this->line->getParticipants())
             $this->exceededMax = true;
 
         return $this->exceededMax;

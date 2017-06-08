@@ -5,9 +5,8 @@ namespace Busybee\TimeTableBundle\Form;
 use Busybee\CurriculumBundle\Entity\Course;
 use Busybee\FormBundle\Type\ToggleType;
 use Busybee\InstituteBundle\Form\YearEntityType;
-use Busybee\TimeTableBundle\Entity\ActivityGroups;
-use Busybee\TimeTableBundle\Events\ActivityGroupsSubscriber;
-use Busybee\TimeTableBundle\Events\ActivityGroupSubscriber;
+use Busybee\TimeTableBundle\Entity\Line;
+use Busybee\TimeTableBundle\Events\LineSubscriber;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -15,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActivityGroupsType extends AbstractType
+class LineType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -25,32 +24,32 @@ class ActivityGroupsType extends AbstractType
         $year = $options['year_data'];
         $builder
             ->add('name', null, [
-                    'label' => 'activitygroups.label.name',
+                    'label' => 'line.label.name',
                 ]
             )
             ->add('nameShort', null, [
-                    'label' => 'activitygroups.label.nameShort',
+                    'label' => 'line.label.nameShort',
                 ]
             )
             ->add('participants', NumberType::class, [
-                    'label' => 'activitygroups.label.participants',
+                    'label' => 'line.label.participants',
                     'attr' => [
-                        'help' => 'activitygroups.help.participants',
+                        'help' => 'line.help.participants',
                     ],
                 ]
             )
             ->add('includeAll', ToggleType::class, [
-                    'label' => 'activitygroups.label.includeAll',
+                    'label' => 'line.label.includeAll',
                     'attr' => [
-                        'help' => 'activitygroups.help.includeAll',
+                        'help' => 'line.help.includeAll',
                     ],
                 ]
             )
             ->add('course', EntityType::class, [
                     'class' => Course::class,
                     'choice_label' => 'name',
-                    'placeholder' => 'activitygroups.placeholder.course',
-                    'label' => 'activitygroups.label.course',
+                    'placeholder' => 'line.placeholder.course',
+                    'label' => 'line.label.course',
                     'required' => false,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('c')
@@ -59,8 +58,8 @@ class ActivityGroupsType extends AbstractType
                 ]
             )
             ->add('year', YearEntityType::class, [
-                    'placeholder' => 'activitygroups.placeholder.year',
-                    'label' => 'activitygroups.label.year',
+                    'placeholder' => 'line.placeholder.year',
+                    'label' => 'line.label.year',
                 ]
             )
             ->add('changeRecord', EntityType::class,
@@ -69,7 +68,7 @@ class ActivityGroupsType extends AbstractType
                     'attr' => array(
                         'class' => 'formChanged changeRecord',
                     ),
-                    'class' => ActivityGroups::class,
+                    'class' => line::class,
                     'choice_label' => 'name',
                     'mapped' => false,
                     'required' => false,
@@ -80,10 +79,10 @@ class ActivityGroupsType extends AbstractType
                             ->setParameter('year_id', $year->getId())
                             ->orderBy('l.name', 'ASC');
                     },
-                    'placeholder' => 'activitygroups.placeholder.changeRecord',
+                    'placeholder' => 'line.placeholder.changeRecord',
                 )
             );
-        $builder->addEventSubscriber(new ActivityGroupsSubscriber());
+        $builder->addEventSubscriber(new lineSubscriber());
     }
 
     /**
@@ -93,7 +92,7 @@ class ActivityGroupsType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => ActivityGroups::class,
+                'data_class' => line::class,
                 'translation_domain' => 'BusybeeTimeTableBundle',
             ]
         );
@@ -109,7 +108,7 @@ class ActivityGroupsType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'activity_groups';
+        return 'line';
     }
 
 

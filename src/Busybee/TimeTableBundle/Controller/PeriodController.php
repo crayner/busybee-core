@@ -222,4 +222,19 @@ class PeriodController extends Controller
             ]
         );
     }
+
+    /**
+     * @param $id Period Id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function duplicateAction($source, $target)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $pm = $this->get('period.manager');
+
+        $pm->duplicatePeriod($source, $target);
+
+        return $this->redirect($this->generateUrl('period_plan', ['id' => $target]));
+    }
 }

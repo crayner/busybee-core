@@ -19,7 +19,7 @@ class ActivitiesEntityType extends AbstractType
             [
                 'data_class' => null,
                 'translation_domain' => 'BusybeeTimeTableBundle',
-                'placeholder' => 'activitygroups.placeholder.activity',
+                'placeholder' => 'line.placeholder.activity',
                 'class' => Activity::class,
                 'year_data' => null,
                 'choice_label' => 'name',

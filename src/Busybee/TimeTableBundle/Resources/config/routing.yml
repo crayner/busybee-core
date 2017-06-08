@@ -4,15 +4,15 @@ timetable_manage:
 timetable_edit:
     path:     /{id}/edit/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:edit}
-activity_group_list:
+line_list:
     path:     /lgs/list/
-    defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:list }
-activity_group_manage:
+    defaults: { _controller: BusybeeTimeTableBundle:Line:list }
+line_manage:
     path:     /lgs/{id}/manage/
-    defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:manage, id: 'Add' }
-activity_group_test:
+    defaults: { _controller: BusybeeTimeTableBundle:Line:manage, id: 'Add' }
+line_test:
     path:     /lgs/{id}/test/
-    defaults: { _controller: BusybeeTimeTableBundle:ActivityGroup:test, id: 'Add' }
+    defaults: { _controller: BusybeeTimeTableBundle:Line:test, id: 'Add' }
 timetable_day_assignment:
     path:     /day/assign/
     defaults: { _controller: BusybeeTimeTableBundle:Day:dayAssign }
@@ -49,3 +49,6 @@ period_activity_edit:
 period_full_report:
     path:     /period/{id}/full/report/
     defaults: { _controller: BusybeeTimeTableBundle:Period:fullReport }
+period_duplicate:
+    path:     /period/{source}/{target}/duplicate
+    defaults: { _controller: BusybeeTimeTableBundle:Period:duplicate }

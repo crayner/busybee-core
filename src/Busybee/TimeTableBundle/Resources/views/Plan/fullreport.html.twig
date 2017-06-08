@@ -23,21 +23,18 @@
             <h3>{{ panelParagraph|trans(panelParams) }}</h3>
         </div>
         {% for id,grade in report.grades %}
-            <div class="row well">
-                <span style="width: 100%">
-                    {{ closeButton()|raw }}
-                    {{ resetButton({'windowOpen': {'route': path('period_full_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
-                </span>
+        <div class="row well{% if report.missingStudents[id]|length == 0 %} well-success{% else %} well-danger{% endif %}">
+            <div style="width: 100%;">
+            <div style="width: 100px; float: right">
+                {{ closeButton()|raw }}
+                {{ resetButton({'windowOpen': {'route': path('period_full_report', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw }}
             </div>
-            <div class="row well">
-                <div class="col-sm-6"><h3>{{ grade.grade }}</h3></div>
+            <h3>{{ grade.grade }}</h3>
                 {% if report.missingStudents[id]|length == 0 %}
-                    <div class="col-sm-6">
-                        <p class="alert alert-success">{{ 'period.grade.missingStudents.none'|trans }}</p>
+                    <p>{{ 'period.grade.missingStudents.none'|trans }}</p>
                     </div>
                 {% else %}
-                    <div class="col-sm-6">
-                        <p class="alert alert-danger">{{ 'period.grade.missingStudents.missing'|trans({'%count%': report.missingStudents[id]|length}) }}</p>
+                    <p>{{ 'period.grade.missingStudents.missing'|trans({'%count%': report.missingStudents[id]|length}) }}</p>
                         <ul>
                             {% for student in report.missingStudents[id] %}
                                 <li>{{ student.formatName({'surnameFirst': 1, 'preferredOnly': 0}) }}</li>
