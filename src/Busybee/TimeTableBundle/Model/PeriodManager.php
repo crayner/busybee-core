@@ -11,6 +11,7 @@ use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\DBAL\Connection;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -392,6 +393,8 @@ class PeriodManager
             ->setParameter('year_id', $this->currentYear->getId())
             ->select('g')
             ->addSelect('i')
+            ->andWhere('i.status IN (:status)')
+            ->setParameter('status', ['Future', 'Current'], Connection::PARAM_STR_ARRAY)
             ->getQuery()
             ->getResult();
         $grades = [];

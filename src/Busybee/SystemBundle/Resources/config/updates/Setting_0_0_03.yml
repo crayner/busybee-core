@@ -19,6 +19,7 @@ student.enrolment.status:
     value:
         Future: Future
         Current: Current
+        Left: Left
         Past: Past
         Archived: Archived
 department.type.list:

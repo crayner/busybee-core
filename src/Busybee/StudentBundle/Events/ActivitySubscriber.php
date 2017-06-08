@@ -68,6 +68,8 @@ class ActivitySubscriber implements EventSubscriberInterface
                                 ->leftJoin('s.person', 'p')
                                 ->where('g.id IN (:grades)')
                                 ->setParameter('grades', $gstring, Connection::PARAM_STR_ARRAY)
+                                ->andWhere('i.status IN (:status)')
+                                ->setParameter('status', ['Future', 'Current'], Connection::PARAM_STR_ARRAY)
                                 ->orderBy('p.surname')
                                 ->addOrderBy('p.firstName');
                         },
