@@ -46,7 +46,9 @@ class LineController extends Controller
         if ($id > 0)
             $entity = $this->get('line.repository')->find($id);
 
-        $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
+        $year = $this->get('current.year.currentYear');
+
+        $entity->setYear($year);
 
         $form = $this->createForm(lineType::class, $entity, ['year_data' => $year]);
 
@@ -65,6 +67,7 @@ class LineController extends Controller
         return $this->render('BusybeeTimeTableBundle:Line:manage.html.twig',
             [
                 'form' => $form->createView(),
+                'fullForm' => $form,
             ]
         );
     }

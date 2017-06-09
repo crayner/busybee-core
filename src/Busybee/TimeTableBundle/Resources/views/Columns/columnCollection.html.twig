@@ -15,7 +15,7 @@
         {% set h3Content = h3Content ~ upDownButton()|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
         {% set title = 'timetable.column.add.title'|trans %}
-        {% if form.vars.data is not empty %}{% set title = form.vars.data.columnName %}{% endif %}
+        {% if form.vars.data is not empty %}{% set title = form.vars.data.fullName %}{% endif %}
         <div class="messageWindow"></div>
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': title} %}
         {% set column_id = 0 %}

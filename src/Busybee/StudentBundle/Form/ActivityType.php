@@ -13,6 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -47,6 +48,7 @@ class ActivityType extends AbstractType
     {
         $year = $options['year_data'];
         $this_id = $options['data']->getId();
+
         $builder
             ->add('name', null,
                 [
@@ -64,22 +66,7 @@ class ActivityType extends AbstractType
                     ],
                 ]
             )
-            ->add('year', EntityType::class,
-                [
-                    'label' => 'activity.label.year',
-                    'class' => Year::class,
-                    'choice_label' => 'name',
-                    'placeholder' => 'activity.placeholder.year',
-                    'required' => true,
-                    'attr' => [
-                        'class' => 'monitorChange',
-                    ],
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('y')
-                            ->orderBy('y.firstDay', 'DESC');
-                    },
-                ]
-            )
+            ->add('year', HiddenType::class)
             ->add('grades', EntityType::class,
                 [
                     'label' => 'activity.label.grades',
@@ -207,14 +194,17 @@ class ActivityType extends AbstractType
                     'choice_label' => 'nameYear',
                     'required' => false,
                     'query_builder' => function (EntityRepository $er) use ($year, $this_id) {
-                        return $er->createQueryBuilder('a')
+                        $r = $er->createQueryBuilder('a')
                             ->leftJoin('a.year', 'y')
                             ->addOrderBy('a.name', 'ASC')
                             ->addOrderBy('a.nameShort', 'ASC')
                             ->where('y.id = :year_id')
-                            ->setParameter('year_id', $year)
-                            ->andWhere('a.id != :this_id')
+                            ->setParameter('year_id', $year);
+
+                        if (!is_null($this_id))
+                            $r->andWhere('a.id != :this_id')
                             ->setParameter('this_id', $this_id);
+                        return $r;
                     },
                     'placeholder' => 'activity.studentReference.placeholder',
                 ]

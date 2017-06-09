@@ -59,7 +59,6 @@ class ColumnSubscriber implements EventSubscriberInterface
     public function preSetData(FormEvent $event)
     {
         $data = $event->getData();
-        $form = $event->getForm();
 
         if ($data->getColumns()->count() > 0) {
             foreach ($data->getColumns() as $column) {

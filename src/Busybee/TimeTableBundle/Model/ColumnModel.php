@@ -14,4 +14,12 @@ abstract class ColumnModel
 
         return true;
     }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getName() . ' (' . $this->getNameShort() . ')';
+    }
 }

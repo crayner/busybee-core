@@ -6,6 +6,11 @@ parameters:
                 a.name: ASC
                 a.nameShort: ASC
                 y.firstDay: DESC
+            Grade:
+                g.sequence: ASC
+                a.name: ASC
+                a.nameShort: ASC
+                y.name: ASC
         limit: '25'
         searchList:
             - a.name

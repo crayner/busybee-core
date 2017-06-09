@@ -47,6 +47,8 @@ class ActivityController extends Controller
 
         $entity = intval($id) > 0 ? $this->get('activity.repository')->find($id) : new Activity();
 
+        $entity->setYear($this->get('current.year.currentYear'));
+
         $editOptions = array();
 
         $form = $this->createForm(ActivityType::class, $entity, ['year_data' => $this->get('current.year.currentYear')]);
@@ -56,6 +58,7 @@ class ActivityController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($entity);
             $em->flush();
+
             if ($id === 'Add') {
                 $id = $entity->getId();
                 return new RedirectResponse($this->generateUrl('student_activity_edit', array('id' => $id)));

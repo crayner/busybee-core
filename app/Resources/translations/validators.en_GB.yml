@@ -35,6 +35,11 @@ student:
 timetable:
     unique:
         year: This value must be unique within the year
+    column:
+        name:
+            unique: The name must be unique!
+        nameShort:
+            unique: The code must be unique!
 department:
     staff:
         invalid: Staff member list is not valid.
@@ -93,3 +98,12 @@ columns:
 activity:
     space:
         overload: 'The space can only hold %capacity%, but %studentCount% students allocated.'
+    nameyear:
+       unique: The name is not unique!
+    nameshortyear:
+       unique: The code is not unique!
+line:
+    nameyear:
+        unique: The name is not unique!
+    nameshortyear:
+        unique: The code is not unique!

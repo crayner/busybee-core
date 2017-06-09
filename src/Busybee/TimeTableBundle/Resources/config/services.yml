@@ -188,4 +188,9 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
-
+    form.line.type:
+        class: Busybee\TimeTableBundle\Form\LineType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }

@@ -49,7 +49,7 @@ class ActivitySubscriber implements EventSubscriberInterface
         $form = $event->getForm();
         $entity = $form->getData();
 
-        if (!empty($entity->getGrades()) && !empty($entity->getYear())) {
+        if ($entity->getGrades()->count() > 0) {
             $grades = $entity->getGrades();
             $gstring = [];
             foreach ($grades as $grade)

@@ -75,8 +75,6 @@ class ColumnType extends AbstractType
                         ],
                 ]
             )
-//            ->add('name', HiddenType::class)
-//            ->add('nameShort', HiddenType::class)
         ;
         $builder->addEventSubscriber(new ColumnSubscriber($this->om, $this->sm, $options['tt_id']));
     }

@@ -3,11 +3,11 @@ Busybee\StudentBundle\Entity\Activity:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, year]
             errorPath: name
-            message: activity.unique.name
+            message: activity.nameyear.unique
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [nameShort, year]
             errorPath: nameShort
-            message: activity.unique.nameShort
+            message: activity.nameshortyear.unique
         - Callback: studentNumbersValidate
     properties:
         name:

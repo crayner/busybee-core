@@ -3,11 +3,11 @@ Busybee\TimeTableBundle\Entity\Line:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, year]
             errorPath: name
-            message: 'line.error.nameyear'
+            message: 'line.nameyear.unique'
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [name, year]
-            errorPath: name
-            message: 'line.error.nameshortyear'
+            fields: [nameShort, year]
+            errorPath: nameShort
+            message: 'line.nameshortyear.unique'
     properties:
         name:
             - NotBlank: ~

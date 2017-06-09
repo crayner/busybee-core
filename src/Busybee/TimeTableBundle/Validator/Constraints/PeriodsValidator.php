@@ -3,6 +3,7 @@
 namespace Busybee\TimeTableBundle\Validator\Constraints;
 
 use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\TimeTableBundle\Entity\Period;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -49,10 +50,18 @@ class PeriodsValidator extends ConstraintValidator
 
         $data = $value->toArray();
         $x = reset($data);
-        $start = $x->getStart();
-        $end = $x->getEnd();
-        $keep = clone $x;
+        dump($x);
+        if ($x instanceof Period) {
+            $start = $x->getStart();
+            $end = $x->getEnd();
+            $keep = clone $x;
+        } else {
+            $start = new \DateTime('1970-01-01 ' . $this->sm->get('SchoolDay.Begin'));
+            $end = new \DateTime('1970-01-01 ' . $this->sm->get('SchoolDay.Finish'));
+            $keep = new Period();
+        }
         $q = 0;
+
         while (!$error && false !== ($day = next($data))) {
             if (!$error) {
                 if ($day->getStart() < $end) {
@@ -106,6 +115,7 @@ class PeriodsValidator extends ConstraintValidator
                 ->setParameter('%limit%', $column->getEnd()->format('H:i'))
                 ->addViolation();
         }
+        dump([$end, $start]);
         if ($end < $column->getEnd()) {
             $this->context->buildViolation($constraint->message['complete'])
                 ->atPath('[' . ($value->count() - 1) . '].end')

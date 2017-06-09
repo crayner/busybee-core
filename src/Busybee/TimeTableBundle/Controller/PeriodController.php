@@ -183,9 +183,11 @@ class PeriodController extends Controller
 
         $act = $this->get('period.activity.repository')->find($activity);
 
+        $year = $this->get('current.year.currentYear');
+
         $act->setLocal(true);
 
-        $form = $this->createForm(EditPeriodActivityType::class, $act, ['year_data' => $this->get('busybee_security.user_manager')->getSystemYear($this->getUser())]);
+        $form = $this->createForm(EditPeriodActivityType::class, $act, ['year_data' => $year]);
 
         $form->handleRequest($request);
 

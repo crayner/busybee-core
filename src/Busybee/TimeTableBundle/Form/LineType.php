@@ -4,18 +4,35 @@ namespace Busybee\TimeTableBundle\Form;
 
 use Busybee\CurriculumBundle\Entity\Course;
 use Busybee\FormBundle\Type\ToggleType;
-use Busybee\InstituteBundle\Form\YearEntityType;
+use Busybee\InstituteBundle\Entity\Year;
+use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Events\LineSubscriber;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LineType extends AbstractType
 {
+    /**
+     * @var ObjectManager
+     */
+    private $om;
+
+    /**
+     * LineType constructor.
+     * @param ObjectManager $om
+     */
+    public function __construct(ObjectManager $om)
+    {
+        $this->om = $om;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -57,11 +74,7 @@ class LineType extends AbstractType
                     },
                 ]
             )
-            ->add('year', YearEntityType::class, [
-                    'placeholder' => 'line.placeholder.year',
-                    'label' => 'line.label.year',
-                ]
-            )
+            ->add('year', HiddenType::class)
             ->add('changeRecord', EntityType::class,
                 array(
                     'label' => false,
@@ -82,6 +95,8 @@ class LineType extends AbstractType
                     'placeholder' => 'line.placeholder.changeRecord',
                 )
             );
+
+        $builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
         $builder->addEventSubscriber(new lineSubscriber());
     }
 

@@ -42,11 +42,8 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6 well">
-                        {% set value = form.year.vars.value %}
-                        {% if form.year.vars.value is empty and not form.year.vars.data is empty %}
-                            {% set value = form.year.vars.data %}
-                        {% endif %}
-                        {{ form_row(form.year, {'value': value}) }}
+                        {{ form_row(form.year) }}
+                        {{ form_row(form.space) }}
                     </div>
                     <div class="col-sm-6 well">
                         {{ form_row(form.grades) }}
@@ -57,11 +54,6 @@
                     {% include '@BusybeeStudent/Activity/tutorList.html.twig' %}
                 {% endif %}
 
-                <div class="row">
-                    <div class="col-sm-12 well">
-                        {{ form_row(form.space) }}
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-sm-12 well">
                         {{ form_row(form.studentReference) }}

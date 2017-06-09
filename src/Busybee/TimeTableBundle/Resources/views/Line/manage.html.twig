@@ -16,6 +16,7 @@
 {% endblock stylesheets %}
 
 {% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {{ form_start(form) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('line_list')}}) %}
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('line_manage', {'id': 'Add'}) }}) %}{% endif %}
@@ -37,6 +38,7 @@
                 <div class="row">
                     <div class="col-sm-6 well">
                         {{ form_row(form.year) }}
+                        {{ form_row(form.participants) }}
                     </div>
                     <div class="col-sm-6 well">
                         {{ form_row(form.course) }}
@@ -44,23 +46,18 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6 well">
-                        {{ form_row(form.participants) }}
-                    </div>
-                    <div class="col-sm-6 well">
                         {{ form_row(form.includeAll) }}
                     </div>
-                </div>
-                {% if app.request.get('id') != 'Add' %}
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-6 well">
+                    <div class="col-sm-6 well">
+                        {% if app.request.get('id') != 'Add' %}
                             <div>
                                 {{ miscButton({'class': 'btn btn-info halflings halflings-tick testLine'})|raw }}
                                 <label class="control-label">{{ 'line.label.test'|trans }}</label><br>
                                 <span class="field-help">{{ 'line.help.test'|trans }}</span>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
-                {% endif %}
+                </div>
                 <div class="row">
                     <div class="col-sm-12 well" id="reportResults" style="display: none;">
                     </div>
@@ -99,4 +96,5 @@
             window.open(path, 'Report', 'width=500,height=500,menubar=no,top=200,left=200');
         })
     </script>
+    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}
