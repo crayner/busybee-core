@@ -1,0 +1,44 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ 'timetable.builder.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'timetable.builder.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{% endblock headerLead %}
+
+{% block contentContainer %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 well">
+                {% include 'PaginationBundle:Default:index.html.twig' %}
+                {% set h3Content = addButton({'title': 'timetable.add.title', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_edit', {'id': 'Add'})}}) %}
+                {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
+                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description'} %}
+                {% for period in pagination.result %}
+                    <div class="row-border row row-striped">
+                        <div class="col-sm-12">
+                            {{ period.0.columnName }}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+            </div>
+            <div class="col-md-4 well">
+                {% include 'PaginationBundle:Default:index.html.twig' with {'pagination': line_pagination} %}
+                {% set h3Content = addButton({'title': 'line.add.title', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_edit', {'id': 'Add'})}}) %}
+                {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
+                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'line.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'line.list.description'} %}
+                {% for line in line_pagination.result %}
+                    <div class="row-border row row-striped">
+                        <div class="col-sm-12">
+                            {{ line.name }} ({{ line.nameShort }})
+                        </div>
+                    </div>
+                {% endfor %}
+                {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock contentContainer %}

@@ -14,7 +14,7 @@ class StudentPagination extends PaginationManager
      * @version    28th October 2016
      * @since    28th October 2016
      * @param    boolean $count
-     * @return    query
+     * @return \Doctrine\ORM\Query
      */
     public function buildQuery($count = false)
     {
@@ -30,9 +30,9 @@ class StudentPagination extends PaginationManager
                 ->setOrderBy()
                 ->setSearchWhere();
 
-        $this->query->andWhere('p.studentQuestion = :stu_q')
+        $this->getQuery()->andWhere('p.studentQuestion = :stu_q')
             ->setParameter('stu_q', true);
 
-        return $this->query;
+        return $this->getQuery();
     }
 }

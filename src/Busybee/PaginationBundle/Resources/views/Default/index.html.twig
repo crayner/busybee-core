@@ -1,13 +1,13 @@
 {% trans_default_domain 'BusybeePaginationBundle' %}
 
-{% set form = pagination.getForm %}
+ {% set form = pagination.getForm %}
 
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% if form_array is not defined %}
     {% set form_array = [] %}
 {% endif %}
-{% set form_array = form_array|merge({'attr': {'id': 'paginator'}}) %}
+{% set form_array = form_array|merge({'attr': {'id': pagination.getName|lower ~ '_pagination'}}) %}
 
 {% if pagination.getReDirect != false %}
     <script>

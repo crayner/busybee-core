@@ -13,7 +13,7 @@ class TimeTablePagination extends PaginationManager
      * @version    22nd March 2017
      * @since    22nd March 2017
      * @param    boolean $count
-     * @return    ORM Query
+     * @return \Doctrine\ORM\Query
      */
     public function buildQuery($count = false)
     {
@@ -29,6 +29,6 @@ class TimeTablePagination extends PaginationManager
                 ->setOrderBy()
                 ->setSearchWhere();
 
-        return $this->query;
+        return $this->getQuery();
     }
 }

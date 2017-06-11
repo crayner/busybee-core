@@ -34,17 +34,14 @@ abstract class PaginationManager implements PaginationInterface
      * @var Container
      */
     protected $container ;
-
-    /**
-     * @var Query
-     */
-    protected $query ;
-
     /**
      * @var string
      */
     protected $result;
-
+    /**
+     * @var Query
+     */
+    private $query;
     /**
      * @var array
      */
@@ -151,6 +148,11 @@ abstract class PaginationManager implements PaginationInterface
     private $reDirect;
 
     /**
+     * @var string
+     */
+    private $name = 'default';
+
+    /**
      * Constructor
      *
      * @version	25th October 2016
@@ -172,8 +174,9 @@ abstract class PaginationManager implements PaginationInterface
         $this->path = $params['route'];
         $this->setChoice(null);
         $this->setReDirect(false);
+        $this->setName($this->paginationName);
 
-        $this->form = $container->get('form.factory')->createNamedBuilder('paginator', PaginationType::class, $this, $params)->getForm();
+        $this->form = $container->get('form.factory')->createNamedBuilder(strtolower($this->getName()) . '_paginator', PaginationType::class, $this, $params)->getForm();
     }
 
     /**
@@ -217,6 +220,25 @@ abstract class PaginationManager implements PaginationInterface
             $this->$setName($value);
         }
         $this->total = 0;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -836,6 +858,14 @@ abstract class PaginationManager implements PaginationInterface
     public function getLastChoice()
     {
         return $this->choice;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getQuery()
+    {
+        return $this->query;
     }
 
     /**

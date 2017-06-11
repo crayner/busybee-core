@@ -41,7 +41,7 @@ class TimeTableManager
     /**
      * @var TimeTable
      */
-    private $tt;
+    private $timetable;
 
     /**
      * @var array
@@ -102,7 +102,7 @@ class TimeTableManager
         $this->year = $um->getSystemYear($this->user);
         $this->om = $om;
         $this->sm = $sm;
-        $this->tt = $this->om->getRepository(TimeTable::class)->createQueryBuilder('t')
+        $this->timetable = $this->om->getRepository(TimeTable::class)->createQueryBuilder('t')
             ->leftJoin('t.year', 'y')
             ->where('y.id = :year_id')
             ->setParameter('year_id', $this->year->getId())
@@ -178,11 +178,11 @@ class TimeTableManager
     public function getYear()
     {
         $year = new \stdClass();
-        $year->tt = $this->tt;
+        $year->tt = $this->timetable;
         $year->status = 'success';
         $year->terms = [];
 
-        if ($this->tt->getColumns()->count() == 0 || $this->tt->getDays()->count() == 0) {
+        if ($this->timetable->getColumns()->count() == 0 || $this->timetable->getDays()->count() == 0) {
             $year->status = 'failure';
             $year->message = 'timetable.year.notconfigured';
             return $year;
@@ -381,8 +381,8 @@ class TimeTableManager
     {
         $this->columns = [];
 
-        if ($this->tt->getColumns()->count() > 0) {
-            foreach ($this->tt->getColumns()->toArray() as $key => $col) {
+        if ($this->timetable->getColumns()->count() > 0) {
+            foreach ($this->timetable->getColumns()->toArray() as $key => $col) {
                 if ($col->getMappingInfo() == 'Rotate') {
                     $this->columns['rotate'][$col->getNameShort()] = $key;
                 } else {
@@ -393,8 +393,8 @@ class TimeTableManager
 
         $this->schoolDays = [];
 
-        if ($this->tt->getDays()->count() > 0) {
-            foreach ($this->tt->getDays()->toArray() as $key => $day)
+        if ($this->timetable->getDays()->count() > 0) {
+            foreach ($this->timetable->getDays()->toArray() as $key => $day)
                 if ($day->getDayType())
                     $this->schoolDays[strtoupper($day->getName())] = 'rotate';
                 else
@@ -419,14 +419,14 @@ class TimeTableManager
                         if ($day->useDay) {
                             $code = strtoupper($day->date->format('D'));
                             if ($this->schoolDays[$code] == 'rotate') {
-                                $day->ttday = $this->tt->getColumns()->get($col);
+                                $day->ttday = $this->timetable->getColumns()->get($col);
 
                                 $col = next($this->columns['rotate']);
                                 if (false === $col)
                                     $col = reset($this->columns['rotate']);
 
                             } else {
-                                $day->ttday = $this->tt->getColumns()->get($this->columns['fixed'][$code]);
+                                $day->ttday = $this->timetable->getColumns()->get($this->columns['fixed'][$code]);
                             }
                             if (in_array($day->date, $this->getStartRotateDays()))
                                 $day->startRotate = true;
@@ -441,12 +441,31 @@ class TimeTableManager
                     foreach ($week as $d => $day) {
                         if ($day->useDay) {
                             $code = strtoupper($day->date->format('D'));
-                            $day->ttday = $this->tt->getColumns()->get($this->columns['fixed'][$code]);
+                            $day->ttday = $this->timetable->getColumns()->get($this->columns['fixed'][$code]);
                             $this->terms[$t]->weeks[$w][$d] = $day;
                         }
                     }
                 }
             }
         }
+    }
+
+    /**
+     * @return TimeTable
+     */
+    public function getTimeTable()
+    {
+        return $this->timetable;
+    }
+
+    /**
+     * @param TimeTable $tt
+     * @return TimeTableManager
+     */
+    public function setTimeTable(TimeTable $tt)
+    {
+        $this->timetable = $tt;
+
+        return $this;
     }
 }

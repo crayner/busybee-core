@@ -51,6 +51,31 @@ parameters:
             - l.nameShort
             - c.name as course
             - l.id
+    PeriodPagination:
+        alias: p
+        sortBy:
+            Name:
+                c.sequence: ASC
+                p.name: ASC
+                p.nameShort: ASC
+            Short Name:
+                c.sequence: ASC
+                p.nameShort: ASC
+                p.name: ASC
+        limit: '25'
+        join:
+            p.column:
+                alias: c
+                type: leftJoin
+        searchList:
+            - c.name
+            - p.nameShort
+            - p.name
+        select:
+            - p.name
+            - p.nameShort
+            - c.name as columnName
+            - p.id
 services:
     timetable.repository:
         class: Busybee\TimeTableBundle\Repository\TimeTableRepository
@@ -85,6 +110,7 @@ services:
             - '%LinePagination%'
             - '@line.repository'
             - '@my_service_container'
+            - '@current.year.currentYear'
     line.manager:
         class: Busybee\TimeTableBundle\Model\LineManager
         arguments:
@@ -157,6 +183,13 @@ services:
             - '@translator'
             - '@session.flash_bag'
             - '@current.year.currentYear'
+    period.pagination:
+        class: Busybee\TimeTableBundle\Model\PeriodPagination
+        arguments:
+            - '%PeriodPagination%'
+            - '@period.repository'
+            - '@my_service_container'
+            - '@timetable.manager.getTimeTable'
     periods.validator:
         class: Busybee\TimeTableBundle\Validator\Constraints\PeriodsValidator
         arguments:
@@ -194,3 +227,8 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
+    timetable.manager.getTimeTable:
+        class: Busybee\TimeTableBundle\Model\TimeTableManager
+        factory:
+            - '@timetable.manager'
+            - 'getTimeTable'

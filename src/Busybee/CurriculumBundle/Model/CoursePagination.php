@@ -28,6 +28,6 @@ class CoursePagination extends PaginationManager
                 ->setOrderBy()
                 ->setSearchWhere();
 
-        return $this->query;
+        return $this->getQuery();
     }
 }

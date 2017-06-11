@@ -52,3 +52,6 @@ period_full_report:
 period_duplicate:
     path:     /period/{source}/{target}/duplicate
     defaults: { _controller: BusybeeTimeTableBundle:Period:duplicate }
+timetable_builder:
+    path:     /{id}/builder/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:builder }

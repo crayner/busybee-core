@@ -2,19 +2,22 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
-use Busybee\InstituteBundle\Entity\Year;
 use Busybee\PaginationBundle\Model\PaginationManager;
+use Busybee\TimeTableBundle\Entity\TimeTable;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\EntityRepository;
 
-class LinePagination extends PaginationManager
+class PeriodPagination extends PaginationManager
 {
-    protected $paginationName = 'line';
+    /**
+     * @var string
+     */
+    protected $paginationName = 'period';
 
     /**
-     * @var Year
+     * @var TimeTable
      */
-    private $year;
+    private $tt;
 
     /**
      * Constructor
@@ -25,18 +28,25 @@ class LinePagination extends PaginationManager
      * @param    EntityRepository $repository
      * @param   Container $container
      */
-    public function __construct($pagination, EntityRepository $repository, Container $container, Year $year)
+    public function __construct($pagination, EntityRepository $repository, Container $container, TimeTable $tt)
     {
-        $this->year = $year;
+        $this->setTimeTable($tt);
         parent::__construct($pagination, $repository, $container);
+    }
+
+    public function setTimeTable(TimeTable $tt)
+    {
+        $this->tt = $tt;
+
+        return $this;
     }
 
     /**
      * build Query
      *
-     * @version    22nd March 2017
-     * @since    22nd March 2017
-     * @param    boolean $count
+     * @version 22nd March 2017
+     * @since   22nd March 2017
+     * @param   boolean $count
      * @return \Doctrine\ORM\Query
      */
     public function buildQuery($count = false)
@@ -52,11 +62,20 @@ class LinePagination extends PaginationManager
                 ->setQueryJoin()
                 ->setOrderBy()
                 ->setSearchWhere();
-        $this->getQuery()
-            ->leftJoin('l.year', 'y')
-            ->andWhere('y.id = :year_id')
-            ->setParameter('year_id', $this->year->getId());
+
+        if ($this->tt instanceof TimeTable)
+            $this->getQuery()
+                ->leftJoin('c.timetable', 't')
+                ->andWhere('t.id = :tt_id')
+                ->setParameter('tt_id', $this->tt->getId());
+        else
+            throw new \Exception('The timetable has not been injected into the Period Paginator.');
 
         return $this->getQuery();
+    }
+
+    public function getTimeTable()
+    {
+        return $this->tt;
     }
 }

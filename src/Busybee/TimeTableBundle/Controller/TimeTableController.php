@@ -75,7 +75,6 @@ class TimeTableController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
-
         if ($id == 0)
             throw new \InvalidArgumentException($this->get('translator')->trans('timetable.columns.edit.missing', [], 'BusybeeTimeTableBundle'));
 
@@ -96,6 +95,48 @@ class TimeTableController extends Controller
                 'form' => $form->createView(),
                 'fullForm' => $form,
                 'timetable' => $entity,
+            ]
+        );
+    }
+
+    /**
+     * @param   Request $request
+     * @return  \Symfony\Component\HttpFoundation\Response
+     */
+    public function builderAction(Request $request, $id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
+
+        $this->get('timetable.manager')->setTimeTable($this->get('timetable.repository')->find($id));
+
+        $up = $this->get('period.pagination');
+        $lp = $this->get('line.pagination');
+
+        $up->injectRequest($request);
+        $lp->injectRequest($request);
+        $up->setLimit(1000);
+        $lp->setLimit(1000);
+
+        $up->getDataSet();
+        $lp->getDataSet();
+
+        $year = $this->get('current.year.currentYear');
+
+        $lines = $this->get('line.repository')->createQueryBuilder('l')
+            ->where('l.year = :year_id')
+            ->setParameter('year_id', $year->getId())
+            ->orderBy('l.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        $activities = $this->get('activity.repository')->findBy(['year' => $year], ['name' => 'ASC']);
+
+        return $this->render('BusybeeTimeTableBundle:TimeTable:builder.html.twig',
+            [
+                'pagination' => $up,
+                'line_pagination' => $lp,
+                'lines' => $lines,
+                'activities' => $activities,
             ]
         );
     }

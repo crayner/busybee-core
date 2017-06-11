@@ -39,7 +39,7 @@ class ActivityPagination extends PaginationManager
      * @version    28th October 2016
      * @since    28th October 2016
      * @param    boolean $count
-     * @return    query
+     * @return \Doctrine\ORM\Query
      */
     public function buildQuery($count = false)
     {
@@ -55,11 +55,11 @@ class ActivityPagination extends PaginationManager
                 ->setOrderBy()
                 ->setSearchWhere();
 
-        $this->query
+        $this->getQuery()
             ->andWhere('y.id = :systemYear')
             ->setParameter('systemYear', $this->getSystemYear()->getId());
 
-        return $this->query;
+        return $this->getQuery();
     }
 
     public function getSystemYear()

@@ -14,7 +14,7 @@ class ContactPagination extends PaginationManager
      * @version    28th October 2016
      * @since    28th October 2016
      * @param    boolean $count
-     * @return    query
+     * @return \Doctrine\ORM\Query
      */
     public function buildQuery($count = false)
     {
@@ -30,11 +30,11 @@ class ContactPagination extends PaginationManager
                 ->setOrderBy()
                 ->setSearchWhere();
 
-        $this->query->andWhere('p.studentQuestion = :stu_q')
+        $this->getQuery()->andWhere('p.studentQuestion = :stu_q')
             ->andWhere('p.staffQuestion = :staff_q')
             ->setParameter('stu_q', false)
             ->setParameter('staff_q', false);
 
-        return $this->query;
+        return $this->getQuery();
     }
 }

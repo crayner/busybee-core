@@ -49,6 +49,7 @@
                 <div class="col-sm-2 col-sm-offset-1 form-inline">
                     {{ editButton({'style': '', 'class': 'halflings halflings-edit btn btn-warning', 'title': {'message': 'timetable.edit.title', 'params': {'%name%': timetable.name }}, 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_edit', {'id': timetable.id})}})|raw }}
                     {{ editButton({'style': '', 'class': 'halflings halflings-asterisk btn btn-warning','title': 'timetable.days.edit.button', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_days_edit', {'id': timetable.id})}})|raw }}
+                    {{ editButton({'style': '', 'class': 'halflings halflings-building btn btn-warning','title': 'timetable.builder.button', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_builder', {'id': timetable.id})}})|raw }}
                 </div>
             </div>
         {% endfor %}

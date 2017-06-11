@@ -13,6 +13,9 @@ timetable:
         description: Modify the details of the timetable.
     placeholder:
         year: Select Year
+    builder:
+        button: 'Time Table Builder'
+        title: 'Build Time Table'
     column:
         add:
             title: Add Column
@@ -76,7 +79,7 @@ timetable:
         days:
             help: 'Toggle the start of the rotation cycle by clicking any date. The rotation will begin on that date, or the first non-fixed day after the date selected.'
     year:
-        mapdaysfailed: 'Time table days are not mapped correctly. The error captured was: %message%. This most often happens if fixed days are defined but the column does not have that the same fixed day.'
+        mapdaysfailed: 'Time table days are not mapped correctly. The error captured was: %message%. This most often happens if fixed days are defined but the column does not have that the    same fixed day.'
 line:
     title:
         list: Manage Activity Lines

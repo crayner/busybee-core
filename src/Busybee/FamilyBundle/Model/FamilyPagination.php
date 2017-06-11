@@ -29,6 +29,6 @@ class FamilyPagination extends PaginationManager
                 ->setOrderBy()
                 ->setSearchWhere();
 
-        return $this->query;
+        return $this->getQuery();
     }
 }
