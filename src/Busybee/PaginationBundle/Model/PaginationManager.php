@@ -153,6 +153,26 @@ abstract class PaginationManager implements PaginationInterface
     private $name = 'default';
 
     /**
+     * @var bool
+     */
+    private $displaySearch = true;
+
+    /**
+     * @var bool
+     */
+    private $displaySort = true;
+
+    /**
+     * @var bool
+     */
+    private $displayResult = true;
+
+    /**
+     * @var bool
+     */
+    private $displayChoice = true;
+
+    /**
      * Constructor
      *
      * @version	25th October 2016
@@ -474,6 +494,7 @@ abstract class PaginationManager implements PaginationInterface
     public function setSearch($search)
     {
         $this->search = filter_var($search);
+
         return $this ;
     }
 
@@ -866,6 +887,78 @@ abstract class PaginationManager implements PaginationInterface
     public function getQuery()
     {
         return $this->query;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisplaySearch(): bool
+    {
+        return $this->displaySearch;
+    }
+
+    /**
+     * @param bool $displaySearch
+     */
+    public function setDisplaySearch(bool $displaySearch)
+    {
+        $this->displaySearch = $displaySearch;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisplaySort(): bool
+    {
+        return $this->displaySort;
+    }
+
+    /**
+     * @param bool $displaySort
+     */
+    public function setDisplaySort(bool $displaySort)
+    {
+        $this->displaySort = $displaySort;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisplayResult(): bool
+    {
+        return $this->displayResult;
+    }
+
+    /**
+     * @param bool $displayResult
+     */
+    public function setDisplayResult(bool $displayResult)
+    {
+        $this->displayResult = $displayResult;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisplayChoice(): bool
+    {
+        return $this->displayChoice;
+    }
+
+    /**
+     * @param bool $displayChoice
+     */
+    public function setDisplayChoice(bool $displayChoice)
+    {
+        $this->displayChoice = $displayChoice;
+
+        return $this;
     }
 
     /**

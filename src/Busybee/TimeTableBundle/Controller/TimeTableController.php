@@ -111,33 +111,58 @@ class TimeTableController extends Controller
 
         $up = $this->get('period.pagination');
         $lp = $this->get('line.pagination');
+        $ap = $this->get('activity.pagination');
+        $ap->setSearch('');
+        $lp->setSearch('');
 
+        $ap->injectRequest($request);
         $up->injectRequest($request);
         $lp->injectRequest($request);
-        $up->setLimit(1000);
-        $lp->setLimit(1000);
+
+        $up->setLimit(1000)
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->setDisplayResult(false);
+        $ap->setLimit(1000)
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->setSearch('')
+            ->setDisplayResult(false);
+        $lp->setDisplaySearch(false)
+            ->setDisplaySort(false)
+            ->setDisplayChoice(false)
+            ->setSearch('')
+            ->setLimit(1000)
+            ->setDisplayResult(false);
 
         $up->getDataSet();
         $lp->getDataSet();
-
-        $year = $this->get('current.year.currentYear');
-
-        $lines = $this->get('line.repository')->createQueryBuilder('l')
-            ->where('l.year = :year_id')
-            ->setParameter('year_id', $year->getId())
-            ->orderBy('l.name', 'ASC')
-            ->getQuery()
-            ->getResult();
-
-        $activities = $this->get('activity.repository')->findBy(['year' => $year], ['name' => 'ASC']);
+        $ap->getDataSet();
 
         return $this->render('BusybeeTimeTableBundle:TimeTable:builder.html.twig',
             [
                 'pagination' => $up,
                 'line_pagination' => $lp,
-                'lines' => $lines,
-                'activities' => $activities,
+                'activity_pagination' => $ap,
             ]
         );
+    }
+
+    /**
+     * @param $id
+     * @param $line
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function addLineToPeriodAction($id, $line)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $period = $this->get('period.repository')->find($id);
+
+        $pm = $this->get('period.manager')->injectPeriod($period);
+
+        $pm->injectLineGroup($line);
+
+        return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimeTable()->getId()]));
     }
 }

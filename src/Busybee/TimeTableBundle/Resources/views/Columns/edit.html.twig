@@ -6,6 +6,11 @@
 '@BusybeeForm/Template/jquery.collection.html.twig'
 '@BusybeeTimeTable/Periods/periodCollection.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@BusybeeHome/Toggle/style.html.twig' %}
+{% endblock stylesheets %}
+
 {% block title %}{{ parent() }}{{ 'timetable.periods.manage.title'|trans({'%name%': timetable.getFullName}) }}{% endblock title %}
 {% block headerTitle %}{{ 'timetable.periods.manage.title'|trans({'%name%': timetable.getFullName}) }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'timetable.periods.manage.description'|trans }}{% endblock headerLead %}
@@ -34,4 +39,5 @@
     {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
     {% include '@BusybeeHome/Scripts/formTabSubmitScript.html.twig' with {'route': 'timetable_days_edit'} %}
     {% include '@BusybeeTimeTable/Periods/periodScript.html.twig' %}
+    {% include '@BusybeeHome/Toggle/script.html.twig' %}
 {% endblock javascripts %}

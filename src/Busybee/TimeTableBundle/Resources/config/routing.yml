@@ -37,9 +37,9 @@ period_plan:
 period_plan_report:
     path:     /plan/{id}/activity/report/
     defaults: { _controller: BusybeeTimeTableBundle:Period:report }
-period_add_activities_to_plan:
+period_add_line:
     path:     /plan/{id}/{line}/activities/
-    defaults: { _controller: BusybeeTimeTableBundle:Period:addActivitiesToPlan }
+    defaults: { _controller: BusybeeTimeTableBundle:Period:addLineToPlan }
 period_remove_activity:
     path:     /plan/{id}/remove/{activity}/activities/
     defaults: { _controller: BusybeeTimeTableBundle:Period:removePeriodActivity }
@@ -55,3 +55,6 @@ period_duplicate:
 timetable_builder:
     path:     /{id}/builder/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:builder }
+period_builder_line:
+    path:     /plan/{id}/{line}/builder/activities/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:addLineToPeriod }

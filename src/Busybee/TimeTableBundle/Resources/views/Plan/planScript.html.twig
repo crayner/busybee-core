@@ -28,7 +28,7 @@
     $('.lineList').on('change', function () {
         var line = $(this).val();
 
-        var path = '{{ path('period_add_activities_to_plan', {'id': app.request.get('id'), 'line': '__line__'}) }}';
+        var path = '{{ path('period_add_line', {'id': app.request.get('id'), 'line': '__line__'}) }}';
         path = path.replace('__line__', line);
 
         window.open(path, '_self');

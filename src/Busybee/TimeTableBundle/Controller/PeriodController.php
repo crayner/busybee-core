@@ -121,7 +121,7 @@ class PeriodController extends Controller
      * @param $line
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function addActivitiesToPlanAction($id, $line)
+    public function addLineToPlanAction($id, $line)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 

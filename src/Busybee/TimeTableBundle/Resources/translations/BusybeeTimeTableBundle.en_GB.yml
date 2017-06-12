@@ -75,6 +75,8 @@ timetable:
             title: Add Period
         remove:
             title: Remove Period
+        list:
+            title: TimeTable Period List
     assign:
         days:
             help: 'Toggle the start of the rotation cycle by clicking any date. The rotation will begin on that date, or the first non-fixed day after the date selected.'
@@ -127,12 +129,18 @@ line:
         duplicated: |
             <p%class%>Some students appear in this Activity Line more than once.</p>
             <h4>Duplicated Students</h4>
+    list:
+        title: Activity Lines
+        description: 'Drag and drop activity lines into a period to assign the line to the period.'
 activity:
     title:
         add: Add Activity
         remove: Remove Activity
         header: '%name%'
         new: New Activity
+    list:
+        title: 'Individual Activities'
+        description: 'Drag and drop an activity into a period to assign that activity to the period.'
 period:
     remove:
         success: The period selected was removed.
@@ -220,6 +228,8 @@ period:
         missingStudents:
             none: All students found.
             missing: "%count% students missing."
+    break:
+        label: 'Break'
 column:
     remove:
         locked: 'The column has been locked and cannot be removed.'

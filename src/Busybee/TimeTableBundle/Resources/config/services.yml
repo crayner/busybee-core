@@ -54,14 +54,15 @@ parameters:
     PeriodPagination:
         alias: p
         sortBy:
+            Time:
+                c.sequence: ASC
+                p.start: ASC
             Name:
                 c.sequence: ASC
                 p.name: ASC
-                p.nameShort: ASC
-            Short Name:
+            Name:
                 c.sequence: ASC
                 p.nameShort: ASC
-                p.name: ASC
         limit: '25'
         join:
             p.column:
@@ -76,6 +77,8 @@ parameters:
             - p.nameShort
             - c.name as columnName
             - p.id
+            - p.start
+            - p.end
 services:
     timetable.repository:
         class: Busybee\TimeTableBundle\Repository\TimeTableRepository

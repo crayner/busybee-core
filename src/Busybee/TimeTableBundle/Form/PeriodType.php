@@ -3,6 +3,7 @@
 namespace Busybee\TimeTableBundle\Form;
 
 use Busybee\FormBundle\Type\TimeType;
+use Busybee\FormBundle\Type\ToggleType;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\TimeTableBundle\Entity\Column;
 use Busybee\TimeTableBundle\Entity\Period;
@@ -58,6 +59,11 @@ class PeriodType extends AbstractType
                 [
                     'with_seconds' => false,
                     'label' => 'period.end.label',
+                ]
+            )
+            ->add('break', ToggleType::class,
+                [
+                    'label' => 'period.break.label',
                 ]
             )
             ->add('column', HiddenType::class);

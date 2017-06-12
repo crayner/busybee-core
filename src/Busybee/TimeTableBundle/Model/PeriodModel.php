@@ -43,4 +43,13 @@ abstract class PeriodModel
     {
         return $this->getEnd()->format('H:i');
     }
+
+    public function getTimeTable()
+    {
+        $col = $this->getColumn();
+        if (is_null($col))
+            return null;
+
+        return $col->getTimeTable();
+    }
 }

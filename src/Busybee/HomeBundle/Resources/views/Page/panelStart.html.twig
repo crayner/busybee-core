@@ -30,7 +30,7 @@
     {% set panelStyle = 'primary' %}
 {% endif %}
 
-<div class="panel panel-{{ panelStyle }} busybee-panel">
+<div class="panel panel-{{ panelStyle }} busybee-panel"{% if panelAttr is defined %} {{ panelAttr }}{% endif %}>
     <div class="panel-heading">
         <h3 class="panel-title">{{ header|trans(name) }}
             {{ h3Content|raw }}
@@ -39,6 +39,6 @@
             <p>{{ panelParagraph|trans(panelParams) }}</p>
         {% endif %}
     </div>
-    <div class="panel-body">
+    <div class="panel-body"{% if bodyAttr is defined %} {{ bodyAttr }}{% endif %}>
 {#</div>
 </div>#}

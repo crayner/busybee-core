@@ -146,7 +146,7 @@ class Column extends ColumnModel
      */
     public function setNameShort($nameShort)
     {
-        $this->nameShort = $nameShort;
+        $this->nameShort = strtoupper($nameShort);
 
         return $this;
     }

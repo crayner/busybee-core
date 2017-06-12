@@ -9,27 +9,27 @@
 {% block contentContainer %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 well">
-                {% include 'PaginationBundle:Default:index.html.twig' %}
-                {% set h3Content = addButton({'title': 'timetable.add.title', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_edit', {'id': 'Add'})}}) %}
+            <div class="messageWindow"></div>
+            <div class="col-md-4 well">
+                {% include 'PaginationBundle:Default:search_only.html.twig' %}
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
-                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description'} %}
+                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel'} %}
                 {% for period in pagination.result %}
-                    <div class="row-border row row-striped">
-                        <div class="col-sm-12">
+                    <div class="row-border row row-striped fixPeriod" id="periodRow{{ period.id }}">
+                        <div class="col-sm-12 dropPeriod" id="period{{ period.id }}">
                             {{ period.0.columnName }}
+                            <div class="glyphicons glyphicons-anchor x05" style="float: right;"
+                                 onclick="fixPeriod('{{ period.id }}')"></div>
                         </div>
                     </div>
                 {% endfor %}
                 {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
             </div>
             <div class="col-md-4 well">
-                {% include 'PaginationBundle:Default:index.html.twig' with {'pagination': line_pagination} %}
-                {% set h3Content = addButton({'title': 'line.add.title', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('timetable_edit', {'id': 'Add'})}}) %}
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'line.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'line.list.description'} %}
                 {% for line in line_pagination.result %}
-                    <div class="row-border row row-striped">
+                    <div class="row-border row row-striped dragLine" id="line{{ line.id }}">
                         <div class="col-sm-12">
                             {{ line.name }} ({{ line.nameShort }})
                         </div>
@@ -37,8 +37,93 @@
                 {% endfor %}
                 {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
             </div>
+            <div class="col-md-4 well">
+                {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
+                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activity.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'activity.list.description'} %}
+                {% for activity in activity_pagination.result %}
+                    <div class="row-border row row-striped dragActivity" id="activity{{ activity.id }}">
+                        <div class="col-sm-12">
+                            {{ activity.0.fullName }}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+
+            </div>
         </div>
 
     </div>
-
 {% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" language="JavaScript">
+
+        $(".dragActivity").draggable({
+            helper: 'clone'
+        });
+
+        $(".dragLine").draggable({
+            helper: 'clone'
+        });
+
+        $(".dropPeriod").droppable({
+            drop: handleDropEvent
+        });
+
+        function handleDropEvent(event, ui) {
+            var source = ui.draggable.attr('id');
+            var period = $(this).attr('id').replace('period', '');
+
+            if (source.indexOf('activity') === 0) {
+                return manageActivityDrop(source.replace('activity', ''), period);
+            } else {
+                return manageLineDrop(source.replace('line', ''), period);
+            }
+        }
+
+        function fixPeriod(id) {
+            var $fix = $('#periodRow' + id);
+            var $clear = $('.fixPeriod');
+
+            var $width = $('#tt_periods').css('width');
+
+            var current = $fix.css('position');
+
+            if (current === 'fixed') {
+                $clear.css({
+                    'top': 'auto',
+                    'display': 'flex',
+                    'position': 'static',
+                    'min-height': 'auto'
+                });
+
+            } else {
+
+                $clear.css({
+                    'display': 'none'
+                });
+
+                $fix.css({
+                    'position': 'fixed',
+                    'top': '455px',
+                    'display': 'flex',
+                    'min-height': '75px',
+                    'width': $width
+                });
+            }
+        }
+
+        function manageLineDrop(line, period) {
+            var path = '{{ path('period_builder_line', {'id': '__period__', 'line': '__line__'}) }}';
+            path = path.replace('__period__', period);
+            path = path.replace('__line__', line);
+
+            window.open(path, '_self');
+        }
+
+        function manageActivityDrop(data) {
+
+        }
+    </script>
+{% endblock javascripts %}

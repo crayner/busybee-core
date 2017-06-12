@@ -25,6 +25,8 @@ Busybee\TimeTableBundle\Entity\Period:
             type: time
         end:
             type: time
+        break:
+            type: boolean
         lastModified:
             type: datetime
         createdOn:

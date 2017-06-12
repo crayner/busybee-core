@@ -70,11 +70,17 @@ class Period extends PeriodModel
     private $activities;
 
     /**
+     * @var boolean
+     */
+    private $break = true;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->activities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setBreak(true);
     }
 
     /**
@@ -130,7 +136,7 @@ class Period extends PeriodModel
      */
     public function setNameShort($nameShort)
     {
-        $this->nameShort = $nameShort;
+        $this->nameShort = strtoupper($nameShort);
 
         return $this;
     }
@@ -349,5 +355,29 @@ class Period extends PeriodModel
             $this->activitiesSorted = true;
         }
         return $this->activities;
+    }
+
+    /**
+     * Get break
+     *
+     * @return boolean
+     */
+    public function getBreak()
+    {
+        return $this->break;
+    }
+
+    /**
+     * Set break
+     *
+     * @param boolean $break
+     *
+     * @return Period
+     */
+    public function setBreak($break)
+    {
+        $this->break = $break;
+
+        return $this;
     }
 }

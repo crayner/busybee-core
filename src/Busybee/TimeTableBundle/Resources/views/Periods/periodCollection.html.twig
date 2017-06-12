@@ -27,11 +27,14 @@
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': title} %}
         <div class="container-fluid period">
             <div class="row">
-                <div class="col-sm-4 well">
+                <div class="col-sm-3 well">
                     {{ form_row(form.name) }}
                 </div>
                 <div class="col-sm-2 well">
                     {{ form_row(form.nameShort) }}
+                </div>
+                <div class="col-sm-1 well">
+                    {{ form_row(form.break) }}
                 </div>
                 <div class="col-sm-3 well">
                     {{ form_row(form.start) }}
