@@ -303,3 +303,7 @@ button.btn.btn-header {
     border-radius: 8px;
     margin-bottom: -1px;
 }
+
+.startHidden {
+    display: none;
+}

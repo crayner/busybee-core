@@ -53,8 +53,8 @@ period_duplicate:
     path:     /period/{source}/{target}/duplicate
     defaults: { _controller: BusybeeTimeTableBundle:Period:duplicate }
 timetable_builder:
-    path:     /{id}/builder/
-    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:builder }
+    path:     /{id}/builder/{all}/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:builder, all: 'All' }
 period_builder_line:
     path:     /plan/{id}/{line}/builder/activities/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:addLineToPeriod }

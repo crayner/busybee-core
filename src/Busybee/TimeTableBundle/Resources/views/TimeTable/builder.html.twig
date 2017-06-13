@@ -6,20 +6,55 @@
 {% block headerTitle %}{{ 'timetable.builder.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{% endblock headerLead %}
 
+{% set transDomain = 'BusybeeTimeTableBundle' %}
+
 {% block contentContainer %}
     <div class="container-fluid">
         <div class="row">
-            <div class="messageWindow"></div>
-            <div class="col-md-4 well">
+            <div class="col-md-8 well">
                 {% include 'PaginationBundle:Default:search_only.html.twig' %}
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel'} %}
                 {% for period in pagination.result %}
-                    <div class="row-border row row-striped fixPeriod" id="periodRow{{ period.id }}">
-                        <div class="col-sm-12 dropPeriod" id="period{{ period.id }}">
-                            {{ period.0.columnName }}
-                            <div class="glyphicons glyphicons-anchor x05" style="float: right;"
-                                 onclick="fixPeriod('{{ period.id }}')"></div>
+                    <div class="row-border row row-hover row-striped fixPeriod" id="periodRow{{ period.id }}">
+                        <div class="col-sm-12 dropPeriod{{ pm.periodStatus(period.id).disableDrop }}"
+                             id="period{{ period.id }}">
+                            <div>
+                                <button id="button{{ period.id }}"
+                                        class="glyphicons glyphicons-unlock btn btn-xs btn-{{ pm.periodStatus(period.id).alert }}"
+                                        style="float: right;"
+                                        onclick="fixPeriod('{{ period.id }}')"
+                                        type="button" {{ pm.periodStatus(period.id).disableDrop }}></button>
+                                {{ period.0.columnName }}
+                            </div>
+                            <div id="periodStatus{{ period.id }}" class="startHidden container-fluid"
+                                 style="clear: both;">
+                                {% for activity in period.0.activities %}
+                                    <div class="row" id="periodActivity{{ activity.id }}">
+                                        <div class="col-sm-4 small">
+                                            {{ activity.fullName }}
+                                        </div>
+                                        {% set stuff = pm.clearResults() %}
+                                        {% set details = pm.ActivityDetails(activity) %}
+                                        {% set status = pm.activityStatus(activity) %}
+                                        <div class="col-sm-4 small{{ status.class }}">
+                                            <p>{% if status.message is not empty %}
+                                                    {{ miscButton({'title': status.message, 'class': 'halflings halflings-question-sign btn btn-sm btn-' ~ status.alert,'style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
+                                                {% endif %}
+                                                {{ 'period.activities.activity.details.data'|trans(details)|trim(', ') }}</p>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div>
+                                                {{ miscButton({'class': 'halflings halflings-pencil btn btn-primary', 'windowOpen': {'route': path('period_activity_edit', {'activity': activity.id, 'closeWindow': '_closeWindow'}), 'target': 'PeriodActivity', 'params': 'width=500,height=600'}, 'title': 'period.activities.activity.overwrite.button', 'transDomain': transDomain})|raw }}
+                                                {{ miscButton({'class': 'halflings halflings-cog btn btn-success', 'windowOpen': {'route': path('student_activity_edit', {'id': activity.activity.id, 'closeWindow': '_closeWindow'}), 'target': 'Activity', 'params': 'width=1200,height=800'}, 'title': 'period.activities.activity.edit.button', 'transDomain': transDomain})|raw }}
+
+                                                {{ deleteButton({'class': 'removeActivity halflings halflings-erase btn btn-warning', 'additional': 'id="removeActivity' ~ activity.id ~ '" period="' ~ period.id ~ '"', 'title': 'period.activities.activity.remove.button', 'transDomain': transDomain})|raw }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="messageWindow"></div>
                         </div>
                     </div>
                 {% endfor %}
@@ -36,8 +71,7 @@
                     </div>
                 {% endfor %}
                 {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-            </div>
-            <div class="col-md-4 well">
+
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activity.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'activity.list.description'} %}
                 {% for activity in activity_pagination.result %}
@@ -90,28 +124,41 @@
 
             var current = $fix.css('position');
 
+            var button = $($fix).children('div').children('div').children('button');
+
             if (current === 'fixed') {
                 $clear.css({
                     'top': 'auto',
                     'display': 'flex',
                     'position': 'static',
-                    'min-height': 'auto'
+                    'min-height': 'auto',
+                    'background-image': 'none'
                 });
 
+                button.toggleClass('glyphicons-lock');
+                button.toggleClass('glyphicons-unlock');
+                $('#periodStatus' + id).fadeOut(1000);
+                $('#period_pagination').fadeIn(1000);
             } else {
-
                 $clear.css({
                     'display': 'none'
                 });
 
                 $fix.css({
                     'position': 'fixed',
-                    'top': '455px',
+                    'top': '250px',
                     'display': 'flex',
                     'min-height': '75px',
-                    'width': $width
+                    'width': $width,
+                    'background-image': 'linear-gradient(to bottom,#e8e8e8 0,#f5f5f5 100%)'
                 });
+                button.toggleClass('glyphicons-lock');
+                button.toggleClass('glyphicons-unlock');
+                $('#periodStatus' + id).fadeIn(1000);
+                $('#period_pagination').fadeOut(10);
             }
+
+
         }
 
         function manageLineDrop(line, period) {
@@ -125,5 +172,46 @@
         function manageActivityDrop(data) {
 
         }
+
+        {% if all != 'All' %}
+        fixPeriod({{ all }} );
+        {% endif %}
+
+        $('.removeActivity').click(function () {
+
+            var id = $(this).attr('id');
+
+            id = id.replace('removeActivity', '');
+
+            var period = $(this).attr('period');
+
+            if (id > 0) {
+
+                var path = '{{ path('period_remove_activity', {'id': '__period__', 'activity': '__activity__'}) }}';
+                path = path.replace('__activity__', id);
+                path = path.replace('__period__', period);
+
+                $.ajax({
+                    url: path,
+                    type: 'POST',
+                    success: function (data) {
+                        if (data['status'] === 'success') {
+                            $('#periodActivity' + id).fadeOut(2000);
+                            $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
+                            return true;
+                        } else if (data['status'] === 'error') {
+                            $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
+                            return false;
+                        } else if (data['status'] === 'warning') {
+                            $('.messageWindow').html(data['message']).fadeIn(5).fadeOut(3000);
+                            return false;
+                        }
+                    }
+                });
+            }
+            return true;
+        });
+
     </script>
+
 {% endblock javascripts %}

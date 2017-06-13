@@ -196,6 +196,7 @@ period:
             remove:
                 success: 'The activity %name% was removed.'
                 error: 'Error: %error%'
+                button: Remove Activity from Period.
         line:
             added: Activities where successfully added to the period.
             none: No activities were added to the period.

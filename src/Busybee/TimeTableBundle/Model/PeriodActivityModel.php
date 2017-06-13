@@ -202,4 +202,9 @@ abstract class PeriodActivityModel
     {
         return $this->inheritedTutor3;
     }
+
+    public function getFullName()
+    {
+        return $this->getActivity()->getFullName();
+    }
 }

@@ -72,7 +72,7 @@ class Period extends PeriodModel
     /**
      * @var boolean
      */
-    private $break = true;
+    private $break = false;
 
     /**
      * Constructor
@@ -80,7 +80,7 @@ class Period extends PeriodModel
     public function __construct()
     {
         $this->activities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->setBreak(true);
+        $this->setBreak(false);
     }
 
     /**
@@ -318,12 +318,38 @@ class Period extends PeriodModel
      */
     public function addActivity(\Busybee\TimetableBundle\Entity\PeriodActivity $activity)
     {
-        if ($this->activities->contains($activity))
+        if ($this->activities->contains($activity) || $this->getBreak())
             return $this;
 
         $activity->setPeriod($this, false);
         $this->activities->add($activity);
 
+        return $this;
+    }
+
+    /**
+     * Get break
+     *
+     * @return boolean
+     */
+    public function getBreak()
+    {
+        return $this->break;
+    }
+
+    /**
+     * Set break
+     *
+     * @param boolean $break
+     *
+     * @return Period
+     */
+    public function setBreak($break)
+    {
+        $this->break = $break;
+
+        if ($break)
+            $this->activities = new ArrayCollection();
         return $this;
     }
 
@@ -355,29 +381,5 @@ class Period extends PeriodModel
             $this->activitiesSorted = true;
         }
         return $this->activities;
-    }
-
-    /**
-     * Get break
-     *
-     * @return boolean
-     */
-    public function getBreak()
-    {
-        return $this->break;
-    }
-
-    /**
-     * Set break
-     *
-     * @param boolean $break
-     *
-     * @return Period
-     */
-    public function setBreak($break)
-    {
-        $this->break = $break;
-
-        return $this;
     }
 }

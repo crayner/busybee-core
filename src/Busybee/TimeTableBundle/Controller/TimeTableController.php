@@ -6,6 +6,7 @@ use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Form\ColumnType;
 use Busybee\TimeTableBundle\Form\TimeTableType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -103,7 +104,7 @@ class TimeTableController extends Controller
      * @param   Request $request
      * @return  \Symfony\Component\HttpFoundation\Response
      */
-    public function builderAction(Request $request, $id)
+    public function builderAction(Request $request, $id, $all = 'All')
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
@@ -144,6 +145,8 @@ class TimeTableController extends Controller
                 'pagination' => $up,
                 'line_pagination' => $lp,
                 'activity_pagination' => $ap,
+                'pm' => $this->get('period.manager'),
+                'all' => $all,
             ]
         );
     }
@@ -163,6 +166,6 @@ class TimeTableController extends Controller
 
         $pm->injectLineGroup($line);
 
-        return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimeTable()->getId()]));
+        return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimeTable()->getId(), 'all' => $id]));
     }
 }
