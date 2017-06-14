@@ -16,6 +16,16 @@ abstract class GradeModel
     }
 
     /**
+     * Get Full Name
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getGradeYear();
+    }
+
+    /**
      * Get Grade Year
      *
      * @return string

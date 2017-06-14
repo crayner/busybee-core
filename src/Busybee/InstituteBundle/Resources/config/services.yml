@@ -9,6 +9,10 @@ parameters:
         sortBy:
             Space Name:
                 s.name: ASC
+        searchList:
+            - s.name
+            - s.comment
+        limit: '25'
 services:
     campus.repository:
         class: Busybee\InstituteBundle\Repository\CampusRepository
@@ -182,7 +186,7 @@ services:
             - '@busybee_security.user_manager'
             - '@security.token_storage'
     current.year.currentYear:
-        class: CurrentYear
+        class: Busybee\InstituteBundle\Model\CurrentYear
         factory:
             - '@current.year'
             - 'getCurrentYear'

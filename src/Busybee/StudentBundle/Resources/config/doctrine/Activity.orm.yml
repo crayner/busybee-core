@@ -24,6 +24,8 @@ Busybee\StudentBundle\Entity\Activity:
             type: datetime
         createdOn:
             type: datetime
+        teachingLoad:
+            type: smallint
     oneToMany:
         periods:
             targetEntity: Busybee\TimeTableBundle\Entity\PeriodActivity

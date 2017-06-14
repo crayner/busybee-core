@@ -78,15 +78,21 @@ class Activity extends ActivityModel
      * @var \Busybee\InstituteBundle\Entity\Space
      */
     private $space;
-    /**
-     * @var ArrayCollection
-     */
-    private $periods;
 
     /**
      * @var \Busybee\StudentBundle\Entity\Activity
      */
     private $studentReference;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $periods;
+
+    /**
+     * @var integer
+     */
+    private $teachingLoad;
 
     /**
      * Constructor
@@ -96,6 +102,7 @@ class Activity extends ActivityModel
         $this->students = new ArrayCollection();
         $this->periods = new ArrayCollection();
         $this->grades = new ArrayCollection();
+        $this->setTeachingLoad(0);
     }
 
     /**
@@ -515,5 +522,29 @@ class Activity extends ActivityModel
     public function getGrades()
     {
         return $this->grades;
+    }
+
+    /**
+     * Get teachingLoad
+     *
+     * @return integer
+     */
+    public function getTeachingLoad()
+    {
+        return $this->teachingLoad;
+    }
+
+    /**
+     * Set teachingLoad
+     *
+     * @param integer $teachingLoad
+     *
+     * @return Activity
+     */
+    public function setTeachingLoad($teachingLoad)
+    {
+        $this->teachingLoad = intval($teachingLoad);
+
+        return $this;
     }
 }

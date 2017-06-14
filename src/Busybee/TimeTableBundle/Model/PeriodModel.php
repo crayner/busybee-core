@@ -17,6 +17,8 @@ abstract class PeriodModel
      */
     public function getColumnName()
     {
+        if (is_null($this->getColumn()))
+            return '';
         return $this->getColumn()->getName() . ' - ' . $this->getFullName();
     }
 

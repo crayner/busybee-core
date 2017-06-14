@@ -40,7 +40,7 @@ abstract class ActivityModel
      */
     public function getFullName()
     {
-        return $this->getName() . ' (' . $this->getNameShort() . ') ' . $this->getYear()->getName();
+        return $this->getName() . ' (' . $this->getNameShort() . ')';
     }
 
     /**

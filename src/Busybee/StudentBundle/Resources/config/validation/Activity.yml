@@ -17,3 +17,8 @@ Busybee\StudentBundle\Entity\Activity:
         year:
             - Valid: ~
             - NotBlank: ~
+        teachingLoad:
+            - Busybee\FormBundle\Validator\Integer: ~
+            - Range:
+                min: 0
+                max: 99

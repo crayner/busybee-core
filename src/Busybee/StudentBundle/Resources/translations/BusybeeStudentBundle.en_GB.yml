@@ -84,6 +84,9 @@ activity:
     help:
         grades: These grades are used to limit the student list for selection into this activity.
         tutor: Select a staff member to manage/teach this activity.
+    teachingLoad:
+        label: 'Teaching Load'
+        help: 'The number of periods that this activity requires in a timetable cycle. Enter 0 for no testing in timetable.'
     student:
         title: '%name%'
         button:

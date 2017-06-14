@@ -28,7 +28,7 @@ class PagePagination extends PaginationManager
 				->setQueryJoin()
 				->setOrderBy()
 				->setSearchWhere();
-		
-		return $this->query ;
+
+        return $this->getQuery();
 	}
 }

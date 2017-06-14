@@ -14,6 +14,7 @@
             <div class="col-md-8 well">
                 {% include 'PaginationBundle:Default:search_only.html.twig' %}
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
+                {% set h3Content = h3Content ~ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"'}) %}
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel'} %}
                 {% for period in pagination.result %}
                     <div class="row-border row row-hover row-striped fixPeriod" id="periodRow{{ period.id }}">
@@ -24,22 +25,23 @@
                                         class="glyphicons glyphicons-unlock btn btn-xs btn-{{ pm.periodStatus(period.id).alert }}"
                                         style="float: right;"
                                         onclick="fixPeriod('{{ period.id }}')"
-                                        type="button" {{ pm.periodStatus(period.id).disableDrop }}></button>
+                                        type="button" {{ pm.periodStatus(period.id).disableDrop }}
+                                        title="{{ pm.periodStatus(period.id).message }}"></button>
                                 {{ period.0.columnName }}
                             </div>
                             <div id="periodStatus{{ period.id }}" class="startHidden container-fluid"
                                  style="clear: both;">
+                                {% set stuff = pm.clearResults() %}
                                 {% for activity in period.0.activities %}
                                     <div class="row" id="periodActivity{{ activity.id }}">
                                         <div class="col-sm-4 small">
                                             {{ activity.fullName }}
                                         </div>
-                                        {% set stuff = pm.clearResults() %}
                                         {% set details = pm.ActivityDetails(activity) %}
                                         {% set status = pm.activityStatus(activity) %}
                                         <div class="col-sm-4 small{{ status.class }}">
                                             <p>{% if status.message is not empty %}
-                                                    {{ miscButton({'title': status.message, 'class': 'halflings halflings-question-sign btn btn-sm btn-' ~ status.alert,'style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
+                                                    {{ miscButton({'title': status.message, 'class': 'halflings halflings-question-sign btn btn-sm btn-' ~ status.alert,'style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': period.id}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
                                                 {% endif %}
                                                 {{ 'period.activities.activity.details.data'|trans(details)|trim(', ') }}</p>
                                         </div>
@@ -53,6 +55,13 @@
                                         </div>
                                     </div>
                                 {% endfor %}
+                                <div>
+                                    {% for message in pm.periodStatus(period.id).messages %}
+                                        <div class="alert alert-{{ message[0] }}">
+                                            {{ message[1] }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                             <div class="messageWindow"></div>
                         </div>
@@ -139,6 +148,7 @@
                 button.toggleClass('glyphicons-unlock');
                 $('#periodStatus' + id).fadeOut(1000);
                 $('#period_pagination').fadeIn(1000);
+                $('#resetButton').attr('reset', 'All');
             } else {
                 $clear.css({
                     'display': 'none'
@@ -154,6 +164,7 @@
                 });
                 button.toggleClass('glyphicons-lock');
                 button.toggleClass('glyphicons-unlock');
+                $('#resetButton').attr('reset', id);
                 $('#periodStatus' + id).fadeIn(1000);
                 $('#period_pagination').fadeOut(10);
             }
@@ -212,6 +223,13 @@
             return true;
         });
 
+        function resetBuilder() {
+            var id = $('#resetButton').attr('reset');
+            var path = '{{ path('timetable_builder', {'id': app.request.get('id'), 'all': '__all__'}) }}';
+            path = path.replace('__all__', id);
+
+            window.open(path, '_self');
+        }
     </script>
 
 {% endblock javascripts %}

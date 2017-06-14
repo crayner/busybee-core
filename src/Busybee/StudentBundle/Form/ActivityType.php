@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -86,6 +87,17 @@ class ActivityType extends AbstractType
                             ->setParameter('year_id', $year->getId())
                             ->orderBy('g.sequence', 'DESC');
                     },
+                ]
+            )
+            ->add('teachingLoad', IntegerType::class,
+                [
+                    'label' => 'activity.teachingLoad.label',
+                    'attr' => [
+                        'class' => 'monitorChange',
+                        'help' => 'activity.teachingLoad.help',
+                    ],
+                    'empty_data' => 0,
+
                 ]
             )
             ->add('tutor1', EntityType::class,

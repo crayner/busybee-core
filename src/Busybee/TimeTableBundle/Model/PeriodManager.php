@@ -84,6 +84,7 @@ class PeriodManager
         'warning' => 4,
         'error' => 5
     ];
+
     private $periodStatus;
 
     /**
@@ -180,8 +181,8 @@ class PeriodManager
     {
         $this->injectPeriod($id);
 
-        if (!$this->period instanceof Period)
-            throw new \InvalidArgumentException('The period has not been injected.');
+        if (!$this->period instanceof Period || is_null($this->period->getId()))
+            throw new \InvalidArgumentException('The period has not been injected correctly.');
 
         $result = $this->om->getRepository(Space::class)->findBy([], ['name' => 'ASC']);
 
@@ -301,60 +302,6 @@ class PeriodManager
     }
 
     /**
-     * @param $id
-     */
-    public function generateFullPeriodReport($id)
-    {
-        $this->injectPeriod($id);
-        $data = new \stdClass();
-
-        $rrr = $this->om->getRepository(Grade::class)->createQueryBuilder('g')
-            ->leftJoin('g.year', 'y')
-            ->leftJoin('g.students', 'i')
-            ->where('y.id = :year_id')
-            ->setParameter('year_id', $this->currentYear->getId())
-            ->select('g')
-            ->addSelect('i')
-            ->andWhere('i.status IN (:status)')
-            ->setParameter('status', ['Future', 'Current'], Connection::PARAM_STR_ARRAY)
-            ->getQuery()
-            ->getResult();
-        $grades = [];
-        foreach ($rrr as $grade) {
-            $data->grades[$grade->getId()] = $grade;
-            $students = [];
-            foreach ($grade->getStudents() as $student)
-                $students[$student->getStudent()->getId()] = $student->getStudent();
-            $grades[$grade->getId()] = $students;
-        }
-        foreach ($this->period->getActivities() as $q => $pa) {
-            $act = $pa->getActivity();
-            foreach ($act->getStudents() as $student) {
-                $grade = $student->getStudentGrade($this->currentYear);
-
-                if (isset($grades[$grade->getId()][$student->getId()]))
-                    unset($grades[$grade->getId()][$student->getId()]);
-            }
-        }
-
-        foreach ($grades as $q => $grade) {
-            if (!empty($grade)) {
-                $grade = new ArrayCollection($grade);
-                $iterator = $grade->getIterator();
-                $iterator->uasort(function ($a, $b) {
-                    return ($a->getFormatName(['surnameFirst' => true, 'preferredOnly' => false]) < $b->getFormatName(['surnameFirst' => true, 'preferredOnly' => false])) ? -1 : 1;
-                });
-                $grades[$q] = iterator_to_array($iterator, true);
-            }
-        }
-
-
-        $data->missingStudents = $grades;
-
-        return $data;
-    }
-
-    /**
      * @return \Busybee\TimeTableBundle\Entity\TimeTable
      */
     public function getTimeTable()
@@ -441,25 +388,97 @@ class PeriodManager
         if (!empty($this->periodStatus->id) && $this->periodStatus->id === $id)
             return $this->periodStatus;
 
+        $this->clearResults();
+
         $status = new \stdClass();
-        $this->injectPeriod($id);
+        $status->students = $this->generateFullPeriodReport($id);
 
         $status->alert = 'default';
         $status->disableDrop = '';
         $status->id = $id;
+        $status->message = '';
+        $status->messages = [];
 
-        if ($this->period->getBreak())
-            $status->disableDrop = 'disabled';
-        else {
-            foreach ($this->period->getActivities() as $activity) {
-                $report = $this->getActivityStatus($activity);
-                if ($this->alert[$report->alert] > $this->alert[$status->alert])
-                    $status->alert = $report->alert;
+        $problems = false;
+        foreach ($this->period->getActivities() as $activity) {
+            $report = $this->getActivityStatus($activity);
+            if ($this->alert[$report->alert] > $this->alert[$status->alert]) {
+                $status->alert = $report->alert;
+                $problems = true;
+                $status->messages = array_merge($status->messages, $report->messages);
+            }
+        }
+
+        if ($problems) {
+            $status->message .= ' ' . $this->translator->trans('period.activities.problems', [], 'BusybeeTimeTableBundle');
+        }
+
+        if (!$this->period->getBreak()) {
+            foreach ($status->students->missingStudents as $q => $students) {
+                if (count($students) > 0) {
+                    $status->alert = 'danger';
+                    $status->message .= ' ' . $this->translator->trans('period.students.missing', ['%grade%' => $status->students->grades[$q]->getFullName()], 'BusybeeTimeTableBundle');
+                    $status->messages[] = ['danger', $this->translator->trans('period.students.missing', ['%grade%' => $status->students->grades[$q]->getFullName()], 'BusybeeTimeTableBundle')];
+                }
             }
         }
 
         $this->periodStatus = $status;
         return $status;
+    }
+
+    /**
+     * @param $id
+     */
+    public function generateFullPeriodReport($id)
+    {
+        $this->injectPeriod($id);
+        $data = new \stdClass();
+
+        $rrr = $this->om->getRepository(Grade::class)->createQueryBuilder('g')
+            ->leftJoin('g.year', 'y')
+            ->leftJoin('g.students', 'i')
+            ->where('y.id = :year_id')
+            ->setParameter('year_id', $this->currentYear->getId())
+            ->select('g')
+            ->addSelect('i')
+            ->andWhere('i.status IN (:status)')
+            ->setParameter('status', ['Future', 'Current'], Connection::PARAM_STR_ARRAY)
+            ->getQuery()
+            ->getResult();
+        $grades = [];
+        foreach ($rrr as $grade) {
+            $data->grades[$grade->getId()] = $grade;
+            $students = [];
+            foreach ($grade->getStudents() as $student)
+                $students[$student->getStudent()->getId()] = $student->getStudent();
+            $grades[$grade->getId()] = $students;
+        }
+        foreach ($this->period->getActivities() as $q => $pa) {
+            $act = $pa->getActivity();
+            foreach ($act->getStudents() as $student) {
+                $grade = $student->getStudentGrade($this->currentYear);
+
+                if (isset($grades[$grade->getId()][$student->getId()]))
+                    unset($grades[$grade->getId()][$student->getId()]);
+            }
+        }
+
+        foreach ($grades as $q => $grade) {
+            if (!empty($grade)) {
+                $grade = new ArrayCollection($grade);
+                $iterator = $grade->getIterator();
+                $iterator->uasort(function ($a, $b) {
+                    return ($a->getFormatName(['surnameFirst' => true, 'preferredOnly' => false]) < $b->getFormatName(['surnameFirst' => true, 'preferredOnly' => false])) ? -1 : 1;
+                });
+                $grades[$q] = iterator_to_array($iterator, true);
+            }
+        }
+
+
+        $data->missingStudents = $grades;
+
+        return $data;
     }
 
     /**
@@ -477,6 +496,7 @@ class PeriodManager
             $this->status = $status;
             return $status;
         }
+
         if (isset($this->status->id) && $this->status->id === $activity->getId())
             return $this->status;
 
@@ -485,17 +505,20 @@ class PeriodManager
         $this->status->alert = 'default';
         $this->status->class = '';
         $this->status->message = '';
+        $this->status->messages = [];
 
         if (is_null($activity->getSpace())) {
             $this->status->class = ' alert-warning';
             $this->status->alert = 'warning';
             $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.space.missing', [], 'BusybeeTimeTableBundle');
+            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.space.missing', [], 'BusybeeTimeTableBundle')];
         } else {
             if (isset($this->spaces[$activity->getSpace()->getName()])) {
                 $act = $this->spaces[$activity->getSpace()->getName()];
                 $this->status->class = ' alert-warning';
                 $this->status->alert = 'warning';
                 $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.space.duplicate', ['%space%' => $activity->getSpace()->getName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
+                $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.space.duplicate', ['%space%' => $activity->getSpace()->getName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
             }
             $this->spaces[$activity->getSpace()->getName()] = $activity->getActivity();
         }
@@ -504,42 +527,40 @@ class PeriodManager
             $this->status->class = ' alert-warning';
             $this->status->alert = 'warning';
             $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.missing', [], 'BusybeeTimeTableBundle');
-        } else {
-            if (!is_null($activity->getTutor1()) && !empty($this->staff[$activity->getTutor1()->getId()])) {
-                $act = $this->staff[$activity->getTutor1()->getId()];
-                $this->status->class = ' alert-warning';
-                $this->status->alert = 'warning';
-                dump($activity->getTutor1());
-                dump($this);
-                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
-            }
-            if (!is_null($activity->getTutor1()))
-                $this->staff[$activity->getTutor1()->getId()] = $activity->getActivity();
-        }
+            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.missing', [], 'BusybeeTimeTableBundle')];
+        } elseif (!is_null($activity->getTutor1()) && isset($this->staff[$activity->getTutor1()->getFullName()])) {
+            $act = $this->staff[$activity->getTutor1()->getFullName()];
+            $this->status->class = ' alert-warning';
+            $this->status->alert = 'warning';
+            $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
+            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
+        } elseif (!is_null($activity->getTutor1()) && !isset($this->staff[$activity->getTutor1()->getFullName()]))
+            $this->staff[$activity->getTutor1()->getFullName()] = $activity->getActivity();
 
-        if (!is_null($activity->getTutor2()) && isset($this->staff[$activity->getTutor2()->getId()])) {
-            $act = $this->staff[$activity->getTutor2()->getId()];
+        if (!is_null($activity->getTutor2()) && isset($this->staff[$activity->getTutor2()->getFullName()])) {
+            $act = $this->staff[$activity->getTutor2()->getFullName()];
             $this->status->class = ' alert-warning';
             $this->status->alert = 'warning';
             $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor2()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
-        }
-        if (!is_null($activity->getTutor2()))
-            $this->staff[$activity->getTutor2()->getId()] = $activity->getActivity();
+            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor2()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
+        } elseif (!is_null($activity->getTutor2()) && !isset($this->staff[$activity->getTutor2()->getFullName()]))
+            $this->staff[$activity->getTutor2()->getFullName()] = $activity->getActivity();
 
-        if (!is_null($activity->getTutor3()) && isset($this->staff[$activity->getTutor3()->getId()])) {
-            $act = $this->staff[$activity->getTutor3()->getId()];
+        if (!is_null($activity->getTutor3()) && isset($this->staff[$activity->getTutor3()->getFullName()])) {
+            $act = $this->staff[$activity->getTutor3()->getFullName()];
             $this->status->class = ' alert-warning';
             $this->status->alert = 'warning';
             $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor3()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
-        }
-        if (!is_null($activity->getTutor3()))
-            $this->staff[$activity->getTutor3()->getId()] = $activity->getActivity();
+            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor3()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
+        } elseif (!is_null($activity->getTutor3()) && !isset($this->staff[$activity->getTutor3()->getFullName()]))
+            $this->staff[$activity->getTutor3()->getFullName()] = $activity->getActivity();
 
         if (!empty($this->status->message)) {
             $this->failedStatus[$this->status->id] = $this->status->alert;
             $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.report.button', [], 'BusybeeTimeTableBundle');
             $this->status->message = trim($this->status->message);
         }
+
         return $this->status;
     }
 }

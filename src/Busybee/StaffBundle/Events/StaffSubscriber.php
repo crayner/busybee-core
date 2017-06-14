@@ -49,10 +49,12 @@ class StaffSubscriber implements EventSubscriberInterface
 
         if (intval($space_id) != intval($data['homeroom'])) {
             $space = $staff->getHomeRoom();
-            if (!$space instanceof Space && !empty($data['homeroom']))
+            if (!empty($data['homeroom'])) {
+                $space->setStaff(null);
+                $this->om->persist($space); // remove old space //staff data
+                $this->om->flush();
                 $space = $this->om->getRepository(Space::class)->find($data['homeroom']);
-            if (!$space instanceof Space)
-                $space = null;
+            }
             if ($space instanceof Space && empty($data['homeroom'])) {
                 $space->setStaff(null);
                 $staff->setHomeroom(null);
@@ -64,8 +66,9 @@ class StaffSubscriber implements EventSubscriberInterface
                 $space->setStaff($staff);
                 $staff->setHomeroom($space);
             }
+
             if (!is_null($space)) {
-                $this->om->persist($space);
+                $this->om->persist($space);  // save new space / staff data
                 $this->om->flush();
             }
             $form->setData($staff);

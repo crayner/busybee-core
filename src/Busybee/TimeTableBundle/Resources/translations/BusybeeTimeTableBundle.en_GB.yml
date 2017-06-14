@@ -204,6 +204,7 @@ period:
             placeholder: Source/Target Period
             source: Copy selected period to the period displayed.
             target: Copy the displayed period to the selected period.
+        problems: Some activities are not formatted correctly.
     plan:
         title:
             add: Add Activity Line
@@ -231,6 +232,8 @@ period:
             missing: "%count% students missing."
     break:
         label: 'Break'
+    students:
+        missing: 'Not all students where allocated for grade %grade% in this period.'
 column:
     remove:
         locked: 'The column has been locked and cannot be removed.'
