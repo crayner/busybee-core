@@ -58,3 +58,6 @@ timetable_builder:
 period_builder_line:
     path:     /plan/{id}/{line}/builder/activities/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:addLineToPeriod }
+period_builder_activity:
+    path:     /plan/{id}/{activity}/builder/activity/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:addActivityToPeriod }

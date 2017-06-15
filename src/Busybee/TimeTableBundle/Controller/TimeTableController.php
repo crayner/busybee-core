@@ -108,7 +108,7 @@ class TimeTableController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
-        $this->get('timetable.manager')->setTimeTable($this->get('timetable.repository')->find($id));
+        $tm = $this->get('timetable.manager')->setTimeTable($this->get('timetable.repository')->find($id));
 
         $up = $this->get('period.pagination');
         $lp = $this->get('line.pagination');
@@ -140,6 +140,8 @@ class TimeTableController extends Controller
         $lp->getDataSet();
         $ap->getDataSet();
 
+        $report = $tm->getReport($up);
+
         return $this->render('BusybeeTimeTableBundle:TimeTable:builder.html.twig',
             [
                 'pagination' => $up,
@@ -147,6 +149,7 @@ class TimeTableController extends Controller
                 'activity_pagination' => $ap,
                 'pm' => $this->get('period.manager'),
                 'all' => $all,
+                'report' => $report,
             ]
         );
     }
@@ -165,6 +168,24 @@ class TimeTableController extends Controller
         $pm = $this->get('period.manager')->injectPeriod($period);
 
         $pm->injectLineGroup($line);
+
+        return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimeTable()->getId(), 'all' => $id]));
+    }
+
+    /**
+     * @param $id
+     * @param $activity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function addActivityToPeriodAction($id, $activity)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $period = $this->get('period.repository')->find($id);
+
+        $pm = $this->get('period.manager')->injectPeriod($period);
+
+        $pm->injectActivityGroup($activity);
 
         return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimeTable()->getId(), 'all' => $id]));
     }

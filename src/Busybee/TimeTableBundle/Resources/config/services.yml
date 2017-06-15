@@ -139,6 +139,7 @@ services:
             - '@busybee_security.user_manager'
             - '@doctrine.orm.entity_manager'
             - '@setting.manager'
+            - '@period.manager'
     form.timetable.hidden.day.type:
         class: Busybee\TimeTableBundle\Form\DayHiddenType
         arguments:

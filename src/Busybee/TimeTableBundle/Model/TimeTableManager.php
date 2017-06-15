@@ -6,6 +6,7 @@ use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\SecurityBundle\Doctrine\UserManager;
 use Busybee\SecurityBundle\Entity\User;
+use Busybee\StudentBundle\Entity\Activity;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\Column;
 use Busybee\TimeTableBundle\Entity\Day;
@@ -93,10 +94,20 @@ class TimeTableManager
     private $dateFormat;
 
     /**
+     * @var PeriodManager
+     */
+    private $pm;
+
+    /**
+     * @var stdClass
+     */
+    private $report;
+
+    /**
      * TimeTableManager constructor.
      * @param TokenStorage $tokenStorage
      */
-    public function __construct(TokenStorage $tokenStorage, UserManager $um, ObjectManager $om, SettingManager $sm)
+    public function __construct(TokenStorage $tokenStorage, UserManager $um, ObjectManager $om, SettingManager $sm, PeriodManager $pm)
     {
         $this->user = $tokenStorage->getToken()->getUser();
         $this->year = $um->getSystemYear($this->user);
@@ -110,6 +121,7 @@ class TimeTableManager
             ->getSingleResult();
         $this->schoolWeek = $this->sm->get('schoolWeek');
         $this->firstDayofWeek = $this->sm->get('firstDayofWeek');
+        $this->pm = $pm;
     }
 
     /**
@@ -467,5 +479,76 @@ class TimeTableManager
         $this->timetable = $tt;
 
         return $this;
+    }
+
+    /**
+     * Get Report
+     *
+     * @return null|\stdClass
+     */
+    public function getReport(PeriodPagination $pag)
+    {
+        if ($this->report instanceof \stdClass)
+            return $this->report;
+
+        return $this->generateReport($pag);
+    }
+
+    /**
+     * Generate Report
+     *
+     * @return \stdClass
+     * @throws \Exception
+     */
+    private function generateReport(PeriodPagination $pag)
+    {
+        if (!$this->timetable instanceof TimeTable)
+            throw new \Exception('The time table has not been injected into the manager.');
+
+        $this->report = new \stdClass();
+
+        $this->report->periods = [];
+        $this->report->activities = [];
+        $key = 0;
+
+        foreach ($pag->getResult() as $period) {
+            $per = new \stdClass();
+            $per->status = $this->pm->getPeriodStatus($period['id']);
+            $per->period = $period['0'];
+            $per->id = $period['id'];
+            $per->name = $period['name'];
+            $per->start = $period['start'];
+            $per->end = $period['end'];
+            $per->nameShort = $period['nameShort'];
+            $per->columnName = $period['columnName'];
+            $per->activities = [];
+
+            $this->pm->clearResults();
+
+            foreach ($per->period->getActivities() as $activity) {
+                $act = new \stdClass();
+                $act->activity = $activity;
+                $act->details = $this->pm->getActivityDetails($activity);
+                $act->status = $this->pm->getActivityStatus($activity);
+                $act->id = $activity->getId();
+                $act->fullName = $activity->getFullName();
+                $per->activities[] = $act;
+                if ($activity->getActivity() instanceof Activity) {
+                    if (isset($this->report->activities[$activity->getActivity()->getId()])) {
+                        $act = $this->report->activities[$activity->getActivity()->getId()];
+                        $act->incCount();
+                    } else {
+                        $act = $activity->getActivity();
+                    }
+
+                    $this->report->activities[$activity->getActivity()->getId()] = $act;
+                }
+            }
+
+
+            $this->report->periods[] = $per;
+        }
+
+        return $this->report;
     }
 }

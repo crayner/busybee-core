@@ -804,300 +804,6 @@
         ]
     },
     {
-        "name": "symfony/polyfill-util",
-        "version": "v1.3.0",
-        "version_normalized": "1.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-util.git",
-            "reference": "746bce0fca664ac0a575e465f65c6643faddf7fb"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-util/zipball/746bce0fca664ac0a575e465f65c6643faddf7fb",
-            "reference": "746bce0fca664ac0a575e465f65c6643faddf7fb",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "time": "2016-11-14T01:06:16+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Util\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony utilities for portability of PHP codes",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compat",
-            "compatibility",
-            "polyfill",
-            "shim"
-        ]
-    },
-    {
-        "name": "symfony/polyfill-php70",
-        "version": "v1.3.0",
-        "version_normalized": "1.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-php70.git",
-            "reference": "13ce343935f0f91ca89605a2f6ca6f5c2f3faac2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-php70/zipball/13ce343935f0f91ca89605a2f6ca6f5c2f3faac2",
-            "reference": "13ce343935f0f91ca89605a2f6ca6f5c2f3faac2",
-            "shasum": ""
-        },
-        "require": {
-            "paragonie/random_compat": "~1.0|~2.0",
-            "php": ">=5.3.3"
-        },
-        "time": "2016-11-14T01:06:16+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Php70\\": ""
-            },
-            "files": [
-                "bootstrap.php"
-            ],
-            "classmap": [
-                "Resources/stubs"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill backporting some PHP 7.0+ features to lower PHP versions",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "polyfill",
-            "portable",
-            "shim"
-        ]
-    },
-    {
-        "name": "symfony/polyfill-php56",
-        "version": "v1.3.0",
-        "version_normalized": "1.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-php56.git",
-            "reference": "1dd42b9b89556f18092f3d1ada22cb05ac85383c"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-php56/zipball/1dd42b9b89556f18092f3d1ada22cb05ac85383c",
-            "reference": "1dd42b9b89556f18092f3d1ada22cb05ac85383c",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3",
-            "symfony/polyfill-util": "~1.0"
-        },
-        "time": "2016-11-14T01:06:16+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Php56\\": ""
-            },
-            "files": [
-                "bootstrap.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill backporting some PHP 5.6+ features to lower PHP versions",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "polyfill",
-            "portable",
-            "shim"
-        ]
-    },
-    {
-        "name": "symfony/polyfill-mbstring",
-        "version": "v1.3.0",
-        "version_normalized": "1.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/e79d363049d1c2128f133a2667e4f4190904f7f4",
-            "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "ext-mbstring": "For best performance"
-        },
-        "time": "2016-11-14T01:06:16+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Mbstring\\": ""
-            },
-            "files": [
-                "bootstrap.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill for the Mbstring extension",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "mbstring",
-            "polyfill",
-            "portable",
-            "shim"
-        ]
-    },
-    {
-        "name": "symfony/polyfill-intl-icu",
-        "version": "v1.3.0",
-        "version_normalized": "1.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-intl-icu.git",
-            "reference": "2d6e2b20d457603eefb6e614286c22efca30fdb4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-intl-icu/zipball/2d6e2b20d457603eefb6e614286c22efca30fdb4",
-            "reference": "2d6e2b20d457603eefb6e614286c22efca30fdb4",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3",
-            "symfony/intl": "~2.3|~3.0"
-        },
-        "suggest": {
-            "ext-intl": "For best performance"
-        },
-        "time": "2016-11-14T01:06:16+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "bootstrap.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill for intl's ICU-related data and classes",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "icu",
-            "intl",
-            "polyfill",
-            "portable",
-            "shim"
-        ]
-    },
-    {
         "name": "kriswallsmith/assetic",
         "version": "v1.4.0",
         "version_normalized": "1.4.0.0",
@@ -3155,192 +2861,6 @@
     ]
   },
   {
-    "name": "twig/extensions",
-    "version": "v1.5.0",
-    "version_normalized": "1.5.0.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/twigphp/Twig-extensions.git",
-      "reference": "d6d74d6f3213a9574c460c4390c25a1a67c17cc3"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/d6d74d6f3213a9574c460c4390c25a1a67c17cc3",
-      "reference": "d6d74d6f3213a9574c460c4390c25a1a67c17cc3",
-      "shasum": ""
-    },
-    "require": {
-      "twig/twig": "~1.27|~2.0"
-    },
-    "require-dev": {
-      "symfony/phpunit-bridge": "~3.3@dev",
-      "symfony/translation": "~2.3|~3.0"
-    },
-    "suggest": {
-      "symfony/translation": "Allow the time_diff output to be translated"
-    },
-    "time": "2017-05-24T06:24:07+00:00",
-    "type": "library",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "1.5-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "psr-0": {
-        "Twig_Extensions_": "lib/"
-      },
-      "psr-4": {
-        "Twig\\Extensions\\": "src/"
-      }
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "Fabien Potencier",
-        "email": "fabien@symfony.com"
-      }
-    ],
-    "description": "Common additional features for Twig that do not directly belong in core",
-    "homepage": "http://twig.sensiolabs.org/doc/extensions/index.html",
-    "keywords": [
-      "i18n",
-      "text"
-    ]
-  },
-  {
-    "name": "symfony/phpunit-bridge",
-    "version": "v2.8.21",
-    "version_normalized": "2.8.21.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/symfony/phpunit-bridge.git",
-      "reference": "34bfa4fe0439440323aab0982a77246b6b6dfd83"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/34bfa4fe0439440323aab0982a77246b6b6dfd83",
-      "reference": "34bfa4fe0439440323aab0982a77246b6b6dfd83",
-      "shasum": ""
-    },
-    "require": {
-      "php": ">=5.3.3"
-    },
-    "conflict": {
-      "phpunit/phpunit": ">=6.0"
-    },
-    "suggest": {
-      "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
-    },
-    "time": "2017-05-21T09:46:38+00:00",
-    "type": "symfony-bridge",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "2.8-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "files": [
-        "bootstrap.php"
-      ],
-      "psr-4": {
-        "Symfony\\Bridge\\PhpUnit\\": ""
-      },
-      "exclude-from-classmap": [
-        "/Tests/"
-      ]
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "Nicolas Grekas",
-        "email": "p@tchwork.com"
-      },
-      {
-        "name": "Symfony Community",
-        "homepage": "https://symfony.com/contributors"
-      }
-    ],
-    "description": "Symfony PHPUnit Bridge",
-    "homepage": "https://symfony.com"
-  },
-  {
-    "name": "twig/twig",
-    "version": "v2.4.2",
-    "version_normalized": "2.4.2.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/twigphp/Twig.git",
-      "reference": "fe3e3f3359b23b36f65cb600cd516142c07a2e7d"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/twigphp/Twig/zipball/fe3e3f3359b23b36f65cb600cd516142c07a2e7d",
-      "reference": "fe3e3f3359b23b36f65cb600cd516142c07a2e7d",
-      "shasum": ""
-    },
-    "require": {
-      "php": "^7.0",
-      "symfony/polyfill-mbstring": "~1.0"
-    },
-    "require-dev": {
-      "psr/container": "^1.0",
-      "symfony/debug": "~2.7",
-      "symfony/phpunit-bridge": "~3.3@dev"
-    },
-    "time": "2017-06-06T03:58:14+00:00",
-    "type": "library",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "2.4-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "psr-0": {
-        "Twig_": "lib/"
-      },
-      "psr-4": {
-        "Twig\\": "src/"
-      }
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "BSD-3-Clause"
-    ],
-    "authors": [
-      {
-        "name": "Fabien Potencier",
-        "email": "fabien@symfony.com",
-        "homepage": "http://fabien.potencier.org",
-        "role": "Lead Developer"
-      },
-      {
-        "name": "Armin Ronacher",
-        "email": "armin.ronacher@active-4.com",
-        "role": "Project Founder"
-      },
-      {
-        "name": "Twig Team",
-        "homepage": "http://twig.sensiolabs.org/contributors",
-        "role": "Contributors"
-      }
-    ],
-    "description": "Twig, the flexible, fast, and secure template language for PHP",
-    "homepage": "http://twig.sensiolabs.org",
-    "keywords": [
-      "templating"
-    ]
-  },
-  {
     "name": "symfony/symfony",
     "version": "v3.3.2",
     "version_normalized": "3.3.2.0",
@@ -3493,6 +3013,486 @@
     "homepage": "https://symfony.com",
     "keywords": [
       "framework"
+    ]
+  },
+  {
+    "name": "symfony/polyfill-mbstring",
+    "version": "v1.4.0",
+    "version_normalized": "1.4.0.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/symfony/polyfill-mbstring.git",
+      "reference": "f29dca382a6485c3cbe6379f0c61230167681937"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/f29dca382a6485c3cbe6379f0c61230167681937",
+      "reference": "f29dca382a6485c3cbe6379f0c61230167681937",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.3.3"
+    },
+    "suggest": {
+      "ext-mbstring": "For best performance"
+    },
+    "time": "2017-06-09T14:24:12+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.4-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Symfony\\Polyfill\\Mbstring\\": ""
+      },
+      "files": [
+        "bootstrap.php"
+      ]
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Nicolas Grekas",
+        "email": "p@tchwork.com"
+      },
+      {
+        "name": "Symfony Community",
+        "homepage": "https://symfony.com/contributors"
+      }
+    ],
+    "description": "Symfony polyfill for the Mbstring extension",
+    "homepage": "https://symfony.com",
+    "keywords": [
+      "compatibility",
+      "mbstring",
+      "polyfill",
+      "portable",
+      "shim"
+    ]
+  },
+  {
+    "name": "twig/twig",
+    "version": "v2.4.3",
+    "version_normalized": "2.4.3.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/twigphp/Twig.git",
+      "reference": "eab7c3288ae6603d7d6f92b531626af2b162d1f2"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/twigphp/Twig/zipball/eab7c3288ae6603d7d6f92b531626af2b162d1f2",
+      "reference": "eab7c3288ae6603d7d6f92b531626af2b162d1f2",
+      "shasum": ""
+    },
+    "require": {
+      "php": "^7.0",
+      "symfony/polyfill-mbstring": "~1.0"
+    },
+    "require-dev": {
+      "psr/container": "^1.0",
+      "symfony/debug": "~2.7",
+      "symfony/phpunit-bridge": "~3.3@dev"
+    },
+    "time": "2017-06-07T18:47:58+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "2.4-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-0": {
+        "Twig_": "lib/"
+      },
+      "psr-4": {
+        "Twig\\": "src/"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "BSD-3-Clause"
+    ],
+    "authors": [
+      {
+        "name": "Fabien Potencier",
+        "email": "fabien@symfony.com",
+        "homepage": "http://fabien.potencier.org",
+        "role": "Lead Developer"
+      },
+      {
+        "name": "Armin Ronacher",
+        "email": "armin.ronacher@active-4.com",
+        "role": "Project Founder"
+      },
+      {
+        "name": "Twig Team",
+        "homepage": "http://twig.sensiolabs.org/contributors",
+        "role": "Contributors"
+      }
+    ],
+    "description": "Twig, the flexible, fast, and secure template language for PHP",
+    "homepage": "http://twig.sensiolabs.org",
+    "keywords": [
+      "templating"
+    ]
+  },
+  {
+    "name": "twig/extensions",
+    "version": "v1.5.1",
+    "version_normalized": "1.5.1.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/twigphp/Twig-extensions.git",
+      "reference": "d188c76168b853481cc75879ea045bf93d718e9c"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/d188c76168b853481cc75879ea045bf93d718e9c",
+      "reference": "d188c76168b853481cc75879ea045bf93d718e9c",
+      "shasum": ""
+    },
+    "require": {
+      "twig/twig": "~1.27|~2.0"
+    },
+    "require-dev": {
+      "symfony/phpunit-bridge": "~3.3@dev",
+      "symfony/translation": "~2.3|~3.0"
+    },
+    "suggest": {
+      "symfony/translation": "Allow the time_diff output to be translated"
+    },
+    "time": "2017-06-08T18:19:53+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.5-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-0": {
+        "Twig_Extensions_": "lib/"
+      },
+      "psr-4": {
+        "Twig\\Extensions\\": "src/"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Fabien Potencier",
+        "email": "fabien@symfony.com"
+      }
+    ],
+    "description": "Common additional features for Twig that do not directly belong in core",
+    "homepage": "http://twig.sensiolabs.org/doc/extensions/index.html",
+    "keywords": [
+      "i18n",
+      "text"
+    ]
+  },
+  {
+    "name": "symfony/phpunit-bridge",
+    "version": "v2.8.22",
+    "version_normalized": "2.8.22.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/symfony/phpunit-bridge.git",
+      "reference": "34bfa4fe0439440323aab0982a77246b6b6dfd83"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/34bfa4fe0439440323aab0982a77246b6b6dfd83",
+      "reference": "34bfa4fe0439440323aab0982a77246b6b6dfd83",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.3.3"
+    },
+    "conflict": {
+      "phpunit/phpunit": ">=6.0"
+    },
+    "suggest": {
+      "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
+    },
+    "time": "2017-05-21T09:46:38+00:00",
+    "type": "symfony-bridge",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "2.8-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "files": [
+        "bootstrap.php"
+      ],
+      "psr-4": {
+        "Symfony\\Bridge\\PhpUnit\\": ""
+      },
+      "exclude-from-classmap": [
+        "/Tests/"
+      ]
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Nicolas Grekas",
+        "email": "p@tchwork.com"
+      },
+      {
+        "name": "Symfony Community",
+        "homepage": "https://symfony.com/contributors"
+      }
+    ],
+    "description": "Symfony PHPUnit Bridge",
+    "homepage": "https://symfony.com"
+  },
+  {
+    "name": "symfony/polyfill-util",
+    "version": "v1.4.0",
+    "version_normalized": "1.4.0.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/symfony/polyfill-util.git",
+      "reference": "ebccbde4aad410f6438d86d7d261c6b4d2b9a51d"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/symfony/polyfill-util/zipball/ebccbde4aad410f6438d86d7d261c6b4d2b9a51d",
+      "reference": "ebccbde4aad410f6438d86d7d261c6b4d2b9a51d",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.3.3"
+    },
+    "time": "2017-06-09T08:25:21+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.4-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Symfony\\Polyfill\\Util\\": ""
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Nicolas Grekas",
+        "email": "p@tchwork.com"
+      },
+      {
+        "name": "Symfony Community",
+        "homepage": "https://symfony.com/contributors"
+      }
+    ],
+    "description": "Symfony utilities for portability of PHP codes",
+    "homepage": "https://symfony.com",
+    "keywords": [
+      "compat",
+      "compatibility",
+      "polyfill",
+      "shim"
+    ]
+  },
+  {
+    "name": "symfony/polyfill-php70",
+    "version": "v1.4.0",
+    "version_normalized": "1.4.0.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/symfony/polyfill-php70.git",
+      "reference": "032fd647d5c11a9ceab8ee8747e13b5448e93874"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/symfony/polyfill-php70/zipball/032fd647d5c11a9ceab8ee8747e13b5448e93874",
+      "reference": "032fd647d5c11a9ceab8ee8747e13b5448e93874",
+      "shasum": ""
+    },
+    "require": {
+      "paragonie/random_compat": "~1.0|~2.0",
+      "php": ">=5.3.3"
+    },
+    "time": "2017-06-09T14:24:12+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.4-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Symfony\\Polyfill\\Php70\\": ""
+      },
+      "files": [
+        "bootstrap.php"
+      ],
+      "classmap": [
+        "Resources/stubs"
+      ]
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Nicolas Grekas",
+        "email": "p@tchwork.com"
+      },
+      {
+        "name": "Symfony Community",
+        "homepage": "https://symfony.com/contributors"
+      }
+    ],
+    "description": "Symfony polyfill backporting some PHP 7.0+ features to lower PHP versions",
+    "homepage": "https://symfony.com",
+    "keywords": [
+      "compatibility",
+      "polyfill",
+      "portable",
+      "shim"
+    ]
+  },
+  {
+    "name": "symfony/polyfill-php56",
+    "version": "v1.4.0",
+    "version_normalized": "1.4.0.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/symfony/polyfill-php56.git",
+      "reference": "bc0b7d6cb36b10cfabb170a3e359944a95174929"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/symfony/polyfill-php56/zipball/bc0b7d6cb36b10cfabb170a3e359944a95174929",
+      "reference": "bc0b7d6cb36b10cfabb170a3e359944a95174929",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.3.3",
+      "symfony/polyfill-util": "~1.0"
+    },
+    "time": "2017-06-09T08:25:21+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.4-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Symfony\\Polyfill\\Php56\\": ""
+      },
+      "files": [
+        "bootstrap.php"
+      ]
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Nicolas Grekas",
+        "email": "p@tchwork.com"
+      },
+      {
+        "name": "Symfony Community",
+        "homepage": "https://symfony.com/contributors"
+      }
+    ],
+    "description": "Symfony polyfill backporting some PHP 5.6+ features to lower PHP versions",
+    "homepage": "https://symfony.com",
+    "keywords": [
+      "compatibility",
+      "polyfill",
+      "portable",
+      "shim"
+    ]
+  },
+  {
+    "name": "symfony/polyfill-intl-icu",
+    "version": "v1.4.0",
+    "version_normalized": "1.4.0.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/symfony/polyfill-intl-icu.git",
+      "reference": "3191cbe0ce64987bd382daf6724af31c53daae01"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/symfony/polyfill-intl-icu/zipball/3191cbe0ce64987bd382daf6724af31c53daae01",
+      "reference": "3191cbe0ce64987bd382daf6724af31c53daae01",
+      "shasum": ""
+    },
+    "require": {
+      "php": ">=5.3.3",
+      "symfony/intl": "~2.3|~3.0|~4.0"
+    },
+    "suggest": {
+      "ext-intl": "For best performance"
+    },
+    "time": "2017-06-09T08:25:21+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.4-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "files": [
+        "bootstrap.php"
+      ]
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Nicolas Grekas",
+        "email": "p@tchwork.com"
+      },
+      {
+        "name": "Symfony Community",
+        "homepage": "https://symfony.com/contributors"
+      }
+    ],
+    "description": "Symfony polyfill for intl's ICU-related data and classes",
+    "homepage": "https://symfony.com",
+    "keywords": [
+      "compatibility",
+      "icu",
+      "intl",
+      "polyfill",
+      "portable",
+      "shim"
     ]
     }
 ]

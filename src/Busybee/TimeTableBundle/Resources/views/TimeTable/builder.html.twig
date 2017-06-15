@@ -16,39 +16,37 @@
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
                 {% set h3Content = h3Content ~ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"'}) %}
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel'} %}
-                {% for period in pagination.result %}
+                {% for period in report.periods %}
                     <div class="row-border row row-hover row-striped fixPeriod" id="periodRow{{ period.id }}">
-                        <div class="col-sm-12 dropPeriod{{ pm.periodStatus(period.id).disableDrop }}"
+                        <div class="col-sm-12 dropPeriod{{ period.status.disableDrop }}"
                              id="period{{ period.id }}">
                             <div>
-                                <button id="button{{ period.id }}"
-                                        class="glyphicons glyphicons-unlock btn btn-xs btn-{{ pm.periodStatus(period.id).alert }}"
-                                        style="float: right;"
-                                        onclick="fixPeriod('{{ period.id }}')"
-                                        type="button" {{ pm.periodStatus(period.id).disableDrop }}
-                                        title="{{ pm.periodStatus(period.id).message }}"></button>
-                                {{ period.0.columnName }}
+                                {{ miscButton({'additional': 'id="button' ~ period.id ~ '" ' ~ period.status.disableDrop, 'class': 'lockButton glyphicons glyphicons-unlock btn btn-xs btn-' ~ period.status.alert, 'javascript': {'function': 'fixPeriod', 'options': [period.id]}, 'title': period.status.message})|raw }}
+                                {{ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"', 'class': 'glyphicons glyphicons-refresh btn btn-xs btn-warning'})|raw }}
+                                {{ period.period.columnName }}
                             </div>
                             <div id="periodStatus{{ period.id }}" class="startHidden container-fluid"
                                  style="clear: both;">
-                                {% set stuff = pm.clearResults() %}
-                                {% for activity in period.0.activities %}
+                                {% for activity in period.activities %}
                                     <div class="row" id="periodActivity{{ activity.id }}">
                                         <div class="col-sm-4 small">
                                             {{ activity.fullName }}
                                         </div>
-                                        {% set details = pm.ActivityDetails(activity) %}
-                                        {% set status = pm.activityStatus(activity) %}
-                                        <div class="col-sm-4 small{{ status.class }}">
-                                            <p>{% if status.message is not empty %}
-                                                    {{ miscButton({'title': status.message, 'class': 'halflings halflings-question-sign btn btn-sm btn-' ~ status.alert,'style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': period.id}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
+                                        <div class="col-sm-4 small{{ activity.status.class }}">
+                                            <p>{% if activity.status.message is not empty %}
+                                                    {{ miscButton({'title': activity.status.message, 'class': 'halflings halflings-question-sign btn btn-sm btn-' ~ activity.status.alert,'style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': period.id}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
                                                 {% endif %}
-                                                {{ 'period.activities.activity.details.data'|trans(details)|trim(', ') }}</p>
+                                                {{ 'period.activities.activity.details.data'|trans(activity.details)|trim(', ') }}</p>
                                         </div>
                                         <div class="col-sm-4">
                                             <div>
-                                                {{ miscButton({'class': 'halflings halflings-pencil btn btn-primary', 'windowOpen': {'route': path('period_activity_edit', {'activity': activity.id, 'closeWindow': '_closeWindow'}), 'target': 'PeriodActivity', 'params': 'width=500,height=600'}, 'title': 'period.activities.activity.overwrite.button', 'transDomain': transDomain})|raw }}
-                                                {{ miscButton({'class': 'halflings halflings-cog btn btn-success', 'windowOpen': {'route': path('student_activity_edit', {'id': activity.activity.id, 'closeWindow': '_closeWindow'}), 'target': 'Activity', 'params': 'width=1200,height=800'}, 'title': 'period.activities.activity.edit.button', 'transDomain': transDomain})|raw }}
+                                                {{ miscButton({'class': 'halflings halflings-pencil btn btn-primary', 'windowOpen': {'route': path('period_activity_edit',
+                                                    {'activity': activity.id, 'closeWindow': '_closeWindow'}), 'target': 'PeriodActivity', 'params': 'width=500,height=600'},
+                                                    'title': 'period.activities.activity.overwrite.button', 'transDomain': transDomain})|raw }}
+                                                {{ miscButton({'class': 'halflings halflings-cog btn btn-success', 'windowOpen': {'route': path('student_activity_edit', {'id':
+                                                    activity.activity.activity.id, 'closeWindow': '_closeWindow'}), 'target': 'Activity',
+                                                    'params': 'width=1200,height=800'}, 'title': 'period.activities.activity.edit.button',
+                                                    'transDomain': transDomain})|raw }}
 
                                                 {{ deleteButton({'class': 'removeActivity halflings halflings-erase btn btn-warning', 'additional': 'id="removeActivity' ~ activity.id ~ '" period="' ~ period.id ~ '"', 'title': 'period.activities.activity.remove.button', 'transDomain': transDomain})|raw }}
                                             </div>
@@ -56,7 +54,7 @@
                                     </div>
                                 {% endfor %}
                                 <div>
-                                    {% for message in pm.periodStatus(period.id).messages %}
+                                    {% for message in period.status.messages %}
                                         <div class="alert alert-{{ message[0] }}">
                                             {{ message[1] }}
                                         </div>
@@ -85,8 +83,8 @@
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activity.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'activity.list.description'} %}
                 {% for activity in activity_pagination.result %}
                     <div class="row-border row row-striped dragActivity" id="activity{{ activity.id }}">
-                        <div class="col-sm-12">
-                            {{ activity.0.fullName }}
+                        <div class="col-sm-12 {{ activity.0.alert }}">
+                            {{ activity.0.fullName }} {{ activity.0.activityCount }}
                         </div>
                     </div>
                 {% endfor %}
@@ -133,7 +131,7 @@
 
             var current = $fix.css('position');
 
-            var button = $($fix).children('div').children('div').children('button');
+            var button = $($fix).children('div').children('div').children('.lockButton');
 
             if (current === 'fixed') {
                 $clear.css({
@@ -180,7 +178,12 @@
             window.open(path, '_self');
         }
 
-        function manageActivityDrop(data) {
+        function manageActivityDrop(activity, period) {
+            var path = '{{ path('period_builder_activity', {'id': '__period__', 'activity': '__activity__'}) }}';
+            path = path.replace('__period__', period);
+            path = path.replace('__activity__', activity);
+
+            window.open(path, '_self');
 
         }
 

@@ -103,6 +103,7 @@ class Activity extends ActivityModel
         $this->periods = new ArrayCollection();
         $this->grades = new ArrayCollection();
         $this->setTeachingLoad(0);
+        parent::__construct();
     }
 
     /**

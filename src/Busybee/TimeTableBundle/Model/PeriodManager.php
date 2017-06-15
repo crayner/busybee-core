@@ -6,6 +6,7 @@ use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;
+use Busybee\StudentBundle\Entity\Activity;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
@@ -563,4 +564,31 @@ class PeriodManager
 
         return $this->status;
     }
+
+    /**
+     * @param $activity
+     */
+    public function injectActivityGroup($activity)
+    {
+        $activity = $this->om->getRepository(Activity::class)->find($activity);
+
+        $exists = new ArrayCollection();
+        foreach ($this->period->getActivities() as $act)
+            $exists->add($act->getActivity());
+
+        if (!$exists->contains($activity)) {
+            $act = new PeriodActivity();
+            $act->setPeriod($this->period);
+            $act->setActivity($activity);
+            $this->period->getActivities()->add($act);
+            $this->flashbag->add('success', 'period.activities.line.added');
+            $this->om->persist($this->period);
+            $this->om->flush();
+        } else
+            $this->flashbag->add('warning', 'period.activities.line.none');
+
+        return;
+
+    }
+
 }
