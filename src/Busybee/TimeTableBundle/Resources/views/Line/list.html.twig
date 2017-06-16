@@ -9,6 +9,9 @@
 {% block headerLead %}{% endblock headerLead %}
 
 {% block contentContainer %}
+    {% block flashMessages %}
+        {% include '@BusybeeHome/Default/flash.html.twig' with {transDomain: 'BusybeeTimeTableBundle', } %}
+    {% endblock flashMessages %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
     {% set h3Content = addButton({'title': 'line.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('line_manage', {'id': 'Add'})}}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'line.title.list', 'transDomain': 'BusybeeTimeTableBundle'} %}
@@ -39,22 +42,28 @@
                 {{ 'actions'|trans({}, 'BusybeeHomeBundle') }}
             </div>
         </div>
-        {% for timetable in pagination.getResult %}
+        {% for line in pagination.getResult %}
             <div class="row row-striped">
                 <div class="col-sm-3 form-inline">
-                    {{ timetable.name }}
+                    {{ line.name }}
                 </div>
                 <div class="col-sm-3 form-inline">
-                    {{ timetable.nameShort }}
+                    {{ line.nameShort }}
                 </div>
                 <div class="col-sm-3 form-inline">
-                    {{ timetable.course }}
+                    {{ line.course }}
                 </div>
                 <div class="col-sm-3 form-inline">
-                    {{ editButton({'style': '', 'title': 'line.title.edit', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('line_manage', {'id': timetable.id})}})|raw }}
+                    {{ deleteButton({'javascript': {'options': [path('line_delete', {'id': line.id}), 'line.delete.confirm'|trans], 'function': 'confirmDelete'}, 'style': '', 'colour': 'warning'})|raw }}
+                    {{ editButton({'style': '', 'title': 'line.title.edit', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('line_manage', {'id': line.id})}})|raw }}
                 </div>
             </div>
         {% endfor %}
     </div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeHome/Scripts/confirmDelete.html.twig' %}
+{% endblock javascripts %}

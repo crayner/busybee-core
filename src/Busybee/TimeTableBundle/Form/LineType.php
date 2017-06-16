@@ -81,7 +81,7 @@ class LineType extends AbstractType
                     'attr' => array(
                         'class' => 'formChanged changeRecord',
                     ),
-                    'class' => line::class,
+                    'class' => Line::class,
                     'choice_label' => 'name',
                     'mapped' => false,
                     'required' => false,
@@ -107,7 +107,7 @@ class LineType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => line::class,
+                'data_class' => Line::class,
                 'translation_domain' => 'BusybeeTimeTableBundle',
             ]
         );

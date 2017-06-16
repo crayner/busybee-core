@@ -5,13 +5,13 @@ timetable_edit:
     path:     /{id}/edit/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:edit}
 line_list:
-    path:     /lgs/list/
+    path:     /line/list/
     defaults: { _controller: BusybeeTimeTableBundle:Line:list }
 line_manage:
-    path:     /lgs/{id}/manage/
+    path:     /line/{id}/manage/
     defaults: { _controller: BusybeeTimeTableBundle:Line:manage, id: 'Add' }
 line_test:
-    path:     /lgs/{id}/test/
+    path:     /line/{id}/test/
     defaults: { _controller: BusybeeTimeTableBundle:Line:test, id: 'Add' }
 timetable_day_assignment:
     path:     /day/assign/
@@ -61,3 +61,6 @@ period_builder_line:
 period_builder_activity:
     path:     /plan/{id}/{activity}/builder/activity/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:addActivityToPeriod }
+line_delete:
+    path:     /line/{id}/delete/
+    defaults: { _controller: BusybeeTimeTableBundle:Line:delete }

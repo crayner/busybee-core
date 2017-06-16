@@ -318,7 +318,7 @@ class PeriodManager
      */
     public function injectLineGroup($line)
     {
-        $line = $this->om->getRepository(line::class)->find($line);
+        $line = $this->om->getRepository(Line::class)->find($line);
 
         $count = 0;
 

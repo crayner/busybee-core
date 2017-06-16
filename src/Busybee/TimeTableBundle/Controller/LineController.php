@@ -26,7 +26,7 @@ class LineController extends Controller
         $up->injectRequest($request);
 
         $up->getDataSet();
-        dump($up);
+
         return $this->render('BusybeeTimeTableBundle:Line:list.html.twig',
             [
                 'pagination' => $up,
@@ -95,4 +95,16 @@ class LineController extends Controller
         );
 
     }
+
+    public function deleteAction($id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
+
+        $lm = $this->get('line.manager');
+
+        $lm->deleteLine($id);
+
+        return new RedirectResponse($this->generateUrl('line_list'));
+    }
+
 }

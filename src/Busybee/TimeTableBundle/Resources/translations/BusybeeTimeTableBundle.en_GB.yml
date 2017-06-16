@@ -132,6 +132,11 @@ line:
     list:
         title: Activity Lines
         description: 'Drag and drop activity lines into a period to assign the line to the period.'
+    delete:
+        success: 'The Activity Line was removed.'
+        failure: 'The system encountered a problem removing the activity line: %error%'
+        notfound: 'The Activity Line was not found to remove.'
+        confirm: 'Confirm Activity Line Removal.'
 activity:
     title:
         add: Add Activity

@@ -20,7 +20,7 @@ class LineEntityType extends AbstractType
                 'data_class' => null,
                 'translation_domain' => 'BusybeeTimeTableBundle',
                 'placeholder' => 'timetable.line.placeholder.learningGroups',
-                'class' => line::class,
+                'class' => Line::class,
                 'choice_label' => 'name',
             ]
         );

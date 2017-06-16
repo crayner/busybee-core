@@ -6,6 +6,7 @@ use Busybee\StudentBundle\Entity\Student;
 use Busybee\TimeTableBundle\Entity\Line;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 class LineManager
@@ -111,13 +112,19 @@ class LineManager
     private $missingStudents;
 
     /**
+     * @var FlashBagInterface
+     */
+    private $flashbag;
+
+    /**
      * lineManager constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om, Translator $trans)
+    public function __construct(ObjectManager $om, Translator $trans, FlashBagInterface $flashbag)
     {
         $this->om = $om;
         $this->trans = $trans;
+        $this->flashbag = $flashbag;
         $this->students = new ArrayCollection();
         $this->grades = new ArrayCollection();
         $this->duplicated = new ArrayCollection();
@@ -133,7 +140,7 @@ class LineManager
     {
         $this->year = $year;
 
-        $this->getActivityGroup($id);
+        $this->addLine($id);
 
         $this->generateGrades()
             ->generateStudentList()
@@ -145,12 +152,12 @@ class LineManager
      * @param null $id
      * @return line
      */
-    public function getActivityGroup($id = null)
+    public function addLine($id = null)
     {
         if (is_null($id))
             return $this->line;
 
-        $this->line = $this->om->getRepository(line::class)->find($id);
+        $this->line = $this->om->getRepository(Line::class)->find($id);
         $this->gradesGenerated = false;
         $this->studentsGenerated = false;
         $this->participantGenerated = false;
@@ -425,5 +432,33 @@ class LineManager
             $this->missingStudents[] = $student->getFormatName() . ': ' . $student->getPerson()->getIdentifier();
 
         return $this->missingStudents;
+    }
+
+    /**
+     * @param $id
+     */
+    public function deleteLine($id)
+    {
+        $this->line = $this->om->getRepository(Line::class)->find($id);
+        if (!$this->line instanceof Line) {
+            $this->flashbag->add('warning', $this->trans->trans('line.delete.notfound', [], 'BusybeeTimeTableBundle'));
+            return;
+        }
+        try {
+            foreach ($this->line->getActivities() as $activity)
+                $this->line->removeActivity($activity);
+
+            $this->om->remove($this->line);
+            $this->om->flush();
+
+            $this->line = null;
+
+            $this->flashbag->add('success', $this->trans->trans('line.delete.success', [], 'BusybeeTimeTableBundle'));
+            return;
+        } catch (\Exception $e) {
+            $this->flashbag->add('danger', $this->trans->trans('line.delete.failure', ['%error%' => $e->getMessage()], 'BusybeeTimeTableBundle'));
+            dump($e);
+        }
+
     }
 }

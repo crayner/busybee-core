@@ -119,6 +119,7 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@translator'
+            - '@session.flash_bag'
     form.timetable.column.type:
         class: Busybee\TimeTableBundle\Form\ColumnEntityType
         arguments:
