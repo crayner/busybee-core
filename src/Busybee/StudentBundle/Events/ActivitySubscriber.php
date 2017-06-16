@@ -36,14 +36,15 @@ class ActivitySubscriber implements EventSubscriberInterface
         // Tells the dispatcher that you want to listen on the form.pre_submit
         // event and that the preSubmit method should be called.
         return [
-            FormEvents::POST_SET_DATA => 'preSetData',
+            FormEvents::POST_SET_DATA => 'postSetData',
+            FormEvents::PRE_SUBMIT => 'preSubmit',
         ];
     }
 
     /**
      * @param FormEvent $event
      */
-    public function preSetData(FormEvent $event)
+    public function postSetData(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
@@ -90,6 +91,18 @@ class ActivitySubscriber implements EventSubscriberInterface
 
         if (($entity->getStudentReference() instanceof Activity || (!is_null($activity) && $activity['studentReference'] > 0)) && $form->has('students'))
             $form->remove('students');
+
+        $event->setData($data);
+    }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function preSubmit(FormEvent $event)
+    {
+        $data = $event->getData();
+
+        $data['nameShort'] = empty($data['nameShort']) ? '' : preg_replace('/\s/', '', strtoupper($data['nameShort']));
 
         $event->setData($data);
     }

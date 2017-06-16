@@ -76,3 +76,7 @@ services:
         class: Busybee\FormBundle\Validator\Constraints\NoWhiteSpaceValidator
         tags:
             - { name: validator.constraint_validator, alias: nowhitespace_validator }
+    validator.uppercase.constraint:
+        class: Busybee\FormBundle\Validator\Constraints\UpperCaseValidator
+        tags:
+            - { name: validator.constraint_validator, alias: uppercase_validator }

@@ -13,3 +13,6 @@ student_activity_list:
 student_manage:
     path:     /manage/
     defaults: { _controller: BusybeeStudentBundle:Student:list }
+activity_delete:
+    path:     /activity/{id}/delete/
+    defaults: { _controller: BusybeeStudentBundle:Activity:delete }

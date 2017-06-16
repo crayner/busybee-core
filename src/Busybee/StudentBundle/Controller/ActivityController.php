@@ -31,6 +31,7 @@ class ActivityController extends Controller
         return $this->render('BusybeeStudentBundle:Activity:list.html.twig',
             array(
                 'pagination' => $up,
+                'am' => $this->get('activity.manager'),
             )
         );
     }
@@ -93,5 +94,18 @@ class ActivityController extends Controller
             ),
             200
         );
+    }
+
+    /**
+     * @param $id
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction($id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $this->get('activity.manager')->deleteActivity($id);
+
+        return new RedirectResponse($this->generateUrl('student_activities'));
     }
 }

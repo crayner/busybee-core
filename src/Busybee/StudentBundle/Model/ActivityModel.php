@@ -131,4 +131,13 @@ abstract class ActivityModel
     {
         return $this->count;
     }
+
+    /**
+     * Can Delete
+     * @todo Added can delete logic
+     */
+    public function canDelete()
+    {
+        return true;
+    }
 }

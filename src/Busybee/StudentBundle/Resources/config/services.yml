@@ -123,3 +123,9 @@ services:
             - '%studentPagination%'
             - '@person.repository'
             - '@my_service_container'
+    activity.manager:
+        class: Busybee\StudentBundle\Model\ActivityManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@session.flash_bag'
+            - '@translator'

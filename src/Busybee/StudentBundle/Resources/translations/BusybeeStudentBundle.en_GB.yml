@@ -81,6 +81,13 @@ activity:
         course: Select Course
         tutor: Select a Tutor
         changeRecord: 'Change Activity to edit.'
+    delete:
+        notfound: 'The Activity was not found.'
+        error: 'The system encountered a problem removing the activity: %error%'
+        success: 'The activity was removed successfully.'
+        locked: 'The activity locked to stop removal.'
+        confirm: 'Confirm Activity removal?'
+        line: 'The activity is linked to the activity line: %line%'
     help:
         grades: These grades are used to limit the student list for selection into this activity.
         tutor: Select a staff member to manage/teach this activity.

@@ -127,7 +127,7 @@ class Line extends LineModel
      */
     public function setNameShort($nameShort)
     {
-        $this->nameShort = $nameShort;
+        $this->nameShort = str_replace([' ', '\t', '\n', '\r', '\0', '\x0B'], '', strtoupper($nameShort));
 
         return $this;
     }

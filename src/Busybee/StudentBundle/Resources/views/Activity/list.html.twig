@@ -10,6 +10,9 @@
 
 
 {% block contentContainer %}
+    {% block flashMessages %}
+        {% include '@BusybeeHome/Default/flash.html.twig' with {transDomain: 'BusybeeStudentBundle', flashClass: 'fadeAlert'} %}
+    {% endblock flashMessages %}
     {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('student_activities') } } %}
     {% set transDomain = 'BusybeeStudentBundle' %}
 
@@ -69,6 +72,11 @@
                 </div>
                 <div class="col-sm-2 col-sm-offset-1 form-inline">
                     {{ editButton({'style': '', 'windowOpen': {'route': path('student_activity_edit', {'id': activity.id}) } })|raw }}
+                    {% set additional = {} %}
+                    {% if not am.canDelete(activity.id) %}
+                        {% set additional = {additional: 'disabled', colour: 'default'} %}
+                    {% endif %}
+                    {{ deleteButton({'colour': 'warning', 'javascript': {'function': 'confirmDelete', 'options': [path('activity_delete', {'id': activity.id}), 'activity.delete.confirm'|trans]}, 'style': ''}|merge(additional))|raw }}
                 </div>
             </div>
         {% endfor %}
@@ -79,5 +87,6 @@
 {% block javascripts %}
     {{ parent() }}
     {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
+    {% include '@BusybeeHome/Scripts/confirmDelete.html.twig' %}
 {% endblock javascripts %}
 

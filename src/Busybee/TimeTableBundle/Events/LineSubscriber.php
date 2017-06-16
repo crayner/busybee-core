@@ -20,6 +20,7 @@ class LineSubscriber implements EventSubscriberInterface
         // event and that the preSubmit method should be called.
         return array(
             FormEvents::PRE_SET_DATA => 'preSetData',
+            FormEvents::PRE_SUBMIT => 'preSubmit',
         );
     }
 
@@ -55,6 +56,18 @@ class LineSubscriber implements EventSubscriberInterface
             );
 
         }
+
+        $event->setData($data);
+    }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function preSubmit(FormEvent $event)
+    {
+        $data = $event->getData();
+
+        $data['nameShort'] = empty($data['nameShort']) ? '' : preg_replace('/\s/', '', strtoupper($data['nameShort']));
 
         $event->setData($data);
     }

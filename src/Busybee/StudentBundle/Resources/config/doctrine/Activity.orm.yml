@@ -34,7 +34,7 @@ Busybee\StudentBundle\Entity\Activity:
         grades:
             targetEntity: Busybee\InstituteBundle\Entity\Grade
             inversedBy: activities
-            cascade: [ 'all' ]
+            cascade: [ 'persist' ]
             joinTable:
                 name: activity_grade
                 joinColumns:
