@@ -150,6 +150,7 @@ class TimeTableController extends Controller
                 'pm' => $this->get('period.manager'),
                 'all' => $all,
                 'report' => $report,
+                'grades' => $this->get('grade.manager')->getYearGrades(),
             ]
         );
     }

@@ -190,3 +190,8 @@ services:
         factory:
             - '@current.year'
             - 'getCurrentYear'
+    grade.manager:
+        class: Busybee\InstituteBundle\Model\GradeManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@current.year.currentYear'

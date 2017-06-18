@@ -298,7 +298,11 @@ grade:
         title: Remove Grade from Year
     add:
         title: Add Grade to Year
-
+    control:
+        title: Grade Control
+        description: 'Limit the testing of grades in the timetable.'
+        label: 'Monitor %grade%'
+        toggle: 'Toggle monitor grade.'
 student:
     grade:
         label:
