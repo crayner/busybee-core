@@ -6,6 +6,7 @@ use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Form\ColumnType;
 use Busybee\TimeTableBundle\Form\TimeTableType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -189,5 +190,30 @@ class TimeTableController extends Controller
         $pm->injectActivityGroup($activity);
 
         return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimeTable()->getId(), 'all' => $id]));
+    }
+
+    /**
+     * @param $grade
+     * @return JsonResponse
+     */
+    public function gradeControlAction($grade)
+    {
+        $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+        $session = $this->get('session');
+
+        $gradeControl = $session->get('gradeControl');
+
+        if (!is_array($gradeControl))
+            $gradeControl = [];
+
+        if (!isset($gradeControl[$grade]))
+            $gradeControl[$grade] = true;
+
+        $gradeControl[$grade] = $gradeControl[$grade] ? false : true;
+
+        $session->set('gradeControl', $gradeControl);
+
+        return new JsonResponse([], 200);
     }
 }

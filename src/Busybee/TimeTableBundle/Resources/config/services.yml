@@ -60,7 +60,7 @@ parameters:
             Name:
                 c.sequence: ASC
                 p.name: ASC
-            Name:
+            Code:
                 c.sequence: ASC
                 p.nameShort: ASC
         limit: '25'
@@ -141,6 +141,7 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@setting.manager'
             - '@period.manager'
+            - '@session'
     form.timetable.hidden.day.type:
         class: Busybee\TimeTableBundle\Form\DayHiddenType
         arguments:
@@ -188,6 +189,7 @@ services:
             - '@translator'
             - '@session.flash_bag'
             - '@current.year.currentYear'
+            - '@session'
     period.pagination:
         class: Busybee\TimeTableBundle\Model\PeriodPagination
         arguments:

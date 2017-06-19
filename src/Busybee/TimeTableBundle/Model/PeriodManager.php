@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -86,13 +87,26 @@ class PeriodManager
         'error' => 5
     ];
 
+    /**
+     * @var \stdClass
+     */
     private $periodStatus;
+
+    /**
+     * @var array
+     */
+    private $gradeControl;
+
+    /**
+     * @var array
+     */
+    private $grades;
 
     /**
      * PeriodManager constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om, TranslatorInterface $translator, FlashBagInterface $flashbag, Year $cy, $id = null)
+    public function __construct(ObjectManager $om, TranslatorInterface $translator, FlashBagInterface $flashbag, Year $cy, Session $sess, $id = null)
     {
         $this->om = $om;
         $this->pr = $om->getRepository(Period::class);
@@ -101,6 +115,7 @@ class PeriodManager
         $this->translator = $translator;
         $this->flashbag = $flashbag;
         $this->currentYear = $cy;
+        $this->gradeControl = $sess->get('gradeControl');
 
         $this->clearResults();
     }
@@ -418,8 +433,9 @@ class PeriodManager
             foreach ($status->students->missingStudents as $q => $students) {
                 if (count($students) > 0) {
                     $status->alert = 'danger';
-                    $status->message .= ' ' . $this->translator->trans('period.students.missing', ['%grade%' => $status->students->grades[$q]->getFullName()], 'BusybeeTimeTableBundle');
-                    $status->messages[] = ['danger', $this->translator->trans('period.students.missing', ['%grade%' => $status->students->grades[$q]->getFullName()], 'BusybeeTimeTableBundle')];
+                    $mess = $this->translator->trans('period.students.missing', ['%grade%' => $status->students->grades[$q]->getFullName()], 'BusybeeTimeTableBundle');
+                    $status->message .= ' ' . $mess;
+                    $status->messages[] = [$status->alert, $mess];
                 }
             }
         }
@@ -436,19 +452,10 @@ class PeriodManager
         $this->injectPeriod($id);
         $data = new \stdClass();
 
-        $rrr = $this->om->getRepository(Grade::class)->createQueryBuilder('g')
-            ->leftJoin('g.year', 'y')
-            ->leftJoin('g.students', 'i')
-            ->where('y.id = :year_id')
-            ->setParameter('year_id', $this->currentYear->getId())
-            ->select('g')
-            ->addSelect('i')
-            ->andWhere('i.status IN (:status)')
-            ->setParameter('status', ['Future', 'Current'], Connection::PARAM_STR_ARRAY)
-            ->getQuery()
-            ->getResult();
+        $this->grade = $this->getGrades();
+
         $grades = [];
-        foreach ($rrr as $grade) {
+        foreach ($this->grade as $grade) {
             $data->grades[$grade->getId()] = $grade;
             $students = [];
             foreach ($grade->getStudents() as $student)
@@ -480,6 +487,35 @@ class PeriodManager
         $data->missingStudents = $grades;
 
         return $data;
+    }
+
+    /**
+     * @return array
+     */
+    private function getGrades()
+    {
+        if (!empty($this->grades))
+            return $this->grades;
+        $grades = [];
+        foreach ($this->gradeControl as $grade => $xxx)
+            if ($xxx)
+                $grades[] = $grade;
+
+        $this->grades = $this->om->getRepository(Grade::class)->createQueryBuilder('g')
+            ->leftJoin('g.year', 'y')
+            ->leftJoin('g.students', 'i')
+            ->where('y.id = :year_id')
+            ->setParameter('year_id', $this->currentYear->getId())
+            ->select('g')
+            ->addSelect('i')
+            ->andWhere('i.status IN (:status)')
+            ->setParameter('status', ['Future', 'Current'], Connection::PARAM_STR_ARRAY)
+            ->andWhere('g.grade in (:grades)')
+            ->setParameter('grades', $grades, Connection::PARAM_STR_ARRAY)
+            ->getQuery()
+            ->getResult();
+
+        return $this->grades;
     }
 
     /**
@@ -590,5 +626,4 @@ class PeriodManager
         return;
 
     }
-
 }

@@ -64,3 +64,6 @@ period_builder_activity:
 line_delete:
     path:     /line/{id}/delete/
     defaults: { _controller: BusybeeTimeTableBundle:Line:delete }
+grade_control:
+    path:     /grade/{grade}/control/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:gradeControl }

@@ -15,6 +15,7 @@ use Busybee\TimeTableBundle\Entity\TimeTable;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class TimeTableManager
@@ -104,10 +105,20 @@ class TimeTableManager
     private $report;
 
     /**
+     * @var Session
+     */
+    private $sess;
+
+    /**
+     * @var array
+     */
+    private $gradeControl;
+
+    /**
      * TimeTableManager constructor.
      * @param TokenStorage $tokenStorage
      */
-    public function __construct(TokenStorage $tokenStorage, UserManager $um, ObjectManager $om, SettingManager $sm, PeriodManager $pm)
+    public function __construct(TokenStorage $tokenStorage, UserManager $um, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess)
     {
         $this->user = $tokenStorage->getToken()->getUser();
         $this->year = $um->getSystemYear($this->user);
@@ -122,6 +133,8 @@ class TimeTableManager
         $this->schoolWeek = $this->sm->get('schoolWeek');
         $this->firstDayofWeek = $this->sm->get('firstDayofWeek');
         $this->pm = $pm;
+        $this->sess = $sess;
+        $this->gradeControl = $this->sess->get('gradeControl');
     }
 
     /**
@@ -526,22 +539,24 @@ class TimeTableManager
             $this->pm->clearResults();
 
             foreach ($per->period->getActivities() as $activity) {
-                $act = new \stdClass();
-                $act->activity = $activity;
-                $act->details = $this->pm->getActivityDetails($activity);
-                $act->status = $this->pm->getActivityStatus($activity);
-                $act->id = $activity->getId();
-                $act->fullName = $activity->getFullName();
-                $per->activities[] = $act;
-                if ($activity->getActivity() instanceof Activity) {
-                    if (isset($this->report->activities[$activity->getActivity()->getId()])) {
-                        $act = $this->report->activities[$activity->getActivity()->getId()];
-                        $act->incCount();
-                    } else {
-                        $act = $activity->getActivity();
-                    }
+                if ($this->activeGrade($activity)) {
+                    $act = new \stdClass();
+                    $act->activity = $activity;
+                    $act->details = $this->pm->getActivityDetails($activity);
+                    $act->status = $this->pm->getActivityStatus($activity);
+                    $act->id = $activity->getId();
+                    $act->fullName = $activity->getFullName();
+                    $per->activities[] = $act;
+                    if ($activity->getActivity() instanceof Activity) {
+                        if (isset($this->report->activities[$activity->getActivity()->getId()])) {
+                            $act = $this->report->activities[$activity->getActivity()->getId()];
+                            $act->incCount();
+                        } else {
+                            $act = $activity->getActivity();
+                        }
 
-                    $this->report->activities[$activity->getActivity()->getId()] = $act;
+                        $this->report->activities[$activity->getActivity()->getId()] = $act;
+                    }
                 }
             }
 
@@ -550,5 +565,18 @@ class TimeTableManager
         }
 
         return $this->report;
+    }
+
+    /**
+     * @param $activity
+     * @return bool
+     */
+    private function activeGrade($activity)
+    {
+        foreach ($activity->getActivity()->getGrades() as $grade)
+            if (!isset($this->gradeControl[$grade->getGrade()]) || $this->gradeControl[$grade->getGrade()])
+                return true;
+
+        return false;
     }
 }
