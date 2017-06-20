@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\TimeTableBundle\Model;
 
+use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Entity\SpecialDay;
 use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
@@ -17,6 +18,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class TimeTableManager
 {
@@ -113,6 +115,11 @@ class TimeTableManager
      * @var array
      */
     private $gradeControl;
+
+    /**
+     * @var stdClass
+     */
+    private $display;
 
     /**
      * TimeTableManager constructor.
@@ -578,5 +585,46 @@ class TimeTableManager
                 return true;
 
         return false;
+    }
+
+    /**
+     * @param $identifier
+     */
+    public function generateTimeTable($identifier)
+    {
+        $this->display = new \stdClass();
+        $this->display->type = substr($identifier, 0, 4);
+        $this->display->identifier = substr($identifier, 4);
+
+        $types = ['grad' => 'Grade'];
+        if (empty($types[$this->display->type]))
+            throw new Exception('The calendar type (' . $this->display->type . ') has not been defined.');
+        else
+            $this->display->type = $types[$this->display->type];
+
+        $this->display->days = [];
+
+        $sow = new \DateTime('now');
+        while ($sow->format('l') !== $this->firstDayofWeek)
+            $sow->sub(new \DateInterval('P1D'));
+
+        do {
+            if (isset($this->schoolWeek[$sow->format('l')])) {
+                $this->display->days[$sow->format('Ymd')] = new \stdClass();
+                $this->display->days[$sow->format('Ymd')]->date = clone $sow;
+                $this->display->days[$sow->format('Ymd')]->type = 'unknown';
+            }
+            $sow->add(new \DateInterval('P1D'));
+
+        } while ($sow->format('l') !== $this->firstDayofWeek);
+
+    }
+
+    /**
+     * @return stdClass
+     */
+    public function getDisplay()
+    {
+        return $this->display;
     }
 }

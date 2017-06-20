@@ -216,4 +216,18 @@ class TimeTableController extends Controller
 
         return new JsonResponse([], 200);
     }
+
+    public function displayAction($identifier)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, null);
+
+        $tm = $this->get('timetable.manager');
+
+        $tm->generateTimeTable($identifier);
+
+        return $this->render('BusybeeTimeTableBundle:Display:index.html.twig',
+            [
+                'manager' => $tm,
+            ]);
+    }
 }

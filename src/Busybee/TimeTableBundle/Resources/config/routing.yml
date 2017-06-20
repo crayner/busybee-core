@@ -67,3 +67,6 @@ line_delete:
 grade_control:
     path:     /grade/{grade}/control/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:gradeControl }
+timetable_display:
+    path:     /{identifier}/display/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:display }
