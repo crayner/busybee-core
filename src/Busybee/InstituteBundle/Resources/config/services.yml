@@ -185,6 +185,7 @@ services:
         arguments:
             - '@busybee_security.user_manager'
             - '@security.token_storage'
+            - '@year.repository'
     current.year.currentYear:
         class: Busybee\InstituteBundle\Model\CurrentYear
         factory:

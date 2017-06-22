@@ -2,6 +2,8 @@
 
 namespace Busybee\InstituteBundle\Repository;
 
+use Busybee\InstituteBundle\Entity\Year;
+
 /**
  * YearRepository
  *
@@ -10,4 +12,27 @@ namespace Busybee\InstituteBundle\Repository;
  */
 class YearRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return Year
+     */
+    public function findCurrentYear()
+    {
+        $today = new \DateTime();
+
+        $year = $this->createQueryBuilder('y')
+            ->where('y.firstDay <= :firstDay')
+            ->andWhere('y.lastDay >= :lastDay')
+            ->setParameter('lastDay', $today)
+            ->setParameter('firstDay', $today)
+            ->getQuery()
+            ->getResult();
+
+        if (is_array($year) and count($year) === 1)
+            $year = reset($year);
+
+        if (!$year instanceof Year)
+            $year = new Year();
+
+        return $year;
+    }
 }

@@ -14,9 +14,7 @@ class DayController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
-        $tm = $this->get('timetable.manager');
-
-        $year = $tm->getYear();
+        $year = $this->get('timetable.manager')->getYear();
 
         if ($year->status == 'success')
             return $this->render('BusybeeTimeTableBundle:Days:assign.html.twig',

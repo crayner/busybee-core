@@ -5,6 +5,7 @@ namespace Busybee\TimeTableBundle\Controller;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Form\ColumnType;
 use Busybee\TimeTableBundle\Form\TimeTableType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -217,13 +218,16 @@ class TimeTableController extends Controller
         return new JsonResponse([], 200);
     }
 
-    public function displayAction($identifier)
+    public function displayAction($identifier, $displayDate = 'now')
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, null);
+        $grades = new ArrayCollection();
+        $grades->add(substr($identifier, 4));
+
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $grades, null);
 
         $tm = $this->get('timetable.manager');
 
-        $tm->generateTimeTable($identifier);
+        $tm->generateTimeTable($identifier, $displayDate);
 
         return $this->render('BusybeeTimeTableBundle:Display:index.html.twig',
             [

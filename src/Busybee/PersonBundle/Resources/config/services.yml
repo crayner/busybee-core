@@ -132,6 +132,7 @@ services:
             - '@setting.manager'
             - '@doctrine.orm.entity_manager'
             - '@validator'
+            - '@current.year.currentYear'
     person.image.validator:
         class: Busybee\PersonBundle\Validator\Constraints\PersonImageValidator
         tags:

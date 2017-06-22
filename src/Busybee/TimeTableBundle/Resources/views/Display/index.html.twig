@@ -7,5 +7,5 @@
 {% block headerLead %}{{ 'timetable.display.description'|trans({'%type%': manager.display.type, '%identifier%': manager.display.identifier}) }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {{ dump() }}
+    {{ dump(manager.display) }}
 {% endblock contentContainer %}

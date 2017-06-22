@@ -51,3 +51,11 @@ services:
             - '%staffPagination%'
             - '@person.repository'
             - '@my_service_container'
+    staff.grade.voter:
+        class: Busybee\StaffBundle\Security\GradeVoter
+        arguments:
+            - '@security.access.decision_manager'
+            - '@person.manager'
+        tags:
+            - { name: security.voter, priority: 250 }
+        public: false

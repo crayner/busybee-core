@@ -3,18 +3,20 @@ namespace Busybee\PersonBundle\Model;
 
 use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\FamilyBundle\Entity\Family;
-use Busybee\InstituteBundle\Entity\Space;
+use Busybee\InstituteBundle\Entity\Year;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Entity\Locality;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Entity\Phone;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
+use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Entity\StudentGrade;
 use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager ;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Validator\ValidatorInterface ;
 
 class PersonManager
@@ -25,12 +27,12 @@ class PersonManager
     private $sm;
 
     /**
-     * @var EntityManager
+     * @var ObjectManager
      */
     private $em;
 
     /**
-     * @var EntityManager
+     * @var ValidatorInterface
      */
     private $validator;
 
@@ -80,12 +82,16 @@ class PersonManager
     private $countryCode;
 
     /**
+     * @var Year
+     */
+    private $year;
+    /**
      * PersonManager constructor.
      *
      * @param SettingManager $sm
      * @return void
      */
-    public function __construct(SettingManager $sm, EntityManager $em, ValidatorInterface $validator)
+    public function __construct(SettingManager $sm, ObjectManager $em, ValidatorInterface $validator, Year $year)
     {
         ini_set('auto_detect_line_endings', true);
 
@@ -93,6 +99,7 @@ class PersonManager
         $this->em = $em;
         $this->validator = $validator ;
         $this->countryCode = $this->sm->get('Country.Code');
+        $this->year = $year;
     }
 
     /**
@@ -887,6 +894,9 @@ class PersonManager
      */
     public function isStaff(Person $person)
     {
+        if (!$person instanceof Person)
+            return false;
+
         return $person->getStaffQuestion();
     }
 
@@ -900,5 +910,42 @@ class PersonManager
         if ($careGiver instanceof CareGiver)
             return true;
         return false;
+    }
+
+    public function getStaffGrades(Person $person)
+    {
+        $acts = $this->em->getRepository(Activity::class)->createQueryBuilder('a')
+            ->where('a.tutor1 = :staff_id1')
+            ->orWhere('a.tutor2 = :staff_id2')
+            ->orWhere('a.tutor3 = :staff_id3')
+            ->setParameter('staff_id1', $person->getStaff()->getId())
+            ->setParameter('staff_id2', $person->getStaff()->getId())
+            ->setParameter('staff_id3', $person->getStaff()->getId())
+            ->getQuery()
+            ->getResult();
+
+        $grades = new ArrayCollection();
+        foreach ($acts as $act)
+            foreach ($act->getGrades() as $grade)
+                if (!$grades->contains($grade->getGrade()))
+                    $grades->add($grade->getGrade());
+
+        $acts = $this->em->getRepository(PeriodActivity::class)->createQueryBuilder('a')
+            ->where('a.tutor1 = :staff_id1')
+            ->orWhere('a.tutor2 = :staff_id2')
+            ->orWhere('a.tutor3 = :staff_id3')
+            ->setParameter('staff_id1', $person->getStaff()->getId())
+            ->setParameter('staff_id2', $person->getStaff()->getId())
+            ->setParameter('staff_id3', $person->getStaff()->getId())
+            ->getQuery()
+            ->getResult();
+
+        foreach ($acts as $act)
+            foreach ($act->getGrades() as $grade)
+                if (!$grades->contains($grade->getGrade()))
+                    $grades->add($grade->getGrade());
+
+        return $grades;
+
     }
 }

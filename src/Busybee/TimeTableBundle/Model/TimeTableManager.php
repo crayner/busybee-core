@@ -205,6 +205,145 @@ class TimeTableManager
     }
 
     /**
+     * @return TimeTable
+     */
+    public function getTimeTable()
+    {
+        return $this->timetable;
+    }
+
+    /**
+     * @param TimeTable $tt
+     * @return TimeTableManager
+     */
+    public function setTimeTable(TimeTable $tt)
+    {
+        $this->timetable = $tt;
+
+        return $this;
+    }
+
+    /**
+     * Get Report
+     *
+     * @return null|\stdClass
+     */
+    public function getReport(PeriodPagination $pag)
+    {
+        if ($this->report instanceof \stdClass)
+            return $this->report;
+
+        return $this->generateReport($pag);
+    }
+
+    /**
+     * Generate Report
+     *
+     * @return \stdClass
+     * @throws \Exception
+     */
+    private function generateReport(PeriodPagination $pag)
+    {
+        if (!$this->timetable instanceof TimeTable)
+            throw new \Exception('The time table has not been injected into the manager.');
+
+        $this->report = new \stdClass();
+
+        $this->report->periods = [];
+        $this->report->activities = [];
+        $key = 0;
+
+        foreach ($pag->getResult() as $period) {
+            $per = new \stdClass();
+            $per->status = $this->pm->getPeriodStatus($period['id']);
+            $per->period = $period['0'];
+            $per->id = $period['id'];
+            $per->name = $period['name'];
+            $per->start = $period['start'];
+            $per->end = $period['end'];
+            $per->nameShort = $period['nameShort'];
+            $per->columnName = $period['columnName'];
+            $per->activities = [];
+
+            $this->pm->clearResults();
+
+            foreach ($per->period->getActivities() as $activity) {
+                if ($this->activeGrade($activity)) {
+                    $act = new \stdClass();
+                    $act->activity = $activity;
+                    $act->details = $this->pm->getActivityDetails($activity);
+                    $act->status = $this->pm->getActivityStatus($activity);
+                    $act->id = $activity->getId();
+                    $act->fullName = $activity->getFullName();
+                    $per->activities[] = $act;
+                    if ($activity->getActivity() instanceof Activity) {
+                        if (isset($this->report->activities[$activity->getActivity()->getId()])) {
+                            $act = $this->report->activities[$activity->getActivity()->getId()];
+                            $act->incCount();
+                        } else {
+                            $act = $activity->getActivity();
+                        }
+
+                        $this->report->activities[$activity->getActivity()->getId()] = $act;
+                    }
+                }
+            }
+
+
+            $this->report->periods[] = $per;
+        }
+
+        return $this->report;
+    }
+
+    /**
+     * @param $activity
+     * @return bool
+     */
+    private function activeGrade($activity)
+    {
+        foreach ($activity->getActivity()->getGrades() as $grade)
+            if (!isset($this->gradeControl[$grade->getGrade()]) || $this->gradeControl[$grade->getGrade()])
+                return true;
+
+        return false;
+    }
+
+    /**
+     * @param $identifier
+     */
+    public function generateTimeTable($identifier, $displayDate)
+    {
+        $this->display = new \stdClass();
+        $this->display->type = substr($identifier, 0, 4);
+        $this->display->identifier = substr($identifier, 4);
+
+        $types = ['grad' => 'Grade'];
+        if (empty($types[$this->display->type]))
+            throw new Exception('The calendar type (' . $this->display->type . ') has not been defined.');
+        else
+            $this->display->type = $types[$this->display->type];
+
+        $sow = new \DateTime($displayDate);
+        $this->display->displayDate = clone $sow;
+
+        $year = $this->getYear();
+        $term = null;
+        foreach ($year->terms as $term)
+            if ($this->display->displayDate >= $term->getFirstDay() && $this->display->displayDate <= $term->getLastDay())
+                break;
+        $this->display->term = $term;
+
+
+        foreach ($term->weeks as $week)
+            foreach ($week as $details)
+                if ($details->date->format('Ymd') === $this->display->displayDate->format('Ymd')) {
+                    $this->display->week = $week;
+                    break;
+                }
+    }
+
+    /**
      * @return \stdClass
      */
     public function getYear()
@@ -483,148 +622,11 @@ class TimeTableManager
     }
 
     /**
-     * @return TimeTable
-     */
-    public function getTimeTable()
-    {
-        return $this->timetable;
-    }
-
-    /**
-     * @param TimeTable $tt
-     * @return TimeTableManager
-     */
-    public function setTimeTable(TimeTable $tt)
-    {
-        $this->timetable = $tt;
-
-        return $this;
-    }
-
-    /**
-     * Get Report
-     *
-     * @return null|\stdClass
-     */
-    public function getReport(PeriodPagination $pag)
-    {
-        if ($this->report instanceof \stdClass)
-            return $this->report;
-
-        return $this->generateReport($pag);
-    }
-
-    /**
-     * Generate Report
-     *
-     * @return \stdClass
-     * @throws \Exception
-     */
-    private function generateReport(PeriodPagination $pag)
-    {
-        if (!$this->timetable instanceof TimeTable)
-            throw new \Exception('The time table has not been injected into the manager.');
-
-        $this->report = new \stdClass();
-
-        $this->report->periods = [];
-        $this->report->activities = [];
-        $key = 0;
-
-        foreach ($pag->getResult() as $period) {
-            $per = new \stdClass();
-            $per->status = $this->pm->getPeriodStatus($period['id']);
-            $per->period = $period['0'];
-            $per->id = $period['id'];
-            $per->name = $period['name'];
-            $per->start = $period['start'];
-            $per->end = $period['end'];
-            $per->nameShort = $period['nameShort'];
-            $per->columnName = $period['columnName'];
-            $per->activities = [];
-
-            $this->pm->clearResults();
-
-            foreach ($per->period->getActivities() as $activity) {
-                if ($this->activeGrade($activity)) {
-                    $act = new \stdClass();
-                    $act->activity = $activity;
-                    $act->details = $this->pm->getActivityDetails($activity);
-                    $act->status = $this->pm->getActivityStatus($activity);
-                    $act->id = $activity->getId();
-                    $act->fullName = $activity->getFullName();
-                    $per->activities[] = $act;
-                    if ($activity->getActivity() instanceof Activity) {
-                        if (isset($this->report->activities[$activity->getActivity()->getId()])) {
-                            $act = $this->report->activities[$activity->getActivity()->getId()];
-                            $act->incCount();
-                        } else {
-                            $act = $activity->getActivity();
-                        }
-
-                        $this->report->activities[$activity->getActivity()->getId()] = $act;
-                    }
-                }
-            }
-
-
-            $this->report->periods[] = $per;
-        }
-
-        return $this->report;
-    }
-
-    /**
-     * @param $activity
-     * @return bool
-     */
-    private function activeGrade($activity)
-    {
-        foreach ($activity->getActivity()->getGrades() as $grade)
-            if (!isset($this->gradeControl[$grade->getGrade()]) || $this->gradeControl[$grade->getGrade()])
-                return true;
-
-        return false;
-    }
-
-    /**
-     * @param $identifier
-     */
-    public function generateTimeTable($identifier)
-    {
-        $this->display = new \stdClass();
-        $this->display->type = substr($identifier, 0, 4);
-        $this->display->identifier = substr($identifier, 4);
-
-        $types = ['grad' => 'Grade'];
-        if (empty($types[$this->display->type]))
-            throw new Exception('The calendar type (' . $this->display->type . ') has not been defined.');
-        else
-            $this->display->type = $types[$this->display->type];
-
-        $this->display->days = [];
-
-        $sow = new \DateTime('now');
-        while ($sow->format('l') !== $this->firstDayofWeek)
-            $sow->sub(new \DateInterval('P1D'));
-
-        do {
-            if (isset($this->schoolWeek[$sow->format('l')])) {
-                $this->display->days[$sow->format('Ymd')] = new \stdClass();
-                $this->display->days[$sow->format('Ymd')]->date = clone $sow;
-                $this->display->days[$sow->format('Ymd')]->type = 'unknown';
-            }
-            $sow->add(new \DateInterval('P1D'));
-
-        } while ($sow->format('l') !== $this->firstDayofWeek);
-
-    }
-
-    /**
      * @return stdClass
      */
     public function getDisplay()
     {
+
         return $this->display;
     }
 }
