@@ -47,18 +47,22 @@ department.staff.type.list:
             Manager: Manager
             Administrator: Administrator
             Other: Other
-date.format.long:
-    type: string
-    value: 'D, jS M/Y'
-    displayName: Date Format (Long)
+date.format:
+    type: array
+    value:
+        long: D, jS M/Y
+        short: j/m/Y
+    displayName: Date Format
     description: Display the date in reports in this format. Formats are found at http://php.net/manual/en/function.date.php
     role: ROLE_REGISTRAR
-date.format.short:
-      type: string
-      value: 'j/m/Y'
-      displayName: Date Format (Short)
-      description: Display the date in reports in this format. Formats are found at http://php.net/manual/en/function.date.php
-      role: ROLE_REGISTRAR
+time.format:
+    type: array
+    value:
+        long: H:i:s
+        short: h:i
+    displayName: Time Format
+    description: Display the time in reports in this format. Formats are found at http://php.net/manual/en/function.date.php
+    role: ROLE_REGISTRAR
 SchoolDay.Periods:
       type: array
       value: |

@@ -10,4 +10,20 @@ namespace Busybee\TimeTableBundle\Repository;
  */
 class LineRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function findByActivity($id)
+    {
+        $x = $this->createQueryBuilder('l')
+            ->leftJoin('l.activities', 'a')
+            ->where('a.id = :act_id')
+            ->setParameter('act_id', $id)
+            ->getQuery()
+            ->getResult();
+        if (!empty($x))
+            return reset($x);
+        return null;
+    }
 }

@@ -2,6 +2,7 @@
 namespace Busybee\TimeTableBundle\Entity;
 
 use Busybee\TimeTableBundle\Model\ColumnModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Column
@@ -72,6 +73,11 @@ class Column extends ColumnModel
      * @var integer
      */
     private $sequence;
+
+    /**
+     * @var bool
+     */
+    private $periodsSorted = false;
 
     /**
      * Constructor
@@ -334,8 +340,24 @@ class Column extends ColumnModel
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPeriods()
+    public function getPeriods($sort = false)
     {
+        if ($sort)
+            $this->periodsSorted = false;
+
+        if ($this->periodsSorted || $this->periods->count() == 0)
+            return $this->periods;
+
+        $iterator = $this->periods->getIterator();
+        $iterator->uasort(function ($a, $b) {
+            return ($a->getStart() < $b->getStart()) ? -1 : 1;
+        }
+        );
+
+        $this->periods = new ArrayCollection(iterator_to_array($iterator, false));
+
+        $this->periodsSorted = true;
+
         return $this->periods;
     }
 

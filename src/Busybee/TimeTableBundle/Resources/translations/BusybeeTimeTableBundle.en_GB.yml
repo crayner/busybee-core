@@ -83,8 +83,8 @@ timetable:
     year:
         mapdaysfailed: 'Time table days are not mapped correctly. The error captured was: %message%. This most often happens if fixed days are defined but the column does not have that the    same fixed day.'
     display:
-        title: 'Calendar'
-        description: 'Displaying Calendar %type%: %identifier%.'
+        title: 'TimeTable'
+        description: 'Displaying TimeTable %type%: %identifier%.'
 line:
     title:
         list: Manage Activity Lines
@@ -254,3 +254,5 @@ column:
         success: 'The times in the columns were successfully reset.'
         error: 'A failure in accessing the database may have lost some changes.  Check your results.'
         missing: 'The timetable containing the columns was not found.'
+time: Time
+weekShort: W

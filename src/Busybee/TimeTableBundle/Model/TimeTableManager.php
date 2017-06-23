@@ -1,32 +1,19 @@
 <?php
 namespace Busybee\TimeTableBundle\Model;
 
-use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Entity\SpecialDay;
 use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
-use Busybee\SecurityBundle\Doctrine\UserManager;
-use Busybee\SecurityBundle\Entity\User;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\SystemBundle\Setting\SettingManager;
-use Busybee\TimeTableBundle\Entity\Column;
-use Busybee\TimeTableBundle\Entity\Day;
 use Busybee\TimeTableBundle\Entity\StartRotate;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class TimeTableManager
 {
-    /**
-     * @var User
-     */
-    private $user;
-
     /**
      * @var \Busybee\InstituteBundle\Entity\Year
      */
@@ -125,10 +112,9 @@ class TimeTableManager
      * TimeTableManager constructor.
      * @param TokenStorage $tokenStorage
      */
-    public function __construct(TokenStorage $tokenStorage, UserManager $um, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess)
+    public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess)
     {
-        $this->user = $tokenStorage->getToken()->getUser();
-        $this->year = $um->getSystemYear($this->user);
+        $this->year = $year;
         $this->om = $om;
         $this->sm = $sm;
         $this->timetable = $this->om->getRepository(TimeTable::class)->createQueryBuilder('t')
@@ -310,40 +296,6 @@ class TimeTableManager
     }
 
     /**
-     * @param $identifier
-     */
-    public function generateTimeTable($identifier, $displayDate)
-    {
-        $this->display = new \stdClass();
-        $this->display->type = substr($identifier, 0, 4);
-        $this->display->identifier = substr($identifier, 4);
-
-        $types = ['grad' => 'Grade'];
-        if (empty($types[$this->display->type]))
-            throw new Exception('The calendar type (' . $this->display->type . ') has not been defined.');
-        else
-            $this->display->type = $types[$this->display->type];
-
-        $sow = new \DateTime($displayDate);
-        $this->display->displayDate = clone $sow;
-
-        $year = $this->getYear();
-        $term = null;
-        foreach ($year->terms as $term)
-            if ($this->display->displayDate >= $term->getFirstDay() && $this->display->displayDate <= $term->getLastDay())
-                break;
-        $this->display->term = $term;
-
-
-        foreach ($term->weeks as $week)
-            foreach ($week as $details)
-                if ($details->date->format('Ymd') === $this->display->displayDate->format('Ymd')) {
-                    $this->display->week = $week;
-                    break;
-                }
-    }
-
-    /**
      * @return \stdClass
      */
     public function getYear()
@@ -352,6 +304,7 @@ class TimeTableManager
         $year->tt = $this->timetable;
         $year->status = 'success';
         $year->terms = [];
+        $year->weeks = [];
 
         if ($this->timetable->getColumns()->count() == 0 || $this->timetable->getDays()->count() == 0) {
             $year->status = 'failure';
@@ -375,6 +328,7 @@ class TimeTableManager
                 if ($day->date->format($dayOfWeekFormat) < $lastDayOfWeek) {
                     $week = $this->validateWeek($week);
                     $term->weeks[] = $week;
+                    $year->weeks[] = $week;
                     $week = [];
                 }
                 $lastDayOfWeek = $day->date->format($dayOfWeekFormat);
@@ -388,6 +342,7 @@ class TimeTableManager
             }
             if ($term && $y > $term->getLastDay()) {
                 $term->weeks[] = $week;
+                $year->weeks[] = $week;
                 $year->terms[$term->getName()] = $term;
                 $term = next($terms);
                 $lastDayOfWeek = 0;
@@ -396,8 +351,13 @@ class TimeTableManager
                     $term->weeks = [];
             }
         }
+
         if ($term && !empty($week))
             $term->weeks[] = $week;
+
+        if (!empty($week))
+            $year->weeks[] = $week;
+
 
         $this->getTimeTableDays();
 
@@ -628,5 +588,47 @@ class TimeTableManager
     {
 
         return $this->display;
+    }
+
+    public function getDayHours()
+    {
+        $hours = [];
+
+        $time = new \DateTime('1970-01-01 ' . $this->sm->get('schoolDay.begin'));
+
+        do {
+            $hours[] = $time->format($this->sm->get('time.format.short'));
+
+            $time->add(new \DateInterval('PT1H'));
+
+        } while ($time < new \DateTime('1970-01-01 ' . $this->sm->get('schoolDay.finish')));
+
+        return $hours;
+    }
+
+    public function isCurrentTime($day, $period)
+    {
+        if ($day->format('Ymd') === date('Ymd')) {
+            if ($period->getStart()->format('Hi') <= date('Hi') && $period->getEnd()->format('Hi') >= date('Hi'))
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return ObjectManager
+     */
+    public function getOm()
+    {
+        return $this->om;
+    }
+
+    /**
+     * @return SettingManager
+     */
+    public function getSm()
+    {
+        return $this->sm;
     }
 }

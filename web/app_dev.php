@@ -27,7 +27,7 @@ Debug::enable();
 $kernel = new AppKernel('dev', true);
 //$kernel->loadClassCache();
 $request = Request::createFromGlobals();
-$request::setTrustedProxies();
+//$request::setTrustedProxies();
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);

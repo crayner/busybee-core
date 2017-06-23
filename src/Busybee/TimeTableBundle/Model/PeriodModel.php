@@ -33,17 +33,17 @@ abstract class PeriodModel
     /**
      * @return string
      */
-    public function getStartTime()
+    public function getStartTime($format = 'H:i')
     {
-        return $this->getStart()->format('H:i');
+        return $this->getStart()->format($format);
     }
 
     /**
      * @return string
      */
-    public function getEndTime()
+    public function getEndTime($format = 'H:i')
     {
-        return $this->getEnd()->format('H:i');
+        return $this->getEnd()->format($format);
     }
 
     public function getTimeTable()
@@ -53,5 +53,17 @@ abstract class PeriodModel
             return null;
 
         return $col->getTimeTable();
+    }
+
+    /**
+     * Get Minutes (interval)
+     *
+     * @return int
+     */
+    public function getMinutes()
+    {
+        $interval = ($this->getEnd()->getTimeStamp() - $this->getStart()->getTimeStamp()) / 60;
+
+        return $interval;
     }
 }

@@ -2,13 +2,12 @@
 
 namespace Busybee\TimeTableBundle\Controller;
 
+use Busybee\SecurityBundle\Security\VoterDetails;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Form\ColumnType;
 use Busybee\TimeTableBundle\Form\TimeTableType;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -218,20 +217,28 @@ class TimeTableController extends Controller
         return new JsonResponse([], 200);
     }
 
+    /**
+     * Display TimeTable
+     *
+     * @param $identifier
+     * @param string $displayDate
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function displayAction($identifier, $displayDate = 'now')
     {
-        $grades = new ArrayCollection();
-        $grades->add(substr($identifier, 4));
+        $vd = new VoterDetails();
+        $vd->addGrade(substr($identifier, 4));
 
-        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $grades, null);
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $vd, null);
 
-        $tm = $this->get('timetable.manager');
+        $tm = $this->get('timetable.display.manager');
 
         $tm->generateTimeTable($identifier, $displayDate);
 
         return $this->render('BusybeeTimeTableBundle:Display:index.html.twig',
             [
                 'manager' => $tm,
-            ]);
+            ]
+        );
     }
 }

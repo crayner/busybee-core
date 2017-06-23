@@ -169,6 +169,38 @@ tr.calendarWeek {
 div.calendarMonth th {
 	text-align: center ;
 }
+
+.calendarHours {
+    height: 60px;
+    font-size: smaller;
+}
+
+.calendarPeriod {
+    margin: -1px -16px 0 -15px;
+    padding: 0;
+    border: 1px solid black;
+    overflow: hidden;
+    color: darkgrey;
+}
+
+.calendarBreak {
+    background-color: oldlace;
+    color: black;
+}
+
+.calendarActive {
+    background-color: #ACCAEB;
+    color: black;
+}
+
+.calendarCurrent {
+    background-color: #C2EFCD;
+    color: black;
+}
+
+.calendarPeriod:hover {
+    overflow: auto;
+}
 .dayBold {
 	font-weight: bold;
 	font-size: 85% ;

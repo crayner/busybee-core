@@ -2,10 +2,86 @@
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
-{% block title %}{{ 'timetable.display.title'|trans }}{% endblock title %}
-{% block headerTitle %}{{ 'timetable.display.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'timetable.display.description'|trans({'%type%': manager.display.type, '%identifier%': manager.display.identifier}) }}{% endblock headerLead %}
+{% block title %}{{ manager.title|trans }}{% endblock title %}
+{% block headerTitle %}{{ manager.title|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ manager.description|trans({'%type%': manager.type, '%identifier%': manager.identifier}) }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {{ dump(manager.display) }}
+    <div class="row">
+        <div class="col-md-1">
+            <div class="row ">
+                <div class="col-sm-12 text-center">
+                    {% if manager.weekNumber == 0 %}
+                        <br/>
+                    {% else %}
+                        <strong>{{ manager.term.nameShort }} {{ 'weekShort'|trans }}{{ manager.weekNumber }}</strong>
+                    {% endif %}
+                    <em>{{ 'time'|trans }}</em>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-11">
+            <div class="row">
+                {% for day in manager.week %}
+                    <div class="col-sm-2 text-center">
+                        <strong>{{ day.ttday.nameShort }}
+                            <br/><em>{{ day.date.format(get_setting('date.format.short')) }}</em></strong>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-1">
+            <div class="row ">
+                <div class="col-sm-12 text-center">
+                    {% for hour in manager.dayHours %}
+                        <div class="calendarHours">
+                            <em>{{ hour }}</em>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-11">
+            <div class="row">
+                {% for day in manager.week %}
+                    <div class="col-sm-2 text-center small">
+                        {% for period in day.ttday.periods %}
+                            {% set calendarClass = 'calendarPeriod' %}
+                            {% if period.break %}
+                                {% set calendarClass = calendarClass ~ ' calendarBreak' %}
+                            {% endif %}
+                            {% if period.activity is defined and period.activity is not empty %}
+                                {% set calendarClass = calendarClass ~ ' calendarActive' %}
+                            {% endif %}
+                            {% if manager.currentTime(day.date, period) %}
+                                {% set calendarClass = calendarClass ~ ' calendarCurrent' %}
+                            {% endif %}
+                            {% if period.class is defined %}
+                                {% set calendarClass = calendarClass ~ period.class %}
+                            {% endif %}
+                            <div class="{{ calendarClass }}"
+                                 style="height: {{ period.minutes }}px; max-height: {{ period.minutes }}px; ">
+                                {{ period.name }}<br/>
+                                {{ period.start.format(get_setting('time.format.short')) }}
+                                -{{ period.end.format(get_setting('time.format.short')) }}
+                                {% if period.activity is defined and period.activity is not empty %}
+                                    <br/>
+                                    <strong style="color: red">{{ period.activity.nameShort }}</strong><br/>
+                                    {{ period.activity.spaceName }}
+                                {% endif %}
+                                {% if period.description is defined %}
+                                    <br/>{{ period.description }}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock contentContainer %}

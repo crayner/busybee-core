@@ -44,30 +44,6 @@ abstract class PeriodActivityModel
     }
 
     /**
-     * Get Local Space
-     *
-     * @return Space|null
-     */
-    public function getLocalSpace()
-    {
-        $this->local = false;
-
-        $this->inheritedSpace = $this->getSpace();
-        $space = $this->inheritedSpace;
-
-        $this->setSpace(null);
-
-        if ($this->inheritedSpace instanceof Space && $this->getSpace() instanceof Space && $this->inheritedSpace->getId() === $this->getSpace()->getId()) {
-            $space = null;
-        }
-
-        $this->setSpace($space);
-
-        $this->local = true;
-        return $space;
-    }
-
-    /**
      * Get Local Tutor1
      *
      * @return Staff|null
@@ -164,16 +140,6 @@ abstract class PeriodActivityModel
     }
 
     /**
-     * Get Inherited Space
-     *
-     * @return Space|null
-     */
-    public function getInheritedSpace()
-    {
-        return $this->inheritedSpace;
-    }
-
-    /**
      * Get Inherited Tutor1
      *
      * @return Space|null
@@ -206,5 +172,58 @@ abstract class PeriodActivityModel
     public function getFullName()
     {
         return $this->getActivity()->getFullName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameShort()
+    {
+        return $this->getActivity()->getNameShort();
+    }
+
+    /**
+     * @return Space|null
+     */
+    public function getSpaceName()
+    {
+        if ($this->getLocalSpace() instanceof Space)
+            return $this->getLocalSpace()->getName();
+
+        return $this->getInheritedSpace()->getName();
+    }
+
+    /**
+     * Get Local Space
+     *
+     * @return Space|null
+     */
+    public function getLocalSpace()
+    {
+        $this->local = false;
+
+        $this->inheritedSpace = $this->getSpace();
+        $space = $this->inheritedSpace;
+
+        $this->setSpace(null);
+
+        if ($this->inheritedSpace instanceof Space && $this->getSpace() instanceof Space && $this->inheritedSpace->getId() === $this->getSpace()->getId()) {
+            $space = null;
+        }
+
+        $this->setSpace($space);
+
+        $this->local = true;
+        return $space;
+    }
+
+    /**
+     * Get Inherited Space
+     *
+     * @return Space|null
+     */
+    public function getInheritedSpace()
+    {
+        return $this->inheritedSpace;
     }
 }

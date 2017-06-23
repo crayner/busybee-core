@@ -4,6 +4,7 @@ namespace Busybee\StaffBundle\Security;
 
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
+use Busybee\SecurityBundle\Security\VoterDetails;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
@@ -39,7 +40,7 @@ class GradeVoter extends Voter
     protected function supports($attribute, $subject)
     {
 
-        if (!$subject instanceof ArrayCollection)
+        if (!$subject instanceof VoterDetails)
             return false;
 
         return true;
@@ -66,7 +67,7 @@ class GradeVoter extends Voter
 
         $grades = $this->personManager->getStaffGrades($user->getPerson());
 
-        foreach ($subject->toArray() as $grade)
+        foreach ($subject->getGrades()->toArray() as $grade)
             if ($grades->contains($grade))
                 return true;
 

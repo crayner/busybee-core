@@ -136,12 +136,21 @@ services:
     timetable.manager:
         class: Busybee\TimeTableBundle\Model\TimeTableManager
         arguments:
-            - '@security.token_storage'
-            - '@busybee_security.user_manager'
-            - '@doctrine.orm.entity_manager'
+            - '@current.year.currentYear'
+            - '@doctrine.orm.default_entity_manager'
             - '@setting.manager'
             - '@period.manager'
             - '@session'
+            - '@translator'
+    timetable.display.manager:
+        class: Busybee\TimeTableBundle\Model\TimeTableDisplayManager
+        arguments:
+            - '@current.year.currentYear'
+            - '@doctrine.orm.default_entity_manager'
+            - '@setting.manager'
+            - '@period.manager'
+            - '@session'
+            - '@translator'
     form.timetable.hidden.day.type:
         class: Busybee\TimeTableBundle\Form\DayHiddenType
         arguments:
