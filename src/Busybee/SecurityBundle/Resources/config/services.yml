@@ -234,3 +234,7 @@ services:
             - '@busybee_security.user_manager'
         tags:
             - { name: twig.extension }
+    voter.details:
+        class: Busybee\SecurityBundle\Security\VoterDetails
+        arguments:
+            - '@doctrine.orm.entity_manager'

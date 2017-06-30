@@ -2,7 +2,9 @@
 
 namespace Busybee\SecurityBundle\Security;
 
+use Busybee\StudentBundle\Entity\Student;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class VoterDetails
 {
@@ -12,11 +14,23 @@ class VoterDetails
     private $grades;
 
     /**
+     * @var Student
+     */
+    private $student;
+
+    /**
+     * @var ObjectManager
+     */
+    private $om;
+
+    /**
      * VoterDetails constructor.
      */
-    public function __construct()
+    public function __construct(ObjectManager $om)
     {
         $this->grades = new ArrayCollection();
+        $this->student = null;
+        $this->om = $om;
     }
 
     /**
@@ -52,5 +66,45 @@ class VoterDetails
     public function getGrades(): ArrayCollection
     {
         return $this->grades;
+    }
+
+    /**
+     * Get Student
+     *
+     * @return null
+     */
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
+    /**
+     * Set Student
+     *
+     * @param Student $student
+     * @return VoterDetails
+     */
+    public function setStudent(Student $student): VoterDetails
+    {
+        $this->student = $student;
+
+        return $this;
+    }
+
+    /**
+     * Add Student
+     *
+     * @param int $id
+     * @return VoterDetails
+     */
+    public function addStudent(int $id): VoterDetails
+    {
+        if (gettype($id) !== 'integer')
+            return $this;
+
+        $student = $this->om->getRepository(Student::class)->find($id);
+        if ($student instanceof Student)
+            $this->setStudent($student);
+        return $this;
     }
 }

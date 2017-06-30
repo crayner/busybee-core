@@ -129,3 +129,11 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@session.flash_bag'
             - '@translator'
+    student.student.voter:
+        class: Busybee\StudentBundle\Security\StudentVoter
+        arguments:
+            - '@security.access.decision_manager'
+            - '@person.manager'
+        tags:
+            - { name: security.voter, priority: 250 }
+        public: false

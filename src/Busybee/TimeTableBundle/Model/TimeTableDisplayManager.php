@@ -41,7 +41,8 @@ class TimeTableDisplayManager extends TimeTableManager
      * @var array
      */
     private $types = [
-        'grad' => 'Grade'
+        'grad' => 'Grade',
+        'stud' => 'Student',
     ];
 
     /**
@@ -412,4 +413,25 @@ class TimeTableDisplayManager extends TimeTableManager
 
         return $this;
     }
+
+    /**
+     * @param $period
+     * @return null|PeriodActivity
+     */
+    private function generateStudentActivities($period)
+    {
+        foreach ($period->getActivities() as $activity) {
+            foreach ($activity->getActivity()->getGrades() as $grade)
+                if ($grade->getGrade() === $this->getIdentifier()) {
+                    $x = $this->getOm()->getRepository(Line::class)->findByActivity($activity->getActivity()->getId());
+                    if (!is_null($x)) {
+                        return $x;
+                    }
+                    return $activity;
+                }
+        }
+
+        return null;
+    }
+
 }

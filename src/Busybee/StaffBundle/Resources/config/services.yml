@@ -59,3 +59,11 @@ services:
         tags:
             - { name: security.voter, priority: 250 }
         public: false
+    staff.student.voter:
+        class: Busybee\StaffBundle\Security\StudentVoter
+        arguments:
+            - '@security.access.decision_manager'
+            - '@person.manager'
+        tags:
+            - { name: security.voter, priority: 250 }
+        public: false

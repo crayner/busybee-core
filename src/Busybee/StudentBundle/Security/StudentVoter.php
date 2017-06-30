@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\StaffBundle\Security;
+namespace Busybee\StudentBundle\Security;
 
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class GradeVoter extends Voter
+class StudentVoter extends Voter
 {
     /**
      * @var AccessDecisionManagerInterface
@@ -53,7 +53,7 @@ class GradeVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        if (!$this->decisionManager->decide($token, array('ROLE_TEACHER')))
+        if (!$this->decisionManager->decide($token, array('ROLE_STUDENT')))
             return false;
 
         $user = $token->getUser();
@@ -61,14 +61,11 @@ class GradeVoter extends Voter
         if (!$user instanceof User)
             return false;
 
-        if (!$this->personManager->isStaff($user->getPerson()))
+        if (!$this->personManager->isStudent($user->getPerson()))
             return false;
 
-        $grades = $this->personManager->getStaffGrades($user->getPerson());
-
-        foreach ($subject->getGrades()->toArray() as $grade)
-            if ($grades->contains($grade))
-                return true;
+        if ($user->getPerson() == $subject->getStudent()->getPerson())
+            return true;
 
         return false;
     }

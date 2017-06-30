@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class GradeVoter extends Voter
+class StudentVoter extends Voter
 {
     /**
      * @var AccessDecisionManagerInterface
@@ -64,12 +64,6 @@ class GradeVoter extends Voter
         if (!$this->personManager->isStaff($user->getPerson()))
             return false;
 
-        $grades = $this->personManager->getStaffGrades($user->getPerson());
-
-        foreach ($subject->getGrades()->toArray() as $grade)
-            if ($grades->contains($grade))
-                return true;
-
-        return false;
+        return $this->personManager->isTeacherOf($user->getPerson(), $subject->getStudent());
     }
 }

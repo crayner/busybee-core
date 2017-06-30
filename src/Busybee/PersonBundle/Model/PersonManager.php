@@ -948,4 +948,32 @@ class PersonManager
         return $grades;
 
     }
+
+    /**
+     * @param $person
+     * @param $student
+     * @return bool
+     */
+    public function isTeacherOf($person, $student)
+    {
+        $activities = [];
+        foreach ($student->getActivities() as $act)
+            $activities[] = $act->getId();
+        $staff = $this->em->getRepository(Staff::class)->findOneByPerson($person->getId());
+
+        $al = $this->em->getRepository(Activity::class)->findAllByTutor($staff, $this->year);
+
+        $teaching = [];
+        foreach ($al as $act)
+            $teaching[] = $act->getId();
+        $al = $this->em->getRepository(PeriodActivity::class)->findAllByTutor($staff, $this->year);
+
+        foreach ($al as $act)
+            if (!in_array($act->getId(), $teaching))
+                $teaching[] = $act->getId();
+        $result = array_intersect($teaching, $activities);
+        if (!empty($result))
+            return true;
+        return false;
+    }
 }

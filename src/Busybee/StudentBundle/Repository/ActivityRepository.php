@@ -2,6 +2,8 @@
 
 namespace Busybee\StudentBundle\Repository;
 
+use Busybee\InstituteBundle\Entity\Year;
+use Busybee\StaffBundle\Entity\Staff;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +14,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class ActivityRepository extends EntityRepository
 {
+    /**
+     * @param Staff $staff
+     * @param Year $year
+     * @return array
+     */
+    public function findAllByTutor(Staff $staff, Year $year)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.tutor1', 't')
+            ->leftJoin('a.tutor2', 'u')
+            ->leftJoin('a.tutor3', 'v')
+            ->leftJoin('a.year', 'y')
+            ->where('y.id = :year_id')
+            ->setParameter('year_id', $year->getId())
+            ->andWhere('t.id = :tutor1_id')
+            ->setParameter('tutor1_id', $staff->getId())
+            ->orWhere('u.id = :tutor2_id')
+            ->setParameter('tutor2_id', $staff->getId())
+            ->orWhere('v.id = :tutor3_id')
+            ->setParameter('tutor3_id', $staff->getId())
+            ->getQuery()
+            ->getResult();
+    }
 }
