@@ -25,9 +25,9 @@
         <div class="col-sm-2">
             <div>
                 {{ miscButton({class: 'btn btn-info halflings
-halflings-circle-arrow-right', style: 'float: right; height: 33px; margin-top: -2px; ', title: 'Next Week', windowOpen: {route: path('timetable_display', {identifier: app.request.get('identifier'), displayDate: manager.displayDate|date_modify('+7 Days')|date('Ymd')})}})|raw }}
+halflings-circle-arrow-right', transDomain: 'BusybeeTimeTableBundle', style: 'float: right; height: 33px; margin-top: -2px; ', title: 'Next Week', windowOpen: {route: path('timetable_display', {identifier: app.request.get('identifier'), displayDate: manager.displayDate|date_modify('+7 Days')|date('Ymd')})}})|raw }}
                 {{ miscButton({class: 'btn btn-info halflings
-halflings-circle-arrow-left', style: 'float: right; height: 33px; margin-top: -2px; ', title: 'Previous Week', windowOpen: {route: path('timetable_display', {identifier: app.request.get('identifier'), displayDate: manager.displayDate|date_modify('-7 Days')|date('Ymd')})}})|raw }}
+halflings-circle-arrow-left', transDomain: 'BusybeeTimeTableBundle', style: 'float: right; height: 33px; margin-top: -2px; ', title: 'Previous Week', windowOpen: {route: path('timetable_display', {identifier: app.request.get('identifier'), displayDate: manager.displayDate|date_modify('-7 Days')|date('Ymd')})}})|raw }}
             </div>
         </div>
     </div>
