@@ -14,7 +14,7 @@ class DayController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
-        $year = $this->get('timetable.manager')->getYear();
+        $year = $this->get('timetable.manager')->getTTYear();
 
         if ($year->status == 'success')
             return $this->render('BusybeeTimeTableBundle:Days:assign.html.twig',
@@ -52,7 +52,7 @@ class DayController extends Controller
         $removed = $tm->toggleRotateStart($date);
 
         $year = $tm->getYear();
-        $terms = $year->terms;
+        $terms = $year->getTerms();
 
         $data = $this->renderView('@BusybeeTimeTable/Days/termTab.html.twig', [
             'termName' => $termName,

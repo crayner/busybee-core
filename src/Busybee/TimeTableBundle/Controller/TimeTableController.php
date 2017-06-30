@@ -224,9 +224,10 @@ class TimeTableController extends Controller
      * @param string $displayDate
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function displayAction($identifier, $displayDate = 'now')
+    public function displayAction($identifier, $displayDate = 'today')
     {
         $vd = new VoterDetails();
+
         $vd->addGrade(substr($identifier, 4));
 
         $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $vd, null);

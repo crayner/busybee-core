@@ -23,16 +23,4 @@ abstract class TimeTableModel
             return 'TimeTable';
         return $this->getName() . ' (' . $year . ')';
     }
-
-    /**
-     * Clear Column Sort
-     *
-     * @return TimeTable
-     */
-    public function clearColumnSort()
-    {
-        $this->columnSort = false;
-
-        return $this;
-    }
 }

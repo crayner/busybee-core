@@ -89,7 +89,7 @@ class TimeTableManager
     private $pm;
 
     /**
-     * @var stdClass
+     * @var \stdClass
      */
     private $report;
 
@@ -104,9 +104,14 @@ class TimeTableManager
     private $gradeControl;
 
     /**
-     * @var stdClass
+     * @var \stdClass
      */
     private $display;
+
+    /**
+     * @var integer
+     */
+    private $schoolDayTime;
 
     /**
      * TimeTableManager constructor.
@@ -114,7 +119,7 @@ class TimeTableManager
      */
     public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess)
     {
-        $this->year = $year;
+        $this->setYear($year);
         $this->om = $om;
         $this->sm = $sm;
         $this->timetable = $this->om->getRepository(TimeTable::class)->createQueryBuilder('t')
@@ -128,6 +133,9 @@ class TimeTableManager
         $this->pm = $pm;
         $this->sess = $sess;
         $this->gradeControl = $this->sess->get('gradeControl');
+        $fin = new \DateTime('1970-01-01 ' . $this->sm->get('SchoolDay.Finish'));
+        $sta = new \DateTime('1970-01-01 ' . $this->sm->get('SchoolDay.Begin'));
+        $this->schoolDayTime = ($fin->getTimestamp() - $sta->getTimestamp()) / 60;
     }
 
     /**
@@ -298,7 +306,7 @@ class TimeTableManager
     /**
      * @return \stdClass
      */
-    public function getYear()
+    public function getTTYear()
     {
         $year = new \stdClass();
         $year->tt = $this->timetable;
@@ -317,14 +325,19 @@ class TimeTableManager
         $this->getSpecialDays();
 
         $terms = $this->getTerms();
+
         $term = reset($terms);
+        if ($term instanceof Term)
+            $term->weeks = [];
         $week = [];
         $lastDayOfWeek = 0;
 
-        for ($y = $this->year->getFirstDay(); $y <= $this->year->getLastDay(); $y->add(new \DateInterval('P1D'))) {
+        $y = clone $this->year->getFirstDay();
+
+        do {
             $day = new \stdClass();
             $day->date = clone $y;
-            if ($term && $y >= $term->getFirstDay() && $y <= $term->getLastDay()) {
+            if ($term instanceof Term && $y >= $term->getFirstDay() && $y <= $term->getLastDay()) {
                 if ($day->date->format($dayOfWeekFormat) < $lastDayOfWeek) {
                     $week = $this->validateWeek($week);
                     $term->weeks[] = $week;
@@ -340,19 +353,22 @@ class TimeTableManager
                     $week[$lastDayOfWeek] = $day;
                 }
             }
-            if ($term && $y > $term->getLastDay()) {
-                $term->weeks[] = $week;
-                $year->weeks[] = $week;
+            if ($term instanceof Term && $y > $term->getLastDay()) {
+                if (!empty($week)) {
+                    $term->weeks[] = $week;
+                    $year->weeks[] = $week;
+                }
                 $year->terms[$term->getName()] = $term;
                 $term = next($terms);
                 $lastDayOfWeek = 0;
                 $week = [];
-                if ($term)
+                if ($term instanceof Term)
                     $term->weeks = [];
             }
-        }
+            $y->add(new \DateInterval('P1D'));
+        } while ($y <= $this->year->getLastDay());
 
-        if ($term && !empty($week))
+        if ($term instanceof Term && !empty($week))
             $term->weeks[] = $week;
 
         if (!empty($week))
@@ -362,13 +378,14 @@ class TimeTableManager
         $this->getTimeTableDays();
 
         try {
-            $this->mapDays();
+            $year = $this->mapDays($year);
 
         } catch (\Exception $e) {
             //throw new \Exception($e->getMessage());
             $year->status = 'failure';
             $year->message = 'timetable.year.mapdaysfailed';
             $year->options = ['%message%' => $e->getMessage()];
+            $year->error = $e;
         }
 
         return $year;
@@ -534,14 +551,14 @@ class TimeTableManager
     }
 
     /**
-     * @param $days
-     * @return mixed
+     * @param \stdClass $year
+     * @return \stdClass
      */
-    private function mapDays()
+    private function mapDays(\stdClass $year)
     {
-        foreach ($this->terms as $t => $term) {
+        foreach ($year->terms as $t => $term) {
             if (!empty($this->columns['rotate']) && is_array($this->columns['rotate'])) {
-                $col = reset($this->columns['rotate']);
+                $col = reset($year->columns['rotate']);
 
                 foreach ($term->weeks as $w => $week) {
                     foreach ($week as $d => $day) {
@@ -579,6 +596,7 @@ class TimeTableManager
                 }
             }
         }
+        return $year;
     }
 
     /**
@@ -630,5 +648,77 @@ class TimeTableManager
     public function getSm()
     {
         return $this->sm;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstDayofWeek()
+    {
+        return $this->firstDayofWeek;
+    }
+
+    /**
+     * @return array
+     */
+    public function getWeeks(): array
+    {
+        return $this->weeks;
+    }
+
+    /**
+     * @param \stdClass $week
+     * @return TimeTableManager
+     */
+    public function addWeek(\stdClass $week)
+    {
+        // remove none school days
+        foreach ($week->days as $q => $day) {
+            if (!in_array($day->date->format('D'), $this->schoolWeek))
+                unset($week->days[$q]);
+        }
+
+        $this->weeks[] = $week;
+
+        return $this;
+    }
+
+    /**
+     * @return TimeTableManager
+     */
+    public function clearWeeks()
+    {
+        $this->weeks = [];
+
+        return $this;
+    }
+
+    /**
+     * @return Year
+     */
+    public function getYear(): Year
+    {
+        return $this->year;
+    }
+
+    /**
+     * @param Year $year
+     */
+    public function setYear(Year $year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get School Day Time
+     * in Minutes
+     *
+     * @return integer
+     */
+    public function getSchoolDayTime(): int
+    {
+        return $this->schoolDayTime;
     }
 }

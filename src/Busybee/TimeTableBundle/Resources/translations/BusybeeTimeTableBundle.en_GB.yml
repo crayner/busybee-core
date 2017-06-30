@@ -256,3 +256,6 @@ column:
         missing: 'The timetable containing the columns was not found.'
 time: Time
 weekShort: W
+break: ''
+School Closed: School Closed
+today: Today

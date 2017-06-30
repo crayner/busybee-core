@@ -61,6 +61,11 @@ class TimeTable extends TimeTableModel
     private $days;
 
     /**
+     * @var bool
+     */
+    private $columnSorted = false;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -281,9 +286,9 @@ class TimeTable extends TimeTableModel
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getColumns()
+    public function getColumns($sort = false)
     {
-        if (!$this->columnSort && $this->columns->count() > 0) {
+        if ((!$this->columnSorted && $this->columns->count() > 0) || ($this->columns->count() > 0 && $sort)) {
             $iterator = $this->columns->getIterator();
             $iterator->uasort(function ($a, $b) {
                 return ($a->getSequence() < $b->getSequence()) ? -1 : 1;

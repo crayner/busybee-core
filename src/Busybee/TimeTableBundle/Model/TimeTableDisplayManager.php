@@ -5,6 +5,7 @@ namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Entity\Term;
+use Busybee\TimeTableBundle\Entity\Column;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
@@ -99,7 +100,7 @@ class TimeTableDisplayManager extends TimeTableManager
     /**
      * @return Term
      */
-    public function getTerm(): Term
+    public function getTerm()
     {
         return $this->term;
     }
@@ -107,7 +108,7 @@ class TimeTableDisplayManager extends TimeTableManager
     /**
      * @param Term $term
      */
-    public function setTerm(Term $term): TimeTableDisplayManager
+    public function setTerm(Term $term = null): TimeTableDisplayManager
     {
         $this->term = $term;
 
@@ -133,38 +134,37 @@ class TimeTableDisplayManager extends TimeTableManager
     }
 
     /**
+     * Generate TimeTable
+     *
      * @param $identifier
+     * @param $displayDate
      */
     public function generateTimeTable($identifier, $displayDate)
     {
         $this->parseIdentifier($identifier);
 
-        $this->setDisplayDate(new \DateTime($displayDate));
+        $this->setDisplayDate(new \DateTime($displayDate))
+            ->generateWeeks();
 
-        $year = $this->getYear();
-        $term = null;
-        foreach ($year->terms as $term)
-            if ($this->getDisplayDate() >= $term->getFirstDay() && $this->getDisplayDate() <= $term->getLastDay())
+        $dayDate = $this->getDisplayDate()->format('Ymd');
+        foreach ($this->getWeeks() as $q => $week) {
+            if ($week->start->format('Ymd') <= $dayDate && $week->finish->format('Ymd') >= $dayDate) {
+                $this->setWeek($week);
                 break;
-        $this->setTerm($term);
-
-
-        foreach ($term->weeks as $q => $week)
-            foreach ($week as $details)
-                if ($details->date->format('Ymd') === $this->getDisplayDate()->format('Ymd')) {
-                    $this->setWeek($week);
-                    $this->setWeekNumber($q + 1);
-                    break;
-                }
+            }
+        }
+        $this->mapCalendarWeek();
 
         $actSearch = 'generate' . ucfirst($this->gettype()) . 'Activities';
-        foreach ($this->getWeek() as $q => $day) {
+        foreach ($this->getWeek()->days as $q => $day) {
             $day->class = '';
             foreach ($day->ttday->getPeriods() as $p => $period)
                 $period->activity = $this->$actSearch($period);
             if (isset($day->specialDay))
                 $day = $this->manageSpecialDay($day);
         }
+
+        $this->today = new \DateTime('today');
     }
 
     /**
@@ -177,6 +177,45 @@ class TimeTableDisplayManager extends TimeTableManager
     {
         $this->setType(substr($identifier, 0, 4));
         $this->setIdentifier(substr($identifier, 4));
+
+        return $this;
+    }
+
+    private function generateWeeks()
+    {
+        $this->clearWeeks();
+        $week = new \stdClass();
+        $week->days = [];
+        $day = clone $this->getYear()->getFirstDay();
+        $week->start = clone $day;
+        $week->finish = clone $day;
+        $week->weekNumber = 1;
+        $weekNum = 1;
+        $week->title = 'Hol';
+
+        do {
+            if ($day->format('l') === $this->getFirstDayofWeek() && !empty($week->days)) {
+                $this->addWeek($week);
+                $week = new \stdClass();
+                $week->days = [];
+                $week->start = clone $day;
+                $week->finish = clone $day;
+                $week->weekNumber = $weekNum++;
+                $week->title = 'Hol';
+            }
+            $d = new \stdClass();
+            $d->date = clone $day;
+            $d->day = $d->date->format('l');
+            $d->ttday = new Column();
+            $d->ttday->setNameShort($d->date->format('D'));
+            $week->days[] = $d;
+            $week->finish = clone $day;
+
+            $day->add(new \DateInterval('P1D'));
+        } while ($day <= $this->getYear()->getLastDay());
+
+        if (!empty($week->days))
+            $this->addWeek($week);
 
         return $this;
     }
@@ -194,7 +233,71 @@ class TimeTableDisplayManager extends TimeTableManager
      */
     public function setDisplayDate(\DateTime $displayDate): TimeTableDisplayManager
     {
+        if ($displayDate < $this->getYear()->getFirstDay())
+            $displayDate = $this->getYear()->getFirstDay();
+
+        if ($displayDate > $this->getYear()->getLastDay())
+            $displayDate = $this->getYear()->getLastDay();
+
         $this->displayDate = $displayDate;
+
+        return $this;
+    }
+
+    /**
+     * Map Calendar Week
+     */
+    private function mapCalendarWeek()
+    {
+        $start = clone reset($this->getWeek()->days)->date;
+        $term = null;
+        foreach ($this->getTTYear()->terms as $x) {
+            if ($start >= $x->getFirstDay() && $start <= $x->getLastDay()) {
+                $term = $x;
+                break;
+            }
+        }
+        $week = [];
+        if ($term instanceof Term) {
+            foreach ($term->weeks as $w) {
+                $first = reset($w)->date;
+                if ($start == $first) {
+                    $week = $w;
+                    break;
+                }
+            }
+        }
+
+        if (!empty($week)) {
+            foreach ($week as $d) {
+                foreach ($this->getWeek()->days as $q => $day) {
+                    if ($d->date == $day->date) {
+                        $day->ttday = clone $d->ttday;
+                        if (isset($d->specialDay))
+                            $day->specialDay = clone $d->specialDay;
+                        break;
+                    }
+                }
+            }
+            $this->getWeek()->title = $term->getNameShort();
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getWeek(): \stdClass
+    {
+        return $this->week;
+    }
+
+    /**
+     * @param \stdClass $week
+     * @return TimeTableDisplayManager
+     */
+    public function setWeek(\stdClass $week): TimeTableDisplayManager
+    {
+        $this->week = $week;
 
         return $this;
     }
@@ -222,25 +325,6 @@ class TimeTableDisplayManager extends TimeTableManager
             $this->type = $this->types[$type];
         else
             throw new Exception('The calendar type (' . $type . ') has not been defined.');
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getWeek(): array
-    {
-        return $this->week;
-    }
-
-    /**
-     * @param array $week
-     * @return TimeTableDisplayManager
-     */
-    public function setWeek(array $week): TimeTableDisplayManager
-    {
-        $this->week = $week;
 
         return $this;
     }
