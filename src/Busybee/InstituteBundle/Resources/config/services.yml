@@ -172,6 +172,7 @@ services:
         class: Busybee\InstituteBundle\Form\GradeType
         arguments:
             - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
         tags:
             - { name: form.type }
     calendar.grade.validator:

@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 well">
-                {{ form_widget(col.periods, {'attr': {'class': 'periodList_' ~ name}}) }}
+                {{ form_widget(col.periods, {'attr': {'class': 'periodList_' ~ name}, col_id: col.vars.value.id}) }}
                 {{ form_widget(col.timetable, {'value': app.request.get('id')}) }}
             </div>
         </div>

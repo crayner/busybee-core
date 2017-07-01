@@ -77,6 +77,7 @@ class ColumnPeriodType extends AbstractType
                 ]
             )
             ->add('timetable', HiddenType::class);
+
         $builder->get('timetable')->addModelTransformer(new EntityToStringTransformer($this->om, TimeTable::class));
     }
 }

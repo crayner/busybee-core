@@ -51,6 +51,11 @@ class Grade extends GradeModel
     private $activities;
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -308,5 +313,31 @@ class Grade extends GradeModel
     public function getActivities()
     {
         return $this->activities;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        if (empty($this->name))
+            return $this->grade;
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Grade
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }

@@ -4,11 +4,19 @@ namespace Busybee\TimeTableBundle\Model;
 
 
 use Busybee\HomeBundle\Exception\Exception;
+use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Term;
+use Busybee\InstituteBundle\Entity\Year;
+use Busybee\StudentBundle\Entity\Activity;
+use Busybee\StudentBundle\Entity\Student;
+use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\Column;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class TimeTableDisplayManager extends TimeTableManager
 {
@@ -59,6 +67,36 @@ class TimeTableDisplayManager extends TimeTableManager
      * @var int
      */
     private $weekNumber;
+
+    /**
+     * @var array
+     */
+    private $studentActivities;
+
+    /**
+     * @var integer
+     */
+    private $studentIdentifier;
+
+    /**
+     * @var string
+     */
+    private $idDesc;
+
+    /**
+     * TimeTableDisplayManager constructor.
+     * @param Year $year
+     * @param ObjectManager $om
+     * @param SettingManager $sm
+     * @param PeriodManager $pm
+     * @param Session $sess
+     */
+    public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess)
+    {
+        parent::__construct($year, $om, $sm, $pm, $sess);
+        $this->studentActivities = new ArrayCollection();
+        $this->studentIdentifier = 0;
+    }
 
     /**
      * @return string
@@ -178,6 +216,84 @@ class TimeTableDisplayManager extends TimeTableManager
     {
         $this->setType(substr($identifier, 0, 4));
         $this->setIdentifier(substr($identifier, 4));
+
+        switch ($this->getType()) {
+            case 'Grade':
+                if (empty($this->getIdDesc())) {
+                    $this->setIdDesc($this->getOm()->getRepository(Grade::class)->findOneByGrade($this->getIdentifier())->getName());
+                }
+                break;
+            case 'Student':
+                if (empty($this->getIdDesc())) {
+                    $this->setIdDesc($this->getOm()->getRepository(Student::class)->find($this->getIdentifier())->getFormatName(['surnameFirst' => false, 'preferredOnly' => true]));
+                }
+                break;
+        }
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set Type
+     *
+     * @param string $type
+     * @return TimeTableDisplayManager
+     * @throws
+     */
+    public function setType(string $type): TimeTableDisplayManager
+    {
+        if (isset($this->types[$type]))
+            $this->type = $this->types[$type];
+        else
+            throw new Exception('The calendar type (' . $type . ') has not been defined.');
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdDesc()
+    {
+        return $this->idDesc;
+    }
+
+    /**
+     * Set Id Desc
+     * @param string $desc
+     * @return TimeTableDisplayManager
+     */
+    public function setIdDesc($desc)
+    {
+        $this->idDesc = $desc;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param string $identifier
+     * @return TimeTableDisplayManager
+     */
+    public function setIdentifier(string $identifier): TimeTableDisplayManager
+    {
+        $this->identifier = $identifier;
 
         return $this;
     }
@@ -304,33 +420,6 @@ class TimeTableDisplayManager extends TimeTableManager
     }
 
     /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set Type
-     *
-     * @param string $type
-     * @return TimeTableDisplayManager
-     * @throws
-     */
-    public function setType(string $type): TimeTableDisplayManager
-    {
-        if (isset($this->types[$type]))
-            $this->type = $this->types[$type];
-        else
-            throw new Exception('The calendar type (' . $type . ') has not been defined.');
-
-        return $this;
-    }
-
-    /**
      * @param $day
      * @return mixed
      */
@@ -356,8 +445,10 @@ class TimeTableDisplayManager extends TimeTableManager
                     $day->ttday->removePeriod($period);
                 elseif ($period->getStart() < $day->specialDay->getStart() && $period->getEnd() > $day->specialDay->getFinish())
                     $period->setEnd($day->specialDay->getStart());
-                if ($period->getStart() < $day->specialDay->getFinish() && $period->getEnd() > $day->specialDay->getFinish())
+                elseif ($period->getStart() < $day->specialDay->getFinish() && $period->getEnd() > $day->specialDay->getFinish())
                     $period->setStart($day->specialDay->getFinish());
+                elseif ($period->getStart() < $day->specialDay->getStart() && $period->getEnd() > $day->specialDay->getStart())
+                    $period->setEnd($day->specialDay->getStart());
             }
             $period = new Period();
             $period->setName($day->specialDay->getName());
@@ -392,26 +483,8 @@ class TimeTableDisplayManager extends TimeTableManager
                 }
         }
 
+
         return null;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
-
-    /**
-     * @param string $identifier
-     * @return TimeTableDisplayManager
-     */
-    public function setIdentifier(string $identifier): TimeTableDisplayManager
-    {
-        $this->identifier = $identifier;
-
-        return $this;
     }
 
     /**
@@ -420,18 +493,22 @@ class TimeTableDisplayManager extends TimeTableManager
      */
     private function generateStudentActivities($period)
     {
+        // test and load student activities only once.
+        if ($this->studentActivities->count() === 0 && $this->studentIdentifier !== $this->getIdentifier()) {
+            $acts = $this->getOm()->getRepository(Activity::class)->findByStudent($this->getIdentifier(), $this->getYear());
+            $this->studentActivities = new ArrayCollection();
+            $this->studentIdentifier = $this->getIdentifier();
+            foreach ($acts as $w)
+                if (!$this->studentActivities->contains($w))
+                    $this->studentActivities->add($w);
+        }
+
         foreach ($period->getActivities() as $activity) {
-            foreach ($activity->getActivity()->getGrades() as $grade)
-                if ($grade->getGrade() === $this->getIdentifier()) {
-                    $x = $this->getOm()->getRepository(Line::class)->findByActivity($activity->getActivity()->getId());
-                    if (!is_null($x)) {
-                        return $x;
-                    }
-                    return $activity;
-                }
+            if ($this->studentActivities->contains($activity->getActivity())) {
+                return $activity;
+            }
         }
 
         return null;
     }
-
 }

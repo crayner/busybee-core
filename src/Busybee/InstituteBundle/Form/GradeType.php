@@ -5,7 +5,9 @@ namespace Busybee\InstituteBundle\Form;
 use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Year;
+use Busybee\InstituteBundle\Events\GradeSubscriber;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -27,9 +29,10 @@ class GradeType extends AbstractType
      * DepartmentType constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(ObjectManager $om, SettingManager $sm)
     {
         $this->om = $om;
+        $this->sm = $sm;
     }
 
     /**
@@ -46,10 +49,19 @@ class GradeType extends AbstractType
                     'placeholder' => 'grade.placeholder.grade'
                 ]
             )
+            ->add('name', SettingChoiceType::class,
+                [
+                    'label' => 'grade.label.name',
+                    'setting_name' => 'student.groups._flip',
+                    'required' => true,
+                    'placeholder' => 'grade.placeholder.name'
+                ]
+            )
             ->add('year', HiddenType::class)
             ->add('sequence', HiddenType::class);
 
         $builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
+        $builder->addEventSubscriber(new GradeSubscriber($this->sm));
     }
 
     /**

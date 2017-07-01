@@ -18,7 +18,7 @@ class PeriodActivityRepository extends \Doctrine\ORM\EntityRepository
      * @param Year $year
      * @return array
      */
-    public function findAllByTutor(Staff $staff, Year $year)
+    public function findByTutor(Staff $staff, Year $year)
     {
         return $this->createQueryBuilder('a')
             ->leftJoin('a.tutor1', 't')

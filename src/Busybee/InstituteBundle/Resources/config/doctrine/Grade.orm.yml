@@ -11,6 +11,10 @@ Busybee\InstituteBundle\Entity\Grade:
         grade:
             type: string
             length: '8'
+        name:
+            type: string
+            length: '24'
+            nullable: true
         sequence:
             type: integer
             length: 2

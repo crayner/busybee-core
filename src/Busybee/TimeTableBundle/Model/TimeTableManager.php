@@ -114,8 +114,12 @@ class TimeTableManager
     private $schoolDayTime;
 
     /**
-     * TimeTableManager constructor.
-     * @param TokenStorage $tokenStorage
+     * TimeTableDisplayManager constructor.
+     * @param Year $year
+     * @param ObjectManager $om
+     * @param SettingManager $sm
+     * @param PeriodManager $pm
+     * @param Session $sess
      */
     public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess)
     {
@@ -604,7 +608,6 @@ class TimeTableManager
      */
     public function getDisplay()
     {
-
         return $this->display;
     }
 
@@ -627,7 +630,7 @@ class TimeTableManager
     public function isCurrentTime($day, $period)
     {
         if ($day->format('Ymd') === date('Ymd')) {
-            if ($period->getStart()->format('Hi') <= date('Hi') && $period->getEnd()->format('Hi') >= date('Hi'))
+            if ($period->getStart()->format('Hi') <= date('Hi') && $period->getEnd()->format('Hi') > date('Hi'))
                 return true;
         }
 

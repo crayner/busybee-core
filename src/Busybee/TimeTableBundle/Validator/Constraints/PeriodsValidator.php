@@ -44,13 +44,13 @@ class PeriodsValidator extends ConstraintValidator
             return ($a->getStart() < $b->getStart()) ? -1 : 1;
         });
 
-        $column = $value->getOwner();
+        $column = $value->first()->getColumn();
 
         $value = new ArrayCollection(iterator_to_array($iterator, false));
 
         $data = $value->toArray();
         $x = reset($data);
-        dump($x);
+
         if ($x instanceof Period) {
             $start = $x->getStart();
             $end = $x->getEnd();
@@ -115,7 +115,7 @@ class PeriodsValidator extends ConstraintValidator
                 ->setParameter('%limit%', $column->getEnd()->format('H:i'))
                 ->addViolation();
         }
-        dump([$end, $start]);
+
         if ($end < $column->getEnd()) {
             $this->context->buildViolation($constraint->message['complete'])
                 ->atPath('[' . ($value->count() - 1) . '].end')

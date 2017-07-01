@@ -17,7 +17,7 @@
         {% set h3Content = h3Content ~ saveButton()|raw %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton()|raw %}
-        {% if form.vars.value is not empty %}
+        {% if form.vars.value is not empty and form.vars.value.id > 0 %}
             {% set h3Content = h3Content ~ miscButton({'class': 'btn btn-success halflings halflings-cog', 'transDomain': 'BusybeeTimeTableBundle', 'title': 'period.activities.add', 'windowOpen': {'route': path('period_plan', {'id': form.vars.value.id }), 'target': 'PeriodPlan', 'params': 'width=1200,height=900'}})|raw %}
         {% endif %}
         {% set h3Content = h3Content ~ '</div>' %}
@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-sm-3 well">
                     {{ form_row(form.end) }}
-                    {{ form_widget(form.column, {'value': form.column.parent.parent.vars.value.owner.id}) }}
+                    {{ form_widget(form.column, {value: form.parent.parent.vars.value.id}) }}
                 </div>
             </div>
             <div class="messageWindow"></div>

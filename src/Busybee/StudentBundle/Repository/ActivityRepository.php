@@ -19,7 +19,7 @@ class ActivityRepository extends EntityRepository
      * @param Year $year
      * @return array
      */
-    public function findAllByTutor(Staff $staff, Year $year)
+    public function findByTutor(Staff $staff, Year $year)
     {
         return $this->createQueryBuilder('a')
             ->leftJoin('a.tutor1', 't')
@@ -34,6 +34,24 @@ class ActivityRepository extends EntityRepository
             ->setParameter('tutor2_id', $staff->getId())
             ->orWhere('v.id = :tutor3_id')
             ->setParameter('tutor3_id', $staff->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param int $studentId
+     * @param Year $year
+     * @return array
+     */
+    public function findByStudent(int $studentId, Year $year)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.students', 's')
+            ->leftJoin('a.year', 'y')
+            ->where('y.id = :year_id')
+            ->setParameter('year_id', $year->getId())
+            ->andWhere('s.id = :student_id')
+            ->setParameter('student_id', $studentId)
             ->getQuery()
             ->getResult();
     }

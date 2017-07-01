@@ -84,7 +84,7 @@ class VoterDetails
      * @param Student $student
      * @return VoterDetails
      */
-    public function setStudent(Student $student): VoterDetails
+    public function setStudent(Student $student = null): VoterDetails
     {
         $this->student = $student;
 
@@ -97,11 +97,12 @@ class VoterDetails
      * @param int $id
      * @return VoterDetails
      */
-    public function addStudent(int $id): VoterDetails
+    public function addStudent($id): VoterDetails
     {
-        if (gettype($id) !== 'integer')
+        if (gettype($id) !== 'integer') {
+            $this->setStudent(null);
             return $this;
-
+        }
         $student = $this->om->getRepository(Student::class)->find($id);
         if ($student instanceof Student)
             $this->setStudent($student);

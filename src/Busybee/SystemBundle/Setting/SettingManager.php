@@ -96,6 +96,12 @@ class SettingManager
     public function getSetting($name, $default = null, $options = array())
     {
         $this->settingExists = false;
+        $flip = false;
+        if (substr($name, -6) === '._flip') {
+            $flip = true;
+            $name = str_replace('._flip', '', $name);
+
+        }
         try {
             $this->setting = $this->repo->findOneByName($name);
         } catch (\Exception $e) {
@@ -110,6 +116,7 @@ class SettingManager
             $value = $this->getSetting(implode('.', $name), $default, $options);
             if (is_array($value) && isset($value[$last]))
                 return $value[$last];
+
             return $default;
         }
 
@@ -145,8 +152,10 @@ class SettingManager
 				return $this->setting->getValue();
 				break;
 			case 'array':
-				return Yaml::parse($this->setting->getValue());
-				break;
+                if ($flip)
+                    return array_flip(Yaml::parse($this->setting->getValue()));
+                return Yaml::parse($this->setting->getValue());
+                break;
             case 'integer':
                 return intval($this->setting->getValue());
                 break;

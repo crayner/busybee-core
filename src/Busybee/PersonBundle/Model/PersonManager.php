@@ -957,16 +957,20 @@ class PersonManager
     public function isTeacherOf($person, $student)
     {
         $activities = [];
+
+        if (is_null($student))
+            return false;
+
         foreach ($student->getActivities() as $act)
             $activities[] = $act->getId();
         $staff = $this->em->getRepository(Staff::class)->findOneByPerson($person->getId());
 
-        $al = $this->em->getRepository(Activity::class)->findAllByTutor($staff, $this->year);
+        $al = $this->em->getRepository(Activity::class)->findByTutor($staff, $this->year);
 
         $teaching = [];
         foreach ($al as $act)
             $teaching[] = $act->getId();
-        $al = $this->em->getRepository(PeriodActivity::class)->findAllByTutor($staff, $this->year);
+        $al = $this->em->getRepository(PeriodActivity::class)->findByTutor($staff, $this->year);
 
         foreach ($al as $act)
             if (!in_array($act->getId(), $teaching))

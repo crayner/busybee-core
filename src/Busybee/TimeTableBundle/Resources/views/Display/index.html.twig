@@ -4,7 +4,7 @@
 
 {% block title %}{{ manager.title|trans }}{% endblock title %}
 {% block headerTitle %}{{ manager.title|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ manager.description|trans({'%type%': manager.type, '%identifier%': manager.identifier}) }}{% endblock headerLead %}
+{% block headerLead %}{{ manager.description|trans({'%type%': manager.type, '%identifier%': manager.idDesc}) }}{% endblock headerLead %}
 
 {% block contentContainer %}
     <div class="row">
@@ -117,6 +117,7 @@ halflings-circle-arrow-left', transDomain: 'BusybeeTimeTableBundle', style: 'flo
             </div>
         </div>
     </div>
+    <div class="row">&nbsp;</div>
 {% endblock contentContainer %}
 
 {% block javascripts %}
