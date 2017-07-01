@@ -228,8 +228,7 @@ class TimeTableController extends Controller
     {
         $vd = $this->get('voter.details');
 
-        $vd->addGrade(substr($identifier, 4))
-            ->addStudent(substr($identifier, 4));
+        $vd->parseIdentifier($identifier);
 
         $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $vd, null);
 

@@ -94,6 +94,7 @@
                         {% set route = path('person_edit', {'id': person.id, 'returnRoute': pagination.getChoice }) %}
                     {% endif %}
                     {{ editButton({'title': 'person.title.edit', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': route}, 'style': '', 'colour': 'warning'})|raw }}
+
                 </div>
                 <div class="col-md-3 hidden-sm hidden-xs">
                     <div class="row">

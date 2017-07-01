@@ -2,6 +2,8 @@
 
 namespace Busybee\InstituteBundle\Repository;
 
+use Busybee\StaffBundle\Entity\Staff;
+
 /**
  * DepartmentStaffRepository
  *
@@ -10,4 +12,15 @@ namespace Busybee\InstituteBundle\Repository;
  */
 class DepartmentStaffRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByStaffCoordinator(Staff $staff)
+    {
+        return $this->createQueryBuilder('d')
+            ->leftJoin('d.staff', 's')
+            ->where('s.id = :staff_id')
+            ->setParameter('staff_id', $staff->getId())
+            ->andWhere('d.staffType LIKE :staffType')
+            ->setParameter('staffType', '%Coordinator%')
+            ->getQuery()
+            ->getResult();
+    }
 }

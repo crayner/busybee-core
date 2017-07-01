@@ -3,6 +3,8 @@ namespace Busybee\PersonBundle\Model;
 
 use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\FamilyBundle\Entity\Family;
+use Busybee\InstituteBundle\Entity\Department;
+use Busybee\InstituteBundle\Entity\DepartmentStaff;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Entity\Locality;
@@ -978,6 +980,24 @@ class PersonManager
         $result = array_intersect($teaching, $activities);
         if (!empty($result))
             return true;
+        return false;
+    }
+
+    public function isStaffCoordinator(Staff $super, Staff $staff)
+    {
+        $q = $this->em->getRepository(DepartmentStaff::class)->findByStaff($staff);
+
+        $w = $this->em->getRepository(DepartmentStaff::class)->findByStaffCoordinator($super);
+        $y = new ArrayCollection();
+
+        foreach ($w as $dept)
+            if (!$y->contains($dept))
+                $y->add($dept);
+
+        foreach ($q as $dept)
+            if ($y->contains($dept))
+                return true;
+
         return false;
     }
 }

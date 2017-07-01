@@ -7,6 +7,7 @@ use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
+use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\SystemBundle\Setting\SettingManager;
@@ -51,6 +52,7 @@ class TimeTableDisplayManager extends TimeTableManager
     private $types = [
         'grad' => 'Grade',
         'stud' => 'Student',
+        'staf' => 'Staff',
     ];
 
     /**
@@ -79,6 +81,16 @@ class TimeTableDisplayManager extends TimeTableManager
     private $studentIdentifier;
 
     /**
+     * @var array
+     */
+    private $staffActivities;
+
+    /**
+     * @var integer
+     */
+    private $staffIdentifier;
+
+    /**
      * @var string
      */
     private $idDesc;
@@ -96,6 +108,8 @@ class TimeTableDisplayManager extends TimeTableManager
         parent::__construct($year, $om, $sm, $pm, $sess);
         $this->studentActivities = new ArrayCollection();
         $this->studentIdentifier = 0;
+        $this->staffActivities = new ArrayCollection();
+        $this->staffIdentifier = 0;
     }
 
     /**
@@ -224,8 +238,15 @@ class TimeTableDisplayManager extends TimeTableManager
                 }
                 break;
             case 'Student':
+                $this->studentIdentifier = $this->getIdentifier();
                 if (empty($this->getIdDesc())) {
-                    $this->setIdDesc($this->getOm()->getRepository(Student::class)->find($this->getIdentifier())->getFormatName(['surnameFirst' => false, 'preferredOnly' => true]));
+                    $this->setIdDesc($this->getOm()->getRepository(Student::class)->find($this->studentIdentifier)->getFormatName(['surnameFirst' => false, 'preferredOnly' => true]));
+                }
+                break;
+            case 'Staff':
+                $this->staffIdentifier = $this->getIdentifier();
+                if (empty($this->getIdDesc())) {
+                    $this->setIdDesc($this->getOm()->getRepository(Staff::class)->find($this->staffIdentifier)->getFormatName(['surnameFirst' => true, 'preferredOnly' => true]));
                 }
                 break;
         }
@@ -494,7 +515,7 @@ class TimeTableDisplayManager extends TimeTableManager
     private function generateStudentActivities($period)
     {
         // test and load student activities only once.
-        if ($this->studentActivities->count() === 0 && $this->studentIdentifier !== $this->getIdentifier()) {
+        if ($this->studentActivities->count() === 0 || $this->studentIdentifier !== $this->getIdentifier()) {
             $acts = $this->getOm()->getRepository(Activity::class)->findByStudent($this->getIdentifier(), $this->getYear());
             $this->studentActivities = new ArrayCollection();
             $this->studentIdentifier = $this->getIdentifier();
@@ -505,6 +526,37 @@ class TimeTableDisplayManager extends TimeTableManager
 
         foreach ($period->getActivities() as $activity) {
             if ($this->studentActivities->contains($activity->getActivity())) {
+                return $activity;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $period
+     * @return null|PeriodActivity
+     */
+    private function generateStaffActivities($period)
+    {
+        // test and load staff activities only once.
+        if ($this->staffActivities->count() === 0 || $this->staffIdentifier !== $this->getIdentifier()) {
+            $staff = $this->getOm()->getRepository(Staff::class)->find($this->getIdentifier());
+            $acts = $this->getOm()->getRepository(Activity::class)->findByTutor($staff, $this->getYear());
+            $this->staffActivities = new ArrayCollection();
+            $this->staffIdentifier = $this->getIdentifier();
+            foreach ($acts as $w)
+                if (!$this->staffActivities->contains($w))
+                    $this->staffActivities->add($w);
+            $acts = $this->getOm()->getRepository(PeriodActivity::class)->findByTutor($staff, $this->getYear());
+
+            foreach ($acts as $w)
+                if (!$this->staffActivities->contains($w->getActivity()))
+                    $this->staffActivities->add($w->getActivity());
+        }
+
+        foreach ($period->getActivities() as $activity) {
+            if ($this->staffActivities->contains($activity->getActivity())) {
                 return $activity;
             }
         }

@@ -2,6 +2,7 @@
 
 namespace Busybee\SecurityBundle\Security;
 
+use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StudentBundle\Entity\Student;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -19,6 +20,11 @@ class VoterDetails
     private $student;
 
     /**
+     * @var Staff
+     */
+    private $staff;
+
+    /**
      * @var ObjectManager
      */
     private $om;
@@ -33,6 +39,61 @@ class VoterDetails
         $this->om = $om;
     }
 
+    public function parseIdentifier($identifier)
+    {
+        $this->addGrade($identifier)
+            ->addStudent($identifier)
+            ->addSTaff($identifier);
+
+        return $this;
+    }
+
+    /**
+     * Add Student
+     *
+     * @param int $id
+     * @return VoterDetails
+     */
+    public function addStaff($staff): VoterDetails
+    {
+        if (substr($staff, 0, 4) !== 'staf')
+            return $this->setStaff(null);
+
+        $id = intval(substr($staff, 4));
+
+        if (gettype($id) !== 'integer' || empty($id))
+            return $this->setStaff(null);
+
+        $staff = $this->om->getRepository(Staff::class)->find($id);
+        if ($staff instanceof Staff)
+            $this->setStaff($staff);
+
+        return $this;
+    }
+
+    /**
+     * Add Student
+     *
+     * @param int $id
+     * @return VoterDetails
+     */
+    public function addStudent($student): VoterDetails
+    {
+        if (substr($student, 0, 4) !== 'stud')
+            return $this->setStudent(null);
+
+        $id = intval(substr($student, 4));
+
+        if (gettype($id) !== 'integer' || empty($id))
+            return $this->setStudent(null);
+
+        $student = $this->om->getRepository(Student::class)->find($id);
+        if ($student instanceof Student)
+            $this->setStudent($student);
+
+        return $this;
+    }
+
     /**
      * Add Grade
      *
@@ -41,6 +102,9 @@ class VoterDetails
      */
     public function addGrade($grade): VoterDetails
     {
+        if (substr($grade, 0, 4) !== 'grad')
+            return $this;
+
         if ($this->grades->contains($grade))
             return $this;
 
@@ -92,20 +156,25 @@ class VoterDetails
     }
 
     /**
-     * Add Student
+     * Get Student
      *
-     * @param int $id
+     * @return null
+     */
+    public function getStaff()
+    {
+        return $this->staff;
+    }
+
+    /**
+     * Set Student
+     *
+     * @param Student $student
      * @return VoterDetails
      */
-    public function addStudent($id): VoterDetails
+    public function setStaff(Staff $staff = null): VoterDetails
     {
-        if (gettype($id) !== 'integer') {
-            $this->setStudent(null);
-            return $this;
-        }
-        $student = $this->om->getRepository(Student::class)->find($id);
-        if ($student instanceof Student)
-            $this->setStudent($student);
+        $this->staff = $staff;
+
         return $this;
     }
 }

@@ -32,6 +32,7 @@ class PersonController extends Controller
         return $this->render('BusybeePersonBundle:Person:index.html.twig',
 			array(
             	'pagination' => $up,
+                'manager' => $this->get('person.manager'),
         	)
 		);
     }

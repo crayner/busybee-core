@@ -2,6 +2,8 @@
 
 namespace Busybee\InstituteBundle\Repository;
 
+use Busybee\StaffBundle\Entity\Staff;
+
 /**
  * DepartmentRepository
  *
