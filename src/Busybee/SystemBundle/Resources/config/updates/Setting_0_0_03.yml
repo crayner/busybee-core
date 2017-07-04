@@ -109,3 +109,12 @@ SchoolDay.Periods:
       displayName: Timetable default period definition.
       description: A default set of period times for days in the timetable.  These values are used to seed the timetable, which allows the timing to be changed if necessary.
       role: ROLE_REGISTRAR
+languages.translated:
+      type: array
+      value: |
+          English (Australia): en_AU
+          English (Great Britian): en_GB
+          English (United States): en_US
+      displayName: Languages Translated
+      description: Languages that have been translated for the system.
+      role: ROLE_REGISTRAR

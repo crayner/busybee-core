@@ -171,3 +171,7 @@ year:
         current: 'You are working in the current system year. Click here to change this setting.'
         warning: 'Warning: You are not working in the current system year.  Changes made may not alter current details in the system. Proceed with caution. Click here to change this setting.'
         year: '<strong>%year%</strong>'
+person:
+    entity:
+        missing: 'The user has not defined a full Person record.'
+Preferences: Preferences

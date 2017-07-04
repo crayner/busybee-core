@@ -177,3 +177,16 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
+    form.person.preference.type:
+        class: Busybee\PersonBundle\Form\PersonPreferenceType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    preference.manager:
+        class: Busybee\PersonBundle\Model\PreferenceManager
+        arguments:
+            - '@grab.user.current'
+            - '@user.manager'
+            - '%locale%'
+            - '@doctrine.orm.entity_manager'

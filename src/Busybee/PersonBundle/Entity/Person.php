@@ -150,6 +150,11 @@ class Person extends PersonModel
     private $extra;
 
     /**
+     * @var PersonPreference
+     */
+    private $preference;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -836,6 +841,34 @@ class Person extends PersonModel
             $extra->setPerson($this);
 
         $this->extra = $extra;
+
+        return $this;
+    }
+
+    /**
+     * Get preference
+     *
+     * @return PersonPreference
+     */
+    public function getPreference()
+    {
+        if (empty($this->preference))
+            $this->setPreference(new PersonPreference());
+
+        return $this->preference;
+    }
+
+    /**
+     * Set preference
+     *
+     * @param PersonPreference $preference
+     *
+     * @return Person
+     */
+    public function setPreference(PersonPreference $preference = null)
+    {
+        $preference->setPerson($this);
+        $this->preference = $preference;
 
         return $this;
     }

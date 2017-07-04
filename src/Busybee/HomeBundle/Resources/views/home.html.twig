@@ -18,17 +18,19 @@
                 {% include '@BusybeeTimeTable/Display/timetable.html.twig' %}
             </div>
         </div>
+    {% else %}
+        <p>{{ 'homePage.para1'|trans }}</p>
+        <p>{{ 'homePage.para2'|trans }}</p>
+        <p>{{ 'homePage.para3'|trans }}</p>
+        <p>Craig Rayner</p>
     {% endif %}
-<p>{{ 'homePage.para1'|trans }}</p>
-<p>{{ 'homePage.para2'|trans }}</p>
-<p>{{ 'homePage.para3'|trans }}</p>
 
-<p>Craig Rayner</p>	
-	
+
 {% endblock contentContainer %}
-    {% if app.user is defined and app.user is not empty %}
-        {% if script is not defined %}
-            {% set script = [] %}
-        {% endif %}
-        {% set script = script|merge(['@BusybeeTimeTable/Display/selectDate.html.twig']) %}
+
+{% if app.user is defined and app.user is not empty %}
+    {% if script is not defined %}
+        {% set script = [] %}
     {% endif %}
+    {% set script = script|merge(['@BusybeeTimeTable/Display/selectDate.html.twig']) %}
+{% endif %}

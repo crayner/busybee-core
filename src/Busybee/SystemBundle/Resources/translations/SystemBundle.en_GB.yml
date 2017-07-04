@@ -220,3 +220,9 @@ setting:
             setting: YAML Formatted Setting
         placeholder:
             setting: Use one or more settings in YAML format. Settings that already exist are ignored.
+language:
+    system:
+        default: ' (System Default)'
+English (Australia): English (Australia)
+English (Great Britian): English (Great Britian)
+English (United States): English (United States)

@@ -123,6 +123,10 @@ Busybee\PersonBundle\Entity\Person:
             targetEntity: Busybee\PersonBundle\Entity\PersonExtra
             cascade: [all]
             mappedBy: person
+        preference:
+            targetEntity: Busybee\PersonBundle\Entity\PersonPreference
+            cascade: [all]
+            mappedBy: person
     oneToMany:
         careGiver:
             targetEntity: Busybee\FamilyBundle\Entity\CareGiver

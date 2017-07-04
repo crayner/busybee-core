@@ -49,3 +49,6 @@ person_photo_remove:
 contact_manage:
     path:     /contact/manage/
     defaults: { _controller: BusybeePersonBundle:Person:contactList}
+person_preference:
+    path:     /preference/
+    defaults: { _controller: BusybeePersonBundle:Person:preference}

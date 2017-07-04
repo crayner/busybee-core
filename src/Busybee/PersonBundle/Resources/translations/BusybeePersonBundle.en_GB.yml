@@ -127,6 +127,13 @@ person:
         student: Student
     reset:
         button: Reset Form
+    preference:
+        title: 'Preferences: %name%'
+        description: ''
+        header: Preferences
+        language:
+            label: Personal Language
+            placeholder: Default to System Language
 student:
     title:
         list: Student List

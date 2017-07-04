@@ -87,7 +87,15 @@ class UserManager extends BaseUserManager
         }
     }
 
-	public function findChildren($user, $checker) {
+    /**
+     * Find Children
+     *
+     * @param $user
+     * @param $checker
+     * @return array
+     */
+    public function findChildren($user, $checker)
+    {
 
 		$users = array();
         foreach ($this->findUsers() as $test)
@@ -125,5 +133,13 @@ class UserManager extends BaseUserManager
     public function findUsers()
     {
         return $this->repository->findAll();
+    }
+
+    /**
+     * @return Session
+     */
+    public function getSession(): Session
+    {
+        return $this->session;
     }
 }

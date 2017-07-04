@@ -248,3 +248,12 @@ services:
         class: Busybee\SecurityBundle\Security\VoterDetails
         arguments:
             - '@doctrine.orm.entity_manager'
+    grab.user:
+        class: Busybee\SecurityBundle\Model\GrabUser
+        arguments:
+            - '@my_service_container'
+    grab.user.current:
+        class: Busybee\SecurityBundle\Model\GrabUser
+        factory:
+            - '@grab.user'
+            - 'getCurrentUser'
