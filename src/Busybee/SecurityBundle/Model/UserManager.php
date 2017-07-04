@@ -242,17 +242,21 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
         if (!is_null($user->getYear()))
             return $user->getYear();
 
+        if ($this->getSession()->has('currentYear'))
+            return $this->getSession()->get('currentYear');
+
         $query = $this->objectManager->getRepository(Year::class)->createQueryBuilder('y')
             ->where('y.status = :status')
             ->setParameter('status', 'current')
             ->getQuery();
 
         try {
-            $result = $query->getSingleResult();
+            $year = $query->getSingleResult();
         } catch (NoResultException $e) {
             return null;
         }
+        $this->getSession()->set('currentYear', $year);
 
-        return $result;
+        return $year;
     }
 }
