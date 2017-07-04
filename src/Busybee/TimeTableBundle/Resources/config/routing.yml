@@ -68,5 +68,8 @@ grade_control:
     path:     /grade/{grade}/control/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:gradeControl }
 timetable_display:
-    path:     /{identifier}/display/{displayDate}/
-    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:display, displayDate: 'today' }
+    path:     /display/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:display }
+timetable_refresh_display:
+    path:     /display/{displayDate}/refresh/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:refreshDisplay }

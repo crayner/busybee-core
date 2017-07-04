@@ -220,15 +220,21 @@ class TimeTableController extends Controller
     /**
      * Display TimeTable
      *
-     * @param $identifier
-     * @param string $displayDate
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function displayAction($identifier, $displayDate = 'today')
+    public function displayAction()
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, null);
+
         $vd = $this->get('voter.details');
 
+        $sess = $this->get('session');
+
+        $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $this->get('timetable.display.manager')->getTimeTableIdentifier($this->getUser());
+
         $vd->parseIdentifier($identifier);
+
+        $displayDate = $sess->has('tt_displayDate') ? $sess->get('tt_displayDate') : $this->get('timetable.display.manager')->getTimeTableDisplayDate();
 
         $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $vd, null);
 
@@ -240,6 +246,45 @@ class TimeTableController extends Controller
             [
                 'manager' => $tm,
             ]
+        );
+    }
+
+    /**
+     * Refresh Display TimeTable
+     *
+     * @param string $displayDate
+     * @return JsonResponse
+     */
+    public function refreshDisplayAction($displayDate)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, null);
+
+        $vd = $this->get('voter.details');
+
+        $sess = $this->get('session');
+
+        $tm = $this->get('timetable.display.manager');
+
+        $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $tm->getTimeTableIdentifier($this->getUser());
+
+        $vd->parseIdentifier($identifier);
+
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $vd, null);
+
+        if ($this->getUser())
+            $tm->generateTimeTable($identifier, $displayDate);
+
+        $content = $this->renderView('BusybeeTimeTableBundle:Display:timetable.html.twig',
+            [
+                'manager' => $tm,
+            ]
+        );
+
+        return new JsonResponse(
+            [
+                'content' => $content,
+            ],
+            200
         );
     }
 }

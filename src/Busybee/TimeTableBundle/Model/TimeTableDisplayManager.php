@@ -7,6 +7,9 @@ use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
+use Busybee\PersonBundle\Model\PersonManager;
+use Busybee\SecurityBundle\Entity\User;
+use Busybee\SecurityBundle\Model\UserInterface;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
@@ -96,6 +99,11 @@ class TimeTableDisplayManager extends TimeTableManager
     private $idDesc;
 
     /**
+     * @var PersonManager
+     */
+    private $personManager;
+
+    /**
      * TimeTableDisplayManager constructor.
      * @param Year $year
      * @param ObjectManager $om
@@ -103,13 +111,14 @@ class TimeTableDisplayManager extends TimeTableManager
      * @param PeriodManager $pm
      * @param Session $sess
      */
-    public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess)
+    public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess, PersonManager $personManager)
     {
         parent::__construct($year, $om, $sm, $pm, $sess);
         $this->studentActivities = new ArrayCollection();
         $this->studentIdentifier = 0;
         $this->staffActivities = new ArrayCollection();
         $this->staffIdentifier = 0;
+        $this->personManager = $personManager;
     }
 
     /**
@@ -195,6 +204,9 @@ class TimeTableDisplayManager extends TimeTableManager
     public function generateTimeTable($identifier, $displayDate)
     {
         $this->parseIdentifier($identifier);
+
+        $this->getSession()->set('tt_identifier', $identifier);
+        $this->getSession()->set('tt_displayDate', $displayDate);
 
         $this->setDisplayDate(new \DateTime($displayDate))
             ->generateWeeks();
@@ -485,6 +497,36 @@ class TimeTableDisplayManager extends TimeTableManager
         }
 
         return $day;
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return null|string
+     */
+    public function getTimeTableIdentifier(User $user)
+    {
+        // Determine if user is staff or student
+        $identifier = '';
+        if (is_null($user->getPerson())) {
+            if ($this->getSession()->has('tt_identifier'))
+                $this->getSession()->remove('tt_identifier');
+            return null;
+        }
+
+        if ($this->personManager->isStudent($user->getPerson())) {
+            $identifier = 'stud' . $user->getPerson()->getStudent()->getId();
+        }
+        if ($this->personManager->isStaff($user->getPerson())) {
+            $identifier = 'staf' . $user->getPerson()->getStaff()->getId();
+        }
+        $this->getSession()->set('tt_identifier', $identifier);
+
+        return $identifier;
+    }
+
+    public function getTimeTableDisplayDate()
+    {
+        return date('Ymd');
     }
 
     /**

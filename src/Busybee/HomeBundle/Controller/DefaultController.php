@@ -51,6 +51,9 @@ class DefaultController extends Controller
 			return new RedirectResponse($this->generateUrl('install_start'));
 
 		$user = $this->getUser();
+
+        $tm = $this->get('timetable.display.manager');
+
 		if (! is_null($user))
 		{
 			$encoder = $this->get('security.encoder_factory');
@@ -59,6 +62,13 @@ class DefaultController extends Controller
 			// Note the difference
 			if ($user->getUsername() === 'admin')
 				return new RedirectResponse($this->generateUrl('security_user_edit'));
+
+            $identifier = $this->get('session')->has('tt_identifier') ? $this->get('session')->get('tt_identifier') : $tm->getTimeTableIdentifier($this->getUser());
+
+            $displayDate = $this->get('session')->has('tt_displayDate') ? $this->get('session')->get('tt_displayDate') : $tm->getTimeTableDisplayDate();
+
+            $tm->generateTimeTable($identifier, $displayDate);
+
 			if ($encoder->isPasswordValid($user->getPassword(), 'p@ssword', $user->getSalt()) || $user->getExpired())
 			{
 				$email = null;
@@ -76,6 +86,8 @@ class DefaultController extends Controller
 			}
 		}
 
-		return $this->render('BusybeeHomeBundle::home.html.twig', array('config' => $config));
+        return $this->render('BusybeeHomeBundle::home.html.twig', array('config' => $config,
+            'manager' => $tm,
+        ));
     }
 }

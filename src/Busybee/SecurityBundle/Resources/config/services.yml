@@ -102,9 +102,19 @@ services:
         arguments: 
             - '@security.encoder_factory'
             - '@busybee_security.user.canonicaliser'
-            - '@busybee_security.user.canonicaliser'
+            - '@session'
             - '@doctrine.orm.entity_manager'
             - '%busybee_security.user.entity%'
+        public: false
+    user.manager:
+        class: Busybee\SecurityBundle\Doctrine\UserManager
+        arguments:
+            - '@security.encoder_factory'
+            - '@busybee_security.user.canonicaliser'
+            - '@session'
+            - '@doctrine.orm.entity_manager'
+            - '%busybee_security.user.entity%'
+        public: false
     busybee_security.user_provider.username:
         class: Busybee\SecurityBundle\Security\UserProvider
         public: false 
@@ -116,7 +126,7 @@ services:
             - { name: kernel.event_subscriber }
         arguments: 
             - '@busybee_security.user_manager'
-            - '@session' 
+            - '@session'
     busybee_security.login_manager:
         class: Busybee\SecurityBundle\Security\LoginManager
         arguments: 

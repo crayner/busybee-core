@@ -4,6 +4,7 @@ namespace Busybee\TimeTableBundle\Model;
 use Busybee\InstituteBundle\Entity\SpecialDay;
 use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
+use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\StartRotate;
@@ -723,5 +724,13 @@ class TimeTableManager
     public function getSchoolDayTime(): int
     {
         return $this->schoolDayTime;
+    }
+
+    /**
+     * @return Session
+     */
+    public function getSession()
+    {
+        return $this->sess;
     }
 }

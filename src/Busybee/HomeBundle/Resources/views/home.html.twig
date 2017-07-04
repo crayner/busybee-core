@@ -4,18 +4,21 @@
 
 {% trans_default_domain 'BusybeeHomeBundle' %}
 
-{% block stylesheets %}
-    {{ parent() }}
-{% endblock stylesheets %}
-
-
-
-{% block title %}Busybee {{ 'Home'|trans }}{% endblock title %}
+{% block title %}Busybee {{ 'homePage.heading'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'homePage.heading'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'homePage.lead'|trans }}.{% endblock headerLead %}
 
-
 {% block contentContainer %}
+    {% if app.user is defined and app.user is not empty %}
+        <div id="myTimeTable">
+            <h3>
+                {{ 'myTimeTable'|trans({}, 'BusybeeTimeTableBundle') }}
+            </h3>
+            <div id="displayTimeTable">
+                {% include '@BusybeeTimeTable/Display/timetable.html.twig' %}
+            </div>
+        </div>
+    {% endif %}
 <p>{{ 'homePage.para1'|trans }}</p>
 <p>{{ 'homePage.para2'|trans }}</p>
 <p>{{ 'homePage.para3'|trans }}</p>
@@ -23,3 +26,9 @@
 <p>Craig Rayner</p>	
 	
 {% endblock contentContainer %}
+    {% if app.user is defined and app.user is not empty %}
+        {% if script is not defined %}
+            {% set script = [] %}
+        {% endif %}
+        {% set script = script|merge(['@BusybeeTimeTable/Display/selectDate.html.twig']) %}
+    {% endif %}

@@ -3,7 +3,6 @@ namespace Busybee\PersonBundle\Model;
 
 use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\FamilyBundle\Entity\Family;
-use Busybee\InstituteBundle\Entity\Department;
 use Busybee\InstituteBundle\Entity\DepartmentStaff;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\PersonBundle\Entity\Address;
@@ -87,11 +86,13 @@ class PersonManager
      * @var Year
      */
     private $year;
+
     /**
      * PersonManager constructor.
-     *
      * @param SettingManager $sm
-     * @return void
+     * @param ObjectManager $em
+     * @param ValidatorInterface $validator
+     * @param Year $year
      */
     public function __construct(SettingManager $sm, ObjectManager $em, ValidatorInterface $validator, Year $year)
     {
@@ -122,6 +123,7 @@ class PersonManager
 
     /**
      * @param Person $person
+     * @param $parameters
      */
     public function deleteStudent(Person $person, $parameters)
     {
@@ -440,6 +442,8 @@ class PersonManager
      * @param $data
      * @param $fields
      * @param $destinationFields
+     * @param $line
+     * @return array
      */
     private function importPerson($data, $fields, $destinationFields, $line)
     {
@@ -956,33 +960,63 @@ class PersonManager
      * @param $student
      * @return bool
      */
-    public function isTeacherOf($person, $student)
+    public function isTeacherOf(Staff $staff, Student $student)
     {
-        $activities = [];
+        $al = $this->em->getRepository(Activity::class)->createQueryBuilder('a')
+            ->select('a.id')
+            ->leftJoin('a.students', 's')
+            ->where('t.id = :tutor1_id')
+            ->setParameter('tutor1_id', $staff->getId())
+            ->leftJoin('a.tutor2', 'u')
+            ->orWhere('u.id = :tutor2_id')
+            ->setParameter('tutor2_id', $staff->getId())
+            ->leftJoin('a.tutor3', 'v')
+            ->orWhere('v.id = :tutor3_id')
+            ->setParameter('tutor3_id', $staff->getId())
+            ->andWhere('s.id = :student_id')
+            ->setParameter('student_id', $student->getId())
+            ->leftJoin('a.year', 'y')
+            ->andWhere('y.id = :year_id')
+            ->setParameter('year_id', $this->year->getId())
+            ->leftJoin('a.tutor1', 't')
+            ->getQuery()
+            ->getResult();
 
-        if (is_null($student))
-            return false;
-
-        foreach ($student->getActivities() as $act)
-            $activities[] = $act->getId();
-        $staff = $this->em->getRepository(Staff::class)->findOneByPerson($person->getId());
-
-        $al = $this->em->getRepository(Activity::class)->findByTutor($staff, $this->year);
-
-        $teaching = [];
-        foreach ($al as $act)
-            $teaching[] = $act->getId();
-        $al = $this->em->getRepository(PeriodActivity::class)->findByTutor($staff, $this->year);
-
-        foreach ($al as $act)
-            if (!in_array($act->getId(), $teaching))
-                $teaching[] = $act->getId();
-        $result = array_intersect($teaching, $activities);
-        if (!empty($result))
+        if (!empty($al))
             return true;
+
+        $al = $this->em->getRepository(PeriodActivity::class)->createQueryBuilder('p')
+            ->select('p.id')
+            ->leftJoin('p.activity', 'a')
+            ->leftJoin('a.students', 's')
+            ->leftJoin('p.tutor1', 't')
+            ->where('t.id = :tutor1_id')
+            ->setParameter('tutor1_id', $staff->getId())
+            ->leftJoin('p.tutor2', 'u')
+            ->orWhere('u.id = :tutor2_id')
+            ->setParameter('tutor2_id', $staff->getId())
+            ->leftJoin('p.tutor3', 'v')
+            ->orWhere('v.id = :tutor3_id')
+            ->andWhere('s.id = :student_id')
+            ->setParameter('student_id', $student->getId())
+            ->leftJoin('a.year', 'y')
+            ->andWhere('y.id = :year_id')
+            ->setParameter('year_id', $this->year->getId())
+            ->setParameter('tutor3_id', $staff->getId())
+            ->getQuery()
+            ->getResult();
+
+        if (!empty($al))
+            return true;
+
         return false;
     }
 
+    /**
+     * @param Staff $super
+     * @param Staff $staff
+     * @return bool
+     */
     public function isStaffCoordinator(Staff $super, Staff $staff)
     {
         $q = $this->em->getRepository(DepartmentStaff::class)->findByStaff($staff);
@@ -997,6 +1031,29 @@ class PersonManager
         foreach ($q as $dept)
             if ($y->contains($dept))
                 return true;
+
+        return false;
+    }
+
+    /**
+     * @param Person $parent
+     * @param Student $student
+     * @return bool
+     */
+    public function isStudentParent(Person $parent, Student $student)
+    {
+        $x = $this->em->getRepository(Family::class)->createQueryBuilder('f')
+            ->leftJoin('f.careGiver', 'c')
+            ->leftJoin('f.students', 's')
+            ->leftJoin('c.person', 'p')
+            ->where('s.id = :student_id')
+            ->andWhere('p.id = :parent_id')
+            ->setParameter('student_id', $student->getId())
+            ->setParameter('parent_id', $parent->getId())
+            ->getQuery()
+            ->getResult();
+        if (!empty($x))
+            return true;
 
         return false;
     }

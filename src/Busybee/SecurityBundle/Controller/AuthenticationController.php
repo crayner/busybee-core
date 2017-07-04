@@ -28,7 +28,9 @@ class AuthenticationController extends Controller
     public function loginAction(Request $request)
 	{
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
-        $session = $request->getSession();
+        $session = $this->get('session');
+        $this->clearSession();
+
 		if (false === $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR')))
 		{
 			$session->getFlashBag()->add(
@@ -66,6 +68,21 @@ class AuthenticationController extends Controller
             'csrf_token' => $csrfToken,
         ), $request);
 	}
+
+    /**
+     * Clear Session
+     */
+    private function clearSession()
+    {
+        $session = $this->get('session');
+
+        if ($session->has('tt_identifier'))
+            $session->remove('tt_identifier');
+
+        if ($session->has('tt_displayDate'))
+            $session->remove('tt_displayDate');
+    }
+ 
     /**
      * Renders the login template with the given parameters. Overwrite this function in
      * an extended controller to provide additional data for the login template.
@@ -82,7 +99,7 @@ class AuthenticationController extends Controller
 
 		return $this->render('BusybeeSecurityBundle:Security:login.html.twig', $data);
     }
- 
+
     public function checkAction()
     {
         throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
@@ -136,6 +153,9 @@ class AuthenticationController extends Controller
             $session->start();
         } else
             $session = $this->container->get('session');
+
+        $this->clearSession();
+
         // Initialize the provider
         $provider = new Google(compact('clientId', 'clientSecret', 'redirectUri'));
 
@@ -215,5 +235,4 @@ class AuthenticationController extends Controller
 
         return new RedirectResponse($route);
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\StaffBundle\Security;
+namespace Busybee\StudentBundle\Security;
 
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class StudentVoter extends Voter
+class ParentVoter extends Voter
 {
     /**
      * @var AccessDecisionManagerInterface
@@ -38,7 +38,6 @@ class StudentVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-
         if (!$subject instanceof VoterDetails)
             return false;
 
@@ -56,7 +55,7 @@ class StudentVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        if (!$this->decisionManager->decide($token, array('ROLE_TEACHER')))
+        if (!$this->decisionManager->decide($token, ['ROLE_PARENT']))
             return false;
 
         $user = $token->getUser();
@@ -67,6 +66,6 @@ class StudentVoter extends Voter
         if (!$this->personManager->isStaff($user->getPerson()))
             return false;
 
-        return $this->personManager->isTeacherOf($user->getPerson()->getStaff(), $subject->getStudent());
+        return $this->personManager->isStudentParent($user->getPerson(), $subject->getStudent());
     }
 }

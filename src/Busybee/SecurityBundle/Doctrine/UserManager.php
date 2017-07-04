@@ -5,6 +5,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Busybee\SecurityBundle\Model\UserInterface;
 use Busybee\SecurityBundle\Model\UserManager as BaseUserManager;
 use Busybee\SecurityBundle\Util\CanonicaliserInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserManager extends BaseUserManager
@@ -12,6 +13,7 @@ class UserManager extends BaseUserManager
     protected $objectManager;
     protected $class;
     protected $repository;
+    protected $session;
 
     /**
      * Constructor.
@@ -22,11 +24,13 @@ class UserManager extends BaseUserManager
      * @param ObjectManager           $om
      * @param string                  $class
      */
-    public function __construct(EncoderFactoryInterface $encoderFactory, CanonicaliserInterface $usernameCanonicaliser, CanonicaliserInterface $emailCanonicaliser, ObjectManager $om, $class)
+    public function __construct(EncoderFactoryInterface $encoderFactory, CanonicaliserInterface $canonicaliser, Session $session, ObjectManager $om, $class)
     {
-        parent::__construct($encoderFactory, $usernameCanonicaliser, $emailCanonicaliser);
+        parent::__construct($encoderFactory, clone $canonicaliser, clone $canonicaliser);
 
         $this->objectManager = $om;
+        $this->session = $session;
+
         $this->repository = $om->getRepository($class);
 
         $metadata = $om->getClassMetadata($class);
@@ -61,14 +65,6 @@ class UserManager extends BaseUserManager
     /**
      * {@inheritDoc}
      */
-    public function findUsers()
-    {
-        return $this->repository->findAll();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function reloadUser(UserInterface $user)
     {
         $this->objectManager->refresh($user);
@@ -94,14 +90,14 @@ class UserManager extends BaseUserManager
 	public function findChildren($user, $checker) {
 
 		$users = array();
-		foreach($this->findUsers() as $test) 
+        foreach ($this->findUsers() as $test)
 		{
 			if ($test->getUsername() === $user->getUsername())
 				continue ;
 			$valid = true;
 			$roles = $test->getRoles();
 
-			foreach($roles as $role) 
+            foreach ($roles as $role)
 			{
 				if (! $checker->isGranted($role))
 				{
@@ -119,7 +115,15 @@ class UserManager extends BaseUserManager
 			$x[$w->getUsername()]['id'] = $w->getID();
 			$x[$w->getUsername()]['email'] = $w->getEmail();
 		}
-		ksort($x); 
+        ksort($x);
 		return $x;
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findUsers()
+    {
+        return $this->repository->findAll();
+    }
 }

@@ -137,3 +137,11 @@ services:
         tags:
             - { name: security.voter, priority: 250 }
         public: false
+    student.parent.voter:
+        class: Busybee\StudentBundle\Security\ParentVoter
+        arguments:
+            - '@security.access.decision_manager'
+            - '@person.manager'
+        tags:
+            - { name: security.voter, priority: 250 }
+        public: false
