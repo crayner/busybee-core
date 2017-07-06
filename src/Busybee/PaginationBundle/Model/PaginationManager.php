@@ -619,7 +619,7 @@ abstract class PaginationManager implements PaginationInterface
             $this->setLastLimit($this->form['lastLimit']->getData());
             $this->setSortBy($this->form['currentSort']->getData());
             $this->getTotal();
-            $this->managePost();
+            $this->managePost($request);
         }
         $this->form = $this->getForm()->createView();
         return $this;
@@ -683,13 +683,13 @@ abstract class PaginationManager implements PaginationInterface
     /**
      * Manage Post
      *
-     * @version    15th February 2017
-     * @since	25th October 2016
-     * @return    PaginationManager
+     * @version 15th February 2017
+     * @since   25th October 2016
+     * @return  PaginationManager
      */
-    public function managePost()
+    public function managePost(Request $request)
     {
-        $data = $this->form->getExtraData();
+        $data = $request->get('paginator');
 
         if (array_key_exists('prev', $data))
             $this->getPrev();
