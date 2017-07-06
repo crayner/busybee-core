@@ -37,31 +37,54 @@ class SettingManager
         $this->settingCache = [];
         $this->setCurrentUser(null);
         $this->session = $container->get('session');
-        $this->settings = $this->get('settings');
-        $this->settingCache = $this->get('settingCache');
+        $this->settings = $this->session->get('settings');
+        $this->settingCache = $this->session->get('settingCache');
     }
 
     /**
-     * get Setting
-     *
-     * @version    31st October 2016
-     * @since    20th October 2016
-     * @param	string	$name
-     * @param	mixed	$default
-     * @param	array	$options
-     * @return	mixed	Value
+     * @{inheritdoc}
      */
-    public function get($name, $default = null, $options = array())
+    public function getCurrentUser()
     {
-        $this->settingExists = false;
-        if (isset($this->settings[$name])) {
-            $this->settingExists = true;
-            return $this->settings[$name];
+        return $this->currentUser;
+    }
+
+    /**
+     * @{inheritdoc}
+     */
+    public function setCurrentUser(User $user = null): SettingManager
+    {
+        $this->currentUser = $user;
+
+        return $this;
+    }
+
+    /**
+     * get Form Array Data
+     *
+     * @version    1st Novenber 2016
+     * @since    1st Novenber 2016
+     * @param    string $name
+     * @param    mixed $default
+     * @param    array $options
+     * @return    mixed    Value
+     */
+    public function getFormArrayData($name, $default = null, $options = array())
+    {
+        $x = $this->getSetting($name, $default, $options);
+        $y = array();
+        foreach ($x as $display => $value) {
+            $w = array();
+            $w['keyValue'] = $value;
+            $w['displayName'] = $display;
+            $y[] = $w;
         }
-        $value = $this->getSetting($name, $default, $options);
-        if ($this->settingExists)
-            $this->settings[$name] = $value;
-        return $value;
+        $w = array();
+        $w['keyValue'] = '';
+        $w['displayName'] = '';
+        $y['new'] = $w;
+
+        return $y;
     }
 
     /**
@@ -220,6 +243,19 @@ class SettingManager
     }
 
     /**
+     * Validate Setting
+     *
+     * @version    30th November 2016
+     * @since    30th November 2016
+     * @param    mixed $value
+     * @return    boolean
+     */
+    public function validateSetting($value)
+    {
+        return true;
+    }
+
+    /**
      * Write Setting to Session
      *
      * @param $name
@@ -234,65 +270,6 @@ class SettingManager
         $this->session->set('settingCache', $this->settingCache);
 
         return $value;
-    }
-
-    /**
-     * Validate Setting
-     *
-     * @version    30th November 2016
-     * @since    30th November 2016
-     * @param    mixed $value
-     * @return    boolean
-     */
-    public function validateSetting($value)
-    {
-        return true;
-    }
-
-    /**
-     * @{inheritdoc}
-     */
-    public function getCurrentUser()
-    {
-        return $this->currentUser;
-    }
-
-    /**
-     * @{inheritdoc}
-     */
-    public function setCurrentUser(User $user = null): SettingManager
-    {
-        $this->currentUser = $user;
-
-        return $this;
-    }
-
-    /**
-     * get Form Array Data
-     *
-     * @version    1st Novenber 2016
-     * @since    1st Novenber 2016
-     * @param    string $name
-     * @param    mixed $default
-     * @param    array $options
-     * @return    mixed    Value
-     */
-    public function getFormArrayData($name, $default = null, $options = array())
-    {
-        $x = $this->getSetting($name, $default, $options);
-        $y = array();
-        foreach ($x as $display => $value) {
-            $w = array();
-            $w['keyValue'] = $value;
-            $w['displayName'] = $display;
-            $y[] = $w;
-        }
-        $w = array();
-        $w['keyValue'] = '';
-        $w['displayName'] = '';
-        $y['new'] = $w;
-
-        return $y;
     }
 
     /**
@@ -369,6 +346,29 @@ class SettingManager
         } else
             $list = $this->get($choice);
         return $list;
+    }
+
+    /**
+     * get Setting
+     *
+     * @version    31st October 2016
+     * @since    20th October 2016
+     * @param    string $name
+     * @param    mixed $default
+     * @param    array $options
+     * @return    mixed    Value
+     */
+    public function get($name, $default = null, $options = array())
+    {
+        $this->settingExists = false;
+        if (isset($this->settings[$name])) {
+            $this->settingExists = true;
+            return $this->settings[$name];
+        }
+        $value = $this->getSetting($name, $default, $options);
+        if ($this->settingExists)
+            $this->settings[$name] = $value;
+        return $value;
     }
 
     /**

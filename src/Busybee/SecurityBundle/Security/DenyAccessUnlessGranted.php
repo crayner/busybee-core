@@ -23,23 +23,7 @@ trait DenyAccessUnlessGranted
         $request = $this->get('request_stack')->getCurrentRequest();
         $routeName = $request->get('_route');
 
-        $page = $this->get('doctrine')->getRepository(Page::class)->findOneByRoute($routeName);
-        if (null === $page)
-        {
-            $page = new Page();
-            $page->setRoute($routeName);
-
-            if (! is_array($attributes))
-                $attributes = [$attributes];
-
-            foreach($attributes as $attribute)
-                $page->addRole($attribute);
-
-            $page->setPath($request->getPathInfo());
-            $em = $this->get('doctrine')->getManager();
-            $em->persist($page);
-            $em->flush();
-        }
+        $page = $this->get('page.manager')->findOneByRoute($routeName, $attributes);
 
         $attributes = [];
         foreach ($page->getRoles() as $role)

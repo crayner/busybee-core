@@ -6,6 +6,8 @@ use Busybee\SecurityBundle\Entity\Page;
 
 abstract class PageModel
 {
+
+    private $cacheTime;
     /**
      * add Role
      *

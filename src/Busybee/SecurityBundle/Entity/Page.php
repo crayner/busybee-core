@@ -50,6 +50,19 @@ class Page extends PageModel
     private $path;
 
     /**
+     * @var \DateTime
+     */
+    private $cacheTime;
+
+    /**
+     * Page constructor.
+     */
+    public function __construct()
+    {
+        $this->setCacheTime();
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -226,6 +239,32 @@ class Page extends PageModel
     public function setPath($path)
     {
         $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get CacheTime
+     *
+     * @return \DateTime
+     */
+    public function getCacheTime(): \DateTime
+    {
+        if (empty($this->cacheTime))
+            $this->cacheTime = new \DateTime('-16 Minutes');
+        return $this->cacheTime;
+    }
+
+    /**
+     * Set CacheTime
+     * @param \DateTime|null $cacheTime
+     * @return Page
+     */
+    public function setCacheTime(\DateTime $cacheTime = null): Page
+    {
+        if (empty($cacheTime))
+            $cacheTime = new \DateTime('Now');
+        $this->cacheTime = $cacheTime;
 
         return $this;
     }

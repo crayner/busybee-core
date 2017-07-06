@@ -257,3 +257,9 @@ services:
         factory:
             - '@grab.user'
             - 'getCurrentUser'
+    page.manager:
+        class: Busybee\SecurityBundle\Model\PageManager
+        arguments:
+            - '@session'
+            - '@doctrine.orm.entity_manager'
+            - '@request_stack'

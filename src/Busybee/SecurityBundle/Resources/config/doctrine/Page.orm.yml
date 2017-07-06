@@ -23,6 +23,9 @@ Busybee\SecurityBundle\Entity\Page:
             length: '200'
         roles:
             type: array
+        cacheTime:
+            type: datetime
+            nullable: true
         lastModified:
             type: datetime
         createdOn:

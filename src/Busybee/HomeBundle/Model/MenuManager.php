@@ -7,12 +7,14 @@ use Symfony\Component\Process\Exception\InvalidArgumentException;
 class MenuManager
 {
 	protected $container;
+    protected $pageManager;
 
 	public function __construct(Container $container)
 	{
 		$this->container = $container;
 
-		$this->pageRepository = $this->container->get('security.page.repository');
+        $this->pageManager = $this->container->get('page.manager');
+
 		return $this ;
 	}
 	
@@ -70,7 +72,7 @@ class MenuManager
     private function getRouteAccess($route, $role)
     {
         $roles = array();
-        $page = $this->pageRepository->findOneByRoute($route);
+        $page = $this->pageManager->findOneByRoute($route);
         if (! empty($page))
             foreach($page->getRoles() as $role)
                 $roles[] = $role;
