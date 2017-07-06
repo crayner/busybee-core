@@ -11,12 +11,12 @@ Address.ListLabel:
 Person.GenderList:
     type: 'array'
     displayName: 'Gender List'
-    description: ''
+    description: 'A list of genders used in the system.'
     role: 'ROLE_REGISTRAR'
 Person.TitleList:
     type: 'array'
     displayName: 'List of Titles'
-    description: ''
+    description: 'List of personal titles used in the system.'
     role: 'ROLE_REGISTRAR'
 Address.TerritoryList:
     type: 'array'

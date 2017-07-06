@@ -615,8 +615,14 @@ abstract class PaginationManager implements PaginationInterface
                 $this->setChoice(null);
             $this->setSearch($this->form['currentSearch']->getData());
             $this->setLastSearch($this->form['lastSearch']->getData());
+
+            if ($this->getLimit() > $this->getLastLimit())
+                if ($this->getOffSet() + $this->getLimit() > $this->getTotal())
+                    $this->setOffSet($this->getTotal() - $this->getLimit() < 0 ? 0 : $this->getTotal() - $this->getLimit());
+
             $this->setLimit($this->form['limit']->getData());
-            $this->setLastLimit($this->form['lastLimit']->getData());
+            $this->setLastLimit($this->form['limit']->getData());
+
             $this->setSortBy($this->form['currentSort']->getData());
             $this->getTotal();
             $this->managePost($request);
@@ -681,6 +687,34 @@ abstract class PaginationManager implements PaginationInterface
     }
 
     /**
+     * get Last Limit
+     *
+     * @version    25th October 2016
+     * @since    25th October 2016
+     * @return    integer
+     */
+    public function getLastLimit()
+    {
+        $this->lastLimit = intval($this->lastLimit) < 10 ? 10 : intval($this->lastLimit);
+        return $this->lastLimit;
+    }
+
+    /**
+     * set Last Limit
+     *
+     * @version    25th October 2016
+     * @since    25th October 2016
+     * @param    integer $limit
+     * @return    PaginationManager
+     */
+    public function setLastLimit($limit)
+    {
+        $limit = intval($limit);
+        $this->lastLimit = $limit < 10 ? 10 : $limit;
+        return $this;
+    }
+
+    /**
      * Manage Post
      *
      * @version 15th February 2017
@@ -690,11 +724,12 @@ abstract class PaginationManager implements PaginationInterface
     public function managePost(Request $request)
     {
         $data = $request->get('paginator');
-
-        if (array_key_exists('prev', $data))
-            $this->getPrev();
-        if (array_key_exists('next', $data))
-            $this->getNext();
+        if (!empty($data)) {
+            if (array_key_exists('prev', $data))
+                $this->getPrev();
+            if (array_key_exists('next', $data))
+                $this->getNext();
+        }
         // if ajax is used then ....
         switch ($this->control) {
             case 'paginatorNext':
@@ -787,34 +822,6 @@ abstract class PaginationManager implements PaginationInterface
     public function getResult()
     {
         return $this->result;
-    }
-
-    /**
-     * get Last Limit
-     *
-     * @version	25th October 2016
-     * @since	25th October 2016
-     * @return    integer
-     */
-    public function getLastLimit()
-    {
-        $this->lastLimit = intval($this->lastLimit) < 10 ? 10 : intval($this->lastLimit);
-        return $this->lastLimit ;
-    }
-
-    /**
-     * set Last Limit
-     *
-     * @version	25th October 2016
-     * @since	25th October 2016
-     * @param	integer		$limit
-     * @return    PaginationManager
-     */
-    public function setLastLimit($limit)
-    {
-        $limit = intval($limit);
-        $this->lastLimit = $limit < 10 ? 10 : $limit ;
-        return $this ;
     }
 
     /**

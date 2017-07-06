@@ -56,6 +56,7 @@
                         {{ saveButton({'class': 'btn btn-info halflings halflings-backward', 'additional': 'id="paginator_prev" name="paginator[prev]"', 'style': 'height: 33px; margin-top: -2px; '})|raw }}
                     </div>
                     {{ form_widget(form.limit, {'value': '' ~ pagination.limit}) }}
+                    {{ form_widget(form.lastLimit, {'value': '' ~ pagination.limit}) }}
                     <div class="input-group-btn">
                         {{ saveButton({'class': 'btn btn-info halflings halflings-forward', 'additional': 'id="paginator_next" name="paginator[next]"', 'style': 'height: 33px; margin-top: -2px;'})|raw }}
                     </div>
@@ -73,6 +74,7 @@
                 <label class="control-label">{{ form.limit.vars.label|trans }}</label>
                 <div class="text-right">
                     {{ form_widget(form.limit, {'value': '' ~ pagination.limit, 'attr': {'style': 'max-width: 150px; width: 150px;'}}) }}
+                    {{ form_widget(form.lastLimit, {'value': '' ~ pagination.limit}) }}
                 </div>
                 {% set pages = pagination.getTotalPages %}
 
@@ -91,6 +93,7 @@
             <input type="hidden" name="paginator[limit]" id="paginator_limit" value="{{ pagination.limit }}"/>
         {% endif %}
         {% do form.limit.setRendered %}
+        {% do form.lastLimit.setRendered %}
     </div>
 </div>
 {{ form_end(form) }}
