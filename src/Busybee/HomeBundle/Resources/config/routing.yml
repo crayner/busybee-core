@@ -7,3 +7,6 @@ error_page:
 home_template:
     path:     /template
     defaults: { _controller: BusybeeHomeBundle:Template:index }
+acknowledgement:
+    path:     /acknowledgement
+    defaults: { _controller: BusybeeHomeBundle:Default:acknowledgement }

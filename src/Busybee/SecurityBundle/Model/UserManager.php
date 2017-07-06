@@ -239,23 +239,16 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function getSystemYear(UserInterface $user)
     {
-        if (!is_null($user->getYear()))
+        if (!is_null($user->getYear()) && $user->getYear() instanceof Year)
             return $user->getYear();
 
         if ($this->getSession()->has('currentYear'))
             return $this->getSession()->get('currentYear');
 
-        $query = $this->objectManager->getRepository(Year::class)->createQueryBuilder('y')
-            ->where('y.status = :status')
-            ->setParameter('status', 'current')
-            ->getQuery();
+        $year = $this->objectManager->getRepository(Year::class)->findCurrentYear();
 
-        try {
-            $year = $query->getSingleResult();
-        } catch (NoResultException $e) {
-            return null;
-        }
-        $this->getSession()->set('currentYear', $year);
+        if (!empty($year->getId()))
+            $this->getSession()->set('currentYear', $year);
 
         return $year;
     }

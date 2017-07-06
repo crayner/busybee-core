@@ -10,7 +10,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>{{ get_setting('org.name', 'Busybee') }} - {% block title %}{% endblock title %} on Busybee</title>
+    <title>{{ get_setting('org.name.long', 'Busybee Institute') }} - {% block title %}{% endblock title %} on
+        Busybee</title>
 
     {% block stylesheets %}
         {% include 'BusybeeHomeBundle:Default:style.html.twig' %}
@@ -27,8 +28,8 @@
 
     {% block titleContainer %}
 		<div class="jumbotron{{ containerThemeOverwrite }}">
-			<img src="{{ asset(get_setting('Org.Logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo" />
-			<h2>{% block headerTitle %}Busybee - {{ get_setting('Org.Name') }}{% endblock headerTitle %}</h2>
+            <img src="{{ asset(get_setting('org.logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo"/>
+            <h2>{% block headerTitle %}Busybee - {{ get_setting('org.name.long') }}{% endblock headerTitle %}</h2>
 			<p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
             {% if headerNotices is not empty %}<p>{{ headerNotices|raw }}</p>{% endif %}
 		</div>

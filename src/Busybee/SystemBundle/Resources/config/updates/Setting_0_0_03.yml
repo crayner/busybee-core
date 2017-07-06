@@ -3,12 +3,13 @@ house.list:
     displayName: 'House List'
     description: "House list used in your school."
     role: 'ROLE_REGISTRAR'
+    value: ''
 student.groups:
     type: array
     displayName: Student Groups
     description: Usually the year groups that attend this school.
     role: ROLE_REGISTRAR
-    value:
+    value: |
         Year 7: Y7
         Year 8: Y8
 student.enrolment.status:
@@ -16,7 +17,7 @@ student.enrolment.status:
     displayName: Student Enrolment Status
     description: Reflects the status of student enrolment.
     role: ROLE_ADMIN
-    value:
+    value: |
         Future: Future
         Current: Current
         Left: Left
@@ -27,7 +28,7 @@ department.type.list:
     displayName: Department Type List
     role: ROLE_REGISTRAR
     description: Types of departments within the institute.
-    value:
+    value: |
         Learning Area: Learning Area
         Administration: Administration
 department.staff.type.list:
@@ -35,7 +36,7 @@ department.staff.type.list:
     displayName: Department Staff Type List
     role: ROLE_REGISTRAR
     description: Types of staff within departments within the institute.
-    value:
+    value: |
         Learning:
             Coordinator: Coordinator
             Assistant Coordinator: Assistant Coordinator
@@ -49,7 +50,7 @@ department.staff.type.list:
             Other: Other
 date.format:
     type: array
-    value:
+    value: |
         long: D, jS M/Y
         short: j/m/Y
     displayName: Date Format
@@ -57,7 +58,7 @@ date.format:
     role: ROLE_REGISTRAR
 time.format:
     type: array
-    value:
+    value: |
         long: H:i:s
         short: h:i
     displayName: Time Format
@@ -116,5 +117,6 @@ languages.translated:
           English (Great Britian): en_GB
           English (United States): en_US
       displayName: Languages Translated
+      choice: en_GB
       description: Languages that have been translated for the system.
       role: ROLE_REGISTRAR

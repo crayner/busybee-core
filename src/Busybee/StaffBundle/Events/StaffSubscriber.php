@@ -45,9 +45,9 @@ class StaffSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
 
         $staff = $form->getData();
-        $space_id = empty($staff->getHomeroom()) ? null : $staff->getHomeroom()->getId();
+        $space_id = is_null($staff) || empty($staff->getHomeroom()) ? 0 : $staff->getHomeroom()->getId();
 
-        if (intval($space_id) != intval($data['homeroom'])) {
+        if ($staff && intval($space_id) !== intval($data['homeroom'])) {
             $space = $staff->getHomeRoom();
             if (!empty($data['homeroom'])) {
                 $space->setStaff(null);

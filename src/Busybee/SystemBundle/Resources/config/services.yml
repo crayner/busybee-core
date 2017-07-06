@@ -33,7 +33,7 @@ services:
         tags:
             - { name: monolog.processor, method: processRecord }
     monolog.logger.busybee:
-        class: Busybee\SystemBundle\Model\BusybeeLogger 
+        class: Busybee\SystemBundle\Model\Logger
         arguments: ['@logger']
         tags:
             - { name: monolog.logger, channel: busybee }
@@ -99,10 +99,6 @@ services:
         class: Busybee\SystemBundle\Model\myContainer
         arguments:
             - '@service_container'
-    test.plugin.installed:
-        class: Busybee\SystemBundle\Model\Test\TestPluginInstalled
-        arguments:
-            - '@my_service_container'
     test.update.available:
         class: Busybee\SystemBundle\Model\Test\TestUpdateAvailable
         arguments:

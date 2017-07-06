@@ -1,9 +1,9 @@
 # Doctrine Configuration
 doctrine:
     dbal:
-        default_connection: normal
+        default_connection: default
         connections:
-            normal: 
+            default:
                 driver:    pdo_mysql
                 host:      "%database_host%"
                 port:      "%database_port%"
@@ -15,7 +15,7 @@ doctrine:
                     charset: utf8mb4
                     collate: utf8mb4_unicode_ci 
                 mapping_types:
-                    enum: string 
+                    enum: string
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -27,6 +27,5 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:
             default:
-                connection: normal
+                connection: default
                 auto_mapping: true 
-

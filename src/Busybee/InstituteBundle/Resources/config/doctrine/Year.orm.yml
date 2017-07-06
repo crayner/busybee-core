@@ -1,6 +1,6 @@
 Busybee\InstituteBundle\Entity\Year:
     type: entity
-    table: calendar_year
+    table: calendar
     repositoryClass: Busybee\InstituteBundle\Repository\YearRepository
     id:
         id:

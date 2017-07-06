@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\SecurityBundle\Model;
 
+use Busybee\PersonBundle\Entity\Person;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -21,18 +22,19 @@ abstract class User implements UserInterface
     /**
      * @var array
      */
-	protected $roles;
-	
-	public function __construct() {
-		
-		$this->roles = array();
-		$this->setLocked(false);
-		$this->setEnabled(false);
-		$this->setExpired(false);
-		$this->setCredentialsExpired(false);
+    protected $roles;
+
+    public function __construct() {
+
+        $this->roles = array();
+        $this->setLocked(false);
+        $this->setEnabled(false);
+        $this->setExpired(false);
+        $this->setCredentialsExpired(false);
         $this->setLocale('en_GB');
         $this->setPassword('This password will never work.');
-	}
+    }
+
     /**
      * Returns the roles granted to the user.
      *
@@ -49,29 +51,27 @@ abstract class User implements UserInterface
      *
      * @return Role[] The user roles
      */
-	public function getRoles()
-	{
-		if (! empty($this->roles))
-			return $this->roles;
-		$this->roles = array();
+    public function getRoles()
+    {
+        if (! empty($this->roles))
+            return $this->roles;
+        $this->roles = array();
 
-		$groups = $this->getGroups();
+        $groups = $this->getGroups();
 
         $groupData = $this->getGroupList();
 
-        foreach ($groups as $group)
-		{
+        foreach ($groups as $group) {
             $roles = $groupData[$group];
-            foreach ($roles as $role)
-			{
+            foreach ($roles as $role) {
                 $this->roles[] = $role;
-			}
-		}
-		foreach($this->getDirectroles() As $role)
+            }
+        }
+        foreach($this->getDirectroles() As $role)
             $this->roles = array_merge($this->roles, array($role));
-		
-		return $this->roles;
-	}
+
+        return $this->roles;
+    }
 
     public function getGroupList()
     {
@@ -85,45 +85,45 @@ abstract class User implements UserInterface
 
     }
 
-	public function getPlainPassword()
+    public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
-	public function setPlainPassword($password)
-	{
+    public function setPlainPassword($password)
+    {
 
-		$this->plainPassword = $password;
-		return $this;
-	}
+        $this->plainPassword = $password;
+        return $this;
+    }
 
-	public function getSalt()
- 	{
+    public function getSalt()
+    {
 
-		return null;
- 	}
+        return null;
+    }
 
-	public function isSuperAdmin()
-	{
-		return $this->hasRole(static::ROLE_SUPER_ADMIN);
-	}
+    public function isSuperAdmin()
+    {
+        return $this->hasRole(static::ROLE_SUPER_ADMIN);
+    }
 
-	public function setSuperAdmin($boolean)
-	{
+    public function setSuperAdmin($boolean)
+    {
 
         if (true === $boolean)
-			$this->addRole(static::ROLE_SUPER_ADMIN);
-		else
-			$this->removeRole(static::ROLE_SUPER_ADMIN);
+            $this->addRole(static::ROLE_SUPER_ADMIN);
+        else
+            $this->removeRole(static::ROLE_SUPER_ADMIN);
 
         return $this;
-	}
+    }
 
-	public function isPasswordRequestNonExpired($ttl)
-	{
+    public function isPasswordRequestNonExpired($ttl)
+    {
 
-		return $this->getPasswordRequestedAt() instanceof \DateTime && $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
-	}
+        return $this->getPasswordRequestedAt() instanceof \DateTime && $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
+    }
 
     public function isAccountNonExpired()
     {
@@ -145,8 +145,8 @@ abstract class User implements UserInterface
 
     public function isCredentialsNonExpired()
     {
-		return ! $this->credentialsExpired ;
-	}
+        return ! $this->credentialsExpired ;
+    }
 
     public function isEnabled()
     {
@@ -203,24 +203,24 @@ abstract class User implements UserInterface
             $this->credentialsExpired,
             $this->enabled,
             $this->id
-        ) = $data;
+            ) = $data;
     }
 
     /**
      * @return bool
      */
     public function getChangePassword()
-	{
-		return $this->credentialsExpired ;
-	}
+    {
+        return $this->credentialsExpired ;
+    }
 
     /**
      * @return string
      */
     public function __toString()
-	{
-		return $this->getId().'-'.$this->getUsername();
-	}
+    {
+        return $this->getId().'-'.$this->getUsername();
+    }
 
     /**
      * @return bool
@@ -230,5 +230,12 @@ abstract class User implements UserInterface
         if (! $this->enabled || $this->locked)
             return true ;
         return false ;
+    }
+
+    public function hasPerson()
+    {
+        if ($this->getPerson() instanceof Person)
+            return true;
+        return false;
     }
 }

@@ -124,6 +124,7 @@ menu:
         title: Timetables
         line: Activity Lines
         assigndays: Assign Days
+    acknowledgement: Acknowledgement
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security
@@ -175,3 +176,6 @@ person:
     entity:
         missing: 'The user has not defined a full Person record.'
 Preferences: Preferences
+acknowledgement:
+    title: 'System Acknowledgement'
+    description: ''

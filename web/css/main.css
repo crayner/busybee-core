@@ -72,6 +72,10 @@ p {
 	background-color: rgba(204,204,204,0.5);
 }
 
+.row-striped:nth-of-type(odd) .row-hover:hover {
+    background-color: #eeeeec;
+}
+
 .row-striped:nth-of-type(even){
 	background-color: transparent;
 }
@@ -208,7 +212,6 @@ div.calendarMonth th {
     background-repeat: repeat-x;
     color: black;
 }
-
 .calendarClosure {
     background-image: -webkit-linear-gradient(top, #f2dede 0, #e7c3c3 100%);
     background-image: -o-linear-gradient(top, #f2dede 0, #e7c3c3 100%);
@@ -219,7 +222,6 @@ div.calendarMonth th {
     color: black;
     padding-top: 50px;
 }
-
 .calendarAlter {
     background-image: -webkit-linear-gradient(top, #f2dede 0, #e7c3c3 100%);
     background-image: -o-linear-gradient(top, #f2dede 0, #e7c3c3 100%);

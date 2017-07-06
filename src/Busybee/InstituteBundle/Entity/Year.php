@@ -2,6 +2,7 @@
 
 namespace Busybee\InstituteBundle\Entity;
 
+use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Model\Year as YearModel ;
 use Doctrine\Common\Collections\ArrayCollection ;
 
@@ -131,19 +132,18 @@ class Year extends YearModel
      */
     public function getStatus()
     {
-        return $this->status;
+        return strtolower($this->status);
     }
 
     /**
      * Set status
      *
-     * @param string $status
-     *
-     * @return Year
+     * @param $status
+     * @return $this
      */
     public function setStatus($status)
     {
-        $this->status = $status;
+        $this->status = strtolower($status);
 
         return $this;
     }
@@ -292,7 +292,7 @@ class Year extends YearModel
         return $this;
     }
 
-     /**
+    /**
      * Add term
      *
      * @param \Busybee\InstituteBundle\Entity\Term $term
@@ -352,8 +352,8 @@ class Year extends YearModel
      */
     public function addSpecialDay(\Busybee\InstituteBundle\Entity\SpecialDay $specialDay)
     {
-		if (! is_null($specialDay->getName()))
-        	$this->specialDays[] = $specialDay;
+        if (! is_null($specialDay->getName()))
+            $this->specialDays[] = $specialDay;
 
         return $this;
     }
@@ -379,14 +379,14 @@ class Year extends YearModel
             return null ;
 
         if ($this->specialDaysSorted && !$renew)
-        	return $this->specialDays;
+            return $this->specialDays;
 
-		$iterator = $this->specialDays->getIterator();
-		$iterator->uasort(function ($a, $b) {
-			return ($a->getDay() < $b->getDay()) ? -1 : 1;
-		});
+        $iterator = $this->specialDays->getIterator();
+        $iterator->uasort(function ($a, $b) {
+            return ($a->getDay() < $b->getDay()) ? -1 : 1;
+        });
         $this->specialDays = new ArrayCollection(iterator_to_array($iterator, false));
-		$this->specialDaysSorted = true ;
+        $this->specialDaysSorted = true ;
 
         return $this->specialDays;
     }

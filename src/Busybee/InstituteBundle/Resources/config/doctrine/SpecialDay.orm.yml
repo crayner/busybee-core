@@ -1,6 +1,6 @@
 Busybee\InstituteBundle\Entity\SpecialDay:
     type: entity
-    table: calendar_special_day
+    table: cal_special_day
     repositoryClass: Busybee\InstituteBundle\Repository\SpecialDayRepository
     id:
         id:

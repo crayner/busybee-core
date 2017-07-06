@@ -49,7 +49,7 @@ Phone.Display:
     description: "A template to convert phone numbers into display version."
     role: 'ROLE_REGISTRAR'
 Org.Name:
-    type: 'text'
+    type: 'array'
     displayName: 'Organisation Name'
     description: "The name of your organisation"
     role: 'ROLE_REGISTRAR'
@@ -195,7 +195,8 @@ Campus.Space.Type:
     description: 'Spaces are spaces used with the Campus, such as classrooms, purpose built rooms and Storage Rooms.'
     role: 'ROLE_ADMIN'
     validator: null
-    value: { Classroom: Classroom }
+    value: |
+        Classroom: Classroom
     choice: Classroom
 Staff.Categories:
     type: 'array'
@@ -250,12 +251,6 @@ Settings.Default.Overwrite:
     displayName: 'Setting File Overwrite'
     description: 'A file name that allows the update process to change the default settings to match the users pre-set details.'
     role: 'ROLE_SYSTEM_ADMIN'
-Org.Name.Short:
-    type: 'string'
-    displayName: 'Organisation Name : Short)'
-    description: "The short name of your organisation. Must be less than 16 characters."
-    role: 'ROLE_REGISTRAR'
-    validator: 'validator.org.name.short'
 idleTimeout:
     type: 'integer'
     displayName: 'Idle Timeout (Minutes)'

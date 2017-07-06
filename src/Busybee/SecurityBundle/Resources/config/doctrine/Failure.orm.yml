@@ -1,7 +1,7 @@
 # src\Busybee\SecurityBundle\Resources\config\doctrine\Failure.orm.yml
 Busybee\SecurityBundle\Entity\Failure:
     type: entity
-    table: secure_failure
+    table: failure
     repositoryClass: Busybee\SecurityBundle\Repository\FailureRepository
     id:
         id:

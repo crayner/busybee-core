@@ -4,14 +4,12 @@ namespace Busybee\TimeTableBundle\Model;
 use Busybee\InstituteBundle\Entity\SpecialDay;
 use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
-use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\StartRotate;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class TimeTableManager
 {
@@ -127,12 +125,16 @@ class TimeTableManager
         $this->setYear($year);
         $this->om = $om;
         $this->sm = $sm;
-        $this->timetable = $this->om->getRepository(TimeTable::class)->createQueryBuilder('t')
-            ->leftJoin('t.year', 'y')
-            ->where('y.id = :year_id')
-            ->setParameter('year_id', $this->year->getId())
-            ->getQuery()
-            ->getSingleResult();
+        try {
+            $this->timetable = $this->om->getRepository(TimeTable::class)->createQueryBuilder('t')
+                ->leftJoin('t.year', 'y')
+                ->where('y.id = :year_id')
+                ->setParameter('year_id', $this->year->getId())
+                ->getQuery()
+                ->getSingleResult();
+        } catch (\Exception $e) {
+            $this->timetable = new TimeTable();
+        }
         $this->schoolWeek = $this->sm->get('schoolWeek');
         $this->firstDayofWeek = $this->sm->get('firstDayofWeek');
         $this->pm = $pm;
@@ -667,7 +669,7 @@ class TimeTableManager
      */
     public function getWeeks(): array
     {
-        return $this->weeks;
+        return empty($this->weeks) ? [] : $this->weeks;
     }
 
     /**

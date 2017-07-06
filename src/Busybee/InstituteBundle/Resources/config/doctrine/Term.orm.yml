@@ -1,6 +1,6 @@
 Busybee\InstituteBundle\Entity\Term:
     type: entity
-    table: calendar_term
+    table: cal_term
     repositoryClass: Busybee\InstituteBundle\Repository\YearRepository
     uniqueConstraints:
         name_year:

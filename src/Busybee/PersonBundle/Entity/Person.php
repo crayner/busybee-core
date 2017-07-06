@@ -129,8 +129,8 @@ class Person extends PersonModel
     /**
      * @var Staff
      */
-
     private $staff;
+
     /**
      * @var \Busybee\StudentBundle\Entity\Student
      */
@@ -140,10 +140,12 @@ class Person extends PersonModel
      * @var \Doctrine\Common\Collections\Collection
      */
     private $careGiver;
+
     /**
      * @var string
      */
     private $importIdentifier;
+
     /**
      * @var \Busybee\PersonBundle\Entity\PersonExtra
      */

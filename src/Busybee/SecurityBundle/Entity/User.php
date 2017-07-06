@@ -94,27 +94,33 @@ class User extends UserModel
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    protected $lastModified;
+    private $lastModified;
+
     /**
      * @var \DateTime
      */
     private $createdOn;
+
     /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $createdBy;
+
     /**
      * @var \Busybee\SecurityBundle\Entity\User
      */
     private $modifiedBy;
+
     /**
      * @var \Busybee\PersonBundle\Entity\Person
      */
     private $person;
+
     /**
      * @var array
      */
     private $groups;
+
     /**
      * @var array
      */

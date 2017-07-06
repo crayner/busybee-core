@@ -104,6 +104,11 @@ class TimeTableDisplayManager extends TimeTableManager
     private $personManager;
 
     /**
+     * @var boolean
+     */
+    private $isTimeTable;
+
+    /**
      * TimeTableDisplayManager constructor.
      * @param Year $year
      * @param ObjectManager $om
@@ -111,14 +116,16 @@ class TimeTableDisplayManager extends TimeTableManager
      * @param PeriodManager $pm
      * @param Session $sess
      */
-    public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess, PersonManager $personManager)
+    public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $session, PersonManager $personManager)
     {
-        parent::__construct($year, $om, $sm, $pm, $sess);
+        parent::__construct($year, $om, $sm, $pm, $session);
         $this->studentActivities = new ArrayCollection();
         $this->studentIdentifier = 0;
         $this->staffActivities = new ArrayCollection();
         $this->staffIdentifier = 0;
         $this->personManager = $personManager;
+        if (empty($this->getTimeTable()->getId()))
+            $this->isTimeTable = false;
     }
 
     /**
@@ -203,9 +210,12 @@ class TimeTableDisplayManager extends TimeTableManager
      */
     public function generateTimeTable($identifier, $displayDate)
     {
-        $this->parseIdentifier($identifier);
+        if (false === $this->isTimeTable || empty($identifier))
+            return;
 
-        $this->getSession()->set('tt_identifier', $identifier);
+        if (!$this->parseIdentifier($identifier))
+            return;
+
         $this->getSession()->set('tt_displayDate', $displayDate);
 
         $this->setDisplayDate(new \DateTime($displayDate))
@@ -234,14 +244,22 @@ class TimeTableDisplayManager extends TimeTableManager
 
     /**
      * Parse Identifier
-     *
-     * @param $identifier
-     * @return TimeTableDisplayManager
+     * @param string $identifier
+     * @return bool
      */
-    protected function parseIdentifier($identifier): TimeTableDisplayManager
+    protected function parseIdentifier(string $identifier): bool
     {
-        $this->setType(substr($identifier, 0, 4));
-        $this->setIdentifier(substr($identifier, 4));
+        if (false === $this->isTimeTable)
+            return $this->isTimeTable;
+
+        if (is_null($identifier) || strlen($identifier) < 6)
+            return $this->isTimeTable = false;
+
+        if (!$this->setType(substr($identifier, 0, 4)))
+            return $this->isTimeTable = false;
+
+        if (!$this->setIdentifier(substr($identifier, 4)))
+            return $this->isTimeTable = false;
 
         switch ($this->getType()) {
             case 'Grade':
@@ -262,7 +280,11 @@ class TimeTableDisplayManager extends TimeTableManager
                 }
                 break;
         }
-        return $this;
+        $this->isTimeTable = true;
+
+        $this->getSession()->set('tt_identifier', $identifier);
+
+        return $this->isTimeTable;
     }
 
     /**
@@ -279,17 +301,17 @@ class TimeTableDisplayManager extends TimeTableManager
      * Set Type
      *
      * @param string $type
-     * @return TimeTableDisplayManager
-     * @throws
+     * @return bool
      */
-    public function setType(string $type): TimeTableDisplayManager
+    public function setType(string $type): bool
     {
-        if (isset($this->types[$type]))
-            $this->type = $this->types[$type];
-        else
-            throw new Exception('The calendar type (' . $type . ') has not been defined.');
 
-        return $this;
+        if (isset($this->types[$type])) {
+            $this->type = $this->types[$type];
+        } else
+            $this->isTimeTable = false;
+
+        return $this->isTimeTable;
     }
 
     /**
@@ -315,24 +337,39 @@ class TimeTableDisplayManager extends TimeTableManager
     /**
      * @return string
      */
-    public function getIdentifier(): string
+    public function getIdentifier(): integer
     {
         return $this->identifier;
     }
 
     /**
+     * Set Identifier
+     *
      * @param string $identifier
-     * @return TimeTableDisplayManager
+     * @return bool
      */
-    public function setIdentifier(string $identifier): TimeTableDisplayManager
+    public function setIdentifier(string $identifier): bool
     {
-        $this->identifier = $identifier;
+        if (intval($identifier) != $identifier) {
+            $this->isTimeTable = false;
+            return false;
+        }
 
-        return $this;
+        $this->identifier = intval($identifier);
+
+        return $this->isTimeTable;
     }
 
-    private function generateWeeks()
+    /**
+     * Generate Weeks
+     *
+     * @return TimeTableDisplayManager
+     */
+    private function generateWeeks(): TimeTableDisplayManager
     {
+        if (false === $this->isTimeTable)
+            return $this;
+
         $this->clearWeeks();
         $week = new \stdClass();
         $week->days = [];
@@ -375,7 +412,7 @@ class TimeTableDisplayManager extends TimeTableManager
      */
     public function getDisplayDate(): \DateTime
     {
-        return $this->displayDate;
+        return $this->displayDate instanceof \DateTime ? $this->displayDate : new \DateTime();
     }
 
     /**
@@ -399,6 +436,9 @@ class TimeTableDisplayManager extends TimeTableManager
      */
     private function mapCalendarWeek()
     {
+        if (false === $this->isTimeTable)
+            return;
+
         $start = clone reset($this->getWeek()->days)->date;
         $term = null;
         foreach ($this->getTTYear()->terms as $x) {
@@ -438,7 +478,7 @@ class TimeTableDisplayManager extends TimeTableManager
      */
     public function getWeek(): \stdClass
     {
-        return $this->week;
+        return $this->week instanceof \stdClass ? $this->week : new \stdClass();
     }
 
     /**
@@ -506,12 +546,12 @@ class TimeTableDisplayManager extends TimeTableManager
     public function getTimeTableIdentifier(User $user)
     {
         // Determine if user is staff or student
-        $identifier = '';
-        if (is_null($user->getPerson())) {
+        if (!$this->isTimeTable($user)) {
             if ($this->getSession()->has('tt_identifier'))
                 $this->getSession()->remove('tt_identifier');
             return null;
         }
+        $identifier = '';
 
         if ($this->personManager->isStudent($user->getPerson())) {
             $identifier = 'stud' . $user->getPerson()->getStudent()->getId();
@@ -522,6 +562,24 @@ class TimeTableDisplayManager extends TimeTableManager
         $this->getSession()->set('tt_identifier', $identifier);
 
         return $identifier;
+    }
+
+    /**
+     * Is TimeTable
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function isTimeTable(User $user)
+    {
+        if (is_bool($this->isTimeTable))
+            return $this->isTimeTable;
+
+        $this->isTimeTable = true;
+
+        $this->isTimeTable = $user->hasPerson();
+
+        return $this->isTimeTable;
     }
 
     public function getTimeTableDisplayDate()

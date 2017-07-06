@@ -14,3 +14,10 @@ parameters:
             parameters: []
             node: 9
             order: 90
+        91:
+            label: menu.acknowledgement
+            name: Template Design
+            route: acknowledgement
+            parameters: []
+            node: 9
+            order: 91

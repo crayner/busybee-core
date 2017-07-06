@@ -3,6 +3,7 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Finder\Finder ;
+use Symfony\Component\HttpFoundation\Request;
 
 class AppKernel extends Kernel
 {
@@ -77,5 +78,33 @@ class AppKernel extends Kernel
     public function getRootDir()
     {
         return __DIR__;
+    }
+
+    public function handle(Symfony\Component\HttpFoundation\Request $request, $type = \Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = true)
+    {
+        try {
+
+            return parent::handle($request);
+
+        } catch (Exception $e) {
+            switch ($e->getErrorCode()) {
+                case 1045:
+                    echo $e->getMessage();
+                    echo "<p>Check and correct settings in the parameters.yml file located in the  app/config/ directory.</p>";
+                    die();
+                    break;
+                case 1049:
+                    echo $e->getMessage();
+                    echo "<p>The database does not exist.</p>";
+                    var_dump($e);
+                    die();
+                    break;
+                default:
+                    echo $e->getErrorCode() . '<br/>';
+                    echo $e->getMessage();
+                    echo "<p>Hmm.  Fix something.</p>";
+                    die();
+            }
+        }
     }
 }

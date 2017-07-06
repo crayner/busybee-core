@@ -126,7 +126,7 @@ class Setting extends SettingModel
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = strtolower($name);
 
         return $this;
     }

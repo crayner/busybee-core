@@ -1,7 +1,7 @@
 # src\Busybee\SecurityBundle\Resources\config\doctrine\Page.orm.yml
 Busybee\SecurityBundle\Entity\Page:
     type: entity
-    table: secure_page
+    table: page
     repositoryClass: Busybee\SecurityBundle\Repository\PageRepository
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 

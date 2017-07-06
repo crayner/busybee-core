@@ -13,26 +13,42 @@ use Busybee\InstituteBundle\Entity\Year;
 class YearRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
+     * Find Current Year
+     *
      * @return Year
      */
-    public function findCurrentYear()
+    public function findCurrentYear(): Year
     {
-        $today = new \DateTime();
+        $year = null;
+        try {
+            $year = $this->createQueryBuilder('y')
+                ->where('y.status = :status')
+                ->setParameter('status', 'current')
+                ->getQuery()
+                ->getSingleResult();
+        } catch (\Exception $e) {
+            $year = $this->generateYear();
+        }
 
-        $year = $this->createQueryBuilder('y')
-            ->where('y.firstDay <= :firstDay')
-            ->andWhere('y.lastDay >= :lastDay')
-            ->setParameter('lastDay', $today)
-            ->setParameter('firstDay', $today)
-            ->getQuery()
-            ->getResult();
+        if (!$year instanceof Year) {
+            $year = $this->generateYear();
+        }
 
-        if (is_array($year) and count($year) === 1)
-            $year = reset($year);
+        return $year;
+    }
 
-        if (!$year instanceof Year)
-            $year = new Year();
-
+    /**
+     * Generate Year
+     *
+     * @return Year
+     */
+    private function generateYear(): Year
+    {
+        $year = new Year();
+        $year->setName('Empty');
+        $year->setStatus('current');
+        $year->setFirstDay(new \DateTime(date('Y') . '-01-01 00:00:00'));
+        $year->setLastDay(new \DateTime(date('Y') . '-12-31 00:00:00'));
         return $year;
     }
 }

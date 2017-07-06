@@ -1,7 +1,7 @@
 # src\Busybee\SecurityBundle\Resources\config\doctrine\User.orm.yml
 Busybee\SecurityBundle\Entity\User:
     type: entity
-    table: secure_users
+    table: users
     repositoryClass: Busybee\SecurityBundle\Repository\UserRepository
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
@@ -15,10 +15,6 @@ Busybee\SecurityBundle\Entity\User:
     indexes:
         username:
             columns: [ username ] 
-    properties:
-        email:
-            - Email: ~
-            - NotBlank: ~
     id:
         id:
             type: integer

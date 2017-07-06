@@ -9,7 +9,7 @@
 {% block headerLead %}{{ 'homePage.lead'|trans }}.{% endblock headerLead %}
 
 {% block contentContainer %}
-    {% if app.user is defined and app.user is not empty %}
+    {% if app.user is defined and app.user is not empty and manager.isTimeTable(app.user) %}
         <div id="myTimeTable">
             <h3>
                 {{ 'myTimeTable'|trans({}, 'BusybeeTimeTableBundle') }}
@@ -24,11 +24,9 @@
         <p>{{ 'homePage.para3'|trans }}</p>
         <p>Craig Rayner</p>
     {% endif %}
-
-
 {% endblock contentContainer %}
 
-{% if app.user is defined and app.user is not empty %}
+{% if app.user is defined and app.user is not empty and manager.isTimeTable(app.user) %}
     {% if script is not defined %}
         {% set script = [] %}
     {% endif %}

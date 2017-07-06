@@ -1,11 +1,12 @@
 <?php
 namespace Busybee\HomeBundle\Controller;
 
+use Doctrine\DBAL\ConnectionException;
+use Doctrine\ORM\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
-use Symfony\Component\Yaml\Dumper ;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
-use Doctrine\DBAL\DBALException ;
 
 class DefaultController extends Controller
 {
@@ -39,29 +40,43 @@ class DefaultController extends Controller
         $executor->execute($fixtures, true);
     }
 
-    public function indexAction( Request $request )
+    public function indexAction(Request $request )
     {
-//		if (true !== ($response = $this->get('busybee_security.authorisation.checker')->redirectAuthorisation('IS_AUTHENTICATED_FULLY'))) return $response;
-
-		$config = new \stdClass();
-		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+        try {
+            $doct = $this->getDoctrine()->getConnection();
+            if (!$doct->isConnected()) {
+                return new RedirectResponse($this->generateUrl('install_start'));
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            die();
+        } catch (ConnectionException $e) {
+            echo $e->getMessage();
+            die();
+        }
 
         $setting = $this->get('setting.manager');
-		if (! $setting->getSetting('Installed', false))
-			return new RedirectResponse($this->generateUrl('install_start'));
+        try {
+            if (!$setting->has('Installed') || !$setting->get('Installed', false))
+                return new RedirectResponse($this->generateUrl('install_start'));
+        } catch (\Exception $e) {
+            return new RedirectResponse($this->generateUrl('install_start'));
+        }
 
-		$user = $this->getUser();
+        $config = new \stdClass();
+        $config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+
+        $user = $this->getUser();
 
         $tm = $this->get('timetable.display.manager');
 
-		if (! is_null($user))
-		{
-			$encoder = $this->get('security.encoder_factory');
-			$encoder = $encoder->getEncoder($user);
+        if (! is_null($user)) {
+            $encoder = $this->get('security.encoder_factory');
+            $encoder = $encoder->getEncoder($user);
 
-			// Note the difference
-			if ($user->getUsername() === 'admin')
-				return new RedirectResponse($this->generateUrl('security_user_edit'));
+            // Note the difference
+            if ($user->getUsername() === 'admin')
+                return new RedirectResponse($this->generateUrl('security_user_edit'));
 
             $identifier = $this->get('session')->has('tt_identifier') ? $this->get('session')->get('tt_identifier') : $tm->getTimeTableIdentifier($this->getUser());
 
@@ -69,25 +84,56 @@ class DefaultController extends Controller
 
             $tm->generateTimeTable($identifier, $displayDate);
 
-			if ($encoder->isPasswordValid($user->getPassword(), 'p@ssword', $user->getSalt()) || $user->getExpired())
-			{
-				$email = null;
-				if (!empty($user))
-					$email = trim($user->getEmail());
+            if ($encoder->isPasswordValid($user->getPassword(), 'p@ssword', $user->getSalt()) || $user->getExpired()) {
+                $email = null;
+                if (!empty($user))
+                    $email = trim($user->getEmail());
 
-				$config = new \stdClass();
-				$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+                $config = new \stdClass();
+                $config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 
-				return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
-					'email' => $email,
-					'config' => $config,
-					'forcePasswordReset' => $user->getExpired(),
-				));
-			}
-		}
+                return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
+                    'email' => $email,
+                    'config' => $config,
+                    'forcePasswordReset' => $user->getExpired(),
+                ));
+            }
+        }
 
         return $this->render('BusybeeHomeBundle::home.html.twig', array('config' => $config,
             'manager' => $tm,
         ));
+    }
+
+    public function acknowledgementAction()
+    {
+        $versions = [];
+
+        $versions['Busybee']['System'] = $this->get('setting.manager')->get('Version.System');
+
+        $versions['Twig'] = \Twig_Environment::VERSION;
+        $versions['Symfony'] = Kernel::VERSION;
+        $versions['Doctrine']['ORM'] = Version::VERSION;
+        $versions['Doctrine']['Common'] = \Doctrine\Common\Version::VERSION;
+        $versions['Database']['Server'] = $this->getDoctrine()->getConnection()->getWrappedConnection()->getServerVersion();
+        $versions['Database']['Driver'] = $this->getDoctrine()->getConnection()->getParams()['driver'];
+        $versions['Database']['Driver'] = $this->getDoctrine()->getConnection()->getParams()['driver'];
+        $versions['Database']['Character Set'] = $this->getDoctrine()->getConnection()->getParams()['charset'];
+        $versions['Busybee']['Database'] = $this->get('setting.manager')->get('Version.Database');
+        $versions['Doctrine']['DBal'] = \Doctrine\DBAL\Version::VERSION;
+
+        foreach (get_loaded_extensions() as $name)
+            $versions['PHP'][$name] = phpversion($name);
+
+        foreach ($versions as $q => $w)
+            if (is_array($w))
+                ksort($versions[$q]);
+        ksort($versions);
+
+        return $this->render('@BusybeeHome/acknowledgement.html.twig',
+            [
+                'versions' => $versions,
+            ]
+        );
     }
 }

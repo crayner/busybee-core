@@ -5,9 +5,9 @@ use Busybee\SystemBundle\Entity\Setting;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Doctrine\ORM\EntityManager;
 use stdClass ;
-use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\Tools\SchemaTool ;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -137,7 +137,7 @@ class UpdateManager
     {
         try {
             $data = Yaml::parse(file_get_contents($fName));
-        } catch (ContextErrorException $e) {
+        } catch (ParseException $e) {
             $this->container->get('session')->getFlashBag()->add('error', $this->container->get('translator')->trans('updateDatabase.failure', array('%fName%' => $fName), 'SystemBundle'));
             return array();
         }

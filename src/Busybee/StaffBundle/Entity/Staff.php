@@ -198,6 +198,9 @@ class Staff extends StaffModel
      */
     public function setPerson(Person $person = null)
     {
+        if (!empty($person))
+            $person->setStaff($this);
+
         $this->person = $person;
 
         return $this;

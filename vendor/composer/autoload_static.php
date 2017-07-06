@@ -7,7 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
 {
     public static $files = array (
-        '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
@@ -26,7 +25,6 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         array (
             'Twig\\Extensions\\' => 16,
             'Twig\\' => 5,
-            'Tests\\' => 6,
         ),
         'S' => 
         array (
@@ -40,12 +38,9 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
             'Symfony\\Bundle\\AsseticBundle\\' => 29,
             'Symfony\\Bundle\\' => 15,
             'Symfony\\Bridge\\Twig\\' => 20,
-            'Symfony\\Bridge\\Swiftmailer\\' => 27,
             'Symfony\\Bridge\\ProxyManager\\' => 28,
-            'Symfony\\Bridge\\PhpUnit\\' => 23,
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
-            'Sensio\\Bundle\\GeneratorBundle\\' => 30,
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
             'Sensio\\Bundle\\DistributionBundle\\' => 33,
         ),
@@ -106,10 +101,6 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Twig\\' =>
             array(
                 0 => __DIR__ . '/..' . '/twig/twig/src',
-            ),
-        'Tests\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/tests',
         ),
         'Symfony\\Polyfill\\Util\\' => 
         array (
@@ -151,17 +142,9 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         array (
             0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Twig',
         ),
-        'Symfony\\Bridge\\Swiftmailer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Swiftmailer',
-        ),
         'Symfony\\Bridge\\ProxyManager\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/ProxyManager',
-        ),
-        'Symfony\\Bridge\\PhpUnit\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/phpunit-bridge',
         ),
         'Symfony\\Bridge\\Monolog\\' => 
         array (
@@ -170,10 +153,6 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Symfony\\Bridge\\Doctrine\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Doctrine',
-        ),
-        'Sensio\\Bundle\\GeneratorBundle\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/sensio/generator-bundle',
         ),
         'Sensio\\Bundle\\FrameworkExtraBundle\\' => 
         array (

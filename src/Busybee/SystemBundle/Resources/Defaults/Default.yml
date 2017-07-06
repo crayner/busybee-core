@@ -39,7 +39,7 @@ settings:
         'Ms': 'Ms'
         'Miss': 'Miss'
         'Dr': 'Dr'
-    Org.Name: Busybee Institute
+    Org.Name.Long: Busybee Institute
     Org.Name.Short: Bee
     CountryType: 'Symfony\Component\Form\Extension\Core\Type\CountryType' 
     firstDayofWeek: Monday
@@ -1402,4 +1402,3 @@ settings:
         Temporary: Temporary
         Permanent: Permanent
         Visitor: Visitor
-    Student.
