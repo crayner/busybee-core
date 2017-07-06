@@ -262,4 +262,4 @@ services:
         arguments:
             - '@session'
             - '@doctrine.orm.entity_manager'
-            - '@request_stack'
+            - '@router.default'

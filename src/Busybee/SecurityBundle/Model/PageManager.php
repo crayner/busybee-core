@@ -5,9 +5,9 @@ namespace Busybee\SecurityBundle\Model;
 use Busybee\SecurityBundle\Entity\Page;
 use Busybee\SecurityBundle\Repository\PageRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Router;
 
 class PageManager
 {
@@ -37,9 +37,9 @@ class PageManager
     private $page;
 
     /**
-     * @var Request
+     * @var Router
      */
-    private $request;
+    private $router;
 
     /**
      * PageManager constructor.
@@ -47,12 +47,12 @@ class PageManager
      * @param ObjectManager $om
      * @param RequestStack $request
      */
-    public function __construct(Session $session, ObjectManager $om, RequestStack $request)
+    public function __construct(Session $session, ObjectManager $om, Router $router)
     {
         $this->session = $session;
         $this->pageRepository = $om->getRepository(Page::class);
         $this->om = $om;
-        $this->request = $request->getCurrentRequest();
+        $this->router = $router;
     }
 
     /**
@@ -86,7 +86,7 @@ class PageManager
             foreach ($attributes as $attribute)
                 $this->page->addRole($attribute);
 
-            $this->page->setPath($this->request->getPathInfo());
+            $this->page->setPath($this->router->getRouteCollection()->get($routeName)->getPath());
             $this->om->persist($this->page);
             $this->om->flush();
             $this->pageSecurity[$routeName] = $this->page;
