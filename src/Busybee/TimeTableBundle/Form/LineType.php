@@ -42,16 +42,23 @@ class LineType extends AbstractType
         $builder
             ->add('name', null, [
                     'label' => 'line.label.name',
+                    'attr' => [
+                        'class' => 'monitorChange',
+                    ],
                 ]
             )
             ->add('nameShort', null, [
                     'label' => 'line.label.nameShort',
+                    'attr' => [
+                        'class' => 'monitorChange',
+                    ],
                 ]
             )
             ->add('participants', NumberType::class, [
                     'label' => 'line.label.participants',
                     'attr' => [
                         'help' => 'line.help.participants',
+                        'class' => 'monitorChange',
                     ],
                 ]
             )
@@ -59,6 +66,7 @@ class LineType extends AbstractType
                     'label' => 'line.label.includeAll',
                     'attr' => [
                         'help' => 'line.help.includeAll',
+                        'class' => 'monitorChange',
                     ],
                 ]
             )
@@ -72,6 +80,9 @@ class LineType extends AbstractType
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.name', 'ASC');
                     },
+                    'attr' => [
+                        'class' => 'monitorChange',
+                    ],
                 ]
             )
             ->add('year', HiddenType::class)

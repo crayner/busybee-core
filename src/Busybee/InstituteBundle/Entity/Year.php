@@ -102,30 +102,6 @@ class Year extends YearModel
     }
 
     /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Year
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
      * Get status
      *
      * @return string
@@ -240,30 +216,6 @@ class Year extends YearModel
     public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
-
-        return $this;
-    }
-
-    /**
-     * Get firstDay
-     *
-     * @return \DateTime
-     */
-    public function getFirstDay()
-    {
-        return $this->firstDay;
-    }
-
-    /**
-     * Set firstDay
-     *
-     * @param \DateTime $firstDay
-     *
-     * @return Year
-     */
-    public function setFirstDay($firstDay)
-    {
-        $this->firstDay = $firstDay;
 
         return $this;
     }
@@ -443,5 +395,58 @@ class Year extends YearModel
 
         return $this->grades;
 
+    }
+
+    public function __toString()
+    {
+        return $this->getName() . ' ' . $this->getFirstDay()->format('d/M/Y');
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Year
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get firstDay
+     *
+     * @return \DateTime
+     */
+    public function getFirstDay()
+    {
+        return $this->firstDay;
+    }
+
+    /**
+     * Set firstDay
+     *
+     * @param \DateTime $firstDay
+     *
+     * @return Year
+     */
+    public function setFirstDay($firstDay)
+    {
+        $this->firstDay = $firstDay;
+
+        return $this;
     }
 }

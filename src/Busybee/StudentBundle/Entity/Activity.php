@@ -530,9 +530,9 @@ class Activity extends ActivityModel
      *
      * @return integer
      */
-    public function getTeachingLoad()
+    public function getTeachingLoad(): int
     {
-        return $this->teachingLoad;
+        return intval($this->teachingLoad);
     }
 
     /**
@@ -542,7 +542,7 @@ class Activity extends ActivityModel
      *
      * @return Activity
      */
-    public function setTeachingLoad($teachingLoad)
+    public function setTeachingLoad($teachingLoad): Activity
     {
         $this->teachingLoad = intval($teachingLoad);
 

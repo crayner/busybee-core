@@ -6,6 +6,7 @@ use Busybee\InstituteBundle\Entity\Year;
 use Busybee\PaginationBundle\Model\PaginationManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Busybee\TimeTableBundle\Model\ActivityManager;
 
 class ActivityPagination extends PaginationManager
 {
@@ -15,6 +16,8 @@ class ActivityPagination extends PaginationManager
      * @var Year
      */
     protected $systemYear;
+
+    protected $activityManager;
 
     /**
      * Constructor
@@ -27,9 +30,10 @@ class ActivityPagination extends PaginationManager
      * @param    Year $systemYear
      * @param   Container $container
      */
-    public function __construct($pagination, EntityRepository $repository, Container $container, Year $systemYear)
+    public function __construct($pagination, EntityRepository $repository, Container $container, Year $systemYear, ActivityManager $manager)
     {
         $this->systemYear = $systemYear;
+        $this->activityManager = $manager;
         parent::__construct($pagination, $repository, $container);
     }
 
@@ -65,5 +69,10 @@ class ActivityPagination extends PaginationManager
     public function getSystemYear()
     {
         return $this->systemYear;
+    }
+
+    public function getManager(): ActivityManager
+    {
+        return $this->activityManager;
     }
 }

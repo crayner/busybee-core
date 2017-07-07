@@ -134,7 +134,7 @@ line:
             <h4>Duplicated Students</h4>
     list:
         title: Activity Lines
-        description: 'Drag and drop activity lines into a period to assign the line to the period.'
+        description: 'Drag and drop activity lines into a period to assign the line to the period. DblClick on any line to edit the line details.'
     delete:
         success: 'The Activity Line was removed.'
         failure: 'The system encountered a problem removing the activity line: %error%'
@@ -148,7 +148,8 @@ activity:
         new: New Activity
     list:
         title: 'Individual Activities'
-        description: 'Drag and drop an activity into a period to assign that activity to the period.'
+        description: 'Drag and drop an activity into a period to assign that activity to the period. DblClick on any activity to edit the activity details.'
+    count: '{0}(%count%)|]0,Inf[(%count% of %load%)'
 period:
     remove:
         success: The period selected was removed.

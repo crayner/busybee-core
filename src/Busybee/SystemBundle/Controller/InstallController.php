@@ -352,10 +352,9 @@ class InstallController extends Controller
             $this->entity->setExpired(false);
             $this->entity->setCredentialsExpired(false);
             $this->entity->setEnabled(true);
-            $this->entity->setDirectroles(['ROLE_SYSTEM_ADMIN', 'ROLE_PARENT']);
+            $this->entity->setDirectroles(['ROLE_SYSTEM_ADMIN']);
             $this->entity->setCreatedBy($this->entity);
             $this->entity->setModifiedBy($this->entity);
-            $this->entity->setGroups(['Support Staff']);
             $encoder = $this->get('security.password_encoder');
             $password = $encoder->encodePassword($this->entity, $user['password']);
             $this->entity->setPassword($password);

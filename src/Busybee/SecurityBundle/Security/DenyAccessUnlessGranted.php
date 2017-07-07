@@ -25,10 +25,6 @@ trait DenyAccessUnlessGranted
 
         $page = $this->get('page.manager')->findOneByRoute($routeName, $attributes);
 
-        $attributes = [];
-        foreach ($page->getRoles() as $role)
-            $attributes[] = $role;
-
-        parent::denyAccessUnlessGranted($attributes, $object, $message);
+        parent::denyAccessUnlessGranted($page->getRoles(), $object, $message);
     }
 }

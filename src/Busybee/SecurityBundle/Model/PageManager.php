@@ -71,6 +71,9 @@ class PageManager
 
         $this->page = empty($this->pageSecurity[$routeName]) ? null : $this->pageSecurity[$routeName];
 
+        if (!is_array($attributes))
+            $attributes = [$attributes];
+
         if (empty($this->page)) {
             $this->page = $this->pageRepository->findOneByRoute($routeName);
             $this->pageSecurity[$routeName] = $this->page;
@@ -79,9 +82,6 @@ class PageManager
         if (empty($this->page)) {
             $this->page = new Page();
             $this->page->setRoute($routeName);
-
-            if (!is_array($attributes))
-                $attributes = [$attributes];
 
             foreach ($attributes as $attribute)
                 $this->page->addRole($attribute);
@@ -94,6 +94,9 @@ class PageManager
 
         if ($this->page->getCacheTime() < new \DateTime('-15 Minutes')) {
             $this->page = $this->pageRepository->findOneByRoute($routeName);
+            foreach ($attributes as $attribute)
+                $this->page->addRole($attribute);
+
             $this->page->setCacheTime();
             $this->om->persist($this->page);
             $this->om->flush();

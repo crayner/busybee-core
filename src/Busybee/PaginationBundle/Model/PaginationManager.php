@@ -173,6 +173,11 @@ abstract class PaginationManager implements PaginationInterface
     private $displayChoice = true;
 
     /**
+     * @var array
+     */
+    private $injectedSearch;
+
+    /**
      * Constructor
      *
      * @version	25th October 2016
@@ -197,6 +202,7 @@ abstract class PaginationManager implements PaginationInterface
         $this->setName($this->paginationName);
 
         $this->form = $container->get('form.factory')->createNamedBuilder(strtolower($this->getName()) . '_paginator', PaginationType::class, $this, $params)->getForm();
+        $this->injectedSearch = [];
     }
 
     /**
@@ -457,17 +463,25 @@ abstract class PaginationManager implements PaginationInterface
      *
      * @version	25th October 2016
      * @since	25th October 2016
-     * @return	string
+     * @return    PaginationManager
      */
-    public function setSearchWhere()
+    public function setSearchWhere(): PaginationManager
     {
+        $x = 0;
         if (!is_null($this->getSearch())) {
-            $x = 0;
             foreach($this->getSearchList() as $field) {
                 $this->query->orWhere($field . ' LIKE :search' . $x);
                 $this->query->setParameter('search'. $x++, '%'.$this->getSearch().'%');
             }
         }
+
+        if (is_array($this->injectedSearch))
+            foreach ($this->injectedSearch as $search) {
+                $paramName = 'search' . $x++;
+                $this->query->orWhere(str_replace('__name__', ':' . $paramName, $search['where']));
+                $this->query->setParameter($paramName, $search['parameter']);
+            }
+
         return $this ;
     }
 
@@ -964,6 +978,15 @@ abstract class PaginationManager implements PaginationInterface
     public function setDisplayChoice(bool $displayChoice)
     {
         $this->displayChoice = $displayChoice;
+
+        return $this;
+    }
+
+    public function addInjectedSearch($search): PaginationManager
+    {
+        if (is_array($search) && isset($search['where']) && isset($search['parameter']) && false !== strpos($search['where'], '__name__'))
+            if (!in_array($search, $this->injectedSearch))
+                $this->injectedSearch[] = $search;
 
         return $this;
     }

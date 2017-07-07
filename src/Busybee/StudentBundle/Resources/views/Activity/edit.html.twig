@@ -16,10 +16,10 @@
     {% set transDomain = 'BusybeeStudentBundle' %}
     {% set route = {} %}
     {% if app.request.get('closeWindow') is not empty %}
-        {% set h3Content = closeButton()|raw %}
+        {% set h3Content = closeButton({mergeClass: 'disableOnChange'})|raw %}
         {% set route = route|merge({'closeWindow': '_closeWindow'}) %}
     {% else %}
-        {% set h3Content = returnButton({'windowOpen': {'route': path('student_activities')}})|raw %}
+        {% set h3Content = returnButton({mergeClass: 'disableOnChange', 'windowOpen': {'route': path('student_activities')}})|raw %}
     {% endif %}
     {% if app.request.get('id') != 'Add' %}
         {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add'}|merge(route))}})|raw %}

@@ -7,6 +7,7 @@ use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StudentBundle\Entity\Activity;
+use Busybee\StudentBundle\Entity\StudentGrade;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
@@ -115,7 +116,12 @@ class PeriodManager
         $this->translator = $translator;
         $this->flashbag = $flashbag;
         $this->currentYear = $cy;
-        $this->gradeControl = $sess->get('gradeControl');
+        $this->gradeControl = is_array($sess->get('gradeControl')) ? $sess->get('gradeControl') : [];
+        $grades = $this->om->getRepository(Grade::class)->findByYear($cy);
+
+        foreach ($grades as $grade)
+            if (!isset($this->gradeControl[$grade->getGrade()]))
+                $this->gradeControl[$grade->getGrade()] = true;
 
         $this->clearResults();
     }
@@ -452,22 +458,23 @@ class PeriodManager
         $this->injectPeriod($id);
         $data = new \stdClass();
 
-        $this->grade = $this->getGrades();
+        $this->grades = $this->getGrades();
 
         $grades = [];
-        foreach ($this->grade as $grade) {
+        foreach ($this->grades as $grade) {
             $data->grades[$grade->getId()] = $grade;
             $students = [];
             foreach ($grade->getStudents() as $student)
                 $students[$student->getStudent()->getId()] = $student->getStudent();
             $grades[$grade->getId()] = $students;
         }
+
         foreach ($this->period->getActivities() as $q => $pa) {
             $act = $pa->getActivity();
             foreach ($act->getStudents() as $student) {
                 $grade = $student->getStudentGrade($this->currentYear);
 
-                if (isset($grades[$grade->getId()][$student->getId()]))
+                if ($grade instanceof Grade && isset($grades[$grade->getId()][$student->getId()]))
                     unset($grades[$grade->getId()][$student->getId()]);
             }
         }
@@ -497,6 +504,7 @@ class PeriodManager
         if (!empty($this->grades))
             return $this->grades;
         $grades = [];
+
         foreach ($this->gradeControl as $grade => $xxx)
             if ($xxx)
                 $grades[] = $grade;

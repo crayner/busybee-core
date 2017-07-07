@@ -18,9 +18,15 @@
 {% block contentContainer %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {{ form_start(form) }}
-    {% set h3Content = returnButton({'windowOpen': {'route': path('line_list')}}) %}
+    {% set route = {} %}
+    {% if app.request.get('closeWindow') is not empty %}
+        {% set h3Content = closeButton({mergeClass: 'disableOnChange'})|raw %}
+        {% set route = route|merge({'closeWindow': '_closeWindow'}) %}
+    {% else %}
+        {% set h3Content = returnButton({mergeClass: 'disableOnChange', 'windowOpen': {'route': path('line_list')}}) %}
+    {% endif %}
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('line_manage', {'id': 'Add'}) }}) %}{% endif %}
-    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('line_manage', {'id': app.request.get('id')})}}) %}
+    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('line_manage', {'id': app.request.get('id')}|merge(route))}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'line.title.manage', 'transDomain': 'BusybeeTimeTableBundle'} %}

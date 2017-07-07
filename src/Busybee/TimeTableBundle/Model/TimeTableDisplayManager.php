@@ -311,7 +311,7 @@ class TimeTableDisplayManager extends TimeTableManager
         } else
             $this->isTimeTable = false;
 
-        return $this->isTimeTable;
+        return true;
     }
 
     /**
@@ -337,7 +337,7 @@ class TimeTableDisplayManager extends TimeTableManager
     /**
      * @return string
      */
-    public function getIdentifier(): integer
+    public function getIdentifier()
     {
         return $this->identifier;
     }
@@ -350,14 +350,9 @@ class TimeTableDisplayManager extends TimeTableManager
      */
     public function setIdentifier(string $identifier): bool
     {
-        if (intval($identifier) != $identifier) {
-            $this->isTimeTable = false;
-            return false;
-        }
+        $this->identifier = $identifier;
 
-        $this->identifier = intval($identifier);
-
-        return $this->isTimeTable;
+        return true;
     }
 
     /**

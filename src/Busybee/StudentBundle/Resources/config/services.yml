@@ -86,6 +86,7 @@ services:
             - '@activity.repository'
             - '@my_service_container'
             - '@current.year.currentYear'
+            - '@timetable.activity.manager'
     activity.repository:
         class: Busybee\StudentBundle\Repository\ActivityRepository
         factory:

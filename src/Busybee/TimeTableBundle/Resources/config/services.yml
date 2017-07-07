@@ -42,6 +42,12 @@ parameters:
             l.course:
                 alias: c
                 type: leftJoin
+            l.activities:
+                alias: a
+                type: leftJoin
+            a.grades:
+                alias: g
+                type: leftJoin
         searchList:
             - l.name
             - l.nameShort
@@ -247,3 +253,10 @@ services:
         factory:
             - '@timetable.manager'
             - 'getTimeTable'
+    timetable.activity.manager:
+        class: Busybee\TimeTableBundle\Model\ActivityManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@session.flash_bag'
+            - '@translator'
+            - '@current.year.currentYear'

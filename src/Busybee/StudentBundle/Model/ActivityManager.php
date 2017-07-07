@@ -107,4 +107,14 @@ class ActivityManager
 
         return $this->activity->canDelete();
     }
+
+    /**
+     * Get ObjectManager
+     *
+     * @return ObjectManager
+     */
+    public function getObjectManager(): ObjectManager
+    {
+        return $this->om;
+    }
 }

@@ -80,6 +80,12 @@ class AppKernel extends Kernel
         return __DIR__;
     }
 
+    /**
+     * @param Request $request
+     * @param int $type
+     * @param bool $catch
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function handle(Symfony\Component\HttpFoundation\Request $request, $type = \Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = true)
     {
         try {

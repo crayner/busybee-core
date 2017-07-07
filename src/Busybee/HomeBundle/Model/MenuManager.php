@@ -71,13 +71,10 @@ class MenuManager
      */
     private function getRouteAccess($route, $role)
     {
-        $roles = array();
-        $page = $this->pageManager->findOneByRoute($route);
+        $roles = [];
+        $page = $this->pageManager->findOneByRoute($route, $role);
         if (! empty($page))
-            foreach($page->getRoles() as $role)
-                $roles[] = $role;
-        elseif (! empty($role))
-            $roles[] = $role ;
+            $roles = $page->getRoles();
 
         return $roles;
     }

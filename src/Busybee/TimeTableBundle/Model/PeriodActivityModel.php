@@ -4,11 +4,12 @@ namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\StaffBundle\Entity\Staff;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * PeriodActivityModel
  */
-abstract class PeriodActivityModel
+abstract class PeriodActivityModel implements ActivityInterface
 {
     /**
      * @var bool
@@ -225,5 +226,17 @@ abstract class PeriodActivityModel
     public function getInheritedSpace()
     {
         return $this->inheritedSpace;
+    }
+
+    /**
+     * Get Grades
+     *
+     * @return null|ArrayCollection
+     */
+    public function getGrades()
+    {
+        if (!empty($this->getActivity()))
+            return $this->getActivity()->getGrades();
+        return null;
     }
 }

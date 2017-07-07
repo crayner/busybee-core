@@ -56,7 +56,6 @@ class LinePagination extends PaginationManager
             ->leftJoin('l.year', 'y')
             ->andWhere('y.id = :year_id')
             ->setParameter('year_id', $this->year->getId());
-
         return $this->getQuery();
     }
 }

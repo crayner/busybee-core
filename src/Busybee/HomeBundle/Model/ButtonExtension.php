@@ -77,6 +77,11 @@ class ButtonExtension extends \Twig_Extension
     {
         $button = '<button title="%title%" type="%type%" class="%class%" style="%style%" %additional%>%prompt%</button>';
 
+        if (isset($details['mergeClass'])) {
+            if (isset($defaults['class']))
+                $defaults['class'] .= ' ' . $details['mergeClass'];
+        }
+
         if (!empty($details['windowOpen'])) {
             $target = empty($details['windowOpen']['target']) ? '_self' : $this->translator->trans($details['windowOpen']['target'], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);
             $route = 'onClick="window.open(\'' . $details['windowOpen']['route'] . '\',\'' . $target . '\'';

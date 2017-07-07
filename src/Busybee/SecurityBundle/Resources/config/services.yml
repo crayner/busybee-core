@@ -63,6 +63,7 @@ parameters:
             - ROLE_ADMIN
         ROLE_SYSTEM_ADMIN:
             - ROLE_REGISTRAR
+            - ROLE_PARENT
 
 
 services:

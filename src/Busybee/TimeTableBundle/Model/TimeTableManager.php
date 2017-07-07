@@ -280,7 +280,6 @@ class TimeTableManager
                     if ($activity->getActivity() instanceof Activity) {
                         if (isset($this->report->activities[$activity->getActivity()->getId()])) {
                             $act = $this->report->activities[$activity->getActivity()->getId()];
-                            $act->incCount();
                         } else {
                             $act = $activity->getActivity();
                         }

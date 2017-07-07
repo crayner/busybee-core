@@ -39,7 +39,7 @@ class StudentModel
         $grades = $this->getGrades();
 
         foreach ($grades as $grade) {
-            if ($grade->getGrade()->getYear() == $year)
+            if ($grade->getGrade()->getYear()->getId() == $year->getId())
                 return $grade->getGrade();
         }
 

@@ -111,11 +111,13 @@ class TimeTableController extends Controller
 
         $tm = $this->get('timetable.manager')->setTimeTable($this->get('timetable.repository')->find($id));
 
+
         $up = $this->get('period.pagination');
         $lp = $this->get('line.pagination');
         $ap = $this->get('activity.pagination');
-        $ap->setSearch('');
-        $lp->setSearch('');
+//        $ap->setSearch('');
+//        $lp->setSearch('');
+
 
         $ap->injectRequest($request);
         $up->injectRequest($request);
@@ -125,16 +127,32 @@ class TimeTableController extends Controller
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
             ->setDisplayResult(false);
+        $gradeControl = $this->get('session')->get('gradeControl');
+        $param = [];
+        if (is_array($gradeControl)) {
+            foreach ($gradeControl as $q => $w)
+                if ($w)
+                    $param[] = $q;
+        }
+
+        $search = [];
+        if (!empty($param)) {
+            $search['where'] = 'g.grade IN (__name__)';
+            $search['parameter'] = $param;
+        }
+
         $ap->setLimit(1000)
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
             ->setSearch('')
+            ->addInjectedSearch($search)
             ->setDisplayResult(false);
         $lp->setDisplaySearch(false)
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
             ->setSearch('')
             ->setLimit(1000)
+            ->addInjectedSearch($search)
             ->setDisplayResult(false);
 
         $up->getDataSet();
@@ -224,11 +242,10 @@ class TimeTableController extends Controller
      */
     public function displayAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, null);
-
         $vd = $this->get('voter.details');
 
         $sess = $this->get('session');
+        $sess->set('tt_identifier', 'gradY13');
 
         $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $this->get('timetable.display.manager')->getTimeTableIdentifier($this->getUser());
 

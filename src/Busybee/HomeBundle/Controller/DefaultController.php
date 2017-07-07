@@ -56,6 +56,7 @@ class DefaultController extends Controller
         }
 
         $setting = $this->get('setting.manager');
+
         try {
             if (!$setting->has('Installed') || !$setting->get('Installed', false))
                 return new RedirectResponse($this->generateUrl('install_start'));

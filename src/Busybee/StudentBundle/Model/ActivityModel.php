@@ -2,14 +2,16 @@
 namespace Busybee\StudentBundle\Model;
 
 use Busybee\StudentBundle\Entity\Activity;
+use Busybee\TimeTableBundle\Model\ActivityInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-abstract class ActivityModel
+abstract class ActivityModel implements ActivityInterface
 {
     /**
      * @var integer
      */
     private $count;
+
     /**
      * @var string
      */
@@ -20,7 +22,7 @@ abstract class ActivityModel
      */
     public function __construct()
     {
-        $this->count = 0;
+        $this->setCount(0);
     }
 
     /**
@@ -74,27 +76,6 @@ abstract class ActivityModel
     }
 
     /**
-     * @return Activity
-     */
-    public function incCount()
-    {
-        $this->count = intval($this->count) < 1 ? 1 : $this->count + 1;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getActivityCount()
-    {
-        if (intval($this->getTeachingLoad()) === 0)
-            return '( ' . intval($this->count) . ' )';
-
-        return '( ' . intval($this->count) . ' of ' . $this->getTeachingLoad() . ' )';
-    }
-
-    /**
      * @return string
      */
     public function getAlert()
@@ -102,13 +83,16 @@ abstract class ActivityModel
         if (!empty($this->alert))
             return $this->alert;
 
-        if ($this->getTeachingLoad() > 0 && $this->getTeachingLoad() !== $this->getCount())
+        if ($this->getTeachingLoad() < 1)
+            return $this->alert = '';
+
+        if ($this->getTeachingLoad() !== $this->getCount())
             $this->alert = 'alert-warning';
 
-        if ($this->getTeachingLoad() > 0 && $this->getCount() > $this->getTeachingLoad())
+        if ($this->getCount() > $this->getTeachingLoad())
             $this->alert = 'alert-danger';
 
-        if ($this->getTeachingLoad() > 0 && $this->getCount() === $this->getTeachingLoad())
+        if ($this->getCount() === $this->getTeachingLoad())
             $this->alert = 'alert-success';
 
         return $this->alert;
@@ -127,9 +111,22 @@ abstract class ActivityModel
     /**
      * @return integer
      */
-    public function getCount()
+    public function getCount(): int
     {
-        return $this->count;
+        return intval($this->count);
+    }
+
+    /**
+     * Set Count
+     *
+     * @param $count
+     * @return Activity
+     */
+    public function setCount($count): Activity
+    {
+        $this->count = intval($count);
+
+        return $this;
     }
 
     /**

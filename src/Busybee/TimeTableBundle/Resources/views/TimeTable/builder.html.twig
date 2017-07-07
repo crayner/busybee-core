@@ -122,8 +122,8 @@
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activity.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'activity.list.description'} %}
                 {% for activity in activity_pagination.result %}
                     <div class="row-border row row-striped dragActivity" id="activity{{ activity.id }}">
-                        <div class="col-sm-12 {{ activity.0.alert }}">
-                            {{ activity.0.fullName }} {{ activity.0.activityCount }}
+                        <div class="small col-sm-12 {{ activity_pagination.manager.getAlert(activity.0) }}">
+                            {{ activity.0.fullName }} {{ 'activity.count'|transchoice(activity.0.teachingLoad, {'%count%': activity.0.count, '%load%': activity.0.teachingLoad }) }}
                         </div>
                     </div>
                 {% endfor %}
@@ -289,6 +289,23 @@
 
             window.open(path, '_self');
         }
+
+        $('.dragActivity').on('dblclick', function () {
+            var id = $(this).prop('id');
+            id = id.replace('activity', '');
+
+            var path = '{{ path('student_activity_edit', {id: '__id__', closeWindow: '_closeWindow'}) }}';
+            path = path.replace('__id__', id);
+            window.open(path, 'ActivityEdit', 'width=1200,height=750')
+        });
+        $('.dragLine').on('dblclick', function () {
+            var id = $(this).prop('id');
+            id = id.replace('line', '');
+
+            var path = '{{ path('line_manage', {id: '__id__', closeWindow: '_closeWindow'}) }}';
+            path = path.replace('__id__', id);
+            window.open(path, 'LineEdit', 'width=1200,height=750')
+        })
     </script>
     {% include '@BusybeeHome/Toggle/script.html.twig' %}
 {% endblock javascripts %}
