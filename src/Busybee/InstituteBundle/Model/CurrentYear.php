@@ -17,6 +17,7 @@ class CurrentYear
 
     /**
      * CurrentYear constructor.
+     *
      * @param UserManager $um
      * @param TokenStorage $ts
      */
@@ -29,6 +30,8 @@ class CurrentYear
     }
 
     /**
+     * Get Current Year
+     *
      * @return Year
      */
     public function getCurrentYear()

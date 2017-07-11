@@ -3,7 +3,7 @@
 
 {% block title %}{{ parent() }}{{ 'registration.confirmation.title'|trans }}{% endblock title %}
 {% block SecurityBundleContent %}
-	<div class="jumbotron">
+    <div class="jumbotron hideSection">
 		<h1>{{ 'registration.confirmation.title'|trans }}</h1>
     <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
     {% if app.session is not empty %}

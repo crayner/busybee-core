@@ -79,23 +79,24 @@ class PageManager
             $this->pageSecurity[$routeName] = $this->page;
         }
 
-        if (empty($this->page)) {
-            $this->page = new Page();
-            $this->page->setRoute($routeName);
-
+        if (empty($this->page->getId())) {
             foreach ($attributes as $attribute)
                 $this->page->addRole($attribute);
 
             $this->page->setPath($this->router->getRouteCollection()->get($routeName)->getPath());
+            $this->page->setCacheTime();
             $this->om->persist($this->page);
             $this->om->flush();
             $this->pageSecurity[$routeName] = $this->page;
         }
 
         if ($this->page->getCacheTime() < new \DateTime('-15 Minutes')) {
-            $this->page = $this->pageRepository->findOneByRoute($routeName);
+            $this->page = $this->pageRepository->find($this->page->getId());
             foreach ($attributes as $attribute)
                 $this->page->addRole($attribute);
+
+            if (empty($this->page->getId()))
+                $this->page->setPath($this->router->getRouteCollection()->get($routeName)->getPath());
 
             $this->page->setCacheTime();
             $this->om->persist($this->page);

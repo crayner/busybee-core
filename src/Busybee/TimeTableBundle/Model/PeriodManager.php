@@ -575,10 +575,12 @@ class PeriodManager
             $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.missing', [], 'BusybeeTimeTableBundle')];
         } elseif (!is_null($activity->getTutor1()) && isset($this->staff[$activity->getTutor1()->getFullName()])) {
             $act = $this->staff[$activity->getTutor1()->getFullName()];
+            dump($act);
+            dump($activity->getActivity());
             $this->status->class = ' alert-warning';
             $this->status->alert = 'warning';
-            $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
-            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
+            $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'BusybeeTimeTableBundle');
+            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
         } elseif (!is_null($activity->getTutor1()) && !isset($this->staff[$activity->getTutor1()->getFullName()]))
             $this->staff[$activity->getTutor1()->getFullName()] = $activity->getActivity();
 
@@ -586,8 +588,8 @@ class PeriodManager
             $act = $this->staff[$activity->getTutor2()->getFullName()];
             $this->status->class = ' alert-warning';
             $this->status->alert = 'warning';
-            $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor2()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
-            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor2()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
+            $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'BusybeeTimeTableBundle');
+            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
         } elseif (!is_null($activity->getTutor2()) && !isset($this->staff[$activity->getTutor2()->getFullName()]))
             $this->staff[$activity->getTutor2()->getFullName()] = $activity->getActivity();
 
@@ -595,8 +597,8 @@ class PeriodManager
             $act = $this->staff[$activity->getTutor3()->getFullName()];
             $this->status->class = ' alert-warning';
             $this->status->alert = 'warning';
-            $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor3()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
-            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor3()->getFullName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
+            $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'BusybeeTimeTableBundle');
+            $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
         } elseif (!is_null($activity->getTutor3()) && !isset($this->staff[$activity->getTutor3()->getFullName()]))
             $this->staff[$activity->getTutor3()->getFullName()] = $activity->getActivity();
 

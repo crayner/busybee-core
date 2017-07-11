@@ -2,9 +2,7 @@
 namespace Busybee\SecurityBundle\Security\Role;
 
 use Doctrine\ORM\EntityManager ;
-use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\Security\Core\Role\RoleHierarchy as RoleHierarchyBase;
-use Symfony\Component\Yaml\Yaml;
 
 class RoleHierarchy extends RoleHierarchyBase
 {

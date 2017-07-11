@@ -2,6 +2,9 @@
 
 namespace Busybee\SystemBundle\Controller ;
 
+use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\FormBundle\Type\TextType;
+use Busybee\FormBundle\Type\TimeType;
 use Busybee\FormBundle\Type\ToggleType;
 use Busybee\FormBundle\Validator\Integer;
 use Busybee\SystemBundle\Entity\Setting;
@@ -9,8 +12,10 @@ use Busybee\SystemBundle\Form\CreateType;
 use Busybee\SystemBundle\Form\SettingType;
 use Busybee\SystemBundle\Form\UploadType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml ;
 use Symfony\Component\Form\FormError ;
@@ -158,6 +163,18 @@ class SettingController extends Controller
                         )
                     )
                 );
+                break;
+            case 'file':
+                $form->add('value', TextType::class, array_merge($options, array(
+                            'data' => $sm->get($setting->getName()),
+                            'attr' => array_merge($attr,
+                                array(
+                                    'help' => 'system.setting.help.file',
+                                )
+                            ),
+                        )
+                    )
+                );
                 break ;
             case 'array':
                 $form->add('value', TextareaType::class, array_merge($options, array(
@@ -197,7 +214,7 @@ class SettingController extends Controller
                 break ;
             case 'string':
                 if (is_null($setting->getChoice()))
-                    $form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', array_merge($options, array(
+                    $form->add('value', TextType::class, array_merge($options, array(
                                 'attr'	=> array_merge($attr,
                                     array(
                                         'maxLength' => 25,
@@ -208,11 +225,11 @@ class SettingController extends Controller
                         )
                     );
                 else
-                    $form->add('value', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array_merge($options, array(
-                                'choices' => $sm->getChoices($setting->getChoice()),
+                    $form->add('value', SettingChoiceType::class, array_merge($options, [
+                                'setting_name' => $setting->getName(),
                                 'constraints' => $constraints,
                                 'attr' => $attr,
-                            )
+                            ]
                         )
                     );
                 break ;
@@ -234,7 +251,7 @@ class SettingController extends Controller
                 );
                 break ;
             case 'text':
-                $form->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', array_merge($options, array(
+                $form->add('value', TextType::class, array_merge($options, array(
                             'constraints' => $constraints,
                             'attr'	=> $attr,
                         )
@@ -242,7 +259,7 @@ class SettingController extends Controller
                 );
                 break ;
             case 'time':
-                $form->add('value', 'Busybee\FormBundle\Type\TimeType', array_merge($options, array(
+                $form->add('value', TimeType::class, array_merge($options, array(
                             'data' => new \DateTime($sm->get($setting->getName())),
                             'constraints' => $constraints,
                             'attr'	=> $attr,
@@ -270,6 +287,10 @@ class SettingController extends Controller
             $em = $this->get('doctrine')->getManager();
             $em->persist($setting);
             $em->flush();
+            $session = $this->get('session');
+            $settings = $session->get('settings', []);
+            $settings[$setting->getName()] = $setting->getValue();
+            $session->set('settings', $settings);
             if ($setting->getType() == 'image')
                 return new RedirectResponse($this->generateUrl('setting_edit', array('id' => $id)));
         }

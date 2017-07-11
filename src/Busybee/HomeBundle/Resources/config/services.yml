@@ -107,3 +107,22 @@ services:
         class: Busybee\HomeBundle\Model\MathExtension
         tags:
             - { name: twig.extension }
+    session.extension:
+        class: Busybee\HomeBundle\Model\SessionExtension
+        arguments:
+            - '@session'
+        tags:
+            - { name: twig.extension }
+    hide.section:
+        class: Busybee\HomeBundle\Model\HideSection
+        arguments:
+            - '@session'
+            - '@request_stack'
+    busybee.kernel.listener:
+        class: Busybee\HomeBundle\Listener\KernelListener
+        arguments:
+            - '@router.default'
+            - '@session'
+        tags:
+          - { name: kernel.event_listener, event: kernel.exception, priority: 128 }
+          - { name: kernel.event_listener, event: kernel.response, priority: 256 }

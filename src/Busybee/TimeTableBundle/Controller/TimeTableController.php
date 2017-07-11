@@ -238,14 +238,18 @@ class TimeTableController extends Controller
     /**
      * Display TimeTable
      *
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function displayAction()
+    public function displayAction(Request $request)
     {
         $vd = $this->get('voter.details');
 
         $sess = $this->get('session');
-        $sess->set('tt_identifier', 'gradY13');
+        if (!empty($request->get('closeWindow')))
+            $this->get('hide.section')->HideSectionOn();
+        else
+            $this->get('hide.section')->HideSectionOff();
 
         $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $this->get('timetable.display.manager')->getTimeTableIdentifier($this->getUser());
 
@@ -303,5 +307,20 @@ class TimeTableController extends Controller
             ],
             200
         );
+    }
+
+    /**
+     * Set TimeTable Grade
+     *
+     * @param $grade
+     * @return JsonResponse
+     */
+    public function setTimeTableGradeAction($grade)
+    {
+        $sess = $this->get('session');
+
+        $gc = $sess->set('tt_identifier', 'grad' . $grade);
+
+        return new JsonResponse([], 200);
     }
 }

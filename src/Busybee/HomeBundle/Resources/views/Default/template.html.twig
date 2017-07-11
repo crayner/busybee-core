@@ -27,7 +27,7 @@
 <div class="container theme-showcase" role="main">
 
     {% block titleContainer %}
-		<div class="jumbotron{{ containerThemeOverwrite }}">
+        <div class="jumbotron hideSection{{ containerThemeOverwrite }}">
             <img src="{{ asset(get_setting('org.logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo"/>
             <h2>{% block headerTitle %}Busybee - {{ get_setting('org.name.long') }}{% endblock headerTitle %}</h2>
 			<p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>

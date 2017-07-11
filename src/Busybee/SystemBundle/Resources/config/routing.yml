@@ -46,3 +46,6 @@ install_update:
 setting_create:
     path: /setting/create/
     defaults: { _controller: SystemBundle:Setting:create }
+install_connection_fail:
+    path: /install/connection/{exception}/fail/
+    defaults: { _controller: SystemBundle:Install:connectionFail }

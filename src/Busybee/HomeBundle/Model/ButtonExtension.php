@@ -18,9 +18,10 @@ class ButtonExtension extends \Twig_Extension
     private $translator;
 
     /**
-     * PersonExtension constructor.
+     * ButtonExtension constructor.
      *
-     * @param array $buttons
+     * @param $buttons
+     * @param TranslatorInterface $translator
      */
     public function __construct($buttons, TranslatorInterface $translator)
     {

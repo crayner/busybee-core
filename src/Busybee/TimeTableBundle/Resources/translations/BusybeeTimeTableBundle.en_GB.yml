@@ -186,7 +186,7 @@ period:
                 duplicate: 'The space %space% is already allocated to %activity% in this period.'
             staff:
                 missing: No staff allocated for this class.
-                duplicate: 'The staff member %name% is already allocated to %activity% in this period.'
+                duplicate: 'The staff member %name% is allocated to %activity% and %activity2% in this period.'
             failed:
                 count: 'Some activities are not correctly formated.  Found %count% activity not to specification.'
             edit:

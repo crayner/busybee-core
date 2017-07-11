@@ -131,7 +131,7 @@ class UpdateManager
      * @version 12th March 2017
      * @since   12th March 2017
      * @return  array
-     * @throws  ContextErrorException
+     * @throws  ParseException
      */
     private function loadSettingFile($fName)
     {

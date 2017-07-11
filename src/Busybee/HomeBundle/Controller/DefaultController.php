@@ -42,25 +42,15 @@ class DefaultController extends Controller
 
     public function indexAction(Request $request )
     {
-        try {
-            $doct = $this->getDoctrine()->getConnection();
-            if (!$doct->isConnected()) {
-                return new RedirectResponse($this->generateUrl('install_start'));
-            }
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-            die();
-        } catch (ConnectionException $e) {
-            echo $e->getMessage();
-            die();
-        }
-
         $setting = $this->get('setting.manager');
 
         try {
-            if (!$setting->has('Installed') || !$setting->get('Installed', false))
+            if (!$setting->has('Installed') || !$setting->get('Installed', false)) {
+                $this->get('session')->clear();
                 return new RedirectResponse($this->generateUrl('install_start'));
+            }
         } catch (\Exception $e) {
+            $this->get('session')->clear();
             return new RedirectResponse($this->generateUrl('install_start'));
         }
 

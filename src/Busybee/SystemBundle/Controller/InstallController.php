@@ -3,15 +3,16 @@
 namespace Busybee\SystemBundle\Controller ;
 
 use Busybee\InstituteBundle\Entity\Term;
+use Busybee\InstituteBundle\Entity\Year;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\StaffBundle\Entity\Staff;
+use Doctrine\DBAL\Exception\ConnectionException;
+use Doctrine\DBAL\Exception\SyntaxErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
-use stdClass ;
 use Symfony\Component\Yaml\Yaml ;
 use Symfony\Component\HttpFoundation\Request ;
 use Symfony\Component\Security\Csrf\CsrfToken ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
-use Doctrine\DBAL\DBALException ;
 use Doctrine\ORM\EntityManager ;
 use Doctrine\ORM\Tools\SchemaTool ;
 use Busybee\SecurityBundle\Entity\User ;
@@ -24,45 +25,78 @@ class InstallController extends Controller
 
     public function indexAction()
     {
-        $config = new stdClass();
+        $config = new \stdClass();
         $config->signin = null;
 
-        $config->parameterStatus = is_writable($this->get('kernel')->getRootDir().'/config/parameters.yml');
+        $config->parameterStatus = is_writable($this->get('kernel')->getRootDir() . '/config/parameters.yml');
 
-        $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
+        $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir() . '/config/parameters.yml'));
         $params = $params['parameters'];
-        $config->sql = new stdClass();
-        $sql = array();
-        foreach($params as $name=> $value)
+        $config->sql = new \stdClass();
+        $sql = [];
+
+        foreach ($params as $name => $value)
             if (strpos($name, 'database_') === 0) {
                 $config->sql->$name = $value;
                 $sql[substr($name, 9)] = $value;
             }
-        $caught = false;
-        try {
+        $session = $this->get('session');
+
+        unset($sql['name']);
+        if (!$session->isStarted() || !$session->has('databaseException')) {
+            $caught = false;
+            $config->sql->error = 'No Error Detected.';
             $connectionFactory = $this->get('doctrine.dbal.connection_factory');
             $connection = $connectionFactory->createConnection($sql);
-            $w = $connection->executeQuery("CREATE DATABASE IF NOT EXISTS ".$config->sql->database_name);
-        } catch (\Exception $e) {
-            $config->sql->error = $e->getMessage();
-            $config->sql->isConnected = false ;
-            $caught = true;
-            //do nothing ...
-        } catch (DBALException $e) {
-            $config->sql->error = $e->getMessage();
-            $config->sql->isConnected = false ;
-            $caught = true;
-            //do nothing ...
+            try {
+                $connection->connect();
+            } catch (ConnectionException | \Exception $e) {
+                $config->sql->error = $e->getMessage();
+                $config->sql->isConnected = false;
+                $config->exception = $e;
+                $caught = true;
+                return $this->render('SystemBundle:Install:start.html.twig', array('config' => $config));
+            }
+            $config->sql->isConnected = $connection->isConnected();
+
+            if (!$caught) {
+                $dbExists = true;
+                try {
+                    $connection->executeQuery("CREATE DATABASE IF NOT EXISTS " . $config->sql->database_name);
+                } catch (SyntaxErrorException $e) {
+                    $config->sql->error = $e->getMessage() . '. <strong>The database name must not have any spaces.</strong>';
+                    $config->sql->isConnected = false;
+                    $config->exception = $e;
+                    $dbExists = false;
+                    return $this->render('SystemBundle:Install:start.html.twig', array('config' => $config));
+                }
+                if ($dbExists) {
+                    $sql['name'] = $config->sql->database_name;
+                    $connection = $connectionFactory->createConnection($sql);
+                    try {
+                        $connection->connect();
+                    } catch (ConnectionException | SyntaxErrorException | \Exception $e) {
+                        $config->sql->error = $e->getMessage();
+                        $config->sql->isConnected = false;
+                        $config->exception = $e;
+                        $caught = true;
+                        return $this->render('SystemBundle:Install:start.html.twig', array('config' => $config));
+                    }
+                    $config->sql->isConnected = $connection->isConnected();
+                }
+            }
+        } else {
+            $config->exception = $this->get('session')->get('databaseException');
+            $config->sql->isConnected = false;
+            $config->sql->error = $config->exception->getMessage();
         }
-        if (! $caught) $config->sql->isConnected = $connection->isConnected();
 
         return $this->render('SystemBundle:Install:start.html.twig', array('config' => $config));
     }
 
     public function saveDatabaseAction(Request $request)
     {
-        $csrf = $this->get('security.csrf.token_manager');
-        if (! $csrf->isTokenValid(new CsrfToken('database', $request->request->get('_csrf_token')))) die();
+        if (!$this->isCsrfTokenValid('database', $request->request->get('_csrf_token'))) die();
         $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
         foreach($params['parameters'] as $name => $value)
             if (strpos($name, 'database_') === 0) {
@@ -80,7 +114,7 @@ class InstallController extends Controller
     public function checkMailerAction(Request $request)
     {
 
-        $config = new stdClass();
+        $config = new \stdClass();
         $config->signin = null;
 
         $w = is_writable($this->get('kernel')->getRootDir().'/config/parameters.yml');
@@ -97,7 +131,7 @@ class InstallController extends Controller
 
         $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
         $params = $params['parameters'];
-        $config->mailer = new stdClass();
+        $config->mailer = new \stdClass();
         $sql = array();
         foreach($params as $name=> $value)
             if (strpos($name, 'mailer_') === 0) {
@@ -145,8 +179,7 @@ class InstallController extends Controller
 
     public function saveMailerAction(Request $request)
     {
-        $csrf = $this->get('security.csrf.token_manager');
-        if (! $csrf->isTokenValid(new CsrfToken('mailer', $request->request->get('_csrf_token')))) die();
+        if (!$this->isCsrfTokenValid('mailer', $request->request->get('_csrf_token'))) die();
 
         $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
         foreach($params['parameters'] as $name => $value)
@@ -180,7 +213,7 @@ class InstallController extends Controller
     {
 
         $w = is_writable($this->get('kernel')->getRootDir().'/config/config.yml');
-        $config = new stdClass();
+        $config = new \stdClass();
         $config->signin = null;
 
         // Turn off the spooler
@@ -195,7 +228,7 @@ class InstallController extends Controller
         file_put_contents($this->get('kernel')->getRootDir().'/config/config.yml', Yaml::dump($w));
 
         $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
-        $config->misc = new stdClass();
+        $config->misc = new \stdClass();
         $config->proceed = true;
         if (! empty($params['parameters']['user'])) {
             $config->misc->username = $params['parameters']['user']['name'];
@@ -252,8 +285,7 @@ class InstallController extends Controller
 
     public function miscSaveAction(Request $request)
     {
-        $csrf = $this->get('security.csrf.token_manager');
-        if (! $csrf->isTokenValid(new CsrfToken('miscellaneous', $request->request->get('_csrf_token')))) die();
+        if (!$this->isCsrfTokenValid('miscellaneous', $request->request->get('_csrf_token'))) die();
 
         $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
 
@@ -414,5 +446,22 @@ class InstallController extends Controller
         $newEm->flush();
 
         return new RedirectResponse($this->generateUrl('update_start'));
+    }
+
+    public function connectionFailAction($exception)
+    {
+        $config = new \stdClass();
+        $config->signin = null;
+
+        $config->parameterStatus = is_writable($this->get('kernel')->getRootDir() . '/config/parameters.yml');
+
+        $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir() . '/config/parameters.yml'));
+        $params = $params['parameters'];
+
+        $config->exception = $exception;
+
+        return $this->render('@System/Install/connectionfail.html.twig', [
+            'config' => $config,
+        ]);
     }
 }

@@ -129,14 +129,14 @@ services:
     form.timetable.column.type:
         class: Busybee\TimeTableBundle\Form\ColumnEntityType
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine.orm.default_entity_manager'
             - '@setting.manager'
         tags:
             - { name: form.type }
     form.timetable.day.type:
         class: Busybee\TimeTableBundle\Form\DayEntityType
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine.orm.default_entity_manager'
         tags:
             - { name: form.type }
     timetable.manager:
@@ -159,20 +159,20 @@ services:
     form.timetable.hidden.day.type:
         class: Busybee\TimeTableBundle\Form\DayHiddenType
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine.orm.default_entity_manager'
         tags:
             - { name: form.type }
     form.timetable.columns.type:
         class: Busybee\TimeTableBundle\Form\ColumnType
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine.orm.default_entity_manager'
             - '@setting.manager'
         tags:
             - { name: form.type }
     form.timetable.period.type:
         class: Busybee\TimeTableBundle\Form\PeriodType
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine.orm.default_entity_manager'
             - '@setting.manager'
         tags:
             - { name: form.type }
@@ -186,7 +186,7 @@ services:
     form.timetable.column.period.type:
         class: Busybee\TimeTableBundle\Form\ColumnPeriodType
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine.orm.default_entity_manager'
         tags:
             - { name: form.type }
     period.repository:
@@ -199,7 +199,7 @@ services:
     period.manager:
         class: Busybee\TimeTableBundle\Model\PeriodManager
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine.orm.default_entity_manager'
             - '@translator'
             - '@session.flash_bag'
             - '@current.year.currentYear'

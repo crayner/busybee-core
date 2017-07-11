@@ -16,14 +16,19 @@ trait DenyAccessUnlessGranted
      *
      * @throws AccessDeniedException
      */
-    public function denyAccessUnlessGranted($attributes, $object = null, $message = null)
+    protected function denyAccessUnlessGranted($attributes, $object = null, $message = null)
     {
-        $message = is_null($message) ? $this->get('translator')->trans('security.access.denied', array(), 'BusybeeSecurityBundle') : $message;
-
         $request = $this->get('request_stack')->getCurrentRequest();
         $routeName = $request->get('_route');
 
         $page = $this->get('page.manager')->findOneByRoute($routeName, $attributes);
+
+        $dev = $this->get('kernel')->getEnvironment();
+        if ($dev === 'dev')
+            $message = is_null($message) ? $this->get('translator')->trans('security.access.denied.dev', ['%page%' => implode(', ', $page->getRoles()), '%user%' => $this->get('grab.user.current')->rolesToString()], 'BusybeeSecurityBundle') : $message;
+        else
+            $message = is_null($message) ? $this->get('translator')->trans('security.access.denied.prod', [], 'BusybeeSecurityBundle') : $message;
+
 
         parent::denyAccessUnlessGranted($page->getRoles(), $object, $message);
     }

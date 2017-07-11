@@ -10,7 +10,7 @@ abstract class PageModel
      * add Role
      *
      * @param $role
-     * @return Page
+     * @return PageModel
      */
     public function addRole($role)
     {

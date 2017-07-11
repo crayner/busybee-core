@@ -50,6 +50,7 @@ system:
             displayName: 'The display name is available to change for your system, but it must be unique on your system.'
             image: 'Upload an image.'
             default: "The default file is loaded when you upgrade the system to a new version. The upgrade process will overwrite defaults, and this setting will then refresh your school's default settings."
+            file: File are usually set by the system.  As such, file management should only be attempted with extreme care.
         integer:
             help: Enter a vaild integer value.
     upload:
@@ -61,9 +62,9 @@ parameter:
         ok: "The 'parameter,.yml' file is writable. Values you enter here will be saved."
         fail: "The 'parameter,.yml' file is NOT writable. You will need to manually update this file before the system will work correctly. You will be provided with the details to copy by this script."
     sql:
-        title: Database Connection Parameteres
+        title: Database Connection Parameters
         ok: "A connection to the database %name% was successful."
-        fail: "A connection to the database %name% was not successful.  The connection error staes: %error%" 
+        fail: "A connection to the database %name% was not successful.  The connection error states: %error%"
 sql:
     database:
         driver: 
@@ -78,7 +79,7 @@ sql:
             description: Please obtain the information from your Information Technology person. 
         name:
             title: The Name of the Database
-            description: The database needs to exist and have this name. 
+            description: The database has this name, and if it does not exist the system will attempt to create the database of this name.
         user:
             title: The User Name to access the Database
             description: ''
@@ -92,7 +93,7 @@ install:
     database:
         parameters: Database Connection Parameters
         connection:
-            complete: The database connection has been successfully tested.
+            complete: 'The database connection has been successfully tested and the database %name% is ready to use.'
     proceed: Proceed 
     mailer:
         parameters: Email Settings 

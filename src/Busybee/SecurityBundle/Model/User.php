@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\SecurityBundle\Model;
 
+use Busybee\HomeBundle\Exception\Exception;
 use Busybee\PersonBundle\Entity\Person;
 use Symfony\Component\Yaml\Yaml;
 
@@ -35,56 +36,6 @@ abstract class User implements UserInterface
         $this->setPassword('This password will never work.');
     }
 
-    /**
-     * Returns the roles granted to the user.
-     *
-     * <code>
-     * public function getRoles()
-     * {
-     *     return array('ROLE_USER');
-     * }
-     * </code>
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return Role[] The user roles
-     */
-    public function getRoles()
-    {
-        if (! empty($this->roles))
-            return $this->roles;
-        $this->roles = array();
-
-        $groups = $this->getGroups();
-
-        $groupData = $this->getGroupList();
-
-        foreach ($groups as $group) {
-            $roles = $groupData[$group];
-            foreach ($roles as $role) {
-                $this->roles[] = $role;
-            }
-        }
-        foreach($this->getDirectroles() As $role)
-            $this->roles = array_merge($this->roles, array($role));
-
-        return $this->roles;
-    }
-
-    public function getGroupList()
-    {
-        try {
-            $groups = Yaml::parse(file_get_contents('../src/Busybee/SecurityBundle/Resources/config/services.yml'));
-            $groups = $groups['parameters']['groups'];
-        } catch (ContextErrorException $e) {
-            return array();
-        }
-        return $groups;
-
-    }
-
     public function getPlainPassword()
     {
         return $this->plainPassword;
@@ -99,7 +50,6 @@ abstract class User implements UserInterface
 
     public function getSalt()
     {
-
         return null;
     }
 
@@ -237,5 +187,62 @@ abstract class User implements UserInterface
         if ($this->getPerson() instanceof Person)
             return true;
         return false;
+    }
+
+    public function rolesToString()
+    {
+        $roles = $this->getRoles();
+
+        return implode(', ', $roles);
+    }
+
+    /**
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return Role[] The user roles
+     */
+    public function getRoles()
+    {
+        if (!empty($this->roles))
+            return $this->roles;
+        $this->roles = array();
+
+        $groups = $this->getGroups();
+
+        $groupData = $this->getGroupList();
+
+        foreach ($groups as $group) {
+            $roles = $groupData[$group];
+            foreach ($roles as $role) {
+                $this->roles[] = $role;
+            }
+        }
+        foreach ($this->getDirectroles() As $role)
+            $this->roles = array_merge($this->roles, array($role));
+
+        return $this->roles;
+    }
+
+    public function getGroupList()
+    {
+        try {
+            $groups = Yaml::parse(file_get_contents('../src/Busybee/SecurityBundle/Resources/config/services.yml'));
+            $groups = $groups['parameters']['groups'];
+        } catch (Exception $e) {
+            return array();
+        }
+        return $groups;
+
     }
 }

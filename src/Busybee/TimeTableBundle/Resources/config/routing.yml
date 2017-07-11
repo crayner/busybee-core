@@ -73,3 +73,6 @@ timetable_display:
 timetable_refresh_display:
     path:     /display/{displayDate}/refresh/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:refreshDisplay }
+timetable_grade_set:
+    path:     /grade/{grade}/set/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:setTimeTableGrade }

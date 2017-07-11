@@ -6,6 +6,8 @@
 {% if app.getUser is not empty %}
     <script src={{ asset('js/dist/store.modern.min.js') }}></script>
     <script src={{ asset('js/jquery-idleTimeout.js') }}></script>
+    <script src={{ asset('js/bootstrap.min.js') }}></script>
+    <script src={{ asset('js/bootstrap-submenu.min.js') }}></script>
     <script type="text/javascript" charset="utf-8">
     // idleTimeout
     $(document).ready(function () {
@@ -21,11 +23,15 @@
             dialogText: '{{ 'idletimeout.dialogue'|trans({'%time%': get_setting('idleTimeout', 15) -  1}, 'BusybeeHomeBundle') }}',
             redirectUrl: '{{ path('security_timeout') }}'
         });
+
+        var hide = '{{ hideSection(app.request.get('_route')) }}';
+        if (hide) {
+            $('.hideSection').fadeOut(5);
+        }
     });
+    $('[data-submenu]').submenupicker();
     </script>
 {% endif %}
-<script src={{ asset('js/bootstrap.min.js') }}></script>
-<script src={{ asset('js/bootstrap-submenu.min.js') }}></script>
 <script src={{ asset('js/ie10-viewport-bug-workaround.js') }}></script>
 <script src={{ asset('js/holder.min.js') }}></script>
 {% if script is defined %}
@@ -33,7 +39,4 @@
         {% include xx %}
     {% endfor %}
 {% endif %}
-
-<script type="text/javascript" charset="utf-8">
-    $('[data-submenu]').submenupicker();
-</script>
+<!-- core JavaScript end -->

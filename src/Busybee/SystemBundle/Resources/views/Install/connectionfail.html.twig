@@ -1,0 +1,20 @@
+{# src/General/SecurityBundle/Resources/views/System/connectionfail.html.twig #}
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block menuContainer %}
+{% endblock menuContainer %}
+
+{% trans_default_domain 'SystemBundle' %}
+{% block title %}{{ 'system.install.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'system.install.connectionfail.title'} %}
+    <div class="row">
+        <div class="col-sm-12">
+            {{ dump() }}
+        </div>
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}

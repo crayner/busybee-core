@@ -18,13 +18,16 @@ class GrabUser
      */
     public function __construct(Container $container)
     {
-        $this->user = $container->get('security.token_storage')->getToken()->getUser();
+        if (is_null($container->get('security.token_storage')->getToken()))
+            $this->user = null;
+        else
+            $this->user = $container->get('security.token_storage')->getToken()->getUser();
     }
 
     /**
      * @return User
      */
-    public function getCurrentUser(): User
+    public function getCurrentUser()
     {
         return $this->user;
     }

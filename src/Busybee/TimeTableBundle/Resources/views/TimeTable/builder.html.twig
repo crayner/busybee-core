@@ -83,16 +83,20 @@
                         <div class="row">
                     {% endif %}
                     <div class="col-sm-4 well">
-                        <div class="form-group">
-                            {% set checked = '' %}
-                            {% if control[grade.grade] is not defined or control[grade.grade] %}
-                                {% set checked = 'checked' %}
-                            {% endif %}
-                            <input type="checkbox" name="control[{{ grade.grade }}]" id="grade_{{ grade.grade }}"
-                                   class="gradeControl form-control"
-                                   title="{{ 'grade.control.toggle'|trans({}, 'BusybeeInstituteBundle') }}" {{ toggle|raw }} {{ checked }} />
-                            <label for="grade_{{ grade.grade }}">{{ 'grade.control.label'|trans({'%grade%': grade.grade}, 'BusybeeInstituteBundle') }}</label>
+                        <div>
+                            {{ miscButton({title: 'grade.timetable.view', class: 'btn btn-info halflings halflings-eye-open', javascript: {function: 'openGradeTimeTable', options: [grade.grade]}})|raw }}
+                            <div class="form-group">
+                                {% set checked = '' %}
+                                {% if control[grade.grade] is not defined or control[grade.grade] %}
+                                    {% set checked = 'checked' %}
+                                {% endif %}
+                                <input type="checkbox" name="control[{{ grade.grade }}]" id="grade_{{ grade.grade }}"
+                                       class="gradeControl form-control"
+                                       title="{{ 'grade.control.toggle'|trans({}, 'BusybeeInstituteBundle') }}" {{ toggle|raw }} {{ checked }} />
+                                <label for="grade_{{ grade.grade }}">{{ 'grade.control.label'|trans({'%grade%': grade.grade}, 'BusybeeInstituteBundle') }}</label>
+                            </div>
                         </div>
+
                     </div>
                     {% set row = row + 1 %}
                     {% if row == 3 %}
@@ -305,7 +309,20 @@
             var path = '{{ path('line_manage', {id: '__id__', closeWindow: '_closeWindow'}) }}';
             path = path.replace('__id__', id);
             window.open(path, 'LineEdit', 'width=1200,height=750')
-        })
+        });
+
+        function openGradeTimeTable(grade) {
+            var path = '{{ path('timetable_grade_set', {grade: '__grade__'}) }}';
+            path = path.replace('__grade__', grade);
+            $.ajax({
+                url: path,
+                type: 'POST',
+                success: function (data) {
+                    path = '{{ path('timetable_display', {closeWindow: '_closeWindow'}) }}';
+                    window.open(path, 'DisplayTimeTable', 'width=1200,height=900');
+                }
+            });
+        }
     </script>
     {% include '@BusybeeHome/Toggle/script.html.twig' %}
 {% endblock javascripts %}

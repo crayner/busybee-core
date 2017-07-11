@@ -51,7 +51,7 @@
 				<h3 class="panel-title">{{ 'parameter.sql.title'|trans }}</h3>
 			</div>
 			<div class="panel-body">
-				{{ 'parameter.sql.fail'|trans({'%name%': config.sql.database_name, '%error%': config.sql.error}) }}
+                {{ 'parameter.sql.fail'|trans({'%name%': config.sql.database_name, '%error%': config.sql.error})|raw }}
 			</div>
 		</div>
 		{% endif %}
@@ -70,7 +70,7 @@
 			<div class="row">
 				<div class="well col-sm-6 col-sm-offset-6">
 					<div class="form-group alert alert-info">
-						<p>{{ 'install.database.connection.complete'|trans }}</p>
+						<p>{{ 'install.database.connection.complete'|trans({'%name%': config.sql.database_name }) }}</p>
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token('mailer') }}" />
 					</div>
 				</div>
@@ -87,18 +87,18 @@
 				<div class="well col-sm-6">
 					<div class="form-group">
 						<label for="driver">{{ 'sql.database.driver.title'|trans }}</label><br />
-						<span>{{ 'sql.database.driver.description'|trans }}</span>
 						<select id="driver" name="driver" value="{{ config.sql.database_driver }}" required class="form-control">
 							<option value='pdo_mysql'>pdo_mysql</option>
 						</select>
+						<span class="field-help">{{ 'sql.database.driver.description'|trans }}</span>
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token('database') }}" />
 					</div>
 				</div>
 				<div class="well col-sm-6">
 					<div class="form-group">
 						<label for="host">{{ 'sql.database.host.title'|trans }}</label><br />
-						<span>{{ 'sql.database.host.description'|trans }}</span>
 						<input type="text" id="host" name="host" value="{{ config.sql.database_host }}" required class="form-control" >
+						<span class="field-help">{{ 'sql.database.host.description'|trans }}</span>
 					</div>
 				</div>
 			</div>
@@ -107,15 +107,15 @@
 				<div class="well col-sm-6">
 					<div class="form-group">
 						<label for="port">{{ 'sql.database.port.title'|trans }}</label><br />
-						<span>{{ 'sql.database.port.description'|trans }}</span>
 						<input type="number" id="port" name="port" value="{{ config.sql.database_port }}" class="form-control" >
+						<span class="field-help">{{ 'sql.database.port.description'|trans }}</span>
 					</div>
 				</div>
 				<div class="well col-sm-6">
 					<div class="form-group">
 						<label for="name">{{ 'sql.database.name.title'|trans }}</label><br />
-						<span>{{ 'sql.database.name.description'|trans }}</span>
 						<input type="text" id="name" name="name" value="{{ config.sql.database_name }}" required class="form-control" >
+						<span class="field-help">{{ 'sql.database.name.description'|trans }}</span>
 					</div>
 				</div>
 			</div>
@@ -124,15 +124,15 @@
 				<div class="well col-sm-6">
 					<div class="form-group">
 						<label for="user">{{ 'sql.database.user.title'|trans }}</label><br />
-						<span>{{ 'sql.database.user.description'|trans }}</span>
 						<input type="text" id="user" name="user" value="{{ config.sql.database_user }}" required class="form-control" >
+						<span class="field-help">{{ 'sql.database.user.description'|trans }}</span>
 					</div>
 				</div>
 				<div class="well col-sm-6">
 					<div class="form-group">
 						<label for="password">{{ 'sql.database.password.title'|trans }}</label><br />
-						<span>{{ 'sql.database.password.description'|trans }}</span>
 						<input type="text" id="password" name="password" value="{{ config.sql.database_password }}" required class="form-control" >
+						<span class="field-help">{{ 'sql.database.password.description'|trans }}</span>
 					</div>
 				</div>
 			</div>
@@ -141,8 +141,8 @@
 				<div class="well col-sm-6">
 					<div class="form-group">
 						<label for="prefix">{{ 'sql.database.prefix.title'|trans }}</label><br />
-						<span>{{ 'sql.database.prefix.description'|trans }}</span>
 						<input type="text" id="prefix" name="prefix" value="{{ config.sql.database_prefix }}" required class="form-control" maxlength="6" >
+						<span class="field-help">{{ 'sql.database.prefix.description'|trans }}</span>
 					</div>
 				</div>
 			</div>

@@ -75,7 +75,7 @@ monolog:
             channels: ['busybee']
             formatter: monolog.formatter.session_request
             max_files: '7' 
-        doctrine: 
+        doctrine:
             action_level: debug
             type:  stream
             path:  '%kernel.logs_dir%/%kernel.environment%_doctrine.log'

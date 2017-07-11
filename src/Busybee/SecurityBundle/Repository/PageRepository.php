@@ -1,6 +1,7 @@
 <?php
-
 namespace Busybee\SecurityBundle\Repository;
+
+use Busybee\SecurityBundle\Entity\Page;
 
 /**
  * PageRepository
@@ -10,4 +11,16 @@ namespace Busybee\SecurityBundle\Repository;
  */
 class PageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findOneByRoute($routeName): Page
+    {
+        $page = parent::findOneByRoute($routeName);
+
+        if (empty($page)) {
+            $page = new Page();
+            $page->setRoute($routeName);
+            $page->setCacheTime();
+        }
+
+        return $page;
+    }
 }

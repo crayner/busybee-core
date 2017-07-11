@@ -27,11 +27,11 @@ services:
         class: Monolog\Formatter\LineFormatter
         arguments:
             - "[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%% %%context%% %%extra%%\n"
-    monolog.processor.session_request:
-        class: Busybee\SystemBundle\Model\SessionRequestProcessor
-        arguments:  ["@session"]
-        tags:
-            - { name: monolog.processor, method: processRecord }
+#    monolog.processor.session_request:
+#        class: Busybee\SystemBundle\Model\SessionRequestProcessor
+#        arguments:  ["@session"]
+#        tags:
+#            - { name: monolog.processor, method: processRecord }
     monolog.logger.busybee:
         class: Busybee\SystemBundle\Model\Logger
         arguments: ['@logger']

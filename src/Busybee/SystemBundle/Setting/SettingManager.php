@@ -100,6 +100,8 @@ class SettingManager
      */
     public function getSetting($name, $default = null, $options = array())
     {
+        $name = strtolower($name);
+
         if (isset($this->settings[$name]) && $this->settingCache[$name] > new \DateTime('-15 Minutes')) {
             $this->settingExists = true;
             return $this->settings[$name];
@@ -117,7 +119,8 @@ class SettingManager
         } catch (\Exception $e) {
             return $default;
         }
-        if (is_null($this->setting) || is_null($this->setting->getName())) {
+
+        if (is_null($this->setting) || empty($this->setting->getName())) {
             if (false === strpos($name, '.'))
                 return $default;
             $name = explode('.', $name);
@@ -131,7 +134,6 @@ class SettingManager
         }
 
         $this->settingExists = true;
-
 
         switch ($this->setting->getType()) {
             case 'system':
@@ -169,7 +171,7 @@ class SettingManager
                 return $this->writeSettingToSession($name, intval($this->setting->getValue()));
                 break;
             default:
-                throw new Exception('The Setting Type (' . $this->setting->getType() . ') has not been defined.');
+                throw new Exception('The Setting Type (' . $this->setting->getType() . ') has not been defined for ' . $name . '.');
         }
     }
 
@@ -184,6 +186,7 @@ class SettingManager
      */
     public function setSetting($name, $value)
     {
+        $name = strtolower($name);
         $this->setting = $this->repo->findOneByName($name);
         if (is_null($this->setting) || is_null($this->setting->getName()))
             return $this;
@@ -243,19 +246,6 @@ class SettingManager
     }
 
     /**
-     * Validate Setting
-     *
-     * @version    30th November 2016
-     * @since    30th November 2016
-     * @param    mixed $value
-     * @return    boolean
-     */
-    public function validateSetting($value)
-    {
-        return true;
-    }
-
-    /**
      * Write Setting to Session
      *
      * @param $name
@@ -270,6 +260,19 @@ class SettingManager
         $this->session->set('settingCache', $this->settingCache);
 
         return $value;
+    }
+
+    /**
+     * Validate Setting
+     *
+     * @version    30th November 2016
+     * @since    30th November 2016
+     * @param    mixed $value
+     * @return    boolean
+     */
+    public function validateSetting($value)
+    {
+        return true;
     }
 
     /**
@@ -360,6 +363,7 @@ class SettingManager
      */
     public function get($name, $default = null, $options = array())
     {
+        $name = strtolower($name);
         $this->settingExists = false;
         if (isset($this->settings[$name])) {
             $this->settingExists = true;
@@ -517,6 +521,7 @@ class SettingManager
      */
     public function set($name, $value)
     {
+        $name = strtolower($name);
         return $this->setSetting($name, $value);
     }
 

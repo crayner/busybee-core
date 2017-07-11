@@ -123,7 +123,9 @@ security:
     session:
         timeout: 'You have been logged out due to inactivity. You have not used the site for %hours% hours : %minutes% minutes.'
     access:
-        denied: Access to this page is denied !
+        denied:
+            prod: Access to this page is denied !
+            dev: 'Access to this page is denied ! User Roles = %user%, Page Roles = %page%'
     page:
         title: Page Security
         description: Manage page security options.
