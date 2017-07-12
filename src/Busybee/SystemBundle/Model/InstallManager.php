@@ -151,12 +151,87 @@ class InstallManager
     /**
      * Get Parameters
      *
-     * @return mixed
+     * @return array
      */
     public function getParameters()
     {
         $params = Yaml::parse(file_get_contents($this->projectDir . '/app/config/parameters.yml'));
         $params = $params['parameters'];
         return $params;
+    }
+
+    /**
+     * Get Config
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        $params = Yaml::parse(file_get_contents($this->projectDir . '/app/config/config.yml'));
+        return $params;
+    }
+
+    /**
+     * Save Config
+     *
+     * @param $w array
+     * @return bool
+     */
+    public function saveConfig($config)
+    {
+        $this->savedConfig = false;
+        if (file_put_contents($this->projectDir . '/app/config/config.yml', Yaml::dump($config)))
+            $this->savedConfig = true;
+
+        return $this->savedConfig;
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param Request $request
+     * @return null
+     */
+    public function handleMailerRequest(FormInterface $form, Request $request)
+    {
+        $form->handleRequest($request);
+        $this->saveMailer = false;
+
+        if (!$form->isSubmitted())
+            return;
+
+        if ($form->isValid()) {
+            $mailer = $this->getMailerParameters();
+            $params = $this->getParameters();
+            foreach ($mailer as $name => $value) {
+                $this->mailer->$name = $form->get($name)->getData();
+                $params['mailer_' . $name] = trim($form->get($name)->getData());
+                if (empty($params['mailer_' . $name]))
+                    $params['mailer_' . $name] = null;
+            }
+            if ($params['mailer_host'] === 'empty')
+                $params['mailer_host'] = null;
+
+            $x['parameters'] = $params;
+
+            if (file_put_contents($this->projectDir . '/app/config/parameters.yml', Yaml::dump($x)))
+                $this->saveMailer = true;
+        }
+
+        return;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMailerParameters()
+    {
+        $this->mailer = new \stdClass();
+        $mailer = [];
+        foreach ($this->getParameters() as $name => $value)
+            if (strpos($name, 'mailer_') === 0) {
+                $this->mailer->$name = $value;
+                $mailer[substr($name, 7)] = $value;
+            }
+        return $mailer;
     }
 }

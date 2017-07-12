@@ -107,44 +107,48 @@ install:
         parameters: Miscellaneous Settings 
 mailer:
     transport:
-        title: Transport Method
-        description: Select appropriate transport method for your installation.
-        off: No Mailer
+        label: Transport Method
+        help: Select appropriate transport method for your installation.
+        placeholder: No Mailer
         smtp: SMTP
         mail: Mail
         sendmail: Sendmail
-        gmail: Google Mail 
-    host: 
-        title: SMTP Host
-        description: ''
+        gmail: Google Mail
+    host:
+        label: SMTP Host
+        help: ''
     port:
-        title: SMTP Port
-        description: ''
+        label: SMTP Port
+        help: ''
     encryption:
-        title: SMTP Encryption
-        description: ''
+        label: SMTP Encryption
+        help: ''
         none: None
         ssl: SSL
         tls: TLS
     auth_mode:
-        title: SMTP Authority Mode
-        description: ''
+        label: SMTP Authority Mode
+        help: ''
         plain: Plain
         login: Login
         cram-md5: CRAM MD5
     user:
-        title: Email System User Name
-        description: ''
+        label: Email System User Name
+        help: ''
     password:
-        title: Email System Password
-        description: '' 
+        label: Email System Password
+        help: ''
     sender_name:
-        title: "Email System Default Sender's Name"
-        description: This would usually be the name of the Organisation.
+        label: "Email System Default Sender's Name"
+        help: This would usually be the name of the Organisation.
     sender_address:
-        title: "Email System Default Sender's Email Address"
-        description: This would usually be the email of the Organisation.
-    save: Save   
+        label: "Email System Default Sender's Email Address"
+        help: This would usually be the email of the Organisation.
+    save:
+        success: The mailer details were saved successfully.
+        failed: The mailer details did not save correctly.
+    test:
+        success: The email system on your server has been correctly configured.
 misc:
     secret:
         title: Enter a Secret Code
