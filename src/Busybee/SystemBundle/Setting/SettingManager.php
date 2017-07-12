@@ -563,14 +563,25 @@ class SettingManager
     /**
      * Has Setting
      *
-     * @version    30th November 2016
-     * @since    21st October 2016
-     * @param    string $name
-     * @param    mixed $value
-     * @return    SettingManager
+     * @version 30th November 2016
+     * @since   21st October 2016
+     * @param   string $name
+     * @param   mixed $value
+     * @return  boolean
      */
-    public function has($name)
+    public function has($name, $clearCache = false)
     {
+        $name = strtolower($name);
+        if ($clearCache) {
+            if (isset($this->settings[$name])) {
+                unset($this->settings[$name]);
+                $this->session->set('settings', $this->settings);
+            }
+            if (isset($this->settingCache[$name])) {
+                unset($this->settingCache[$name]);
+                $this->session->set('settingCache', $this->settingCache);
+            }
+        }
         return $this->settingExists($name);
     }
 }

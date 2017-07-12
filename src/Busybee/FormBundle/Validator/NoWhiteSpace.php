@@ -13,6 +13,11 @@ class NoWhiteSpace extends Constraint
     public $message = 'nowhitespace.error';
 
     /**
+     * @var bool
+     */
+    public $repair = true;
+
+    /**
      * @return string
      */
     public function validatedBy()

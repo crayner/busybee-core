@@ -68,32 +68,38 @@ parameter:
 sql:
     database:
         driver: 
-            title: The Type of Database Connection
-            description: The database connection is dependant on your server architecture. Please obtain the information from your Information Technology person.
+            label: The Type of Database Connection
+            help: The database connection is dependant on your server architecture. Please obtain the information from your Information Technology person.
+            'PDO MySQL': PDO MySQL
         save: Save 
         host:
-            title: The Host Name or IP Address
-            description: What is the name of the server or th IP address of the server on which the database is located.
+            label: The Host Name or IP Address
+            help: What is the name of the server or th IP address of the server on which the database is located.
         port:
-            title: The Communication Port used by the Database Server
-            description: Please obtain the information from your Information Technology person. 
+            label: The Communication Port used by the Database Server
+            help: Please obtain the information from your Information Technology person.
         name:
-            title: The Name of the Database
-            description: The database has this name, and if it does not exist the system will attempt to create the database of this name.
+            label: The Name of the Database
+            help: The database has this name, and if it does not exist the system will attempt to create the database of this name.
         user:
-            title: The User Name to access the Database
-            description: ''
+            label: The User Name to access the Database.
+            help: ''
         password:
-            title: The Password to the user for the Database.
-            description: ''
+            label: The Password to the user for the Database.
+            help: ''
         prefix:
-            title: The Prefix added to ALL tables.
-            description: Allows multiple systems to use the same database.
+            label: The Prefix added to ALL tables.
+            help: Allows multiple systems to use the same database.
 install:
     database:
         parameters: Database Connection Parameters
         connection:
             complete: 'The database connection has been successfully tested and the database %name% is ready to use.'
+        not:
+            tested: 'The connection to the database has not been tested.  It will be tested when you successfully save the form.'
+        save:
+            failed: 'The database parameters were not saved.'
+            success: 'The database parameters saved successfully.'
     proceed: Proceed 
     mailer:
         parameters: Email Settings 

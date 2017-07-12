@@ -43,9 +43,8 @@ class DefaultController extends Controller
     public function indexAction(Request $request )
     {
         $setting = $this->get('setting.manager');
-
         try {
-            if (!$setting->has('Installed') || !$setting->get('Installed', false)) {
+            if (!$setting->has('Installed', true) || !$setting->get('Installed', false)) {
                 $this->get('session')->clear();
                 return new RedirectResponse($this->generateUrl('install_start'));
             }
@@ -53,6 +52,7 @@ class DefaultController extends Controller
             $this->get('session')->clear();
             return new RedirectResponse($this->generateUrl('install_start'));
         }
+        dump($setting);
 
         $config = new \stdClass();
         $config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));

@@ -1,6 +1,8 @@
 {# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
 {% block menuContainer %}
 {% endblock menuContainer %}
 
@@ -36,7 +38,7 @@
 
 
 	<div class="col-sm-6">
-		{% if config.sql.isConnected %}
+        {% if config.sql.connected %}
 		<div class="panel panel-success">
 			<div class="panel-heading">
 				<h3 class="panel-title">{{ 'parameter.sql.title'|trans }}</h3>
@@ -62,7 +64,7 @@
 </div>
 
 
-{% if config.sql.isConnected %}
+    {% if config.sql.connected %}
     {% set h3Content = proceedButton({'type': 'submit'}) %}
 	<form action="{{ path("install_check_mailer_parameters") }}" method="post">
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
@@ -80,75 +82,44 @@
 	</form>
 {% else %}
     {% set h3Content = saveButton() %}
-	<form action="{{ path("install_save_database_parameters") }}" method="post">
+    {{ form_start(form) }}
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
 		<div id="form_body" class="container-fluid">
 			<div class="row">
 				<div class="well col-sm-6">
-					<div class="form-group">
-						<label for="driver">{{ 'sql.database.driver.title'|trans }}</label><br />
-						<select id="driver" name="driver" value="{{ config.sql.database_driver }}" required class="form-control">
-							<option value='pdo_mysql'>pdo_mysql</option>
-						</select>
-						<span class="field-help">{{ 'sql.database.driver.description'|trans }}</span>
-						<input type="hidden" name="_csrf_token" value="{{ csrf_token('database') }}" />
-					</div>
+                    {{ form_row(form.driver, {value: config.sql.database_driver}) }}
 				</div>
 				<div class="well col-sm-6">
-					<div class="form-group">
-						<label for="host">{{ 'sql.database.host.title'|trans }}</label><br />
-						<input type="text" id="host" name="host" value="{{ config.sql.database_host }}" required class="form-control" >
-						<span class="field-help">{{ 'sql.database.host.description'|trans }}</span>
-					</div>
+                    {{ form_row(form.host, {value: config.sql.database_host}) }}
 				</div>
 			</div>
 			
 			<div class="row">
 				<div class="well col-sm-6">
-					<div class="form-group">
-						<label for="port">{{ 'sql.database.port.title'|trans }}</label><br />
-						<input type="number" id="port" name="port" value="{{ config.sql.database_port }}" class="form-control" >
-						<span class="field-help">{{ 'sql.database.port.description'|trans }}</span>
-					</div>
+                    {{ form_row(form.port, {value: config.sql.database_port}) }}
 				</div>
 				<div class="well col-sm-6">
-					<div class="form-group">
-						<label for="name">{{ 'sql.database.name.title'|trans }}</label><br />
-						<input type="text" id="name" name="name" value="{{ config.sql.database_name }}" required class="form-control" >
-						<span class="field-help">{{ 'sql.database.name.description'|trans }}</span>
-					</div>
+                    {{ form_row(form.name, {value: config.sql.database_name}) }}
 				</div>
 			</div>
 			
 			<div class="row">
 				<div class="well col-sm-6">
-					<div class="form-group">
-						<label for="user">{{ 'sql.database.user.title'|trans }}</label><br />
-						<input type="text" id="user" name="user" value="{{ config.sql.database_user }}" required class="form-control" >
-						<span class="field-help">{{ 'sql.database.user.description'|trans }}</span>
-					</div>
+                    {{ form_row(form.user, {value: config.sql.database_user}) }}
 				</div>
 				<div class="well col-sm-6">
-					<div class="form-group">
-						<label for="password">{{ 'sql.database.password.title'|trans }}</label><br />
-						<input type="text" id="password" name="password" value="{{ config.sql.database_password }}" required class="form-control" >
-						<span class="field-help">{{ 'sql.database.password.description'|trans }}</span>
-					</div>
+                    {{ form_row(form.password, {value: config.sql.database_password}) }}
 				</div>
 			</div>
 			
 			<div class="row">
 				<div class="well col-sm-6">
-					<div class="form-group">
-						<label for="prefix">{{ 'sql.database.prefix.title'|trans }}</label><br />
-						<input type="text" id="prefix" name="prefix" value="{{ config.sql.database_prefix }}" required class="form-control" maxlength="6" >
-						<span class="field-help">{{ 'sql.database.prefix.description'|trans }}</span>
-					</div>
+                    {{ form_row(form.prefix, {value: config.sql.database_prefix}) }}
 				</div>
 			</div>
 		</div>
         {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-	</form>
+    {{ form_end(form) }}
 {% endif %}
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}

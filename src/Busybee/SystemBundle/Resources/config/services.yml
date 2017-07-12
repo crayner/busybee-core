@@ -119,3 +119,8 @@ services:
         class: Symfony\Component\Validator\Constraints\Length
         arguments:
             - {max: 8}
+    install.manager:
+        class: Busybee\SystemBundle\Model\InstallManager
+        arguments:
+            - '%kernel.project_dir%'
+            - '@doctrine.dbal.connection_factory'
