@@ -1,8 +1,5 @@
 <?php
-
 namespace Busybee\SecurityBundle\Model;
-
-use Busybee\SecurityBundle\Entity\Page;
 
 abstract class PageModel
 {
@@ -15,8 +12,12 @@ abstract class PageModel
     public function addRole($role)
     {
         $roles = $this->getRoles();
-        $roles[] = $role;
-        $this->setRoles(array_unique($roles));
+
+        if (!empty($role) && !in_array($role, $roles)) {
+            $roles[] = $role;
+            $this->setRoles(array_unique($roles));
+            $this->setCacheTime(new \DateTime('-16 minutes'));
+        }
 
         return $this;
     }

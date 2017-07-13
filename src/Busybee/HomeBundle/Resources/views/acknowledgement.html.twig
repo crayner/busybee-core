@@ -17,16 +17,16 @@
                 <div class="col-sm-12">
                     {% for vName,value in version %}
                         <div class="row row-hover">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 {% if show == 1 %}
                                     {{ name }}
                                 {% endif %}
                                 {% set show = 0 %}
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 {{ vName }}
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ value }}
                             </div>
                         </div>

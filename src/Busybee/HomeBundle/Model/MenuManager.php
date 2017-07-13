@@ -43,7 +43,11 @@ class MenuManager
 		return $array ;
 	}
 
-	public function getMenuItems($node)
+    /**
+     * @param $node
+     * @return mixed
+     */
+    public function getMenuItems($node)
 	{
 		$items = $this->container->getParameter('items');
         $result = array();
@@ -52,10 +56,9 @@ class MenuManager
 			{
                 $w['parameters'] = ! empty($w['parameters']) ? $w['parameters'] : array() ;
                 if (isset($w['route']))
-                {
                     $w['role'] = $this->getRouteAccess($w['route'], empty($w['role']) ? null : $w['role']);
-                }
-                if (empty($w['role'])) unset($w['role']);
+                if (empty($w['role']))
+                    unset($w['role']);
 				$result[] = $w;
 			}
 		$items = $this->msort($result, 'order');
@@ -75,7 +78,8 @@ class MenuManager
         $page = $this->pageManager->findOneByRoute($route, $role);
         if (! empty($page))
             $roles = $page->getRoles();
-
+        if (in_array(null, $roles))
+            $roles = null;
         return $roles;
     }
 

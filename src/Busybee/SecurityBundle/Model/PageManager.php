@@ -79,9 +79,10 @@ class PageManager
             $this->pageSecurity[$routeName] = $this->page;
         }
 
+        foreach ($attributes as $attribute)
+            $this->page->addRole($attribute);
+
         if (empty($this->page->getId())) {
-            foreach ($attributes as $attribute)
-                $this->page->addRole($attribute);
 
             $this->page->setPath($this->router->getRouteCollection()->get($routeName)->getPath());
             $this->page->setCacheTime();

@@ -214,7 +214,11 @@ class Page extends PageModel
      */
     public function setRoles($roles)
     {
-        $this->roles = $roles;
+        foreach ($roles as $q => $w)
+            if (is_null($w))
+                unset($roles[$q]);
+
+        $this->roles = empty($roles) ? [] : $roles;
 
         return $this;
     }

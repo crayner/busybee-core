@@ -117,9 +117,9 @@ class DefaultController extends Controller
 
         foreach ($versions as $q => $w)
             if (is_array($w))
-                ksort($versions[$q]);
-        ksort($versions);
-
+                ksort($versions[$q], SORT_STRING + SORT_FLAG_CASE);
+        ksort($versions, SORT_STRING + SORT_FLAG_CASE);
+        dump($versions['PHP']);
         return $this->render('@BusybeeHome/acknowledgement.html.twig',
             [
                 'versions' => $versions,

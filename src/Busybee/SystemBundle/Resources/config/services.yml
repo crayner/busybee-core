@@ -73,11 +73,6 @@ services:
     setting.manager:
         class: Busybee\SystemBundle\Setting\SettingManager
         arguments: 
-            - "@setting.repository"
-            - '@session'
-            - '@doctrine.orm.entity_manager'
-            - '%kernel.project_dir%'
-            - '@busybee_security.authorisation.checker'
             - '@my_service_container'
     plugin.manager:
         class: Busybee\SystemBundle\Plugin\PluginManager

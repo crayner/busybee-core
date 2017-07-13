@@ -24,7 +24,8 @@ trait DenyAccessUnlessGranted
         $page = $this->get('page.manager')->findOneByRoute($routeName, $attributes);
 
         $dev = $this->get('kernel')->getEnvironment();
-        if ($dev === 'dev')
+
+        if ($dev === 'dev' && !is_string($this->get('grab.user.current')))
             $message = is_null($message) ? $this->get('translator')->trans('security.access.denied.dev', ['%page%' => implode(', ', $page->getRoles()), '%user%' => $this->get('grab.user.current')->rolesToString()], 'BusybeeSecurityBundle') : $message;
         else
             $message = is_null($message) ? $this->get('translator')->trans('security.access.denied.prod', [], 'BusybeeSecurityBundle') : $message;

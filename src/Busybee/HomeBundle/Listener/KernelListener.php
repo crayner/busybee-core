@@ -5,7 +5,6 @@ namespace Busybee\HomeBundle\Listener;
 use Doctrine\DBAL\Exception\ConnectionException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\Routing\Router;
 
@@ -31,15 +30,6 @@ class KernelListener
         $this->route = [];
         $this->route['install_start'] = $router->generate('install_start');
         $this->session = $session;
-    }
-
-    /**
-     * on Kernel Exception
-     *
-     * @param GetResponseForExceptionEvent $event
-     */
-    public function onKernelResponse(FilterResponseEvent $event)
-    {
     }
 
     /**
