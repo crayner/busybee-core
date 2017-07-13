@@ -3,8 +3,14 @@ namespace Busybee\SystemBundle\Setting ;
 
 use Busybee\HomeBundle\Exception\Exception;
 use Busybee\SecurityBundle\Entity\User;
+use Busybee\SecurityBundle\Model\Authorisation;
 use Busybee\SystemBundle\Entity\Setting;
+use Busybee\SystemBundle\Repository\SettingRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Yaml\Yaml ;
 use Twig_Error_Syntax ;
 use Twig_Error_Runtime ;
@@ -20,25 +26,63 @@ use Busybee\PersonBundle\Validator\Phone ;
  */
 class SettingManager
 {
+    /**
+     * @var SettingRepository
+     */
     private	$repo ;
-    private	$container ;
     private $setting;
     private $settingCache;
+
+    /**
+     * @var Session
+     */
     private $session;
+
+    /**
+     * @var User
+     */
     private	$currentUser ;
     private $settings ;
     private $settingExists;
 
-    public function __construct(Container $container)
+    /**
+     * @var \Twig_Environment
+     */
+    private $twig;
+
+    /**
+     * @var ObjectManager
+     */
+    private $om;
+
+    /**
+     * @var string
+     */
+    private $projectDir;
+
+    /**
+     * @var Authorisation
+     */
+    private $authorisation;
+
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    public function __construct(SettingRepository $settingRepository, Session $session, ObjectManager $om, $projectDir, Authorisation $authorisation, ContainerInterface $container)
     {
-        $this->container = $container;
-        $this->repo = $this->container->get('system.setting.repository');
+        $this->repo = $settingRepository;
         $this->settings = [];
         $this->settingCache = [];
         $this->setCurrentUser(null);
-        $this->session = $container->get('session');
+        $this->session = $session;
+        $this->om = $om;
+        $this->projectDir = $projectDir;
+        $this->authorisation = $authorisation;
         $this->settings = $this->session->get('settings');
         $this->settingCache = $this->session->get('settingCache');
+        $this->container = $container;
     }
 
     /**
@@ -147,8 +191,7 @@ class SettingManager
             case 'file':
             case 'image':
                 $value = $this->setting->getValue();
-                $appPath = $this->container->getParameter('kernel_root_dir');
-                $webPath = realpath($appPath . '/../web/');
+                $webPath = realpath($this->projectDir . '/web/');
                 if (! file_exists($webPath.'/'.$value))
                     $value = $default;
                 return $this->writeSettingToSession($name, $value);
@@ -188,9 +231,9 @@ class SettingManager
     {
         $name = strtolower($name);
         $this->setting = $this->repo->findOneByName($name);
-        if (is_null($this->setting) || is_null($this->setting->getName()))
+        if (is_null($this->setting) || empty($this->setting->getName()))
             return $this;
-        if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole())) return $this;
+        if (true !== $this->authorisation->redirectAuthorisation($this->setting->getRole(), 'security.authorisation.setting', ['settingName' => $this->setting->getName()])) return $this;
         switch ($this->setting->getType()) {
             case 'string':
                 $value = strval(mb_substr($value, 0, 25));
@@ -200,7 +243,7 @@ class SettingManager
                 break;
             case 'regex':
                 if (empty($value)) $value = '/^/';
-                $test = preg_match($value, 'qwlrfhfri$wegtiwebnf934htr 5965tb');
+                $test = preg_match($value, 'qwlrfhfri$wegtiwebnf934htr 5965tb'); //Just rubbish to test that the regex is a valid format.
                 break;
             case 'time':
             case 'image':
@@ -229,7 +272,7 @@ class SettingManager
         }
         if ($this->validateSetting($value)) {
             $this->setting->setValue($value);
-            $em = $this->container->get('doctrine')->getManager();
+            $em = $this->om;
             $em->persist($this->setting);
             $em->flush();
             switch ($this->setting->getType()) {
@@ -436,23 +479,7 @@ class SettingManager
      */
     public function getParameter($name)
     {
-        $this->clearSessionSetting($name);
         return $this->container->getParameter($name);
-    }
-
-    /**
-     * Clear Session Setting
-     *
-     * @param $name
-     */
-    private function clearSessionSetting($name)
-    {
-        if (empty($this->settings[$name]))
-            return;
-        unset($this->settings[$name], $this->settingCache[$name]);
-        $this->session->set('settings', $this->settings);
-        $this->session->set('settingCache', $this->settingCache);
-        return;
     }
 
     /**
@@ -472,7 +499,7 @@ class SettingManager
             else
                 return $this;
         }
-        $em = $this->container->get('doctrine')->getManager();
+        $em = $this->om;
         $em->remove($setting);
         $em->flush();
         return $this ;
@@ -489,7 +516,7 @@ class SettingManager
     public function createSetting(Setting $setting)
     {
         if (!$this->settingExists($setting->getName())) {
-            $em = $this->container->get('doctrine')->getManager();
+            $em = $this->om;
             $em->persist($setting);
             $em->flush();
         } elseif (!empty($setting->getValue())) {
@@ -523,14 +550,6 @@ class SettingManager
     {
         $name = strtolower($name);
         return $this->setSetting($name, $value);
-    }
-
-    /**
-     * @return Container
-     */
-    public function getContainer()
-    {
-        return $this->container;
     }
 
     /**
@@ -583,5 +602,28 @@ class SettingManager
             }
         }
         return $this->settingExists($name);
+    }
+
+    /**
+     * @return Container
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * Clear Session Setting
+     *
+     * @param $name
+     */
+    private function clearSessionSetting($name)
+    {
+        if (empty($this->settings[$name]))
+            return;
+        unset($this->settings[$name], $this->settingCache[$name]);
+        $this->session->set('settings', $this->settings);
+        $this->session->set('settingCache', $this->settingCache);
+        return;
     }
 }

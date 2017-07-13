@@ -2,7 +2,6 @@
 
 namespace Busybee\SystemBundle\Model ;
 
-use Symfony\Component\Form\FormInterface ;
 use Busybee\SystemBundle\Setting\SettingManager ;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
 

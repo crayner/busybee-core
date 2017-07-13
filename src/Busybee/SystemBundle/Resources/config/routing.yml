@@ -2,20 +2,17 @@ install_start:
     path:     /install/start/
     defaults: { _controller: SystemBundle:Install:index }
 install_check_mailer_parameters:
-    path:     /install/checkMailer/
-    defaults: { _controller: SystemBundle:Install:checkMailer }
-install_save_mailer:
-    path:     /install/saveMailer/
-    defaults: { _controller: SystemBundle:Install:saveMailer }
-install_misc_check: 
-    path:     /install/miscCheck/
-    defaults: { _controller: SystemBundle:Install:miscCheck }
-install_misc_save: 
-    path:     /install/miscSave/
-    defaults: { _controller: SystemBundle:Install:miscSave }
+    path:     /install/mailer/
+    defaults: { _controller: SystemBundle:Install:mailer }
+install_misc_check:
+    path:     /install/miscellaneous/
+    defaults: { _controller: SystemBundle:Install:miscellaneous }
 install_build_system:
     path:     /install/build/
     defaults: { _controller: SystemBundle:Install:build }
+install_build_complete:
+    path:     /install/complete/
+    defaults: { _controller: SystemBundle:Install:complete }
 update_start:
     path:     /update/start/
     defaults: { _controller: SystemBundle:Update:index }
@@ -37,12 +34,6 @@ setting_edit_name:
 plugin_manage:
     path:     /plugin/manage/
     defaults: { _controller: SystemBundle:Plugin:manager }
-install_update:
-    path:     /update/install/
-    defaults: { _controller: SystemBundle:Update:install }
 setting_create:
     path: /setting/create/
     defaults: { _controller: SystemBundle:Setting:create }
-install_connection_fail:
-    path: /install/connection/{exception}/fail/
-    defaults: { _controller: SystemBundle:Install:connectionFail }

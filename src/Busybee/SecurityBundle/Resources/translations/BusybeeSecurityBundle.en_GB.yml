@@ -117,7 +117,8 @@ security:
         not_valid: You are not authorised to use the selected page! 
         required: The page you have requested is protected. Please sign in to continue. 
         no_table: "The table '%name%' does not exist in the system." 
-        blocked_ip: Your computer has been blocked from this site due to incorrect username/password combinations.  Try again soon. 
+        blocked_ip: Your computer has been blocked from this site due to incorrect username/password combinations.  Try again soon.
+        setting: 'You are not authorised to set the value settingName.'
     authentication: 
         failure: '%name% at IP:%remoteIP% has failed to authenticate correctly.'
     session:

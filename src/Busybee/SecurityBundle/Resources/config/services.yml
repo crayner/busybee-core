@@ -200,14 +200,14 @@ services:
             - "@doctrine.orm.entity_manager" 
             - "@failure_metadata"
             - '%signin_count_minimum%'
-            - '%signin_timeout_period%'
+            - '%session_max_idle_time%'
             - '%signin_ip_exceptions%' 
     password.validator:
         class: Busybee\SecurityBundle\Validator\Constraints\PasswordValidator
         tags:
             - { name: validator.constraint_validator, alias: password.validator  }
         arguments:
-            - '@service_container'
+            - '%password%'
     user.pagination:
         class: Busybee\SecurityBundle\Model\UserPagination
         arguments: 

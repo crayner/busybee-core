@@ -6,7 +6,9 @@ use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\StaffBundle\Entity\Staff;
+use Busybee\SystemBundle\Event\MiscellaneousSubscriber;
 use Busybee\SystemBundle\Form\MailerType;
+use Busybee\SystemBundle\Form\MiscellaneousType;
 use Busybee\SystemBundle\Form\StartInstallType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\Yaml\Yaml ;
@@ -76,14 +78,14 @@ class InstallController extends Controller
         );
     }
 
-    public function checkMailerAction(Request $request)
+    public function mailerAction(Request $request)
     {
 
         $config = $this->get('install.manager');
 
         $w = $config->getConfig();
 
-
+        //turn spooler off
         $swift = $w['swiftmailer'];
         $swift['transport'] = "%mailer_transport%";
         $swift['host'] = "%mailer_host%";
@@ -134,11 +136,13 @@ class InstallController extends Controller
             }
         }
 
-        if ($config->saveMailer)
-            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('mailer.save.success', [], 'SystemBundle'));
-        else {
-            $this->get('session')->getFlashBag()->add('danger', $this->get('translator')->trans('mailer.save.failed', [], 'SystemBundle'));
-            $config->mailer->canDeliver = false;
+        if ($form->isSubmitted()) {
+            if ($config->saveMailer)
+                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('mailer.save.success', [], 'SystemBundle'));
+            else {
+                $this->get('session')->getFlashBag()->add('danger', $this->get('translator')->trans('mailer.save.failed', [], 'SystemBundle'));
+                $config->mailer->canDeliver = false;
+            }
         }
         return $this->render('SystemBundle:Install:checkMailer.html.twig',
             [
@@ -148,152 +152,34 @@ class InstallController extends Controller
         );
     }
 
-    public function miscCheckAction(Request $request)
+    public function miscellaneousAction(Request $request)
     {
 
-        $w = is_writable($this->get('kernel')->getRootDir().'/config/config.yml');
-        $config = new \stdClass();
-        $config->signin = null;
+        $config = $this->get('install.manager');
+        $config->proceed = false;
 
-        // Turn off the spooler
-        $w = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/config.yml'));
+        $w = $config->getConfig();
+
+        //turn spooler on
         $swift = $w['swiftmailer'];
         $swift['transport'] = "%mailer_transport%";
         $swift['host'] = "%mailer_host%";
         $swift['username'] = "%mailer_user%";
         $swift['password'] = "%mailer_password%";
-        $swift['spool']['type'] =  'memory';
+        $swift['spool']['type'] = 'memory';
         $w['swiftmailer'] = $swift ;
-        file_put_contents($this->get('kernel')->getRootDir().'/config/config.yml', Yaml::dump($w));
+        $config->saveConfig($w);
 
-        $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
-        $config->misc = new \stdClass();
-        $config->proceed = true;
-        if (! empty($params['parameters']['user'])) {
-            $config->misc->username = $params['parameters']['user']['name'];
-            $config->misc->email = $params['parameters']['user']['email'];
-            $config->misc->password1 = $params['parameters']['user']['password'];
-            $config->misc->password2 = $params['parameters']['user']['password'];
-            $config->proceed = $params['parameters']['user']['valid'];
+        $form = $this->createForm(MiscellaneousType::class);
 
-        } else {
-            $config->misc->username = null;
-            $config->misc->email = null;
-            $config->misc->password1 = null;
-            $config->misc->password2 = null;
-            $config->proceed = false;
-        }
+        $config->handleMiscellaneousRequest($form, $request);
 
-        $config->misc->password = $this->get('system.password.manager')->buildPassword($this->getParameter('password'));
-
-
-        $valueList = array(
-            'secret' => '',
-            'locale' => '',
-            'session_name' => '',
-            'session_remember_me_name' => '',
-            'session_max_idle_time' => '',
-            'country' => '',
-            'signin_count_minimum' => '',
+        return $this->render('SystemBundle:Install:misc.html.twig',
+            [
+                'config' => $config,
+                'form' => $form->createView(),
+            ]
         );
-
-        foreach($valueList as $name => $value)
-            $config->misc->$name = $params['parameters'][$name];
-        if ($params['parameters']['secret'] == 'ThisTokenIsNotSoSecretChangeIt') {
-            $config->proceed = false ;
-            $config->misc->secret = md5(uniqid());
-        }
-        if (empty($params['parameters']['locale']))
-            $config->proceed = false ;
-        if (empty($params['parameters']['session_name']))
-            $config->proceed = false ;
-        else {
-            $config->misc->session_remember_me_name = $config->misc->session_name . '_remember';
-        }
-        $config->misc->session_max_idle_time = $config->misc->session_max_idle_time < 300 ? 900 : $config->misc->session_max_idle_time;
-        $config->misc->country = empty($params['parameters']['country']) ? null : $params['parameters']['country'] ;
-
-        if (empty($config->misc->country))
-            $config->proceed = false ;
-        if ($config->misc->signin_count_minimum < 3 || $config->misc->signin_count_minimum > 10)
-            $config->misc->signin_count_minimum = 3 ;
-        $config->countryList = Intl::getRegionBundle()->getCountryNames();
-//die();
-        return $this->render('SystemBundle:Install:misc.html.twig', array('config' => $config));
-    }
-
-    public function miscSaveAction(Request $request)
-    {
-        if (!$this->isCsrfTokenValid('miscellaneous', $request->request->get('_csrf_token'))) die();
-
-        $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir().'/config/parameters.yml'));
-
-        $params['parameters']["secret"] = $request->request->get('secret');
-        $params['parameters']["session_name"] = $request->request->get('session_name');
-        $params['parameters']["session_remember_me_name"] = $request->request->get('session_name') . '_remember';
-        $params['parameters']["session_max_idle_time"] = $request->request->get('session_max_idle_time');
-        $params['parameters']["signin_count_minimum"] = $request->request->get('signin_count_minimum');
-        $params['parameters']["locale"] = $request->request->get('locale');
-        $params['parameters']["country"] = $request->request->get('country');
-
-        $params['parameters']["user"]['email'] = $request->request->get('email') ;
-        $valid = true ;
-        $params['parameters']["user"]['name'] = empty($request->request->get('username')) ? $request->request->get('email') : $request->request->get('username') ;
-
-        if (empty($request->request->get('password1')) || $request->request->get('password1') !== $request->request->get('password2')) {
-            $this->get('session')->getFlashBag()->add('error', 'error.password.notMatch');
-            $valid = false;
-        }
-
-        $params['parameters']['password']['mixedCase'] = $request->request->get('mixedCase') == 'on' ? true : false ;
-        $params['parameters']['password']['numbers'] = $request->request->get('numbers') == 'on' ? true : false ;
-        $params['parameters']['password']['specials'] = $request->request->get('specials') == 'on' ? true : false ;
-        $params['parameters']['password']['minLength'] = $request->request->get('minLength') >= 6 && $request->request->get('minLength') <= 25 ? intval($request->request->get('minLength')) : 8 ;
-
-        $pattern = "^(.*";
-        if ( $params['parameters']['password']['mixedCase']) {
-            $pattern .= "(?=.*[a-z])(?=.*[A-Z])";
-        }
-        if ($params['parameters']['password']['numbers']) {
-            $pattern .= "(?=.*[0-9])";
-        }
-        if ($params['parameters']['password']['specials']) {
-            $pattern .= "(?=.*?[#?!@$%^&*-])";
-        }
-        $pattern .= ".*){".$params['parameters']['password']['minLength'].",}$";
-        if (preg_match('/'.$pattern.'/', $request->request->get('password1')) !== 1) {
-            $this->get('session')->getFlashBag()->add('error', 'error.password.notValid');
-            $valid = false;
-        }
-
-        $params['parameters']["user"]['password'] = $request->request->get('password1');
-
-        $validator = $this->get('validator');
-
-        $constraints = array(
-            new \Symfony\Component\Validator\Constraints\Email(),
-            new \Symfony\Component\Validator\Constraints\NotBlank()
-        );
-
-
-        $errors = $validator->validate($params['parameters']["user"]['email'], $constraints);
-
-        if (count($errors) > 0) {
-            $this->get('session')->getFlashBag()->add('error', $errors->get(0)->getMessage());
-            $valid = false;
-        }
-        $params['parameters']["user"]['valid'] = $valid;
-
-
-        if (! file_put_contents($this->get('kernel')->getRootDir().'/config/parameters.yml', Yaml::dump($params)))
-            return new RedirectResponse($this->generateUrl('error_page', array('message' => 'error.save.parameters')));
-        else {
-            if ($valid) {
-                $session = $this->get('session');
-                $session->getFlashBag()->set('success', 'success.save.parameters');
-            }
-            return new RedirectResponse($this->generateUrl('install_misc_check'));
-        }
     }
 
     public function buildAction(Request $request)
@@ -306,16 +192,17 @@ class InstallController extends Controller
         $tool = new SchemaTool($newEm);
         $tool->createSchema($meta);
 
+        $im = $this->get('install.manager');
 
         $this->entity = $newEm->getRepository('BusybeeSecurityBundle:User')->find(1);
         if (is_null($this->entity))
             $this->entity = new User();
-        $parameters = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir() . '/config/parameters.yml'));
-        $user = $parameters['parameters']['user'];
+        $parameters = $im->getParameters();
+        $user = $parameters['systemUser'];
 
         if (intval($this->entity->getId()) == 0) {
-            $this->entity->setUsername($user['name']);
-            $this->entity->setUsernameCanonical($user['name']);
+            $this->entity->setUsername($user['username']);
+            $this->entity->setUsernameCanonical($user['username']);
             $this->entity->setEmail($user['email']);
             $this->entity->setEmailCanonical($user['email']);
             $this->entity->setLocale('en_GB');
@@ -333,19 +220,32 @@ class InstallController extends Controller
             $newEm->flush();
         }
 
-        $user = $newEm->getRepository(User::class)->find(1);
 
         $session = $this->get('session');
-        // Here, "default" is the name of the firewall in your security.yml
+
+        $session->invalidate();
+
+        unset($parameters['systemUser']);
+
+        $im->saveParameters($parameters);
+
+        $this->get('session')->getFlashBag()->add('success', 'buildDatabase.success');
+        $user = $newEm->getRepository(User::class)->find(1);
+
         $token = new UsernamePasswordToken($user, null, "default", $user->getRoles());
 
         $this->get('security.token_storage')->setToken($token);
 
-        unset($parameters['parameters']['user']);
+        return new RedirectResponse($this->generateUrl('install_build_complete'));
+    }
 
-        file_put_contents($this->get('kernel')->getRootDir() . '/config/parameters.yml', Yaml::dump($parameters));
+    public function completeAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
 
-        $this->get('session')->getFlashBag()->add('success', 'buildDatabase.success');
+        $user = $this->get('user.repository')->find(1);
+
+        $newEm = $this->get('doctrine')->getManager();
 
         if (!$user->hasPerson()) {
             $person = new Person();
@@ -384,23 +284,8 @@ class InstallController extends Controller
         $newEm->persist($term);
         $newEm->flush();
 
-        return new RedirectResponse($this->generateUrl('update_start'));
-    }
+        $this->get('session')->getFlashBag()->add('success', 'buildComplete.success');
 
-    public function connectionFailAction($exception)
-    {
-        $config = new \stdClass();
-        $config->signin = null;
-
-        $config->parameterStatus = is_writable($this->get('kernel')->getRootDir() . '/config/parameters.yml');
-
-        $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir() . '/config/parameters.yml'));
-        $params = $params['parameters'];
-
-        $config->exception = $exception;
-
-        return $this->render('@System/Install/connectionfail.html.twig', [
-            'config' => $config,
-        ]);
+        return new RedirectResponse($this->generateUrl('update_database'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Busybee\SystemBundle\Model;
 
+use Busybee\SystemBundle\Password\PasswordManager;
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\ConnectionException;
@@ -17,6 +18,14 @@ class InstallManager
      */
     public $sql;
     /**
+     * @var \stdClass
+     */
+    public $mailer;
+    /**
+     * @var \stdClass
+     */
+    public $misc;
+    /**
      * @var string
      */
     private $projectDir;
@@ -28,18 +37,23 @@ class InstallManager
      * @var Connection
      */
     private $connection;
+    /**
+     * @var PasswordManager
+     */
+    private $passwordManager;
 
     /**
      * InstallManager constructor.
      *
      * @param $projectDir
      */
-    public function __construct($projectDir, ConnectionFactory $factory)
+    public function __construct($projectDir, ConnectionFactory $factory, PasswordManager $passwordManager)
     {
         $this->projectDir = $projectDir;
         $this->factory = $factory;
         $this->connection = null;
         $this->sql = new \stdClass();
+        $this->passwordManager = $passwordManager;
     }
 
     /**
@@ -138,10 +152,7 @@ class InstallManager
                 if (strpos($name, 'database_') === 0)
                     $params[$name] = $value;
 
-            $x['parameters'] = $params;
-
-            if (file_put_contents($this->projectDir . '/app/config/parameters.yml', Yaml::dump($x)))
-                $this->saveDatabase = true;
+            $this->saveDatabase = $this->saveParameters($params);
 
         }
 
@@ -158,6 +169,26 @@ class InstallManager
         $params = Yaml::parse(file_get_contents($this->projectDir . '/app/config/parameters.yml'));
         $params = $params['parameters'];
         return $params;
+    }
+
+    /**
+     * Save Parameters
+     *
+     * @param $params array
+     * @return bool
+     */
+    public function saveParameters($params)
+    {
+        $w = [];
+        if (isset($params['parameters']) && count($params) === 1)
+            $w = $params;
+        else
+            $w['parameters'] = $params;
+
+        if (file_put_contents($this->projectDir . '/app/config/parameters.yml', Yaml::dump($w)))
+            return true;
+
+        return false;
     }
 
     /**
@@ -211,10 +242,7 @@ class InstallManager
             if ($params['mailer_host'] === 'empty')
                 $params['mailer_host'] = null;
 
-            $x['parameters'] = $params;
-
-            if (file_put_contents($this->projectDir . '/app/config/parameters.yml', Yaml::dump($x)))
-                $this->saveMailer = true;
+            $this->saveMailer = $this->saveParameters($params);
         }
 
         return;
@@ -233,5 +261,105 @@ class InstallManager
                 $mailer[substr($name, 7)] = $value;
             }
         return $mailer;
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param Request $request
+     */
+    public function handleMiscellaneousRequest(FormInterface $form, Request $request)
+    {
+        $misc = $this->getMiscellaneousParameters();
+        $this->proceed = false;
+        $form->handleRequest($request);
+
+        if (!$form->isSubmitted()) return;
+
+        foreach ($misc as $name => $value) {
+            switch ($name) {
+                case 'systemUser':
+                    foreach ($value as $q => $w) {
+                        if (!in_array($q, ['text', 'password']))
+                            $this->misc->systemUser[$q] = $form->get($q)->getData();
+                        elseif ($q === 'password')
+                            $this->misc->systemUser[$q] = $form->get('pass_word')->getData();
+                    }
+                    break;
+                case 'password':
+                    foreach ($value as $q => $w) {
+                        $this->misc->password[$q] = $form->get($q)->getData();
+                    }
+                    break;
+                case 'google':
+                    foreach ($value as $q => $w) {
+                        $this->misc->google[$q] = $form->get($q)->getData();
+                    }
+                    break;
+                default:
+                    $this->misc->$name = $form->get($name)->getData();
+            }
+        }
+
+        if ($form->isValid()) {
+
+            $params = $this->getParameters();
+            foreach ((array)$this->misc as $name => $value) {
+                $params[$name] = $value;
+            }
+            $this->proceed = $this->saveParameters($params);
+        }
+
+        return;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMiscellaneousParameters()
+    {
+        $this->misc = new \stdClass();
+        $params = $this->getParameters();
+        $misc = [];
+
+
+        $valueList = [
+            'secret' => '',
+            'locale' => '',
+            'session_name' => '',
+            'session_remember_me_name' => '',
+            'session_max_idle_time' => '',
+            'country' => '',
+            'timezone' => '',
+            'password' => [],
+            'signin_count_minimum' => '',
+            'google' => [],
+        ];
+
+        foreach ($valueList as $name => $value) {
+            $this->misc->$name = $params[$name];
+            $misc[$name] = $params[$name];
+        }
+
+        $su = [
+            'email',
+            'username',
+            'password',
+            'text',
+        ];
+
+        foreach ($su as $name) {
+            $this->misc->systemUser[$name] = isset($params['systemUser'][$name]) ? $params['systemUser'][$name] : '';
+            if ($name === 'text') {
+                $x = [];
+                $x['mixedCase'] = $this->misc->password['mixedCase'];
+                $x['minLength'] = $this->misc->password['minLength'];
+                $x['numbers'] = $this->misc->password['numbers'];
+                $x['specials'] = $this->misc->password['specials'];
+                $this->misc->systemUser['text'] = $this->passwordManager->buildPassword($x);
+            }
+            $misc['systemUser'][$name] = $this->misc->systemUser[$name];
+        }
+
+        return $misc;
     }
 }

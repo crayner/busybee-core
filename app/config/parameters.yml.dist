@@ -31,7 +31,6 @@ parameters:
     session_max_idle_time: 900
     country: ~
     signin_count_minimum: 3
-    signin_timeout_period: 600
     signin_ip_exceptions: ['127.0.0.1']
     password:
         minLength: 8

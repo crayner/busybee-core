@@ -36,7 +36,7 @@
             {{ h3Content|raw }}
         </h3>
         {% if panelParagraph is defined %}
-            <p>{{ panelParagraph|trans(panelParams) }}</p>
+            <p>{{ panelParagraph|trans(panelParams)|raw }}</p>
         {% endif %}
     </div>
     <div class="panel-body"{% if bodyAttr is defined %} {{ bodyAttr }}{% endif %}>

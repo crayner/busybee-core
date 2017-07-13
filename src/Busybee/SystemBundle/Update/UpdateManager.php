@@ -58,7 +58,7 @@ class UpdateManager
         $this->version = new stdClass();
         $this->version->shouldBe = $this->container->getParameter('version');
         $this->sm = $this->container->get('setting.manager');
-        $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $this->user = $this->container->get('grab.user.current');
         $this->sm->setCurrentUser($this->user);
         $this->version->current = array();
         $this->version->current['system'] = $this->sm->get('version.system', '0.0.00');

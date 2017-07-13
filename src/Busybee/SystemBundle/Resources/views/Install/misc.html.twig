@@ -1,6 +1,8 @@
 {# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
 {% block menuContainer %}{% endblock menuContainer %}
 
 {% trans_default_domain 'SystemBundle' %}
@@ -14,7 +16,7 @@
 {% endblock stylesheets %}
 
 {% block contentContainer %}
-<form action="{{ path("install_misc_save") }}" method="post">
+    {{ form_start(form) }}
     {% set h3Content = '' %}
     {% if config.proceed %}
         {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("install_build_system")}}) %}
@@ -26,56 +28,32 @@
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'install.misc.parameters', 'transDomain': 'SystemBundle', 'panelStyle': 'default'} %}
 				<div class="row">
 					<div class="well col-sm-6">
-						<div class="form-group">
-							<input type="text" id="secret" name="secret" value="{{ config.misc.secret }}" required class="form-control" >
-							<label for="secret">{{ 'misc.secret.title'|trans }}</label><br />
-							<span class='field-help'>{{ 'misc.secret.description'|trans }}</span>
-						</div>
+                        {{ form_row(form.secret) }}
+                        {{ form_row(form.session_name, {value: config.misc.session_name}) }}
 					</div>
 					<div class="well col-sm-6">
-						<div class="form-group">
-							<input type="text" id="session_name" name="session_name" value="{{ config.misc.session_name }}" required class="form-control" >
-							<label for="session_name">{{ 'misc.session_name.title'|trans }}</label><br />
-							<span class='field-help'>{{ 'misc.session_name.description'|trans }}</span>
-						</div>
+                        {{ form_row(form.session_max_idle_time, {value: config.misc.session_max_idle_time}) }}
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="well col-sm-6">
-						<div class="form-group">
-							<input type="number" id="session_max_idle_time" name="session_max_idle_time" value="{{ config.misc.session_max_idle_time }}" required class="form-control" >
-							<label for="session_max_idle_time">{{ 'misc.session_max_idle_time.title'|trans }}</label><br />
-							<span class='field-help'>{{ 'misc.session_max_idle_time.description'|trans }}</span>
-						</div>
+                        {{ form_row(form.session_remember_me_name, {value: config.misc.session_remember_me_name}) }}
 					</div>
 					<div class="well col-sm-6">
-						<div class="form-group">
-							<input type="number" id="signin_count_minimum" name="signin_count_minimum" value="{{ config.misc.signin_count_minimum }}" required class="form-control" >
-							<label for="signin_count_minimum">{{ 'misc.signin_count_minimum.title'|trans }}</label><br />
-							<span class='field-help'>{{ 'misc.signin_count_minimum.description'|trans }}</span>
-						</div>
+                        {{ form_row(form.signin_count_minimum, {value: config.misc.signin_count_minimum}) }}
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="well col-sm-6">
-						<div class="form-group">
-							<input type="text" id="locale" name="locale" value="{{ config.misc.locale }}" required class="form-control" maxlength='5' />
-							<label for="locale">{{ 'misc.locale.title'|trans }}</label><br />
-							<span class='field-help'>{{ 'misc.locale.description'|trans }}</span>
-						</div>
+					<div class="well col-sm-4">
+                        {{ form_row(form.locale, {value: config.misc.locale}) }}
 					</div>
-					<div class="well col-sm-6">
-						<div class="form-group">
-							<select id="country" name="country" required class="form-control" >
-							{% for code,name in config.countryList %}
-								<option value="{{ code }}"{% if config.misc.country == code %} selected{% endif %}>{{ name }}</option>
-							{% endfor %}
-							</select>
-							<label for="country">{{ 'misc.country.title'|trans }}</label><br />
-							<span class='field-help'>{{ 'misc.country.description'|trans }}</span>
-						</div>
+					<div class="well col-sm-4">
+                        {{ form_row(form.timezone, {value: config.misc.timezone}) }}
+					</div>
+					<div class="well col-sm-4">
+                        {{ form_row(form.country, {value: config.misc.country}) }}
 					</div>
 				</div>
 			</div>
@@ -89,53 +67,19 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="well col-sm-6">
-				<div class="form-group">
-					<input type="number" id="minLength" name="minLength" value="{{ config.misc.password.minLength }}"
-						   required class="form-control" min='6' max='25' step='1'/>
-					<label for="minLength">{{ 'misc.password.minLength.title'|trans }}</label><br/>
-					<span class='field-help'>{{ 'misc.password.minLength.description'|trans }}</span>
-				</div>
+                {{ form_row(form.minLength, {value: config.misc.password['minLength']|trim}) }}
 			</div>
 			<div class="well col-sm-6">
-				<div class="form-group">
-					<div class="text-right">
-						<input type="checkbox" id="numbers"
-							   name="numbers" {{ config.misc.password.numbers }} {{ toggle|raw }}
-							   class="form-control yes-no"/>
-						<label style="float:left" for="numbers">{{ 'misc.password.numbers.title'|trans }}</label><br/>
-						<span style="float:left"
-							  class='field-help'>{{ 'misc.password.numbers.description'|trans }}</span>
-					</div>
-				</div>
+                {{ form_row(form.numbers, {checked: config.misc.password['numbers']}) }}
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="well col-sm-6">
-				<div class="form-group">
-					<div class="text-right">
-						<input type="checkbox" id="mixedCase"
-							   name="mixedCase" {{ config.misc.password.mixedCase }} {{ toggle|raw }}
-							   class="form-control yes-no"/>
-						<label style="float:left"
-							   for="mixedCase">{{ 'misc.password.mixedCase.title'|trans }}</label><br/>
-						<span style="float:left"
-							  class='field-help'>{{ 'misc.password.mixedCase.description'|trans }}</span>
-					</div>
-				</div>
+                {{ form_row(form.mixedCase, {checked: config.misc.password['mixedCase']}) }}
 			</div>
 			<div class="well col-sm-6">
-				<div class="form-group">
-					<div class="text-right">
-						<input type="checkbox" id="specials"
-							   name="specials" {{ config.misc.password.specials }} {{ toggle|raw }}
-							   class="form-control yes-no"/>
-						<label style="float:left" for="specials">{{ 'misc.password.specials.title'|trans }}</label><br/>
-						<span style="float:left"
-							  class='field-help'>{{ 'misc.password.specials.description'|trans }}</span>
-						</div>
-					</div>
-				</div>
+                {{ form_row(form.specials, {checked: config.misc.password['specials']}) }}
 			</div>
 		</div>
 
@@ -144,74 +88,56 @@
 
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'misc.user.title', 'panelStyle': 'default' } %}
 	<div class="container-fluid">
-				<div class="row">
-					<div class="well col-sm-6">
-						<div class="form-group">
-							<input type="email" id="email" name="email" value="{{ config.misc.email }}" required class="form-control" maxlength='75' />
-							<label for="email">{% trans from "BusybeeSecurityBundle" %}user.label.email{% endtrans %}</label><br />
-							<span class='field-help'>{{ 'misc.email.description'|trans }}</span>
-						</div>
-					</div>
-					<div class="well col-sm-6">
-						<div class="form-group">
-							<input type="text" id="username" name="username" value="{{ config.misc.username }}" class="form-control" maxlength='75' />
-							<label for="username">{% trans from "BusybeeSecurityBundle" %}user.label.username{% endtrans %}</label><br />
-							<span class='field-help'>{% trans from "BusybeeSecurityBundle" %}user.help.username{% endtrans %}</span>
-						</div>
-					</div>
-				</div>
-		
-				<div class="row">
-					<div class="well col-sm-4">
-						<div class="form-group">
-							<input type="password" title="{{ 'misc.password1.message'|trans ({'%minLength%': config.misc.password.minLength, '%numbers%': config.misc.password.numbers, '%mixedCase%': config.misc.password.mixedCase, '%specials%': config.misc.password.specials }) }}" id="password1" name="password1" value="{{ config.misc.password1 }}" required pattern="{{ config.misc.password.pattern }}" class="form-control"  onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
-			  if(this.checkValidity()) form.password2.pattern = this.value;
-			  " />
-							<label for="password1">{{ 'misc.password1.title'|trans }}</label><br />
-							<span class='field-help'>{{ 'misc.password1.description'|trans }}</span>
-						</div>
-					</div>
-					<div class="well col-sm-4">
-						<div class="form-group">
-							<input type="password" title="{{ 'misc.password2.message'|trans }}" id="password2" name="password2" value="{{ config.misc.password2 }}" required pattern="{{ config.misc.password.pattern }}" class="form-control" onchange="
-			  this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
-			" />
-							<label for="password2">{{ 'misc.password2.title'|trans }}</label><br />
-							<span class='field-help'>{{ 'misc.password2.description'|trans }}</span>
-						</div>
-					</div>
-					<div class="well col-sm-4">
-						<div class="form-group text-right">
-							<button type="button" id="generatePassword" name="generatePassword" class="btn btn-info">{{ 'misc.password1.generate'|trans }}</button>
-							<input type="hidden" name="_csrf_token" value="{{ csrf_token('miscellaneous') }}" />
-						</div>
-					</div>
-				</div>
+		<div class="row">
+			<div class="well col-sm-6">
+                {{ form_row(form.email, {value: config.misc.systemUser['email']}) }}
+			</div>
+			<div class="well col-sm-6">
+                {{ form_row(form.username, {value: config.misc.systemUser['username']}) }}
+			</div>
+		</div>
 
+		<div class="row">
+			<div class="well col-sm-4 col-sm-offset-4">
+                {{ form_row(form.pass_word, {value: config.misc.systemUser['password']}) }}
+			</div>
+			<div class="well col-sm-4">
+				<div class="form-group text-right">
+					<button type="button" id="generatePassword" class="btn btn-info"
+							style="float: right;">{{ 'misc.password1.generate'|trans }}</button>
+					<div class="field-help"
+						 style="clear: both;">{{ 'misc.password.conditions'|trans({'%minLength%': config.misc.password['minLength'], '%numbers%': config.misc.password['numbers'], '%mixedCase%': config.misc.password['mixedCase'], '%specials%': config.misc.password['specials']}) }}</div>
+				</div>
+			</div>
+		</div>
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'misc.google.title', 'panelStyle': 'default', panelParagraph: 'misc.google.description' } %}
+		<div class="row">
+			<div class="well col-sm-2">
+                {{ form_row(form.oauth, {checked: config.misc.google['oauth']}) }}
+			</div>
+			<div class="well col-sm-5">
+                {{ form_row(form.client_id, {value: config.misc.google['client_id']}) }}
+			</div>
+			<div class="well col-sm-5">
+                {{ form_row(form.client_secret, {value: config.misc.google['client_secret']}) }}
+			</div>
+		</div>
+	</div>
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 
 	</div>
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-
-	</div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-</form>	
-
+    {{ form_end(form) }}
 {% endblock contentContainer %}
-
 
 {% block javascripts %}
 	{{ parent() }}
     {% include '@BusybeeHome/Toggle/script.html.twig' %}
-	<script type="text/javascript">
-		$("#generatePassword").on('click', function(){
-			$('input[name="password1"]').val('{{ config.misc.password.text|raw }}');
-			$('input[name="password1"]').get(0).type = "text";
-			$('input[name="password1"]').blur(function() {
-				$('input[name="password1"]').get(0).type = "password";
-			});
-			$('input[name="password2"]').val('{{ config.misc.password.text|raw }}');
-			alert("{{ 'misc.password1.copy'|trans }}" + "\n\n" + "{{ config.misc.password.text|raw }}") ;
-		});
-	</script>
     {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+	<script type="text/javascript" language="JavaScript">
+        $("#generatePassword").on('click', function () {
+            $('input[name="mailer[password]"]').val('{{ config.misc.systemUser['text'].text|raw }}');
+        });
+	</script>
 {% endblock javascripts %}

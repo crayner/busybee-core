@@ -7,6 +7,8 @@ success:
         parameters: Parameters successfully saved.
 buildDatabase:
     success: The database was built successfully.  Thank you for installing Busybee.
+buildComplete:
+    success: The install process completed correctly.
 Yes: Yes
 No: No
 '%name% at IP:%remoteIP% has failed to authenticate correctly.': '%name% at IP:%remoteIP% has failed to authenticate correctly.'

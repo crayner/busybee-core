@@ -56,39 +56,4 @@ class UpdateController extends Controller
         return $this->render('SystemBundle:Update:index.html.twig', array('config' => $config));
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function installAction()
-    {
-        $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
-
-        $config = new \stdClass();
-        $config->signin = null;
-
-        $sm = $this->get('setting.manager');
-        if (!$sm->get('Installed')) {
-            $role = $this->get('security.role.repository');
-
-            $entity = new \Busybee\SystemBundle\Entity\Setting();
-            $entity->setType('boolean');
-            $entity->setValue(true);
-            $entity->setName('Installed');
-            $entity->setDisplayName('System Installed');
-            $entity->setDescription('A flag showing the system has finished installing.');
-            $entity->setRole($role->findOneByRole('ROLE_SUPER_ADMIN'));
-
-            $sm->createSetting($entity);
-        }
-
-        $um = $this->get('system.update.manager');
-
-        $um->build();
-
-        $config->version = $um->getVersion();
-        $config->dbUpdate = $um->getUpdateDetails();
-
-        return $this->render('SystemBundle:Update:index.html.twig', array('config' => $config));
-
-    }
 }

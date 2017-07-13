@@ -151,52 +151,77 @@ mailer:
         success: The email system on your server has been correctly configured.
 misc:
     secret:
-        title: Enter a Secret Code
-        description: This code is used to seed various keys in the system.
+        label: Enter a Secret Code
+        help: This code is used to seed various keys in the system.
     session_name:
-        title: Enter a Session Name
-        description: The session name stored for your system.
+        label: Enter a Session Name
+        help: The session name stored for your system.
     session_max_idle_time:
-        title: Idle Time Sign Off
-        description: The time in seconds before the system will sign off an idle connection.
+        label: Idle Time Sign Off
+        help: The time in seconds before the system will sign off an idle connection.
+    session_remember_me_name:
+        label: Rememberme Cookie Name
+        help: Remember me is used to maintain authentication across the system.  No need to change this, but possible here if your feel the need.
     signin_count_minimum:
-        title: Allow Incorrect SignIn
-        description: Block users who forget their password, when they record this number of failures.
+        label: Incorrect Authentication Limit
+        help: Block users who forget their password, when they record this number of failures.
     locale:
-        title: Locale (Language)
-        description: System Default Language
+        label: Locale (Language)
+        help: System Default Language
     country:
-        title: Country
-        description: 'Country'
-    email: 
-        description: "Provide your email address."
+        label: Location Country
+        help: ''
+    timezone:
+        label: Location Timezone
+        help: 'Your default system tiemzone will be locked to this setting.'
+    email:
+        label: System Administrator User EMail
+        help: "All users MUST have a valid and unique email address."
     user:
-        title: System Administrator User Details
+        title: System Administrator Details
+    username:
+        label: System Administrator User Name
+        help: 'Can be left blank and then assumes the email address.'
     password1:
-        title: Password
         description: ""
         copy: "Copy this password if required from the field below:"
         generate: Generate Password
-        message: "Required Aspects: Minimum Length: %minLength% characters, Numbers Required: %numbers%, Mixed Case: %mixedCase%, Special Characters: %specials%."
+        conditions: "Required Aspects: Minimum Length: %minLength% characters, Numbers Required: %numbers%, Mixed Case: %mixedCase%, Special Characters: %specials%."
     password2:
-        title: Confirm Password
+        label: Confirm Password
         description: "" 
         message: Your passwords must match.
     password:
-        title: System Password Requirements 
+        label: System Administrator Password
+        title: System Password Requirements
+        title: System Password Requirements
+        help: ''
+        conditions: "Required Aspects: Minimum Length: %minLength% characters, Numbers Required: %numbers%, Mixed Case: %mixedCase%, Special Characters: %specials%."
         message: All user passwords will need to match the requirements that you set.
         minLength:
-            title: Minimum Length
-            description: "The minimum length that the password must reach to satisfy requirements." 
+            label: Minimum Length
+            help: "The minimum length that the password must reach to satisfy requirements."
         mixedCase:
-            title: Upper and Lower Case Characters
-            description: "The password requires at least one upper and lower case character" 
+            label: Upper and Lower Case Characters
+            help: "The password requires at least one upper and lower case character"
         numbers:
-            title: Require a Number
-            description: "The password requires at least one number" 
+            label: Require a Number
+            help: "The password requires at least one number"
         specials:
-            title: Require a Punctuation Character
-            description: "The password requires at least one Punctuation Character. ![]{}()%&*$#^<>~@|" 
+            label: Require a Punctuation Character
+            help: "The password requires at least one Punctuation Character. ![]{}()%&*$#^<>~@|"
+    google:
+        title: Google OAuth
+        description: 'If your school uses Google Suite (or GAFE) you can set up authentication ising Google Authentication.  <a href="https://support.google.com/googleapi/answer/6158849" target="_blank">Help Me set this up</a>'
+        oauth:
+            label: 'Use Google Authentication'
+            help: ''
+        client_id:
+            label: Google Client Identifier
+            help: ''
+        client_secret:
+            label: Google Client Secret
+            help: ''
 user:
     list:
         title: User List
@@ -220,6 +245,8 @@ default:
     success: Default file details saved.
 buildDatabase:
     success: "The database was succesfully built.  Please sign in with the credentials you just added in the install process.  You should be signed in already if the process has completed without error."
+buildComplete:
+    success: The install process completed correctly.
 Mr: Mr
 Mrs: Mrs
 Ms:	Ms

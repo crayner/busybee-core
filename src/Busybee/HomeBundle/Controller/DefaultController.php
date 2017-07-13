@@ -45,14 +45,13 @@ class DefaultController extends Controller
         $setting = $this->get('setting.manager');
         try {
             if (!$setting->has('Installed', true) || !$setting->get('Installed', false)) {
-                $this->get('session')->clear();
+                $this->get('session')->invalidate();
                 return new RedirectResponse($this->generateUrl('install_start'));
             }
         } catch (\Exception $e) {
-            $this->get('session')->clear();
+            $this->get('session')->invalidate();
             return new RedirectResponse($this->generateUrl('install_start'));
         }
-        dump($setting);
 
         $config = new \stdClass();
         $config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));

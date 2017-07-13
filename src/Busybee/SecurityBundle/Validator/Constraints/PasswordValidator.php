@@ -8,13 +8,24 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class PasswordValidator extends ConstraintValidatorBase 
 {
+    /**
+     * @var array
+     */
+    private $passwordParameters;
+
+    public function __construct($passwordParameters = [])
+    {
+        $this->passwordParameters = (array)$passwordParameters;
+    }
+
     public function validate($value, Constraint $constraint)
     {
-        
+
         if (empty($value))
             return ;
 
-		$pw = $this->container->getParameter('password');
+        $pw = $this->passwordParameters;
+
 
 		$num = 'No';
 		$case = 'No';
@@ -34,8 +45,8 @@ class PasswordValidator extends ConstraintValidatorBase
 			$spec = 'yes';
 		}
 		$pattern .= ".*){".$pw['minLength'].",}$/";
-	
-		if (preg_match($pattern, $value) !== 1) {
+
+        if (preg_match($pattern, $value) !== 1) {
 			$this->context->buildViolation($constraint->message)
 				->setParameter('%numbers%', $num)
 				->setParameter('%mixedCase%', $case)
@@ -44,9 +55,4 @@ class PasswordValidator extends ConstraintValidatorBase
 				->addViolation();
 		}
     }
-	
-	public function __construct(Container $container)
-	{
-		$this->container = $container ;
-	}
 }
