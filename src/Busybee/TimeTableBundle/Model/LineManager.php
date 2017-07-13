@@ -457,7 +457,6 @@ class LineManager
             return;
         } catch (\Exception $e) {
             $this->flashbag->add('danger', $this->trans->trans('line.delete.failure', ['%error%' => $e->getMessage()], 'BusybeeTimeTableBundle'));
-            dump($e);
         }
 
     }

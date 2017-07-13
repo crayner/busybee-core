@@ -56,7 +56,7 @@ class SettingManager implements ContainerAwareInterface
         $this->setContainer($container);
         $this->settings = $this->container->get('session')->get('settings');
         $this->settingCache = $this->container->get('session')->get('settingCache');
-        $this->repo = $this->container->get('doctrine')->getRepository(Setting::class);
+        $this->repo = $this->container->get('doctrine')->getManager()->getRepository(Setting::class);
         $this->projectDir = $this->container->get('kernel')->getProjectDir();
     }
 
@@ -248,7 +248,7 @@ class SettingManager implements ContainerAwareInterface
         }
 
         $this->setting->setValue($value);
-        $em = $this->container->get('doctrine');
+        $em = $this->container->get('doctrine')->getManager();
         $em->persist($this->setting);
         $em->flush();
         switch ($this->setting->getType()) {
@@ -461,7 +461,7 @@ class SettingManager implements ContainerAwareInterface
             else
                 return $this;
         }
-        $em = $this->container->get('doctrine');
+        $em = $this->container->get('doctrine')->getManager();
         $em->remove($setting);
         $em->flush();
 
@@ -497,7 +497,7 @@ class SettingManager implements ContainerAwareInterface
     public function createSetting(Setting $setting)
     {
         if (!$this->settingExists($setting->getName())) {
-            $em = $this->container->get('doctrine');
+            $em = $this->container->get('doctrine')->getManager();
             $em->persist($setting);
             $em->flush();
         } elseif (!empty($setting->getValue())) {

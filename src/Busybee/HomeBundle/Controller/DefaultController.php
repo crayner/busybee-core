@@ -119,7 +119,7 @@ class DefaultController extends Controller
             if (is_array($w))
                 ksort($versions[$q], SORT_STRING + SORT_FLAG_CASE);
         ksort($versions, SORT_STRING + SORT_FLAG_CASE);
-        dump($versions['PHP']);
+
         return $this->render('@BusybeeHome/acknowledgement.html.twig',
             [
                 'versions' => $versions,

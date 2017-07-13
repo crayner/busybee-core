@@ -575,8 +575,6 @@ class PeriodManager
             $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.staff.missing', [], 'BusybeeTimeTableBundle')];
         } elseif (!is_null($activity->getTutor1()) && isset($this->staff[$activity->getTutor1()->getFullName()])) {
             $act = $this->staff[$activity->getTutor1()->getFullName()];
-            dump($act);
-            dump($activity->getActivity());
             $this->status->class = ' alert-warning';
             $this->status->alert = 'warning';
             $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.staff.duplicate', ['%name%' => $activity->getTutor1()->getFullName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'BusybeeTimeTableBundle');

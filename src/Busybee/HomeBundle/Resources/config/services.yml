@@ -118,10 +118,3 @@ services:
         arguments:
             - '@session'
             - '@request_stack'
-    busybee.kernel.listener:
-        class: Busybee\HomeBundle\Listener\KernelListener
-        arguments:
-            - '@router.default'
-            - '@session'
-        tags:
-          - { name: kernel.event_listener, event: kernel.exception, priority: 128 }

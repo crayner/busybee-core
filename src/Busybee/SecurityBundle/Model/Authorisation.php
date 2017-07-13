@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\SecurityBundle\Model ;
 
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
