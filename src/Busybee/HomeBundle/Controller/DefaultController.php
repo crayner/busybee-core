@@ -64,10 +64,6 @@ class DefaultController extends Controller
             $encoder = $this->get('security.encoder_factory');
             $encoder = $encoder->getEncoder($user);
 
-            // Note the difference
-            if ($user->getUsername() === 'admin')
-                return new RedirectResponse($this->generateUrl('security_user_edit'));
-
             $identifier = $this->get('session')->has('tt_identifier') ? $this->get('session')->get('tt_identifier') : $tm->getTimeTableIdentifier($this->getUser());
 
             $displayDate = $this->get('session')->has('tt_displayDate') ? $this->get('session')->get('tt_displayDate') : $tm->getTimeTableDisplayDate();

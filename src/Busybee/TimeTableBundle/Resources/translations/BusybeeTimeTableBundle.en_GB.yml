@@ -147,7 +147,7 @@ activity:
         header: '%name%'
         new: New Activity
     list:
-        title: 'Individual Activities'
+        title: 'Activities'
         description: 'Drag and drop an activity into a period to assign that activity to the period. DblClick on any activity to edit the activity details.'
     count: '{0}(%count%)|]0,Inf[(%count% of %load%)'
 period:
@@ -183,7 +183,7 @@ period:
                   </div>
             space:
                 missing: No space allocated for this class.
-                duplicate: 'The space %space% is already allocated to %activity% in this period.'
+                duplicate: 'The space %space% is allocated to %activity% and %activity2% in this period.'
             staff:
                 missing: No staff allocated for this class.
                 duplicate: 'The staff member %name% is allocated to %activity% and %activity2% in this period.'

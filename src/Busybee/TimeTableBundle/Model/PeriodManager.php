@@ -562,8 +562,8 @@ class PeriodManager
                 $act = $this->spaces[$activity->getSpace()->getName()];
                 $this->status->class = ' alert-warning';
                 $this->status->alert = 'warning';
-                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.space.duplicate', ['%space%' => $activity->getSpace()->getName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle');
-                $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.space.duplicate', ['%space%' => $activity->getSpace()->getName(), '%activity%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
+                $this->status->message .= ' ' . $this->translator->trans('period.activities.activity.space.duplicate', ['%space%' => $activity->getSpace()->getName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'BusybeeTimeTableBundle');
+                $this->status->messages[] = ['warning', $this->translator->trans('period.activities.activity.space.duplicate', ['%space%' => $activity->getSpace()->getName(), '%activity%' => $activity->getFullName(), '%activity2%' => $act->getFullName()], 'BusybeeTimeTableBundle')];
             }
             $this->spaces[$activity->getSpace()->getName()] = $activity->getActivity();
         }

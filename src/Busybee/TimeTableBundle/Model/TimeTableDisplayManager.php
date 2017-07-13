@@ -124,6 +124,7 @@ class TimeTableDisplayManager extends TimeTableManager
         $this->staffActivities = new ArrayCollection();
         $this->staffIdentifier = 0;
         $this->personManager = $personManager;
+        $this->isTimeTable = true;
         if (empty($this->getTimeTable()->getId()))
             $this->isTimeTable = false;
     }
@@ -252,7 +253,7 @@ class TimeTableDisplayManager extends TimeTableManager
         if (false === $this->isTimeTable)
             return $this->isTimeTable;
 
-        if (is_null($identifier) || strlen($identifier) < 6)
+        if (is_null($identifier) || strlen($identifier) < 5)
             return $this->isTimeTable = false;
 
         if (!$this->setType(substr($identifier, 0, 4)))

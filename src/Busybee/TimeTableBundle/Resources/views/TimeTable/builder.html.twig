@@ -112,6 +112,7 @@
             </div>
             <div class="col-md-4 well">
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
+                {% set h3Content = h3Content ~ addButton({windowOpen: {route: path('line_manage', {id: 'Add', closeWindow: '_closeWindow'}), target: 'LineEdit', params: 'width=1200,height=900'}}) %}
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'line.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'line.list.description'} %}
                 {% for line in line_pagination.result %}
                     <div class="row-border row row-striped dragLine" id="line{{ line.id }}">
@@ -123,6 +124,7 @@
                 {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
+                {% set h3Content = h3Content ~ addButton({windowOpen: {route: path('student_activity_edit', {id: 'Add', closeWindow: '_closeWindow'}), target: 'ActivityEdit', params: 'width=1200,height=900'}}) %}
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activity.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'activity.list.description'} %}
                 {% for activity in activity_pagination.result %}
                     <div class="row-border row row-striped dragActivity" id="activity{{ activity.id }}">
@@ -294,7 +296,7 @@
             window.open(path, '_self');
         }
 
-        $('.dragActivity').on('dblclick', function () {
+        $(".dragActivity").dblclick(function () {
             var id = $(this).prop('id');
             id = id.replace('activity', '');
 
@@ -302,7 +304,7 @@
             path = path.replace('__id__', id);
             window.open(path, 'ActivityEdit', 'width=1200,height=750')
         });
-        $('.dragLine').on('dblclick', function () {
+        $(".dragLine").dblclick(function () {
             var id = $(this).prop('id');
             id = id.replace('line', '');
 
