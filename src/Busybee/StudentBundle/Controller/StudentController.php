@@ -87,7 +87,7 @@ class StudentController extends Controller
 
         $up->getDataSet();
 
-        return $this->render('BusybeeStaffBundle:Staff:index.html.twig',
+        return $this->render('BusybeeStudentBundle:Student:index.html.twig',
             array(
                 'pagination' => $up,
             )

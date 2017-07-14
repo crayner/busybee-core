@@ -1,15 +1,14 @@
 <?php
 namespace Busybee\StudentBundle\Entity;
 
+use Busybee\PersonBundle\Model\PersonInterface;
 use Busybee\StudentBundle\Model\StudentModel;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\Exception\InvalidArgumentException;
-use Doctrine\ORM\PersistentCollection;
 
 /**
  * Student
  */
-class Student extends StudentModel
+class Student extends StudentModel implements PersonInterface
 {
     /**
      * @var integer

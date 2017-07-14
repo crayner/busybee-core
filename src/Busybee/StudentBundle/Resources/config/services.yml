@@ -16,7 +16,6 @@ parameters:
             - a.name
             - a.nameShort
             - g.grade
-            - y.name
         join:
             a.year:
                 alias: y
@@ -30,7 +29,7 @@ parameters:
             - a.id
             - y.name as year
     studentPagination:
-        alias: p
+        alias: s
         sortBy:
             Family Name:
                 p.surname: ASC
@@ -38,15 +37,32 @@ parameters:
             Given Name:
                 p.firstName: ASC
                 p.surname: ASC
-            Email:
-                p.email: ASC
+            Details:
+                g.sequence: ASC
                 p.surname: ASC
                 p.firstName: ASC
         limit: '25'
+        join:
+            s.person:
+                alias: p
+                type: leftJoin
+            s.grades:
+                alias: i
+                type: leftJoin
+            i.grade:
+                alias: g
+                type: leftJoin
         searchList:
             - p.surname
             - p.firstName
             - p.email
+            - g.grade
+            - g.name
+        select:
+            - p.surname
+            - p.firstName
+            - g.name as details
+            - p.id
         choices:
             all:
                 route: person_manage
@@ -122,7 +138,7 @@ services:
         class: Busybee\StudentBundle\Model\StudentPagination
         arguments:
             - '%studentPagination%'
-            - '@person.repository'
+            - '@student.repository'
             - '@my_service_container'
     activity.manager:
         class: Busybee\StudentBundle\Model\ActivityManager

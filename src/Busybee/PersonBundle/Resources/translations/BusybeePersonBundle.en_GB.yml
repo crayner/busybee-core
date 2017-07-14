@@ -94,8 +94,8 @@ person:
         edit: Edit Person
         import: Import People
         familyName: Family Name
-        givenName: Given Name
-        email: E-Mail
+        givenName: Given Names
+        details: Details
         category: Category Status
         photo: Photo
     edit: 

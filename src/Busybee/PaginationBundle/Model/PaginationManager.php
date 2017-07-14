@@ -991,6 +991,11 @@ abstract class PaginationManager implements PaginationInterface
         return $this;
     }
 
+    public function getIdName()
+    {
+        return strtolower($this->getName() . '_pagination');
+    }
+
     /**
      * initiate Query
      *
@@ -1046,8 +1051,19 @@ abstract class PaginationManager implements PaginationInterface
     protected function setQuerySelect()
     {
         if (!is_array($this->select) || empty($this->select)) return $this;
-        foreach ($this->select as $name)
-            $this->query->addSelect($name);
+        foreach ($this->select as $name) {
+            if (is_string($name))
+                $this->query->addSelect($name);
+            elseif (is_array($name)) {
+                $k = key($name);
+                $concat = new Query\Expr\Func('CONCAT', $name[$k]);
+                $concat .= ' as ' . $k;
+                $concat = str_replace(',', ',\' \',', $concat);
+                $this->query->addSelect($concat);
+
+            }
+
+        }
         return $this ;
     }
 

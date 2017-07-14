@@ -184,4 +184,14 @@ abstract class PersonModel
         }
         return $photo;
     }
+
+    /**
+     * Get Person
+     *
+     * @return Person
+     */
+    public function getPerson()
+    {
+        return $this;
+    }
 }

@@ -1,9 +1,10 @@
 {% if pagination.choice is defined %}
     <script type="text/javascript" language="JavaScript">
         $('.paginatorChoice').change(function () {
-            $('#paginator').prop('action', $(this).val());
-            $('#paginator').submit();
+            $('#{{ pagination.idName }}').prop('action', $(this).val());
+            $('#{{ pagination.idName }}').submit();
         });
     </script>
+    <!-- pagination Choice -->
 {% endif %}
 

@@ -1,6 +1,6 @@
 parameters:
     staffPagination:
-        alias: p
+        alias: s
         sortBy:
             Family Name:
                 p.surname: ASC
@@ -17,6 +17,15 @@ parameters:
             - p.surname
             - p.firstName
             - p.email
+        join:
+            s.person:
+                type: leftJoin
+                alias: p
+        select:
+            - p.id
+            - p.surname
+            - p.firstName
+            - p.title as details
         choices:
             all:
                 route: person_manage
@@ -49,7 +58,7 @@ services:
         class: Busybee\StaffBundle\Model\StaffPagination
         arguments:
             - '%staffPagination%'
-            - '@person.repository'
+            - '@staff.repository'
             - '@my_service_container'
     staff.grade.voter:
         class: Busybee\StaffBundle\Security\GradeVoter

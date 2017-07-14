@@ -49,10 +49,10 @@
                 {% endif %}
             </div>
             <div class="col-md-2 hidden-sm hidden-xs" style="display: inline-block;">
-                {% if pagination.getSortByName == 'Email' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.email'|trans }}
+                {% if pagination.getSortByName == 'Details' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.details'|trans }}
                 {% else %}
-                    {{ 'person.title.email'|trans }}
+                    {{ 'person.title.details'|trans }}
                 {% endif %}
             </div>
             <div class="col-md-2 col-sm-2 text-center" style="display: inline-block;">
@@ -77,7 +77,7 @@
         {% for person in pagination.getResult %}
             <div class="row row-striped">
                 <div class="col-md-1 hidden-sm hidden-xs">
-                    {{ person.getPhoto75('left')|raw }}
+                    {{ person.0.person.getPhoto75('left')|raw }}
                 </div>
                 <div class="col-sm-2 col-md-2 form-inline">
                     {{ person.surname }}
@@ -85,8 +85,11 @@
                 <div class="col-sm-2 col-md-2 form-inline">
                     {{ person.firstName }}
                 </div>
-                <div class="col-md-2 hidden-sm hidden-xs" style="display: inline-block;">
-                    {{ person.email }}
+                <div class="col-md-2 hidden-sm hidden-xs small" style="display: inline-block;">
+                    {{ person.details }} {{ person.0.person.email }}
+                    {% for phone in person.0.person.phone %}
+                        {{ get_setting('phone.display', null, {'phone': phone.phoneNumber()}) }}<br/>
+                    {% endfor %}
                 </div>
                 <div class="col-md-2 col-sm-2 text-center form-inline">
                     {% set route = path('person_edit', {'id': person.id, }) %}
@@ -100,14 +103,14 @@
                     <div class="row">
                         <div class="col-sm-4">
                             {% set toggle = 'data-toggle=toggle data-onstyle=success data-offstyle=danger data-height=25 data-size=small data-on="<span class=\'halflings halflings-thumbs-up\'></span>" data-off="<span class=\'halflings halflings-thumbs-down\'></span>"' %}
-                            {% if isStaff(person) and canDeleteStaff(person) %}
+                            {% if isStaff(person.0) and canDeleteStaff(person.0) %}
                                 <input type="checkbox" id="staffToggle{{ person.id }}"
                                        title="{{ 'person.staff.toggle'|trans }}" class="staffToggle"
                                        checked {{ toggle|raw }} />
-                            {% elseif canBeStaff(person) and not isStaff(person) %}
+                            {% elseif canBeStaff(person.0) and not isStaff(person.0) %}
                                 <input type="checkbox" id="staffToggle{{ person.id }}"
                                        title="{{ 'person.staff.toggle'|trans }}" class="staffToggle" {{ toggle|raw }} />
-                            {% elseif not isStaff(person) %}
+                            {% elseif not isStaff(person.0) %}
                                 <input type="checkbox" id="staffToggle{{ person.id }}"
                                        title="{{ 'person.staff.toggle'|trans }}" class="staffToggle" {{ toggle|raw }}
                                        disabled/>
@@ -118,15 +121,15 @@
                             {% endif %}
                         </div>
                         <div class="col-sm-4">
-                            {% if isStudent(person) and canDeleteStudent(person, get_parameter('person')) %}
+                            {% if isStudent(person.0) and canDeleteStudent(person.0, get_parameter('person')) %}
                                 <input type="checkbox" id="studentToggle{{ person.id }}"
                                        title="{{ 'person.student.toggle'|trans }}" checked
                                        class="studentToggle" {{ toggle|raw }} />
-                            {% elseif canBeStudent(person) and not isStudent(person) %}
+                            {% elseif canBeStudent(person.0) and not isStudent(person.0) %}
                                 <input type="checkbox" id="studentToggle{{ person.id }}"
                                        title="{{ 'person.student.toggle'|trans }}"
                                        class="studentToggle" {{ toggle|raw }} />
-                            {% elseif not isStudent(person) %}
+                            {% elseif not isStudent(person.0) %}
                                 <input type="checkbox" id="studentToggle{{ person.id }}"
                                        title="{{ 'person.student.toggle'|trans }}"
                                        class="studentToggle" {{ toggle|raw }} disabled/>
@@ -137,14 +140,14 @@
                             {% endif %}
                         </div>
                         <div class="col-sm-4">
-                            {% if isUser(person) and canDeleteUser(person) %}
+                            {% if isUser(person.0) and canDeleteUser(person.0) %}
                                 <input type="checkbox" id="userToggle{{ person.id }}"
                                        title="{{ 'person.user.toggle'|trans }}" checked
                                        class="userToggle" {{ toggle|raw }} />
-                            {% elseif canBeUser(person) and not isUser(person) %}
+                            {% elseif canBeUser(person.0) and not isUser(person.0) %}
                                 <input type="checkbox" id="userToggle{{ person.id }}"
                                        title="{{ 'person.user.toggle'|trans }}" class="userToggle" {{ toggle|raw }} />
-                            {% elseif not isUser(person) %}
+                            {% elseif not isUser(person.0) %}
                                 <input type="checkbox" id="userToggle{{ person.id }}"
                                        title="{{ 'person.user.toggle'|trans }}" class="userToggle" {{ toggle|raw }}
                                        disabled/>

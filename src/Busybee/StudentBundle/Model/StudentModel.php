@@ -4,7 +4,7 @@ namespace Busybee\StudentBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Year;
 
-class StudentModel
+abstract class StudentModel
 {
     use \Busybee\PersonBundle\Model\FormatNameExtension;
 

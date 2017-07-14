@@ -122,7 +122,7 @@ class SettingManager implements ContainerAwareInterface
     {
         $name = strtolower($name);
 
-        if (isset($this->settings[$name]) && $this->settingCache[$name] > new \DateTime('-15 Minutes')) {
+        if (isset($this->settings[$name]) && $this->settingCache[$name] > new \DateTime('-15 Minutes') && empty($options)) {
             $this->settingExists = true;
             return $this->settings[$name];
         }
@@ -370,13 +370,16 @@ class SettingManager implements ContainerAwareInterface
     {
         $name = strtolower($name);
         $this->settingExists = false;
-        if (isset($this->settings[$name])) {
+        if (isset($this->settings[$name]) && empty($options)) {
             $this->settingExists = true;
             return $this->settings[$name];
         }
         $value = $this->getSetting($name, $default, $options);
-        if ($this->settingExists)
+        if ($this->settingExists && empty($options)) {
             $this->settings[$name] = $value;
+            $this->settingCache[$name] = new \DateTime('now');
+        }
+
         return $value;
     }
 

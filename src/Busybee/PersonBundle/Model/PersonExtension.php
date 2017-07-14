@@ -72,7 +72,7 @@ class PersonExtension extends \Twig_Extension
      * @param Person $person
      * @return bool
      */
-    public function isCareGiver(Person $person)
+    public function isCareGiver(PersonInterface $person)
     {
         return $this->pm->isCareGiver();
     }
@@ -81,63 +81,63 @@ class PersonExtension extends \Twig_Extension
      * @param Person $person
      * @return bool
      */
-    public function isStudent(Person $person)
+    public function isStudent(PersonInterface $person)
     {
-        return $this->pm->isStudent($person);
+        return $this->pm->isStudent($person->getPerson());
     }
 
     /**
      * @param Person $person
      * @return bool
      */
-    public function isStaff(Person $person)
+    public function isStaff(PersonInterface $person)
     {
-        return $this->pm->isStaff($person);
+        return $this->pm->isStaff($person->getPerson());
     }
 
     /**
      * @param Person $person
      * @return bool
      */
-    public function canBeStaff(Person $person)
+    public function canBeStaff(PersonInterface $person)
     {
-        return $this->pm->canBeStaff($person);
+        return $this->pm->canBeStaff($person->getPerson());
     }
 
     /**
      * @param Person $person
      * @return bool
      */
-    public function canDeleteStaff(Person $person)
+    public function canDeleteStaff(PersonInterface $person)
     {
-        return $this->pm->canDeleteStaff($person);
+        return $this->pm->canDeleteStaff($person->getPerson());
     }
 
     /**
      * @param Person $person
      * @return bool
      */
-    public function canBeCareGiver(Person $person)
+    public function canBeCareGiver(PersonInteface $person)
     {
-        return $this->pm->canBeCareGiver($person);
+        return $this->pm->canBeCareGiver($person->getPerson());
     }
 
     /**
      * @param Person $person
      * @return bool
      */
-    public function canDeleteCareGiver(Person $person)
+    public function canDeleteCareGiver(PersonInterface $person)
     {
-        return $this->pm->canDeleteCareGiver($person);
+        return $this->pm->canDeleteCareGiver($person->getPerson());
     }
 
     /**
      * @param Person $person
      * @return bool
      */
-    public function canBeStudent(Person $person)
+    public function canBeStudent(PersonInterface $person)
     {
-        return $this->pm->canBeStudent($person);
+        return $this->pm->canBeStudent($person->getPerson());
     }
 
     /**
@@ -145,27 +145,27 @@ class PersonExtension extends \Twig_Extension
      * @param $parameters
      * @return bool
      */
-    public function canDeleteStudent(Person $person, $parameters)
+    public function canDeleteStudent(PersonInterface $person, $parameters)
     {
-        return $this->pm->canDeleteStudent($person, $parameters);
+        return $this->pm->canDeleteStudent($person->getPerson(), $parameters);
     }
 
     /**
      * @param Person $person
      * @return bool
      */
-    public function canDeleteUser(Person $person)
+    public function canDeleteUser(PersonInterface $person)
     {
-        return $this->pm->canDeleteUser($person);
+        return $this->pm->canDeleteUser($person->getPerson());
     }
 
     /**
      * @param Person $person
      * @return bool
      */
-    public function canBeUser(Person $person)
+    public function canBeUser(PersonInterface $person)
     {
-        return $this->pm->canBeUser($person);
+        return $this->pm->canBeUser($person->getPerson());
     }
 
     /**
@@ -180,9 +180,9 @@ class PersonExtension extends \Twig_Extension
      * @param Person $person
      * @return mixed
      */
-    public function isUser(Person $person)
+    public function isUser(PersonInterface $person)
     {
-        return $this->pm->isUser($person);
+        return $this->pm->isUser($person->getPerson());
     }
 
     /**

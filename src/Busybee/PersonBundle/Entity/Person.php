@@ -2,6 +2,7 @@
 
 namespace Busybee\PersonBundle\Entity;
 
+use Busybee\PersonBundle\Model\PersonInterface;
 use Busybee\PersonBundle\Model\PersonModel ;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
@@ -10,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Person
  */
-class Person extends PersonModel
+class Person extends PersonModel implements PersonInterface
 {
     /**
      * @var integer

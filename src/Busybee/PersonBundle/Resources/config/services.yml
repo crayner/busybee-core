@@ -9,8 +9,9 @@ parameters:
             Given Name: 
                 p.firstName: ASC
                 p.surname: ASC
-            Email: 
+            Details:
                 p.email: ASC
+                h.phoneNumber: ASC
                 p.surname: ASC
                 p.firstName: ASC
         limit: '25'
@@ -18,6 +19,15 @@ parameters:
             - p.surname
             - p.firstName
             - p.email
+        select:
+            - p.id
+            - p.title as details
+            - p.surname
+            - p.firstName
+        join:
+            p.phone:
+                type: leftJoin
+                alias: h
         choices:
             all:
                 route: person_manage
