@@ -118,3 +118,10 @@ services:
         arguments:
             - '@session'
             - '@request_stack'
+    version.manager:
+        class: Busybee\HomeBundle\Model\VersionManager
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - '@setting.manager'
+            - '%version%'
+            - '@translator'

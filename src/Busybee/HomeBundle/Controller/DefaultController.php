@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\HomeBundle\Controller;
 
+use Busybee\HomeBundle\Model\VersionManager;
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\ORM\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
@@ -93,28 +94,7 @@ class DefaultController extends Controller
 
     public function acknowledgementAction()
     {
-        $versions = [];
-
-        $versions['Busybee']['System'] = $this->get('setting.manager')->get('Version.System');
-
-        $versions['Twig'] = \Twig_Environment::VERSION;
-        $versions['Symfony'] = Kernel::VERSION;
-        $versions['Doctrine']['ORM'] = Version::VERSION;
-        $versions['Doctrine']['Common'] = \Doctrine\Common\Version::VERSION;
-        $versions['Database']['Server'] = $this->getDoctrine()->getConnection()->getWrappedConnection()->getServerVersion();
-        $versions['Database']['Driver'] = $this->getDoctrine()->getConnection()->getParams()['driver'];
-        $versions['Database']['Driver'] = $this->getDoctrine()->getConnection()->getParams()['driver'];
-        $versions['Database']['Character Set'] = $this->getDoctrine()->getConnection()->getParams()['charset'];
-        $versions['Busybee']['Database'] = $this->get('setting.manager')->get('Version.Database');
-        $versions['Doctrine']['DBal'] = \Doctrine\DBAL\Version::VERSION;
-
-        foreach (get_loaded_extensions() as $name)
-            $versions['PHP'][$name] = phpversion($name);
-
-        foreach ($versions as $q => $w)
-            if (is_array($w))
-                ksort($versions[$q], SORT_STRING + SORT_FLAG_CASE);
-        ksort($versions, SORT_STRING + SORT_FLAG_CASE);
+        $versions = $this->get('version.manager')->getVersion();
 
         return $this->render('@BusybeeHome/acknowledgement.html.twig',
             [

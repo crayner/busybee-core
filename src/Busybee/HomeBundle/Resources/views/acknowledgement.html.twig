@@ -11,9 +11,9 @@
 {% block contentContainer %}
 
     {% for name,version in versions %}
-        {% if version is iterable %}
+        {% if version['value'] is not defined %}
             {% set show = 1 %}
-            <div class="row row-striped">
+            <div class="row row-striped acknowledgement">
                 <div class="col-sm-12">
                     {% for vName,value in version %}
                         <div class="row row-hover">
@@ -26,20 +26,20 @@
                             <div class="col-sm-3">
                                 {{ vName }}
                             </div>
-                            <div class="col-sm-6">
-                                {{ value }}
+                            <div class="col-sm-6{% if value['flag'] %} {{ value['flag'] }}{% endif %}">
+                                {{ value['value'] }}
                             </div>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         {% else %}
-            <div class="row row-striped">
-                <div class="col-sm-8">
+            <div class="row row-striped acknowledgement">
+                <div class="col-sm-6">
                     {{ name }}
                 </div>
-                <div class="col-sm-4">
-                    {{ version }}
+                <div class="col-sm-6{% if version['flag'] %} {{ version['flag'] }}{% endif %}">
+                    {{ version['value'] }}
                 </div>
             </div>
         {% endif %}

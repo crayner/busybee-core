@@ -179,3 +179,10 @@ Preferences: Preferences
 acknowledgement:
     title: 'System Acknowledgement'
     description: ''
+version:
+    upgrade: ' This software is required at version %required%.'
+    over: ' The system version is greater than required. Some functions on the site may work unexpectedly.  The version required is %required%.'
+software:
+    required: ' This software is required at version %required%.'
+setting:
+    required: ' The setting or service should be %required%.'
