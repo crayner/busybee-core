@@ -288,7 +288,7 @@ class LineManager
 
             foreach ($this->possible as $student) {
                 $data = [];
-                $data['%name%'] = $student->getFormatName();
+                $data['%name%'] = $student->formatName();
                 $data['%identifier%'] = $student->getPerson()->getIdentifier();
                 $data['%activityList%'] = $student->activityList;
                 $report['report'] .= '<li>' . $this->trans->trans('line.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
@@ -311,7 +311,7 @@ class LineManager
 
             foreach ($this->duplicated as $student) {
                 $data = [];
-                $data['%name%'] = $student->getFormatName();
+                $data['%name%'] = $student->formatName();
                 $data['%identifier%'] = $student->getPerson()->getIdentifier();
                 $data['%activityList%'] = $student->activityList;
                 $report['report'] .= '<li>' . $this->trans->trans('line.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
@@ -333,7 +333,7 @@ class LineManager
             foreach ($this->participant as $student) {
                 if (!$this->students->contains($student)) {
                     $data = [];
-                    $data['%name%'] = $student->getFormatName();
+                    $data['%name%'] = $student->formatName();
                     $data['%identifier%'] = $student->getPerson()->getIdentifier();
                     $data['%activityList%'] = $student->activityList;
                     $report['report'] .= '<li>' . $this->trans->trans('line.report.student', $data, 'BusybeeTimeTableBundle') . '</li>';
@@ -429,7 +429,7 @@ class LineManager
             return $this->missingStudents;
 
         foreach ($this->possible as $student)
-            $this->missingStudents[] = $student->getFormatName() . ': ' . $student->getPerson()->getIdentifier();
+            $this->missingStudents[] = $student->formatName() . ': ' . $student->getPerson()->getIdentifier();
 
         return $this->missingStudents;
     }

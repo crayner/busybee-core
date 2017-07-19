@@ -53,10 +53,10 @@ class FamilyManager
         if (!empty($data['careGiver'][1]))
             $cg2 = $cgr->find($data['careGiver'][1]['person']);
 
-        $name = $cg1->getFormatName(['preferredOnly' => true]);
+        $name = $cg1->formatName(['preferredOnly' => true]);
 
         if ($cg2 instanceof Person) {
-            $name2 = $cg2->getFormatName(['preferredOnly' => true]);
+            $name2 = $cg2->formatName(['preferredOnly' => true]);
             $surname = substr($name, 0, strpos($name, ':') + 1);
             $name2 = trim(str_replace($surname, '', $name2));
             if (!empty($name2))

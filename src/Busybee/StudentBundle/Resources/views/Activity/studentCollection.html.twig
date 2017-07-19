@@ -10,9 +10,20 @@
     {% set transDomain = 'BusybeeStudentBundle' %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': {'%name%': form.vars.value|length, '%total%': form.vars.choices|length}} %}
     {{ form_label(form) }}
+
+
     {{ form_widget(form) }}
     {{ form_errors(form) }}
     {{ miscButton({'additional': 'id="deSelectAll_' ~ name ~ '"', 'style': 'display: hidden; float: right', 'class': 'btn btn-default halflings halflings-unchecked', 'title': 'De-select All'})|raw }}
     {{ miscButton({'additional': 'id="selectAll_' ~ name ~ '"', 'class': 'btn btn-default halflings halflings-tick', 'title': 'Select All'})|raw }}
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock studentActivity_row %}
+
+{% block _activity_students_entry_widget %}
+    <div class="checkbox">
+        <label class="studentList"><input type="checkbox" id="{{ form.vars.id }}" name="{{ form.vars.full_name }}"
+                                          value="{{ form.vars.value }}"
+                                          {% if form.vars.checked %}checked="checked"{% endif %}>{{ form.parent.vars.manager.studentNameWithGrade(form.vars.value, form.parent.vars.year_data, {'preferredOnly': false}) }}
+        </label>
+    </div>
+{% endblock _activity_students_entry_widget %}

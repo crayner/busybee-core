@@ -69,6 +69,7 @@ class ActivityController extends Controller
         $editOptions['id'] = $id;
         $editOptions['form'] = $form->createView();
         $editOptions['fullForm'] = $form;
+        $editOPtions['manager'] = $this->get('student.manager');
 
         return $this->render('BusybeeStudentBundle:Activity:edit.html.twig',
             $editOptions

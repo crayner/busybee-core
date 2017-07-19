@@ -1057,4 +1057,12 @@ class PersonManager
 
         return false;
     }
+
+    /**
+     * @return ObjectManager
+     */
+    protected function getOm()
+    {
+        return $this->em;
+    }
 }

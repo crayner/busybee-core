@@ -281,7 +281,7 @@ class UserController extends Controller
         $status = $user->getEnabled() ? 'success' : 'warning';
 
         return new JsonResponse(
-            array('message' => $this->get('translator')->trans('The user %user% was '.$enabled, array('%user%' => $user->getFormatName()), 'BusybeeSecurityBundle'), 'status' => $status),
+            array('message' => $this->get('translator')->trans('The user %user% was ' . $enabled, array('%user%' => $user->formatName()), 'BusybeeSecurityBundle'), 'status' => $status),
             200
         );
     }

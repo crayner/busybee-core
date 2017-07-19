@@ -36,7 +36,7 @@ class StudentController extends Controller
                 $this->get('person.manager')->createStudent($person);
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('student.toggle.addSuccess', array('%name%' => $person->getFormatName()), 'BusybeeStudentBundle') . '</div>',
+                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('student.toggle.addSuccess', array('%name%' => $person->formatName()), 'BusybeeStudentBundle') . '</div>',
                         'status' => 'added',
                     ),
                     200
@@ -44,7 +44,7 @@ class StudentController extends Controller
             } else {
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('student.toggle.addRestricted', array('%name%' => $person->getFormatName()), 'BusybeeStudentBundle') . '</div>',
+                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('student.toggle.addRestricted', array('%name%' => $person->formatName()), 'BusybeeStudentBundle') . '</div>',
                         'status' => 'failed',
                     ),
                     200
@@ -55,7 +55,7 @@ class StudentController extends Controller
                 $this->get('person.manager')->deleteStudent($person, $this->getParameter('person'));
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('student.toggle.removeSuccess', array('%name%' => $person->getFormatName()), 'BusybeeStudentBundle') . '</div>',
+                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('student.toggle.removeSuccess', array('%name%' => $person->formatName()), 'BusybeeStudentBundle') . '</div>',
                         'status' => 'removed',
                     ),
                     200
@@ -64,7 +64,7 @@ class StudentController extends Controller
             } else {
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('student.toggle.removeRestricted', array('%name%' => $person->getFormatName()), 'BusybeeStudentBundle') . '</div>',
+                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('student.toggle.removeRestricted', array('%name%' => $person->formatName()), 'BusybeeStudentBundle') . '</div>',
                         'status' => 'failed',
                     ),
                     200

@@ -9,6 +9,7 @@ use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Events\ActivitySubscriber;
+use Busybee\StudentBundle\Model\StudentManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -32,14 +33,21 @@ class ActivityType extends AbstractType
      * @var RequestStack
      */
     private $request;
+
+    /**
+     * @var StudentManager
+     */
+    private $studentManager;
+
     /**
      * ActivityType constructor.
      * @param   ObjectManager $om
      */
-    public function __construct(ObjectManager $om, RequestStack $request)
+    public function __construct(ObjectManager $om, RequestStack $request, StudentManager $studentManager)
     {
         $this->om = $om;
         $this->request = $request;
+        $this->studentManager = $studentManager;
     }
 
     /**
@@ -224,7 +232,7 @@ class ActivityType extends AbstractType
 
         $builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
 
-        $builder->addEventSubscriber(new ActivitySubscriber($this->request));
+        $builder->addEventSubscriber(new ActivitySubscriber($this->request, $this->studentManager));
     }
 
     /**

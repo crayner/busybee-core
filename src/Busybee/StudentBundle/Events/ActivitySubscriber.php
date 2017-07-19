@@ -5,6 +5,7 @@ namespace Busybee\StudentBundle\Events;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Form\StudentActivityType;
+use Busybee\StudentBundle\Model\StudentManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
@@ -20,12 +21,19 @@ class ActivitySubscriber implements EventSubscriberInterface
     private $request;
 
     /**
+     * @var StudentManager
+     */
+    private $studentManager;
+
+    /**
      * ActivitySubscriber constructor.
      * @param RequestStack $request
+     * @param StudentManager $studentManager
      */
-    public function __construct(RequestStack $request)
+    public function __construct(RequestStack $request, StudentManager $studentManager)
     {
         $this->request = $request;
+        $this->studentManager = $studentManager;
     }
 
     /**
@@ -67,10 +75,13 @@ class ActivitySubscriber implements EventSubscriberInterface
                                 ->leftJoin('s.grades', 'i')
                                 ->leftJoin('i.grade', 'g')
                                 ->leftJoin('s.person', 'p')
+                                ->leftJoin('g.year', 'y')
                                 ->where('g.id IN (:grades)')
                                 ->setParameter('grades', $gstring, Connection::PARAM_STR_ARRAY)
                                 ->andWhere('i.status IN (:status)')
                                 ->setParameter('status', ['Future', 'Current'], Connection::PARAM_STR_ARRAY)
+                                ->andWhere('y.id = :year_id')
+                                ->setParameter('year_id', $year->getId())
                                 ->orderBy('p.surname')
                                 ->addOrderBy('p.firstName');
                         },
@@ -83,6 +94,8 @@ class ActivitySubscriber implements EventSubscriberInterface
                         'label_attr' => [
                             'class' => 'studentList',
                         ],
+                        'year_data' => $year,
+                        'manager' => $this->studentManager,
                     ]
                 );
         }

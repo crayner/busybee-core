@@ -39,7 +39,7 @@ class UserController extends Controller
                 $this->get('person.manager')->deleteUser($person);
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('user.toggle.removeSuccess', array('%name%' => $user->getFormatName()), 'BusybeePersonBundle') . '</div>',
+                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('user.toggle.removeSuccess', array('%name%' => $user->formatName()), 'BusybeePersonBundle') . '</div>',
                         'status' => 'removed',
                     ),
                     200
@@ -47,7 +47,7 @@ class UserController extends Controller
             } else {
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('user.toggle.removeRestricted', array('%name%' => $user->getFormatName()), 'BusybeePersonBundle') . '</div>',
+                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('user.toggle.removeRestricted', array('%name%' => $user->formatName()), 'BusybeePersonBundle') . '</div>',
                         'status' => 'failed',
                     ),
                     200
@@ -72,7 +72,7 @@ class UserController extends Controller
                 $em->flush();
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('user.toggle.addSuccess', array('%name%' => $user->getFormatName()), 'BusybeePersonBundle') . '</div>',
+                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('user.toggle.addSuccess', array('%name%' => $user->formatName()), 'BusybeePersonBundle') . '</div>',
                         'status' => 'added',
                     ),
                     200
@@ -80,7 +80,7 @@ class UserController extends Controller
             } else{
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('user.toggle.addRestricted', array('%name%' => $person->getFormatName()), 'BusybeePersonBundle') . '</div>',
+                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('user.toggle.addRestricted', array('%name%' => $person->formatName()), 'BusybeePersonBundle') . '</div>',
                         'status' => 'failed',
                     ),
                     200

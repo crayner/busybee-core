@@ -17,14 +17,14 @@ trait FormatNameExtension
      */
     public function getFullName($options = array())
     {
-        return $this->getFormatName($options);
+        return $this->formatName($options);
     }
 
     /**
      * @return string
      * @throws CommonException
      */
-    public function getFormatName($options = array())
+    public function formatName($options = array())
     {
         if ($this instanceof CareGiver) {
             if (empty($options)) {
@@ -32,13 +32,13 @@ trait FormatNameExtension
             }
             $person = $this->getPerson();
             if ($person instanceof Person)
-                return $person->getFormatName($options);
+                return $person->formatName($options);
         }
 
         if ($this instanceof User) {
             $person = $this->getPerson();
             if ($person instanceof Person)
-                return $person->getFormatName($options);
+                return $person->formatName($options);
             else
                 return $this->getUsername();
         }
@@ -46,7 +46,7 @@ trait FormatNameExtension
         if ($this instanceof Staff) {
             $person = $this->getPerson();
             if ($person instanceof Person)
-                return $person->getFormatName($options);
+                return $person->formatName($options);
         }
 
         if ($this instanceof Student) {
@@ -56,7 +56,7 @@ trait FormatNameExtension
                 $options['surnameFirst'] = false;
             }
             if ($person instanceof Person)
-                return $person->getFormatName($options);
+                return $person->formatName($options);
         }
 
         throw new CommonException('The record ' . __CLASS__ . ' does not have a valid person.');

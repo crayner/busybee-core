@@ -115,6 +115,7 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@request_stack'
+            - '@student.manager'
         tags:
             - { name: form.type }
     student.extension:
@@ -162,3 +163,10 @@ services:
         tags:
             - { name: security.voter, priority: 250 }
         public: false
+    student.manager:
+        class: Busybee\StudentBundle\Model\StudentManager
+        arguments:
+            - '@setting.manager'
+            - '@doctrine.orm.entity_manager'
+            - '@validator'
+            - '@current.year.currentYear'

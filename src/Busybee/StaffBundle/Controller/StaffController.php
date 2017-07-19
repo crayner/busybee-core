@@ -35,7 +35,7 @@ class StaffController extends Controller
                 $this->get('person.manager')->deleteStaff($person);
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('staff.toggle.removeSuccess', array('%name%' => $person->getFormatName()), 'BusybeeStaffBundle') . '</div>',
+                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('staff.toggle.removeSuccess', array('%name%' => $person->formatName()), 'BusybeeStaffBundle') . '</div>',
                         'status' => 'removed',
                     ),
                     200
@@ -43,7 +43,7 @@ class StaffController extends Controller
             } else {
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('staff.toggle.removeRestricted', array('%name%' => $person->getFormatName()), 'BusybeeStaffBundle') . '</div>',
+                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('staff.toggle.removeRestricted', array('%name%' => $person->formatName()), 'BusybeeStaffBundle') . '</div>',
                         'status' => 'failed',
                     ),
                     200
@@ -54,7 +54,7 @@ class StaffController extends Controller
                 $this->get('person.manager')->createStaff($person);
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('staff.toggle.addSuccess', array('%name%' => $person->getFormatName()), 'BusybeeStaffBundle') . '</div>',
+                        'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('staff.toggle.addSuccess', array('%name%' => $person->formatName()), 'BusybeeStaffBundle') . '</div>',
                         'status' => 'added',
                     ),
                     200
@@ -62,7 +62,7 @@ class StaffController extends Controller
             } else {
                 return new JsonResponse(
                     array(
-                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('staff.toggle.addRestricted', array('%name%' => $person->getFormatName()), 'BusybeePersonBundle') . '</div>',
+                        'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('staff.toggle.addRestricted', array('%name%' => $person->formatName()), 'BusybeePersonBundle') . '</div>',
                         'status' => 'failed',
                     ),
                     200

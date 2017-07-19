@@ -180,7 +180,7 @@ class DepartmentStaff
 
     public function __toString()
     {
-        return $this->getStaff()->getFormatName() . ' in department ' . $this->getDepartment()->getName();
+        return $this->getStaff()->formatName() . ' in department ' . $this->getDepartment()->getName();
     }
 
     /**

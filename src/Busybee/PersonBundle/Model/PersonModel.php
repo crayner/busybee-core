@@ -94,7 +94,7 @@ abstract class PersonModel
      * @param   array   $options
 	 * @return 	string
 	 */
-	public function getFormatName($options = array())
+    public function formatName($options = array())
 	{
         /**
          *

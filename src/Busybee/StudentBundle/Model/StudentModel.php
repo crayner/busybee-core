@@ -14,6 +14,11 @@ abstract class StudentModel
     public $activityList;
 
     /**
+     * @var Year
+     */
+    private $year;
+
+    /**
      * StudentModel constructor.
      */
     public function __construct()
@@ -44,5 +49,21 @@ abstract class StudentModel
         }
 
         return null;
+    }
+
+    /**
+     * @return Year
+     */
+    public function getYear(): Year
+    {
+        return $this->year;
+    }
+
+    /**
+     * @param Year $year
+     */
+    public function setYear(Year $year)
+    {
+        $this->year = $year;
     }
 }

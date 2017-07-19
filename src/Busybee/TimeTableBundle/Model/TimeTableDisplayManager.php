@@ -271,13 +271,13 @@ class TimeTableDisplayManager extends TimeTableManager
             case 'Student':
                 $this->studentIdentifier = $this->getIdentifier();
                 if (empty($this->getIdDesc())) {
-                    $this->setIdDesc($this->getOm()->getRepository(Student::class)->find($this->studentIdentifier)->getFormatName(['surnameFirst' => false, 'preferredOnly' => true]));
+                    $this->setIdDesc($this->getOm()->getRepository(Student::class)->find($this->studentIdentifier)->formatName(['surnameFirst' => false, 'preferredOnly' => true]));
                 }
                 break;
             case 'Staff':
                 $this->staffIdentifier = $this->getIdentifier();
                 if (empty($this->getIdDesc())) {
-                    $this->setIdDesc($this->getOm()->getRepository(Staff::class)->find($this->staffIdentifier)->getFormatName(['surnameFirst' => true, 'preferredOnly' => true]));
+                    $this->setIdDesc($this->getOm()->getRepository(Staff::class)->find($this->staffIdentifier)->formatName(['surnameFirst' => true, 'preferredOnly' => true]));
                 }
                 break;
         }

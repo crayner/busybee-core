@@ -484,7 +484,7 @@ class PeriodManager
                 $grade = new ArrayCollection($grade);
                 $iterator = $grade->getIterator();
                 $iterator->uasort(function ($a, $b) {
-                    return ($a->getFormatName(['surnameFirst' => true, 'preferredOnly' => false]) < $b->getFormatName(['surnameFirst' => true, 'preferredOnly' => false])) ? -1 : 1;
+                    return ($a->formatName(['surnameFirst' => true, 'preferredOnly' => false]) < $b->formatName(['surnameFirst' => true, 'preferredOnly' => false])) ? -1 : 1;
                 });
                 $grades[$q] = iterator_to_array($iterator, true);
             }
