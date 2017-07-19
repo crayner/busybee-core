@@ -65,22 +65,27 @@
 
 
     {% if config.sql.connected %}
-    {% set h3Content = proceedButton({'type': 'submit'}) %}
-	<form action="{{ path("install_check_mailer_parameters") }}" method="post">
-        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
-		<div id="form_body" class="container-fluid">
-			<div class="row">
-				<div class="well col-sm-6 col-sm-offset-6">
-					<div class="form-group alert alert-info">
-						<p>{{ 'install.database.connection.complete'|trans({'%name%': config.sql.database_name }) }}</p>
-						<input type="hidden" name="_csrf_token" value="{{ csrf_token('mailer') }}" />
+        {% set h3Content = proceedButton({'type': 'submit'}) %}
+		<form action="{{ path("install_check_mailer_parameters") }}" method="post">
+            {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
+			<div id="form_body" class="container-fluid">
+				<div class="row">
+					<div class="well col-sm-6 col-sm-offset-6">
+						<div class="form-group alert alert-info">
+							<p>{{ 'install.database.connection.complete'|trans({'%name%': config.sql.database_name }) }}</p>
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('mailer') }}"/>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-	</form>
-{% else %}
+            {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+            {% set versions = version_manager.getVersion(true) %}
+            {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'BusybeeHomeBundle', 'header': 'software.system.values', 'panelStyle': 'default'} %}
+            {% include '@BusybeeHome/Acknowledgement/acknowledgementContent.html.twig' %}
+            {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+		</form>
+
+    {% else %}
     {% set h3Content = saveButton() %}
     {{ form_start(form) }}
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
@@ -122,4 +127,5 @@
     {{ form_end(form) }}
 {% endif %}
     {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+
 {% endblock contentContainer %}

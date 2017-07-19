@@ -513,6 +513,8 @@ class Activity extends ActivityModel
     public function removeGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
     {
         $this->grades->removeElement($grade);
+
+        return $this;
     }
 
     /**
@@ -530,7 +532,7 @@ class Activity extends ActivityModel
      *
      * @return integer
      */
-    public function getTeachingLoad(): int
+    public function getTeachingLoad()
     {
         return intval($this->teachingLoad);
     }
@@ -542,7 +544,7 @@ class Activity extends ActivityModel
      *
      * @return Activity
      */
-    public function setTeachingLoad($teachingLoad): Activity
+    public function setTeachingLoad($teachingLoad)
     {
         $this->teachingLoad = intval($teachingLoad);
 

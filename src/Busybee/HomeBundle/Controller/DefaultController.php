@@ -96,7 +96,7 @@ class DefaultController extends Controller
     {
         $versions = $this->get('version.manager')->getVersion();
 
-        return $this->render('@BusybeeHome/acknowledgement.html.twig',
+        return $this->render('@BusybeeHome/Acknowledgement/acknowledgement.html.twig',
             [
                 'versions' => $versions,
             ]

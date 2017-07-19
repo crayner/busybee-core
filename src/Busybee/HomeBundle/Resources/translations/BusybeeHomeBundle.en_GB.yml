@@ -179,10 +179,18 @@ Preferences: Preferences
 acknowledgement:
     title: 'System Acknowledgement'
     description: ''
+    help:
+        fixnow: The indicated software is incorrect or not corretly configured.
+        equal: All OK.
+        over: The software installed is later than the requirement. This is usually OK, but can break sections of the site and is therefore not recommended.
+        upgrade: Your software requires attention to upgrade to the required version.
 version:
     upgrade: ' This software is required at version %required%.'
     over: ' The system version is greater than required. Some functions on the site may work unexpectedly.  The version required is %required%.'
+    equal: ' This software meets current requirements. %required%'
 software:
     required: ' This software is required at version %required%.'
+    system:
+        values: 'System Software'
 setting:
     required: ' The setting or service should be %required%.'

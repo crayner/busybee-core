@@ -111,7 +111,7 @@ abstract class ActivityModel implements ActivityInterface
     /**
      * @return integer
      */
-    public function getCount(): int
+    public function getCount()
     {
         return intval($this->count);
     }
@@ -122,7 +122,7 @@ abstract class ActivityModel implements ActivityInterface
      * @param $count
      * @return Activity
      */
-    public function setCount($count): Activity
+    public function setCount($count)
     {
         $this->count = intval($count);
 

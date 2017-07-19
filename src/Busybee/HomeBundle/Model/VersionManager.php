@@ -32,6 +32,11 @@ class VersionManager
     private $translator;
 
     /**
+     * @var bool
+     */
+    private $ok = true;
+
+    /**
      * VersionManager constructor.
      *
      * @param Connection $connection
@@ -53,11 +58,29 @@ class VersionManager
      *
      * @return array
      */
-    public function getVersion()
+    public function getVersion($install = false)
     {
         $versions = [];
 
-        $versions['Busybee']['System'] = $this->settingManager->get('version.system');
+        if (!$install) {
+            $versions['Busybee']['System'] = $this->settingManager->get('version.system');
+            $versions['Busybee']['Database'] = $this->settingManager->get('version.database');
+
+            if ($versions['Busybee']['System']['value'] !== $this->version['system']) {
+                $versions['Busybee']['System']['flag'] = 'alert alert-warning';
+                $versions['Busybee']['System']['value'] = $this->translator->trans('software.required', ['%required%' => $this->version['system']], 'BusybeeHomeBundle');
+            } else {
+                $versions['Busybee']['System']['flag'] = 'alert alert-success';
+                $versions['Busybee']['System']['value'] = $this->translator->trans('version.equal', ['%required%' => $this->version['system']], 'BusybeeHomeBundle');
+            }
+            if ($versions['Busybee']['Database']['value'] !== $this->version['database']) {
+                $versions['Busybee']['Database']['flag'] = 'alert alert-warning';
+                $versions['Busybee']['System']['value'] = $this->translator->trans('software.required', ['%required%' => $this->version['database']], 'BusybeeHomeBundle');
+            } else {
+                $versions['Busybee']['Database']['flag'] = 'alert alert-success';
+                $versions['Busybee']['Database']['value'] = $this->translator->trans('version.equal', ['%required%' => $this->version['database']], 'BusybeeHomeBundle');
+            }
+        }
 
         $versions['Twig'] = \Twig_Environment::VERSION;
         $versions['Symfony'] = Kernel::VERSION;
@@ -66,7 +89,6 @@ class VersionManager
         $versions['Database']['Server'] = $this->connection->getWrappedConnection()->getServerVersion();
         $versions['Database']['Driver'] = $this->connection->getParams()['driver'];
         $versions['Database']['Character Set'] = $this->connection->getParams()['charset'];
-        $versions['Busybee']['Database'] = $this->settingManager->get('Version.Database');
         $versions['Doctrine']['DBal'] = \Doctrine\DBAL\Version::VERSION;
 
         foreach (get_loaded_extensions() as $name)
@@ -86,50 +108,37 @@ class VersionManager
                 $versions[$q]['flag'] = false;
             }
         }
-
-        if ($versions['Busybee']['System']['value'] !== $this->version['system'])
-            $versions['Busybee']['System']['flag'] = 'alert alert-warning';
-        else
-            $versions['Busybee']['System']['flag'] = 'alert alert-success';
-
         $phpVersions = [];
-        $phpVersions['Core'] = '7.1.6';
+        $phpVersions['Core']['low'] = '7.1.0';
+        $phpVersions['Core']['high'] = '7.1.9';
+        $phpVersions['Core']['string'] = '7.1.0 - 7.1.9';
         $phpVersions['apcu'] = '5.1.8';
         $phpVersions['intl'] = '1.1.0';
         $phpVersions['json'] = '1.5.0';
-        $phpVersions['mbstring'] = '7.1.6';
-        $phpVersions['PDO'] = '7.1.6';
-        $phpVersions['gettext'] = '7.1.6';
-        $phpVersions['pdo_mysql'] = '7.1.6';
-        $phpVersions['Zend OPcache'] = '7.1.6';
 
+        foreach ($phpVersions as $name => $version)
+            if (!is_array($version)) {
+                $phpVersions[$name] = [];
+                $phpVersions[$name]['low'] = $version;
+                $phpVersions[$name]['high'] = $version;
+                $phpVersions[$name]['string'] = $version;
+            }
 
         foreach ($phpVersions as $name => $version) {
             if (!isset($versions['PHP'][$name])) {
-                $versions['PHP'][$name]['value'] = $this->translator->trans('software.required', ['%required%' => $version], 'BusybeeHomeBundle');
+                $versions['PHP'][$name]['value'] = $this->translator->trans('software.required', ['%required%' => $version['string']], 'BusybeeHomeBundle');
                 $versions['PHP'][$name]['flag'] = 'alert alert-danger';
-
-            } elseif (version_compare($versions['PHP'][$name]['value'], $version, '<')) {
-                $versions['PHP'][$name]['flag'] = 'alert alert-warning';
-                $versions['PHP'][$name]['value'] .= $this->translator->trans('version.upgrade', ['%required%' => $version], 'BusybeeHomeBundle');
-            } elseif (version_compare($versions['PHP'][$name]['value'], $version, '=')) {
-                $versions['PHP'][$name]['flag'] = 'alert alert-success';
-            } elseif (version_compare($versions['PHP'][$name]['value'], $version, '>')) {
-                $versions['PHP'][$name]['flag'] = 'alert alert-info';
-                $versions['PHP'][$name]['value'] .= $this->translator->trans('version.over', ['%required%' => $version], 'BusybeeHomeBundle');
-            }
+            } else
+                $versions['PHP'][$name] = $this->fullCompare($versions['PHP'][$name], $version);
         }
+        foreach ($versions['PHP'] as $name => $w)
+            if (!isset($phpVersions[$name]))
+                unset($versions['PHP'][$name]);
 
-        $version = '5.6.37';
-        if (version_compare($versions['Database']['Server']['value'], $version, '<')) {
-            $versions['Database']['Server']['flag'] = 'alert alert-warning';
-            $versions['Database']['Server']['value'] .= $this->translator->trans('version.upgrade', ['%required%' => $version], 'BusybeeHomeBundle');
-        } elseif (version_compare($versions['Database']['Server']['value'], $version, '=')) {
-            $versions['Database']['Server']['flag'] = 'alert alert-success';
-        } elseif (version_compare($versions['Database']['Server']['value'], $version, '>')) {
-            $versions['Database']['Server']['flag'] = 'alert alert-info';
-            $versions['Database']['Server']['value'] .= $this->translator->trans('version.over', ['%required%' => $version], 'BusybeeHomeBundle');
-        }
+        $version['low'] = '5.6.30';
+        $version['high'] = '5.6.39';
+        $version['string'] = '5.6.30 - 5.6.39';
+        $versions['Database']['Server'] = $this->fullCompare($versions['Database']['Server'], $version);
 
         $version = 'utf8mb4';
         if ($versions['Database']['Character Set']['value'] !== $version) {
@@ -145,60 +154,31 @@ class VersionManager
         } else
             $versions['Database']['Driver']['flag'] = 'alert alert-success';
 
-        $version = '3.3.5';
-        if (version_compare($versions['Symfony']['value'], $version, '<')) {
-            $versions['Symfony']['flag'] = 'alert alert-warning';
-            $versions['Symfony']['value'] .= $this->translator->trans('version.upgrade', ['%required%' => $version], 'BusybeeHomeBundle');
-        } elseif (version_compare($versions['Symfony']['value'], $version, '=')) {
-            $versions['Symfony']['flag'] = 'alert alert-success';
-        } elseif (version_compare($versions['Symfony']['value'], $version, '>')) {
-            $versions['Symfony']['flag'] = 'alert alert-info';
-            $versions['Symfony']['value'] .= $this->translator->trans('version.over', ['%required%' => $version], 'BusybeeHomeBundle');
-        }
+        $version = [];
+        $version['string'] = '3.3 - 3.4';
+        $version['low'] = '3.3';
+        $version['high'] = '3.4';
+        $versions['Symfony'] = $this->fullCompare($versions['Symfony'], $version);
 
-        $version = '2.4.3';
-        if (version_compare($versions['Twig']['value'], $version, '<')) {
-            $versions['Twig']['flag'] = 'alert alert-warning';
-            $versions['Twig']['value'] .= $this->translator->trans('version.upgrade', ['%required%' => $version], 'BusybeeHomeBundle');
-        } elseif (version_compare($versions['Twig']['value'], $version, '=')) {
-            $versions['Twig']['flag'] = 'alert alert-success';
-        } elseif (version_compare($versions['Twig']['value'], $version, '>')) {
-            $versions['Twig']['flag'] = 'alert alert-info';
-            $versions['Twig']['value'] .= $this->translator->trans('version.over', ['%required%' => $version], 'BusybeeHomeBundle');
-        }
+        $version['string'] = '2.4.0 - 2.4.9';
+        $version['low'] = '2.4.0';
+        $version['high'] = '2.4.9';
+        $versions['Twig'] = $this->fullCompare($versions['Twig'], $version);
 
-        $version = '2.5.3';
-        if (version_compare($versions['Doctrine']['Common']['value'], $version, '<')) {
-            $versions['Doctrine']['Common']['flag'] = 'alert alert-warning';
-            $versions['Doctrine']['Common']['value'] .= $this->translator->trans('version.upgrade', ['%required%' => $version], 'BusybeeHomeBundle');
-        } elseif (version_compare($versions['Doctrine']['Common']['value'], $version, '=')) {
-            $versions['Doctrine']['Common']['flag'] = 'alert alert-success';
-        } elseif (version_compare($versions['Doctrine']['Common']['value'], $version, '>')) {
-            $versions['Doctrine']['Common']['flag'] = 'alert alert-info';
-            $versions['Doctrine']['Common']['value'] .= $this->translator->trans('version.over', ['%required%' => $version], 'BusybeeHomeBundle');
-        }
+        $version['string'] = '2.5.3';
+        $version['low'] = '2.5.3';
+        $version['high'] = '2.5.3';
+        $versions['Doctrine']['Common'] = $this->fullCompare($versions['Doctrine']['Common'], $version);
 
-        $version = '2.5.12';
-        if (version_compare($versions['Doctrine']['DBal']['value'], $version, '<')) {
-            $versions['Doctrine']['DBal']['flag'] = 'alert alert-warning';
-            $versions['Doctrine']['DBal']['value'] .= $this->translator->trans('version.upgrade', ['%required%' => $version], 'BusybeeHomeBundle');
-        } elseif (version_compare($versions['Doctrine']['DBal']['value'], $version, '=')) {
-            $versions['Doctrine']['DBal']['flag'] = 'alert alert-success';
-        } elseif (version_compare($versions['Doctrine']['DBal']['value'], $version, '>')) {
-            $versions['Doctrine']['DBal']['flag'] = 'alert alert-info';
-            $versions['Doctrine']['DBal']['value'] .= $this->translator->trans('version.over', ['%required%' => $version], 'BusybeeHomeBundle');
-        }
+        $version['string'] = '2.5.12';
+        $version['low'] = '2.5.12';
+        $version['high'] = '2.5.12';
+        $versions['Doctrine']['DBal'] = $this->fullCompare($versions['Doctrine']['DBal'], $version);
 
-        $version = '2.5.4';
-        if (version_compare($versions['Doctrine']['ORM']['value'], $version, '<')) {
-            $versions['Doctrine']['ORM']['flag'] = 'alert alert-warning';
-            $versions['Doctrine']['ORM']['value'] .= $this->translator->trans('version.upgrade', ['%required%' => $version], 'BusybeeHomeBundle');
-        } elseif (version_compare($versions['Doctrine']['ORM']['value'], $version, '=')) {
-            $versions['Doctrine']['ORM']['flag'] = 'alert alert-success';
-        } elseif (version_compare($versions['Doctrine']['ORM']['value'], $version, '>')) {
-            $versions['Doctrine']['ORM']['flag'] = 'alert alert-info';
-            $versions['Doctrine']['ORM']['value'] .= $this->translator->trans('version.over', ['%required%' => $version], 'BusybeeHomeBundle');
-        }
+        $version['string'] = '2.5.4';
+        $version['low'] = '2.5.4';
+        $version['high'] = '2.5.4';
+        $versions['Doctrine']['ORM'] = $this->fullCompare($versions['Doctrine']['ORM'], $version);
 
 
         foreach ($versions as $q => $w)
@@ -207,5 +187,27 @@ class VersionManager
         ksort($versions, SORT_STRING + SORT_FLAG_CASE);
 
         return $versions;
+    }
+
+    /**
+     * Full Compare
+     *
+     * @param iterable $test
+     * @param iterable $standard
+     * @return iterable
+     */
+    private function fullCompare(iterable $test, iterable $standard): iterable
+    {
+        if (version_compare($test['value'], $standard['low'], '<')) {
+            $test['flag'] = 'alert alert-warning';
+            $test['value'] .= $this->translator->trans('version.upgrade', ['%required%' => $standard['string']], 'BusybeeHomeBundle');
+        } elseif (version_compare($test['value'], $standard['low'], '>=') && version_compare($test['value'], $standard['high'], '<=')) {
+            $test['flag'] = 'alert alert-success';
+            $test['value'] .= $this->translator->trans('version.equal', ['%required%' => $standard['string']], 'BusybeeHomeBundle');
+        } elseif (version_compare($test['value'], $standard['high'], '>')) {
+            $test['flag'] = 'alert alert-info';
+            $test['value'] .= $this->translator->trans('version.over', ['%required%' => $standard['string']], 'BusybeeHomeBundle');
+        }
+        return $test;
     }
 }

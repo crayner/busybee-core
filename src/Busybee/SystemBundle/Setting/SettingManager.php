@@ -173,7 +173,11 @@ class SettingManager implements ContainerAwareInterface
                 return $this->writeSettingToSession($name, $value);
                 break;
             case 'twig':
-                return $this->container->get('twig')->createTemplate($this->setting->getValue())->render($options);
+                try {
+                    return $this->container->get('twig')->createTemplate($this->setting->getValue())->render($options);
+                } catch (\Twig_Error_Runtime $e) {
+                    return $this->getContainer()->get('translator')->trans('setting.twig.error', ['%name%' => $this->setting->getName(), '%value%' => $this->setting->getValue(), '%error%' => $e->getMessage(), '%options%' => implode(', ', $options)], 'SystemBundle');
+                }
                 break;
             case 'boolean':
                 return $this->writeSettingToSession($name, (bool)$this->setting->getValue());

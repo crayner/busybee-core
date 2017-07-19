@@ -58,8 +58,9 @@ class InstallController extends Controller
 
             }
 
-            if ($config->saveDatabase)
+            if ($config->saveDatabase) {
                 $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('install.database.save.success', [], 'SystemBundle'));
+            }
             else {
                 $this->get('session')->getFlashBag()->add('danger', $this->get('translator')->trans('install.database.save.failed', [], 'SystemBundle'));
                 $config->sql->connected = false;
@@ -74,6 +75,7 @@ class InstallController extends Controller
             [
                 'config' => $config,
                 'form' => $form->createView(),
+                'version_manager' => $this->get('version.manager'),
             ]
         );
     }

@@ -258,6 +258,8 @@ setting:
             setting: YAML Formatted Setting
         placeholder:
             setting: Use one or more settings in YAML format. Settings that already exist are ignored.
+    twig:
+        error: 'Unable to correctly render the Twig setting. Error: %error%, Setting Name: %name% with value: %value%.  The options %options% where given.'
 language:
     system:
         default: ' (System Default)'
