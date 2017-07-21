@@ -181,9 +181,13 @@ class PeriodManager
 
         $data = [];
         $data['%space%'] = is_null($activity->getSpace()) ? '' : $activity->getSpace()->getName();
+        $data['space_id'] = is_null($activity->getSpace()) ? '' : $activity->getSpace()->getId();
         $data['%tutor1%'] = is_null($activity->getTutor1()) ? '' : $activity->getTutor1()->getFullName();
+        $data['tutor1_id'] = is_null($activity->getTutor1()) ? '' : $activity->getTutor1()->getId();
         $data['%tutor2%'] = is_null($activity->getTutor2()) ? '' : $activity->getTutor2()->getFullName();
+        $data['%tutor2_id%'] = is_null($activity->getTutor2()) ? '' : $activity->getTutor2()->getId();
         $data['%tutor3%'] = is_null($activity->getTutor3()) ? '' : $activity->getTutor3()->getFullName();
+        $data['tutor3_id'] = is_null($activity->getTutor3()) ? '' : $activity->getTutor3()->getId();
 
         return $data;
     }

@@ -85,6 +85,10 @@ timetable:
     display:
         title: 'TimeTable'
         description: 'Displaying TimeTable %type%: %identifier%.'
+    header:
+        blank: My Timetable
+        space: 'Space: %name%'
+        staff: 'Staff: %name%'
 line:
     title:
         list: Manage Activity Lines
@@ -170,7 +174,6 @@ period:
             label: 'Activity'
             details:
                 label: 'Details'
-                data: '%space%, %tutor1%, %tutor2%, %tutor3%'
                 help: |
                   <div class="alert alert-info" style="clear: both;">
                   <p>Details for a period activity are drawn from a number of sources and have the following priority.</p>

@@ -76,3 +76,9 @@ timetable_refresh_display:
 timetable_grade_set:
     path:     /grade/{grade}/set/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:setTimeTableGrade }
+timetable_space_set:
+    path:     /space/{space}/set/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:setTimeTableSpace }
+timetable_staff_set:
+    path:     /staff/{staff}/set/
+    defaults: { _controller: BusybeeTimeTableBundle:TimeTable:setTimeTableStaff }

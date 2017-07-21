@@ -38,10 +38,33 @@
                                             {{ activity.fullName }}
                                         </div>
                                         <div class="col-sm-4 small{{ activity.status.class }}">
-                                            <p>{% if activity.status.message is not empty %}
+                                            <p class="text-left">{% if activity.status.message is not empty %}
                                                     {{ miscButton({'title': activity.status.message, 'class': 'halflings halflings-question-sign btn btn-sm btn-' ~ activity.status.alert,'style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': period.id}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
                                                 {% endif %}
-                                                {{ 'period.activities.activity.details.data'|trans(activity.details)|trim(', ') }}</p>
+                                                {% set comma = false %}
+                                                {% if activity.details['space_id'] is defined and activity.details['space_id'] > 0 %}
+                                                    <span class="spaceName"
+                                                          onclick="openSpaceTimeTable({{ activity.details['space_id'] }})">{{ activity.details['%space%'] }}</span>
+                                                    {% set comma = true %}
+                                                {% endif %}
+                                                {% if activity.details['tutor1_id'] is defined and activity.details['tutor1_id'] > 0 %}
+                                                    {% if comma %},&nbsp;{% endif %}
+                                                    <span class="tutorName"
+                                                          onclick="openStaffTimeTable({{ activity.details['tutor1_id'] }})">{{ activity.details['%tutor1%'] }}</span>
+                                                    {% set comma = true %}
+                                                {% endif %}
+                                                {% if activity.details['tutor2_id'] is defined and activity.details['tutor2_id'] > 0 %}
+                                                    {% if comma %},&nbsp;{% endif %}
+                                                    <span class="tutorName"
+                                                          onclick="openStaffTimeTable({{ activity.details['tutor2_id'] }})">{{ activity.details['%tutor2%'] }}</span>
+                                                    {% set comma = true %}
+                                                {% endif %}
+                                                {% if activity.details['tutor3_id'] is defined and activity.details['tutor3_id'] > 0 %}
+                                                    {% if comma %},&nbsp;{% endif %}
+                                                    <span class="tutorName"
+                                                          onclick="openStaffTimeTable({{ activity.details['tutor3_id'] }})">{{ activity.details['%tutor3%'] }}</span>
+                                                {% endif %}
+                                            </p>
                                         </div>
                                         <div class="col-sm-4">
                                             <div>
@@ -316,6 +339,32 @@
         function openGradeTimeTable(grade) {
             var path = '{{ path('timetable_grade_set', {grade: '__grade__'}) }}';
             path = path.replace('__grade__', grade);
+            $.ajax({
+                url: path,
+                type: 'POST',
+                success: function (data) {
+                    path = '{{ path('timetable_display', {closeWindow: '_closeWindow'}) }}';
+                    window.open(path, 'DisplayTimeTable', 'width=1200,height=900');
+                }
+            });
+        }
+
+        function openSpaceTimeTable(id) {
+            var path = '{{ path('timetable_space_set', {space: '__space__'}) }}';
+            path = path.replace('__space__', id);
+            $.ajax({
+                url: path,
+                type: 'POST',
+                success: function (data) {
+                    path = '{{ path('timetable_display', {closeWindow: '_closeWindow'}) }}';
+                    window.open(path, 'DisplayTimeTable', 'width=1200,height=900');
+                }
+            });
+        }
+
+        function openStaffTimeTable(id) {
+            var path = '{{ path('timetable_staff_set', {staff: '__staff__'}) }}';
+            path = path.replace('__staff__', id);
             $.ajax({
                 url: path,
                 type: 'POST',

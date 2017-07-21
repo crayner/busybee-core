@@ -2,6 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Repository;
 
+use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;
 
@@ -34,6 +35,25 @@ class PeriodActivityRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('tutor2_id', $staff->getId())
             ->orWhere('v.id = :tutor3_id')
             ->setParameter('tutor3_id', $staff->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param Space $space
+     * @param Year $year
+     * @return array
+     */
+    public function findBySpace(Space $space, Year $year)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.space', 's')
+            ->leftJoin('a.activity', 'b')
+            ->leftJoin('b.year', 'y')
+            ->where('y.id = :year_id')
+            ->setParameter('year_id', $year->getId())
+            ->andWhere('s.id = :space_id')
+            ->setParameter('space_id', $space->getId())
             ->getQuery()
             ->getResult();
     }

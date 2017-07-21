@@ -2,6 +2,7 @@
 
 namespace Busybee\StudentBundle\Repository;
 
+use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;
 use Doctrine\ORM\EntityRepository;
@@ -52,6 +53,24 @@ class ActivityRepository extends EntityRepository
             ->setParameter('year_id', $year->getId())
             ->andWhere('s.id = :student_id')
             ->setParameter('student_id', $studentId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param int $spaceId
+     * @param Year $year
+     * @return array
+     */
+    public function findBySpace(Space $space, Year $year)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.space', 's')
+            ->leftJoin('a.year', 'y')
+            ->where('y.id = :year_id')
+            ->setParameter('year_id', $year->getId())
+            ->andWhere('s.id = :space_id')
+            ->setParameter('space_id', $space->getId())
             ->getQuery()
             ->getResult();
     }

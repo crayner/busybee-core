@@ -323,4 +323,34 @@ class TimeTableController extends Controller
 
         return new JsonResponse([], 200);
     }
+
+    /**
+     * Set TimeTable Space
+     *
+     * @param $space
+     * @return JsonResponse
+     */
+    public function setTimeTableSpaceAction($space)
+    {
+        $sess = $this->get('session');
+
+        $gc = $sess->set('tt_identifier', 'spac' . $space);
+
+        return new JsonResponse([], 200);
+    }
+
+    /**
+     * Set TimeTable Staff
+     *
+     * @param $grade
+     * @return JsonResponse
+     */
+    public function setTimeTableStaffAction($staff)
+    {
+        $sess = $this->get('session');
+
+        $gc = $sess->set('tt_identifier', 'staf' . $staff);
+
+        return new JsonResponse([], 200);
+    }
 }

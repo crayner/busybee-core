@@ -371,8 +371,25 @@ button.btn.btn-header {
 .startHidden {
     display: none;
 }
-
 .acknowledgement .alert {
     padding: 0 15px;
     margin-bottom: 0;
+}
+
+.spaceName:focus, .spaceName:hover {
+    color: #c09000;
+    cursor: pointer;
+}
+
+.spaceName {
+    color: #775522;
+}
+
+.tutorName:focus, .tutorName:hover {
+    color: #c09000;
+    cursor: pointer;
+}
+
+.tutorName {
+    color: #775522;
 }

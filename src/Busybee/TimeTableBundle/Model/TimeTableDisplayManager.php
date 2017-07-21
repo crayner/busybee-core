@@ -5,6 +5,7 @@ namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Entity\Grade;
+use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\PersonBundle\Model\PersonManager;
@@ -56,6 +57,7 @@ class TimeTableDisplayManager extends TimeTableManager
         'grad' => 'Grade',
         'stud' => 'Student',
         'staf' => 'Staff',
+        'spac' => 'Space',
     ];
 
     /**
@@ -94,6 +96,16 @@ class TimeTableDisplayManager extends TimeTableManager
     private $staffIdentifier;
 
     /**
+     * @var array
+     */
+    private $spaceActivities;
+
+    /**
+     * @var integer
+     */
+    private $spaceIdentifier;
+
+    /**
      * @var string
      */
     private $idDesc;
@@ -107,6 +119,11 @@ class TimeTableDisplayManager extends TimeTableManager
      * @var boolean
      */
     private $isTimeTable;
+
+    /**
+     * @var string
+     */
+    private $header = '';
 
     /**
      * TimeTableDisplayManager constructor.
@@ -123,6 +140,8 @@ class TimeTableDisplayManager extends TimeTableManager
         $this->studentIdentifier = 0;
         $this->staffActivities = new ArrayCollection();
         $this->staffIdentifier = 0;
+        $this->spaceActivities = new ArrayCollection();
+        $this->spaceIdentifier = 0;
         $this->personManager = $personManager;
         $this->isTimeTable = true;
         if (empty($this->getTimeTable()->getId()))
@@ -262,24 +281,37 @@ class TimeTableDisplayManager extends TimeTableManager
         if (!$this->setIdentifier(substr($identifier, 4)))
             return $this->isTimeTable = false;
 
+        $this->header = 'timetable.header.blank';
         switch ($this->getType()) {
             case 'Grade':
                 if (empty($this->getIdDesc())) {
                     $this->setIdDesc($this->getOm()->getRepository(Grade::class)->findOneByGrade($this->getIdentifier())->getName());
                 }
+                $this->header = 'timetable.header.grade';
                 break;
             case 'Student':
                 $this->studentIdentifier = $this->getIdentifier();
                 if (empty($this->getIdDesc())) {
                     $this->setIdDesc($this->getOm()->getRepository(Student::class)->find($this->studentIdentifier)->formatName(['surnameFirst' => false, 'preferredOnly' => true]));
                 }
+                $this->header = 'timetable.header.student';
                 break;
             case 'Staff':
                 $this->staffIdentifier = $this->getIdentifier();
                 if (empty($this->getIdDesc())) {
                     $this->setIdDesc($this->getOm()->getRepository(Staff::class)->find($this->staffIdentifier)->formatName(['surnameFirst' => true, 'preferredOnly' => true]));
                 }
+                $this->header = 'timetable.header.staff';
                 break;
+            case 'Space':
+                $this->spaceIdentifier = $this->getIdentifier();
+                if (empty($this->getIdDesc())) {
+                    $this->setIdDesc($this->getOm()->getRepository(Space::class)->find($this->spaceIdentifier)->getNameCapacity());
+                }
+                $this->header = 'timetable.header.space';
+                break;
+            default:
+                throw new Exception('The TimeTable Type ' . $this->getType() . ' is not defined.');
         }
         $this->isTimeTable = true;
 
@@ -658,5 +690,44 @@ class TimeTableDisplayManager extends TimeTableManager
         }
 
         return null;
+    }
+
+    /**
+     * @param $period
+     * @return null|PeriodActivity
+     */
+    private function generateSpaceActivities($period)
+    {
+        // test and load staff activities only once.
+        if ($this->spaceActivities->count() === 0 || $this->spaceIdentifier !== $this->getIdentifier()) {
+            $space = $this->getOm()->getRepository(Space::class)->find($this->getIdentifier());
+            $acts = $this->getOm()->getRepository(Activity::class)->findBySpace($space, $this->getYear());
+            $this->spaceActivities = new ArrayCollection();
+            $this->spaceIdentifier = $this->getIdentifier();
+            foreach ($acts as $w)
+                if (!$this->spaceActivities->contains($w))
+                    $this->spaceActivities->add($w);
+            $acts = $this->getOm()->getRepository(PeriodActivity::class)->findBySpace($space, $this->getYear());
+
+            foreach ($acts as $w)
+                if (!$this->spaceActivities->contains($w->getActivity()))
+                    $this->spaceActivities->add($w->getActivity());
+        }
+
+        foreach ($period->getActivities() as $activity) {
+            if ($this->spaceActivities->contains($activity->getActivity())) {
+                return $activity;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeader(): string
+    {
+        return $this->header = empty($this->header) ? 'timetable.header.blank' : $this->header;
     }
 }
