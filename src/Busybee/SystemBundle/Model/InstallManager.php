@@ -94,6 +94,7 @@ class InstallManager
         unset($sql['name']);
         $this->sql->error = 'No Error Detected.';
         $this->connection = $this->factory->createConnection($sql);
+
         try {
             $this->connection->connect();
         } catch (ConnectionException | \Exception $e) {
@@ -102,19 +103,24 @@ class InstallManager
             $this->exception = $e;
         }
         $this->sql->connected = $this->connection->isConnected();
+
         return $this->sql->connected;
     }
 
-    public function hasDatabase($sql)
+    public function hasDatabase()
     {
         try {
-            $this->connection->executeQuery("CREATE DATABASE IF NOT EXISTS " . $this->sql->database_name);
+            $this->connection->executeQuery("CREATE DATABASE IF NOT EXISTS " . $this->sql->database_name . " CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         } catch (SyntaxErrorException $e) {
             $this->sql->error = $e->getMessage() . '. <strong>The database name must not have any spaces.</strong>';
             $this->sql->connected = false;
             $this->exception = $e;
 
         }
+
+        if ($this->sql->connected)
+            $this->connection->executeQuery("ALTER DATABASE `" . $this->sql->database_name . "` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`");
+
         return $this->sql->connected;
     }
 

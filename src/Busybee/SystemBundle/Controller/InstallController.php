@@ -48,7 +48,7 @@ class InstallController extends Controller
 
             }
 
-            if (!$config->hasDatabase($sql)) {
+            if (!$config->hasDatabase()) {
                 return $this->render('SystemBundle:Install:start.html.twig',
                     [
                         'config' => $config,

@@ -38,7 +38,7 @@ class LineController extends Controller
      * @param   Request $request
      * @return  \Symfony\Component\HttpFoundation\Response
      */
-    public function manageAction(Request $request, $id)
+    public function manageAction(Request $request, $id, $closeWindow)
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
@@ -60,8 +60,13 @@ class LineController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            if ($id == 'Add')
-                return new RedirectResponse($this->generateUrl('line_manage', ['id' => $entity->getId()]));
+            if ($id == 'Add') {
+                $close = [];
+                if (!empty($closeWindow))
+                    $close = ['closeWindow' => '_closeWindow'];
+
+                return new RedirectResponse($this->generateUrl('line_manage', array_merge(['id' => $entity->getId()], $close)));
+            }
         }
 
         return $this->render('BusybeeTimeTableBundle:Line:manage.html.twig',

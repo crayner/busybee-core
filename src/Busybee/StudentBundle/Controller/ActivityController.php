@@ -41,7 +41,7 @@ class ActivityController extends Controller
      * @param $id
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $id, $closeWindow)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $em = $this->get('doctrine')->getManager();
@@ -61,8 +61,12 @@ class ActivityController extends Controller
             $em->flush();
 
             if ($id === 'Add') {
+                $close = [];
+                if (!empty($closeWindow))
+                    $close = ['closeWindow' => '_closeWindow'];
+
                 $id = $entity->getId();
-                return new RedirectResponse($this->generateUrl('student_activity_edit', array('id' => $id)));
+                return new RedirectResponse($this->generateUrl('student_activity_edit', array_merge(['id' => $id], $close)));
             }
         }
 

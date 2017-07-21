@@ -8,8 +8,8 @@ line_list:
     path:     /line/list/
     defaults: { _controller: BusybeeTimeTableBundle:Line:list }
 line_manage:
-    path:     /line/{id}/manage/
-    defaults: { _controller: BusybeeTimeTableBundle:Line:manage, id: 'Add' }
+    path:     /line/{id}/manage/{closeWindow}
+    defaults: { _controller: BusybeeTimeTableBundle:Line:manage, id: 'Add', closeWindow: '' }
 line_test:
     path:     /line/{id}/test/
     defaults: { _controller: BusybeeTimeTableBundle:Line:test, id: 'Add' }

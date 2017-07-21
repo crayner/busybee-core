@@ -90,4 +90,15 @@
     {% set route = 'student_activity_edit' %}
     {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
     {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+    {% if app.request.get('closeWindow') is not empty %}
+        <script type="application/javascript" language="JavaScript">
+            $('#activity_form').submit(function (event) {
+                var path = '{{ path('student_activity_edit', {id: '__id__', closeWindow: '_closeWindow'}) }}';
+                path = path.replace('__id__', '{{ app.request.get('id') }}');
+
+                $(this).attr('action', path);
+                return true;
+            });
+        </script>
+    {% endif %}
 {% endblock javascripts %}

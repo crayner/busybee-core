@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\StudentBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Year;
@@ -65,5 +64,7 @@ abstract class StudentModel
     public function setYear(Year $year)
     {
         $this->year = $year;
+
+        return $this;
     }
 }
