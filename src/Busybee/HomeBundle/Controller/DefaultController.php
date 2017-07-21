@@ -41,7 +41,7 @@ class DefaultController extends Controller
         $executor->execute($fixtures, true);
     }
 
-    public function indexAction(Request $request )
+    public function indexAction(Request $request)
     {
         $setting = $this->get('setting.manager');
         try {
@@ -65,7 +65,7 @@ class DefaultController extends Controller
             $encoder = $this->get('security.encoder_factory');
             $encoder = $encoder->getEncoder($user);
 
-            $identifier = $this->get('session')->has('tt_identifier') ? $this->get('session')->get('tt_identifier') : $tm->getTimeTableIdentifier($this->getUser());
+            $identifier = $tm->getTimeTableIdentifier($this->getUser());
 
             $displayDate = $this->get('session')->has('tt_displayDate') ? $this->get('session')->get('tt_displayDate') : $tm->getTimeTableDisplayDate();
 

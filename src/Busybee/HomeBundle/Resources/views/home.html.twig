@@ -11,9 +11,6 @@
 {% block contentContainer %}
     {% if app.user is defined and app.user is not empty and manager.isTimeTable(app.user) %}
         <div id="myTimeTable">
-            <h3>
-                {{ 'myTimeTable'|trans({}, 'BusybeeTimeTableBundle') }}
-            </h3>
             <div id="displayTimeTable">
                 {% include '@BusybeeTimeTable/Display/timetable.html.twig' %}
             </div>
