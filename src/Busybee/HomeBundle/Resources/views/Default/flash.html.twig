@@ -11,31 +11,41 @@
 {% endif %}
 
 {% for flashMessage in app.session.flashbag.get('error') %}
-    <div class="alert alert-danger{{ flashClass }}" role="alert">
-        {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
-    </div>
+    {% if showFlash(flashMessage) %}
+        <div class="alert alert-danger{{ flashClass }}" role="alert">
+            {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
+        </div>
+    {% endif %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('danger') %}
-    <div class="alert alert-danger{{ flashClass }}" role="alert">
-        {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
-    </div>
+    {% if showFlash(flashMessage) %}
+        <div class="alert alert-danger{{ flashClass }}" role="alert">
+            {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
+        </div>
+    {% endif %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('warning') %}
-    <div class="alert alert-warning{{ flashClass }}" role="alert">
-        {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
-    </div>
+    {% if showFlash(flashMessage) %}
+        <div class="alert alert-warning{{ flashClass }}" role="alert">
+            {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
+        </div>
+    {% endif %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('info') %}
-    <div class="alert alert-info{{ flashClass }}" role="alert">
-        {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
-    </div>
+    {% if showFlash(flashMessage) %}
+        <div class="alert alert-info{{ flashClass }}" role="alert">
+            {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
+        </div>
+    {% endif %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('success') %}
-    <div class="alert alert-success{{ flashClass }}" role="alert">
-        {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
-    </div>
+    {% if showFlash(flashMessage) %}
+        <div class="alert alert-success{{ flashClass }}" role="alert">
+            {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
+        </div>
+    {% endif %}
 {% endfor %}
