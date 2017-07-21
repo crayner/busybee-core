@@ -11,41 +11,21 @@
 {% endif %}
 
 {% for flashMessage in app.session.flashbag.get('error') %}
-    {% if showFlash(flashMessage) %}
-        <div class="alert alert-danger{{ flashClass }}" role="alert">
-            {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
-        </div>
-    {% endif %}
+    {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('danger') %}
-    {% if showFlash(flashMessage) %}
-        <div class="alert alert-danger{{ flashClass }}" role="alert">
-            {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
-        </div>
-    {% endif %}
+    {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('warning') %}
-    {% if showFlash(flashMessage) %}
-        <div class="alert alert-warning{{ flashClass }}" role="alert">
-            {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
-        </div>
-    {% endif %}
+    {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'warning'} %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('info') %}
-    {% if showFlash(flashMessage) %}
-        <div class="alert alert-info{{ flashClass }}" role="alert">
-            {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
-        </div>
-    {% endif %}
+    {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'info'} %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('success') %}
-    {% if showFlash(flashMessage) %}
-        <div class="alert alert-success{{ flashClass }}" role="alert">
-            {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage} %}
-        </div>
-    {% endif %}
+    {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'successg'} %}
 {% endfor %}

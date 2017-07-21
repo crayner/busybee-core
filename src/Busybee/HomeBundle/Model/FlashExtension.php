@@ -23,7 +23,7 @@ class FlashExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('showFlash', array($this, 'intVal')),
+            new \Twig_SimpleFunction('showFlash', array($this, 'showFlash')),
         );
     }
 

@@ -125,3 +125,7 @@ services:
             - '@setting.manager'
             - '%version%'
             - '@translator'
+    flash.extension:
+        class: Busybee\HomeBundle\Model\FlashExtension
+        tags:
+            - { name: twig.extension }
