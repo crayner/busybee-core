@@ -10,9 +10,10 @@
 
 {% block contentContainer %}
     {% if app.user is defined and app.user is not empty and manager.isTimeTable(app.user) %}
-        <div id="myTimeTable">
-            <div id="displayTimeTable">
-                {% include '@BusybeeTimeTable/Display/timetable.html.twig' %}
+        <div class="row">
+            <div class="col-sm-9 col-sm-offset-3" id="displayTimeTable">
+                <div>
+                </div>
             </div>
         </div>
     {% else %}

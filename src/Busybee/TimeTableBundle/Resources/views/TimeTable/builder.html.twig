@@ -21,6 +21,7 @@
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
                 {% set h3Content = h3Content ~ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"'}) %}
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel'} %}
+
                 {% for period in report.periods %}
                     <div class="row-border row row-hover row-striped fixPeriod" id="periodRow{{ period.id }}">
                         <div class="col-sm-12 dropPeriod{{ period.status.disableDrop }}"
@@ -139,8 +140,11 @@
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'line.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'line.list.description'} %}
                 {% for line in line_pagination.result %}
                     <div class="row-border row row-striped dragLine" id="line{{ line.id }}">
-                        <div class="col-sm-12">
-                            {{ line.name }} ({{ line.nameShort }})
+                        <div class="col-sm-12 small">
+                            {{ line.name }} ({{ line.nameShort }})<span class="glyphicons glyphicons-search"
+                                                                        style="float: right; color: #2AABD2;"
+                                                                        title="line.period.search.prompt"
+                                                                        onclick="linePeriodSearch('{{ app.request.get('id') }}', '{{ line.id }}')"></span>
                         </div>
                     </div>
                 {% endfor %}
@@ -373,6 +377,14 @@
                     window.open(path, 'DisplayTimeTable', 'width=1200,height=900');
                 }
             });
+        }
+
+        function linePeriodSearch(tt, id) {
+            var path = '{{ path('line_periods_search', {id: '__line__', tt: '__timetable__'}) }}';
+            path = path.replace('__line__', id);
+            path = path.replace('__timetable__', tt);
+
+            window.open(path, 'LinePeriodSearch', 'width=1200,height=900');
         }
     </script>
     {% include '@BusybeeHome/Toggle/script.html.twig' %}

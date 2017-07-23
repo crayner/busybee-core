@@ -82,3 +82,6 @@ timetable_space_set:
 timetable_staff_set:
     path:     /staff/{staff}/set/
     defaults: { _controller: BusybeeTimeTableBundle:TimeTable:setTimeTableStaff }
+line_periods_search:
+    path:     /line/{tt}/periods/{id}/search/
+    defaults: { _controller: BusybeeTimeTableBundle:Line:searchPeriods }

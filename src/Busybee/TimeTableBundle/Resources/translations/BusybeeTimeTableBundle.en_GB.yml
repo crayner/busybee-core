@@ -89,6 +89,8 @@ timetable:
         blank: My Timetable
         space: 'Space: %name%'
         staff: 'Staff: %name%'
+        grade: 'Grade: %name%'
+        student: 'Student: %name%'
 line:
     title:
         list: Manage Activity Lines

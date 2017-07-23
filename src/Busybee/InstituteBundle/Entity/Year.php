@@ -397,11 +397,6 @@ class Year extends YearModel
 
     }
 
-    public function __toString()
-    {
-        return $this->getName() . ' ' . $this->getFirstDay()->format('d/M/Y');
-    }
-
     /**
      * Get name
      *

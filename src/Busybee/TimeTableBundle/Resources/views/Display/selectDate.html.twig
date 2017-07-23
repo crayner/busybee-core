@@ -18,4 +18,10 @@
             }
         });
     }
+
+    $(document).ready(function () {
+        var displayDate = '{{ manager.timeTableDisplayDate }}';
+
+        displayTimeTable(displayDate);
+    });
 </script>

@@ -101,6 +101,10 @@ class LineController extends Controller
 
     }
 
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
     public function deleteAction($id)
     {
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
@@ -112,4 +116,27 @@ class LineController extends Controller
         return new RedirectResponse($this->generateUrl('line_list'));
     }
 
+    /**
+     * @param $tt
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchPeriodsAction($tt, $id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
+
+        $lgm = $this->get('line.manager');
+
+        $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
+
+        $lgm->generateReport($tt, $year);
+
+        $data = $lgm->getReport();
+
+        return $this->render('BusybeeTimeTableBundle:Line:report.html.twig',
+            [
+                'report' => $data['report'],
+            ]
+        );
+    }
 }

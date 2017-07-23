@@ -67,10 +67,6 @@ class DefaultController extends Controller
 
             $identifier = $tm->getTimeTableIdentifier($this->getUser());
 
-            $displayDate = $this->get('session')->has('tt_displayDate') ? $this->get('session')->get('tt_displayDate') : $tm->getTimeTableDisplayDate();
-
-            $tm->generateTimeTable($identifier, $displayDate);
-
             if ($encoder->isPasswordValid($user->getPassword(), 'p@ssword', $user->getSalt()) || $user->getExpired()) {
                 $email = null;
                 if (!empty($user))

@@ -246,6 +246,7 @@ class TimeTableController extends Controller
         $vd = $this->get('voter.details');
 
         $sess = $this->get('session');
+
         if (!empty($request->get('closeWindow')))
             $this->get('hide.section')->HideSectionOn();
         else
@@ -255,13 +256,9 @@ class TimeTableController extends Controller
 
         $vd->parseIdentifier($identifier);
 
-        $displayDate = $sess->has('tt_displayDate') ? $sess->get('tt_displayDate') : $this->get('timetable.display.manager')->getTimeTableDisplayDate();
-
         $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $vd, null);
 
         $tm = $this->get('timetable.display.manager');
-
-        $tm->generateTimeTable($identifier, $displayDate);
 
         return $this->render('BusybeeTimeTableBundle:Display:index.html.twig',
             [
