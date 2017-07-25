@@ -10,6 +10,10 @@
         var path = '{{ path('timetable_refresh_display', {displayDate: '__displayDate__'}) }}';
         path = path.replace('__displayDate__', displayDate);
 
+        var htmlString = '{% include '@BusybeeTimeTable/Display/waitForLoad.html.twig' %}';
+
+        $('#timetableHeader').html(htmlString);
+
         $.ajax({
             url: path,
             type: 'POST',

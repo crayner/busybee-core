@@ -171,19 +171,19 @@ class VersionManager
         $version['high'] = '2.4.9';
         $versions['Twig'] = $this->fullCompare($versions['Twig'], $version);
 
-        $version['string'] = '2.7.0-DEV';
-        $version['low'] = '2.7.0-DEV';
-        $version['high'] = '2.7.0-DEV';
+        $version['string'] = '2.7.3';
+        $version['low'] = '2.7.3';
+        $version['high'] = '2.7.3';
         $versions['Doctrine']['Common'] = $this->fullCompare($versions['Doctrine']['Common'], $version);
 
-        $version['string'] = '2.5.12';
-        $version['low'] = '2.5.0';
-        $version['high'] = '2.5.12';
+        $version['string'] = '2.5.12 - 2.5.13';
+        $version['low'] = '2.5.12';
+        $version['high'] = '2.5.113';
         $versions['Doctrine']['DBal'] = $this->fullCompare($versions['Doctrine']['DBal'], $version);
 
         $version['string'] = '2.5.5-DEV';
         $version['low'] = '2.5.5-DEV';
-        $version['high'] = '2.5.5-DEV';
+        $version['high'] = '2.5.6';
         $versions['Doctrine']['ORM'] = $this->fullCompare($versions['Doctrine']['ORM'], $version);
 
 
