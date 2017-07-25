@@ -1,0 +1,50 @@
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% extends '@BusybeeHome/Popup/template.html.twig' %}
+
+{% block title %}{{ parent() }}{{ 'line.title.report'|trans }}{% endblock title %}
+
+{% block contentContainer %}
+    <div class="row row-header">
+        <div class="col-sm-12">
+            {{ 'line.period.free.title'|trans({'%name%':manager.line.fullName}) }}
+        </div>
+    </div>
+    {% block flashMessages %}
+        <div class="row">
+            <div class="col-sm-12">
+                {% include '@BusybeeHome/Default/flash.html.twig' with {flashClass: 'fadeAlert', transDomain: 'BusybeeTimeTableBundle'} %}
+            </div>
+        </div>
+    {% endblock flashMessages %}
+
+
+    {% for period in report.toArray() %}
+        <div class="row row-striped">
+            <div class="col-sm-6">
+                {{ period.columnName }}
+            </div>
+            <div class="col-sm-6">
+                {{ addButton({title: 'line.period.add', transDomain: 'BusybeeTimeTableBundle', javascript: {function: 'managePeriodSelect', options: [period.id]}, style: 'float:left;'})|raw }}
+            </div>
+        </div>
+    {% endfor %}
+    {{ closeButton()|raw }}
+    {{ resetButton({'windowOpen': {'route': path('line_periods_search', {tt: app.request.get('tt'),'id': app.request.get('id')})}})|raw }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript" language="JavaScript">
+        function managePeriodSelect(period) {
+            var path = '{{ path('period_builder_line', {'id': '__period__', 'line': '__line__'}) }}';
+            var line = '{{ app.request.get('id') }}';
+
+            path = path.replace('__period__', period);
+            path = path.replace('__line__', line);
+
+            window.open(path, '_self');
+        }
+    </script>
+    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+{% endblock javascripts %}

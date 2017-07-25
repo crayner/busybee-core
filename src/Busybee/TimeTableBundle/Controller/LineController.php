@@ -127,15 +127,12 @@ class LineController extends Controller
 
         $lgm = $this->get('line.manager');
 
-        $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
+        $data = $lgm->searchForSuitablePeriods($tt, $id);
 
-        $lgm->generateReport($tt, $year);
-
-        $data = $lgm->getReport();
-
-        return $this->render('BusybeeTimeTableBundle:Line:report.html.twig',
+        return $this->render('BusybeeTimeTableBundle:Line:search.html.twig',
             [
-                'report' => $data['report'],
+                'report' => $data,
+                'manager' => $lgm,
             ]
         );
     }

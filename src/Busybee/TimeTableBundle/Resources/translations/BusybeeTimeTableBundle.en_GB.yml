@@ -146,6 +146,10 @@ line:
         failure: 'The system encountered a problem removing the activity line: %error%'
         notfound: 'The Activity Line was not found to remove.'
         confirm: 'Confirm Activity Line Removal.'
+    period:
+        add: Add Line to Period
+        free:
+            title: 'Available Periods to %name%'
 activity:
     title:
         add: Add Activity

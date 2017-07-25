@@ -361,9 +361,9 @@ class PeriodManager
             }
 
         if ($count > 0) {
-            $this->flashbag->add('success', 'period.activities.line.added');
             $this->om->persist($this->period);
             $this->om->flush();
+            $this->flashbag->add('success', 'period.activities.line.added');
         } else
             $this->flashbag->add('warning', 'period.activities.line.none');
 

@@ -4,8 +4,10 @@ namespace Busybee\TimeTableBundle\Model;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\TimeTableBundle\Entity\Line;
+use Busybee\TimeTableBundle\Entity\Period;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\DBAL\Connection;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
@@ -163,7 +165,7 @@ class LineManager
         $this->participantGenerated = false;
         $this->possibleGenerated = false;
 
-        return $this->line;
+        return $this->getLine();
     }
 
     /**
@@ -459,5 +461,123 @@ class LineManager
             $this->flashbag->add('danger', $this->trans->trans('line.delete.failure', ['%error%' => $e->getMessage()], 'BusybeeTimeTableBundle'));
         }
 
+    }
+
+    /**
+     * @param $tt
+     * @param $line
+     * @return ArrayCollection
+     */
+    public function searchForSuitablePeriods($tt, $line)
+    {
+
+        $this->addLine($line);
+
+        $spaces = [];
+        $staff = [];
+        $periods = [];
+        $students = [];
+
+        foreach ($this->getLine()->getActivities()->toArray() as $activity) {
+            if (!empty($activity->getSpace()))
+                $spaces[] = $activity->getSpace()->getId();
+            if (!empty($activity->getTutor1()))
+                $staff[] = $activity->getTutor1()->getId();
+            if (!empty($activity->getTutor2()))
+                $staff[] = $activity->getTutor2()->getId();
+            if (!empty($activity->getTutor3()))
+                $staff[] = $activity->getTutor3()->getId();
+            if (!empty($activity->getPeriods()))
+                foreach ($activity->getPeriods() as $pa)
+                    $periods[] = $pa->getPeriod()->getId();
+            if (!empty($activity->getStudents()))
+                foreach ($activity->getStudents() as $stu)
+                    $students[] = $stu->getId();
+        }
+        $spaces = array_unique($spaces);
+        $staff = array_unique($staff);
+        $periods = array_unique($periods);
+        $students = array_unique($students);
+
+        $query = $this->om->getRepository(Period::class)->createQueryBuilder('p')
+            ->leftJoin('p.column', 'c')
+            ->leftJoin('c.timetable', 't')
+            ->where('t.id = :tt_id')
+            ->setParameter('tt_id', $tt)
+            ->andWhere('p.break = :false')
+            ->setParameter('false', 0)
+            ->orderBy('c.sequence')
+            ->addOrderBy('p.start');
+        if (!empty($periods))
+            $query
+                ->andWhere('p.id NOT IN (:periods)')
+                ->setParameter('periods', $periods, Connection::PARAM_INT_ARRAY);
+
+        $result = $query->getQuery()
+            ->getResult();
+        $result = empty($result) ? [] : $result;
+
+        $free = new ArrayCollection();
+        foreach ($result as $p => $period) {
+            $acts = $period->getActivities();
+            $keep = true;
+            foreach ($acts->toArray() as $act) {
+                if ($act->getSpace() && in_array($act->getSpace()->getId(), $spaces)) {
+                    $keep = false;
+                    break;
+                }
+                if ($act->getTutor1() && in_array($act->getTutor1()->getId(), $staff)) {
+                    $keep = false;
+                    break;
+                }
+                if ($act->getTutor2() && in_array($act->getTutor2()->getId(), $staff)) {
+                    $keep = false;
+                    break;
+                }
+                if ($act->getTutor3() && in_array($act->getTutor3()->getId(), $staff)) {
+                    $keep = false;
+                    break;
+                }
+                $activity = $act->getActivity();
+                if ($activity->getSpace() && in_array($activity->getSpace()->getId(), $spaces)) {
+                    $keep = false;
+                    break;
+                }
+                if ($activity->getTutor1() && in_array($activity->getTutor1()->getId(), $staff)) {
+                    $keep = false;
+                    break;
+                }
+                if ($activity->getTutor2() && in_array($activity->getTutor2()->getId(), $staff)) {
+                    $keep = false;
+                    break;
+                }
+                if ($activity->getTutor3() && in_array($activity->getTutor3()->getId(), $staff)) {
+                    $keep = false;
+                    break;
+                }
+                if ($activity->getStudents()->count() > 0) {
+                    foreach ($activity->getStudents() as $stu)
+                        if (in_array($stu->getId(), $students)) {
+                            $keep = false;
+                            break;
+                        }
+                    if (!$keep)
+                        break;
+                }
+
+            }
+            if ($keep)
+                $free->add($period);
+        }
+
+        return $free;
+    }
+
+    /**
+     * @return Line
+     */
+    public function getLine(): Line
+    {
+        return $this->line;
     }
 }

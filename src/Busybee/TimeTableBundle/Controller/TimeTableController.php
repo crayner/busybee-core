@@ -2,6 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Controller;
 
+use Busybee\HomeBundle\Exception\Exception;
 use Busybee\SecurityBundle\Security\VoterDetails;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Form\ColumnType;
@@ -179,7 +180,7 @@ class TimeTableController extends Controller
      * @param $line
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function addLineToPeriodAction($id, $line)
+    public function addLineToPeriodAction($id, $line, Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
@@ -189,7 +190,11 @@ class TimeTableController extends Controller
 
         $pm->injectLineGroup($line);
 
-        return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimeTable()->getId(), 'all' => $id]));
+        if (preg_match('#timetable\/([0-9]{1,})\/builder\/(All|[0-9]{1,})\/$#', $request->headers->get('referer')))
+            return $this->redirect($this->generateUrl('timetable_builder', ['id' => $period->getTimeTable()->getId(), 'all' => $id]));
+        elseif (preg_match('#timetable\/line\/([0-9]{1,})\/periods\/([0-9]{1,})\/search\/$#', $request->headers->get('referer')))
+            return $this->redirect($this->generateUrl('line_periods_search', ['tt' => $period->getTimeTable()->getId(), 'id' => $line]));
+        throw new Exception('Illegal Page call');
     }
 
     /**
