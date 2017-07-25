@@ -12,7 +12,8 @@
     {% if app.user is defined and app.user is not empty and manager.isTimeTable(app.user) %}
         <div class="row">
             <div class="col-sm-9 col-sm-offset-3" id="displayTimeTable">
-                <p class="alert alert-info text-center">Loading TimeTable</p>
+                <p class="alert alert-default text-center">{{ 'timetable.loading'|trans({}, 'BusybeeTimeTableBundle') }}
+                    <img src="{{ asset('img/ajax-loader.gif') }}"></p>
             </div>
         </div>
     {% else %}

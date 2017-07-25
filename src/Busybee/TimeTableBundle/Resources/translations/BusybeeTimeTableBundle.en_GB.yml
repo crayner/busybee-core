@@ -91,6 +91,7 @@ timetable:
         staff: 'Staff: %name%'
         grade: 'Grade: %name%'
         student: 'Student: %name%'
+    loading: Loading Timetable
 line:
     title:
         list: Manage Activity Lines
