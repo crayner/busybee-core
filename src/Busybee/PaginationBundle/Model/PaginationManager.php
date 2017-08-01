@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\PaginationBundle\Model ;
 
+use Busybee\HomeBundle\Exception\Exception;
 use Busybee\PaginationBundle\Form\PaginationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;
@@ -224,7 +225,6 @@ abstract class PaginationManager implements PaginationInterface
             $this->setting->$name = $value ;
             $this->$setName($value);
         }
-        $this->total = 0;
     }
 
     private function initialiseSettings()
@@ -293,12 +293,14 @@ abstract class PaginationManager implements PaginationInterface
      * @since	25th October 2016
      * @return    integer
      */
-    public function getTotal()
+    public function getTotal(): int
     {
-        if (empty($this->total))
-            $this->total = intval($this->buildQuery(true)
-                ->getQuery()
-                ->getSingleScalarResult());
+        if (empty($this->total)) {
+            $query = $this->buildQuery(true)
+                ->getQuery();
+            $this->setTotal(intval($query
+                ->getSingleScalarResult()));
+        }
         return $this->total;
     }
 
@@ -310,9 +312,9 @@ abstract class PaginationManager implements PaginationInterface
      * @param	integer		$total
      * @return    PaginationManager
      */
-    public function setTotal($total)
+    public function setTotal(int $total): PaginationManager
     {
-        $this->total = intval($total) > 0 ? intval($total) : 0;
+        $this->total = $total > 0 ? $total : 0;
         return $this;
     }
 
@@ -617,7 +619,6 @@ abstract class PaginationManager implements PaginationInterface
             $this->post = true;
             $this->setSearch($this->form['currentSearch']->getData());
             $this->setLastSearch($this->form['lastSearch']->getData());
-            $this->setTotal($this->form['total']->getData());
             $this->setOffSet($this->form['offSet']->getData());
             if ($this->form->has('lastChoice') && !empty($this->form['lastChoice']->getData()) && $this->form['lastChoice']->getData() !== $this->form['choice']->getData())
                 $this->resetPagination();

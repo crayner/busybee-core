@@ -2,6 +2,7 @@
 
 namespace Busybee\PaginationBundle\Form;
 
+use Busybee\PaginationBundle\Events\PaginationSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -94,7 +95,7 @@ class PaginationType extends AbstractType
      */
     protected function addHidden(FormBuilderInterface $builder, $options)
     {
-        return $builder
+        $builder
             ->add('offSet', HiddenType::class, array(
                     'data' => $options['data']->getOffSet(),
                 )
@@ -107,6 +108,7 @@ class PaginationType extends AbstractType
                     'data' => $options['data']->getSearch(),
                 )
             );
+        $builder->addEventSubscriber(new PaginationSubscriber());
     }
 
     /**

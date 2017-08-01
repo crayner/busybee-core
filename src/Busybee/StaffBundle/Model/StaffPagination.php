@@ -30,8 +30,8 @@ class StaffPagination extends PaginationManager
                 ->setOrderBy()
                 ->setSearchWhere();
 
-        $this->getQuery()->andWhere('p.staffQuestion = :stu_q')
-            ->setParameter('stu_q', true);
+        $this->getQuery()->andWhere('p.staffQuestion = :staff_q')
+            ->setParameter('staff_q', true);
 
         return $this->getQuery();
     }
