@@ -65,6 +65,11 @@ class AppKernel extends Kernel
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
     }
 
+    public function getProjectDir()
+    {
+        return dirname(__DIR__);
+    }
+
     public function getLogDir()
     {
         return dirname(__DIR__).'/var/logs';

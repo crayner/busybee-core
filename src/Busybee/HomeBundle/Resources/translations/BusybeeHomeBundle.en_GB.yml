@@ -194,3 +194,6 @@ software:
         values: 'System Software'
 setting:
     required: ' The setting or service should be %required%.'
+symfony:
+    recommendations: Symfony Recommendations
+    problems: Symfony Problems

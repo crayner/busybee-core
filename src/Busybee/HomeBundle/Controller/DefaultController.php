@@ -1,9 +1,6 @@
 <?php
 namespace Busybee\HomeBundle\Controller;
 
-use Busybee\HomeBundle\Model\VersionManager;
-use Doctrine\DBAL\ConnectionException;
-use Doctrine\ORM\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpFoundation\Request;
@@ -92,9 +89,16 @@ class DefaultController extends Controller
     {
         $versions = $this->get('version.manager')->getVersion();
 
+        require_once $this->get('kernel')->getProjectDir() . '/var/SymfonyRequirements.php';
+
+        $SymfonyRequirements = new \SymfonyRequirements();
+
+
         return $this->render('@BusybeeHome/Acknowledgement/acknowledgement.html.twig',
             [
                 'versions' => $versions,
+                'majorProblems' => $SymfonyRequirements->getFailedRequirements(),
+                'minorProblems' => $SymfonyRequirements->getFailedRecommendations(),
             ]
         );
     }

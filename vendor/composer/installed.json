@@ -3516,31 +3516,31 @@
   },
   {
     "name": "sensiolabs/security-checker",
-    "version": "v4.0.5",
-    "version_normalized": "4.0.5.0",
+    "version": "v4.1.1",
+    "version_normalized": "4.1.1.0",
     "source": {
       "type": "git",
       "url": "https://github.com/sensiolabs/security-checker.git",
-      "reference": "6a3b0c3b42e41c777b1ad75032d8177863fdc5e1"
+      "reference": "cf61ce9d9706ba35e60a894fe6f3584c6d0e5c9f"
     },
     "dist": {
       "type": "zip",
-      "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/6a3b0c3b42e41c777b1ad75032d8177863fdc5e1",
-      "reference": "6a3b0c3b42e41c777b1ad75032d8177863fdc5e1",
+      "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/cf61ce9d9706ba35e60a894fe6f3584c6d0e5c9f",
+      "reference": "cf61ce9d9706ba35e60a894fe6f3584c6d0e5c9f",
       "shasum": ""
     },
     "require": {
       "composer/ca-bundle": "^1.0",
       "symfony/console": "~2.7|~3.0"
     },
-    "time": "2017-07-24T11:42:56+00:00",
+    "time": "2017-07-28T18:31:05+00:00",
     "bin": [
       "security-checker"
     ],
     "type": "library",
     "extra": {
       "branch-alias": {
-        "dev-master": "4.0-dev"
+        "dev-master": "4.1-dev"
       }
     },
     "installation-source": "dist",

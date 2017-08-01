@@ -161,9 +161,9 @@ class VersionManager
             $versions['Database']['Driver']['flag'] = 'alert alert-success';
 
         $version = [];
-        $version['string'] = '3.3 - 3.4';
+        $version['string'] = '3.3.x';
         $version['low'] = '3.3';
-        $version['high'] = '3.4';
+        $version['high'] = '3.3.9';
         $versions['Symfony'] = $this->fullCompare($versions['Symfony'], $version);
 
         $version['string'] = '2.4.0 - 2.4.9';

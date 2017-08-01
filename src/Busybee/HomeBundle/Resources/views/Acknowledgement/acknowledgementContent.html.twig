@@ -33,10 +33,55 @@
             </div>
         </div>
     {% endif %}
+    {% if name == 'Symfony' %}
+        {% if majorProblems is not empty %}
+            <div class="row alert alert-danger">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h4>{{ 'symfony.problems'|trans }}</h4>
+                    <ol>
+                        {% for problem in majorProblems %}
+                            <li>{{ problem.getTestMessage() }}
+                                <p class="help"><em>{{ problem.getHelpHtml() }}</em></p>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        {% endif %}
+        {% if minorProblems is not empty %}
+            <div class="row alert alert-warning">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h4>{{ 'symfony.recommendations'|trans }}</h4>
+                    <ol>
+                        {% for problem in minorProblems %}
+                            <li>{{ problem.getTestMessage() }}
+                                <p class="help"><em>{{ problem.getHelpHtml() }}</em></p>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
 {% endfor %}
-<P>&nbsp;</P>
-<p class="alert alert-success">{{ 'acknowledgement.help.equal'|trans }}</p>
-<p class="alert alert-info">{{ 'acknowledgement.help.over'|trans }}</p>
-<p class="alert alert-warning">{{ 'acknowledgement.help.upgrade'|trans }}</p>
-<p class="alert alert-danger">{{ 'acknowledgement.help.fixnow'|trans }}</p>
+<div class="row alert alert-success">
+    <div class="col-sm-12">
+        {{ 'acknowledgement.help.equal'|trans }}
+    </div>
+</div>
+<div class="row alert alert-info">
+    <div class="col-sm-12">
+        {{ 'acknowledgement.help.over'|trans }}
+    </div>
+</div>
+<div class="row alert alert-warning">
+    <div class="col-sm-12">
+        {{ 'acknowledgement.help.upgrade'|trans }}
+    </div>
+</div>
+<div class="row alert alert-danger">
+    <div class="col-sm-12">
+        {{ 'acknowledgement.help.fixnow'|trans }}
+    </div>
+</div>
 
