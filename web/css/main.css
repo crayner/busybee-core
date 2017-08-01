@@ -73,7 +73,7 @@ p {
 }
 
 .row-striped:nth-of-type(odd) .row-hover:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(180, 200, 220, 0.5);
 }
 
 .row-striped:nth-of-type(even){
@@ -361,7 +361,7 @@ button.btn.btn-header {
     color: #3c763d;
 }
 .row-hover:hover {
-    background-color: rgba(204, 204, 204, 0.5);
+    background-color: rgba(180, 200, 220, 0.5);
 }
 .row-border {
     border: 1px solid darkgray;

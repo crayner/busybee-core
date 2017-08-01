@@ -5,7 +5,9 @@ use Busybee\PaginationBundle\Model\PaginationManager ;
 
 class PersonPagination extends PaginationManager
 {
-
+    /**
+     * @var string
+     */
     protected $paginationName = 'Person';
 
 	/**

@@ -118,16 +118,6 @@ class Person extends PersonModel implements PersonInterface
     private $identifier;
 
     /**
-     * @var boolean
-     */
-    private $staffQuestion;
-
-    /**
-     * @var boolean
-     */
-    private $studentQuestion;
-
-    /**
      * @var Staff
      */
     private $staff;
@@ -156,6 +146,17 @@ class Person extends PersonModel implements PersonInterface
      * @var PersonPreference
      */
     private $preference;
+
+
+    /**
+     * @var boolean
+     */
+    private $staffQuestion;
+
+    /**
+     * @var boolean
+     */
+    private $studentQuestion;
 
     /**
      * Constructor
@@ -667,60 +668,14 @@ class Person extends PersonModel implements PersonInterface
     }
 
     /**
-     * Get staffQuestion
-     *
-     * @return boolean
-     */
-    public function getStaffQuestion()
-    {
-        return $this->staffQuestion;
-    }
-
-    /**
-     * Set staffQuestion
-     *
-     * @param boolean $staffQuestion
-     *
-     * @return Person
-     */
-    public function setStaffQuestion($staffQuestion)
-    {
-        $this->staffQuestion = $staffQuestion;
-
-        return $this;
-    }
-
-    /**
-     * Get studentQuestion
-     *
-     * @return boolean
-     */
-    public function getStudentQuestion()
-    {
-        return $this->studentQuestion;
-    }
-
-    /**
-     * Set studentQuestion
-     *
-     * @param boolean $studentQuestion
-     *
-     * @return Person
-     */
-    public function setStudentQuestion($studentQuestion)
-    {
-        $this->studentQuestion = $studentQuestion;
-
-        return $this;
-    }
-
-    /**
      * Get staff
      *
-     * @return Staff
+     * @return Staff|null
      */
     public function getStaff()
     {
+        if (!$this->getStaffQuestion())
+            return null;
         return $this->staff;
     }
 
@@ -741,10 +696,12 @@ class Person extends PersonModel implements PersonInterface
     /**
      * Get student
      *
-     * @return \Busybee\StudentBundle\Entity\Student
+     * @return \Busybee\StudentBundle\Entity\Student|null
      */
     public function getStudent()
     {
+        if (!$this->getStudentQuestion())
+            return null;
         return $this->student;
     }
 
@@ -872,6 +829,54 @@ class Person extends PersonModel implements PersonInterface
     {
         $preference->setPerson($this);
         $this->preference = $preference;
+
+        return $this;
+    }
+
+    /**
+     * Get staffQuestion
+     *
+     * @return boolean
+     */
+    public function getStaffQuestion()
+    {
+        return $this->staffQuestion;
+    }
+
+    /**
+     * Set staffQuestion
+     *
+     * @param boolean $staffQuestion
+     *
+     * @return Person
+     */
+    public function setStaffQuestion($staffQuestion)
+    {
+        $this->staffQuestion = $staffQuestion;
+
+        return $this;
+    }
+
+    /**
+     * Get studentQuestion
+     *
+     * @return boolean
+     */
+    public function getStudentQuestion()
+    {
+        return $this->studentQuestion;
+    }
+
+    /**
+     * Set studentQuestion
+     *
+     * @param boolean $studentQuestion
+     *
+     * @return Person
+     */
+    public function setStudentQuestion($studentQuestion)
+    {
+        $this->studentQuestion = $studentQuestion;
 
         return $this;
     }

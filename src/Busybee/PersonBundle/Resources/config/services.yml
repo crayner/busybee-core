@@ -24,10 +24,22 @@ parameters:
             - p.title as details
             - p.surname
             - p.firstName
+            - stu.id as stu_id
+            - sta.id as staff_id
+            - u.id as user_id
         join:
             p.phone:
                 type: leftJoin
                 alias: h
+            p.student:
+                type: leftJoin
+                alias: stu
+            p.staff:
+                type: leftJoin
+                alias: sta
+            p.user:
+                type: leftJoin
+                alias: u
         choices:
             all:
                 route: person_manage

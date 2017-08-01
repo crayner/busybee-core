@@ -108,7 +108,7 @@ class PersonManager
     /**
      * @return array
      */
-    public function getTitles()
+    public function getTitles(): array
     {
         return self::$sm->get('Person.TitleList');
     }
@@ -116,7 +116,7 @@ class PersonManager
     /**
      * @return array
      */
-    public function getGenders()
+    public function getGenders(): array
     {
         return self::$sm->get('Person.GenderList');
     }
@@ -157,7 +157,7 @@ class PersonManager
      * @param   array $parameters
      * @return  bool
      */
-    public function canDeleteStudent(Person $person, $parameters)
+    public function canDeleteStudent(Person $person, $parameters): bool
     {
         //Place rules here to stop delete .
         $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
@@ -202,7 +202,7 @@ class PersonManager
      * @param Person $person
      * @return bool
      */
-    public function canDeleteCareGiver(Person $person)
+    public function canDeleteCareGiver(Person $person): bool
     {
         //Place rules here to stop delete .
         $careGiver = $this->em->getRepository(CareGiver::class)->findOneByPerson($person->getId());
@@ -221,9 +221,9 @@ class PersonManager
      * @param   Person $person
      * @return  bool
      */
-    public function canBeCareGiver(Person $person)
+    public function canBeCareGiver(Person $person): bool
     {
-        //plcae rules here to stop new student.
+        //place rules here to stop new student.
         if ($this->isStudent($person))
             return false;
         return true;
@@ -233,7 +233,7 @@ class PersonManager
      * @param   Person $person
      * @return  bool
      */
-    public function isStudent(Person $person)
+    public function isStudent(Person $person): bool
     {
         $student = $this->em->getRepository(Student::class)->findOneByPerson($person->getId());
         if ($student instanceof Student && $student->getId() > 0)
@@ -725,7 +725,7 @@ class PersonManager
      * @param $file
      * @return ArrayCollection
      */
-    public function getHeaderNames($file)
+    public function getHeaderNames($file): ArrayCollection
     {
         $headerNames = new ArrayCollection();
 
@@ -753,7 +753,7 @@ class PersonManager
      * @param Person $person
      * @return ArrayCollection
      */
-    public function getAddresses(Person $person)
+    public function getAddresses(Person $person): ArrayCollection
     {
         $families = $this->getFamilies($person);
         $addresses = new ArrayCollection();
@@ -773,7 +773,7 @@ class PersonManager
      * @param Person $person
      * @return ArrayCollection
      */
-    public function getFamilies(Person $person)
+    public function getFamilies(Person $person): ArrayCollection
     {
         $families = new ArrayCollection();
         /*
@@ -821,7 +821,7 @@ class PersonManager
      * @param Person $person
      * @return ArrayCollection
      */
-    public function getPhones(Person $person)
+    public function getPhones(Person $person): ArrayCollection
     {
         $families = $this->getFamilies($person);
         $phones = new ArrayCollection();
@@ -838,7 +838,7 @@ class PersonManager
      * @param Person $person
      * @return bool
      */
-    public function createStaff(Person $person)
+    public function createStaff(Person $person): bool
     {
         if ($this->canBeStaff($person)) {
             $staff = new Staff();
@@ -856,7 +856,7 @@ class PersonManager
      * @param Person $person
      * @return bool
      */
-    public function canBeStaff(Person $person)
+    public function canBeStaff(Person $person): bool
     {
         //plcae rules here to stop new student.
         if ($this->isStudent($person))
@@ -868,7 +868,7 @@ class PersonManager
      * @param Person $person
      * @return bool
      */
-    public function createStudent(Person $person)
+    public function createStudent(Person $person): bool
     {
         if ($this->canBeStudent($person)) {
             $student = new Student();
@@ -886,7 +886,7 @@ class PersonManager
      * @param Person $person
      * @return bool
      */
-    public function canBeStudent(Person $person)
+    public function canBeStudent(Person $person): bool
     {
         //place rules here to stop new student.
         if ($this->isStaff($person) || $this->isCareGiver($person))
@@ -898,7 +898,7 @@ class PersonManager
      * @param Person $person
      * @return bool
      */
-    public function isStaff(Person $person)
+    public function isStaff(Person $person): bool
     {
         if (!$person instanceof Person)
             return false;
@@ -910,7 +910,7 @@ class PersonManager
      * @param Person $person
      * @return bool
      */
-    public function isCareGiver(Person $person)
+    public function isCareGiver(Person $person): bool
     {
         $careGiver = $this->em->getRepository(CareGiver::class)->findOneByPerson($person);
         if ($careGiver instanceof CareGiver)
@@ -918,7 +918,7 @@ class PersonManager
         return false;
     }
 
-    public function getStaffGrades(Person $person)
+    public function getStaffGrades(Person $person): ArrayCollection
     {
         $acts = $this->em->getRepository(Activity::class)->createQueryBuilder('a')
             ->where('a.tutor1 = :staff_id1')
@@ -960,7 +960,7 @@ class PersonManager
      * @param $student
      * @return bool
      */
-    public function isTeacherOf(Staff $staff, Student $student)
+    public function isTeacherOf(Staff $staff, Student $student): bool
     {
         $al = $this->em->getRepository(Activity::class)->createQueryBuilder('a')
             ->select('a.id')
@@ -1017,7 +1017,7 @@ class PersonManager
      * @param Staff $staff
      * @return bool
      */
-    public function isStaffCoordinator(Staff $super, Staff $staff)
+    public function isStaffCoordinator(Staff $super, Staff $staff): bool
     {
         $q = $this->em->getRepository(DepartmentStaff::class)->findByStaff($staff);
 
@@ -1040,7 +1040,7 @@ class PersonManager
      * @param Student $student
      * @return bool
      */
-    public function isStudentParent(Person $parent, Student $student)
+    public function isStudentParent(Person $parent, Student $student): bool
     {
         $x = $this->em->getRepository(Family::class)->createQueryBuilder('f')
             ->leftJoin('f.careGiver', 'c')
@@ -1061,7 +1061,7 @@ class PersonManager
     /**
      * @return ObjectManager
      */
-    protected function getOm()
+    protected function getOm(): ObjectManager
     {
         return $this->em;
     }

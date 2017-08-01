@@ -24,11 +24,11 @@
             </div>
         </div>
     {% else %}
-        <div class="row row-striped acknowledgement">
-            <div class="col-sm-6">
+        <div class="row row-striped row-hover acknowledgement">
+            <div class="col-sm-3">
                 {{ name }}
             </div>
-            <div class="col-sm-6{% if version['flag'] %} {{ version['flag'] }}{% endif %}">
+            <div class="col-sm-offset-3 col-sm-6{% if version['flag'] %} {{ version['flag'] }}{% endif %}">
                 {{ version['value'] }}
             </div>
         </div>

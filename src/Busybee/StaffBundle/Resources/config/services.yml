@@ -21,11 +21,20 @@ parameters:
             s.person:
                 type: leftJoin
                 alias: p
+            p.user:
+                type: leftJoin
+                alias: u
+            p.student:
+                type: leftJoin
+                alias: stu
         select:
             - p.id
             - p.surname
             - p.firstName
             - p.title as details
+            - s.id as staff_id
+            - stu.id as stu_id
+            - u.id as user_id
         choices:
             all:
                 route: person_manage
