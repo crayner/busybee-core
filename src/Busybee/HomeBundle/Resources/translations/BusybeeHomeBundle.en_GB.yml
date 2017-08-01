@@ -180,7 +180,7 @@ acknowledgement:
     title: 'System Acknowledgement'
     description: ''
     help:
-        fixnow: The indicated software is incorrect or not corretly configured.
+        fixnow: The indicated software is incorrect or not correctly configured.
         equal: All OK.
         over: The software installed is later than the requirement. This is usually OK, but can break sections of the site and is therefore not recommended.
         upgrade: Your software requires attention to upgrade to the required version.

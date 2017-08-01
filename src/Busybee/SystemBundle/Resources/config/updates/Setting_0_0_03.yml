@@ -120,3 +120,15 @@ languages.translated:
       choice: en_GB
       description: Languages that have been translated for the system.
       role: ROLE_REGISTRAR
+teachingload.timetable.maximum:
+      type: integer
+      value: 9
+      displayName: Timetable Teaching Load Maximum
+      description: The maximum number of periods in a timetable cycle that a teacher should have face to face teaching.
+      role: ROLE_PRINCIPAL
+teachingload.column.maximum:
+      type: integer
+      value: 1
+      displayName: Day Teaching Load Maximum
+      description: The maximum number of periods in a timetable day that a teacher should have face to face teaching.
+      role: ROLE_PRINCIPAL

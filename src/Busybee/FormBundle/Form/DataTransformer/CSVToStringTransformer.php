@@ -13,11 +13,13 @@ class CSVToStringTransformer implements DataTransformerInterface
 	{
         $this->loader = $loader;
 	}
+
     /**
      * Transforms an string to File
      *
-     * @param  Person|null $person
+     * @param mixed $data
      * @return string
+     * @internal param Person|null $person
      */
     public function transform($data)
     {
@@ -29,8 +31,9 @@ class CSVToStringTransformer implements DataTransformerInterface
     /**
      * Transforms a string (number) to an object (person).
      *
-     * @param  string $personNumber
+     * @param mixed $data
      * @return Person|null
+     * @internal param string $personNumber
      */
     public function reverseTransform($data)
     {

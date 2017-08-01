@@ -112,13 +112,9 @@ class TimeTableController extends Controller
 
         $tm = $this->get('timetable.manager')->setTimeTable($this->get('timetable.repository')->find($id));
 
-
         $up = $this->get('period.pagination');
         $lp = $this->get('line.pagination');
         $ap = $this->get('activity.pagination');
-//        $ap->setSearch('');
-//        $lp->setSearch('');
-
 
         $ap->injectRequest($request);
         $up->injectRequest($request);
@@ -128,6 +124,7 @@ class TimeTableController extends Controller
             ->setDisplaySort(false)
             ->setDisplayChoice(false)
             ->setDisplayResult(false);
+
         $gradeControl = $this->get('session')->get('gradeControl');
         $param = [];
         if (is_array($gradeControl)) {
@@ -148,6 +145,7 @@ class TimeTableController extends Controller
             ->setSearch('')
             ->addInjectedSearch($search)
             ->setDisplayResult(false);
+
         $lp->setDisplaySearch(false)
             ->setDisplaySort(false)
             ->setDisplayChoice(false)

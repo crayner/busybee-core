@@ -48,15 +48,18 @@ class FormErrorsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('all_form_errors', array($this, 'getFormErrors'), array('is_safe' => array('html'))),
         );
     }
+
     /**
      * Main Twig extension. Call this in Twig to get formatted output of your form errors.
      * Note that you have to provide form as Form object, not FormView.
-     * 
-     * @param   FormInterface  $form
-     * @param   string         $tag    The html tag, in which all errors will be packed. If you provide 'li',
+     *
+     * @param   FormInterface $form
+     * @param   string $tag The html tag, in which all errors will be packed. If you provide 'li',
      *                                 'ul' wrapper will be added
-     * @param   string         $class  Class of each error. Default is none.
-     * @return  string
+     * @param   string $class Class of each error. Default is none.
+     * @param string $noErrorMessage
+     * @param string $noErrorClass
+     * @return string
      */
     public function getFormErrors(FormInterface $form, $tag = 'li', $class = '', $noErrorMessage = 'form.submit.success', $noErrorClass = 'alert alert-success fadeAlert')
     {

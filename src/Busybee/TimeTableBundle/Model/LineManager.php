@@ -431,7 +431,8 @@ class LineManager
             return $this->missingStudents;
 
         foreach ($this->possible as $student)
-            $this->missingStudents[] = $student->formatName() . ': ' . $student->getPerson()->getIdentifier();
+            if (student instanceof Student)
+                $this->missingStudents[] = $student->formatName() . ': ' . $student->getPerson()->getIdentifier();
 
         return $this->missingStudents;
     }

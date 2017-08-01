@@ -273,3 +273,10 @@ today: Today
 Next Week: Next Week
 Previous Week: Previous Week
 myTimeTable: 'My TimeTable'
+teachingload:
+    column:
+        equal: 'The staff member %name% has reached the daily teaching load for this day.'
+        exceeded: 'The staff member %name% has exceeded the daily teaching load for this day.'
+    timetable:
+        equal: 'The staff member %name% has reached the total teaching load for this timetable.'
+        exceeded: 'The staff member %name% has exceeded the total teaching load for this timetable.'

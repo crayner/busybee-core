@@ -22,6 +22,7 @@ use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class TimeTableDisplayManager extends TimeTableManager
 {
@@ -133,9 +134,9 @@ class TimeTableDisplayManager extends TimeTableManager
      * @param PeriodManager $pm
      * @param Session $sess
      */
-    public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $session, PersonManager $personManager)
+    public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $session, PersonManager $personManager, TranslatorInterface $translator)
     {
-        parent::__construct($year, $om, $sm, $pm, $session);
+        parent::__construct($year, $om, $sm, $pm, $session, $translator);
         $this->studentActivities = new ArrayCollection();
         $this->studentIdentifier = 0;
         $this->staffActivities = new ArrayCollection();
@@ -610,6 +611,9 @@ class TimeTableDisplayManager extends TimeTableManager
         return $this->isTimeTable;
     }
 
+    /**
+     * @return false|string
+     */
     public function getTimeTableDisplayDate()
     {
         return date('Ymd');

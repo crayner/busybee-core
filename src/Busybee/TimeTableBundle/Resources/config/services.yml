@@ -147,6 +147,7 @@ services:
             - '@setting.manager'
             - '@period.manager'
             - '@session'
+            - '@translator'
     timetable.display.manager:
         class: Busybee\TimeTableBundle\Model\TimeTableDisplayManager
         arguments:
@@ -156,6 +157,7 @@ services:
             - '@period.manager'
             - '@session'
             - '@person.manager'
+            - '@translator'
     form.timetable.hidden.day.type:
         class: Busybee\TimeTableBundle\Form\DayHiddenType
         arguments:

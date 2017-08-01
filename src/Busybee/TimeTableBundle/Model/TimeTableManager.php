@@ -4,12 +4,14 @@ namespace Busybee\TimeTableBundle\Model;
 use Busybee\InstituteBundle\Entity\SpecialDay;
 use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
+use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StudentBundle\Entity\Activity;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\StartRotate;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class TimeTableManager
 {
@@ -108,9 +110,24 @@ class TimeTableManager
     private $display;
 
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * @var integer
      */
     private $schoolDayTime;
+
+
+    private $statusLevel = [
+        'default' => 0,
+        'primary' => 1,
+        'success' => 2,
+        'info' => 4,
+        'warning' => 8,
+        'danger' => 16,
+    ];
 
     /**
      * TimeTableDisplayManager constructor.
@@ -120,11 +137,12 @@ class TimeTableManager
      * @param PeriodManager $pm
      * @param Session $sess
      */
-    public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess)
+    public function __construct(Year $year, ObjectManager $om, SettingManager $sm, PeriodManager $pm, Session $sess, TranslatorInterface $translator)
     {
         $this->setYear($year);
         $this->om = $om;
         $this->sm = $sm;
+        $this->translator = $translator;
         try {
             $this->timetable = $this->om->getRepository(TimeTable::class)->createQueryBuilder('t')
                 ->leftJoin('t.year', 'y')
@@ -252,7 +270,7 @@ class TimeTableManager
 
         $this->report->periods = [];
         $this->report->activities = [];
-        $key = 0;
+        $this->report->staff = [];
 
         foreach ($pag->getResult() as $period) {
             $per = new \stdClass();
@@ -285,12 +303,21 @@ class TimeTableManager
                         }
 
                         $this->report->activities[$activity->getActivity()->getId()] = $act;
+
                     }
+                }
+                if ($activity->getTutor1()) {
+                    $this->getStaffReport($activity->getTutor1(), $per);
+                }
+                if ($activity->getTutor2()) {
+                    $this->getStaffReport($activity->getTutor2(), $per);
+                }
+                if ($activity->getTutor3()) {
+                    $this->getStaffReport($activity->getTutor3(), $per);
                 }
             }
 
-
-            $this->report->periods[] = $per;
+            $this->report->periods[] = $this->setPeriodStatusLevel($per);
         }
 
         return $this->report;
@@ -733,5 +760,80 @@ class TimeTableManager
     public function getSession()
     {
         return $this->sess;
+    }
+
+    /**
+     * @param Staff $tutor
+     * @param \stdClass $per
+     */
+    private function getStaffReport(Staff $tutor, \stdClass $per)
+    {
+        $id = $tutor->getId();
+        if (empty($this->report->staff[$id]['status']))
+            $this->report->staff[$id]['status'] = 'ok';
+        $this->report->staff[$id]['staff'] = $tutor;
+        $this->report->staff[$id]['period'][$per->period->getColumn()->getId()][$per->id] = $per->period;
+        $this->report->staff[$id]['total'] = empty($this->report->staff[$id]['total']) ? 1 : $this->report->staff[$id]['total'] + 1;
+        if (count($this->report->staff[$id]['period'][$per->period->getColumn()->getId()]) == $this->getSm()->get('teachingload.column.maximum', 2)) {
+            $this->report->staff[$id]['status'] = 'info';
+            $this->report->staff[$id]['message'] = $this->translator->trans('teachingload.column.equal', ['%name%' => $tutor->formatName()], 'BusybeeTimeTableBundle');
+            $per->status->alert = 'info';
+            $per->status->messsage = ['info', $this->report->staff[$id]['message']];
+            $per->status->messages[] = $per->status->messsage;
+        }
+        if ($this->report->staff[$id]['total'] == $this->getSm()->get('teachingload.timetable.maximum', 9)) {
+            $this->report->staff[$id]['status'] = 'info';
+            $this->report->staff[$id]['message'] = $this->translator->trans('teachingload.timetable.equal', ['%name%' => $tutor->formatName()], 'BusybeeTimeTableBundle');
+            $per->status->alert = 'info';
+            $per->status->messsage = ['info', $this->report->staff[$id]['message']];
+            $per->status->messages[] = $per->status->messsage;
+        }
+        if (count($this->report->staff[$id]['period'][$per->period->getColumn()->getId()]) > $this->getSm()->get('teachingload.column.maximum', 2)) {
+            $this->report->staff[$id]['status'] = 'danger';
+            $this->report->staff[$id]['message'] = $this->translator->trans('teachingload.column.exceeded', ['%name%' => $tutor->formatName()], 'BusybeeTimeTableBundle');
+            $per->status->alert = 'danger';
+            $per->status->messsage = ['danger', $this->report->staff[$id]['message']];
+            $per->status->messages[] = $per->status->messsage;
+        }
+        if ($this->report->staff[$id]['total'] > $this->getSm()->get('teachingload.timetable.maximum', 9)) {
+            $this->report->staff[$id]['status'] = 'danger';
+            $this->report->staff[$id]['message'] = $this->translator->trans('teachingload.timetable.exceeded', ['%name%' => $tutor->formatName()], 'BusybeeTimeTableBundle');
+            $per->status->alert = 'danger';
+            $per->status->messsage = ['danger', $this->report->staff[$id]['message']];
+            $per->status->messages[] = $per->status->messsage;
+        }
+    }
+
+    /**
+     * @param string $status
+     * @return int|mixed
+     */
+    public function getStatusLevel($status): int
+    {
+        if (!empty($this->statusLevel[strtolower($status)]))
+            return intval($this->statusLevel[strtolower($status)]);
+        return 0;
+    }
+
+    /**
+     * @param $per
+     * @return mixed
+     */
+    private function setPeriodStatusLevel($per)
+    {
+        $status = $per->status->alert;
+
+        foreach ($per->status->messages as $message)
+            if ($this->getStatusLevel($message[0]) > $this->getStatusLevel($status))
+                $status = $message[0];
+
+        foreach ($per->activities as $activity)
+            foreach ($activity->status->messages as $message)
+                if ($this->getStatusLevel($message[0]) > $this->getStatusLevel($status))
+                    $status = $message[0];
+
+        $per->status->alert = $status;
+
+        return $per;
     }
 }
