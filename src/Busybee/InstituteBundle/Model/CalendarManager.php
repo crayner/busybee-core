@@ -10,8 +10,14 @@ use Doctrine\ORM\EntityManager  ;
 
 class CalendarManager
 {
+    /**
+     * @var Year
+     */
     private $year;
 
+    /**
+     * @var
+     */
     private $calendar;
 
     private $sm ;
@@ -23,16 +29,25 @@ class CalendarManager
         $this->em = $em;
     }
 
+    /**
+     * @param $year
+     * @param $calendar
+     * @return mixed
+     */
     public function setCalendarDays($year, $calendar)
     {
         $this->year = $year ;
         $this->calendar = $calendar ;
+        $this->setNonSchoolDays();
         $this->setTermBreaks() ;
         $this->setClosedDays() ;
         $this->setSpecialDays() ;
         return $this->calendar ;
     }
 
+    /**
+     *
+     */
     public function setTermBreaks()
     {
         foreach ($this->calendar->getMonths() as $monthKey=>$month)
@@ -53,6 +68,10 @@ class CalendarManager
         }
     }
 
+    /**
+     * @param Day $currentDate
+     * @return bool
+     */
     public function isTermBreak(Day $currentDate)
     {
         // Check if the day is a possible school day. i.e. Ignore Weekends
@@ -67,6 +86,9 @@ class CalendarManager
         return true ;
     }
 
+    /**
+     *
+     */
     public function setClosedDays()
     {
         if (! is_null($this->year->getSpecialDays()))
@@ -75,6 +97,9 @@ class CalendarManager
                     $this->calendar->getDay($specialDay->getDay()->format('d.m.Y'))->setClosed(true, $specialDay->getName());
     }
 
+    /**
+     *
+     */
     public function setSpecialDays()
     {
         if (! is_null($this->year->getSpecialDays()))
@@ -105,6 +130,11 @@ class CalendarManager
         if ($day->isSpecial())
         {
             $class .=  ' isSpecial';
+            $class = str_replace(' termBreak', '', $class);
+        }
+
+        if (!$day->getSchoolDay()) {
+            $class .= ' isNonSchoolDay';
             $class = str_replace(' termBreak', '', $class);
         }
 
@@ -176,4 +206,25 @@ class CalendarManager
         return $year ;
     }
 
+    /**
+     *
+     */
+    public function setNonSchoolDays()
+    {
+        $schoolDays = $this->sm->get('schoolweek');
+
+        foreach ($this->calendar->getMonths() as $monthKey => $month) {
+            foreach ($month->getWeeks() as $weekKey => $week) {
+                foreach ($week->getDays() as $dayKey => $day) {
+                    // School Day ?
+                    if (!in_array($day->getDate()->format('D'), $schoolDays))
+                        $day->setSchoolDay(false);
+                    else
+                        $day->setSchoolDay(true);
+                }
+                $month->getWeeks()[$weekKey] = $week;
+            }
+            $this->calendar->getMonths()[$monthKey] = $month;
+        }
+    }
 }

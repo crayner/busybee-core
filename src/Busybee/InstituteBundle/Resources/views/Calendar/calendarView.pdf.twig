@@ -5,7 +5,9 @@
 	border: 1px solid #333;
 }
 .termBreak {
-	background-color: rgba(128,128,0,0.5);
+	background-image: url({{ asset('img/termBreak.png') }});
+	background-repeat: repeat;
+	background-color: #B5B879;
 	text-align: center;
 }
 .isClosed {
@@ -22,6 +24,12 @@
 	font-weight: bold;
 	text-align: center;
 }
+
+.isNonSchoolDay {
+	text-align: center;
+	background-color: #D5D0AA;
+}
+
 .calendarMonth {
 	border: 1px solid #333;
 	border-radius: 12px;
@@ -72,7 +80,7 @@ tr {
 </style>
 <div id="page">
 	{% set row = 1 %}
-	<h3 style="text-align: center; ">{{ get_setting('Org.Name') }} {{ year.name }}</h3>
+	<h3 style="text-align: center; ">{{ get_setting('Org.Name.long') }} {{ year.name }}</h3>
 	<table class="calendarBody">
 	<tbody>
 	{% for month in calendar.months %} 

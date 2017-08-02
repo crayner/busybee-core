@@ -3,8 +3,9 @@
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
 {% set row = 1 %}
+
 <div class="calendarBody" style="background-image: url({{ asset(get_setting('Org.Logo.Transparent', 'img/bee-transparent.png')) }});">
-	<h3 style="text-align: center; ">{{ get_setting('Org.Name') }} {{ year.name }}
+	<h3 style="text-align: center; ">{{ get_setting('Org.Name.long') }} {{ year.name }}
 		{% if years|length > 0 %}
 			<select name='year' id='year' style="float: left">
 				{% for yearOption in years %}
@@ -19,7 +20,7 @@
         {% endif %}
 		<button title='{{ 'calendar.generate.print'|trans}}' type="button" class="halflings halflings-print btn btn-info" onClick="window.open('{{ path('calendar_print', {'id': year.id}) }}','_blank')" style="float: right"></button>
 	</h3>
-	{% for month in calendar.months %} 
+    {% for month in calendar.months %}
 		{% if row == 1 %}<div class="row">{% endif %}
 			<div class="col-sm-3 col-md-3 calendarMonth">
 				<table>

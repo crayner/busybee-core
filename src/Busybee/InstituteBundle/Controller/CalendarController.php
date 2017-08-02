@@ -15,6 +15,9 @@ class CalendarController extends Controller
 {
     use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
 
+    /**
+     * @return Response
+     */
     public function yearsAction()
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
@@ -26,6 +29,11 @@ class CalendarController extends Controller
 		return $this->render('BusybeeInstituteBundle:Calendar:years.html.twig', array('Years' => $years));
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
     public function editYearAction($id, Request $request)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
@@ -62,6 +70,10 @@ class CalendarController extends Controller
 		);
     }
 
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
     public function deleteYearAction($id)
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
@@ -78,33 +90,32 @@ class CalendarController extends Controller
     }
 
     /**
-     * @param   string|integer $id
+     * @param   int $id
      * @param   bool $closeWindow
      * @return  Response
      */
-    public function calendarAction($id, $closeWindow = false)
+    public function calendarAction($id, $closeWindow = null)
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, null);
 
-        $now = new \DateTime();
-
-        $sm = $this->get('setting.manager');
-
         $repo = $this->get('year.repository');
-
 
         if ($id == 'current') {
             $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
         } else
             $year = $repo->find($id);
-		$years = $repo->findBy(array(), array('name'=>'ASC'));
-		
+
+        $years = $repo->findBy([], ['name' => 'ASC']);
+
+        $year = $repo->find($year->getId());
+
         $service = $this->get('calendar.widget'); //calling a calendar service
 
         //Defining a custom classes for rendering of months and days
         $dayModelClass = '\Busybee\InstituteBundle\Model\Day';
         $monthModelClass = '\Busybee\InstituteBundle\Model\Month';
-        /*
+
+        /**
          * Set model classes for calendar. Arguments:
          * 1. For the whole calendar (watch $calendar variable). Default: \TFox\CalendarBundle\Service\WidgetService\Calendar
          * 2. Month. Default: \TFox\CalendarBundle\Service\WidgetService\Month
@@ -113,11 +124,14 @@ class CalendarController extends Controller
          * To set default classes null should be passed as argument
          */
         $service->setModels(null, $monthModelClass, null, $dayModelClass);
+
+        $year->initialiseTerms();
+
         $calendar = $service->generateCalendar($year); //Generate a calendar for specified year
 
 		$cm = $this->get('calendar.manager') ;
-		
-		$cm->setCalendarDays($year, $calendar);
+
+        $cm->setCalendarDays($year, $calendar);
 
         $this->render('BusybeeInstituteBundle:Calendar:calendarView.pdf.twig',
 			array(
@@ -146,14 +160,8 @@ class CalendarController extends Controller
     public function printCalendarAction($id)
     {
 		$this->denyAccessUnlessGranted('ROLE_USER', null, null);
-	
-        $now = new \DateTime();
-		
-		$sm = $this->get('setting.manager');
-		
-		$firstDayofWeek = $sm->get('firstDayofWeek', 'Monday');
-		
-		$repo = $this->get('year.repository');
+
+        $repo = $this->get('year.repository');
 		
 		$year = $repo->find($id);
 		

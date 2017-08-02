@@ -45,7 +45,7 @@ class YearRepository extends \Doctrine\ORM\EntityRepository
     private function generateYear(): Year
     {
         $year = new Year();
-        $year->setName('Empty');
+        $year->setName(date('Y') . ' - Generated');
         $year->setStatus('current');
         $year->setFirstDay(new \DateTime(date('Y') . '-01-01 00:00:00'));
         $year->setLastDay(new \DateTime(date('Y') . '-12-31 00:00:00'));

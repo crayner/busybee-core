@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Abstract User Manager implementation which can be used as base class for your
@@ -228,7 +229,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function supportsClass($class)
     {
-        trigger_error('Using the UserManager as user provider is deprecated. UseBusybee\SecurityBundle\Security\UserProvider instead.', E_USER_DEPRECATED);
+        trigger_error('Using the UserManager as user provider is deprecated. Use Busybee\SecurityBundle\Security\UserProvider instead.', E_USER_DEPRECATED);
 
         return $class === $this->getClass();
     }
@@ -239,16 +240,21 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function getSystemYear(UserInterface $user)
     {
-        if (!is_null($user->getYear()) && $user->getYear() instanceof Year)
-            return $user->getYear();
-
-        if ($this->getSession()->has('currentYear'))
+        if ($this->getSession()->has('currentYear') && $this->getSession()->get('currentYearCache', new \DateTime('-15 minutes') > new \DateTime('-10 Minutes'))) {
             return $this->getSession()->get('currentYear');
-
+        }
+        if (!is_null($user->getYear()) && $user->getYear() instanceof Year) {
+            $user->setYear($this->objectManager->getRepository(Year::class)->find($user->getYear()->getId()));
+            $this->getSession()->set('currentYear', $user->getYear());
+            $this->getSession()->set('currentYearCache', new \DateTime());
+            return $user->getYear();
+        }
         $year = $this->objectManager->getRepository(Year::class)->findCurrentYear();
 
-        if (!empty($year->getId()))
+        if (!empty($year->getId())) {
             $this->getSession()->set('currentYear', $year);
+            $this->getSession()->set('currentYearCache', new \DateTime());
+        }
 
         return $year;
     }

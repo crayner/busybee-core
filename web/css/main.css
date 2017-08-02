@@ -238,24 +238,6 @@ div.calendarMonth th {
 	font-weight: bold;
 	font-size: 85% ;
 }
-.termBreak {
-	background-color: rgba(128,128,0,0.5);
-	text-align: center ;
-}
-.isClosed {
-	background-color: lightsalmon ;
-	background-image: url(../img/isClosed.png);
-	background-repeat: repeat ;
-	font-weight: bold;
-	text-align: center ;
-}
-.isSpecial {
-	background-color: cyan ;
-	background-image: url(../img/isSpecial.png);
-	background-repeat: repeat ;
-	font-weight: bold;
-	text-align: center ;
-}
 td.noBorder {
     border: none!important;
 }
@@ -392,4 +374,32 @@ button.btn.btn-header {
 
 .tutorName {
     color: #775522;
+}
+
+.termBreak {
+    background-color: rgba(128, 128, 0, 0.5);
+    background-image: url(../img/termBreak.png);
+    background-repeat: repeat;
+    text-align: center;
+}
+
+.isClosed {
+    background-color: lightsalmon;
+    background-image: url(../img/isClosed.png);
+    background-repeat: repeat;
+    font-weight: bold;
+    text-align: center;
+}
+
+.isSpecial {
+    background-color: cyan;
+    background-image: url(../img/isSpecial.png);
+    background-repeat: repeat;
+    font-weight: bold;
+    text-align: center;
+}
+
+.isNonSchoolDay {
+    background-color: rgba(128, 128, 0, 0.2);
+    text-align: center;
 }

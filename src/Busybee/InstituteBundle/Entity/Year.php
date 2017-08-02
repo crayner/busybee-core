@@ -5,6 +5,7 @@ namespace Busybee\InstituteBundle\Entity;
 use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Model\Year as YearModel ;
 use Doctrine\Common\Collections\ArrayCollection ;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Year
@@ -53,14 +54,17 @@ class Year extends YearModel
      * @var \DateTime
      */
     private $lastDay;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $terms;
+
     /**
      * @var boolean
      */
     private $termsSorted = false;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -280,6 +284,9 @@ class Year extends YearModel
      */
     public function getTerms()
     {
+        if (count($this->terms) == 0)
+            $this->initialiseTerms();
+
         if (count($this->terms) == 0 || $this->termsSorted)
             return $this->terms;
 
@@ -293,6 +300,15 @@ class Year extends YearModel
         $this->termsSorted = true;
 
         return $this->terms;
+    }
+
+    /**
+     * Initialise Terms
+     */
+    public function initialiseTerms()
+    {
+        if ($this->terms instanceof PersistentCollection)
+            $this->terms->initialize();
     }
 
     /**
@@ -327,6 +343,9 @@ class Year extends YearModel
      */
     public function getSpecialDays($renew = false)
     {
+        if ($this->specialDays instanceof PersistentCollection)
+            $this->specialDays->initialize();
+
         if (count($this->specialDays) == 0)
             return null ;
 
@@ -379,6 +398,12 @@ class Year extends YearModel
      */
     public function getGrades()
     {
+        if (count($this->grades) == 0) {
+            if ($this->grades instanceof PersistentCollection)
+                $this->grades->initialize();
+            $this->gradesSorted = false;
+        }
+
         if (count($this->grades) == 0)
             return null;
 

@@ -97,7 +97,13 @@
                         {% set route = path('person_edit', {'id': person.id, 'returnRoute': pagination.getChoice }) %}
                     {% endif %}
                     {{ editButton({'title': 'person.title.edit', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': route}, 'style': '', 'colour': 'warning'})|raw }}
-
+                    {% if person.user_id is not empty %}
+                        {% set route = path('home_page') ~ '?_switch_user=' ~ person.0.person.user.username %}
+                        {% set additional = '' %}
+                        {% if person.user_id == app.user.getId %}{% set additional = 'disabled' %}{% endif %}
+                        {{ miscButton({'transDomain': 'BusybeeSecurityBundle', 'title': 'security.impersonate.title', windowOpen: {route: route }, class: 'btn btn-xs btn-warning glyphicons glyphicons-theater', type: 'button', style: 'margin: 1px 0 0 0', 'additional': additional})|raw }}
+                        {{ editButton({'title': 'user.request.passwordReset', 'class': 'btn btn-warning glyphicons glyphicons-user-key', 'transDomain': 'BusybeeSecurityBundle', 'windowOpen': {'route': path('security_user_reset_request', {id: person.user_id})}})|raw }}
+                    {% endif %}
                 </div>
                 <div class="col-md-3 hidden-sm hidden-xs">
                     <div class="row">
