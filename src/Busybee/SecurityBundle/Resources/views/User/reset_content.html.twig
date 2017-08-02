@@ -3,10 +3,8 @@
 {% set header = 'user.reset.title' %}
 {% set transDomain = 'BusybeeSecurityBundle' %}
 
-{% set path = "window.open('" ~ path('home_page') ~ "','_self')" %} #}
-{% set h3Content = cancelButton({'additional': 'onClick="' ~ path ~ '"'})|raw %}
+{% set h3Content = cancelButton({windowOpen: {route: path('home_page')}})|raw %}
 {% set h3Content = h3Content ~ saveButton()|raw %}
-
 
 {{ form_start(form) }}
 {% include 'BusybeeHomeBundle:Page:panelStart.html.twig' %}

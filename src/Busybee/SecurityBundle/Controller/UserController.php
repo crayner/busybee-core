@@ -130,6 +130,10 @@ class UserController extends Controller
             $force = $user->getExpired();
         }
 
+        if ($user->getConfirmationToken() && $user->isPasswordRequestNonExpired($this->container->getParameter('busybee_security.resetting.token_ttl'))) {
+            return $this->render('BusybeeSecurityBundle:User:passwordAlreadyRequested.html.twig');
+        }
+
         $config = new \stdClass();
         $config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 

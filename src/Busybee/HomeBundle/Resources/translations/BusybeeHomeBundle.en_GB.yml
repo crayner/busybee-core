@@ -197,3 +197,5 @@ setting:
 symfony:
     recommendations: Symfony Recommendations
     problems: Symfony Problems
+email:
+    send: Send Email
