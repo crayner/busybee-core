@@ -21,10 +21,10 @@ class CalendarController extends Controller
     public function yearsAction()
     {
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
-		
+
 		$repo = $this->get('year.repository');
 
-        $years = $repo->findBy(array(), array('firstDay' => 'DESC', 'lastDay' => 'DESC'));
+        $years = $repo->findBy([], ['firstDay' => 'DESC']);
 
 		return $this->render('BusybeeInstituteBundle:Calendar:years.html.twig', array('Years' => $years));
     }

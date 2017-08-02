@@ -8,3 +8,4 @@ parameters:
             parameters: []
             node: 2
             order: 20
+            role: ROLE_ADMIN

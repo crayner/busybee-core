@@ -3,17 +3,41 @@ namespace Busybee\HomeBundle\Model ;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
+use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 
 class MenuManager
 {
-	protected $container;
+    /**
+     * @var Container
+     */
+    protected $container;
+
+    /**
+     * @var \Busybee\SecurityBundle\Model\PageManager|object
+     */
     protected $pageManager;
+
+    /**
+     * @var object|\Symfony\Component\Security\Core\Authorization\AuthorizationChecker
+     */
+    private $checker;
+
+    private $pageRoles;
 
 	public function __construct(Container $container)
 	{
 		$this->container = $container;
 
         $this->pageManager = $this->container->get('page.manager');
+
+        $this->checker = $container->get('security.authorization_checker');
+
+        $x = $container->get('security.page.repository')->findAll();
+
+        $this->pageRoles = [];
+        foreach ($x as $page) {
+            $this->pageRoles[$page->getRoute()] = $page->getRoles();
+        }
 
 		return $this ;
 	}
@@ -22,24 +46,21 @@ class MenuManager
 	{
 		$nodes = $this->container->getParameter('nodes');
 		$nodes = $this->msort($nodes, 'order');
+        foreach ($nodes as $q => $node) {
+            $items = $this->getMenuItems($node['menu']);
+            if (empty($items))
+                unset($nodes[$q]);
+        }
 		return $nodes;
 	}
 
 	//Array sort for multidimensional arrays
 	private function msort($array)
 	{
-		if (phpversion() < '5.6.00') throw new \Exception('You must be using a version of PHP >= 5.6');
-
-		if (phpversion() < '7.0.00')
-			usort($array, function($a, $b) {
-					return $a['order'] - $b['order'];
-				}
-			);
-		else
-			usort($array, function($a, $b) {
-					return $a['order'] <=> $b['order'];
-				}
-			);
+        usort($array, function ($a, $b) {
+            return $a['order'] <=> $b['order'];
+        }
+        );
 		return $array ;
 	}
 
@@ -50,9 +71,9 @@ class MenuManager
     public function getMenuItems($node)
 	{
 		$items = $this->container->getParameter('items');
-        $result = array();
-		foreach( $items as $w)
-			if ($w['node'] == $node)
+        $result = [];
+        foreach ($items as $w)
+            if ($w['node'] == $node && $this->itemRoleCheck($w))
 			{
                 $w['parameters'] = ! empty($w['parameters']) ? $w['parameters'] : array() ;
                 if (isset($w['route']))
@@ -157,4 +178,53 @@ class MenuManager
 				return true;
 		return false;
 	}
+
+    /**
+     * @param   array $node
+     * @return  bool
+     */
+    private function itemRoleCheck($node)
+    {
+        if (null === $this->checker)
+            return false;
+
+        if (empty($node['role']) && empty($node['route']))
+            return true;
+
+        if (empty($node['role']) && empty($this->pageRoles[$node['route']]))
+            return true;
+
+        if (!empty($node['route'])) {
+
+            if (empty($this->pageRoles[$node['route']]) || (count($this->pageRoles[$node['route']]) == 1 && is_null($this->pageRoles[$node['route']][0])))
+                $this->pageRoles[$node['route']] = [];
+
+            if (!empty($node['role']))
+                $this->pageRoles[$node['route']] = array_merge($this->pageRoles[$node['route']], [$node['role']]);
+
+            if (empty($this->pageRoles[$node['route']]))
+                return true;
+
+            foreach ($this->pageRoles[$node['route']] as $role) {
+                try {
+                    if ($this->checker->isGranted($role))
+                        return true;
+                } catch (AuthenticationCredentialsNotFoundException $e) {
+                    // Do Nothin!
+                }
+            }
+            return false;
+        } else {
+            if (empty($node['role']))
+                return true;
+
+            $role = $node['role'];
+            try {
+                return $this->checker->isGranted($role);
+            } catch (AuthenticationCredentialsNotFoundException $e) {
+                return false;
+            }
+        }
+        return false;
+    }
 }

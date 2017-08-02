@@ -1,8 +1,5 @@
 <?php
-
 namespace Busybee\SecurityBundle\Security;
-
-use Busybee\SecurityBundle\Entity\Page;
 
 trait DenyAccessUnlessGranted
 {

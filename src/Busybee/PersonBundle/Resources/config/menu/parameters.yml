@@ -12,7 +12,7 @@ parameters:
             label: menu.people.person.manage
             name: Manage People
             route: person_manage
-            role: ROLE_REGISTRAR
+            role: ROLE_ADMIN
             parameters: []
             node: 2
             order: 21
