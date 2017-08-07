@@ -1,0 +1,3 @@
+activity_route:
+    path:     /{id}/
+    defaults: { _controller: BusybeeActivityBundle:Route:index }

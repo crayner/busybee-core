@@ -1,0 +1,9 @@
+services:
+    activity.staff.voter:
+        class: Busybee\ActivityBundle\Security\StaffVoter
+        arguments:
+            - '@security.access.decision_manager'
+            - '@person.manager'
+        tags:
+            - { name: security.voter, priority: 240 }
+        public: false

@@ -1,0 +1,7 @@
+# Activity
+parameters:
+    activity: []
+#        year:
+#            label: calendar.tab.year
+#            include: 'BusybeeInstituteBundle:Calendar:year.html.twig'
+#            message: yearMessage
