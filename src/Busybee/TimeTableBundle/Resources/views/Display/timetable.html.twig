@@ -93,8 +93,13 @@ halflings-circle-arrow-left', transDomain: 'BusybeeTimeTableBundle', style: 'flo
                             - {{ period.end.format(get_setting('time.format.short')) }}
                             {% if period.activity is defined and period.activity is not empty %}
                                 <br/>
-                                <strong style="color: red">{{ period.activity.nameShort }}</strong><br/>
-                                {{ period.activity.spaceName }}
+                                {% if manager.type == 'Grade' %}
+                                    <strong style="color: red">{{ period.activity.nameShort }}</strong>
+                                {% else %}
+                                    <a href="{{ path('activity_route', {id: period.activity.id}) }}" target="_self">
+                                        <strong style="color: red">{{ period.activity.nameShort }}</strong></a><br/>
+                                    {{ period.activity.spaceName }}
+                                {% endif %}
                             {% endif %}
                             {% if period.description is defined %}
                                 <br/>{{ period.description }}

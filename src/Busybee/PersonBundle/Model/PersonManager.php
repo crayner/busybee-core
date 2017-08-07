@@ -1065,4 +1065,29 @@ class PersonManager
     {
         return $this->em;
     }
+
+    /**
+     * @param $voter
+     * @return bool
+     */
+    public function isStaffActivity($voter)
+    {
+        $activity = $voter->getActivity();
+        $staff = $voter->getStaff();
+
+        if (!$activity instanceof PeriodActivity)
+            return false;
+
+        if (!$staff instanceof Staff)
+            return false;
+
+        if (!is_null($activity->getTutor1()) && $activity->getTutor1()->getId() === $staff->getId())
+            return true;
+        if (!is_null($activity->getTutor2()) && $activity->getTutor2()->getId() === $staff->getId())
+            return true;
+        if (!is_null($activity->getTutor3()) && $activity->getTutor3()->getId() === $staff->getId())
+            return true;
+
+        return false;
+    }
 }

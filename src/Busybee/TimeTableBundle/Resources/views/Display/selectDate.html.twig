@@ -11,7 +11,7 @@
         var path = '{{ path('timetable_refresh_display', {displayDate: '__displayDate__'}) }}';
         path = path.replace('__displayDate__', displayDate);
 
-        var htmlString = '<h3 class="text-center">{{ 'timetable.loading'|trans() }} <img height="25" src="{{ asset('img/ajax-loader.gif') }}" title="{{ 'timetable.loading'|trans() }}"></h3>';
+        var htmlString = '<div class="alert alert-default text-center"><h3>{{ 'timetable.loading'|trans() }}</h3><div class="cs-loader"><div class="cs-loader-inner"><label class="glyphicons glyphicons-hourglass x05"></label><label class="glyphicons glyphicons-hourglass x05"></label><label class="glyphicons glyphicons-hourglass x05"></label><label class="glyphicons glyphicons-hourglass x05"></label><label class="glyphicons glyphicons-hourglass x05"></label><label class="glyphicons glyphicons-hourglass x05"></label></div></div></div>';
 
         $('#timetableHeader').html(htmlString);
 

@@ -38,6 +38,10 @@ busybee_time_table:
     resource: "@BusybeeTimeTableBundle/Resources/config/routing.yml"
     prefix:   /timetable/
 
+busybee_activity:
+    resource: "@BusybeeActivityBundle/Resources/config/routing.yml"
+    prefix:   /activity/
+
 busybee_plugin:
     resource: .
     type: advanced_extra

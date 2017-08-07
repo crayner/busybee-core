@@ -2,8 +2,14 @@
 
 namespace Busybee\SecurityBundle\Security;
 
+use Busybee\HomeBundle\Exception\Exception;
+use Busybee\PersonBundle\Entity\Person;
+use Busybee\PersonBundle\Model\PersonManager;
+use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
+use Busybee\StudentBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
+use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -25,6 +31,11 @@ class VoterDetails
     private $staff;
 
     /**
+     * @var Activity
+     */
+    private $activity;
+
+    /**
      * @var ObjectManager
      */
     private $om;
@@ -36,6 +47,8 @@ class VoterDetails
     {
         $this->grades = new ArrayCollection();
         $this->student = null;
+        $this->activity = null;
+        $this->staff = null;
         $this->om = $om;
     }
 
@@ -174,6 +187,55 @@ class VoterDetails
     public function setStaff(Staff $staff = null): VoterDetails
     {
         $this->staff = $staff;
+
+        return $this;
+    }
+
+    /**
+     * @param PersonManager $pm
+     * @param User $user
+     */
+    public function userIdentifier(PersonManager $pm, User $user)
+    {
+        $person = $user->getPerson();
+
+        if ($person instanceof Person) {
+            if ($pm->isStaff($person))
+                return $this->addStaff('staf' . $person->getStaff()->getId());
+
+            if ($pm->isStudent($person))
+                return $this->addStudent('stud' . $person->getStudent()->getId());
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $id of PeriodActivity
+     * @return VoterDetails
+     */
+    public function activityIdentifier($id): VoterDetails
+    {
+        $this->activity = $this->om->getRepository(PeriodActivity::class)->find($id);
+
+        return $this;
+    }
+
+    /**
+     * @return PeriodActivity|null
+     */
+    public function getActivity()
+    {
+        return $this->activity;
+    }
+
+    /**
+     * @param Activity $activity
+     * @return VoterDetails
+     */
+    public function setActivity(Activity $activity): VoterDetails
+    {
+        $this->activity = $activity;
 
         return $this;
     }
