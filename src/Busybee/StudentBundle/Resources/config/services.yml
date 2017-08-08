@@ -1,33 +1,4 @@
 parameters:
-    activityPagination:
-        alias: a
-        sortBy:
-            Activity Name:
-                a.name: ASC
-                a.nameShort: ASC
-                y.firstDay: DESC
-            Grade:
-                g.sequence: ASC
-                a.name: ASC
-                a.nameShort: ASC
-                y.name: ASC
-        limit: '25'
-        searchList:
-            - a.name
-            - a.nameShort
-            - g.grade
-        join:
-            a.year:
-                alias: y
-                type: leftJoin
-            a.grades:
-                alias: g
-                type: leftJoin
-        select:
-            - a.name
-            - a.nameShort
-            - a.id
-            - y.name as year
     studentPagination:
         alias: s
         sortBy:
@@ -104,29 +75,6 @@ services:
         class: Busybee\StudentBundle\Validator\Constraints\PassportImageValidator
         tags:
             - { name: validator.constraint_validator, alias: passport_image_validator }
-    activity.pagination:
-        class: Busybee\StudentBundle\Model\ActivityPagination
-        arguments:
-            - '%activityPagination%'
-            - '@activity.repository'
-            - '@my_service_container'
-            - '@current.year.currentYear'
-            - '@timetable.activity.manager'
-    activity.repository:
-        class: Busybee\StudentBundle\Repository\ActivityRepository
-        factory:
-            - "@doctrine"
-            - 'getRepository'
-        arguments:
-            - "BusybeeStudentBundle:Activity"
-    form.activity.type:
-        class: Busybee\StudentBundle\Form\ActivityType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@request_stack'
-            - '@student.manager'
-        tags:
-            - { name: form.type }
     student.extension:
         class: Busybee\StudentBundle\Model\StudentExtension
         arguments:
@@ -150,12 +98,6 @@ services:
             - '%studentPagination%'
             - '@student.repository'
             - '@my_service_container'
-    activity.manager:
-        class: Busybee\StudentBundle\Model\ActivityManager
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@session.flash_bag'
-            - '@translator'
     student.student.voter:
         class: Busybee\StudentBundle\Security\StudentVoter
         arguments:

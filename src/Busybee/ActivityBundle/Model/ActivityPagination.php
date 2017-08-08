@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\StudentBundle\Model;
+namespace Busybee\ActivityBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\PaginationBundle\Model\PaginationManager;

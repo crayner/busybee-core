@@ -1,8 +1,8 @@
 <?php
 
-namespace Busybee\StudentBundle\Model;
+namespace Busybee\ActivityBundle\Model;
 
-use Busybee\StudentBundle\Entity\Activity;
+use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\TimeTableBundle\Entity\Line;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;

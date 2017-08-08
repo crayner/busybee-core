@@ -44,7 +44,7 @@ class PeriodActivity extends PeriodActivityModel
     private $tutor3;
 
     /**
-     * @var \Busybee\StudentBundle\Entity\Activity
+     * @var \Busybee\ActivityBundle\Entity\Activity
      */
     private $activity;
 
@@ -156,7 +156,7 @@ class PeriodActivity extends PeriodActivityModel
     /**
      * Get activity
      *
-     * @return \Busybee\StudentBundle\Entity\Activity
+     * @return \Busybee\ActivityBundle\Entity\Activity
      */
     public function getActivity()
     {
@@ -166,12 +166,12 @@ class PeriodActivity extends PeriodActivityModel
     /**
      * Set activity
      *
-     * @param \Busybee\StudentBundle\Entity\Activity $activity
+     * @param \Busybee\ActivityBundle\Entity\Activity $activity
      * @param   boolean $add
      *
      * @return PeriodActivity
      */
-    public function setActivity(\Busybee\StudentBundle\Entity\Activity $activity = null, $add = true)
+    public function setActivity(\Busybee\ActivityBundle\Entity\Activity $activity = null, $add = true)
     {
         if ($add)
             $activity->addPeriod($this);

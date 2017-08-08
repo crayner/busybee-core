@@ -30,7 +30,7 @@ parameters:
             role: ROLE_ADMIN
             node: 161
             order: 1610
-            route: student_activities
+            route: activity_list
         1611:
             label: menu.timetable.line
             name: Manage Activity Lines

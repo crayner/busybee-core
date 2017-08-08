@@ -11,7 +11,7 @@ use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Entity\Phone;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
-use Busybee\StudentBundle\Entity\Activity;
+use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Entity\StudentGrade;
 use Busybee\SystemBundle\Setting\SettingManager;

@@ -112,5 +112,5 @@ Busybee\StudentBundle\Entity\Student:
                     referencedColumnName: id
     manyToMany:
         activities:
-            targetEntity: Busybee\StudentBundle\Entity\Activity
+            targetEntity: Busybee\ActivityBundle\Entity\Activity
             mappedBy: students

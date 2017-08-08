@@ -1,7 +1,8 @@
 <?php
-namespace Busybee\StudentBundle\Model;
 
-use Busybee\StudentBundle\Entity\Activity;
+namespace Busybee\ActivityBundle\Model;
+
+use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\TimeTableBundle\Model\ActivityInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 

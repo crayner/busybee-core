@@ -5,7 +5,7 @@ namespace Busybee\TimeTableBundle\Form;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StaffBundle\Entity\Staff;
-use Busybee\StudentBundle\Entity\Activity;
+use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Busybee\TimeTableBundle\Events\PeriodActivitySubscriber;

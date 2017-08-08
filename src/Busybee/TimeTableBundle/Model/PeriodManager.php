@@ -6,7 +6,7 @@ use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;
-use Busybee\StudentBundle\Entity\Activity;
+use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\StudentGrade;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\Period;

@@ -1,3 +1,33 @@
+parameters:
+    activityPagination:
+        alias: a
+        sortBy:
+            Activity Name:
+                a.name: ASC
+                a.nameShort: ASC
+                y.firstDay: DESC
+            Grade:
+                g.sequence: ASC
+                a.name: ASC
+                a.nameShort: ASC
+                y.name: ASC
+        limit: '25'
+        searchList:
+            - a.name
+            - a.nameShort
+            - g.grade
+        join:
+            a.year:
+                alias: y
+                type: leftJoin
+            a.grades:
+                alias: g
+                type: leftJoin
+        select:
+            - a.name
+            - a.nameShort
+            - a.id
+            - y.name as year
 services:
     activity.staff.voter:
         class: Busybee\ActivityBundle\Security\StaffVoter
@@ -7,3 +37,32 @@ services:
         tags:
             - { name: security.voter, priority: 240 }
         public: false
+    activity.pagination:
+        class: Busybee\ActivityBundle\Model\ActivityPagination
+        arguments:
+            - '%activityPagination%'
+            - '@activity.repository'
+            - '@my_service_container'
+            - '@current.year.currentYear'
+            - '@timetable.activity.manager'
+    activity.repository:
+        class: Busybee\ActivityBundle\Repository\ActivityRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeActivityBundle:Activity"
+    form.activity.type:
+        class: Busybee\ActivityBundle\Form\ActivityType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@request_stack'
+            - '@student.manager'
+        tags:
+            - { name: form.type }
+    activity.manager:
+        class: Busybee\ActivityBundle\Model\ActivityManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@session.flash_bag'
+            - '@translator'

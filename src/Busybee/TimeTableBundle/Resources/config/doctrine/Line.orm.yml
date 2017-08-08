@@ -34,7 +34,7 @@ Busybee\TimeTableBundle\Entity\Line:
             type: datetime
     manyToMany:
         activities:
-            targetEntity: Busybee\StudentBundle\Entity\Activity
+            targetEntity: Busybee\ActivityBundle\Entity\Activity
             joinTable:
                 name: line_activity
                 joinColumns:

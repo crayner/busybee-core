@@ -72,7 +72,7 @@
                                                 {{ miscButton({'class': 'halflings halflings-pencil btn btn-primary', 'windowOpen': {'route': path('period_activity_edit',
                                                     {'activity': activity.id, 'closeWindow': '_closeWindow'}), 'target': 'PeriodActivity', 'params': 'width=500,height=600'},
                                                     'title': 'period.activities.activity.overwrite.button', 'transDomain': transDomain})|raw }}
-                                                {{ miscButton({'class': 'halflings halflings-cog btn btn-success', 'windowOpen': {'route': path('student_activity_edit', {'id':
+                                                {{ miscButton({'class': 'halflings halflings-cog btn btn-success', 'windowOpen': {'route': path('activity_edit', {'id':
                                                     activity.activity.activity.id, 'closeWindow': '_closeWindow'}), 'target': 'Activity',
                                                     'params': 'width=1200,height=800'}, 'title': 'period.activities.activity.edit.button',
                                                     'transDomain': transDomain})|raw }}
@@ -151,7 +151,7 @@
                 {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
-                {% set h3Content = h3Content ~ addButton({windowOpen: {route: path('student_activity_edit', {id: 'Add', closeWindow: '_closeWindow'}), target: 'ActivityEdit', params: 'width=1200,height=900'}}) %}
+                {% set h3Content = h3Content ~ addButton({windowOpen: {route: path('activity_edit', {id: 'Add', closeWindow: '_closeWindow'}), target: 'ActivityEdit', params: 'width=1200,height=900'}}) %}
                 {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activity.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'activity.list.description'} %}
                 {% for activity in activity_pagination.result %}
                     <div class="row-border row row-striped dragActivity" id="activity{{ activity.id }}">
@@ -327,7 +327,7 @@
             var id = $(this).prop('id');
             id = id.replace('activity', '');
 
-            var path = '{{ path('student_activity_edit', {id: '__id__', closeWindow: '_closeWindow'}) }}';
+            var path = '{{ path('activity_edit', {id: '__id__', closeWindow: '_closeWindow'}) }}';
             path = path.replace('__id__', id);
             window.open(path, 'ActivityEdit', 'width=1200,height=750')
         });

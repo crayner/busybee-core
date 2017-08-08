@@ -13,10 +13,10 @@
     {% block flashMessages %}
         {% include '@BusybeeHome/Default/flash.html.twig' with {transDomain: 'BusybeeStudentBundle', flashClass: 'fadeAlert'} %}
     {% endblock flashMessages %}
-    {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('student_activities') } } %}
+    {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('activity_list') } } %}
     {% set transDomain = 'BusybeeStudentBundle' %}
 
-    {% set h3Content = addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add'})}})|raw %}
+    {% set h3Content = addButton({'windowOpen': {'route': path('activity_edit', {'id': 'Add'})}})|raw %}
 
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activities.title'} %}
     <div class="container-fluid">
@@ -71,7 +71,7 @@
                     {{ activity.year }}
                 </div>
                 <div class="col-sm-2 col-sm-offset-1 form-inline">
-                    {{ editButton({'style': '', 'windowOpen': {'route': path('student_activity_edit', {'id': activity.id}) } })|raw }}
+                    {{ editButton({'style': '', 'windowOpen': {'route': path('activity_edit', {'id': activity.id}) } })|raw }}
                     {% set additional = {} %}
                     {% if not am.canDelete(activity.id) %}
                         {% set additional = {additional: 'disabled', colour: 'default'} %}

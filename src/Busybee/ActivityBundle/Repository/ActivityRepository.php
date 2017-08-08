@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\StudentBundle\Repository;
+namespace Busybee\ActivityBundle\Repository;
 
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;

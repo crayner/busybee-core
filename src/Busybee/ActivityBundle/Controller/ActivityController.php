@@ -1,10 +1,9 @@
 <?php
 
-namespace Busybee\StudentBundle\Controller;
+namespace Busybee\ActivityBundle\Controller;
 
-use Busybee\StudentBundle\Entity\Activity;
-use Busybee\StudentBundle\Entity\Student;
-use Busybee\StudentBundle\Form\ActivityType;
+use Busybee\ActivityBundle\Entity\Activity;
+use Busybee\ActivityBundle\Form\ActivityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -28,7 +27,7 @@ class ActivityController extends Controller
 
         $up->getDataSet();
 
-        return $this->render('BusybeeStudentBundle:Activity:list.html.twig',
+        return $this->render('BusybeeActivityBundle:Activity:list.html.twig',
             array(
                 'pagination' => $up,
                 'am' => $this->get('activity.manager'),
@@ -66,7 +65,7 @@ class ActivityController extends Controller
                     $close = ['closeWindow' => '_closeWindow'];
 
                 $id = $entity->getId();
-                return new RedirectResponse($this->generateUrl('student_activity_edit', array_merge(['id' => $id], $close)));
+                return new RedirectResponse($this->generateUrl('activity_edit', array_merge(['id' => $id], $close)));
             }
         }
 
@@ -75,7 +74,7 @@ class ActivityController extends Controller
         $editOptions['fullForm'] = $form;
         $editOPtions['manager'] = $this->get('student.manager');
 
-        return $this->render('BusybeeStudentBundle:Activity:edit.html.twig',
+        return $this->render('BusybeeActivityBundle:Activity:edit.html.twig',
             $editOptions
         );
     }
@@ -111,6 +110,6 @@ class ActivityController extends Controller
 
         $this->get('activity.manager')->deleteActivity($id);
 
-        return new RedirectResponse($this->generateUrl('student_activities'));
+        return new RedirectResponse($this->generateUrl('activity_list'));
     }
 }

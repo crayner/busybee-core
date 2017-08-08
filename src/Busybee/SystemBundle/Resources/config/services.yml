@@ -88,7 +88,8 @@ services:
         class: Busybee\SystemBundle\Model\SettingExtension
         arguments:
             - '@setting.manager'
-            - '@my_service_container'
+            - '@menu.manager'
+            - '@busybee.parameters'
         tags:
             - { name: twig.extension }
     test.plugin.manage:
@@ -125,3 +126,9 @@ services:
             - '%kernel.project_dir%'
             - '@doctrine.dbal.connection_factory'
             - '@system.password.manager'
+    busybee.parameters:
+        public: false
+        class: stdClass
+        factory:
+            - '@my_service_container'
+            - 'getParameterBag'

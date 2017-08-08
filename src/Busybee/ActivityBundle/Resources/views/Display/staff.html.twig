@@ -1,0 +1,48 @@
+{# src/General/SecurityBundle/Resources/views/layout.html.twig #}
+{% extends '@BusybeeHome/Default/template.html.twig' %}
+
+{% trans_default_domain 'BusybeeActivityBundle' %}
+
+{% block title %}{{ parent() }}{% endblock title %}
+
+{% block contentContainer %}
+    <div class="container-fluid">
+        <div class="row row-header">
+            <div class="col-sm-12 text-center">
+                {{ activity.fullName }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 well">
+                <div class="row">
+                    <div class="col-sm-12 text-center well">
+                        Space: {% if activity.space is not empty %}{{ activity.space.name }}{% else %}{{ 'activity.space.notAssigned'|trans }}{% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center well">
+                        {% for period in activity.periods %}
+                            {{ period.period.columnName }}<br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 well">
+                {% for student in activity.students %}
+                    <div class="row row-striped">
+                        <div class="col-sm-3 text-center">
+                            {{ student.person.photo75()|raw }}
+                        </div>
+                        <div class="col-sm-4">
+                            {{ student.formatName }}
+                        </div>
+                        <div class="col-sm-5">
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {{ dump(activity) }}
+{% endblock contentContainer %}

@@ -22,9 +22,16 @@ class MenuManager
      */
     private $checker;
 
+    /**
+     * @var array
+     */
     private $pageRoles;
 
-	public function __construct(Container $container)
+    /**
+     * MenuManager constructor.
+     * @param Container $container
+     */
+    public function __construct(Container $container)
 	{
 		$this->container = $container;
 
@@ -41,8 +48,11 @@ class MenuManager
 
 		return $this ;
 	}
-	
-	public function getMenu()
+
+    /**
+     * @return mixed
+     */
+    public function getMenu()
 	{
 		$nodes = $this->container->getParameter('nodes');
 		$nodes = $this->msort($nodes, 'order');
@@ -54,8 +64,12 @@ class MenuManager
 		return $nodes;
 	}
 
-	//Array sort for multidimensional arrays
-	private function msort($array)
+    /**
+     * Array sort for multidimensional arrays
+     * @param $array
+     * @return mixed
+     */
+    private function msort($array)
 	{
         usort($array, function ($a, $b) {
             return $a['order'] <=> $b['order'];

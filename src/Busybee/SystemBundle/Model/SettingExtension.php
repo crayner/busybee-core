@@ -2,8 +2,8 @@
 
 namespace Busybee\SystemBundle\Model ;
 
+use Busybee\HomeBundle\Model\MenuManager;
 use Busybee\SystemBundle\Setting\SettingManager ;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container ;
 
 class SettingExtension extends \Twig_Extension
 {
@@ -11,16 +11,17 @@ class SettingExtension extends \Twig_Extension
      * @var SettingManager
      */
     private $sm ;
-	
+
     /**
-     * @var Container
+     * @var MenuManager
      */
-    private $container ;
-	
-    public function __construct(SettingManager $sm, Container $container)
+    private $menuManager;
+
+    public function __construct(SettingManager $sm, MenuManager $menuManager, $parameters)
     {
         $this->sm = $sm;
-        $this->container = $container;
+        $this->menuManager = $menuManager;
+        $this->parameters = $parameters;
     }
 
     /**
@@ -47,17 +48,16 @@ class SettingExtension extends \Twig_Extension
     public function getParameter($name, $default = null)
     {
         if (strpos($name, '.') === false)
-			return $this->container->getParameter($name, $default);
-		$name = explode('.', $name);
-		$value = $this->container->getParameter($name[0]);
-		array_shift($name);
-		while (! empty($name))
-		{
-			$key = reset($name);
-			$value = $value[$key];
-			array_shift($name);
-		}
-		return $value;
+            return $this->parameters->get($name, $default);
+        $name = explode('.', $name);
+        $value = $this->parameters->get($name[0]);
+        array_shift($name);
+        while (! empty($name)) {
+            $key = reset($name);
+            $value = $value[$key];
+            array_shift($name);
+        }
+        return $value;
     }
 
     /**
@@ -65,7 +65,7 @@ class SettingExtension extends \Twig_Extension
      */
     public function getMenu()
     {
-        return $this->container->get('menu.manager')->getMenu();
+        return $this->menuManager->getMenu();
     }
 
     /**
@@ -74,7 +74,7 @@ class SettingExtension extends \Twig_Extension
      */
     public function getMenuItems($node)
     {
-        return $this->container->get('menu.manager')->getMenuItems($node);
+        return $this->menuManager->getMenuItems($node);
     }
 
     /**
@@ -83,7 +83,7 @@ class SettingExtension extends \Twig_Extension
      */
     public function testMenuItem($test)
     {
-        return $this->container->get('menu.manager')->testMenuItem($test);
+        return $this->menuManager->testMenuItem($test);
     }
 
     /**
@@ -91,8 +91,8 @@ class SettingExtension extends \Twig_Extension
      * @return bool
      */
     public function menuRequired($menu)
-    {	
-		return $this->container->get('menu.manager')->menuRequired($menu);
+    {
+        return $this->menuManager->menuRequired($menu);
     }
 
     /**

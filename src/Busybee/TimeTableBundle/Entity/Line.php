@@ -255,11 +255,11 @@ class Line extends LineModel
     /**
      * Add activity
      *
-     * @param \Busybee\StudentBundle\Entity\Activity $activity
+     * @param \Busybee\ActivityBundle\Entity\Activity $activity
      *
      * @return LearningGroups
      */
-    public function addActivity(\Busybee\StudentBundle\Entity\Activity $activity)
+    public function addActivity(\Busybee\ActivityBundle\Entity\Activity $activity)
     {
         $this->activities[] = $activity;
 
@@ -269,9 +269,9 @@ class Line extends LineModel
     /**
      * Remove activity
      *
-     * @param \Busybee\StudentBundle\Entity\Activity $activity
+     * @param \Busybee\ActivityBundle\Entity\Activity $activity
      */
-    public function removeActivity(\Busybee\StudentBundle\Entity\Activity $activity)
+    public function removeActivity(\Busybee\ActivityBundle\Entity\Activity $activity)
     {
         $this->activities->removeElement($activity);
     }

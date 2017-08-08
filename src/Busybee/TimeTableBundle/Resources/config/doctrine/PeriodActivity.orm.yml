@@ -40,7 +40,7 @@ Busybee\TimeTableBundle\Entity\PeriodActivity:
                 tutor_3:
                     referencedColumnName: id
         activity:
-            targetEntity: Busybee\StudentBundle\Entity\Activity
+            targetEntity: Busybee\ActivityBundle\Entity\Activity
             inversedBy: periods
             joinColumns:
                 activity_id:

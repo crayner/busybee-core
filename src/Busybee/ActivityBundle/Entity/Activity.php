@@ -1,7 +1,8 @@
 <?php
-namespace Busybee\StudentBundle\Entity;
 
-use Busybee\StudentBundle\Model\ActivityModel;
+namespace Busybee\ActivityBundle\Entity;
+
+use Busybee\ActivityBundle\Model\ActivityModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -80,7 +81,7 @@ class Activity extends ActivityModel
     private $space;
 
     /**
-     * @var \Busybee\StudentBundle\Entity\Activity
+     * @var \Busybee\ActivityBundle\Entity\Activity
      */
     private $studentReference;
 
@@ -317,7 +318,7 @@ class Activity extends ActivityModel
     /**
      * Get studentReference
      *
-     * @return \Busybee\StudentBundle\Entity\Activity
+     * @return \Busybee\ActivityBundle\Entity\Activity
      */
     public function getStudentReference()
     {
@@ -327,11 +328,11 @@ class Activity extends ActivityModel
     /**
      * Set studentReference
      *
-     * @param \Busybee\StudentBundle\Entity\Activity $studentReference
+     * @param \Busybee\ActivityBundle\Entity\Activity $studentReference
      *
      * @return Activity
      */
-    public function setStudentReference(\Busybee\StudentBundle\Entity\Activity $studentReference = null)
+    public function setStudentReference(\Busybee\ActivityBundle\Entity\Activity $studentReference = null)
     {
         // stop self reference
         if ($studentReference instanceof Activity && $studentReference->getId() == $this->getId())

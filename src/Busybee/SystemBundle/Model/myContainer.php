@@ -2,10 +2,11 @@
 
 namespace Busybee\SystemBundle\Model ;
 
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class myContainer implements Container 
+class myContainer implements ContainerInterface
 {
 	/**
 	 * @var	Container
@@ -15,7 +16,7 @@ class myContainer implements Container
 	/**
 	 * Constuctor
 	 */
-	public function __construct(Container $container)
+    public function __construct(ContainerInterface $container)
 	{
 		$this->container = $container ;
 	}
@@ -27,7 +28,7 @@ class myContainer implements Container
      *
      * @return mixed The parameter value
      *
-     * @throws InvalidArgumentException if the parameter is not defined
+     * @throws ParameterNotFoundException if the parameter is not defined
      */
 	public function getParameter($name, $throw = true)
 	{
@@ -137,9 +138,21 @@ class myContainer implements Container
 		} catch (ParameterNotFoundException $e)
 		{	
 			if ($throw)
-				throw new ParameterNotFoundException($e->getKey(), $e->getsourceId(), $e->getSourceKey(), $e->getPrevious());
+                throw $e;
 			$value = null ;
 		}
 		return $value ;
 	}
+
+
+    /**
+     * Gets the service container parameter bag.
+     *
+     * @return ParameterBagInterface A ParameterBagInterface instance
+     */
+    public function getParameterBag()
+    {
+        return $this->container->getParameterBag();
+    }
+
 }

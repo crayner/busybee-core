@@ -1,7 +1,7 @@
-Busybee\StudentBundle\Entity\Activity:
+Busybee\ActivityBundle\Entity\Activity:
     type: entity
     table: activity
-    repositoryClass: Busybee\StudentBundle\Repository\ActivityRepository
+    repositoryClass: Busybee\ActivityBundle\Repository\ActivityRepository
     uniqueConstraints:
         name_year:
             columns: [name, year]
@@ -82,7 +82,7 @@ Busybee\StudentBundle\Entity\Activity:
                 tutor_3:
                     referencedColumnName: id
         studentReference:
-            targetEntity: Busybee\StudentBundle\Entity\Activity
+            targetEntity: Busybee\ActivityBundle\Entity\Activity
             joinColumns:
                 student_reference_id:
                     referencedColumnName: id

@@ -1,18 +1,6 @@
 person_toggle_student:
     path:     /person/{id}/toggle/
     defaults: { _controller: BusybeeStudentBundle:Student:toggle }
-student_activities:
-    path:     /activities/
-    defaults: { _controller: BusybeeStudentBundle:Activity:list }
-student_activity_edit:
-    path:     /activity/{id}/edit/{closeWindow}
-    defaults: { _controller: BusybeeStudentBundle:Activity:edit, id: 'Add', closeWindow: '' }
-student_activity_list:
-    path:     /activity/{id}/list/
-    defaults: { _controller: BusybeeStudentBundle:Activity:studentList }
 student_manage:
     path:     /manage/
     defaults: { _controller: BusybeeStudentBundle:Student:list }
-activity_delete:
-    path:     /activity/{id}/delete/
-    defaults: { _controller: BusybeeStudentBundle:Activity:delete }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Busybee\StudentBundle\Events;
+namespace Busybee\ActivityBundle\Events;
 
-use Busybee\StudentBundle\Entity\Activity;
+use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Form\StudentActivityType;
 use Busybee\StudentBundle\Model\StudentManager;

@@ -7,7 +7,7 @@ use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
-use Busybee\StudentBundle\Entity\Activity;
+use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -36,6 +36,11 @@ class VoterDetails
     private $activity;
 
     /**
+     * @var string|null
+     */
+    private $identifierType;
+
+    /**
      * @var ObjectManager
      */
     private $om;
@@ -50,13 +55,15 @@ class VoterDetails
         $this->activity = null;
         $this->staff = null;
         $this->om = $om;
+        $this->identifierType = null;
     }
 
     public function parseIdentifier($identifier)
     {
         $this->addGrade($identifier)
             ->addStudent($identifier)
-            ->addSTaff($identifier);
+            ->addStaff($identifier)
+            ->setIdentifierType($identifier);
 
         return $this;
     }
@@ -195,16 +202,19 @@ class VoterDetails
      * @param PersonManager $pm
      * @param User $user
      */
-    public function userIdentifier(PersonManager $pm, User $user)
+    public function userIdentifier(PersonManager $pm, User $user): VoterDetails
     {
         $person = $user->getPerson();
 
         if ($person instanceof Person) {
-            if ($pm->isStaff($person))
+            if ($pm->isStaff($person)) {
+                $this->setIdentifierType('staff');
                 return $this->addStaff('staf' . $person->getStaff()->getId());
-
-            if ($pm->isStudent($person))
+            }
+            if ($pm->isStudent($person)) {
+                $this->setIdentifierType('student');
                 return $this->addStudent('stud' . $person->getStudent()->getId());
+            }
         }
 
         return $this;
@@ -238,5 +248,27 @@ class VoterDetails
         $this->activity = $activity;
 
         return $this;
+    }
+
+    /**
+     * @param $identifier
+     * @return VoterDetails
+     */
+    public function setIdentifierType($identifier): VoterDetails
+    {
+        $this->identifierType = substr($identifier, 0, 4);
+
+        if (!in_array($this->identifierType, ['grad', 'staf', 'stud']))
+            $this->identifierType = null;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getIdentifierType()
+    {
+        return $this->identifierType;
     }
 }

@@ -5,7 +5,7 @@ use Busybee\InstituteBundle\Entity\SpecialDay;
 use Busybee\InstituteBundle\Entity\Term;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;
-use Busybee\StudentBundle\Entity\Activity;
+use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\StartRotate;
 use Busybee\TimeTableBundle\Entity\TimeTable;

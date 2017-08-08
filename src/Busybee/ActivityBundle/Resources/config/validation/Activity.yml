@@ -1,4 +1,4 @@
-Busybee\StudentBundle\Entity\Activity:
+Busybee\ActivityBundle\Entity\Activity:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, year]

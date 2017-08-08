@@ -1,14 +1,14 @@
 <?php
 
-namespace Busybee\StudentBundle\Form;
+namespace Busybee\ActivityBundle\Form;
 
 use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StaffBundle\Entity\Staff;
-use Busybee\StudentBundle\Entity\Activity;
-use Busybee\StudentBundle\Events\ActivitySubscriber;
+use Busybee\ActivityBundle\Entity\Activity;
+use Busybee\ActivityBundle\Events\ActivitySubscriber;
 use Busybee\StudentBundle\Model\StudentManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;

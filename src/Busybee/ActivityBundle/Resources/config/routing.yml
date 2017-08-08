@@ -1,3 +1,15 @@
 activity_route:
-    path:     /{id}/
+    path:     /{id}/direct/
     defaults: { _controller: BusybeeActivityBundle:Route:index }
+activity_list:
+    path:     /list/
+    defaults: { _controller: BusybeeActivityBundle:Activity:list }
+activity_edit:
+    path:     /{id}/edit/{closeWindow}
+    defaults: { _controller: BusybeeActivityBundle:Activity:edit, id: 'Add', closeWindow: '' }
+student_activity_list:
+    path:     /{id}/list/
+    defaults: { _controller: BusybeeActivityBundle:Activity:studentList }
+activity_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: BusybeeActivityBundle:Activity:delete }

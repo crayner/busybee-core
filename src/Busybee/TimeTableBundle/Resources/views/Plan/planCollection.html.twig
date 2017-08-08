@@ -23,7 +23,7 @@
                             {% if form.activity.vars.value is not empty %}
                                 {{ miscButton({'class': 'halflings halflings-pencil btn btn-primary', 'windowOpen': {'route': path('period_activity_edit', {'activity': form.vars.value.id, 'closeWindow': '_closeWindow'}), 'target': 'PeriodActivity', 'params': 'width=500,height=600'}, 'title': 'period.activities.activity.overwrite.button', 'transDomain': transDomain})|raw }}
 
-                                {{ miscButton({'class': 'halflings halflings-cog btn btn-success', 'windowOpen': {'route': path('student_activity_edit', {'id': form.activity.vars.value, 'closeWindow': '_closeWindow'}), 'target': 'Activity', 'params': 'width=1200,height=800'}, 'title': 'period.activities.activity.edit.button', 'transDomain': transDomain})|raw }}
+                                {{ miscButton({'class': 'halflings halflings-cog btn btn-success', 'windowOpen': {'route': path('activity_edit', {'id': form.activity.vars.value, 'closeWindow': '_closeWindow'}), 'target': 'Activity', 'params': 'width=1200,height=800'}, 'title': 'period.activities.activity.edit.button', 'transDomain': transDomain})|raw }}
                             {% endif %}
                         </div>
                     </div>

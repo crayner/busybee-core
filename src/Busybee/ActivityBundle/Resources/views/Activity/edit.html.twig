@@ -4,7 +4,7 @@
 
 {% form_theme form
 "BusybeeFormBundle:Template:bootstrap.html.twig"
-'@BusybeeStudent/Activity/studentCollection.html.twig' %}
+'@BusybeeActivity/Activity/studentCollection.html.twig' %}
 
 {% block title %}{{ parent() }}{{ 'student.activity.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'student.activity.title'|trans }}{% endblock headerTitle %}
@@ -19,12 +19,12 @@
         {% set h3Content = closeButton({mergeClass: 'disableOnChange'})|raw %}
         {% set route = route|merge({'closeWindow': '_closeWindow'}) %}
     {% else %}
-        {% set h3Content = returnButton({mergeClass: 'disableOnChange', 'windowOpen': {'route': path('student_activities')}})|raw %}
+        {% set h3Content = returnButton({mergeClass: 'disableOnChange', 'windowOpen': {'route': path('activity_list')}})|raw %}
     {% endif %}
     {% if app.request.get('id') != 'Add' %}
-        {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('student_activity_edit', {'id': 'Add'}|merge(route))}})|raw %}
+        {% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('activity_edit', {'id': 'Add'}|merge(route))}})|raw %}
     {% endif %}
-    {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('student_activity_edit', {'id': app.request.get('id')}|merge(route))}})|raw %}
+    {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('activity_edit', {'id': app.request.get('id')}|merge(route))}})|raw %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.get('id')}) %}
     {{ form_start(form, {'attr':{'id': 'activity_form'}}) }}
@@ -56,7 +56,7 @@
                 </div>
 
                 {% if form.students is defined %}
-                    {% include '@BusybeeStudent/Activity/tutorList.html.twig' %}
+                    {% include '@BusybeeActivity/Activity/tutorList.html.twig' %}
                 {% endif %}
 
                 <div class="row">
@@ -75,7 +75,7 @@
                 </div>
             {% else %}
                 <div class="col-sm-6">
-                    {% include '@BusybeeStudent/Activity/tutorList.html.twig' %}
+                    {% include '@BusybeeActivity/Activity/tutorList.html.twig' %}
                 </div>
             {% endif %}
         </div>
@@ -86,14 +86,14 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeStudent/Activity/studentScript.html.twig' %}
-    {% set route = 'student_activity_edit' %}
+    {% include '@BusybeeActivity/Activity/studentScript.html.twig' %}
+    {% set route = 'activity_edit' %}
     {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
     {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
     {% if app.request.get('closeWindow') is not empty %}
         <script type="application/javascript" language="JavaScript">
             $('#activity_form').submit(function (event) {
-                var path = '{{ path('student_activity_edit', {id: '__id__', closeWindow: '_closeWindow'}) }}';
+                var path = '{{ path('activity_edit', {id: '__id__', closeWindow: '_closeWindow'}) }}';
                 path = path.replace('__id__', '{{ app.request.get('id') }}');
 
                 $(this).attr('action', path);

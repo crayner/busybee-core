@@ -3,8 +3,8 @@
 namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Year;
-use Busybee\StudentBundle\Entity\Activity;
-use Busybee\StudentBundle\Model\ActivityManager as ActivityManagerBase;
+use Busybee\ActivityBundle\Entity\Activity;
+use Busybee\ActivityBundle\Model\ActivityManager as ActivityManagerBase;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Translation\TranslatorInterface;
