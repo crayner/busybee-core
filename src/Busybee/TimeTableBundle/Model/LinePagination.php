@@ -52,6 +52,7 @@ class LinePagination extends PaginationManager
                 ->setQueryJoin()
                 ->setOrderBy()
                 ->setSearchWhere();
+
         $this->getQuery()
             ->leftJoin('l.year', 'y')
             ->andWhere('y.id = :year_id')

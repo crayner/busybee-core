@@ -37,16 +37,10 @@ parameters:
             Course:
                 c.name: ASC
                 l.name: ASC
-        limit: '25'
+        limit: 25
         join:
             l.course:
                 alias: c
-                type: leftJoin
-            l.activities:
-                alias: a
-                type: leftJoin
-            a.grades:
-                alias: g
                 type: leftJoin
         searchList:
             - l.name
