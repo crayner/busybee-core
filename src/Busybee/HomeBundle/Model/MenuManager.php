@@ -67,12 +67,13 @@ class MenuManager
     /**
      * Array sort for multidimensional arrays
      * @param $array
+     * @param string $field
      * @return mixed
      */
-    private function msort($array)
-	{
-        usort($array, function ($a, $b) {
-            return $a['order'] <=> $b['order'];
+    private function msort($array, $field = 'order')
+    {
+        usort($array, function ($a, $b) use ($field) {
+            return $a[$field] <=> $b[$field];
         }
         );
 		return $array ;

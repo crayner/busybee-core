@@ -19,8 +19,6 @@ class RouteController extends Controller
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', $vd, null);
 
         $target = $vd->getIdentifierType();
-        dump($vd);
-        dump($vd->getActivity());
 
         if (!is_null($target) && method_exists($this, $target))
             return $this->$target($vd->getActivity()->getActivity());

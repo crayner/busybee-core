@@ -77,9 +77,11 @@ monolog:
             max_files: '7' 
         doctrine:
             action_level: debug
-            type:  stream
+            type:  rotating_file
             path:  '%kernel.logs_dir%/%kernel.environment%_doctrine.log'
             channels: ['doctrine']
+            level: debug
+            max_files: '7'
 core23_dompdf:
     defaults:
         dpi: 150
