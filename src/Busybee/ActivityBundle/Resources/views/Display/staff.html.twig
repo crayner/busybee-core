@@ -4,7 +4,36 @@
 {% trans_default_domain 'BusybeeActivityBundle' %}
 
 {% block title %}{{ parent() }}{% endblock title %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .glyphicons.x1 {
+            font-size: 24px;
+        }
 
+        .glyphicons-calendar.x3 {
+            padding: 0 24px 0 0;
+        }
+
+        .glyphicons-list-alt.x3 {
+            padding: 0 24px 0 0;
+        }
+
+        .glyphicons-calendar.x3 .overlap.x1 {
+            margin: 16px 0 0 -62px;
+            background-color: rgba(255, 255, 255, 0.75);
+        }
+
+        .glyphicons-list-alt.x3 .overlap.x1 {
+            line-height: 24px;
+            width: 35px;
+            margin: 16px 0 0 -57px;
+            background-color: rgba(255, 255, 255, 0.75);
+            height: 35px;
+            padding: 0;
+        }
+    </style>
+{% endblock stylesheets %}
 {% block contentContainer %}
     <div class="container-fluid">
         <div class="row row-header">
@@ -24,6 +53,37 @@
                         {% for period in activity.periods %}
                             {{ period.period.columnName }}<br>
                         {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        {{ miscButton({class: 'glyphicons glyphicons-group x3 btn btn-default', title: 'activity.attendance', transDomain: 'BusybeeActivityBundle'})|raw }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <button class="glyphicons glyphicons-calendar x3 btn btn-default"
+                                title="{{ 'activity.planner'|trans }}"><span
+                                    class="overlap glyphicons glyphicons-clock x1"></span></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <button class="glyphicons glyphicons-log-book x3 btn btn-default"
+                                title="{{ 'activity.markbook'|trans }}"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <button class="glyphicons glyphicons-notes x3 btn btn-default"
+                                title="{{ 'activity.homework'|trans }}"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <button class="glyphicons glyphicons-list-alt x3 btn btn-default"
+                                title="{{ 'activity.internalAssessment'|trans }}"><span
+                                    class="overlap glyphicons x1">A</span></button>
                     </div>
                 </div>
             </div>

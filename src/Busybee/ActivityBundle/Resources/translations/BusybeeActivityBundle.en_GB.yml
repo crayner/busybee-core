@@ -4,3 +4,8 @@ activity:
             exception: 'The activity cannot be displayed for the user type.'
     space:
         notAssigned: 'The activity does not have a fixed space assigned.'
+    attendance: Attendance
+    planner: Planner
+    markbook: Markbook
+    homework: Homework
+    internalAssessment: Internal Assessment

@@ -2,8 +2,9 @@
 namespace Busybee\StudentBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Year;
+use Busybee\PersonBundle\Model\PersonInterface;
 
-abstract class StudentModel
+abstract class StudentModel implements PersonInterface
 {
     use \Busybee\PersonBundle\Model\FormatNameExtension;
 

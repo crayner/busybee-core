@@ -56,6 +56,11 @@ class Activity extends ActivityModel
     private $students;
 
     /**
+     * @var bool
+     */
+    private $studentsSorted = false;
+
+    /**
      * @var \Busybee\StaffBundle\Entity\Staff
      */
     private $tutor1;
@@ -104,6 +109,7 @@ class Activity extends ActivityModel
         $this->periods = new ArrayCollection();
         $this->grades = new ArrayCollection();
         $this->setTeachingLoad(0);
+        $this->studentsSorted = false;
         parent::__construct();
     }
 
@@ -311,6 +317,20 @@ class Activity extends ActivityModel
     {
         if ($this->getStudentReference() instanceof Activity)
             $this->students = $this->getStudentReference()->getStudents();
+
+        if (!$this->studentsSorted && $this->students->count() > 0) {
+
+            $iterator = $this->students->getIterator();
+            $iterator->uasort(
+                function ($a, $b) {
+                    return ($a->formatName(['surnameFirst' => true]) < $b->formatName(['surnameFirst' => true])) ? -1 : 1;
+                }
+            );
+
+            $this->students = new ArrayCollection(iterator_to_array($iterator, false));
+
+            $this->studentsSorted = true;
+        }
 
         return $this->students;
     }
