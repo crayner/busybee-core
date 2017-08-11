@@ -339,4 +339,34 @@ class TimeTable extends TimeTableModel
     {
         return $this->days;
     }
+
+    /**
+     * @var boolean
+     */
+    private $locked;
+
+
+    /**
+     * Set locked
+     *
+     * @param boolean $locked
+     *
+     * @return TimeTable
+     */
+    public function setLocked($locked)
+    {
+        $this->locked = $locked;
+
+        return $this;
+    }
+
+    /**
+     * Get locked
+     *
+     * @return boolean
+     */
+    public function getLocked()
+    {
+        return $this->locked;
+    }
 }

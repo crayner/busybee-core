@@ -5,6 +5,7 @@
 
 {% block tt_columns_widget %}
     {% spaceless %}
+        {% set locked = form.parent.parent.locked.vars.data %}
         {% set panelStyle = 'default' %}
         {% set transDomain = 'BusybeeTimeTableBundle' %}
         {% set header = 'timetable.column.header.title' %}
@@ -20,6 +21,7 @@
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': title} %}
         {% set column_id = 0 %}
         {% if form.vars.data is not empty %}{% set column_id = form.vars.data.id %}{% endif %}
+        {% set disabled = {disabled: 'disabled'} %}
         <div class="ColumnIdentifier" column="{{ column_id }}"></div>
         <div class="container-fluid">
             <div class="row">

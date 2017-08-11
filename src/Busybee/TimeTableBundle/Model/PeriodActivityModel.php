@@ -4,6 +4,7 @@ namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\StaffBundle\Entity\Staff;
+use Busybee\TimeTableBundle\Entity\Period;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -238,5 +239,16 @@ abstract class PeriodActivityModel implements ActivityInterface
         if (!empty($this->getActivity()))
             return $this->getActivity()->getGrades();
         return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getColumnName(): string
+    {
+        $period = $this->getPeriod();
+        if ($period instanceof Period)
+            return $period->getColumnName();
+        return '';
     }
 }

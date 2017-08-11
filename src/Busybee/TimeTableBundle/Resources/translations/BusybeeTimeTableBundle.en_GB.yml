@@ -6,10 +6,14 @@ timetable:
         name: Name
         nameShort: Short Name
         year: Year
+    locked:
+        label: Lock Timetable
+        help: Locking the timetable is used to create the necessary database entries for each day and period in the timetable.  The day and period records are then use to link activities and student attendance records.
+        true: This timetable is locked to changes.  Any changes to settings made on this page will be ignored. Locking the timetable indicates that attendance records, et.al. are now ready to be created and stored.
     add:
         title: Add Timetable
     edit:
-        title: 'Edit %name%'
+        title: 'Edit Timetable: %name%'
         description: Modify the details of the timetable.
     placeholder:
         year: Select Year

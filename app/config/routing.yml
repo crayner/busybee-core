@@ -42,6 +42,10 @@ busybee_activity:
     resource: "@BusybeeActivityBundle/Resources/config/routing.yml"
     prefix:   /activity/
 
+busybee_attendance:
+    resource: "@BusybeeAttendanceBundle/Resources/config/routing.yml"
+    prefix:   /attendance/
+
 busybee_plugin:
     resource: .
     type: advanced_extra

@@ -249,6 +249,11 @@ services:
         factory:
             - '@timetable.manager'
             - 'getTimeTable'
+    timetable.manager.getTTYear:
+        class: Busybee\TimeTableBundle\Model\TimeTableManager
+        factory:
+            - '@timetable.manager'
+            - 'getTTYear'
     timetable.activity.manager:
         class: Busybee\TimeTableBundle\Model\ActivityManager
         arguments:

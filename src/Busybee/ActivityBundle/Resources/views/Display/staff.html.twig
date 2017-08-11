@@ -57,7 +57,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        {{ miscButton({class: 'glyphicons glyphicons-group x3 btn btn-default', title: 'activity.attendance', transDomain: 'BusybeeActivityBundle'})|raw }}
+                        {{ miscButton({class: 'glyphicons glyphicons-group x3 btn btn-default', title: 'activity.attendance', transDomain: 'BusybeeActivityBundle', windowOpen: {route: path('attendance_by_activity', {id: activity.id}) }})|raw }}
                     </div>
                 </div>
                 <div class="row">

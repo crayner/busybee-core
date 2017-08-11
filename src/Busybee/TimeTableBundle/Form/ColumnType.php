@@ -48,6 +48,7 @@ class ColumnType extends AbstractType
         $resolver->setRequired(
             [
                 'tt_id',
+                'locked',
             ]
         );
     }
@@ -65,6 +66,7 @@ class ColumnType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('columns', CollectionType::class,
                 [
@@ -73,6 +75,7 @@ class ColumnType extends AbstractType
                         [
                             'tt_id' => $options['tt_id'],
                         ],
+                    'disabled' => $options['locked'],
                 ]
             )
         ;

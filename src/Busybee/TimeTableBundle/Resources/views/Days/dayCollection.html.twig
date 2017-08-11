@@ -5,6 +5,7 @@
 
 {% block tt_days_widget %}
     {% spaceless %}
+        {% set locked = form.parent.parent.locked.vars.data %}
         {% set panelStyle = 'default' %}
         {% set transDomain = 'BusybeeTimeTableBundle' %}
         {% set header = 'timetable.column.header.title' %}
@@ -17,6 +18,7 @@
         {% set title = 'timetable.column.add.title'|trans %}
         {% if form.vars.data is not empty %}{% set title = form.vars.data.name %}{% endif %}
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': title} %}
+        {% set disabled = {disabled: 'disabled'} %}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6 well">

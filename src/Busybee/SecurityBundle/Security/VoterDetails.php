@@ -4,6 +4,7 @@ namespace Busybee\SecurityBundle\Security;
 
 use Busybee\HomeBundle\Exception\Exception;
 use Busybee\PersonBundle\Entity\Person;
+use Busybee\PersonBundle\Model\PersonInterface;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
@@ -69,13 +70,22 @@ class VoterDetails
     }
 
     /**
-     * Add Student
+     * Add Staff
      *
-     * @param int $id
+     * @param $staff
      * @return VoterDetails
      */
     public function addStaff($staff): VoterDetails
     {
+        if ($staff instanceof User)
+            $staff = $staff->getPerson();
+
+        if ($staff instanceof Person)
+            $staff = $staff->getStaff();
+
+        if ($staff instanceof Staff)
+            return $this->setStaff($staff);
+
         if (substr($staff, 0, 4) !== 'staf')
             return $this->setStaff(null);
 
@@ -85,10 +95,11 @@ class VoterDetails
             return $this->setStaff(null);
 
         $staff = $this->om->getRepository(Staff::class)->find($id);
-        if ($staff instanceof Staff)
-            $this->setStaff($staff);
 
-        return $this;
+        if ($staff instanceof Staff)
+            return $this->setStaff($staff);
+
+        return $this->setStaff(null);
     }
 
     /**

@@ -26,11 +26,22 @@
     {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
     {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('timetable_edit', {'id': 'Add'}) }}) %}{% endif %}
     {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('timetable_edit', {'id': app.request.get('id')})}}) %}
-    {% set h3Content = h3Content ~ saveButton() %}
+    {% if form.locked.vars.data %}
+        {% set h3Content = h3Content ~ saveButton({additional: 'disabled'})|raw %}
+    {% else %}
+        {% set h3Content = h3Content ~ saveButton() %}
+    {% endif %}
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
     {% set h3Content = h3Content ~ miscButton({'javascript': {'function': 'resetColumnTimes', 'options': [app.request.get('id')]}, 'class': 'btn btn-danger halflings halflings-asterisk', 'title': 'column.resettime.title', 'transDomain': 'BusybeeTimeTableBundle'}) %}
     {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.edit.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.edit.description', 'name': form.vars.value.getFullName} %}
     <div class="container-fluid">
+        {% if form.locked.vars.data %}
+            <div class="row">
+                <div class="col-sm-12 alert alert-danger">
+                    {{ 'timetable.locked.true'|trans }}
+                </div>
+            </div>
+        {% endif %}
         <div class="row">
             <div class="col-sm-6">
                 <div class="row">
@@ -44,6 +55,11 @@
                         {% set data = form.year.vars.value %}
                         {% if data is empty %}{% set data = form.year.vars.data %}{% endif %}
                         {{ form_row(form.year, {'value': data}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 well">
+                        {{ form_row(form.locked) }}
                     </div>
                 </div>
                 <div class="row">

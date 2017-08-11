@@ -23,6 +23,8 @@ Busybee\TimeTableBundle\Entity\TimeTable:
         nameShort:
             type: string
             length: '16'
+        locked:
+            type: boolean
         lastModified:
             type: datetime
         createdOn:

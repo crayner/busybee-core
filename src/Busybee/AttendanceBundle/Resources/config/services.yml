@@ -1,0 +1,12 @@
+services:
+    attendance.repository:
+        class: Busybee\AttendanceBundle\Repository\AttendancePeriodRepository
+        factory:
+            - '@doctrine'
+            - 'getRepository'
+        arguments:
+            - "BusybeeAttendanceBundle:AttendancePeriod"
+    attendance.manager:
+        class: Busybee\AttendanceBundle\Model\AttendanceManager
+        arguments:
+            - '@timetable.manager.getTTYear'

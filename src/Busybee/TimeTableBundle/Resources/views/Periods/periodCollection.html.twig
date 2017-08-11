@@ -5,6 +5,10 @@
 
 {% block tt_period_widget %}
     {% spaceless %}
+        {% set locked = false %}
+        {% if form.vars.data %}
+            {% set locked = form.vars.data.column.timetable.locked %}
+        {% endif %}
         {% set panelStyle = 'default' %}
         {% set transDomain = 'BusybeeTimeTableBundle' %}
         {% set header = 'timetable.column.header.title' %}

@@ -2,6 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Form;
 
+use Busybee\FormBundle\Type\ToggleType;
 use Busybee\InstituteBundle\Entity\Year;
 use Busybee\InstituteBundle\Form\YearEntityType;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
@@ -41,21 +42,34 @@ class TimeTableType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $locked = $options['locked'];
         $builder
             ->add('name', null,
                 [
                     'label' => 'timetable.label.name',
+                    'disabled' => $locked,
                 ]
             )
             ->add('nameShort', null,
                 [
                     'label' => 'timetable.label.nameShort',
+                    'disabled' => $locked,
                 ]
             )
             ->add('year', YearEntityType::class,
                 [
                     'label' => 'timetable.label.year',
                     'placeholder' => 'timetable.placeholder.year',
+                    'disabled' => $locked,
+                ]
+            )
+            ->add('locked', ToggleType::class,
+                [
+                    'label' => 'timetable.locked.label',
+                    'attr' => [
+                        'help' => 'timetable.locked.help',
+                    ],
+                    'disabled' => $locked,
                 ]
             )
             ->add('columns', CollectionType::class,
@@ -73,6 +87,7 @@ class TimeTableType extends AbstractType
                         [
                             'timetable_id' => $options['data']->getId(),
                         ],
+                    'disabled' => $locked,
                 ]
             )
             ->add('days', CollectionType::class,
@@ -86,6 +101,7 @@ class TimeTableType extends AbstractType
                     'label' => 'timetable.days.label',
                     'allow_delete' => false,
                     'allow_add' => false,
+                    'disabled' => $locked,
                 ]
             );
 
@@ -98,10 +114,17 @@ class TimeTableType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => TimeTable::class,
-            'translation_domain' => "BusybeeTimeTableBundle",
-        ));
+        $resolver->setDefaults(
+            [
+                'data_class' => TimeTable::class,
+                'translation_domain' => "BusybeeTimeTableBundle",
+            ]
+        );
+        $resolver->setRequired(
+            [
+                'locked',
+            ]
+        );
     }
 
     /**

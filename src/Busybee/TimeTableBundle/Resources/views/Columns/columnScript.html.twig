@@ -1,10 +1,16 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
+{% set locked = form.locked.vars.data %}
 
 <script type="text/javascript">
     $(".columnList").collection({
         name_prefix: '{{ form.columns.vars.full_name }}',
+        {% if locked %}
+        allow_up: false,
+        allow_down: false,
+        {% else %}
         allow_up: true,
         allow_down: true,
+        {% endif %}
         add: '<button title="{{ 'timetable.column.add.title'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
         remove: '<button title="{{ 'timetable.column.remove.title'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
         add_at_the_end: true,

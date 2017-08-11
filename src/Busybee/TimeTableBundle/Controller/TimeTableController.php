@@ -3,7 +3,6 @@
 namespace Busybee\TimeTableBundle\Controller;
 
 use Busybee\HomeBundle\Exception\Exception;
-use Busybee\SecurityBundle\Security\VoterDetails;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Form\ColumnType;
 use Busybee\TimeTableBundle\Form\TimeTableType;
@@ -51,7 +50,10 @@ class TimeTableController extends Controller
         else
             $entity = new TimeTable();
 
-        $form = $this->createForm(TimeTableType::class, $entity);
+        if (!empty($request->request->get('timetable_days')['locked']) && $request->request->get('timetable_days')['locked'])
+            $entity->setLocked(true);
+
+        $form = $this->createForm(TimeTableType::class, $entity, ['locked' => $entity->getLocked()]);
 
         $form->handleRequest($request);
 
@@ -83,7 +85,7 @@ class TimeTableController extends Controller
 
         $entity = $this->get('timetable.repository')->find($id);
 
-        $form = $this->createForm(ColumnType::class, $entity, ['tt_id' => $id]);
+        $form = $this->createForm(ColumnType::class, $entity, ['tt_id' => $id, 'locked' => $entity->getLocked()]);
 
         $form->handleRequest($request);
 

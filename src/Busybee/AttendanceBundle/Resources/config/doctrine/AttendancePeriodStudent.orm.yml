@@ -1,0 +1,43 @@
+Busybee\AttendanceBundle\Entity\AttendancePeriodStudent:
+    type: entity
+    table: attendance_period_student
+    repositoryClass: Busybee\AttendanceBundle\Repository\AttendancePeriodStudentRepository
+    uniqueConstraints:
+        attendance_student:
+            columns: [attendance_id, student_id]
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        status:
+            type: string
+            length: 24
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        attendancePeriod:
+            targetEntity: Busybee\AttendanceBundle\Entity\AttendancePeriod
+            inversedBy: students
+            joinColumns:
+                attendance_id:
+                    referencedColumnName: id
+        students:
+            targetEntity: Busybee\StudentBundle\Entity\Student
+            joinColumns:
+                student_id:
+                    referencedColumnName: id
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id
