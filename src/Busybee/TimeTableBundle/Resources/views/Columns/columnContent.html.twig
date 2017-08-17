@@ -9,9 +9,7 @@
     {% if form.vars.data %}
         {% set locked = form.vars.data.locked %}
     {% endif %}
-    {% if locked %}
-        {% set h3Content = h3Content ~ saveButton({additional: 'disabled'})|raw %}
-    {% else %}
+    {% if not locked %}
         {% set h3Content = h3Content ~ saveButton()|raw %}
     {% endif %}
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}

@@ -66,6 +66,11 @@ class TimeTable extends TimeTableModel
     private $columnSorted = false;
 
     /**
+     * @var boolean
+     */
+    private $locked;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -341,12 +346,6 @@ class TimeTable extends TimeTableModel
     }
 
     /**
-     * @var boolean
-     */
-    private $locked;
-
-
-    /**
      * Set locked
      *
      * @param boolean $locked
@@ -368,5 +367,35 @@ class TimeTable extends TimeTableModel
     public function getLocked()
     {
         return $this->locked;
+    }
+
+    /**
+     * @var boolean
+     */
+    private $generated;
+
+
+    /**
+     * Set generated
+     *
+     * @param boolean $generated
+     *
+     * @return TimeTable
+     */
+    public function setGenerated($generated)
+    {
+        $this->generated = $generated;
+
+        return $this;
+    }
+
+    /**
+     * Get generated
+     *
+     * @return boolean
+     */
+    public function getGenerated()
+    {
+        return $this->generated;
     }
 }

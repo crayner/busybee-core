@@ -1,13 +1,23 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
+{% set locked = false %}
+{% if form.vars.data %}
+    {% set locked = form.vars.data.locked %}
+{% endif %}
 <script type="text/javascript">
     {% for name,col in form.columns %}
     $(".periodList_{{ name }}").collection({
         name_prefix: '{{ col.periods.vars.full_name }}',
         allow_up: false,
         allow_down: false,
+        {% if not locked %}
         add: '<button title="{{ 'timetable.period.add.title'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
         remove: '<button title="{{ 'timetable.period.remove.title'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        {% else %}
+        add: '',
+        remove: '',
+        {% endif %}
         add_at_the_end: true,
+        hide_useless_buttons: true,
         before_remove: function (collection, element) {
             var source = $(element[0]).find('.PeriodIdentifier');
             var period = source.attr('period');

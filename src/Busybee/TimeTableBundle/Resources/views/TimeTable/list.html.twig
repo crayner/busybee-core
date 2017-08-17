@@ -7,6 +7,18 @@
 {% block title %}{{ 'timetable.list.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'timetable.list.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{% endblock headerLead %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .row-striped:nth-of-type(odd).locked {
+            background-color: rgba(200, 150, 150, 0.5);
+        }
+
+        .row-striped:nth-of-type(even).locked {
+            background-color: rgba(255, 204, 204, 0.5);
+        }
+    </style>
+{% endblock %}
 
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
@@ -36,7 +48,7 @@
             </div>
         </div>
         {% for timetable in pagination.getResult %}
-            <div class="row row-striped">
+            <div class="row row-striped{% if timetable.locked %} locked{% endif %}">
                 <div class="col-sm-3 form-inline">
                     {{ timetable.name }}
                 </div>

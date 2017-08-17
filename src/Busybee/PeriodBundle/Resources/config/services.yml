@@ -1,0 +1,4 @@
+services:
+#    busybee_period.example:
+#        class: Busybee\PeriodBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

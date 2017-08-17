@@ -25,6 +25,7 @@ parameters:
             - t.nameShort
             - t.id
             - y.name as year
+            - t.locked
     LinePagination:
         alias: l
         sortBy:

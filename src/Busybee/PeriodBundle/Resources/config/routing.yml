@@ -1,0 +1,3 @@
+busybee_period_homepage:
+    path:     /
+    defaults: { _controller: BusybeePeriodBundle:Default:index }

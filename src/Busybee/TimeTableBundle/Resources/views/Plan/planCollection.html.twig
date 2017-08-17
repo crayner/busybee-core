@@ -10,10 +10,7 @@
                 {{ form_widget(form.activity) }}
             </div>
             <div class="col-sm-4 small{{ manager.ActivityStatus(value).class }}">
-                <p>{{ 'period.activities.activity.details.data'|trans(manager.ActivityDetails(value))|trim(', ') }}
-                    {% if manager.ActivityStatus(value).message is not empty %}
-                        {{ miscButton({'title': manager.ActivityStatus(value).message, 'class': 'halflings halflings-question-sign btn btn-warning','style': 'float: right; padding: 4px;', 'windowOpen': {'route': path('period_plan_report', {'id': app.request.get('id')}), 'target': 'PeriodReport', 'params': 'width=500,height=600'}})|raw }}
-                    {% endif %}</p>
+                {% include '@BusybeeTimeTable/Periods/activityDetails.html.twig' with {id: app.request.get('id'), status: manager.ActivityStatus(value), details: manager.ActivityDetails(value)} %}
             </div>
             {% set transDomain = 'BusybeeTimeTableBundle' %}
             <div class="col-sm-4">{{ form_widget(form.period, {'value': app.request.get('id')}) }}
