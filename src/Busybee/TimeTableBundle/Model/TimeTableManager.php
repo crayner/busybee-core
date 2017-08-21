@@ -1,8 +1,8 @@
 <?php
 namespace Busybee\TimeTableBundle\Model;
 
-use Busybee\InstituteBundle\Entity\SpecialDay;
-use Busybee\InstituteBundle\Entity\Term;
+use Busybee\Core\CalendarBundle\Entity\SpecialDay;
+use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;

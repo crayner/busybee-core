@@ -4,7 +4,7 @@ namespace Busybee\InstituteBundle\Model ;
 use Busybee\SystemBundle\Setting\SettingManager ;
 use Busybee\InstituteBundle\Repository\YearRepository ;
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\InstituteBundle\Entity\SpecialDay ;
+use Busybee\Core\CalendarBundle\Entity\SpecialDay;
 use DateTime ;
 use Doctrine\ORM\EntityManager  ;
 

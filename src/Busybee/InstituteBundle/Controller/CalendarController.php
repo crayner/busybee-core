@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\HttpFoundation\Request ;
 use Busybee\InstituteBundle\Form\YearType ;
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\InstituteBundle\Entity\SpecialDay ;
+use Busybee\Core\CalendarBundle\Entity\SpecialDay;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Symfony\Component\HttpFoundation\Response ;
 use DateTime ;

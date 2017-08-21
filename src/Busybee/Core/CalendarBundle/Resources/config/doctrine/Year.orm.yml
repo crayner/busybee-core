@@ -1,7 +1,7 @@
 Busybee\Core\CalendarBundle\Entity\Year:
     type: entity
     table: calendar
-    repositoryClass: Busybee\InstituteBundle\Repository\YearRepository
+    repositoryClass: Busybee\Core\CalendarBundle\Repository\YearRepository
     id:
         id:
             type: integer
@@ -27,11 +27,11 @@ Busybee\Core\CalendarBundle\Entity\Year:
             nullable: true 
     oneToMany:
         terms:
-            targetEntity: Busybee\InstituteBundle\Entity\Term
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Term
             mappedBy: year
             cascade: [persist, remove]
         specialDays:
-            targetEntity: Busybee\InstituteBundle\Entity\SpecialDay
+            targetEntity: Busybee\Core\CalendarBundle\Entity\SpecialDay
             mappedBy: year
             cascade: [persist, remove]
         grades:

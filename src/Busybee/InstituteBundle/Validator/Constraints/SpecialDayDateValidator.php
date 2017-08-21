@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\InstituteBundle\Validator\Constraints ;
 
-use Busybee\InstituteBundle\Entity\SpecialDay;
+use Busybee\Core\CalendarBundle\Entity\SpecialDay;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Constraint ;
 use Symfony\Component\Validator\ConstraintValidator as ConstraintValidatorBase ;

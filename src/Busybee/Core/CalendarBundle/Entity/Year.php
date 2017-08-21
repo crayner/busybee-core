@@ -1,8 +1,7 @@
 <?php
 
-namespace Busybee\InstituteBundle\Entity;
+namespace Busybee\Core\CalendarBundle\Entity;
 
-use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Model\Year as YearModel;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
@@ -252,11 +251,11 @@ class Year extends YearModel
 	/**
 	 * Add term
 	 *
-	 * @param \Busybee\InstituteBundle\Entity\Term $term
+	 * @param \Busybee\Core\CalendarBundle\Entity\Term $term
 	 *
 	 * @return Year
 	 */
-	public function addTerm(\Busybee\InstituteBundle\Entity\Term $term)
+	public function addTerm(\Busybee\Core\CalendarBundle\Entity\Term $term)
 	{
 		if ($this->terms->contains($term))
 			return $this;
@@ -271,9 +270,9 @@ class Year extends YearModel
 	/**
 	 * Remove term
 	 *
-	 * @param \Busybee\InstituteBundle\Entity\Term $term
+	 * @param \Busybee\Core\CalendarBundle\Entity\Term $term
 	 */
-	public function removeTerm(\Busybee\InstituteBundle\Entity\Term $term)
+	public function removeTerm(\Busybee\Core\CalendarBundle\Entity\Term $term)
 	{
 		$this->terms->removeElement($term);
 	}
@@ -315,11 +314,11 @@ class Year extends YearModel
 	/**
 	 * Add specialDay
 	 *
-	 * @param \Busybee\InstituteBundle\Entity\SpecialDay $specialDay
+	 * @param \Busybee\Core\CalendarBundle\Entity\SpecialDay $specialDay
 	 *
 	 * @return Term
 	 */
-	public function addSpecialDay(\Busybee\InstituteBundle\Entity\SpecialDay $specialDay)
+	public function addSpecialDay(\Busybee\Core\CalendarBundle\Entity\SpecialDay $specialDay)
 	{
 		if (!is_null($specialDay->getName()))
 			$this->specialDays[] = $specialDay;
@@ -330,9 +329,9 @@ class Year extends YearModel
 	/**
 	 * Remove specialDay
 	 *
-	 * @param \Busybee\InstituteBundle\Entity\SpecialDay $specialDay
+	 * @param \Busybee\Core\CalendarBundle\Entity\SpecialDay $specialDay
 	 */
-	public function removeSpecialDay(\Busybee\InstituteBundle\Entity\SpecialDay $specialDay)
+	public function removeSpecialDay(\Busybee\Core\CalendarBundle\Entity\SpecialDay $specialDay)
 	{
 		$this->specialDays->removeElement($specialDay);
 	}

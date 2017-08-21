@@ -2,7 +2,7 @@
 
 namespace Busybee\SystemBundle\Controller ;
 
-use Busybee\InstituteBundle\Entity\Term;
+use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\StaffBundle\Entity\Staff;

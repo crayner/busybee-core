@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\InstituteBundle\Validator\Constraints ;
 
-use Busybee\InstituteBundle\Entity\Term;
+use Busybee\Core\CalendarBundle\Entity\Term;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

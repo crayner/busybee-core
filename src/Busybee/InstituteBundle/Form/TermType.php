@@ -2,7 +2,7 @@
 
 namespace Busybee\InstituteBundle\Form ;
 
-use Busybee\InstituteBundle\Entity\Term;
+use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Symfony\Component\Form\AbstractType ;

@@ -1,7 +1,7 @@
-Busybee\InstituteBundle\Entity\SpecialDay:
+Busybee\Core\CalendarBundle\Entity\SpecialDay:
     type: entity
     table: cal_special_day
-    repositoryClass: Busybee\InstituteBundle\Repository\SpecialDayRepository
+    repositoryClass: Busybee\Core\CalendarBundle\Repository\SpecialDayRepository
     id:
         id:
             type: integer

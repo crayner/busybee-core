@@ -6,7 +6,7 @@ namespace Busybee\TimeTableBundle\Model;
 use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
-use Busybee\InstituteBundle\Entity\Term;
+use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;

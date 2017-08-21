@@ -134,9 +134,9 @@ class SpecialDayType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' 			=> 'Busybee\InstituteBundle\Entity\SpecialDay',
-                'translation_domain'	=> 'BusybeeInstituteBundle',
-                'year_data'				=> null,
+	            'data_class'         => 'Busybee\Core\CalendarBundle\Entity\SpecialDay',
+	            'translation_domain' => 'BusybeeInstituteBundle',
+	            'year_data'          => null,
             )
         );
     }
