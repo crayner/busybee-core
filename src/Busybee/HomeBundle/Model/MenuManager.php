@@ -27,6 +27,16 @@ class MenuManager
      */
     private $pageRoles;
 
+	/**
+	 * @var array
+	 */
+	private $nodes;
+
+	/**
+	 * @var array
+	 */
+	private $nodeItems;
+
     /**
      * MenuManager constructor.
      * @param Container $container
@@ -46,6 +56,9 @@ class MenuManager
             $this->pageRoles[$page->getRoute()] = $page->getRoles();
         }
 
+		$this->nodes     = [];
+		$this->nodeItems = [];
+
 		return $this ;
 	}
 
@@ -54,6 +67,9 @@ class MenuManager
      */
     public function getMenu()
 	{
+		if (!empty($this->nodes))
+			return $this->nodes;
+
 		$nodes = $this->container->getParameter('nodes');
 		$nodes = $this->msort($nodes, 'order');
         foreach ($nodes as $q => $node) {
@@ -61,6 +77,8 @@ class MenuManager
             if (empty($items))
                 unset($nodes[$q]);
         }
+
+		$this->nodes = $nodes;
 		return $nodes;
 	}
 
@@ -85,8 +103,11 @@ class MenuManager
      */
     public function getMenuItems($node)
 	{
-		$items = $this->container->getParameter('items');
-        $result = [];
+		if (!empty($this->nodeItems[$node]))
+			return $this->nodeItems[$node];
+
+		$items  = $this->container->getParameter('items');
+		$result = [];
         foreach ($items as $w)
             if ($w['node'] == $node && $this->itemRoleCheck($w))
 			{
@@ -98,6 +119,8 @@ class MenuManager
 				$result[] = $w;
 			}
 		$items = $this->msort($result, 'order');
+
+		$this->nodeItems[$node] = $items;
         return $items;
 	}
 
