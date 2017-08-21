@@ -71,7 +71,7 @@ class GradeType extends AbstractType
 		$resolver->setDefaults(
 			[
 				'data_class'         => Grade::class,
-				'translation_domain' => 'BusybeeInstituteBundle',
+				'translation_domain' => 'BusybeeCalendarBundle',
 				'year_data'          => null,
 				'error_bubbling'     => true,
 			]

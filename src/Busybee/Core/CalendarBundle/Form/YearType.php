@@ -142,7 +142,7 @@ class YearType extends AbstractType
 		$resolver->setDefaults(
 			array(
 				'data_class'         => Year::class,
-				'translation_domain' => 'BusybeeInstituteBundle',
+				'translation_domain' => 'BusybeeCalendarBundle',
 			)
 		);
 	}

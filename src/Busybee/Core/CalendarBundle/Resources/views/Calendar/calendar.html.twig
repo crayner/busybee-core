@@ -1,9 +1,9 @@
 {# src/Busybee/InstituteBundle/Resources/views/Calendar/calendar.html.twig #}
 
-{% trans_default_domain "BusybeeInstituteBundle" %}
+{% trans_default_domain "BusybeeCalendarBundle" %}
 
 {% set flashClass = 'fadeAlert' %}
-{% set transDomain = 'BusybeeInstituteBundle' %}
+{% set transDomain = 'BusybeeCalendarBundle' %}
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
@@ -31,7 +31,7 @@
     <div id="formTabs">
         <ul class="nav nav-tabs" role="tablist">
             {% for name,tab in tabs %}
-                {% set translation = 'BusybeeInstituteBundle' %}
+                {% set translation = 'BusybeeCalendarBundle' %}
                 {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
                 <li><a href="#{{ name }}" role="tab" data-toggle="tab"
                        class="{{ name }}">{{ tab.label|trans({}, translation) }}</a></li>
@@ -40,7 +40,7 @@
         {% set active = ' active' %}
         <div class="tab-content">
             {% for name,tab in tabs %}
-                {% set translation = 'BusybeeInstituteBundle' %}
+                {% set translation = 'BusybeeCalendarBundle' %}
                 {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
                 <div class="tab-pane{{ active }}" id="{{ name }}">
                     {% if tab.message is defined %}
