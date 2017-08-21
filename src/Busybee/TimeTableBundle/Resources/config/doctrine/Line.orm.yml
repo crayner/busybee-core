@@ -45,7 +45,7 @@ Busybee\TimeTableBundle\Entity\Line:
                         referencedColumnName: id
     manyToOne:
         year:
-            targetEntity: Busybee\InstituteBundle\Entity\Year
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Year
             nullable: false
             joinColumns:
                 year:

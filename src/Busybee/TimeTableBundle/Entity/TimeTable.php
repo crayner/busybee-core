@@ -46,7 +46,7 @@ class TimeTable extends TimeTableModel
     private $modifiedBy;
 
     /**
-     * @var \Busybee\InstituteBundle\Entity\Year
+     * @var \Busybee\Core\CalendarBundle\Entity\Year
      */
     private $year;
 
@@ -241,7 +241,7 @@ class TimeTable extends TimeTableModel
     /**
      * Get year
      *
-     * @return \Busybee\InstituteBundle\Entity\Year
+     * @return \Busybee\Core\CalendarBundle\Entity\Year
      */
     public function getYear()
     {
@@ -251,11 +251,11 @@ class TimeTable extends TimeTableModel
     /**
      * Set year
      *
-     * @param \Busybee\InstituteBundle\Entity\Year $year
+     * @param \Busybee\Core\CalendarBundle\Entity\Year $year
      *
      * @return TimeTable
      */
-    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+	public function setYear(\Busybee\Core\CalendarBundle\Entity\Year $year = null)
     {
         $this->year = $year;
 

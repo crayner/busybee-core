@@ -75,7 +75,7 @@ class SpecialDay extends SpecialDayModel
 	private $modifiedBy;
 
 	/**
-	 * @var \Busybee\InstituteBundle\Entity\Year
+	 * @var \Busybee\Core\CalendarBundle\Entity\Year
 	 */
 	private $year;
 
@@ -285,7 +285,7 @@ class SpecialDay extends SpecialDayModel
 	/**
 	 * Get year
 	 *
-	 * @return \Busybee\InstituteBundle\Entity\Year
+	 * @return \Busybee\Core\CalendarBundle\Entity\Year
 	 */
 	public function getYear()
 	{
@@ -295,11 +295,11 @@ class SpecialDay extends SpecialDayModel
 	/**
 	 * Set year
 	 *
-	 * @param \Busybee\InstituteBundle\Entity\Year $year
+	 * @param \Busybee\Core\CalendarBundle\Entity\Year $year
 	 *
 	 * @return SpecialDay
 	 */
-	public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+	public function setYear(\Busybee\Core\CalendarBundle\Entity\Year $year = null)
 	{
 		$this->year = $year;
 

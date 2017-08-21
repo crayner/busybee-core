@@ -2,7 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\ActivityBundle\Model\ActivityManager as ActivityManagerBase;
 use Doctrine\Common\Persistence\ObjectManager;

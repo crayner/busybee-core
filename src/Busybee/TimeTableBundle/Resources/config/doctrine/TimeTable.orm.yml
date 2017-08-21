@@ -43,7 +43,7 @@ Busybee\TimeTableBundle\Entity\TimeTable:
             cascade: [ 'persist' ]
     manyToOne:
         year:
-            targetEntity: Busybee\InstituteBundle\Entity\Year
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Year
             orderBy: { 'firstDay': 'DESC' }
             joinColumns:
                 year:

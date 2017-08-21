@@ -2,7 +2,7 @@
 
 namespace Busybee\InstituteBundle\Repository;
 
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 
 /**
  * YearRepository

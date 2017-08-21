@@ -3,7 +3,7 @@
 namespace Busybee\ActivityBundle\Repository;
 
 use Busybee\InstituteBundle\Entity\Space;
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;
 use Doctrine\ORM\EntityRepository;
 

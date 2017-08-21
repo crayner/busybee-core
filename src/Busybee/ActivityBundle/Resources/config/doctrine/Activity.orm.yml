@@ -61,7 +61,7 @@ Busybee\ActivityBundle\Entity\Activity:
                 space:
                     referencedColumnName: id
         year:
-            targetEntity: Busybee\InstituteBundle\Entity\Year
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Year
             orderBy: {'firstDay': 'DESC'}
             joinColumns:
                 year:

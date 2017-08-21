@@ -29,7 +29,7 @@ Busybee\InstituteBundle\Entity\Grade:
             mappedBy: grades
     manyToOne:
         year:
-            targetEntity: Busybee\InstituteBundle\Entity\Year
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Year
             inversedBy: grades
             joinColumn:
                 name: year_id

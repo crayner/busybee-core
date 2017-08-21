@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\SecurityBundle\Model;
 
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\SecurityBundle\Util\CanonicaliserInterface;
 use Doctrine\ORM\NoResultException;
 use Dompdf\Exception;

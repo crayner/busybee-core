@@ -4,7 +4,7 @@ namespace Busybee\PersonBundle\Model;
 use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\FamilyBundle\Entity\Family;
 use Busybee\InstituteBundle\Entity\DepartmentStaff;
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Entity\Locality;
 use Busybee\PersonBundle\Entity\Person;

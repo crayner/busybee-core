@@ -40,7 +40,7 @@ Busybee\InstituteBundle\Entity\SpecialDay:
             nullable: true 
     manyToOne:
         year:
-            targetEntity: Busybee\InstituteBundle\Entity\Year
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Year
             inversedBy: specialDays
             joinColumn:
                 name: year_id

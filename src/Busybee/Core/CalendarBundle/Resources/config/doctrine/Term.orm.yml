@@ -31,7 +31,7 @@ Busybee\InstituteBundle\Entity\Term:
             nullable: true 
     manyToOne:
         year:
-            targetEntity: Busybee\InstituteBundle\Entity\Year
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Year
             inversedBy: terms
             joinColumn:
                 name: year_id

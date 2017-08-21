@@ -53,7 +53,7 @@ class Line extends LineModel
      */
     private $activities;
     /**
-     * @var \Busybee\InstituteBundle\Entity\Year
+     * @var \Busybee\Core\CalendarBundle\Entity\Year
      */
     private $year;
     /**
@@ -289,7 +289,7 @@ class Line extends LineModel
     /**
      * Get year
      *
-     * @return \Busybee\InstituteBundle\Entity\Year
+     * @return \Busybee\Core\CalendarBundle\Entity\Year
      */
     public function getYear()
     {
@@ -299,11 +299,11 @@ class Line extends LineModel
     /**
      * Set year
      *
-     * @param \Busybee\InstituteBundle\Entity\Year $year
+     * @param \Busybee\Core\CalendarBundle\Entity\Year $year
      *
      * @return LearningGroups
      */
-    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+	public function setYear(\Busybee\Core\CalendarBundle\Entity\Year $year = null)
     {
         $this->year = $year;
 

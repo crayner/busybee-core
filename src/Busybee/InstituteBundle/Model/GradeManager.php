@@ -5,7 +5,7 @@ namespace Busybee\InstituteBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Grade;
 use Doctrine\Common\Persistence\ObjectManager;
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 
 class GradeManager
 {

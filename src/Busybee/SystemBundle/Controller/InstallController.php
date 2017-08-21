@@ -3,7 +3,7 @@
 namespace Busybee\SystemBundle\Controller ;
 
 use Busybee\InstituteBundle\Entity\Term;
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\SystemBundle\Event\MiscellaneousSubscriber;

@@ -2,7 +2,7 @@
 
 namespace Busybee\InstituteBundle\Form ;
 
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\InstituteBundle\Events\YearSubscriber;
 use Busybee\InstituteBundle\Model\YearManager;
 use Busybee\InstituteBundle\Validator\Grade;

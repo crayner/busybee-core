@@ -1,4 +1,4 @@
-Busybee\InstituteBundle\Entity\Year:
+Busybee\Core\CalendarBundle\Entity\Year:
     type: entity
     table: calendar
     repositoryClass: Busybee\InstituteBundle\Repository\YearRepository

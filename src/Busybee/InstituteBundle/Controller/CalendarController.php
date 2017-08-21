@@ -5,7 +5,7 @@ namespace Busybee\InstituteBundle\Controller ;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;
 use Symfony\Component\HttpFoundation\Request ;
 use Busybee\InstituteBundle\Form\YearType ;
-use Busybee\InstituteBundle\Entity\Year ;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\InstituteBundle\Entity\SpecialDay ;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 use Symfony\Component\HttpFoundation\Response ;

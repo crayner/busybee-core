@@ -4,7 +4,7 @@ namespace Busybee\TimeTableBundle\Form;
 
 use Busybee\CurriculumBundle\Entity\Course;
 use Busybee\FormBundle\Type\ToggleType;
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Events\LineSubscriber;

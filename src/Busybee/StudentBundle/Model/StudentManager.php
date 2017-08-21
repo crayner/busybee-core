@@ -2,7 +2,7 @@
 
 namespace Busybee\StudentBundle\Model;
 
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\SystemBundle\Setting\SettingManager;

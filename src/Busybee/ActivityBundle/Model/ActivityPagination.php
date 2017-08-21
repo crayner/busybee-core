@@ -2,7 +2,7 @@
 
 namespace Busybee\ActivityBundle\Model;
 
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\PaginationBundle\Model\PaginationManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;

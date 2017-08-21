@@ -4,7 +4,7 @@ namespace Busybee\InstituteBundle\Form;
 
 use Busybee\FormBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Grade;
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\InstituteBundle\Events\GradeSubscriber;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\SystemBundle\Setting\SettingManager;

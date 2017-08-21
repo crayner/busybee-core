@@ -7,7 +7,7 @@ use Busybee\HomeBundle\Exception\Exception;
 use Busybee\InstituteBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\InstituteBundle\Entity\Term;
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\SecurityBundle\Model\UserInterface;

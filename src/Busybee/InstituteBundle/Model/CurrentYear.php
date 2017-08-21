@@ -4,7 +4,7 @@ namespace Busybee\InstituteBundle\Model;
 
 use Busybee\InstituteBundle\Repository\YearRepository;
 use Busybee\SecurityBundle\Doctrine\UserManager;
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\SecurityBundle\Model\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 

@@ -3,7 +3,7 @@ namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\InstituteBundle\Entity\SpecialDay;
 use Busybee\InstituteBundle\Entity\Term;
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\SystemBundle\Setting\SettingManager;
@@ -16,7 +16,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 class TimeTableManager
 {
     /**
-     * @var \Busybee\InstituteBundle\Entity\Year
+     * @var \Busybee\Core\CalendarBundle\Entity\Year
      */
     private $year;
 

@@ -2,7 +2,7 @@
 
 namespace Busybee\StudentBundle\Validator\Constraints;
 
-use Busybee\InstituteBundle\Entity\Year;
+use Busybee\Core\CalendarBundle\Entity\Year;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

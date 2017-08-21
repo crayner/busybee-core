@@ -55,7 +55,7 @@ class Term extends TermModel
 	private $modifiedBy;
 
 	/**
-	 * @var \Busybee\InstituteBundle\Entity\Year
+	 * @var \Busybee\Core\CalendarBundle\Entity\Year
 	 */
 	private $year;
 
@@ -265,7 +265,7 @@ class Term extends TermModel
 	/**
 	 * Get year
 	 *
-	 * @return \Busybee\InstituteBundle\Entity\Year
+	 * @return \Busybee\Core\CalendarBundle\Entity\Year
 	 */
 	public function getYear()
 	{
@@ -275,11 +275,11 @@ class Term extends TermModel
 	/**
 	 * Set year
 	 *
-	 * @param \Busybee\InstituteBundle\Entity\Year $year
+	 * @param \Busybee\Core\CalendarBundle\Entity\Year $year
 	 *
 	 * @return Term
 	 */
-	public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+	public function setYear(\Busybee\Core\CalendarBundle\Entity\Year $year = null)
 	{
 		$this->year = $year;
 

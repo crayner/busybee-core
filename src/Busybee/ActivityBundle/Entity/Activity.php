@@ -36,7 +36,7 @@ class Activity extends ActivityModel
     private $createdOn;
 
     /**
-     * @var \Busybee\InstituteBundle\Entity\Year
+     * @var \Busybee\Core\CalendarBundle\Entity\Year
      */
     private $year;
 
@@ -212,7 +212,7 @@ class Activity extends ActivityModel
     /**
      * Get year
      *
-     * @return \Busybee\InstituteBundle\Entity\Year
+     * @return \Busybee\Core\CalendarBundle\Entity\Year
      */
     public function getYear()
     {
@@ -222,11 +222,11 @@ class Activity extends ActivityModel
     /**
      * Set year
      *
-     * @param \Busybee\InstituteBundle\Entity\Year $year
+     * @param \Busybee\Core\CalendarBundle\Entity\Year $year
      *
      * @return Activity
      */
-    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+	public function setYear(\Busybee\Core\CalendarBundle\Entity\Year $year = null)
     {
         $this->year = $year;
 

@@ -21,7 +21,7 @@ class Grade extends GradeModel
     private $grade;
 
     /**
-     * @var \Busybee\InstituteBundle\Entity\Year
+     * @var \Busybee\Core\CalendarBundle\Entity\Year
      */
     private $year;
 
@@ -101,7 +101,7 @@ class Grade extends GradeModel
     /**
      * Get year
      *
-     * @return \Busybee\InstituteBundle\Entity\Year
+     * @return \Busybee\Core\CalendarBundle\Entity\Year
      */
     public function getYear()
     {
@@ -111,11 +111,11 @@ class Grade extends GradeModel
     /**
      * Set year
      *
-     * @param \Busybee\InstituteBundle\Entity\Year $year
+     * @param \Busybee\Core\CalendarBundle\Entity\Year $year
      *
      * @return Grade
      */
-    public function setYear(\Busybee\InstituteBundle\Entity\Year $year = null)
+	public function setYear(\Busybee\Core\CalendarBundle\Entity\Year $year = null)
     {
         $this->year = $year;
 

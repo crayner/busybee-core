@@ -104,5 +104,5 @@ Busybee\SecurityBundle\Entity\User:
             targetEntity: Busybee\PersonBundle\Entity\Person
             inversedBy: user
         year:
-            targetEntity: Busybee\InstituteBundle\Entity\Year
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Year
             nullable: true
