@@ -34,6 +34,7 @@ class AppKernel extends Kernel
             new Busybee\ActivityBundle\BusybeeActivityBundle(),
             new Busybee\AttendanceBundle\BusybeeAttendanceBundle(),
             new Busybee\PeriodBundle\BusybeePeriodBundle(),
+	        new Busybee\Core\CalendarBundle\BusybeeCalendarBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

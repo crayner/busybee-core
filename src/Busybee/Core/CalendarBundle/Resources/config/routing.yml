@@ -1,0 +1,3 @@
+busybee_calendar_homepage:
+    path:     /
+    defaults: { _controller: BusybeeCalendarBundle:Default:index }

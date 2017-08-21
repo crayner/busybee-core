@@ -1,3 +1,7 @@
+busybee_calendar:
+    resource: "@BusybeeCalendarBundle/Resources/config/routing.yml"
+    prefix:   /
+
 busybee_home:
     resource: "@BusybeeHomeBundle/Resources/config/routing.yml"
     prefix:   /

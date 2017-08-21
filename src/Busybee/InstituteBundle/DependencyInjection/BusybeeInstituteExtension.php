@@ -15,7 +15,6 @@ use Symfony\Component\DependencyInjection\Loader;
 class BusybeeInstituteExtension extends Extension
 {
 	use \Busybee\HomeBundle\DependencyInjection\MenuExtension ;
-	use \Busybee\InstituteBundle\DependencyInjection\CalendarExtension ;
     /**
      * {@inheritdoc}
      */
@@ -27,7 +26,5 @@ class BusybeeInstituteExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-		$container = $this->buildMenu(__DIR__, $container);
-		$container = $this->calendarTabs(__DIR__, $container);
     }
 }
