@@ -1,19 +1,19 @@
-# Person
+# Calendar
 parameters:
     calendar:
         year:
             label: calendar.tab.year
-            include: 'BusybeeInstituteBundle:Calendar:year.html.twig'    
+            include: 'BusybeeCalendarBundle:Calendar:year.html.twig'
             message: yearMessage
         terms:
             label: calendar.tab.terms
-            include: 'BusybeeInstituteBundle:Term:terms.html.twig'
+            include: 'BusybeeCalendarBundle:Term:terms.html.twig'
             message: termMessage
         specialDays:
             label: calendar.tab.specialDays
-            include: 'BusybeeInstituteBundle:SpecialDays:specialDays.html.twig'
+            include: 'BusybeeCalendarBundle:SpecialDays:specialDays.html.twig'
             message: specialDayMessage
         grades:
             label: calendar.tab.grades
-            include: 'BusybeeInstituteBundle:Grade:edit.html.twig'
+            include: 'BusybeeCalendarBundle:Grade:edit.html.twig'
             message: gradeMessage

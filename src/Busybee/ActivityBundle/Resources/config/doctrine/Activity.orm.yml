@@ -32,7 +32,7 @@ Busybee\ActivityBundle\Entity\Activity:
             mappedBy: activity
     manyToMany:
         grades:
-            targetEntity: Busybee\InstituteBundle\Entity\Grade
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Grade
             inversedBy: activities
             cascade: [ 'persist' ]
             joinTable:

@@ -2,7 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
-use Busybee\InstituteBundle\Entity\Grade;
+use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\StaffBundle\Entity\Staff;

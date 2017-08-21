@@ -1,7 +1,3 @@
-busybee_calendar:
-    resource: "@BusybeeCalendarBundle/Resources/config/routing.yml"
-    prefix:   /
-
 busybee_home:
     resource: "@BusybeeHomeBundle/Resources/config/routing.yml"
     prefix:   /
@@ -53,6 +49,10 @@ busybee_attendance:
 busybee_period:
     resource: "@BusybeePeriodBundle/Resources/config/routing.yml"
     prefix:   /period/
+
+busybee_calendar:
+    resource: "@BusybeeCalendarBundle/Resources/config/routing.yml"
+    prefix:   /core/calendar/
 
 busybee_plugin:
     resource: .

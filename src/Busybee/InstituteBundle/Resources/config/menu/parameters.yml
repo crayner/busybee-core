@@ -39,25 +39,3 @@ parameters:
             order: 142
             route: department_edit
             translate: BusybeeInstituteBundle
-        141:
-            label: menu.calendar.manage
-            name: Calendar Management
-            node: 14
-            order: 141
-            menu: 141
-        1410:
-            label: menu.calendar.years
-            name: Years
-            role: ROLE_REGISTRAR
-            node: 141
-            order: 1410
-            route: calendar_years
-        1411:
-            label: menu.calendar.view
-            name: Years
-            role: ROLE_USER
-            node: 141
-            order: 1411
-            route: year_calendar
-            parameters:
-                id: current

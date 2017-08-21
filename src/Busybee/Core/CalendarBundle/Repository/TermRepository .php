@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\InstituteBundle\Repository;
+namespace Busybee\Core\CalendarBundle\Repository;
 
 /**
  * TermRepository

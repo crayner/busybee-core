@@ -1,8 +1,8 @@
 <?php
 
-namespace Busybee\InstituteBundle\Entity;
+namespace Busybee\Core\CalendarBundle\Entity;
 
-use Busybee\InstituteBundle\Model\TermModel;
+use Busybee\Core\CalendarBundle\Model\TermModel;
 
 /**
  * Term

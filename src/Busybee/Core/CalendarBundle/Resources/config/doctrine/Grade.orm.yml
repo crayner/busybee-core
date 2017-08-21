@@ -1,0 +1,46 @@
+Busybee\Core\CalendarBundle\Entity\Grade:
+    type: entity
+    table: grade
+    repositoryClass: Busybee\Core\CalendarBundle\Repository\GradeRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        grade:
+            type: string
+            length: '8'
+        name:
+            type: string
+            length: '24'
+            nullable: true
+        sequence:
+            type: integer
+            length: 2
+    oneToMany:
+        students:
+            targetEntity: Busybee\StudentBundle\Entity\StudentGrade
+            mappedBy: grade
+            cascade: [ 'persist' ]
+    manyToMany:
+        activities:
+            targetEntity: Busybee\ActivityBundle\Entity\Activity
+            mappedBy: grades
+    manyToOne:
+        year:
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Year
+            inversedBy: grades
+            joinColumn:
+                name: year_id
+                referencedColumnName: id
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

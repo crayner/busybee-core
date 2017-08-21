@@ -1,8 +1,8 @@
 <?php
 
-namespace Busybee\InstituteBundle\Entity;
+namespace Busybee\Core\CalendarBundle\Entity;
 
-use Busybee\InstituteBundle\Model\SpecialDay as SpecialDayModel;
+use Busybee\Core\CalendarBundle\Model\SpecialDay as SpecialDayModel;
 
 /**
  * SpecialDay

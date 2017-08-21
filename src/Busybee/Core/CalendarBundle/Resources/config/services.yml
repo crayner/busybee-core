@@ -1,4 +1,123 @@
 services:
-#    busybee_calendar.example:
-#        class: Busybee\Core\CalendarBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    current.year:
+        class: Busybee\Core\CalendarBundle\Model\CurrentYear
+        arguments:
+            - '@busybee_security.user_manager'
+            - '@security.token_storage'
+            - '@year.repository'
+    current.year.currentYear:
+        class: Busybee\Core\CalendarBundle\Model\CurrentYear
+        factory:
+            - '@current.year'
+            - 'getCurrentYear'
+    year.manager:
+        class: Busybee\Core\CalendarBundle\Model\YearManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+    year.repository:
+        class: Busybee\Core\CalendarBundle\Repository\YearRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeCalendarBundle:Year"
+    term.repository:
+        class: Busybee\Core\CalendarBundle\Repository\TermRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeCalendarBundle:Term"
+    calendar.year.type:
+        class: Busybee\Core\CalendarBundle\Form\YearType
+        arguments:
+            - '%calendarStatus%'
+            - '@year.manager'
+        tags:
+            - { name: form.type }
+    calendar.status.validator:
+        class: Busybee\Core\CalendarBundle\Validator\Constraints\CalendarStatusValidator
+        arguments:
+            - '@year.repository'
+        tags:
+            - { name: validator.constraint_validator, alias: calendar_status_validator }
+    calendar.date.validator:
+        class: Busybee\Core\CalendarBundle\Validator\Constraints\CalendarDateValidator
+        arguments:
+            - "@year.repository"
+        tags:
+            - { name: validator.constraint_validator, alias: calendar_date_validator }
+    term.date.validator:
+        class: Busybee\Core\CalendarBundle\Validator\Constraints\TermDateValidator
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: validator.constraint_validator, alias: term_date_validator }
+    form.termType:
+        class: Busybee\Core\CalendarBundle\Form\TermType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    form.specialDayType:
+        class: Busybee\Core\CalendarBundle\Form\SpecialDayType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    specialDay.date.validator:
+        class: Busybee\Core\CalendarBundle\Validator\Constraints\SpecialDayDateValidator
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: validator.constraint_validator, alias: specialday_date_validator }
+    specialDay.repository:
+        class: Busybee\Core\CalendarBundle\Repository\SpecialDayRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeCalendarBundle:SpecialDay"
+    calendar.widget:
+        class: Busybee\Core\CalendarBundle\Service\WidgetService
+        arguments:
+            - '@setting.manager'
+    calendar.manager:
+        class: Busybee\Core\CalendarBundle\Model\CalendarManager
+        arguments:
+            - '@setting.manager'
+            - '@year.repository'
+            - '@doctrine.orm.entity_manager'
+    calendar.extension:
+        class: Busybee\Core\CalendarBundle\Model\CalendarExtension
+        arguments:
+            - '@setting.manager'
+            - '@calendar.manager'
+            - '@my_service_container'
+        tags:
+            - { name: twig.extension }
+    grade.repository:
+        class: Busybee\Core\CalendarBundle\Repository\GradeRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeCalendarBundle:Grade"
+    form.grade.type:
+        class: Busybee\Core\CalendarBundle\Form\GradeType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }
+    calendar.grade.validator:
+        class: Busybee\Core\CalendarBundle\Validator\Constraints\GradeValidator
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: validator.constraint_validator, alias: calendar_grade_validator }
+    grade.manager:
+        class: Busybee\Core\CalendarBundle\Model\GradeManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@current.year.currentYear'

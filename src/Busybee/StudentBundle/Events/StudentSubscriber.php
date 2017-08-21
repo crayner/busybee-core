@@ -2,7 +2,7 @@
 
 namespace Busybee\StudentBundle\Events;
 
-use Busybee\InstituteBundle\Entity\Grade;
+use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\StudentBundle\Entity\StudentGrade;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvent;

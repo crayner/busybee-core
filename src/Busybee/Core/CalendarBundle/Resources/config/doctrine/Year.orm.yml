@@ -35,7 +35,7 @@ Busybee\Core\CalendarBundle\Entity\Year:
             mappedBy: year
             cascade: [persist, remove]
         grades:
-            targetEntity: Busybee\InstituteBundle\Entity\Grade
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Grade
             mappedBy: year
             cascade: [persist, remove]
             orderBy: { sequence: ASC }

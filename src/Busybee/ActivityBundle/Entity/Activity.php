@@ -510,11 +510,11 @@ class Activity extends ActivityModel
     /**
      * Add grade
      *
-     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     * @param \Busybee\Core\CalendarBundle\Entity\Grade $grade
      *
      * @return Activity
      */
-    public function addGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+	public function addGrade(\Busybee\Core\CalendarBundle\Entity\Grade $grade)
     {
         if ($this->grades->contains($grade))
             return $this;
@@ -529,9 +529,9 @@ class Activity extends ActivityModel
     /**
      * Remove grade
      *
-     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     * @param \Busybee\Core\CalendarBundle\Entity\Grade $grade
      */
-    public function removeGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+	public function removeGrade(\Busybee\Core\CalendarBundle\Entity\Grade $grade)
     {
         $this->grades->removeElement($grade);
 

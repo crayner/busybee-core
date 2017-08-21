@@ -1,7 +1,7 @@
 Busybee\Core\CalendarBundle\Entity\Term:
     type: entity
     table: cal_term
-    repositoryClass: Busybee\Core\CalendarBundleRepository\YearRepository
+    repositoryClass: Busybee\Core\CalendarBundle\Repository\YearRepository
     uniqueConstraints:
         name_year:
             columns: [ name, year_id ]

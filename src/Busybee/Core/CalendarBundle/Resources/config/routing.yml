@@ -1,3 +1,30 @@
-busybee_calendar_homepage:
-    path:     /
-    defaults: { _controller: BusybeeCalendarBundle:Default:index }
+calendar_years:
+    path:     /years/
+    defaults: { _controller: BusybeeCalendarBundle:Calendar:years }
+year_calendar:
+    path:     /year/{id}/calendar/{closeWindow}
+    defaults: { _controller: BusybeeCalendarBundle:Calendar:calendar, id: 'current', closeWindow: '' }
+year_edit:
+    path:     /year/{id}/edit/
+    defaults: { _controller: BusybeeCalendarBundle:Calendar:editYear }
+calendar_print:
+    path:     /year/{id}/print/
+    defaults: { _controller: BusybeeCalendarBundle:Calendar:printCalendar }
+year_delete:
+    path:     /year/{id}/delete/
+    defaults: { _controller: BusybeeCalendarBundle:Calendar:deleteYear }
+term_delete:
+    path:     /term/{id}/{year}/delete/
+    defaults: { _controller: BusybeeCalendarBundle:Term:delete }
+specialday_delete:
+    path:     /special_day/{id}/{year}/delete/
+    defaults: { _controller: BusybeeCalendarBundle:SpecialDay:delete }
+year_calendar_change:
+    path:     /year/change/
+    defaults: { _controller: BusybeeCalendarBundle:Calendar:calendarChange }
+specialday_copy:
+    path:     /special_day/{day}/{id}/copy/
+    defaults: { _controller: BusybeeCalendarBundle:Calendar:copySpecialDay }
+grade_edit:
+    path:     /grade/edit/
+    defaults: { _controller: BusybeeInstituteBundle:Grade:edit }

@@ -31,88 +31,7 @@ services:
         class: Busybee\InstituteBundle\Validator\Constraints\InstituteNameValidator
         tags:
             - { name: validator.constraint_validator, alias: institute_name_validator }
-    year.repository:
-        class: Busybee\InstituteBundle\Repository\YearRepository
-        factory: 
-            - "@doctrine"
-            - 'getRepository' 
-        arguments: 
-            - "BusybeeInstituteBundle:Year"
-    term.repository:
-        class: Busybee\InstituteBundle\Repository\TermRepository
-        factory: 
-            - "@doctrine"
-            - 'getRepository' 
-        arguments: 
-            - "BusybeeInstituteBundle:Term"
-    calendar.year.type:
-        class: Busybee\InstituteBundle\Form\YearType
-        arguments:
-            - '%calendarStatus%'
-            - '@year.manager'
-        tags: 
-            - { name: form.type }
-    calendar.status.validator:
-        class: Busybee\InstituteBundle\Validator\Constraints\CalendarStatusValidator
-        arguments:
-            - '@year.repository'
-        tags:
-            - { name: validator.constraint_validator, alias: calendar_status_validator }
-    calendar.date.validator:
-        class: Busybee\InstituteBundle\Validator\Constraints\CalendarDateValidator
-        arguments:
-            - "@year.repository"
-        tags:
-            - { name: validator.constraint_validator, alias: calendar_date_validator }
-    term.date.validator:
-        class: Busybee\InstituteBundle\Validator\Constraints\TermDateValidator
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags:
-            - { name: validator.constraint_validator, alias: term_date_validator }
-    form.termType:
-        class: Busybee\InstituteBundle\Form\TermType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags: 
-            - { name: form.type }
-    form.specialDayType:
-        class: Busybee\InstituteBundle\Form\SpecialDayType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags: 
-            - { name: form.type }
-    specialDay.date.validator:
-        class: Busybee\InstituteBundle\Validator\Constraints\SpecialDayDateValidator
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags:
-            - { name: validator.constraint_validator, alias: specialday_date_validator }
-    specialDay.repository:
-        class: Busybee\InstituteBundle\Repository\SpecialDayRepository
-        factory: 
-            - "@doctrine"
-            - 'getRepository' 
-        arguments: 
-            - "BusybeeInstituteBundle:SpecialDay"
-    calendar.widget:
-        class: Busybee\InstituteBundle\Service\WidgetService
-        arguments:
-            - '@setting.manager'
-    calendar.manager:
-        class: Busybee\InstituteBundle\Model\CalendarManager
-        arguments:
-            - '@setting.manager'
-            - '@year.repository'
-            - '@doctrine.orm.entity_manager'
-    calendar.extension:
-        class: Busybee\InstituteBundle\Model\CalendarExtension
-        arguments:
-            - '@setting.manager'
-            - '@calendar.manager'
-            - '@my_service_container'
-        tags:
-            - { name: twig.extension }
+
     space.pagination:
         class: Busybee\InstituteBundle\Model\SpacePagination
         arguments:
@@ -137,10 +56,6 @@ services:
         class: Busybee\InstituteBundle\Events\CampusSubscriber
         arguments:
             - '%country%'
-    year.manager:
-        class: Busybee\InstituteBundle\Model\YearManager
-        arguments:
-            - '@doctrine.orm.entity_manager'
     department.repository:
         class: Busybee\InstituteBundle\Repository\DepartmentRepository
         factory:
@@ -161,39 +76,3 @@ services:
             - '@setting.manager'
         tags:
             - { name: form.type }
-    grade.repository:
-        class: Busybee\InstituteBundle\Repository\GradeRepository
-        factory:
-            - "@doctrine"
-            - 'getRepository'
-        arguments:
-            - "BusybeeInstituteBundle:Grade"
-    form.grade.type:
-        class: Busybee\InstituteBundle\Form\GradeType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
-        tags:
-            - { name: form.type }
-    calendar.grade.validator:
-        class: Busybee\InstituteBundle\Validator\Constraints\GradeValidator
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags:
-            - { name: validator.constraint_validator, alias: calendar_grade_validator }
-    current.year:
-        class: Busybee\InstituteBundle\Model\CurrentYear
-        arguments:
-            - '@busybee_security.user_manager'
-            - '@security.token_storage'
-            - '@year.repository'
-    current.year.currentYear:
-        class: Busybee\InstituteBundle\Model\CurrentYear
-        factory:
-            - '@current.year'
-            - 'getCurrentYear'
-    grade.manager:
-        class: Busybee\InstituteBundle\Model\GradeManager
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@current.year.currentYear'

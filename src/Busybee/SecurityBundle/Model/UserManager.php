@@ -3,14 +3,11 @@ namespace Busybee\SecurityBundle\Model;
 
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\SecurityBundle\Util\CanonicaliserInterface;
-use Doctrine\ORM\NoResultException;
-use Dompdf\Exception;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Abstract User Manager implementation which can be used as base class for your

@@ -24,7 +24,7 @@ Busybee\StudentBundle\Entity\StudentGrade:
                 student_id:
                     referencedColumnName: id
         grade:
-            targetEntity: Busybee\InstituteBundle\Entity\Grade
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Grade
             inversedBy: students
             joinColumns:
                 grade_id:

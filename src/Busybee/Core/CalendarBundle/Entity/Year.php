@@ -2,7 +2,7 @@
 
 namespace Busybee\Core\CalendarBundle\Entity;
 
-use Busybee\InstituteBundle\Model\Year as YearModel;
+use Busybee\Core\CalendarBundle\Model\Year as YearModel;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
 
@@ -365,11 +365,11 @@ class Year extends YearModel
 	/**
 	 * Add grade
 	 *
-	 * @param \Busybee\InstituteBundle\Entity\Grade $grade
+	 * @param \Busybee\Core\CalendarBundle\Entity\Grade $grade
 	 *
 	 * @return Year
 	 */
-	public function addGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+	public function addGrade(\Busybee\Core\CalendarBundle\Entity\Grade $grade)
 	{
 		if ($this->grades->contains($grade))
 			return $this;
@@ -384,9 +384,9 @@ class Year extends YearModel
 	/**
 	 * Remove grade
 	 *
-	 * @param \Busybee\InstituteBundle\Entity\Grade $grade
+	 * @param \Busybee\Core\CalendarBundle\Entity\Grade $grade
 	 */
-	public function removeGrade(\Busybee\InstituteBundle\Entity\Grade $grade)
+	public function removeGrade(\Busybee\Core\CalendarBundle\Entity\Grade $grade)
 	{
 		$this->grades->removeElement($grade);
 	}

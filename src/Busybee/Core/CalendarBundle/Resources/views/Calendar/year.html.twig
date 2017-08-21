@@ -1,0 +1,22 @@
+{# src/Busybee/InstituteBundle/Resources/views/Calendar/year.html.twig #}
+
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% include '@BusybeeCalendar/Calendar/calendarMenu.html.twig' with {'header': 'calendar.year.title'} %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 well">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-sm-3 well">
+            {{ form_row(form.firstDay) }}
+        </div>
+        <div class="col-sm-3 well">
+            {{ form_row(form.lastDay) }}
+        </div>
+        <div class="col-sm-3 well">
+            {{ form_row(form.status) }}
+        </div>
+    </div>
+</div>
+{% include '@BusybeeHome/Page/panelEnd.html.twig' %}

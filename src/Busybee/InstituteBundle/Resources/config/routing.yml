@@ -1,33 +1,6 @@
 campus_manage:
     path:     /{id}/campus/
     defaults: { _controller: BusybeeInstituteBundle:Campus:index, id: Add }
-calendar_years:
-    path:     /years/
-    defaults: { _controller: BusybeeInstituteBundle:Calendar:years }
-year_calendar:
-    path:     /year/{id}/calendar/{closeWindow}
-    defaults: { _controller: BusybeeInstituteBundle:Calendar:calendar, id: 'current', closeWindow: '' }
-year_edit:
-    path:     /year/{id}/edit/
-    defaults: { _controller: BusybeeInstituteBundle:Calendar:editYear }
-calendar_print:
-    path:     /year/{id}/print/
-    defaults: { _controller: BusybeeInstituteBundle:Calendar:printCalendar }
-year_delete:
-    path:     /year/{id}/delete/
-    defaults: { _controller: BusybeeInstituteBundle:Calendar:deleteYear }
-term_delete:
-    path:     /term/{id}/{year}/delete/
-    defaults: { _controller: BusybeeInstituteBundle:Term:delete }
-specialday_delete:
-    path:     /special_day/{id}/{year}/delete/
-    defaults: { _controller: BusybeeInstituteBundle:SpecialDay:delete }
-year_calendar_change:
-    path:     /year/change/
-    defaults: { _controller: BusybeeInstituteBundle:Calendar:calendarChange }
-specialday_copy:
-    path:     /special_day/{day}/{id}/copy/
-    defaults: { _controller: BusybeeInstituteBundle:Calendar:copySpecialDay }
 campus_space_manage:
     path:     /campus/space/
     defaults: { _controller: BusybeeInstituteBundle:Campus:space }
@@ -37,9 +10,6 @@ campus_space_edit:
 department_edit:
     path:     /department/{id}/edit/
     defaults: { _controller: BusybeeInstituteBundle:Department:edit, id: 'Add' }
-grade_edit:
-    path:     /grade/edit/
-    defaults: { _controller: BusybeeInstituteBundle:Grade:edit }
 campus_space_duplicate:
     path:     /campus/space/duplicate/
     defaults: { _controller: BusybeeInstituteBundle:Campus:duplicateSpace }

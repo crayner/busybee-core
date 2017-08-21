@@ -35,7 +35,7 @@ class StudentGrade extends StudentGradeModel
     private $student;
 
     /**
-     * @var \Busybee\InstituteBundle\Entity\Grade
+     * @var \Busybee\Core\CalendarBundle\Entity\Grade
      */
     private $grade;
 
@@ -162,7 +162,7 @@ class StudentGrade extends StudentGradeModel
     /**
      * Get grade
      *
-     * @return \Busybee\InstituteBundle\Entity\Grade
+     * @return \Busybee\Core\CalendarBundle\Entity\Grade
      */
     public function getGrade()
     {
@@ -172,11 +172,11 @@ class StudentGrade extends StudentGradeModel
     /**
      * Set grade
      *
-     * @param \Busybee\InstituteBundle\Entity\Grade $grade
+     * @param \Busybee\Core\CalendarBundle\Entity\Grade $grade
      *
      * @return StudentGrade
      */
-    public function setGrade(\Busybee\InstituteBundle\Entity\Grade $grade = null, $add = true)
+	public function setGrade(\Busybee\Core\CalendarBundle\Entity\Grade $grade = null, $add = true)
     {
         if ($add)
             $grade->addStudent($this);

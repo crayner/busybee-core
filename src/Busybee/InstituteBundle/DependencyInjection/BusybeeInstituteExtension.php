@@ -26,5 +26,7 @@ class BusybeeInstituteExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+	    $container = $this->buildMenu(__DIR__, $container);
+
     }
 }
