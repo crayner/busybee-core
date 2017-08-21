@@ -70,6 +70,11 @@ class TimeTable extends TimeTableModel
      */
     private $locked;
 
+	/**
+	 * @var boolean
+	 */
+	private $generated;
+
     /**
      * Constructor
      */
@@ -328,11 +333,15 @@ class TimeTable extends TimeTableModel
     /**
      * Remove day
      *
-     * @param \Busybee\TimeTableBundle\Entity\Day $day
+     * @param Day $day
+     *
+     * @return $this
      */
     public function removeDay(\Busybee\TimeTableBundle\Entity\Day $day)
     {
         $this->days->removeElement($day);
+
+	    return $this;
     }
 
     /**
@@ -352,7 +361,7 @@ class TimeTable extends TimeTableModel
      *
      * @return TimeTable
      */
-    public function setLocked($locked)
+	public function setLocked($locked): TimeTable
     {
         $this->locked = $locked;
 
@@ -364,16 +373,10 @@ class TimeTable extends TimeTableModel
      *
      * @return boolean
      */
-    public function getLocked()
+	public function getLocked(): bool
     {
         return $this->locked;
     }
-
-    /**
-     * @var boolean
-     */
-    private $generated;
-
 
     /**
      * Set generated
@@ -382,7 +385,7 @@ class TimeTable extends TimeTableModel
      *
      * @return TimeTable
      */
-    public function setGenerated($generated)
+	public function setGenerated($generated): TimeTable
     {
         $this->generated = $generated;
 
@@ -394,7 +397,7 @@ class TimeTable extends TimeTableModel
      *
      * @return boolean
      */
-    public function getGenerated()
+	public function getGenerated(): bool
     {
         return $this->generated;
     }

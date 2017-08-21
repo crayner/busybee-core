@@ -1,0 +1,16 @@
+{# src/Busybee/TimeTableBundle/Resources/views/TimeTable/generate.html.twig #}
+
+{% trans_default_domain "BusybeeTimeTableBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block titleContainer %}{% endblock %}
+{% block menuContainer %}{% endblock %}
+
+{% block contentContainer %}
+    <div id="buildingTimeTable"></div>
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

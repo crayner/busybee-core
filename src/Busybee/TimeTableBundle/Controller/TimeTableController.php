@@ -8,6 +8,7 @@ use Busybee\TimeTableBundle\Form\ColumnType;
 use Busybee\TimeTableBundle\Form\TimeTableType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -113,6 +114,9 @@ class TimeTableController extends Controller
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
         $tm = $this->get('timetable.manager')->setTimeTable($this->get('timetable.repository')->find($id));
+
+	    if ($tm->getTimeTable()->getLocked() && !$tm->getTimeTable()->getGenerated())
+		    return $this->generateTimeTable($id);
 
         $up = $this->get('period.pagination');
         $lp = $this->get('line.pagination');
@@ -355,4 +359,19 @@ class TimeTableController extends Controller
 
         return new JsonResponse([], 200);
     }
+
+	/**
+	 * @param $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	private function generateTimeTable($id)
+	{
+		return $this->render('BusybeeTimeTableBundle:TimeTable:generate.html.twig',
+			[
+				'id' => $id,
+			]
+		);
+
+	}
 }

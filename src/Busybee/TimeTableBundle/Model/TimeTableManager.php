@@ -148,6 +148,7 @@ class TimeTableManager
                 ->leftJoin('t.year', 'y')
                 ->where('y.id = :year_id')
                 ->setParameter('year_id', $this->year->getId())
+	            ->setMaxResults(1)
                 ->getQuery()
                 ->getSingleResult();
         } catch (\Exception $e) {
