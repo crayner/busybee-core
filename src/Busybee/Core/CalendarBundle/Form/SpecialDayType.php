@@ -2,6 +2,7 @@
 
 namespace Busybee\Core\CalendarBundle\Form;
 
+use Busybee\Core\CalendarBundle\Entity\SpecialDay;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Symfony\Component\Form\AbstractType;
@@ -134,8 +135,8 @@ class SpecialDayType extends AbstractType
 	{
 		$resolver->setDefaults(
 			array(
-				'data_class'         => 'Busybee\Core\CalendarBundle\Entity\SpecialDay',
-				'translation_domain' => 'BusybeeInstituteBundle',
+				'data_class'         => SpecialDay::class,
+				'translation_domain' => 'BusybeeCalendarBundle',
 				'year_data'          => null,
 			)
 		);

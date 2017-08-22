@@ -92,7 +92,7 @@ class TermType extends AbstractType
 		$resolver->setDefaults(
 			array(
 				'data_class'         => Term::class,
-				'translation_domain' => 'BusybeeInstituteBundle',
+				'translation_domain' => 'BusybeeCalendarBundle',
 				'year_data'          => null,
 				'error_bubbling'     => true,
 			)

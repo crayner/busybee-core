@@ -1,4 +1,4 @@
-{% trans_default_domain "BusybeeInstituteBundle" %}
+{% trans_default_domain "BusybeeCalendarBundle" %}
 
 {% block specialday_label %}{% endblock %}
 {% block specialday_errors %}{% endblock %}
@@ -8,10 +8,10 @@
     {% set h3Content = '<div class="collection-actions collection-panel">' %}
     {% set sday_id = '0' %}
     {% if form.vars.value is not null %}{% set sday_id = form.vars.value.getId() %}{% endif %}
-    {% set h3Content = h3Content ~ deleteButton({'title': 'specialDay.delete.title', 'transDomain': 'BusybeeInstituteBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;', 'javascript': {'function': 'return removeSpecialDay', 'options': {'id': sday_id, 'year': app.request.get('id')}}}) %}
+    {% set h3Content = h3Content ~ deleteButton({'title': 'specialDay.delete.title', 'transDomain': 'BusybeeCalendarBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;', 'javascript': {'function': 'return removeSpecialDay', 'options': {'id': sday_id, 'year': app.request.get('id')}}}) %}
     {% set h3Content = h3Content ~ saveButton({'name': 'specialDays'}) %}
     {% set h3Content = h3Content ~ '</div>' %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': panelTitle, 'panelStyle': 'info', 'transDomain': 'BusybeeInstituteBundle'} %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': panelTitle, 'panelStyle': 'info', 'transDomain': 'BusybeeCalendarBundle'} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 well">

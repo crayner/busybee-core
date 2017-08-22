@@ -24,9 +24,15 @@ class GradeType extends AbstractType
 	private $om;
 
 	/**
+	 * @var SettingManager
+	 */
+	private $sm;
+
+	/**
 	 * DepartmentType constructor.
 	 *
-	 * @param ObjectManager $om
+	 * @param ObjectManager  $om
+	 * @param SettingManager $sm
 	 */
 	public function __construct(ObjectManager $om, SettingManager $sm)
 	{
@@ -45,17 +51,10 @@ class GradeType extends AbstractType
 					'label'        => 'grade.label.grade',
 					'setting_name' => 'student.groups',
 					'required'     => true,
-					'placeholder'  => 'grade.placeholder.grade'
+					'placeholder'  => 'grade.placeholder.grade',
 				]
 			)
-			->add('name', SettingChoiceType::class,
-				[
-					'label'        => 'grade.label.name',
-					'setting_name' => 'student.groups._flip',
-					'required'     => true,
-					'placeholder'  => 'grade.placeholder.name'
-				]
-			)
+			->add('name', HiddenType::class)
 			->add('year', HiddenType::class)
 			->add('sequence', HiddenType::class);
 

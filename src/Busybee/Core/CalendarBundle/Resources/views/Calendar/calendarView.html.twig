@@ -1,6 +1,6 @@
 {# src/Busybee/InstituteBundle/Resources/views/Calendar/calendarView.html.twig #}
 
-{% trans_default_domain "BusybeeInstituteBundle" %}
+{% trans_default_domain "BusybeeCalendarBundle" %}
 
 {% set row = 1 %}
 
@@ -17,7 +17,7 @@
         {% if closeWindow is defined %}
             {{ closeButton()|raw }}
         {% else %}
-            {{ returnButton({'title': 'calendar.year.return', 'transDomain': 'BusybeeInstituteBundle', 'windowOpen': {'route': path('calendar_years')}})|raw }}
+            {{ returnButton({'title': 'calendar.year.return', 'transDomain': 'BusybeeCalendarBundle', 'windowOpen': {'route': path('calendar_years')}})|raw }}
         {% endif %}
         <button title='{{ 'calendar.generate.print'|trans }}' type="button"
                 class="halflings halflings-print btn btn-info"

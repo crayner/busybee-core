@@ -132,8 +132,8 @@ class SettingManager implements ContainerAwareInterface
         if (substr($name, -6) === '._flip') {
             $flip = true;
             $name = str_replace('._flip', '', $name);
-
         }
+
         try {
             $this->setting = $this->repo->findOneByName($name);
         } catch (\Exception $e) {
@@ -187,8 +187,9 @@ class SettingManager implements ContainerAwareInterface
                 break;
             case 'array':
                 if ($flip)
-                    return $this->writeSettingToSession($name, array_flip(Yaml::parse($this->setting->getValue())));
-                return $this->writeSettingToSession($name, Yaml::parse($this->setting->getValue()));
+	                return $this->writeSettingToSession($name . '_flip', array_flip(Yaml::parse($this->setting->getValue())));
+                else
+	                return $this->writeSettingToSession($name, Yaml::parse($this->setting->getValue()));
                 break;
             case 'integer':
                 return $this->writeSettingToSession($name, intval($this->setting->getValue()));

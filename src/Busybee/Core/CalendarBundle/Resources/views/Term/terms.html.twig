@@ -1,6 +1,6 @@
 {# src/Busybee/InstituteBundle/Resources/views/Calendar/terms.html.twig #}
 
-{% trans_default_domain "BusybeeInstituteBundle" %}
+{% trans_default_domain "BusybeeCalendarBundle" %}
 
 {% include '@BusybeeCalendar/Calendar/calendarMenu.html.twig' with {'header': 'calendar.term.title', 'name': form.name.vars.value, 'panelParagraph': 'calendar.help.terms'} %}
 	{{ form_widget(form.terms) }}

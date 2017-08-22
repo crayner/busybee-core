@@ -54,6 +54,15 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
             throw new \InvalidArgumentException('Setting ' . $options['setting_name'] . ' not found.' . $names);
         }
         $choices = $this->settingManager->get($options['setting_name']);
+
+	    if ($options['use_label_as_value'])
+	    {
+		    $x = [];
+		    foreach ($choices as $label)
+			    $x[$label] = $label;
+		    $choices = $x;
+	    }
+
         $newOptions = array();
         $newOptions['choices'] = $choices;
         $newOptions['label'] = isset($options['label']) ? $options['label'] : null;

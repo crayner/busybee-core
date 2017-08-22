@@ -1,6 +1,6 @@
 {# src/Busybee/InstituteBundle/Resources/views/Calendar/years.html.twig #}
 
-{% trans_default_domain "BusybeeInstituteBundle" %}
+{% trans_default_domain "BusybeeCalendarBundle" %}
 
 {% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
@@ -10,7 +10,7 @@
 
 {% block contentContainer %}
     {% set h3Content = addButton({'windowOpen': {'route': path('year_edit', {'id': 'Add'})}}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstituteBundle', 'header': 'years.list'} %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'BusybeeCalendarBundle', 'header': 'years.list'} %}
     <div class="container-fluid">
         {% if Years|length > 0 %}
         <div class="row row-header">
@@ -39,11 +39,11 @@
                     {{ Year.lastDay|date|date("D, jS F Y") }}
                 </div>
                 <div class="col-sm-4 col-md-4">
-                    {{ editButton({'style': '', 'windowOpen': {'route': path('year_edit', {'id': Year.id})}, 'title': 'year.edit.title', 'class': 'btn btn-warning halflings halflings-edit', 'transDomain': 'BusybeeInstituteBundle'})|raw }}
+                    {{ editButton({'style': '', 'windowOpen': {'route': path('year_edit', {'id': Year.id})}, 'title': 'year.edit.title', 'class': 'btn btn-warning halflings halflings-edit', 'transDomain': 'BusybeeCalendarBundle'})|raw }}
                     {% set additional = 'onclick="confirmDelete(\'' ~ path('year_delete', {'id': Year.id}) ~ '\')"' %}
                     {% if not Year.canDelete %}{% set additional = additional ~ ' disabled' %}{% endif %}
                     {{ deleteButton({'additional': additional, 'style': ''})|raw }}
-                    {{ miscButton({'title': 'year.calendar.button', 'type': 'button', 'class': 'halflings halflings-calendar btn btn-info', 'style': '', 'transDomain': 'BusybeeInstituteBundle', 'windowOpen': {'route': path('year_calendar', {'id': Year.id, 'closeWindow': true}), 'target': 'window.calendar', 'params': 'width=1200,height=900'}})|raw }}
+                    {{ miscButton({'title': 'year.calendar.button', 'type': 'button', 'class': 'halflings halflings-calendar btn btn-info', 'style': '', 'transDomain': 'BusybeeCalendarBundle', 'windowOpen': {'route': path('year_calendar', {'id': Year.id, 'closeWindow': true}), 'target': 'window.calendar', 'params': 'width=1200,height=900'}})|raw }}
                 </div>
             </div>
         {% endfor %}

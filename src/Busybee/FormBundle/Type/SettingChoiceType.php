@@ -48,10 +48,11 @@ class SettingChoiceType extends AbstractType
         );
         $resolver->setDefaults(
             array(
-                'expanded' => false,
-                'multiple' => false,
-                'placeholder' => null,
-                'year_data' => null,
+	            'expanded'           => false,
+	            'multiple'           => false,
+	            'placeholder'        => null,
+	            'year_data'          => null,
+	            'use_label_as_value' => false,
             )
         );
     }
@@ -72,7 +73,8 @@ class SettingChoiceType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['setting_name'] = $options['setting_name'];
+	    $view->vars['setting_name']       = $options['setting_name'];
+	    $view->vars['use_label_as_value'] = $options['use_label_as_value'];
     }
 
     /**
