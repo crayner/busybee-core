@@ -3,7 +3,7 @@
 namespace Busybee\TimeTableBundle\Model;
 
 
-use Busybee\HomeBundle\Exception\Exception;
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\Core\CalendarBundle\Entity\Term;

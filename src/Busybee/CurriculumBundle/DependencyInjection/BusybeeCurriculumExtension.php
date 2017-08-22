@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class BusybeeCurriculumExtension extends Extension
 {
-    use \Busybee\HomeBundle\DependencyInjection\MenuExtension;
+	use \Busybee\Core\HomeBundle\DependencyInjection\MenuExtension;
     use \Busybee\CurriculumBundle\DependencyInjection\CurriculumExtension;
 
 

@@ -2,7 +2,7 @@
 
 namespace Busybee\PersonBundle\Form;
 
-use Busybee\FormBundle\Type\CSVType;
+use Busybee\Core\FormBundle\Type\CSVType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;

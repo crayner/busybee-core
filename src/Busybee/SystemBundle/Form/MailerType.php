@@ -2,7 +2,7 @@
 
 namespace Busybee\SystemBundle\Form;
 
-use Busybee\FormBundle\Type\TextType;
+use Busybee\Core\FormBundle\Type\TextType;
 use Busybee\SystemBundle\Event\MailerSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

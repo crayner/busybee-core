@@ -20,7 +20,7 @@ Busybee\TimeTableBundle\Entity\Column:
             - NotBlank: ~
         nameShort:
             - NotBlank: ~
-            - Busybee\FormBundle\Validator\NoWhiteSpace: ~
+            - Busybee\Core\FormBundle\Validator\NoWhiteSpace: ~
         periods:
             - Valid: ~
         sequence:

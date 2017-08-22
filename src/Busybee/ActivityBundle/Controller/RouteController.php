@@ -2,7 +2,7 @@
 
 namespace Busybee\ActivityBundle\Controller;
 
-use Busybee\HomeBundle\Exception\Exception;
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class RouteController extends Controller

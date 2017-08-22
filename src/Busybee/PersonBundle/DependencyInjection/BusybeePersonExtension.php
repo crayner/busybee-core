@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Loader;
 class BusybeePersonExtension extends Extension
 {
 
-	use \Busybee\HomeBundle\DependencyInjection\MenuExtension ;
+	use \Busybee\Core\HomeBundle\DependencyInjection\MenuExtension;
     use \Busybee\PersonBundle\DependencyInjection\PersonExtension ;
 
     /**

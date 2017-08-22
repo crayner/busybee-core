@@ -1,0 +1,82 @@
+services:
+    form.errors.parser:
+        class: Busybee\Core\FormBundle\Model\FormErrorsParser
+    form.all_form_errors_extension:
+        class: Busybee\Core\FormBundle\Model\FormErrorsExtension
+        arguments:
+            - '@form.errors.parser'
+            - '@translator'
+        tags:
+            - { name: twig.extension }
+    form.type.image:
+        class: Busybee\Core\FormBundle\Type\ImageType
+        arguments:
+            - '@image.uploader'
+        tags: 
+            - { name: form.type }    
+    image.uploader:
+        class: Busybee\Core\FormBundle\Model\ImageUploader
+        arguments:
+            - "%upload_path%"
+    validator.logo:
+        class: Busybee\Core\FormBundle\Validator\Logo
+    validator.logo.constraint:
+        class: Busybee\Core\FormBundle\Validator\Constraints\LogoValidator
+        tags:
+            - { name: validator.constraint_validator, alias: logo_validator }
+    validator.background.image:
+        class: Busybee\Core\FormBundle\Validator\BackgroundImage
+    validator.background.image.constraint:
+        class: Busybee\Core\FormBundle\Validator\Constraints\BackgroundImageValidator
+        tags:
+            - { name: validator.constraint_validator, alias: background_image_validator }
+    form.time.type:
+        class: Busybee\Core\FormBundle\Type\TimeType
+        arguments:
+            - '%timezone%'
+        tags: 
+            - { name: form.type }
+    validator.setting.choice.constraint:
+        class: Busybee\Core\FormBundle\Validator\Constraints\SettingChoiceValidator
+        arguments:
+            - '@setting.manager'
+        tags:
+            - { name: validator.constraint_validator, alias: setting_validator }
+    validator.blank.or.valid.constraint:
+        class: Busybee\Core\FormBundle\Validator\Constraints\BlankOrValidValidator
+        tags:
+            - { name: validator.constraint_validator, alias: blank_or_valid_validator }
+    file.uploader:
+        class: Busybee\Core\FormBundle\Model\FileUpLoad
+        arguments:
+            - "%upload_path%"
+    form.type.csv:
+        class: Busybee\Core\FormBundle\Type\CSVType
+        arguments:
+            - '@file.uploader'
+        tags:
+            - { name: form.type }
+    form.type.setting.choice:
+        class: Busybee\Core\FormBundle\Type\SettingChoiceType
+        arguments:
+            - '@setting.manager'
+        tags:
+            - { name: form.type }
+    validator.unique.or.blank:
+        class: Busybee\Core\FormBundle\Validator\Constraints\UniqueOrBlankValidator
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: validator.constraint_validator, alias: unique_or_blank_validator }
+    validator.integer.constraint:
+        class: Busybee\Core\FormBundle\Validator\Constraints\IntegerValidator
+        tags:
+            - { name: validator.constraint_validator, alias: integer_validator }
+    validator.nowhitespace.constraint:
+        class: Busybee\Core\FormBundle\Validator\Constraints\NoWhiteSpaceValidator
+        tags:
+            - { name: validator.constraint_validator, alias: nowhitespace_validator }
+    validator.uppercase.constraint:
+        class: Busybee\Core\FormBundle\Validator\Constraints\UpperCaseValidator
+        tags:
+            - { name: validator.constraint_validator, alias: uppercase_validator }

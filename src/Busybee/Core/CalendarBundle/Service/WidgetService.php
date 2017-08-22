@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\CalendarBundle\Service;
 
 use Busybee\Core\CalendarBundle\Service\WidgetService\Calendar;
@@ -12,7 +11,7 @@ use Busybee\SystemBundle\Setting\SettingManager;
  */
 class WidgetService
 {
-	const DEFAULT_CALENDAR_MODEL = '\Busybee\Core\CalendarBundle\Service\WidgetService\Calendar';
+	const DEFAULT_CALENDAR_MODEL = Calendar::class;
 	protected $sm;
 	private $calendarModel = self::DEFAULT_CALENDAR_MODEL;
 	private $monthModel = null;

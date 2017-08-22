@@ -1,0 +1,15 @@
+{# src/Busybee/HomeBundle/Resources/views/Error/index.html.twig #}
+{% extends "BusybeeHomeBundle:Default:index.html.twig" %}
+
+{% trans_default_domain "BusybeeHomeBundle" %}
+{% block headerTitle %}Busybee Error{% endblock headerTitle %}
+{% block headerLead %}{% endblock headerLead %}
+
+
+	
+		{% block contentContainer %}
+            <div class="alert alert-danger" role="alert">
+                {{ message|trans }}
+            </div>
+
+        {% endblock contentContainer %}

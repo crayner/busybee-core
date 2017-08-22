@@ -2,10 +2,10 @@
 
 namespace Busybee\PersonBundle\Form ;
 
-use Busybee\FormBundle\Type\AutoCompleteType;
-use Busybee\FormBundle\Type\ImageType;
-use Busybee\FormBundle\Type\SettingChoiceType;
-use Busybee\FormBundle\Type\ToggleType;
+use Busybee\Core\FormBundle\Type\AutoCompleteType;
+use Busybee\Core\FormBundle\Type\ImageType;
+use Busybee\Core\FormBundle\Type\SettingChoiceType;
+use Busybee\Core\FormBundle\Type\ToggleType;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Events\PersonSubscriber;
 use Busybee\PersonBundle\Model\PersonManager;

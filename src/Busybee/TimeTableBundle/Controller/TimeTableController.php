@@ -2,7 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Controller;
 
-use Busybee\HomeBundle\Exception\Exception;
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Form\ColumnType;
 use Busybee\TimeTableBundle\Form\TimeTableType;

@@ -2,7 +2,7 @@
 
 namespace Busybee\SystemBundle\Model ;
 
-use Busybee\HomeBundle\Model\MenuManager;
+use Busybee\Core\HomeBundle\Model\MenuManager;
 use Busybee\SystemBundle\Setting\SettingManager ;
 
 class SettingExtension extends \Twig_Extension

@@ -9,9 +9,9 @@ Busybee\PersonBundle\Entity\Phone:
             - Busybee\PersonBundle\Validator\Phone: ~
         phoneType:
             - NotBlank: ~
-            - \Busybee\FormBundle\Validator\SettingChoice:
+            - \Busybee\Core\FormBundle\Validator\SettingChoice:
                 name: 'Phone.TypeList'
         countryCode:
             - NotBlank: ~
-            - \Busybee\FormBundle\Validator\SettingChoice:
+            - \Busybee\Core\FormBundle\Validator\SettingChoice:
                 name: 'Phone.CountryList'

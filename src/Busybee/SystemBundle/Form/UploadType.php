@@ -2,7 +2,7 @@
 
 namespace Busybee\SystemBundle\Form;
 
-use Busybee\FormBundle\Type\ToggleType;
+use Busybee\Core\FormBundle\Type\ToggleType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;

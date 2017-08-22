@@ -14,12 +14,12 @@ Busybee\ActivityBundle\Entity\Activity:
             - NotBlank: ~
         nameShort:
             - NotBlank: ~
-            - Busybee\FormBundle\Validator\NoWhiteSpace: ~
+            - Busybee\Core\FormBundle\Validator\NoWhiteSpace: ~
         year:
             - Valid: ~
             - NotBlank: ~
         teachingLoad:
-            - Busybee\FormBundle\Validator\Integer: ~
+            - Busybee\Core\FormBundle\Validator\Integer: ~
             - Range:
                 min: 0
                 max: 99

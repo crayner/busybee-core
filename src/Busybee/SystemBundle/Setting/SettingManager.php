@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\SystemBundle\Setting ;
 
-use Busybee\HomeBundle\Exception\Exception;
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\SystemBundle\Entity\Setting;
 use Busybee\SystemBundle\Repository\SettingRepository;

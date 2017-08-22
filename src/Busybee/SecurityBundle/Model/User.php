@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\SecurityBundle\Model;
 
-use Busybee\HomeBundle\Exception\Exception;
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\PersonBundle\Entity\Person;
 use Symfony\Component\Yaml\Yaml;
 

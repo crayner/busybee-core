@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\PaginationBundle\Model ;
 
-use Busybee\HomeBundle\Exception\Exception;
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\PaginationBundle\Form\PaginationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;

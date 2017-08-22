@@ -2,7 +2,7 @@
 
 namespace Busybee\PersonBundle\Form;
 
-use Busybee\FormBundle\Type\ToggleType;
+use Busybee\Core\FormBundle\Type\ToggleType;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\InstituteBundle\Form\YearEntityType;
 use Busybee\PersonBundle\Entity\Person;

@@ -2,7 +2,7 @@
 
 namespace Busybee\SecurityBundle\Security;
 
-use Busybee\HomeBundle\Exception\Exception;
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Model\PersonInterface;
 use Busybee\PersonBundle\Model\PersonManager;

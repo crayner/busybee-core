@@ -10,5 +10,5 @@ Busybee\PersonBundle\Entity\Locality:
             message: 'locality.unique'
     properties:
         territory:
-            - \Busybee\FormBundle\Validator\SettingChoice:
+            - \Busybee\Core\FormBundle\Validator\SettingChoice:
                 name: 'Address.TerritoryList'

@@ -2,8 +2,8 @@
 
 namespace Busybee\SystemBundle\Form;
 
-use Busybee\FormBundle\Type\TextType;
-use Busybee\FormBundle\Type\ToggleType;
+use Busybee\Core\FormBundle\Type\TextType;
+use Busybee\Core\FormBundle\Type\ToggleType;
 use Busybee\SecurityBundle\Validator\Password;
 use Busybee\SystemBundle\Event\MiscellaneousSubscriber;
 use Symfony\Component\Form\AbstractType;

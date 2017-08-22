@@ -1,0 +1,8 @@
+{# src/Busybee/HomeBundle/Resources/views/Menu/site-menu.html.twig #}
+
+{% trans_default_domain "BusybeeHomeBundle" %}
+
+{% set nodes = get_menu() %}
+{% for node in nodes %}
+    {% include 'BusybeeHomeBundle:Menu:dropdown.html.twig' with {'menu': node} %}
+{% endfor %}

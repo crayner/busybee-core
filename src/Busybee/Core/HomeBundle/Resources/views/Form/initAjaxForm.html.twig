@@ -1,0 +1,65 @@
+{% trans_default_domain 'BusybeeHomeBundle' %}
+
+<script type="text/javascript">
+    function initAjaxForm() {
+        $('body').on('submit', '.ajaxForm', function (e) {
+            e.preventDefault();
+
+            ajaxindicatorstart('{{ 'ajax.wait_message'| trans }}');
+            $button = $(document.activeElement);
+
+            $('<input />').attr('type', 'hidden')
+                .attr('name', "subBut")
+                .attr('value', $button.attr("id"))
+                .appendTo(this);
+
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                async: false
+            })
+                .done(function (data) {
+                    if (typeof data.redirect !== 'undefined') {
+                        window.setInterval(securityLogin(data.redirect), 250);
+                    }
+                    if (typeof data.message !== 'undefined') {
+                        $('.form_error').html(data.message);
+                        $('.form_error').delay(500).fadeOut(3000);
+                    }
+                    if (typeof data.form !== 'undefined') {
+                        $('#form_body').html(data.form);
+                    }
+                    if ($(".fadeAlert").length) {
+                        $(".fadeAlert").delay(500).fadeOut(3000);
+                    }
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    if (typeof data.redirect !== 'undefined') {
+                        window.location.href = data.redirect;
+                    }
+                    if (typeof jqXHR.responseJSON !== 'undefined') {
+                        if (jqXHR.responseJSON.hasOwnProperty('form')) {
+                            $('#form_body').html(jqXHR.responseJSON.form);
+                        }
+
+                        $('.form_error').html(jqXHR.responseJSON.message);
+                        $('.form_error').delay(500).fadeOut(3000);
+
+                    } else {
+                        alert(errorThrown);
+                    }
+
+                });
+
+            ajaxindicatorstop();
+
+        });
+
+    }
+
+    {% include 'BusybeeHomeBundle:Form:initAjaxCore.html.twig' %}
+
+    initAjaxForm();
+
+</script>

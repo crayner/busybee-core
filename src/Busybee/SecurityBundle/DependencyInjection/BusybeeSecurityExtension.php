@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\Loader;
 class BusybeeSecurityExtension extends Extension
 {
 
-	use \Busybee\HomeBundle\DependencyInjection\MenuExtension ;
+	use \Busybee\Core\HomeBundle\DependencyInjection\MenuExtension;
 
     /**
      * {@inheritdoc}

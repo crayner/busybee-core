@@ -2,11 +2,11 @@
 
 namespace Busybee\SystemBundle\Controller ;
 
-use Busybee\FormBundle\Type\SettingChoiceType;
-use Busybee\FormBundle\Type\TextType;
-use Busybee\FormBundle\Type\TimeType;
-use Busybee\FormBundle\Type\ToggleType;
-use Busybee\FormBundle\Validator\Integer;
+use Busybee\Core\FormBundle\Type\SettingChoiceType;
+use Busybee\Core\FormBundle\Type\TextType;
+use Busybee\Core\FormBundle\Type\TimeType;
+use Busybee\Core\FormBundle\Type\ToggleType;
+use Busybee\Core\FormBundle\Validator\Integer;
 use Busybee\SystemBundle\Entity\Setting;
 use Busybee\SystemBundle\Form\CreateType;
 use Busybee\SystemBundle\Form\SettingType;
@@ -20,8 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml ;
 use Symfony\Component\Form\FormError ;
 use InvalidArgumentException ;
-use Busybee\FormBundle\Type\ImageType ;
-use Busybee\FormBundle\Type\YamlArrayType ;
+use Busybee\Core\FormBundle\Type\ImageType;
+use Busybee\Core\FormBundle\Type\YamlArrayType;
 use Symfony\Component\HttpFoundation\RedirectResponse ;
 
 
@@ -112,13 +112,13 @@ class SettingController extends Controller
             $constraints[] = $this->get($setting->getValidator());
         switch ($setting->getType()) {
             case 'array':
-                $constraints[] = new \Busybee\HomeBundle\Validator\Yaml();
+	            $constraints[] = new \Busybee\Core\HomeBundle\Validator\Yaml();
                 break ;
             case 'twig':
-                $constraints[] = new \Busybee\HomeBundle\Validator\Twig();
+	            $constraints[] = new \Busybee\Core\HomeBundle\Validator\Twig();
                 break ;
             case 'regex':
-                $constraints[] = new \Busybee\HomeBundle\Validator\Regex();
+	            $constraints[] = new \Busybee\Core\HomeBundle\Validator\Regex();
                 break ;
         }
 
@@ -187,7 +187,7 @@ class SettingController extends Controller
                             'constraints' => array_merge(
                                 $constraints,
                                 array(
-                                    new \Busybee\HomeBundle\Validator\Yaml(),
+	                                new \Busybee\Core\HomeBundle\Validator\Yaml(),
                                 )
                             ),
                         )
@@ -205,7 +205,7 @@ class SettingController extends Controller
                             'constraints' => array_merge(
                                 $constraints,
                                 array(
-                                    new \Busybee\HomeBundle\Validator\Twig(),
+	                                new \Busybee\Core\HomeBundle\Validator\Twig(),
                                 )
                             ),
                         )
@@ -243,7 +243,7 @@ class SettingController extends Controller
                             'constraints' => array_merge(
                                 $constraints,
                                 array(
-                                    new \Busybee\HomeBundle\Validator\Regex(),
+	                                new \Busybee\Core\HomeBundle\Validator\Regex(),
                                 )
                             ),
                         )

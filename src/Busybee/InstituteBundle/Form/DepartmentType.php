@@ -3,7 +3,7 @@
 namespace Busybee\InstituteBundle\Form;
 
 use Busybee\CurriculumBundle\Entity\Course;
-use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\Core\FormBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Department;
 use Busybee\InstituteBundle\Events\DepartmentSubscriber;
 use Busybee\SystemBundle\Setting\SettingManager;

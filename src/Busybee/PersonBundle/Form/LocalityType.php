@@ -2,7 +2,7 @@
 
 namespace Busybee\PersonBundle\Form ;
 
-use Busybee\FormBundle\Type\SettingChoiceType;
+use Busybee\Core\FormBundle\Type\SettingChoiceType;
 use Busybee\SecurityBundle\Form\ResetType;
 use Symfony\Component\Form\AbstractType ;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
