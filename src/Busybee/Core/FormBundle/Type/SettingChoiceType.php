@@ -3,7 +3,7 @@
 namespace Busybee\Core\FormBundle\Type;
 
 use Busybee\Core\FormBundle\Events\SettingChoiceSubscriber;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -21,7 +21,7 @@ class AppKernel extends Kernel
 			new Core23\DompdfBundle\Core23DompdfBundle(),
 	        new Busybee\Core\HomeBundle\BusybeeHomeBundle(),
             new Busybee\SecurityBundle\BusybeeSecurityBundle(),
-            new Busybee\SystemBundle\SystemBundle(),
+	        new Busybee\Core\SystemBundle\SystemBundle(),
 	        new Busybee\Core\FormBundle\BusybeeFormBundle(),
             new Busybee\PaginationBundle\PaginationBundle(),
             new Busybee\PersonBundle\BusybeePersonBundle(),

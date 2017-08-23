@@ -19,6 +19,7 @@
 !/web/uploads/database/
 *.php~
 /src/Busybee/Plugin/
+/src/Busybee/Person/
 *.tmp
 Thumbs.db
 

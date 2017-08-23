@@ -2,7 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Form;
 
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Events\ColumnSubscriber;
 use Doctrine\Common\Persistence\ObjectManager;

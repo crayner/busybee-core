@@ -3,7 +3,7 @@
 namespace Busybee\PersonBundle\Model ;
 
 use Symfony\Component\Translation\TranslatorInterface as Translator;
-use Busybee\SystemBundle\Setting\SettingManager ;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\PersonBundle\Repository\AddressRepository ;
 use Busybee\PersonBundle\Entity\Address ;
 

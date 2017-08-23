@@ -9,7 +9,7 @@ use Busybee\PersonBundle\Repository\PhoneRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\PersonBundle\Form\DataTransformer\PhoneTransformer ;
 
 class PhoneType extends AbstractType

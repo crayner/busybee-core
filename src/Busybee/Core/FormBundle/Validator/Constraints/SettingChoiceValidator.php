@@ -4,7 +4,7 @@ namespace Busybee\Core\FormBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\ChoiceValidator;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 
 
 class SettingChoiceValidator extends ChoiceValidator

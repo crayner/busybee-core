@@ -3,7 +3,7 @@
 namespace Busybee\InstituteBundle\Events;
 
 use Busybee\InstituteBundle\Form\DepartmentStaffType;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

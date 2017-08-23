@@ -2,7 +2,7 @@
 namespace Busybee\Core\CalendarBundle\Service;
 
 use Busybee\Core\CalendarBundle\Service\WidgetService\Calendar;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 
 /**
  * Class for widget servuce. Creates an instance of calendar suitable for rendering in TWIG template.

@@ -6,7 +6,7 @@ use Busybee\CurriculumBundle\Entity\Course;
 use Busybee\CurriculumBundle\Events\CourseSubscriber;
 use Busybee\Core\FormBundle\Type\SettingChoiceType;
 use Busybee\Core\FormBundle\Type\TextType;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

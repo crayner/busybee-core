@@ -1,6 +1,6 @@
 {
-    "name": "craig/busybee",
-    "license": "proprietary",
+  "name": "busybee/core",
+  "license": "GNU",
     "type": "project",
     "autoload": {
         "psr-4": {
@@ -37,8 +37,19 @@
       "twig/extensions": "~1.4",
       "core23/dompdf-bundle": "~1.0",
       "league/oauth2-google": "~1.0",
-      "egulias/email-validator": "~2.1"
+      "egulias/email-validator": "~2.1",
+      "busybee/person": "dev-master"
     },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/crayner/bee_person.git"
+    },
+    {
+      "type": "path",
+      "url": "F:/websites/bee_person/"
+    }
+  ],
     "require-dev": {
       "sensio/generator-bundle": "~3.0",
       "symfony/phpunit-bridge": "~2.7"
@@ -72,6 +83,9 @@
             "file": "app/config/parameters.yml"
         }
     },
+  "config": {
+    "optimize-autoloader": true
+  },
   "minimum-stability": "stable",
   "prefer-stable": true
 }

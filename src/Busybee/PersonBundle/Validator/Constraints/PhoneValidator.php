@@ -3,7 +3,7 @@ namespace Busybee\PersonBundle\Validator\Constraints ;
 
 use Symfony\Component\Validator\Constraint ;
 use Symfony\Component\Validator\ConstraintValidator as ConstraintValidatorBase ;
-use Busybee\SystemBundle\Setting\SettingManager ;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 
 class PhoneValidator extends ConstraintValidatorBase 
 {

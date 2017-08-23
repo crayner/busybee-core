@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolver ;
-use Busybee\SystemBundle\Setting\SettingManager ;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\PersonBundle\Repository\LocalityRepository ;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType ;
 

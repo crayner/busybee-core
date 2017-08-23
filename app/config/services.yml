@@ -5,6 +5,6 @@ parameters:
 
 services:
     advanced_routing_loader:
-        class: Busybee\SystemBundle\Router\AdvancedLoader
+        class: Busybee\Core\SystemBundle\Router\AdvancedLoader
         tags:
             - { name: routing.loader }

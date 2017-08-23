@@ -2,7 +2,7 @@
 
 namespace Busybee\Core\CalendarBundle\Service\WidgetService;
 
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\Core\CalendarBundle\Service\WidgetService\Calendar;
 use Busybee\Core\CalendarBundle\Service\WidgetService\Day;
 

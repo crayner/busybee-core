@@ -5,7 +5,7 @@ namespace Busybee\StudentBundle\Model;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\StudentBundle\Entity\Student;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 

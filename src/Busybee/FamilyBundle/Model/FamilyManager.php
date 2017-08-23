@@ -6,7 +6,7 @@ use Busybee\FamilyBundle\Entity\Family;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Model\PersonManager;
 use Busybee\StudentBundle\Entity\Student;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\ORM\EntityManager;
 
 class FamilyManager

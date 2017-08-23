@@ -5,7 +5,7 @@ namespace Busybee\PersonBundle\Model ;
 use Busybee\PersonBundle\Entity\Address;
 use Busybee\PersonBundle\Entity\Person;
 use Busybee\PersonBundle\Entity\Phone;
-use Busybee\SystemBundle\Setting\SettingManager ;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 
 class PersonExtension extends \Twig_Extension
 {

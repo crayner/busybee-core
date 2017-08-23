@@ -2,7 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Events;
 
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\Column;
 use Busybee\TimeTableBundle\Entity\Day;
 use Doctrine\Common\Collections\ArrayCollection;

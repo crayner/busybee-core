@@ -15,13 +15,18 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 }
 
 if (!in_array(@$_SERVER['REMOTE_ADDR'],
-    ['127.0.0.1', 'fe80::1', '::1', '172.16.0.111']
+	[
+		'127.0.0.1',
+		'fe80::1',
+		'::1',
+		'172.16.0.111'
+	]
 )) {
     header('HTTP/1.0 403 Forbidden');
     exit('This script is only accessible from localhost.');
 }
 
-require_once dirname(__FILE__).'/../var/SymfonyRequirements.php';
+require_once dirname(__FILE__) . '/./SymfonyRequirements.php';
 
 $symfonyRequirements = new SymfonyRequirements();
 

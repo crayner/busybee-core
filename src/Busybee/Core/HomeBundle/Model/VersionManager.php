@@ -3,7 +3,7 @@
 namespace Busybee\Core\HomeBundle\Model;
 
 
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Version;
 use Symfony\Component\HttpKernel\Kernel;

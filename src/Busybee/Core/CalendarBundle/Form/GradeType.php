@@ -7,7 +7,7 @@ use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\CalendarBundle\Events\GradeSubscriber;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

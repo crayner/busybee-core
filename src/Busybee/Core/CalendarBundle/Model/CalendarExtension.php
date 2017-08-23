@@ -2,7 +2,7 @@
 
 namespace Busybee\Core\CalendarBundle\Model;
 
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\Core\CalendarBundle\Model\CalendarManager;
 use Busybee\Core\CalendarBundle\Model\Day;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;

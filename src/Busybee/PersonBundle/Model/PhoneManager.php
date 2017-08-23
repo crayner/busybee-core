@@ -5,7 +5,7 @@ namespace Busybee\PersonBundle\Model ;
 use Busybee\PersonBundle\Entity\Phone;
 use Busybee\PersonBundle\Repository\PhoneRepository;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
-use Busybee\SystemBundle\Setting\SettingManager ;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\PersonBundle\Entity\Address ;
 
 /**

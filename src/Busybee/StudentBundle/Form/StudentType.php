@@ -10,7 +10,7 @@ use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Events\StudentSubscriber;
 use Busybee\StudentBundle\Validator\Constraints\GradesValidator;
 use Busybee\StudentBundle\Validator\Grades;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;

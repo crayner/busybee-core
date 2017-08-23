@@ -2,7 +2,7 @@
 
 namespace Busybee\Core\CalendarBundle\Model;
 
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\Core\CalendarBundle\Repository\YearRepository;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\CalendarBundle\Entity\SpecialDay;
