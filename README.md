@@ -1,68 +1,13 @@
-Symfony Standard Edition
-========================
+Busybee Core
+============
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+Busybee is designed for School Management.
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+One of the great things about Google is the way they give their services to education for free. I worked at a school that took up the offer of free Google services, moving their email, web-sites, et al to Google. The school failed to fully capitalise on the full benefits that Google offers education. The major stumbling block for the school was that the administration system of the school could not be easily duplicated in Google. All of the systems are separate from Google, and whilst import/export are available, the extra steps involved in moving between systems proved a barrier to the adoption of Google Apps for Education (GAFE) as a tool suitable for use at the school.
 
-What's inside?
---------------
+One of the tools missing from the Google tool kit is an administration package that combines the detail needed for the school to manage people (students, staff, family, contacts, et al) in a package that seamlessly creates the ability to contact an individual, or any group within the school based on the administration system of the school. This is the key, as a centralised place of resource available to administer the school, provide LMS (Learning Management System) capability for teaching staff, reporting, attendance, library management, et al, as the school requires.
 
-The Symfony Standard Edition is configured with the following defaults:
+It is my hope to build a low cost core for such a system that will allow schools from 1 student to 50,000+ students to manage their administration, adding and creating modules to handle their particular needs as required within their region or circumstances. It is a big challenge, but one that I am looking forward to delivering soon.
 
-  * An AppBundle you can use to start coding;
+Craig Rayner
 
-  * Twig as the only configured template engine;
-
-  * Doctrine ORM/DBAL;
-
-  * Swiftmailer;
-
-  * Annotations enabled for everything.
-
-It comes pre-configured with the following bundles:
-
-  * **FrameworkBundle** - The core Symfony framework bundle
-
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
-
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
-
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/3.0/book/installation.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.0/book/doctrine.html
-[8]:  https://symfony.com/doc/3.0/book/templating.html
-[9]:  https://symfony.com/doc/3.0/book/security.html
-[10]: https://symfony.com/doc/3.0/cookbook/email.html
-[11]: https://symfony.com/doc/3.0/cookbook/logging/monolog.html
-[13]: https://symfony.com/doc/3.0/bundles/SensioGeneratorBundle/index.html
