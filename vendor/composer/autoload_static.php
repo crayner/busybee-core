@@ -36,7 +36,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
 	        'Symfony\\Polyfill\\Mbstring\\'          => 26,
 	        'Symfony\\Component\\'                   => 18,
 	        'Symfony\\Bundle\\SwiftmailerBundle\\'   => 33,
-	        'Symfony\\Bundle\\MonologBundle\\' => 29,
+	        'Symfony\\Bundle\\MonologBundle\\'       => 29,
 	        'Symfony\\Bundle\\AsseticBundle\\'       => 29,
 	        'Symfony\\Bundle\\'                      => 15,
 	        'Symfony\\Bridge\\Twig\\'                => 20,
@@ -145,15 +145,15 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-	    'Symfony\\Component\\' =>
+	    'Symfony\\Component\\'                    =>
         array (
             0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component',
         ),
-	    'Symfony\\Bundle\\SwiftmailerBundle\\' =>
+	    'Symfony\\Bundle\\SwiftmailerBundle\\'    =>
         array (
             0 => __DIR__ . '/..' . '/symfony/swiftmailer-bundle',
         ),
-	    'Symfony\\Bundle\\MonologBundle\\' =>
+	    'Symfony\\Bundle\\MonologBundle\\'        =>
         array (
             0 => __DIR__ . '/..' . '/symfony/monolog-bundle',
         ),
@@ -337,79 +337,79 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
     );
 
     public static $prefixesPsr0 = array (
-        'T' =>
+	    'T' =>
         array (
-            'Twig_Extensions_' =>
+	        'Twig_Extensions_' =>
             array (
                 0 => __DIR__ . '/..' . '/twig/extensions/lib',
             ),
-            'Twig_' =>
+	        'Twig_'            =>
             array (
                 0 => __DIR__ . '/..' . '/twig/twig/lib',
             ),
         ),
-        'S' =>
+	    'S' =>
         array (
-            'Svg\\' =>
+	        'Svg\\'                =>
             array (
                 0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src',
             ),
-            'SensioLabs\\Security' =>
+	        'SensioLabs\\Security' =>
             array (
                 0 => __DIR__ . '/..' . '/sensiolabs/security-checker',
             ),
-            'SecurityLib' =>
+	        'SecurityLib'          =>
             array (
                 0 => __DIR__ . '/..' . '/ircmaxell/security-lib/lib',
             ),
         ),
-        'R' =>
+	    'R' =>
         array (
-            'RandomLib' =>
+	        'RandomLib' =>
             array (
                 0 => __DIR__ . '/..' . '/ircmaxell/random-lib/lib',
             ),
         ),
-        'F' =>
+	    'F' =>
         array (
-            'FontLib\\' =>
+	        'FontLib\\' =>
             array (
                 0 => __DIR__ . '/..' . '/phenx/php-font-lib/src',
             ),
         ),
-        'D' =>
+	    'D' =>
         array (
-            'Doctrine\\ORM\\' =>
+	        'Doctrine\\ORM\\'                 =>
             array (
                 0 => __DIR__ . '/..' . '/doctrine/orm/lib',
             ),
-            'Doctrine\\DBAL\\' =>
+	        'Doctrine\\DBAL\\'                =>
             array (
                 0 => __DIR__ . '/..' . '/doctrine/dbal/lib',
             ),
-            'Doctrine\\Common\\Lexer\\' =>
+	        'Doctrine\\Common\\Lexer\\'       =>
             array (
                 0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),
-            'Doctrine\\Common\\DataFixtures' =>
+	        'Doctrine\\Common\\DataFixtures'  =>
             array (
                 0 => __DIR__ . '/..' . '/doctrine/data-fixtures/lib',
             ),
-            'Doctrine\\Common\\Collections\\' =>
+	        'Doctrine\\Common\\Collections\\' =>
             array (
                 0 => __DIR__ . '/..' . '/doctrine/collections/lib',
             ),
         ),
-        'C' =>
+	    'C' =>
         array (
-            'ComponentInstaller' =>
+	        'ComponentInstaller' =>
             array (
                 0 => __DIR__ . '/..' . '/robloach/component-installer/src',
             ),
         ),
-        'A' =>
+	    'A' =>
         array (
-            'Assetic' =>
+	        'Assetic' =>
             array (
                 0 => __DIR__ . '/..' . '/kriswallsmith/assetic/src',
             ),

@@ -12,4 +12,7 @@ $loader = require realpath(__DIR__ . '/../vendor/autoload.php');
 
 AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 
+var_dump($loader);
+die();
+
 return $loader;

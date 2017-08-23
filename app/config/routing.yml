@@ -6,10 +6,6 @@ busybee_security:
     resource: "@BusybeeSecurityBundle/Resources/config/routing.yml"
     prefix:   /security/
 
-busybee_person:
-    resource: "@BusybeePersonBundle/Resources/config/routing.yml"
-    prefix:   /person/
-
 busybee_system:
     resource: "@SystemBundle/Resources/config/routing.yml"
     prefix:   /system/
@@ -21,6 +17,10 @@ busybee_curriculum:
 busybee_institute:
     resource: "@BusybeeInstituteBundle/Resources/config/routing.yml"
     prefix:   /institute/
+
+busybee_person:
+    resource: "@BusybeePersonBundle/Resources/config/routing.yml"
+    prefix:   /person/
 
 busybee_staff:
     resource: "@BusybeeStaffBundle/Resources/config/routing.yml"
@@ -57,5 +57,3 @@ busybee_calendar:
 busybee_plugin:
     resource: .
     type: advanced_extra
-
-

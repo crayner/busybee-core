@@ -2,8 +2,6 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\Finder\Finder ;
-use Symfony\Component\HttpFoundation\Request;
 
 class AppKernel extends Kernel
 {
@@ -44,23 +42,22 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 
-		$searchPath = __DIR__.'/../src/Busybee/Plugin';
-        $finder     = new Finder();
-        $finder->files()
-               ->in($searchPath)
-               ->name('*Bundle.php');
-		
-		foreach ($finder as $file) {
-            $path       = substr($file->getRealpath(), strrpos($file->getRealpath(), "src/Busybee/Plugin") + 18);
-            $parts      = array_merge(array('Busybee', 'Plugin'), explode('/', $path));
-            $class      = array_pop($parts);
-            $namespace  = str_replace('\\\\', '\\', implode('\\', $parts));
-            $class      = str_replace('\\\\', '\\', $namespace.'\\'.$class);
-            //remove first slash and .php
-            $class = ltrim(str_replace('.php', '', $class), '\\');
-//            $bundles[]  = new $class();
-        }
-        
+	    $searchPath = __DIR__ . '/../vendor/busybee';
+	    if (is_dir($searchPath))
+		    foreach (new DirectoryIterator($searchPath) as $fileInfo)
+		    {
+
+
+			    if ($fileInfo->isDot()) continue;
+			    if ($fileInfo->isDir())
+			    {
+				    $plugin = ucfirst(str_replace('Bundle', '', $fileInfo->getFileName()));
+
+				    $bundle    = 'Busybee' . $plugin . '\\Busybee' . $plugin . 'Bundle()';
+				    $bundles[] = new $bundle;
+			    }
+		    }
+
 		return $bundles;
     }
 

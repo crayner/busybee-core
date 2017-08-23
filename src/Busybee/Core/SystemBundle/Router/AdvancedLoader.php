@@ -3,9 +3,9 @@
 namespace Busybee\Core\SystemBundle\Router;
 
 use Symfony\Component\Config\Loader\Loader;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollection;
-use DirectoryIterator;
+use Symfony\Component\Yaml\Yaml;
 
 class AdvancedLoader extends Loader
 {
@@ -14,6 +14,11 @@ class AdvancedLoader extends Loader
 	 */
 	private $loaded = false;
 
+	/**
+	 * @var string
+	 */
+	private $path;
+
 	public function load($resource, $type = null)
 	{
 		if ($this->loaded)
@@ -21,44 +26,24 @@ class AdvancedLoader extends Loader
 
 		$routes = new RouteCollection();
 
-		$path = realpath(__DIR__ . '/Plugin');
-		$x    = 1;
-		while (!is_dir($path))
-		{
-			if ($x > 4)
+		$path = realpath($this->path . '/vendor/busybee');
+
+		if (is_dir($path))
+			foreach (new \DirectoryIterator($path) as $fileInfo)
 			{
-				$this->loaded = true;
+				if ($fileInfo->isDot()) continue;
+				if ($fileInfo->isDir())
+				{
+					$plugin   = str_replace('Bundle', '', $fileInfo->getFileName()) . '_plugin';
+					$content  = Yaml::parse(file_get_contents($fileInfo->getRealPath() . '/src//Resources/config/services.yml'));
+					$route    = $content['parameters'][$plugin]['Route'];
+					$resource = '@' . $route['resource'];
 
-				return $routes;
+					$importedRoutes = $this->import($resource, $route['type']);
+					$routes->addCollection($importedRoutes);
+					$routes->addPrefix($route['prefix']);
+				}
 			}
-			$path = __DIR__;
-			$y    = 0;
-			$x++;
-			while ($y < $x)
-			{
-				$path .= '/..';
-				$y++;
-			}
-			$path = realpath($path . '/Plugin');
-		}
-
-
-		foreach (new DirectoryIterator($path) as $fileInfo)
-		{
-			if ($fileInfo->isDot()) continue;
-			if ($fileInfo->isDir())
-			{
-				$bundle   = str_replace('Bundle', '', $fileInfo->getFileName());
-				$content  = Yaml::parse(file_get_contents($fileInfo->getRealPath() . '/Resources/config/services.yml'));
-				$route    = $content['parameters'][$bundle]['Route'];
-				$resource = '@' . $route['resource'];
-
-				$importedRoutes = $this->import('@' . $route['resource'], $route['type']);
-
-				$routes->addCollection($importedRoutes);
-				$routes->addPrefix($route['prefix']);
-			}
-		}
 
 		$this->loaded = true;
 
@@ -68,5 +53,15 @@ class AdvancedLoader extends Loader
 	public function supports($resource, $type = null)
 	{
 		return 'advanced_extra' === $type;
+	}
+
+	/**
+	 * AdvancedLoader constructor.
+	 *
+	 * @param $path
+	 */
+	public function __construct(Kernel $kernel)
+	{
+		$this->path = $kernel->getProjectDir();
 	}
 }

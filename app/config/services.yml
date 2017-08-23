@@ -8,3 +8,5 @@ services:
         class: Busybee\Core\SystemBundle\Router\AdvancedLoader
         tags:
             - { name: routing.loader }
+        arguments:
+            - '@kernel'
