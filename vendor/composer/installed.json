@@ -2093,6 +2093,65 @@
     ]
   },
   {
+    "name": "egulias/email-validator",
+    "version": "2.1.2",
+    "version_normalized": "2.1.2.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/egulias/EmailValidator.git",
+      "reference": "bc31baa11ea2883e017f0a10d9722ef9d50eac1c"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/bc31baa11ea2883e017f0a10d9722ef9d50eac1c",
+      "reference": "bc31baa11ea2883e017f0a10d9722ef9d50eac1c",
+      "shasum": ""
+    },
+    "require": {
+      "doctrine/lexer": "^1.0.1",
+      "php": ">= 5.5"
+    },
+    "require-dev": {
+      "dominicsayers/isemail": "dev-master",
+      "phpunit/phpunit": "^4.8.0",
+      "satooshi/php-coveralls": "dev-master"
+    },
+    "suggest": {
+      "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
+    },
+    "time": "2017-01-30T22:07:36+00:00",
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "2.0.x-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-4": {
+        "Egulias\\EmailValidator\\": "EmailValidator"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Eduardo Gulias Davis"
+      }
+    ],
+    "description": "A library for validating emails against several RFCs",
+    "homepage": "https://github.com/egulias/EmailValidator",
+    "keywords": [
+      "email",
+      "emailvalidation",
+      "emailvalidator",
+      "validation",
+      "validator"
+    ]
+  },
+  {
     "name": "symfony/assetic-bundle",
     "version": "v2.8.2",
     "version_normalized": "2.8.2.0",
@@ -3165,84 +3224,6 @@
     ]
   },
   {
-    "name": "doctrine/orm",
-    "version": "v2.5.10",
-    "version_normalized": "2.5.10.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/doctrine/doctrine2.git",
-      "reference": "c78afd51721804f4f76ff30d9b6f6159eb046161"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/c78afd51721804f4f76ff30d9b6f6159eb046161",
-      "reference": "c78afd51721804f4f76ff30d9b6f6159eb046161",
-      "shasum": ""
-    },
-    "require": {
-      "doctrine/cache": "~1.4",
-      "doctrine/collections": "~1.2",
-      "doctrine/common": ">=2.5-dev,<2.9-dev",
-      "doctrine/dbal": ">=2.5-dev,<2.7-dev",
-      "doctrine/instantiator": "~1.0.1",
-      "ext-pdo": "*",
-      "php": ">=5.4",
-      "symfony/console": "~2.5|~3.0"
-    },
-    "require-dev": {
-      "phpunit/phpunit": "~4.0",
-      "symfony/yaml": "~2.3|~3.0"
-    },
-    "suggest": {
-      "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
-    },
-    "time": "2017-08-18T19:17:35+00:00",
-    "bin": [
-      "bin/doctrine",
-      "bin/doctrine.php"
-    ],
-    "type": "library",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "2.6.x-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "psr-0": {
-        "Doctrine\\ORM\\": "lib/"
-      }
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "Roman Borschel",
-        "email": "roman@code-factory.org"
-      },
-      {
-        "name": "Benjamin Eberlei",
-        "email": "kontakt@beberlei.de"
-      },
-      {
-        "name": "Guilherme Blanco",
-        "email": "guilhermeblanco@gmail.com"
-      },
-      {
-        "name": "Jonathan Wage",
-        "email": "jonwage@gmail.com"
-      }
-    ],
-    "description": "Object-Relational-Mapper for PHP",
-    "homepage": "http://www.doctrine-project.org",
-    "keywords": [
-      "database",
-      "orm"
-    ]
-  },
-  {
     "name": "doctrine/doctrine-bundle",
     "version": "1.7.0",
     "version_normalized": "1.7.0.0",
@@ -3386,6 +3367,84 @@
     "homepage": "https://symfony.com"
   },
   {
+    "name": "doctrine/orm",
+    "version": "v2.5.10",
+    "version_normalized": "2.5.10.0",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/doctrine/doctrine2.git",
+      "reference": "c78afd51721804f4f76ff30d9b6f6159eb046161"
+    },
+    "dist": {
+      "type": "zip",
+      "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/c78afd51721804f4f76ff30d9b6f6159eb046161",
+      "reference": "c78afd51721804f4f76ff30d9b6f6159eb046161",
+      "shasum": ""
+    },
+    "require": {
+      "doctrine/cache": "~1.4",
+      "doctrine/collections": "~1.2",
+      "doctrine/common": ">=2.5-dev,<2.9-dev",
+      "doctrine/dbal": ">=2.5-dev,<2.7-dev",
+      "doctrine/instantiator": "~1.0.1",
+      "ext-pdo": "*",
+      "php": ">=5.4",
+      "symfony/console": "~2.5|~3.0"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "~4.0",
+      "symfony/yaml": "~2.3|~3.0"
+    },
+    "suggest": {
+      "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
+    },
+    "time": "2017-08-18T19:17:35+00:00",
+    "bin": [
+      "bin/doctrine",
+      "bin/doctrine.php"
+    ],
+    "type": "library",
+    "extra": {
+      "branch-alias": {
+        "dev-master": "2.6.x-dev"
+      }
+    },
+    "installation-source": "dist",
+    "autoload": {
+      "psr-0": {
+        "Doctrine\\ORM\\": "lib/"
+      }
+    },
+    "notification-url": "https://packagist.org/downloads/",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Roman Borschel",
+        "email": "roman@code-factory.org"
+      },
+      {
+        "name": "Benjamin Eberlei",
+        "email": "kontakt@beberlei.de"
+      },
+      {
+        "name": "Guilherme Blanco",
+        "email": "guilhermeblanco@gmail.com"
+      },
+      {
+        "name": "Jonathan Wage",
+        "email": "jonwage@gmail.com"
+      }
+    ],
+    "description": "Object-Relational-Mapper for PHP",
+    "homepage": "http://www.doctrine-project.org",
+    "keywords": [
+      "database",
+      "orm"
+    ]
+  },
+  {
     "name": "sensiolabs/security-checker",
     "version": "v4.1.5",
     "version_normalized": "4.1.5.0",
@@ -3431,65 +3490,6 @@
       }
     ],
     "description": "A security checker for your composer.lock"
-  },
-  {
-    "name": "egulias/email-validator",
-    "version": "2.1.2",
-    "version_normalized": "2.1.2.0",
-    "source": {
-      "type": "git",
-      "url": "https://github.com/egulias/EmailValidator.git",
-      "reference": "bc31baa11ea2883e017f0a10d9722ef9d50eac1c"
-    },
-    "dist": {
-      "type": "zip",
-      "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/bc31baa11ea2883e017f0a10d9722ef9d50eac1c",
-      "reference": "bc31baa11ea2883e017f0a10d9722ef9d50eac1c",
-      "shasum": ""
-    },
-    "require": {
-      "doctrine/lexer": "^1.0.1",
-      "php": ">= 5.5"
-    },
-    "require-dev": {
-      "dominicsayers/isemail": "dev-master",
-      "phpunit/phpunit": "^4.8.0",
-      "satooshi/php-coveralls": "dev-master"
-    },
-    "suggest": {
-      "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
-    },
-    "time": "2017-01-30T22:07:36+00:00",
-    "type": "library",
-    "extra": {
-      "branch-alias": {
-        "dev-master": "2.0.x-dev"
-      }
-    },
-    "installation-source": "dist",
-    "autoload": {
-      "psr-4": {
-        "Egulias\\EmailValidator\\": "EmailValidator"
-      }
-    },
-    "notification-url": "https://packagist.org/downloads/",
-    "license": [
-      "MIT"
-    ],
-    "authors": [
-      {
-        "name": "Eduardo Gulias Davis"
-      }
-    ],
-    "description": "A library for validating emails against several RFCs",
-    "homepage": "https://github.com/egulias/EmailValidator",
-    "keywords": [
-      "email",
-      "emailvalidation",
-      "emailvalidator",
-      "validation",
-      "validator"
-    ]
   },
   {
     "name": "sensio/framework-extra-bundle",

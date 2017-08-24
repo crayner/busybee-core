@@ -1,10 +1,7 @@
 <?php
-
 namespace Busybee\AVETMISS\AVETMISSBundle\Model\Report;
 
-use Busybee\AVETMISS\AVETMISSBundle\Model\Report\Report;
-
-class nat00100 extends Report
+class nat00120 extends Report
 {
 	protected $reportName = 'nat00100';
 
