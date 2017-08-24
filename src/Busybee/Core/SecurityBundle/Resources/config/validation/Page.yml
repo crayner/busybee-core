@@ -1,0 +1,12 @@
+# src\Busybee\Core\SecurityBundle\Resources\config\validation\Page.yml
+Busybee\Core\SecurityBundle\Entity\Page:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [route]
+            errorPath: route
+            message: 'page.route.unique'
+    properties:
+        route:
+            - NotBlank: ~
+        roles:
+            - NotBlank: ~

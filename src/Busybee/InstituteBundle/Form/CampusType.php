@@ -4,7 +4,7 @@ namespace Busybee\InstituteBundle\Form;
 
 use Busybee\InstituteBundle\Entity\Campus;
 use Busybee\InstituteBundle\Events\CampusSubscriber;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

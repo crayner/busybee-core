@@ -16,13 +16,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
-use Busybee\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class InstallController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	public function indexAction(Request $request)
 	{

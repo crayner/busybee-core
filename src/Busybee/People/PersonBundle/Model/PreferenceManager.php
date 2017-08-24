@@ -3,8 +3,8 @@
 namespace Busybee\People\PersonBundle\Model;
 
 use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\SecurityBundle\Doctrine\UserManager;
-use Busybee\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Doctrine\UserManager;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;

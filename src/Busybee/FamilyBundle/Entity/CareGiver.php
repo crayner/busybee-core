@@ -3,7 +3,7 @@
 namespace Busybee\FamilyBundle\Entity;
 
 use Busybee\FamilyBundle\Model\CareGiverModel;
-use Busybee\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Entity\User;
 
 /**
  * CareGiver
@@ -32,12 +32,12 @@ class CareGiver extends CareGiverModel
     private $careGiverFamily;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var \Busybee\Core\SecurityBundle\Entity\User
      */
     private $createdBy;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var \Busybee\Core\SecurityBundle\Entity\User
      */
     private $modifiedBy;
 
@@ -171,7 +171,7 @@ class CareGiver extends CareGiverModel
     /**
      * Get createdBy
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\Core\SecurityBundle\Entity\User
      */
     public function getCreatedBy()
     {
@@ -181,7 +181,7 @@ class CareGiver extends CareGiverModel
     /**
      * Set createdBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $createdBy
+     * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
      *
      * @return CareGiver
      */
@@ -195,7 +195,7 @@ class CareGiver extends CareGiverModel
     /**
      * Get modifiedBy
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\Core\SecurityBundle\Entity\User
      */
     public function getModifiedBy()
     {
@@ -205,11 +205,11 @@ class CareGiver extends CareGiverModel
     /**
      * Set modifiedBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
      *
      * @return CareGiver
      */
-    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
 

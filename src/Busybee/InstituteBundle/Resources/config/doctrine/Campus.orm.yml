@@ -37,13 +37,13 @@ Busybee\InstituteBundle\Entity\Campus:
             nullable: true 
     manyToOne:
         createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             nullable: true
             joinColumns:
                 createdBy:
                     referencedColumnName: id
         modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             nullable: true
             joinColumns:
                 modifiedBy:

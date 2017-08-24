@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class SpecialDayController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	public function deleteAction($id, $year)
 	{

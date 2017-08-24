@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	/**
 	 * Load fixtures for all bundles

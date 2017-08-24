@@ -14,7 +14,7 @@ class MenuManager
 	protected $container;
 
 	/**
-	 * @var \Busybee\SecurityBundle\Model\PageManager|object
+	 * @var \Busybee\Core\SecurityBundle\Model\PageManager|object
 	 */
 	protected $pageManager;
 

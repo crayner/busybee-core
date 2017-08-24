@@ -5,7 +5,7 @@ namespace Busybee\People\PersonBundle\Form;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Entity\PersonExtra;
 use Busybee\People\PersonBundle\Entity\Phone;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

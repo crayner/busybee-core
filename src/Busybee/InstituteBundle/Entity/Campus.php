@@ -53,12 +53,12 @@ class Campus
     private $createdOn;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var \Busybee\Core\SecurityBundle\Entity\User
      */
     private $createdBy;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var \Busybee\Core\SecurityBundle\Entity\User
      */
     private $modifiedBy;
 
@@ -268,11 +268,11 @@ class Campus
     /**
      * Set createdBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $createdBy
+     * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
      *
      * @return Campus
      */
-    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+	public function setCreatedBy(\Busybee\Core\SecurityBundle\Entity\User $createdBy = null)
     {
         $this->createdBy = $createdBy;
 
@@ -282,7 +282,7 @@ class Campus
     /**
      * Get createdBy
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\Core\SecurityBundle\Entity\User
      */
     public function getCreatedBy()
     {
@@ -292,11 +292,11 @@ class Campus
     /**
      * Set modifiedBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
      *
      * @return Campus
      */
-    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
 
@@ -306,7 +306,7 @@ class Campus
     /**
      * Get modifiedBy
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\Core\SecurityBundle\Entity\User
      */
     public function getModifiedBy()
     {

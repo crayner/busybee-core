@@ -4,7 +4,7 @@ namespace Busybee\TimeTableBundle\Form;
 
 use Busybee\Core\FormBundle\Type\TimeType;
 use Busybee\Core\FormBundle\Type\ToggleType;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\TimeTableBundle\Entity\Column;
 use Busybee\TimeTableBundle\Entity\Period;
 use Doctrine\Common\Persistence\ObjectManager;

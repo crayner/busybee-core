@@ -4,7 +4,7 @@ namespace Busybee\Core\SystemBundle\Form;
 
 use Busybee\Core\FormBundle\Type\TextType;
 use Busybee\Core\FormBundle\Type\ToggleType;
-use Busybee\SecurityBundle\Validator\Password;
+use Busybee\Core\SecurityBundle\Validator\Password;
 use Busybee\Core\SystemBundle\Event\MiscellaneousSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

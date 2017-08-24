@@ -53,11 +53,11 @@ class Setting extends SettingModel
 	 */
 	private $role;
 	/**
-	 * @var \Busybee\SecurityBundle\Entity\User
+	 * @var \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	private $createdBy;
 	/**
-	 * @var \Busybee\SecurityBundle\Entity\User
+	 * @var \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	private $modifiedBy;
 	/**
@@ -240,7 +240,7 @@ class Setting extends SettingModel
 	/**
 	 * Set role
 	 *
-	 * @param \Busybee\SecurityBundle\Entity\Role $role
+	 * @param \Busybee\Core\SecurityBundle\Entity\Role $role
 	 *
 	 * @return Setting
 	 */
@@ -254,7 +254,7 @@ class Setting extends SettingModel
 	/**
 	 * Get createdBy
 	 *
-	 * @return \Busybee\SecurityBundle\Entity\User
+	 * @return \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	public function getCreatedBy()
 	{
@@ -264,11 +264,11 @@ class Setting extends SettingModel
 	/**
 	 * Set createdBy
 	 *
-	 * @param \Busybee\SecurityBundle\Entity\User $createdBy
+	 * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
 	 *
 	 * @return Setting
 	 */
-	public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+	public function setCreatedBy(\Busybee\Core\SecurityBundle\Entity\User $createdBy = null)
 	{
 		$this->createdBy = $createdBy;
 
@@ -278,7 +278,7 @@ class Setting extends SettingModel
 	/**
 	 * Get modifiedBy
 	 *
-	 * @return \Busybee\SecurityBundle\Entity\User
+	 * @return \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	public function getModifiedBy()
 	{
@@ -288,11 +288,11 @@ class Setting extends SettingModel
 	/**
 	 * Set modifiedBy
 	 *
-	 * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+	 * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
 	 *
 	 * @return Setting
 	 */
-	public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
 	{
 		$this->modifiedBy = $modifiedBy;
 

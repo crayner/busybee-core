@@ -4,7 +4,7 @@ namespace Busybee\People\StaffBundle\Entity;
 
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Model\PersonInterface;
-use Busybee\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\People\StaffBundle\Model\StaffModel;
 use Doctrine\Common\Collections\ArrayCollection;
 

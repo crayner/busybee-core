@@ -40,12 +40,12 @@ class StudentGrade extends StudentGradeModel
     private $grade;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var \Busybee\Core\SecurityBundle\Entity\User
      */
     private $createdBy;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var \Busybee\Core\SecurityBundle\Entity\User
      */
     private $modifiedBy;
 
@@ -189,7 +189,7 @@ class StudentGrade extends StudentGradeModel
     /**
      * Get createdBy
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\Core\SecurityBundle\Entity\User
      */
     public function getCreatedBy()
     {
@@ -199,11 +199,11 @@ class StudentGrade extends StudentGradeModel
     /**
      * Set createdBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $createdBy
+     * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
      *
      * @return StudentGrade
      */
-    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+	public function setCreatedBy(\Busybee\Core\SecurityBundle\Entity\User $createdBy = null)
     {
         $this->createdBy = $createdBy;
 
@@ -213,7 +213,7 @@ class StudentGrade extends StudentGradeModel
     /**
      * Get modifiedBy
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\Core\SecurityBundle\Entity\User
      */
     public function getModifiedBy()
     {
@@ -223,11 +223,11 @@ class StudentGrade extends StudentGradeModel
     /**
      * Set modifiedBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
      *
      * @return StudentGrade
      */
-    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
 

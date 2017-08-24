@@ -3,9 +3,9 @@
 namespace Busybee\Core\CalendarBundle\Model;
 
 use Busybee\Core\CalendarBundle\Repository\YearRepository;
-use Busybee\SecurityBundle\Doctrine\UserManager;
+use Busybee\Core\SecurityBundle\Doctrine\UserManager;
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\SecurityBundle\Model\UserInterface;
+use Busybee\Core\SecurityBundle\Model\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class CurrentYear

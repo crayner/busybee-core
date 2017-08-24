@@ -5,7 +5,7 @@ namespace Busybee\TimeTableBundle\Form;
 use Busybee\Core\CalendarBundle\Form\YearEntityType;
 use Busybee\Core\FormBundle\Type\ToggleType;
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Busybee\TimeTableBundle\Events\TimeTableSubscriber;

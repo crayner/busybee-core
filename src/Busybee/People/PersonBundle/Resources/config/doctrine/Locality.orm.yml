@@ -38,13 +38,13 @@ Busybee\People\PersonBundle\Entity\Locality:
             nullable: true
     manyToOne:
         createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
                 created_by:
                     referencedColumnName: id
                     nullable: true
         modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
                 modified_by:
                     referencedColumnName: id

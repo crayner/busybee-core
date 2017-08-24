@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PersonController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	/**
 	 * @param Request $request

@@ -13,7 +13,7 @@ use DateTime;
 
 class CalendarController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	/**
 	 * @return Response

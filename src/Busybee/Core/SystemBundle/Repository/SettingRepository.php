@@ -3,7 +3,7 @@
 namespace Busybee\Core\SystemBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Busybee\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SystemBundle\Entity\Setting;
 
 /**

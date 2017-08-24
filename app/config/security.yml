@@ -23,7 +23,7 @@ security:
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     encoders:
-        Busybee\SecurityBundle\Model\UserInterface:
+        Busybee\Core\SecurityBundle\Model\UserInterface:
             algorithm: bcrypt
             cost: 12
 

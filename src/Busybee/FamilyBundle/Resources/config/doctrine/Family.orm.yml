@@ -75,12 +75,12 @@ Busybee\FamilyBundle\Entity\Family:
                 address2:
                     referencedColumnName: id
         createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
                 created_by:
                     referencedColumnName: id
         modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
                 modified_by:
                     referencedColumnName: id

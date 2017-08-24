@@ -4,7 +4,7 @@ namespace Busybee\People\PersonBundle\Events;
 
 use Busybee\People\PersonBundle\Form\UserType;
 use Busybee\People\PersonBundle\Model\PersonManager;
-use Busybee\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\People\StaffBundle\Form\StaffType;
 use Busybee\StudentBundle\Entity\Student;

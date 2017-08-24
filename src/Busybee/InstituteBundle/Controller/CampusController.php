@@ -12,7 +12,7 @@ use Busybee\InstituteBundle\Entity\Campus ;
 
 class CampusController extends Controller
 {
-    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted ;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
     /**
      * @param Request $request

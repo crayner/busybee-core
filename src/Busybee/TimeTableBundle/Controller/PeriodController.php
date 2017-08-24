@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PeriodController extends Controller
 {
-    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
     /**
      * @param $id

@@ -5,7 +5,7 @@ namespace Busybee\StudentBundle\Form;
 use Busybee\Core\FormBundle\Type\ImageType;
 use Busybee\Core\FormBundle\Type\SettingChoiceType;
 use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Events\StudentSubscriber;
 use Busybee\StudentBundle\Validator\Constraints\GradesValidator;

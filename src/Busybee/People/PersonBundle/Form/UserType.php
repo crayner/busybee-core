@@ -6,9 +6,9 @@ use Busybee\Core\CalendarBundle\Form\YearEntityType;
 use Busybee\Core\FormBundle\Type\ToggleType;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Events\UserSubscriber;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
-use Busybee\SecurityBundle\Form\DirectRoleType;
-use Busybee\SecurityBundle\Form\GroupType;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DirectRoleType;
+use Busybee\Core\SecurityBundle\Form\GroupType;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
@@ -162,7 +162,7 @@ class UserType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class'         => 'Busybee\SecurityBundle\Entity\User',
+				'data_class'         => 'Busybee\Core\SecurityBundle\Entity\User',
 				'translation_domain' => 'BusybeeSecurityBundle',
 			)
 		);

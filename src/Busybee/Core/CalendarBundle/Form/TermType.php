@@ -4,7 +4,7 @@ namespace Busybee\Core\CalendarBundle\Form;
 
 use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;

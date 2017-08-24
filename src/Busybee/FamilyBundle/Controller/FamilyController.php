@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FamilyController extends Controller
 {
-    use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
     /**
      * @param Request $request

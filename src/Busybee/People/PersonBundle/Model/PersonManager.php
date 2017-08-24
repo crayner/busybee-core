@@ -10,7 +10,7 @@ use Busybee\People\PersonBundle\Entity\Address;
 use Busybee\People\PersonBundle\Entity\Locality;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Entity\Phone;
-use Busybee\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;

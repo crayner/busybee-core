@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class SettingController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	/**
 	 * @param Request $request

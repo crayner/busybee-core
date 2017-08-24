@@ -12,7 +12,7 @@ use Busybee\People\PersonBundle\Form\AddressType;
 
 class AddressController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	/**
 	 * @param Request $request

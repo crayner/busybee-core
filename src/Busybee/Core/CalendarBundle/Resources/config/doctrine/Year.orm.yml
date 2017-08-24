@@ -41,12 +41,12 @@ Busybee\Core\CalendarBundle\Entity\Year:
             orderBy: { sequence: ASC }
     manyToOne:
         createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
                 createdBy:
                     referencedColumnName: id
         modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
                 modifiedBy:
                     referencedColumnName: id

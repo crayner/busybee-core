@@ -40,12 +40,12 @@ class Line extends LineModel
     private $course;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var \Busybee\Core\SecurityBundle\Entity\User
      */
     private $createdBy;
 
     /**
-     * @var \Busybee\SecurityBundle\Entity\User
+     * @var \Busybee\Core\SecurityBundle\Entity\User
      */
     private $modifiedBy;
     /**
@@ -207,7 +207,7 @@ class Line extends LineModel
     /**
      * Get createdBy
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\Core\SecurityBundle\Entity\User
      */
     public function getCreatedBy()
     {
@@ -217,11 +217,11 @@ class Line extends LineModel
     /**
      * Set createdBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $createdBy
+     * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
      *
      * @return LearningGroups
      */
-    public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+	public function setCreatedBy(\Busybee\Core\SecurityBundle\Entity\User $createdBy = null)
     {
         $this->createdBy = $createdBy;
 
@@ -231,7 +231,7 @@ class Line extends LineModel
     /**
      * Get modifiedBy
      *
-     * @return \Busybee\SecurityBundle\Entity\User
+     * @return \Busybee\Core\SecurityBundle\Entity\User
      */
     public function getModifiedBy()
     {
@@ -241,11 +241,11 @@ class Line extends LineModel
     /**
      * Set modifiedBy
      *
-     * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+     * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
      *
      * @return LearningGroups
      */
-    public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
     {
         $this->modifiedBy = $modifiedBy;
 

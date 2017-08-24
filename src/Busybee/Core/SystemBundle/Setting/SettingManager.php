@@ -3,7 +3,7 @@
 namespace Busybee\Core\SystemBundle\Setting;
 
 use Busybee\Core\HomeBundle\Exception\Exception;
-use Busybee\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SystemBundle\Entity\Setting;
 use Busybee\Core\SystemBundle\Repository\SettingRepository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;

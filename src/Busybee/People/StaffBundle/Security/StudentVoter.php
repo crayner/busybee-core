@@ -3,8 +3,8 @@
 namespace Busybee\People\StaffBundle\Security;
 
 use Busybee\People\PersonBundle\Model\PersonManager;
-use Busybee\SecurityBundle\Entity\User;
-use Busybee\SecurityBundle\Security\VoterDetails;
+use Busybee\Core\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Security\VoterDetails;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;

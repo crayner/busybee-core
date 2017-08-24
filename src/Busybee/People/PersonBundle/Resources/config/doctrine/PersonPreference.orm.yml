@@ -24,12 +24,12 @@ Busybee\People\PersonBundle\Entity\PersonPreference:
                 referencedColumnName: id
     manyToOne:
         createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
                 created_by:
                     referencedColumnName: id
         modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
                 modified_by:
                     referencedColumnName: id

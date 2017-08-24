@@ -5,7 +5,7 @@ namespace Busybee\InstituteBundle\Form;
 use Busybee\Core\FormBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Department;
 use Busybee\InstituteBundle\Entity\DepartmentStaff;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;

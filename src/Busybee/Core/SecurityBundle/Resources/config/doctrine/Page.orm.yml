@@ -1,0 +1,43 @@
+# src\Busybee\Core\SecurityBundle\Resources\config\doctrine\Page.orm.yml
+Busybee\Core\SecurityBundle\Entity\Page:
+    type: entity
+    table: page
+    repositoryClass: Busybee\Core\SecurityBundle\Repository\PageRepository
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [route]
+            errorPath: route
+            message: 'page.route.unique'
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        route:
+            type: string
+            length: '100'
+            unique: true
+        path:
+            type: string
+            length: '200'
+        roles:
+            type: array
+        cacheTime:
+            type: datetime
+            nullable: true
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id

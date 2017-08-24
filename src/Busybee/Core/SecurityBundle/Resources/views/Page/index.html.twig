@@ -1,0 +1,71 @@
+{# src/Busybee/Core/SecurityBundle/Resources/views/Page/index.html.twig #}
+
+{% trans_default_domain "BusybeeSecurityBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'security.page.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'security.page.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'security.page.description'|trans }}{% endblock headerLead %}
+
+
+
+{% block contentContainer %}
+    {% include 'PaginationBundle:Default:index.html.twig' %}
+
+    <div class="panel panel-primary busybee-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ 'security.page.title'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="container-fluid well">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12" id="pageError">
+
+                    </div>
+                </div>
+                <div class="row row-header">
+                    <div class="col-sm-3" style="display: inline-block;">
+                        {% if pagination.getSortByName == 'Route' %}
+                            <span class="halflings halflings-sort-by-alphabet"></span> {{ 'security.page.route'|trans }}
+                        {% else %}
+                            {{ 'security.page.route'|trans }}
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-3" style="display: inline-block;">
+                        {% if pagination.getSortByName == 'Path' %}
+                            <span class="halflings halflings-sort-by-alphabet"></span> {{ 'security.page.path'|trans }}
+                        {% else %}
+                            {{ 'security.page.path'|trans }}
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-4" style="display: inline-block;">
+                    </div>
+                    <div class="col-sm-2 text-center" style="display: inline-block;">
+                        {{ 'security.actions'|trans }}
+                    </div>
+                </div>
+
+
+                {% for page in pagination.getResult %}
+                    <div class="row row-striped">
+                        <div class="col-sm-3 form-inline">
+                            {{ page.route }}
+                        </div>
+                        <div class="col-sm-3 form-inline">
+                            {{ page.path }}
+                        </div>
+                        <div class="col-sm-4 form-inline">
+                            {{ page.roleToString()|replace({',': '<br/>'})|raw }}
+                        </div>
+                        <div class="col-sm-2 text-center form-inline">
+                            <button title='{{ 'security.page.edit'|trans }}' type="button"
+                                    class="halflings halflings-edit btn btn-warning"
+                                    onClick="window.open('{{ path('page_edit', {'id': page.id}) }}','_self')"></button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock contentContainer %}

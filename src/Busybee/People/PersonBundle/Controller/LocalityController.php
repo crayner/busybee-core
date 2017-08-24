@@ -11,7 +11,7 @@ use Busybee\People\PersonBundle\Entity\Locality;
 
 class LocalityController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	/**
 	 * @param         $id

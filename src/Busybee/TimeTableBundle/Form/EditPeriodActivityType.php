@@ -3,7 +3,7 @@
 namespace Busybee\TimeTableBundle\Form;
 
 use Busybee\InstituteBundle\Entity\Space;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\TimeTableBundle\Entity\Period;

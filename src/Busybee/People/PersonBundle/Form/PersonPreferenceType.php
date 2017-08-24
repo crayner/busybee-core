@@ -6,7 +6,7 @@ use Busybee\Core\FormBundle\Type\SettingChoiceType;
 use Busybee\Core\FormBundle\Type\TextType;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Entity\PersonPreference;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

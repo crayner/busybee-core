@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 			new Core23\DompdfBundle\Core23DompdfBundle(),
 	        new Busybee\Core\HomeBundle\BusybeeHomeBundle(),
-            new Busybee\SecurityBundle\BusybeeSecurityBundle(),
+	        new Busybee\Core\SecurityBundle\BusybeeSecurityBundle(),
 	        new Busybee\Core\SystemBundle\SystemBundle(),
 	        new Busybee\Core\FormBundle\BusybeeFormBundle(),
             new Busybee\PaginationBundle\PaginationBundle(),

@@ -4,7 +4,7 @@ namespace Busybee\StudentBundle\Form;
 
 use Busybee\Core\FormBundle\Type\SettingChoiceType;
 use Busybee\Core\CalendarBundle\Entity\Grade;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Entity\StudentGrade;
 use Busybee\StudentBundle\Events\StudentGradesSubscriber;

@@ -9,7 +9,7 @@ use Busybee\People\PersonBundle\Entity\Locality;
 
 class PhoneController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	/**
 	 * @param Request $request

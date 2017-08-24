@@ -1,0 +1,48 @@
+{# src/Busybee/Core/SecurityBundle/Resources/views/Page/edit.html.twig #}
+
+{% trans_default_domain "BusybeeSecurityBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+
+
+{% block title %}{{ parent() }}{{ 'security.page.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'security.page.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'security.page.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% block flashMessages %}
+    {% endblock flashMessages %}
+
+    {{ form_start(form) }}
+    {% set transDomain = 'BusybeeSecurityBundle' %}
+    {% set header = 'security.page.title' %}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('page_list')}}) %}
+    {% set h3Content = h3Content ~  saveButton() %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+    {% include '@BusybeeHome/Default/flash.html.twig' with {'flashClass': 'fadeAlert'} %}
+
+    <div class="row">
+        <div class="col-sm-6 well">
+            {{ form_row(form.route) }}
+        </div>
+        <div class="col-sm-6 well">
+            {{ form_row(form.path) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 well">
+            {{ form_row(form.roles) }}
+        </div>
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
+{% endblock javascripts %}
+
