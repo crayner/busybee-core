@@ -1,27 +1,3 @@
 busybee_bundles:
     resource: .
     type: advanced_extra
-
-busybee_curriculum:
-    resource: "@BusybeeCurriculumBundle/Resources/config/routing.yml"
-    prefix:   /curriculum/
-
-busybee_institute:
-    resource: "@BusybeeInstituteBundle/Resources/config/routing.yml"
-    prefix:   /institute/
-
-busybee_time_table:
-    resource: "@BusybeeTimeTableBundle/Resources/config/routing.yml"
-    prefix:   /timetable/
-
-busybee_activity:
-    resource: "@BusybeeActivityBundle/Resources/config/routing.yml"
-    prefix:   /activity/
-
-busybee_attendance:
-    resource: "@BusybeeAttendanceBundle/Resources/config/routing.yml"
-    prefix:   /attendance/
-
-busybee_period:
-    resource: "@BusybeePeriodBundle/Resources/config/routing.yml"
-    prefix:   /period/

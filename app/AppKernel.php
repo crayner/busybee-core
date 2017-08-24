@@ -10,12 +10,6 @@ class AppKernel extends Kernel
     {
         $bundles = array(
 	        new Core23\DompdfBundle\Core23DompdfBundle(),
-	        new Busybee\ActivityBundle\BusybeeActivityBundle(),
-	        new Busybee\AttendanceBundle\BusybeeAttendanceBundle(),
-	        new Busybee\CurriculumBundle\BusybeeCurriculumBundle(),
-	        new Busybee\InstituteBundle\BusybeeInstituteBundle(),
-	        new Busybee\PeriodBundle\BusybeePeriodBundle(),
-	        new Busybee\TimeTableBundle\BusybeeTimeTableBundle(),
 	        new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 	        new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 	        new Symfony\Bundle\AsseticBundle\AsseticBundle(),
@@ -36,7 +30,7 @@ class AppKernel extends Kernel
 
 	    foreach ($parameters['parameters']['bundles'] as $bundle)
 	    {
-		    if ($bundle['active'])
+		    if ($bundle['active'] || $bundle['type'] === 'core')
 			    $bundles[] = new $bundle['namespace']();
 	    }
 

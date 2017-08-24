@@ -39,7 +39,7 @@ class AdvancedLoader extends Loader
 
 		foreach ($this->bundles as $name => $bundle)
 		{
-			if ($bundle['active'] && !empty($bundle['route']))
+			if (($bundle['active'] || $bundle['type'] === 'core') && !empty($bundle['route']))
 			{
 				$route          = $bundle['route'];
 				$importedRoutes = null;
