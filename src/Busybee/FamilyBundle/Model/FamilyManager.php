@@ -3,8 +3,8 @@ namespace Busybee\FamilyBundle\Model;
 
 use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\FamilyBundle\Entity\Family;
-use Busybee\PersonBundle\Entity\Person;
-use Busybee\PersonBundle\Model\PersonManager;
+use Busybee\People\PersonBundle\Entity\Person;
+use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\ORM\EntityManager;

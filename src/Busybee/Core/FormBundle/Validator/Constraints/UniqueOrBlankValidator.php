@@ -2,7 +2,7 @@
 
 namespace Busybee\Core\FormBundle\Validator\Constraints;
 
-use Busybee\PersonBundle\Entity\Person;
+use Busybee\People\PersonBundle\Entity\Person;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

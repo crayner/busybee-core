@@ -3,9 +3,9 @@
 namespace Busybee\SecurityBundle\Security;
 
 use Busybee\Core\HomeBundle\Exception\Exception;
-use Busybee\PersonBundle\Entity\Person;
-use Busybee\PersonBundle\Model\PersonInterface;
-use Busybee\PersonBundle\Model\PersonManager;
+use Busybee\People\PersonBundle\Entity\Person;
+use Busybee\People\PersonBundle\Model\PersonInterface;
+use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;

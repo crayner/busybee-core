@@ -92,7 +92,7 @@ Busybee\StudentBundle\Entity\Student:
             type: datetime
     oneToOne:
         person:
-            targetEntity: Busybee\PersonBundle\Entity\Person
+            targetEntity: Busybee\People\PersonBundle\Entity\Person
             inversedBy: student
     oneToMany:
         grades:

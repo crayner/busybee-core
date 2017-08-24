@@ -101,7 +101,7 @@ Busybee\SecurityBundle\Entity\User:
                     nullable: true
     oneToOne:
         person:
-            targetEntity: Busybee\PersonBundle\Entity\Person
+            targetEntity: Busybee\People\PersonBundle\Entity\Person
             inversedBy: user
         year:
             targetEntity: Busybee\Core\CalendarBundle\Entity\Year

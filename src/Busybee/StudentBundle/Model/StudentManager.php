@@ -3,7 +3,7 @@
 namespace Busybee\StudentBundle\Model;
 
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\PersonBundle\Model\PersonManager;
+use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;

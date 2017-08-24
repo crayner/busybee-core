@@ -2,7 +2,7 @@
 
 namespace Busybee\ActivityBundle\Security;
 
-use Busybee\PersonBundle\Model\PersonManager;
+use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\SecurityBundle\Security\VoterDetails;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

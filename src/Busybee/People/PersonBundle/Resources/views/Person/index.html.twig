@@ -1,0 +1,243 @@
+{# src/Busybee/PersonBundle/Resources/views/Person/index.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'person.people.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'person.people.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'person.people.description'|trans }}{% endblock headerLead %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@BusybeeHome/Toggle/style.html.twig' %}
+{% endblock stylesheets %}
+
+{% block contentContainer %}
+    {% block paginationContent %}
+        {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('person_manage') } } %}
+    {% endblock paginationContent %}
+    {% set transDomain = 'BusybeePersonBundle' %}
+    {% set h3Content = addButton({'windowOpen': {'route': path('person_edit', {'id': 'Add'})}})|raw %}
+
+    {% set h3Content = h3Content ~ uploadButton({'type': 'button', 'transDomain': transDomain, 'title': 'person.title.import', 'windowOpen': {'route': path('people_import')}})|raw %}
+
+    {% if header is not defined %}{% set header = 'people.title' %}{% endif %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': header} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-sm-12" id="peopleError">
+
+            </div>
+        </div>
+        <div class="row row-header">
+            <div class="col-md-1 hidden-sm hidden-xs">
+                {{ 'person.title.photo'|trans }}
+            </div>
+            <div class="col-sm-2 col-md-2" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Family Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.familyName'|trans }}
+                {% else %}
+                    {{ 'person.title.familyName'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-2 col-md-2" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Given Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.givenName'|trans }}
+                {% else %}
+                    {{ 'person.title.givenName'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-md-2 hidden-sm hidden-xs" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Details' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.details'|trans }}
+                {% else %}
+                    {{ 'person.title.details'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-md-2 col-sm-2 text-center" style="display: inline-block;">
+                {{ 'person.actions'|trans }}
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs text-center">
+                {{ 'person.title.category'|trans }}
+                <div class="row ">
+                    <div class="col-sm-4 text-center">
+                        <span style="font-size: 9px;">{{ 'person.category.staff'|trans }}</span>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <span style="font-size: 9px;">{{ 'person.category.student'|trans }}</span>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <span style="font-size: 9px;">{{ 'person.category.user'|trans }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% for person in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-md-1 hidden-sm hidden-xs">
+                    {{ person.0.person.getPhoto75('left')|raw }}
+                </div>
+                <div class="col-sm-2 col-md-2 form-inline">
+                    {{ person.surname }}
+                </div>
+                <div class="col-sm-2 col-md-2 form-inline">
+                    {{ person.firstName }}
+                </div>
+                <div class="col-md-2 hidden-sm hidden-xs small" style="display: inline-block;">
+                    {{ person.details }} {{ person.0.person.email }}
+                    {% for phone in person.0.person.phone %}
+                        {{ get_setting('phone.display', null, {'phone': phone.phoneNumber()}) }}<br/>
+                    {% endfor %}
+                </div>
+                <div class="col-md-2 col-sm-2 text-center form-inline">
+                    {% set route = path('person_edit', {'id': person.id, }) %}
+                    {% if pagination.getChoice is not empty %}
+                        {% set route = path('person_edit', {'id': person.id, 'returnRoute': pagination.getChoice }) %}
+                    {% endif %}
+                    {{ editButton({'title': 'person.title.edit', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': route}, 'style': '', 'colour': 'warning'})|raw }}
+                    {% if person.user_id is not empty %}
+                        {% set route = path('home_page') ~ '?_switch_user=' ~ person.0.person.user.username %}
+                        {% set additional = '' %}
+                        {% if person.user_id == app.user.getId %}{% set additional = 'disabled' %}{% endif %}
+                        {{ miscButton({'transDomain': 'BusybeeSecurityBundle', 'title': 'security.impersonate.title', windowOpen: {route: route }, class: 'btn btn-xs btn-warning glyphicons glyphicons-theater', type: 'button', style: 'margin: 1px 0 0 0', 'additional': additional})|raw }}
+                        {{ editButton({style: 'margin: 1px 0 0 0;', title: 'user.request.passwordReset', 'class': 'btn btn-warning btn-xs glyphicons glyphicons-user-key', 'transDomain': 'BusybeeSecurityBundle', 'windowOpen': {target: 'PasswordRequest', params: 'width=1200,height=650', route: path('security_user_reset_request', {id: person.user_id})}})|raw }}
+                    {% endif %}
+                </div>
+                <div class="col-md-3 hidden-sm hidden-xs">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {% set toggle = 'data-toggle=toggle data-onstyle=success data-offstyle=danger data-height=25 data-size=small data-on="<span class=\'halflings halflings-thumbs-up\'></span>" data-off="<span class=\'halflings halflings-thumbs-down\'></span>"' %}
+                            {% if person.staff_id is not empty and canDeleteStaff(person.0) %}
+                                <input type="checkbox" id="staffToggle{{ person.id }}"
+                                       title="{{ 'person.staff.toggle'|trans }}" class="staffToggle"
+                                       checked {{ toggle|raw }} />
+                            {% elseif person.staff_id is empty and canBeStaff(person.0) %}
+                                <input type="checkbox" id="staffToggle{{ person.id }}"
+                                       title="{{ 'person.staff.toggle'|trans }}" class="staffToggle" {{ toggle|raw }} />
+                            {% elseif person.staff_id is empty %}
+                                <input type="checkbox" id="staffToggle{{ person.id }}"
+                                       title="{{ 'person.staff.toggle'|trans }}" class="staffToggle" {{ toggle|raw }}
+                                       disabled/>
+                            {% else %}
+                                <input type="checkbox" id="staffToggle{{ person.id }}"
+                                       title="{{ 'person.staff.toggle'|trans }}" class="staffToggle"
+                                       checked {{ toggle|raw }} disabled/>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-4">
+                            {% if person.stu_id is not empty and canDeleteStudent(person.0, get_parameter('person')) %}
+                                <input type="checkbox" id="studentToggle{{ person.id }}"
+                                       title="{{ 'person.student.toggle'|trans }}" checked
+                                       class="studentToggle" {{ toggle|raw }} />
+                            {% elseif person.stu_id is empty and canBeStudent(person.0) %}
+                                <input type="checkbox" id="studentToggle{{ person.id }}"
+                                       title="{{ 'person.student.toggle'|trans }}"
+                                       class="studentToggle" {{ toggle|raw }} />
+                            {% elseif person.stu_id is empty %}
+                                <input type="checkbox" id="studentToggle{{ person.id }}"
+                                       title="{{ 'person.student.toggle'|trans }}"
+                                       class="studentToggle" {{ toggle|raw }} disabled/>
+                            {% else %}
+                                <input type="checkbox" id="studentToggle{{ person.id }}"
+                                       title="{{ 'person.student.toggle'|trans }}" class="studentToggle"
+                                       checked {{ toggle|raw }} disabled/>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-4">
+                            {% if person.user_id is not empty and canDeleteUser(person.0) %}
+                                <input type="checkbox" id="userToggle{{ person.id }}"
+                                       title="{{ 'person.user.toggle'|trans }}" checked
+                                       class="userToggle" {{ toggle|raw }} />
+                            {% elseif person.user_id is empty and canBeUser(person.0) %}
+                                <input type="checkbox" id="userToggle{{ person.id }}"
+                                       title="{{ 'person.user.toggle'|trans }}" class="userToggle" {{ toggle|raw }} />
+                            {% elseif person.user_id is empty %}
+                                <input type="checkbox" id="userToggle{{ person.id }}"
+                                       title="{{ 'person.user.toggle'|trans }}" class="userToggle" {{ toggle|raw }}
+                                       disabled/>
+                            {% else %}
+                                <input type="checkbox" id="userToggle{{ person.id }}"
+                                       title="{{ 'person.user.toggle'|trans }}" checked
+                                       class="userToggle" {{ toggle|raw }} disabled/>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
+    {% include '@BusybeeHome/Toggle/script.html.twig' %}
+    <script type="text/javascript">
+        $(".studentToggle").change(function () {
+            var id = $(this).prop('id');
+            id = id.substring(13);
+            var route = "{{ path('person_toggle_student', {'id': '__id__'}) }}";
+            route = route.replace('__id__', id);
+            $.ajax({
+                url: route,
+                type: "POST",
+                success: function (data) {
+                    $("#peopleError").html(data.message);
+                    if (data.status == "removed") {
+                        $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-remove btn btn-danger");
+                    }
+                    if (data.status == "added") {
+                        $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-ok btn btn-success");
+                    }
+                    $(".fadeAlert").fadeOut(5000);
+                }
+            })
+        });
+        $(".staffToggle").change(function () {
+            var id = $(this).prop('id');
+            id = id.substring(11);
+            var route = "{{ path('person_toggle_staff', {'id': '__id__'}) }}";
+            route = route.replace('__id__', id);
+            $.ajax({
+                url: route,
+                type: "POST",
+                success: function (data) {
+                    $("#peopleError").html(data.message);
+                    if (data.status == "removed") {
+                        $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-remove btn btn-danger");
+                    }
+                    if (data.status == "added") {
+                        $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-ok btn btn-success");
+                    }
+                    $(".fadeAlert").fadeOut(5000);
+                }
+            })
+        });
+        $(".userToggle").change(function () {
+            var id = $(this).prop('id');
+            id = id.substring(10);
+            var route = "{{ path('person_toggle_user', {'id': '__id__'}) }}";
+            route = route.replace('__id__', id);
+            $.ajax({
+                url: route,
+                type: "POST",
+                success: function (data) {
+                    $("#peopleError").html(data.message);
+                    if (data.status == "removed") {
+                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-remove btn btn-danger");
+                    }
+                    if (data.status == "added") {
+                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-ok btn btn-default");
+                        $("#userToggle" + id).prop('disabled', true);
+                    }
+                    $(".fadeAlert").fadeOut(5000);
+                }
+            })
+        });
+    </script>
+    {% include '@Pagination/Paginator/script.html.twig' %}
+{% endblock javascripts %}
+

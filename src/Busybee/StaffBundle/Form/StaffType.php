@@ -4,7 +4,7 @@ namespace Busybee\StaffBundle\Form;
 
 use Busybee\Core\FormBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Space;
-use Busybee\PersonBundle\Entity\Person;
+use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\StaffBundle\Entity\Staff;
 use Busybee\StaffBundle\Events\StaffSubscriber;

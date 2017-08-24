@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\StudentBundle\Entity;
 
-use Busybee\PersonBundle\Model\PersonInterface;
+use Busybee\People\PersonBundle\Model\PersonInterface;
 use Busybee\StudentBundle\Model\StudentModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -126,7 +126,7 @@ class Student extends StudentModel implements PersonInterface
     private $createdOn;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Person
+     * @var \Busybee\People\PersonBundle\Entity\Person
      */
     private $person;
 
@@ -708,7 +708,7 @@ class Student extends StudentModel implements PersonInterface
     /**
      * Get person
      *
-     * @return \Busybee\PersonBundle\Entity\Person
+     * @return \Busybee\People\PersonBundle\Entity\Person
      */
     public function getPerson()
     {
@@ -718,11 +718,11 @@ class Student extends StudentModel implements PersonInterface
     /**
      * Set person
      *
-     * @param \Busybee\PersonBundle\Entity\Person $person
+     * @param \Busybee\People\PersonBundle\Entity\Person $person
      *
      * @return Student
      */
-    public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
+	public function setPerson(\Busybee\People\PersonBundle\Entity\Person $person = null)
     {
         $this->person = $person;
 

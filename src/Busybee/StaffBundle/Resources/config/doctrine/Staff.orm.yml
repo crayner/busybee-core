@@ -26,7 +26,7 @@ Busybee\StaffBundle\Entity\Staff:
             type: datetime
     oneToOne:
         person:
-            targetEntity: Busybee\PersonBundle\Entity\Person
+            targetEntity: Busybee\People\PersonBundle\Entity\Person
             inversedBy: staff
         homeroom:
             targetEntity: Busybee\InstituteBundle\Entity\Space

@@ -2,7 +2,7 @@
 
 namespace Busybee\SecurityBundle\Entity;
 
-use Busybee\PersonBundle\Entity\Person;
+use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Model\User as UserModel;
 use DateTime ;
 
@@ -112,7 +112,7 @@ class User extends UserModel
     private $modifiedBy;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Person
+     * @var \Busybee\People\PersonBundle\Entity\Person
      */
     private $person;
 

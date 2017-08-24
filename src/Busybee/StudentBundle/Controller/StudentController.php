@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\StudentBundle\Controller;
 
-use Busybee\PersonBundle\Entity\Person;
+use Busybee\People\PersonBundle\Entity\Person;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -7,7 +7,7 @@ use Busybee\InstituteBundle\Form\DepartmentStaffType;
 
 abstract class StaffModel
 {
-    use \Busybee\PersonBundle\Model\FormatNameExtension;
+	use \Busybee\People\PersonBundle\Model\FormatNameExtension;
 
     public function __construct()
     {

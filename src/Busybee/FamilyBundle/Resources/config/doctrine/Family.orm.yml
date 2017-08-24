@@ -39,7 +39,7 @@ Busybee\FamilyBundle\Entity\Family:
                 referencedColumnName: id
     manyToMany:
         phone:
-            targetEntity: Busybee\PersonBundle\Entity\Phone
+            targetEntity: Busybee\People\PersonBundle\Entity\Phone
             cascade: [ 'persist' ]
             joinTable:
                 name: family_phone
@@ -63,13 +63,13 @@ Busybee\FamilyBundle\Entity\Family:
                         referencedColumnName: id
     manyToOne:
         address1:
-            targetEntity: Busybee\PersonBundle\Entity\Address
+            targetEntity: Busybee\People\PersonBundle\Entity\Address
             nullable: true
             joinColumns:
                 address1:
                     referencedColumnName: id
         address2:
-            targetEntity: Busybee\PersonBundle\Entity\Address
+            targetEntity: Busybee\People\PersonBundle\Entity\Address
             nullable: true
             joinColumns:
                 address2:

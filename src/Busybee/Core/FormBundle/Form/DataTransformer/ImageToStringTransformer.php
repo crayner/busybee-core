@@ -2,7 +2,7 @@
 
 namespace Busybee\Core\FormBundle\Form\DataTransformer;
 
-use Busybee\PersonBundle\Entity\Person;
+use Busybee\People\PersonBundle\Entity\Person;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Busybee\Core\FormBundle\Model\ImageUploader;

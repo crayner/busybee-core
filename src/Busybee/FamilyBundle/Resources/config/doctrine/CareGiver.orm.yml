@@ -47,7 +47,7 @@ Busybee\FamilyBundle\Entity\CareGiver:
             type: boolean
     manyToOne:
         person:
-            targetEntity: Busybee\PersonBundle\Entity\Person
+            targetEntity: Busybee\People\PersonBundle\Entity\Person
             inversedBy: careGiver
             joinColumn:
                 name: person

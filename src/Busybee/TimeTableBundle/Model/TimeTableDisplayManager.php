@@ -8,7 +8,7 @@ use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\PersonBundle\Model\PersonManager;
+use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\SecurityBundle\Model\UserInterface;
 use Busybee\StaffBundle\Entity\Staff;

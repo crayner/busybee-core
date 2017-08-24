@@ -4,7 +4,7 @@ namespace Busybee\FamilyBundle\Model;
 
 class CareGiverModel
 {
-    use \Busybee\PersonBundle\Model\FormatNameExtension;
+	use \Busybee\People\PersonBundle\Model\FormatNameExtension;
 
     public function __construct()
     {

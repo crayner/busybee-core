@@ -1,0 +1,93 @@
+{# src/Busybee/PersonBundle/Resources/views/Person/person.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+
+<div class="panel panel-primary busybee-panel">
+    {% include "BusybeePersonBundle:Person:panelHeader.html.twig" %}
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.surname) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.firstName) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.photo) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.preferredName) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.officialName) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.dob) }}
+                </div>
+            </div>
+            <div class="row">
+                {% set offset = 8 %}
+                {% if form.vars.value.id is not null and canBeStaff(form.vars.value) %}
+                    <div class="col-sm-2 well">
+                        {% if form.staff.vars.value is empty or form.staff.vars.value.getId() is empty %}
+                            {{ form_row(form.staffQuestion) }}
+                        {% else %}
+                            {% set attributes = {'checked': 'checked'} %}
+                            {% if not canDeleteStaff(form.vars.value) %}
+                                {% set attributes = attributes|merge({'disabled': 'disabled'}) %}
+                            {% endif %}
+                            {{ form_row(form.staffQuestion, attributes) }}
+                        {% endif %}
+                        {% set offset = offset - 2 %}
+                    </div>
+                {% else %}
+                    {% do form.staffQuestion.setRendered() %}
+                {% endif %}
+
+                {% if form.vars.value.id is not null and canBeStudent(form.vars.value) %}
+                    <div class="col-sm-2 well">
+                        {% if form.student.vars.value is empty or form.student.vars.value.getId() is empty %}
+                            {{ form_row(form.studentQuestion) }}
+                        {% else %}
+                            {% set attributes = {'checked': 'checked'} %}
+                            {% if not canDeleteStudent(form.vars.value, get_parameter('person')) %}
+                                {% set attributes = attributes|merge({'disabled': 'disabled'}) %}
+                            {% endif %}
+                            {{ form_row(form.studentQuestion, attributes) }}
+                        {% endif %}
+                        {% set offset = offset - 2 %}
+                    </div>
+                {% else %}
+                    {% do form.studentQuestion.setRendered() %}
+                {% endif %}
+                {% if form.vars.value.id is not null and canBeUser(form.vars.value) %}
+                    <div class="col-sm-2 well">
+                        {% if form.user.vars.value is empty or form.user.vars.value.getId() is empty %}
+                            {{ form_row(form.userQuestion) }}
+                        {% else %}
+                            {% set attributes = {'checked': 'checked'} %}
+                            {% if not canDeleteUser(form.vars.value, get_parameter('person')) %}
+                                {% set attributes = attributes|merge({'disabled': 'disabled'}) %}
+                            {% endif %}
+                            {{ form_row(form.userQuestion, attributes) }}
+                        {% endif %}
+                        {% set offset = offset - 2 %}
+                    </div>
+                {% else %}
+                    {% do form.userQuestion.setRendered() %}
+                {% endif %}
+
+                <div class="col-sm-offset-{{ offset }} col-sm-2 well">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="col-sm-2 well">
+                    {{ form_row(form.gender) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

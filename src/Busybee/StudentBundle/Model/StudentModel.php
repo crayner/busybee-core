@@ -2,11 +2,11 @@
 namespace Busybee\StudentBundle\Model;
 
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\PersonBundle\Model\PersonInterface;
+use Busybee\People\PersonBundle\Model\PersonInterface;
 
 abstract class StudentModel implements PersonInterface
 {
-    use \Busybee\PersonBundle\Model\FormatNameExtension;
+	use \Busybee\People\PersonBundle\Model\FormatNameExtension;
 
     /**
      * @var string

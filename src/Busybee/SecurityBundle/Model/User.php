@@ -2,7 +2,7 @@
 namespace Busybee\SecurityBundle\Model;
 
 use Busybee\Core\HomeBundle\Exception\Exception;
-use Busybee\PersonBundle\Entity\Person;
+use Busybee\People\PersonBundle\Entity\Person;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -13,7 +13,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 abstract class User implements UserInterface
 {
-    use \Busybee\PersonBundle\Model\FormatNameExtension ;
+	use \Busybee\People\PersonBundle\Model\FormatNameExtension;
 
     /**
      * @var string

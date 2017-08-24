@@ -1,0 +1,214 @@
+#PersonBundle
+parameters:
+    personPagination:
+        alias: p
+        sortBy:
+            Family Name: 
+                p.surname: ASC
+                p.firstName: ASC
+            Given Name: 
+                p.firstName: ASC
+                p.surname: ASC
+            Details:
+                p.email: ASC
+                h.phoneNumber: ASC
+                p.surname: ASC
+                p.firstName: ASC
+        limit: '25'
+        searchList:
+            - p.surname
+            - p.firstName
+            - p.email
+        select:
+            - p.id
+            - p.title as details
+            - p.surname
+            - p.firstName
+            - stu.id as stu_id
+            - sta.id as staff_id
+            - u.id as user_id
+        join:
+            p.phone:
+                type: leftJoin
+                alias: h
+            p.student:
+                type: leftJoin
+                alias: stu
+            p.staff:
+                type: leftJoin
+                alias: sta
+            p.user:
+                type: leftJoin
+                alias: u
+        choices:
+            all:
+                route: person_manage
+                prompt: pagination.person.all
+            student:
+                route: student_manage
+                prompt: pagination.person.student
+            staff:
+                route: staff_manage
+                prompt: pagination.person.staff
+            contact:
+                route: contact_manage
+                prompt: pagination.person.contact
+services:
+    person.repository:
+        class: Busybee\People\PersonBundle\Repository\PersonRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeePersonBundle:Person"
+    person.pagination:
+        class: Busybee\People\PersonBundle\Model\PersonPagination
+        arguments: 
+            - '%personPagination%'
+            - '@person.repository'
+            - '@my_service_container'
+    contact.pagination:
+        class: Busybee\People\PersonBundle\Model\ContactPagination
+        arguments:
+            - '%personPagination%'
+            - '@person.repository'
+            - '@my_service_container'
+    address.manager:
+        class: Busybee\People\PersonBundle\Model\AddressManager
+        arguments:
+            - '@translator'
+            - '@setting.manager'
+            - '@address.repository'
+    locality.repository:
+        class: Busybee\People\PersonBundle\Repository\LocalityRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeePersonBundle:Locality"
+    address.repository:
+        class: Busybee\People\PersonBundle\Repository\AddressRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeePersonBundle:Address"
+    phone.repository:
+        class: Busybee\People\PersonBundle\Repository\PhoneRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeePersonBundle:Phone"
+    person.uploader.photo:
+        class: Busybee\People\PersonBundle\Model\PhotoUploader
+        arguments:
+            - "%upload_path%"
+    person.listener:
+        class: Busybee\People\PersonBundle\EventListener\PersonListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postLoad }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: postRemove }
+    person.form.personType:
+        class: Busybee\People\PersonBundle\Form\PersonType
+        arguments:
+            - '@person.manager'
+            - '@doctrine.orm.entity_manager'
+            - '@person.uploader.photo'
+            - '%person%'
+        tags:
+            - { name: form.type }
+    person.form.addressType:
+        class: Busybee\People\PersonBundle\Form\AddressType
+        arguments:
+            - '@setting.manager'
+            - '@doctrine.orm.entity_manager'
+        tags: 
+            - { name: form.type }
+    person.form.localityType:
+        class: Busybee\People\PersonBundle\Form\LocalityType
+        arguments:
+            - '@setting.manager'
+            - '@locality.repository'
+        tags: 
+            - { name: form.type }
+    person.form.type.phone:
+        class: Busybee\People\PersonBundle\Form\PhoneType
+        arguments:
+            - '@setting.manager'
+            - '@phone.repository'
+        tags: 
+            - { name: form.type }    
+    person.phone.validator:
+        class: Busybee\People\PersonBundle\Validator\Constraints\PhoneValidator
+        arguments:
+            - '@setting.manager'
+        tags:
+            - { name: validator.constraint_validator, alias: phone_validator }
+    person.manager:
+        class: Busybee\People\PersonBundle\Model\PersonManager
+        arguments:
+            - '@setting.manager'
+            - '@doctrine.orm.entity_manager'
+            - '@validator'
+            - '@current.year.currentYear'
+    person.image.validator:
+        class: Busybee\People\PersonBundle\Validator\Constraints\PersonImageValidator
+        tags:
+            - { name: validator.constraint_validator, alias: person_image_validator }
+    person.extension:
+        class: Busybee\People\PersonBundle\Model\PersonExtension
+        arguments:
+            - '@setting.manager'
+            - '@person.manager'
+            - '@address.manager'
+            - '@phone.manager'
+        tags:
+            - { name: twig.extension }
+    form.person.user.type:
+        class: Busybee\People\PersonBundle\Form\UserType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@setting.manager'
+        tags:
+            - { name: form.type }
+    person.email.validator:
+        class: Busybee\People\PersonBundle\Validator\Constraints\PersonEmailValidator
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: validator.constraint_validator, alias: person_email_validator }
+    phone.manager:
+        class: Busybee\People\PersonBundle\Model\PhoneManager
+        arguments:
+            - '@translator'
+            - '@setting.manager'
+            - '@phone.repository'
+    person.name.validator:
+        class: Busybee\People\PersonBundle\Validator\Constraints\PersonNameValidator
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: validator.constraint_validator, alias: person_name_validator }
+    form.person.extra.type:
+        class: Busybee\People\PersonBundle\Form\ExtraType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    form.person.preference.type:
+        class: Busybee\People\PersonBundle\Form\PersonPreferenceType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    preference.manager:
+        class: Busybee\People\PersonBundle\Model\PreferenceManager
+        arguments:
+            - '@grab.user.current'
+            - '@user.manager'
+            - '%locale%'
+            - '@doctrine.orm.entity_manager'

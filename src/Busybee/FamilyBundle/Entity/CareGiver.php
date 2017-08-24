@@ -42,7 +42,7 @@ class CareGiver extends CareGiverModel
     private $modifiedBy;
 
     /**
-     * @var \Busybee\PersonBundle\Entity\Person
+     * @var \Busybee\People\PersonBundle\Entity\Person
      */
     private $person;
 
@@ -219,7 +219,7 @@ class CareGiver extends CareGiverModel
     /**
      * Get person
      *
-     * @return \Busybee\PersonBundle\Entity\Person
+     * @return \Busybee\People\PersonBundle\Entity\Person
      */
     public function getPerson()
     {
@@ -229,11 +229,11 @@ class CareGiver extends CareGiverModel
     /**
      * Set person
      *
-     * @param \Busybee\PersonBundle\Entity\Person $person
+     * @param \Busybee\People\PersonBundle\Entity\Person $person
      *
      * @return CareGiver
      */
-    public function setPerson(\Busybee\PersonBundle\Entity\Person $person = null)
+	public function setPerson(\Busybee\People\PersonBundle\Entity\Person $person = null)
     {
         $this->person = $person;
 

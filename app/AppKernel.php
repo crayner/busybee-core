@@ -22,7 +22,7 @@ class AppKernel extends Kernel
 	        new Busybee\Core\SystemBundle\SystemBundle(),
 	        new Busybee\Core\FormBundle\BusybeeFormBundle(),
             new Busybee\PaginationBundle\PaginationBundle(),
-            new Busybee\PersonBundle\BusybeePersonBundle(),
+	        new Busybee\People\PersonBundle\BusybeePersonBundle(),
             new Busybee\CurriculumBundle\BusybeeCurriculumBundle(),
             new Busybee\StaffBundle\BusybeeStaffBundle(),
             new Busybee\StudentBundle\BusybeeStudentBundle(),
