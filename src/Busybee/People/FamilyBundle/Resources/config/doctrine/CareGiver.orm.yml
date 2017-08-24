@@ -1,0 +1,70 @@
+Busybee\People\FamilyBundle\Entity\CareGiver:
+    type: entity
+    table: caregiver
+    repositoryClass: Busybee\People\FamilyBundle\Repository\CareGiverRepository
+    uniqueConstraints:
+        familyPerson:
+            columns:
+                - family
+                - person
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        comment:
+            type: text
+            nullable: true
+        phoneContact:
+            type: boolean
+        smsContact:
+            type: boolean
+        emailContact:
+            type: boolean
+        mailContact:
+            type: boolean
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+        contactPriority:
+            type: integer
+            length: 2
+        relationship:
+            type: string
+            length: 32
+        newsletter:
+            type: boolean
+        finance:
+            type: boolean
+        pickUpAllowed:
+            type: boolean
+        emergencyOnly:
+            type: boolean
+        reporting:
+            type: boolean
+    manyToOne:
+        person:
+            targetEntity: Busybee\People\PersonBundle\Entity\Person
+            inversedBy: careGiver
+            joinColumn:
+                name: person
+                referencedColumnName: id
+        family:
+            targetEntity: Busybee\People\FamilyBundle\Entity\Family
+            inversedBy: careGiver
+            joinColumn:
+                name: family
+                referencedColumnName: id
+        createdBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id

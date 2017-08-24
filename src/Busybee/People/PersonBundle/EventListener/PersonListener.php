@@ -2,7 +2,7 @@
 
 namespace Busybee\People\PersonBundle\EventListener;
 
-use Busybee\FamilyBundle\Entity\Family;
+use Busybee\People\FamilyBundle\Entity\Family;
 use Busybee\People\StudentBundle\Entity\Student;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Doctrine\ORM\Event\LifecycleEventArgs;

@@ -1,0 +1,9 @@
+Busybee\People\FamilyBundle\Entity\CareGiver:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [family, person]
+            errorPath: person
+            message: 'caregiver.unique.fail'
+    properties:
+        person:
+            - NotBlank: ~

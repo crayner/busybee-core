@@ -2,7 +2,7 @@
 
 namespace Busybee\People\PersonBundle\Model;
 
-use Busybee\FamilyBundle\Entity\CareGiver;
+use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\People\StaffBundle\Entity\Staff;

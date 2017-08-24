@@ -2,8 +2,8 @@
 
 namespace Busybee\People\PersonBundle\Model;
 
-use Busybee\FamilyBundle\Entity\CareGiver;
-use Busybee\FamilyBundle\Entity\Family;
+use Busybee\People\FamilyBundle\Entity\CareGiver;
+use Busybee\People\FamilyBundle\Entity\Family;
 use Busybee\InstituteBundle\Entity\DepartmentStaff;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\People\PersonBundle\Entity\Address;

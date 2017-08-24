@@ -772,11 +772,11 @@ class Person extends PersonModel implements PersonInterface
 	/**
 	 * Add careGiver
 	 *
-	 * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver
+	 * @param \Busybee\People\FamilyBundle\Entity\CareGiver $careGiver
 	 *
 	 * @return Person
 	 */
-	public function addCareGiver(\Busybee\FamilyBundle\Entity\CareGiver $careGiver)
+	public function addCareGiver(\Busybee\People\FamilyBundle\Entity\CareGiver $careGiver)
 	{
 		$this->careGiver[] = $careGiver;
 
@@ -786,9 +786,9 @@ class Person extends PersonModel implements PersonInterface
 	/**
 	 * Remove careGiver
 	 *
-	 * @param \Busybee\FamilyBundle\Entity\CareGiver $careGiver
+	 * @param \Busybee\People\FamilyBundle\Entity\CareGiver $careGiver
 	 */
-	public function removeCareGiver(\Busybee\FamilyBundle\Entity\CareGiver $careGiver)
+	public function removeCareGiver(\Busybee\People\FamilyBundle\Entity\CareGiver $careGiver)
 	{
 		$this->careGiver->removeElement($careGiver);
 	}

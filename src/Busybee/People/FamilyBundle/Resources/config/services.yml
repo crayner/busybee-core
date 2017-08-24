@@ -1,0 +1,62 @@
+# FamilyBundle
+parameters:
+   familyPagination:
+        alias: f
+        sortBy:
+            Family Name:
+                f.name: ASC
+        limit: '10'
+        searchList:
+            - f.name
+        select:
+            - f.name
+            - f.id
+services:
+    family.repository:
+        class: Busybee\People\FamilyBundle\Repository\FamilyRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeFamilyBundle:Family"
+    caregiver.repository:
+        class: Busybee\People\FamilyBundle\Repository\CareGiverRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeFamilyBundle:CareGiver"
+    family.pagination:
+        class: Busybee\People\FamilyBundle\Model\FamilyPagination
+        arguments:
+            - '%familyPagination%'
+            - '@family.repository'
+            - '@my_service_container'
+    form.family.type:
+        class: Busybee\People\FamilyBundle\Form\FamilyType
+        arguments:
+            - '@family.manager'
+        tags:
+            - { name: form.type }
+    family.manager:
+        class: Busybee\People\FamilyBundle\Model\FamilyManager
+        arguments:
+            - '@setting.manager'
+            - '@doctrine.orm.entity_manager'
+            - '@person.manager'
+    caregiver.validator:
+        class: Busybee\People\FamilyBundle\Validator\Constraints\CareGiverValidator
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: validator.constraint_validator, alias: caregiver_validator }
+    form.caregiver.type:
+        class: Busybee\People\FamilyBundle\Form\CareGiverType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+    caregiver.extension:
+        class: Busybee\People\FamilyBundle\Model\CareGiverExtension
+        tags:
+            - { name: twig.extension }

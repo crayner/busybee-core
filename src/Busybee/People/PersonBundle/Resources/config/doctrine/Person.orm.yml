@@ -129,5 +129,5 @@ Busybee\People\PersonBundle\Entity\Person:
             mappedBy: person
     oneToMany:
         careGiver:
-            targetEntity: Busybee\FamilyBundle\Entity\CareGiver
+            targetEntity: Busybee\People\FamilyBundle\Entity\CareGiver
             mappedBy: person
