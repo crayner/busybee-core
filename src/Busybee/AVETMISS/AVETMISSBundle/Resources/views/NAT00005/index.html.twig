@@ -1,0 +1,54 @@
+{# src/Busybee/Plugin/AVETMISSBundle/Resources/views/NAT00005/index.html.twig #}
+
+{% trans_default_domain "BusybeeAVETMISSBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'report.nat00005.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'report.nat00005.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'report.nat00005.description'|trans|raw }}{% endblock headerLead %}
+
+
+{% block contentContainer %}
+{{ form_start(form) }}
+<div class="container-fluid">
+    {% set count = 0 %}
+    {% for element in form %}
+        {% if element.vars.name not in ['save','cancel','_token'] %}
+            {% if count == 0 %}
+                <div class="row">
+            {% endif %}
+            <div class="well col-sm-6 col-md-6">
+                {% if element.vars.name in ['Org_Contact_Phone','Org_Contact_Facsimile'] %}
+                    {{ form_row(element, {'value': get_setting('Phone.Display', null, {'phone': element.vars.value}) } ) }}
+                {% else %}
+                    {{ form_row(element) }}
+                {% endif %}
+            </div>
+            {% if count > 0 %}
+                </div>
+            {% endif %}
+            {% set count = count + 1 %}
+            {% if count > 1 %}
+                {% set count = 0 %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+
+    {% if count == 0 %}
+    <div class="row">
+        <div class="well col-sm-6 col-md-6 col-sm-offset-6 col-md-offset-6">
+            {% else %}
+            <div class="well col-sm-6 col-md-6">
+                {% endif %}
+                <div class="form-group text-right">
+                    {{ form_widget(form.save) }}
+                    {{ form_widget(form.cancel) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+    {% endblock contentContainer %}
+

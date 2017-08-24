@@ -43,3 +43,65 @@ parameters:
         oauth: off
         client_id: ''
         client_secret: ''
+    bundles:
+        AVETMISS:
+            active: false
+            namespace: Busybee\AVETMISS\AVETMISSBundle\BusybeeAVETMISSBundle
+            route:
+                resource: "@BusybeeAVETMISSBundle/Resources/config/routing.yml"
+                prefix:   /avetmiss/
+        Home:
+            active: true
+            namespace: Busybee\Core\HomeBundle\BusybeeHomeBundle
+            route:
+                resource: "@BusybeeHomeBundle/Resources/config/routing.yml"
+                prefix:   /
+        Security:
+            active: true
+            namespace: Busybee\Core\SecurityBundle\BusybeeSecurityBundle
+            route:
+                resource: "@BusybeeSecurityBundle/Resources/config/routing.yml"
+                prefix:   /security/
+        System:
+            active: true
+            namespace: Busybee\Core\SystemBundle\SystemBundle
+            route:
+                resource: "@SystemBundle/Resources/config/routing.yml"
+                prefix:   /system/
+        Form:
+            active: true
+            namespace: Busybee\Core\FormBundle\BusybeeFormBundle
+        Pagination:
+            active: true
+            namespace: Busybee\Core\PaginationBundle\PaginationBundle
+        Calendar:
+            active: true
+            namespace: Busybee\Core\CalendarBundle\BusybeeCalendarBundle
+            route:
+                resource: "@BusybeeCalendarBundle/Resources/config/routing.yml"
+                prefix:   /core/calendar/
+        Family:
+            active: true
+            namespace: Busybee\People\FamilyBundle\BusybeeFamilyBundle
+            route:
+                resource: "@BusybeeFamilyBundle/Resources/config/routing.yml"
+                prefix:   /family/
+        Person:
+            active: true
+            namespace: Busybee\People\PersonBundle\BusybeePersonBundle
+            route:
+                resource: "@BusybeePersonBundle/Resources/config/routing.yml"
+                prefix:   /person/
+        Staff:
+            active: true
+            namespace: Busybee\People\StaffBundle\BusybeeStaffBundle
+            route:
+                resource: "@BusybeeStaffBundle/Resources/config/routing.yml"
+                prefix:   /staff/
+        Student:
+            active: true
+            namespace: Busybee\People\StudentBundle\BusybeeStudentBundle
+            route:
+                resource: "@BusybeeStudentBundle/Resources/config/routing.yml"
+                prefix:   /student/
+

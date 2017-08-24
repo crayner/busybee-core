@@ -1,0 +1,33 @@
+avetmiss_report:
+    path:     /report/
+    defaults: { _controller: BusybeeAVETMISSBundle:Report:index }
+avetmiss_report_start:
+    path:     /report/start/
+    defaults: { _controller: BusybeeAVETMISSBundle:Report:start }
+avetmiss_install:
+    path:     /install/
+    defaults: { _controller: BusybeeAVETMISSBundle:Install:index }
+avetmiss_install_start:
+    path:     /install/start/
+    defaults: { _controller: BusybeeAVETMISSBundle:Install:start }
+avetmiss_update:
+    path:     /update/
+    defaults: { _controller: BusybeeAVETMISSBundle:Install:index }
+avetmiss_download:
+    path:     /download/{name}/{year}/
+    defaults: { _controller: BusybeeAVETMISSBundle:Report:download }
+avetmiss_course_manage:
+    path:     /course/
+    defaults: { _controller: BusybeeAVETMISSBundle:Course:index }
+avetmiss_subject_manage:
+    path:     /subject/
+    defaults: { _controller: BusybeeAVETMISSBundle:Subject:index }
+avetmiss_nat00005_settings:
+    path:     /subject/nat00005/
+    defaults: { _controller: BusybeeAVETMISSBundle:NAT00005:index }
+avetmiss_nat00010_settings:
+    path:     /subject/nat00010/
+    defaults: { _controller: BusybeeAVETMISSBundle:NAT00010:index }
+avetmiss_schedule_manage:
+    path:     /schedule/
+    defaults: { _controller: BusybeeAVETMISSBundle:Schedule:index }

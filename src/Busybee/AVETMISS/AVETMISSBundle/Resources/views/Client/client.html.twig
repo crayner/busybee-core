@@ -1,0 +1,98 @@
+{# src/Busybee/Plugin/AVETMISSBundle/Resources/views/Client/client.html.twig #}
+
+{% trans_default_domain "BusybeeAVETMISSBundle" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+<div class="panel panel-primary busybee-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ 'client.title'|trans }}
+            <button title='{{ 'person.return'|trans }}' type="button"
+                    class="halflings halflings-hand-left btn btn-primary"
+                    onClick="window.open('{{ path('person_manage') }}','_self')" style="float: right"></button>
+            {% if id != 'Add' %}
+                <button title='{{ 'person.add.title'|trans }}' type="button"
+                        class="halflings halflings-plus-sign btn btn-primary"
+                        onClick="window.open('{{ path('person_edit', {'id': 'Add'}) }}','_self')"
+                        style="float: right"></button>
+            {% endif %}
+            <button title='{{ 'form.cancel'|trans({}, 'BusybeeHomeBundle') }}' type="button"
+                    onClick="location.href='{{ path('person_edit', {'id': id}) }}'"
+                    class="halflings halflings-remove-circle btn btn-info" style="float: right"></button>
+            <button title='{{ 'form.save'|trans({}, 'BusybeeHomeBundle') }}' type="submit"
+                    class="halflings halflings-save btn btn-success" style="float: right"></button>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class='row'>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.clientID) }}
+                    {{ form_row(form.student) }}
+                </div>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.schoolAttainment) }}
+                </div>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.schoolAttainmentYear) }}
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.indigenous) }}
+                </div>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.language) }}
+                </div>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.labourForce) }}
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.countryBorn) }}
+                </div>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.disability) }}
+                    <div id="disabilityHelp" class="field-help"></div>
+                </div>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.priorEducation) }}
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.atSchool) }}
+                </div>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.englishProficiency) }}
+                </div>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.usi) }}
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.sal1) }}
+                </div>
+                <div class='col-sm-4 well'>
+                    {{ form_row(form.sal2) }}
+                </div>
+                <div class='col-sm-4 well'>
+                    <span class="field-help">{{ 'client.help.sal'|trans }}</span>
+                </div>
+            </div>
+            <div class='row'>
+                <div class="panel panel-info busybee-panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ 'client.address.title'|trans }}</h3>
+                    </div>
+                    <div class="panel-body well">
+                        {{ 'client.address.requirements'|trans|raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

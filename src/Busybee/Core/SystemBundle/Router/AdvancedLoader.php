@@ -19,6 +19,17 @@ class AdvancedLoader extends Loader
 	 */
 	private $path;
 
+	/**
+	 * @var array
+	 */
+	private $bundles;
+
+	/**
+	 * @param mixed $resource
+	 * @param null  $type
+	 *
+	 * @return RouteCollection
+	 */
 	public function load($resource, $type = null)
 	{
 		if ($this->loaded)
@@ -26,30 +37,29 @@ class AdvancedLoader extends Loader
 
 		$routes = new RouteCollection();
 
-		$path = realpath($this->path . '/vendor/busybee');
-
-		if (is_dir($path))
-			foreach (new \DirectoryIterator($path) as $fileInfo)
+		foreach ($this->bundles as $name => $bundle)
+		{
+			if ($bundle['active'] && !empty($bundle['route']))
 			{
-				if ($fileInfo->isDot()) continue;
-				if ($fileInfo->isDir())
-				{
-					$plugin   = str_replace('Bundle', '', $fileInfo->getFileName()) . '_plugin';
-					$content  = Yaml::parse(file_get_contents($fileInfo->getRealPath() . '/src//Resources/config/services.yml'));
-					$route    = $content['parameters'][$plugin]['Route'];
-					$resource = '@' . $route['resource'];
-
-					$importedRoutes = $this->import($resource, $route['type']);
-					$routes->addCollection($importedRoutes);
-					$routes->addPrefix($route['prefix']);
-				}
+				$route          = $bundle['route'];
+				$importedRoutes = null;
+				$importedRoutes = $this->import('@' . $route['resource'], empty($route['type']) ? 'yaml' : $route['type']);
+				$importedRoutes->addPrefix(empty($route['prefix']) ? strtolower($name) : $route['prefix']);
+				$routes->addCollection($importedRoutes);
 			}
+		}
 
 		$this->loaded = true;
 
 		return $routes;
 	}
 
+	/**
+	 * @param mixed  $resource
+	 * @param string $type
+	 *
+	 * @return bool
+	 */
 	public function supports($resource, $type = null)
 	{
 		return 'advanced_extra' === $type;
@@ -58,10 +68,15 @@ class AdvancedLoader extends Loader
 	/**
 	 * AdvancedLoader constructor.
 	 *
-	 * @param $path
+	 * @param Kernel $kernel
+	 * @param array  $bundles
+	 *
+	 * @internal param $path
 	 */
 	public function __construct(Kernel $kernel)
 	{
-		$this->path = $kernel->getProjectDir();
+		$this->path    = $kernel->getProjectDir();
+		$parameters    = Yaml::parse(file_get_contents($this->path . '/app/config/parameters.yml'));
+		$this->bundles = $parameters['parameters']['bundles'];
 	}
 }

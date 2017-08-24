@@ -1,0 +1,49 @@
+{# src/Busybee/Plugin/AVETMISSBundle/Resources/views/Report/index.html.twig #}
+
+{% trans_default_domain "BusybeeAVETMISSBundle" %}
+
+<div class="row">
+    <div class="well col-sm-6">
+        <div class="form-group">
+            <div class="yesno-right">
+                <input type="checkbox" id="{{ report.getReportName }}" name="{{ report.getReportName }}"
+                       class="form-control yes-no" data-off-label="false" data-on-label="false"
+                       data-off-icon-cls="glyphicons-thumbs-down" data-on-icon-cls="glyphicons-thumbs-up"
+                       {% if app.request.get(report.getReportName) == 'on' %}checked{% endif %} />
+                <label for="{{ report.getReportName }}">{{ ('report.' ~ report.getReportName ~ '.title')|trans }}</label><br/>
+                <span class='field-help'>{{ ('report.' ~ report.getReportName ~ '.description')|trans }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="well col-sm-6">
+        <div class="panel panel-{% if report.report.status is empty %}{{ report.status }}{% else %}{{ report.report.status }}{% endif %}">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ 'report.report.title'|trans({'%name%': report.getReportName|upper }) }}</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    {% for error in report.errors.errors %}
+                        <li>{{ error.message|trans({'%item%': error.item, '%value%': error.value}) }}
+                            {% if error.route is not empty %}
+                                <button title="{{ 'report.error.help'|trans }}"
+                                        class="btn btn-warning halflings halflings-edit"
+                                        onclick="window.open('{{ path(error.route.path, error.route.parameters) }}','_blank')"></button>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    {% if report.status == 'success' %}
+                        <button title="{{ 'report.download'|trans }}"
+                                class="btn btn-success halflings halflings-cloud-download"
+                                onclick="window.open('{{ path('avetmiss_download', {'name': report.reportName, 'year': report.year}) }}','Download')"></button> {{ 'report.created'|trans({'%date%': report.report.lastModified|date('D jS M/Y H:i:s')}) }}
+                    {% else %}
+                        {% if report.report.status is not empty %}
+                            <button title="{{ 'report.download'|trans }}"
+                                    class="btn btn-{{ report.report.status }} halflings halflings-cloud-download"
+                                    onclick="window.open('{{ path('avetmiss_download', {'name': report.reportName, 'year': report.year}) }}','Download')"></button> {{ 'report.created'|trans({'%date%': report.report.lastModified|date('D jS M/Y H:i:s')}) }}
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

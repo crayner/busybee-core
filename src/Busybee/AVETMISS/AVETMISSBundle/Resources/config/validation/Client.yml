@@ -1,0 +1,10 @@
+Busybee\AVETMISS\AVETMISSBundle\Entity\Client:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [clientID]
+            errorPath: clientID
+    properties:
+        clientID:
+            - NotBlank: ~
+        student:
+            - Valid: ~

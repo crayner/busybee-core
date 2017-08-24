@@ -1,0 +1,51 @@
+Busybee\AVETMISS\AVETMISSBundle\Entity\Subject:
+    type: entity
+    table: avetmiss_subject
+    repositoryClass: Busybee\AVETMISS\AVETMISSBundle\Repository\SubjectRepository
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [identifier, subject]
+            errorPath: identifier
+            message: 'subject.error.name.unique'
+#    indexes:
+#        type:
+#            columns: [ type, name ] 
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        identifier:
+            type: string
+            length: '12'
+        nominalHours:
+            type: string
+            length: '4'
+            nullable: true
+        FOEIdentifier:
+            type: string
+            length: '6'
+            nullable: true
+        VETFlag:
+            type: boolean
+        subjectFlag:
+            type: boolean
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        subject:
+            targetEntity: Busybee\CurriculumBundle\Entity\Subject 
+            cascade: [persist]
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

@@ -1,0 +1,185 @@
+name: AVETMISS
+settings: AVETMISS Settings
+reports:
+    title: Reports
+    avetmiss: AVETMISS Report
+menu:
+    install: Install AVETMISS
+    update: Update AVETMISS
+    report: AVETMISS Report
+    course: Manage Course
+    curriculum: Curriculum
+    subject: Manage Subject
+    schedule: Unit Schedule
+report:
+    title: AVETMISS Report 
+    description: "Built to VET Provider Collection Specifications.</li><p class='sub-lead'>Release 7.0, April 2013, Updated June 2016."
+    paragraph1: "AVETMISS Reporting is defined on the <a href='https://www.ncver.edu.au/support/topics/avetmiss/avetmiss-support-for-rtos' target='_blank'>AVETMISS website</a>.  The report will generate a number of files that you will need to save, store and forward to your reporting authority.  The report will also generate error files.  Any errors found should be corrected in the data of the system before the report is completed and sent to the reporting authority.  The report can take some time to complete, especially if all files in the report are selected."
+    created: Report created on %date%.
+    nat00005:
+        title: Submission to Managing Agent (NAT00005) File
+        description: The Submission to managing agent (NAT00005) file is only required by state or territory training authorities submitting to NCVER. This file is not required from registered training organisations. The Submission to managing agent (NAT00005) file contains a single record that holds data about the state or territory training authority submitting information to NCVER. 
+    start: Start Report
+    years: 
+        title: Report on Year
+        description: Older years may now be incomplete due to archiving services on the database.
+    report:
+        title: '%name% Report'
+    download: Download Report
+    error:
+        notInitiated: 'The report is not available.'
+        blank: '%item% is blank.'
+        minLength: "%item% length is not long enough."
+        default: '%item% has a default value.'
+        invalid: '%item% = %value% is an invalid value.'
+        help: Where can I set this value?
+        empty: No data is available to generate this report!
+        physicalAddress: The address must not be a postal delivery box.
+    nat00010:
+        title: Training Organisation (NAT00010) File
+        description: The Training organisation (NAT00010) file contains records about training organisations. The Training organisation (NAT00010) file provides information about the training organisation for the National VET Provider Collection.
+    nat00020:
+        title: Training organisation delivery location (NAT00020) file
+        description: The Training organisation delivery location (NAT00020) file contains a record for each training delivery location associated with enrolment activity in a training organisation during the collection period. A training organisation delivery location is a specific training site. The Training organisation delivery location (NAT00020) file provides a record of training delivery location details during the collection period. This file is used to distinguish between delivery locations of a training organisation.
+    nat00030:
+        title: Program (NAT00030) File
+        description: The Program (NAT00030) file contains a record for each qualification, course or skill set associated with enrolments and completions during the collection period.  A qualification, course or skill set is a structured program that may include practical experience.
+    nat00060:
+        title: Subject (NAT00060) File
+        description: The Subject (NAT00060) file contains a record for each unit of competency or module associated with enrolment activity during the collection period. A unit of competency or module can be studied independently but is usually offered as part of a qualification, course or skill set.
+    nat00080:
+        title: Client (NAT00080) File
+        description: The Client (NAT00080) file contains a record for each client who has participated in VET activity during the collection period or whose completion of a program of study is reported during the collection period.  A client is an individual who is engaged in or has completed a program of study.
+    nat00085:
+        title: Client Postal Details (NAT00085) File
+        description: |
+            The Client postal details (NAT00085) file stores address details of clients for mailing lists under the administration of states and territories. 
+            Training organisations not in receipt of government funding do not currently need to submit this file.  
+            National VET in Schools Collection submissions by Boards of Studies or state or territory training authorities do not need to submit this file to NCVER.
+    nat00090:
+        title: Disability (NAT00090) File
+        description: The Disability (NAT00090) file contains a record for each disability, impairment, or long-term condition associated with a client. A client may have more than one type of disability, impairment, or long-term condition.
+    nat00100:
+        title: Prior Educational Achievement (NAT00100) File
+        description: The Prior educational achievement (NAT00100) file contains a record for each type of prior educational achievement for a client. A client may have more than one type of prior educational achievement.
+    nat00120:
+        title: Enrolment (NAT00120) File
+        description: The Enrolment (NAT00120) file contains a record for each unit of competency or module enrolment for a client at a training organisation’s delivery location during the collection period.
+install:
+    title: AVETMISS Plugin Management
+    description: Manage the AVETMISS Plugin.
+    warning: The AVETMISS plugin will overwrite some system settings to ensure that the system complies with the requirements for Vocational Education in Australia.
+    start: Update AVETMISS
+    version:
+        build: Update AVETMIS Plugin to version %version%.
+        complete: AVETMISS Plugin is up to date.  The current version is %version%.
+course:
+    title: Course Management
+    description: Create, edit and remove Course details.
+    placeholder:
+        recognitionIdentifier: Select Recognition Identifier
+        course: Select a Course
+        levelEducationIdentifier: Select a Level of Education
+        FOEIdentifier: Select Field of Education
+    label:
+        course: Courses
+        identifier: Course Identifier
+        nominalHours: Nominal Hours
+        name: Course Name
+        version: Version
+        recognitionIdentifier: Course Recognition Identifier
+        levelEducationIdentifier: Course Level of Education Identifier
+        FOEIdentifier: Course Field of Education Identifier
+        ANZSCOIdentifier: ANZSCO Identifier
+        VETFlag: VET Flag
+    help:
+        identifier: Course identifier uniquely identifies a qualification, course or skill set.
+        course: Select the course to edit.  This option is disabled when a change has been made and not saved. To create a new course, click the Cancel button.
+        nominalHours: Nominal hours is a value assigned to a course or subject that nominally represents the anticipated hours of supervised training deemed necessary to conduct the training and assessment activities associated with the programme or subject.
+        name: Course name contains the full name of the program of study.
+        version: The course version (release) detail.
+        recognitionIdentifier: Program recognition identifier distinguishes a qualification, course or skill set by its level of recognition in the VET sector.
+        levelEducationIdentifier: Program level of education identifier identifies the degree of complexity of the program of study. This classification is based on the Australian Standard Classification of Education (ASCED), ABS catalogue no.1272.0, 2001.
+        FOEIdentifier: Program field of education identifier is a code that identifies the subject matter that is the ultimate aim of the skills and knowledge gained in a qualification, course or skill set. The Program field of education identifier is based on the field of education (FOE) at the narrow level (4-digit), which is one part of the Australian Standard Classification of Education (ASCED), ABS catalogue no.1272.0, 2001.
+        ANZSCOIdentifier: |
+            ANZSCO identifier is a code that uniquely identifies the type of occupation that may be expected for those undertaking a program of study.  The classification is based on the Australian and New Zealand Standard Classification of Occupations (ANZSCO), ABS catalogue no.1220.0, 2013 (first edition, revision 2).  
+            This field may be blank if Program identifier and Program name in combination match the code and name combination listed on Training.gov.au.  This field may be blank if Program recognition identifier is 
+            ‘13 — Nationally recognised skill set, specified in a national training package’ or 
+            ‘16 — Locally recognised skill set’.
+        VETFlag: VET flag indicates whether the intention of the program or subject is vocational.  VET Flag must be ‘Y’ when reporting to the National VET in Schools Collection.
+subject:
+    title: Manage Subjects
+    description: Create or Modify Subject
+    placeholder:
+        subject: Select a Subject
+        FOEIdentifier: Select Field of Education
+    label:
+        subject: Existing Subject Selection
+        identifier: Subject Identifier
+        name: Subject Name
+        nominalHours: Nominal Hours
+        FOEIdentifier: Subject Field of Education Identifier
+        VETFlag: VET Flag
+        subjectFlag: Subject Flag
+        version: Version
+    help:
+        subject: Select the subject to edit.  This option is disabled when a change has been made and not saved. To create a new program clicke the Cancel button.
+        identifier: (Required) Subject identifier is a unique code used to identify a specific unit of competency in a national training package or a nationally accredited or a training organisation module.
+        name: (Required) If Subject identifier is on any of the Training.gov.au master lists of unit of competency or accredited units, then Subject name must match the subject name listed on Training.gov.au.
+        nominalHours: This field may be blank if Subject identifier and Subject name in combination match the code and name combination listed on Training.gov.au and Subject identifier also exists in NCVER's nationally agreed hours system file.
+        FOEIdentifier: This field may be blank if Subject identifier and Subject name in combination match the code and name combination listed on Training.gov.au. 
+        VETFlag: (Required) VET Flag must be ‘Y’ when reporting to the National VET in Schools Collection.
+        subjectFlag: (Required) If Subject identifier and Subject name in combination do not match the code and name combination listed on Training.gov.au.
+        version: Subject Version (Release) Detail.
+client:
+    label:
+        clientID: Client Identifier
+        schoolAttainment: Highest School Level Completed
+        schoolAttainmentYear: Year Highest School Level Completed
+        indigenous: Indigenous Status
+        language: Language at Home
+        labourForce: Labour Force Status
+        countryBorn: Country of Birth
+        disability: Do you have a disability?
+        priorEducation: Have you SUCCESSFULLY completed any of the following qualifications?
+        atSchool: Is the client attending secondary school?
+        englishProficiency: How well do you speak English?
+        usi: Unique Student Identifier
+        sal1: Statistical Area Level 1
+        sal2: Statistical Area Level 2
+    help:
+        clientID: Client identifier uniquely distinguishes an individual within a training organisation.
+        schoolAttainment: Highest school level completed identifier identifies the highest level of school that a client has completed.
+        schoolAttainmentYear: Year Highest School Level Completed
+        indigenous: Indigenous status identifier indicates a client who self-identifies as being of Australian Aboriginal or Torres Strait Islander descent.
+        language: Language identifier uniquely identifies the main language other than English spoken at home by the client.
+        labourForce: Labour force status identifier describes a client’s employment status.
+        countryBorn: Country identifier is a code that uniquely identifies a country.
+        disability: Disability type identifier is a code that uniquely identifies the type(s) of disability, impairment or long-term condition that a client indicates.
+        priorEducation: Prior educational achievement flag indicates that a client has successfully completed some post-secondary education.
+        atSchool: At school flag indicates whether a client is currently attending secondary school.
+        englishProficiency: Proficiency in spoken English identifier is the self-assessed level of ability to speak English asked of people who speak a language other than English at home.
+        usi: The Unique student identifier uniquely identifies an individual who accesses vocational education and training over his or her lifetime. The Unique student identifier is assigned by the USI Registrar.
+        sal1: Statistical area level 1 identifier identifies a geographic-based population group at the lowest level for which census data are reported.
+        sal2: Statistical area level 2 identifier identifies a geographic-based population group at the second lowest level for which census data are reported. 
+        sal: Training providers do not have to provide the Statistical area level when submitting data to their state or territory training authority. Geo-coded client residential address information is only necessary once data are submitted to NCVER. 
+    placeholder:
+        schoolAttainment: Select Highest School Level Attained
+        schoolAttainmentYear: Select Highest School Level Attained Year
+        indigenous: Select Indigenous Status
+        language: Select Language
+        labourForce: Select Labour Force Status
+        countryBorn: In which country were you born?
+        disability: Select Disability
+        priorEducation: Select a qualification
+        englishProficiency: Select a proficiency
+    title: AVETMISS Client
+    address:
+        title: AVETMISS Address Requirements
+        requirements: <ul><li>Address must represent the client’s usual residential address.</li><li>The intent of ‘usual’ residential address is to report the address where the client usually resides rather than a temporary address a client relocates to for training, work or other purposes.</li><li>Place of usual address must be a physical address (street number and name) and not a post office box.</li><li>Most states and territories are using an address identification system in rural areas to facilitate emergency services coordination such as the ‘Rural property addressing’ or ‘numbering’ systems. This is the preferred residential street address for clients from rural areas where available.</li><li> The first address is used to capture this information.  Use the alternate address tab to capture temporary address or postal address information. If the Alternate address is set with a PO Box, then the alternate address will be used to provide postal contact to the AVETMISS Report.</li></ul>
+schedule:
+    title: 'Course / Subject Schedule'
+    description: Broad schedule of training.
+student:
+    tab:
+        client: AVETMISS Client

@@ -1,0 +1,45 @@
+Busybee\AVETMISS\AVETMISSBundle\Entity\Report:
+    type: entity
+    table: avetmiss_report
+    repositoryClass: Busybee\AVETMISS\AVETMISSBundle\Repository\ReportRepository
+    uniqueConstraints:
+        name_year:
+            columns: [name, year]
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '10'
+        year:
+            type: string
+            length: '4'
+        status:
+            type: string
+            length: '10'
+        filePath:
+            type: string
+            length: '150'
+        fileLength:
+            type: integer
+        errors:
+            type: object
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id

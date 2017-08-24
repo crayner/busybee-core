@@ -2,38 +2,28 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class AppKernel extends Kernel
 {
     public function registerBundles()
     {
         $bundles = array(
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new Symfony\Bundle\MonologBundle\MonologBundle(),
-            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-			new Core23\DompdfBundle\Core23DompdfBundle(),
-	        new Busybee\Core\HomeBundle\BusybeeHomeBundle(),
-	        new Busybee\Core\SecurityBundle\BusybeeSecurityBundle(),
-	        new Busybee\Core\SystemBundle\SystemBundle(),
-	        new Busybee\Core\FormBundle\BusybeeFormBundle(),
-	        new Busybee\Core\PaginationBundle\PaginationBundle(),
-	        new Busybee\People\PersonBundle\BusybeePersonBundle(),
-            new Busybee\CurriculumBundle\BusybeeCurriculumBundle(),
-	        new Busybee\People\StaffBundle\BusybeeStaffBundle(),
-	        new Busybee\People\StudentBundle\BusybeeStudentBundle(),
-            new Busybee\InstituteBundle\BusybeeInstituteBundle(),
-	        new Busybee\People\FamilyBundle\BusybeeFamilyBundle(),
-            new Busybee\TimeTableBundle\BusybeeTimeTableBundle(),
-            new Busybee\ActivityBundle\BusybeeActivityBundle(),
-            new Busybee\AttendanceBundle\BusybeeAttendanceBundle(),
-            new Busybee\PeriodBundle\BusybeePeriodBundle(),
-	        new Busybee\Core\CalendarBundle\BusybeeCalendarBundle(),
-        );
+	        new Core23\DompdfBundle\Core23DompdfBundle(),
+	        new Busybee\ActivityBundle\BusybeeActivityBundle(),
+	        new Busybee\AttendanceBundle\BusybeeAttendanceBundle(),
+	        new Busybee\CurriculumBundle\BusybeeCurriculumBundle(),
+	        new Busybee\InstituteBundle\BusybeeInstituteBundle(),
+	        new Busybee\PeriodBundle\BusybeePeriodBundle(),
+	        new Busybee\TimeTableBundle\BusybeeTimeTableBundle(),
+	        new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+	        new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+	        new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+	        new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+	        new Symfony\Bundle\MonologBundle\MonologBundle(),
+	        new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+	        new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+	        new Symfony\Bundle\TwigBundle\TwigBundle(),);
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
@@ -42,21 +32,13 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 
-	    $searchPath = __DIR__ . '/../vendor/busybee';
-	    if (is_dir($searchPath))
-		    foreach (new DirectoryIterator($searchPath) as $fileInfo)
-		    {
+	    $parameters = Yaml::parse(file_get_contents($this->getConfigDir() . '/parameters.yml'));
 
-
-			    if ($fileInfo->isDot()) continue;
-			    if ($fileInfo->isDir())
-			    {
-				    $plugin = ucfirst(str_replace('Bundle', '', $fileInfo->getFileName()));
-
-				    $bundle    = 'Busybee' . $plugin . '\\Busybee' . $plugin . 'Bundle()';
-				    $bundles[] = new $bundle;
-			    }
-		    }
+	    foreach ($parameters['parameters']['bundles'] as $bundle)
+	    {
+		    if ($bundle['active'])
+			    $bundles[] = new $bundle['namespace']();
+	    }
 
 		return $bundles;
     }
@@ -71,13 +53,23 @@ class AppKernel extends Kernel
         return dirname(__DIR__);
     }
 
-    public function getLogDir()
-    {
-        return dirname(__DIR__).'/var/logs';
-    }
+	public function getLogDir()
+	{
+		return dirname(__DIR__) . '/var/logs';
+	}
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+	public function getConfigDir()
+	{
+		return dirname(__DIR__) . '/app/config';
+	}
+
+	public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+	public function getCharset()
+	{
+		return 'utf-8';
+	}
 }

@@ -1,15 +1,13 @@
 {# src/Busybee/HomeBundle/Resources/views/Error/index.html.twig #}
-{% extends "BusybeeHomeBundle:Default:index.html.twig" %}
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
 
 {% trans_default_domain "BusybeeHomeBundle" %}
-{% block headerTitle %}Busybee Error{% endblock headerTitle %}
+{% block headerTitle %}{{ 'error.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{% endblock headerLead %}
 
+{% block contentContainer %}
+    <div class="alert alert-danger" role="alert">
+        {{ exception.message }}
+    </div>
 
-	
-		{% block contentContainer %}
-            <div class="alert alert-danger" role="alert">
-                {{ message|trans }}
-            </div>
-
-        {% endblock contentContainer %}
+{% endblock contentContainer %}

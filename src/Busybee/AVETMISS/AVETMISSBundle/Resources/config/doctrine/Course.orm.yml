@@ -1,0 +1,65 @@
+
+Busybee\AVETMISS\AVETMISSBundle\Entity\Course:
+    type: entity
+    table: avetmiss_course
+    repositoryClass: Busybee\AVETMISS\AVETMISSBundle\Repository\CourseRepository
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [identifier, course]
+            errorPath: identifier
+            message: 'course.error.name.unique'
+#    indexes:
+#        type:
+#            columns: [ type, name ] 
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        identifier:
+            type: string
+            length: '10'
+        nominalHours:
+            type: string
+            length: '4'
+            column: nominal_hours
+        recognitionIdentifier:
+            type: string
+            length: '2'
+        levelEducationIdentifier:
+            type: string
+            length: '3'
+        FOEIdentifier:
+            type: string
+            length: '4'
+        ANZSCOIdentifier:
+            type: string
+            length: 6
+            nullable: true
+        VETFlag:
+            type: boolean
+        lastModified:
+            type: datetime
+            nullable: true 
+        createdOn:
+            type: datetime
+            nullable: true 
+    oneToOne:
+        course:
+            targetEntity: Busybee\CurriculumBundle\Entity\Course
+            cascade: [persist]
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            nullable: true
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+                    
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            nullable: true
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

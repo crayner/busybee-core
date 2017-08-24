@@ -1,0 +1,473 @@
+parameters:
+    AVETMISS:
+        Version: '0.0.01'
+        Namespace: 'Busybee\AVETMISS\AVETMISSBundle\BusybeeAVETMISSBundle'
+        Org_Type_List:
+            'Secondary school':
+                'School – government': '21'
+                'School – Catholic': '25'
+                'School – independent': '27'
+            'TAFE, skills institute or polytechnic':
+                'Technical and further education institute or similar public institutions': '31'
+            'University':
+                'University – government': '41'
+                'University – non-government Catholic': '43'
+                'University – non-government independent': '45'
+            'Enterprise':
+                'Enterprise – government': '51'
+                'Enterprise – non-government': '53'
+            'Community-based adult education':
+                'Community-based adult education provider': '61'
+            'Other training provider':
+                'Private education/training business or centre: privately operated registered training organisation': '91'
+                'Professional association': '93'
+                'Industry association': '95'
+                'Equipment and/or product manufacturer or supplier': '97'
+                'Other – not elsewhere classified': '99'
+    AVETMISS Report:
+        nat00005:
+            Training Authority Identifier:
+                length: 10
+                type: A
+                setting: Org.Ext.Id
+            Training Authority Name:
+                length: 100
+                type: A
+                setting: Org.Name
+            Address first line:
+                length: 50
+                type: A
+                setting: Org.Postal.Address.1
+            Address second line:
+                length: 50
+                type: A
+                setting: Org.Postal.Address.2
+                blank: true
+            'Address postal – suburb, locality or town':
+                length: 50
+                type: A
+                setting: Org.Postal.Locality
+            Postcode:
+                length: 4
+                type: A
+                setting: Org.Postal.Postcode
+                minLength: 4
+            State identifier:
+                length: 2
+                type: N
+                setting: Org.Postal.Territory
+            'Contact name':
+                length: 60
+                type: A
+                setting: Org.Contact.Name
+            'Telephone number':
+                length: 20
+                type: A
+                setting: Org.Contact.Phone
+            'Facsimile number':
+                length: 20
+                type: A
+                setting: Org.Contact.Facsimile
+            'Email address':
+                length: 80
+                type: A
+                setting: Org.Contact.Email
+        nat00010:
+            Training Organisation Identifier:
+                length: 10
+                type: A
+                setting: Org.Ext.Id
+            Training Organisation Name:
+                length: 100
+                type: A
+                setting: Org.Name
+            Training Organisation type identifier:
+                length: 2
+                type: N
+                setting: AVETMISS.Org.Type
+            Address first line:
+                length: 50
+                type: A
+                setting: Org.Physical.Address.1
+            Address second line:
+                length: 50
+                type: A
+                setting: Org.Physical.Address.2
+                blank: true
+            'Address postal – suburb, locality or town':
+                length: 50
+                type: A
+                setting: Org.Physical.Locality
+            Postcode:
+                length: 4
+                type: A
+                setting: Org.Physical.Postcode
+                minLength: 4
+            State identifier:
+                length: 2
+                type: N
+                setting: Org.Physical.Territory
+            'Contact name':
+                length: 60
+                type: A
+                setting: Org.Contact.Name
+            'Telephone number':
+                length: 20
+                type: A
+                setting: Org.Contact.Phone
+            'Facsimile number':
+                length: 20
+                type: A
+                setting: Org.Contact.Facsimile
+            'Email address':
+                length: 80
+                type: A
+                setting: Org.Contact.Email
+        nat00020:
+            Training Organisation Identifier:
+                length: 10
+                type: A
+                setting: Org.Ext.Id
+            Training organisation delivery location identifier:
+                length: 10
+                type: A
+                setting: AVETMISS.Location.List.Identifier
+            Training organisation delivery location name:
+                length: 100
+                type: A
+                setting: AVETMISS.Location.List.Name
+            Postcode:
+                length: 4
+                type: A
+                setting: AVETMISS.Location.List.Postcode
+                minLength: 4
+            State identifier:
+                length: 2
+                type: N
+                setting: AVETMISS.Location.List.State
+            'Address postal – suburb, locality or town':
+                length: 50
+                type: A
+                setting: AVETMISS.Location.List.Locality
+            Country identifier:
+                length: 4
+                type: A
+                setting: AVETMISS.Location.List.Country
+        nat00030:
+            identifier:
+                length: 10
+                type: A
+            name:
+                length: 100
+                type: A
+            nominalHours:
+                length: 4
+                type: N
+            recognitionIdentifier:
+                length: 2
+                type: N
+            levelEducationIdentifier:
+                length: 3
+                type: N
+            FOEIdentifier:
+                length: 4
+                type: N
+            ANZSCOIdentifier:
+                length: 6
+                type: A
+                blank: true
+            VETFlag:
+                length: 1
+                type: A
+                values: ['Y','N']
+        nat00060:
+            subjectFlag:
+                length: 1
+                type: A
+                values: ["C","M"]
+            identifier:
+                length: 12
+                type: A
+            name:
+                length: 100
+                type: A
+            FOEIdentifier:
+                length: 6
+                type: A
+            VETFlag:
+                length: 1
+                type: A
+                values: ['Y','N']
+            nominalHours:
+                length: 4
+                type: N
+        nat00080:
+            clientID:
+                length: 10
+                type: A
+            name:
+                length: 60
+                type: A
+            schoolAttainment:
+                length: 2
+                type: A
+                values: setting.AVETMISS.Client.schoolAttainment
+            schoolAttainmentYear:
+                length: 4
+                type: A
+            sex:
+                length: 1
+                type: A
+                values: ['F','M']
+            dob:
+                length: 8
+                type: D
+            postCode:
+                length: 4
+                type: A
+            indigenous:
+                length: 1
+                type: A
+                values: ['1','2','3','4','\@']
+            language:
+                length: 4
+                type: A
+                values: setting.AVETMISS.Client.language
+            labourForce:
+                length: 2
+                type: A
+                values: setting.AVETMISS.Client.labourForce
+            countryBorn:
+                length: 4
+                type: A
+                values: setting.AVETMISS.country
+            disability:
+                length: 1
+                type: A
+                values: ['Y','N']
+            priorEducation:
+                length: 1
+                type: A
+                values: ['Y','N']
+            atSchool:
+                length: 1
+                type: A
+                values: ['Y','N']
+            englishProficiency:
+                length: 1
+                type: A
+                values: ['Y', 'N']
+                default: 'N'
+            locality:
+                length: 50
+                type: A
+            usi:
+                length: 10
+                type: A
+                blank: true
+            state:
+                length: 2
+                type: N
+                setting: AVETMISS.Location.List.State
+                values: ['01','02','03','04','05','06','07','08','09','99', '@@']
+                default: '@@'
+            propertyName:
+                length: 50
+                type: A
+                blank: true
+            building:
+                length: 30
+                type: A
+                blank: true
+            streetNumber:
+                length: 15
+                type: A
+            streetName:
+                length: 70
+                type: A
+            sal1:
+                length: 11
+                type: A
+                default: "@@@@@@@@@@@"
+            sal2:
+                length: 9
+                type: A
+                default: "@@@@@@@@@"
+        nat00085:
+            clientID:
+                length: 10
+                type: A
+            clientTitle:
+                length: 4
+                type: A
+                blank: true
+            firstName:
+                length: 40
+                type: A
+            familyName:
+                length: 40
+                type: A
+            propertyName:
+                length: 50
+                type: A
+                blank: true
+            building:
+                length: 30
+                type: A
+                blank: true
+            streetNumber:
+                length: 15
+                type: A
+                blank: true
+            streetName:
+                length: 70
+                type: A
+                blank: true
+            deliveryBox:
+                length: 22
+                type: A
+                blank: true
+            locality:
+                length: 50
+                type: A
+            postCode:
+                length: 4
+                type: A
+            state:
+                length: 2
+                type: N
+                setting: AVETMISS.Location.List.State
+                values: ['01','02','03','04','05','06','07','08','09','99', '@@']
+                default: '@@'
+            homePhone:
+                length: 20
+                type: A
+                blank: true
+            workPhone:
+                length: 20
+                type: A
+                blank: true
+            mobilePhone:
+                length: 20
+                type: A
+                blank: true
+            email:
+                length: 80
+                type: A
+                blank: true
+        nat00090:
+            clientID:
+                length: 10
+                type: A
+            disability:
+                length: 2
+                type: N
+                values: ['11','12','13','14','15','16','17','18','19']
+        nat00100:
+            clientID:
+                length: 10
+                type: A
+            englishProficiency:
+                length: 3
+                type: N
+                values: ['001','002','003','004']
+services:
+    avetmiss.report.nat00005:
+        class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00005
+        arguments:
+            - '@my_service_container'
+    avetmiss.report.nat00010:
+        class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00010
+        arguments:
+            - '@my_service_container'
+    avetmiss.report.nat00020:
+        class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00020
+        arguments:
+            - '@my_service_container'
+    avetmiss.report.nat00030:
+        class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00030
+        arguments:
+            - '@my_service_container'
+    avetmiss.report.nat00060:
+        class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00060
+        arguments:
+            - '@my_service_container'
+    avetmiss.report.nat00080:
+        class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00080
+        arguments:
+            - '@my_service_container'
+    avetmiss.report.nat00085:
+        class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00085
+        arguments:
+            - '@my_service_container'
+    avetmiss.report.nat00090:
+        class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00090
+        arguments:
+            - '@my_service_container'
+    avetmiss.report.nat00100:
+        class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00100
+        arguments:
+            - '@my_service_container'
+    avetmiss.report.repository:
+        class: Busybee\AVETMISS\AVETMISSBundle\Repository\ReportRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeeAVETMISSBundle:avetmiss"
+    avetmiss.course.repository:
+        class: Busybee\AVETMISS\AVETMISSBundle\Repository\CourseRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeeAVETMISSBundle:Course"
+    avetmiss.update.0_0_00:
+        class: Busybee\AVETMISS\AVETMISSBundle\Update\dBase\Update_0_0_00
+        arguments:
+            - '@service_container'
+    avetmiss.listener:
+        class: Busybee\AVETMISS\AVETMISSBundle\EventListener\AVETMISSListener
+        arguments:
+            - '@request_stack'
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+    avetmiss.subject.repository:
+        class: Busybee\AVETMISS\AVETMISSBundle\Repository\SubjectRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeeAVETMISSBundle:Subject"
+    avetmiss.form.courseType:
+        class: Busybee\AVETMISS\AVETMISSBundle\Form\CourseType
+        arguments:
+            - '@setting.manager'
+        tags: 
+            - { name: form.type }    
+    avetmiss.form.subjectType:
+        class: Busybee\AVETMISS\AVETMISSBundle\Form\SubjectType
+        arguments:
+            - '@setting.manager'
+            - '@doctrine.orm.entity_manager'
+        tags: 
+            - { name: form.type }    
+    avetmiss_client_form:
+        class: Busybee\AVETMISS\AVETMISSBundle\Form\ClientType
+        arguments:
+            - '@setting.manager'
+            - '@doctrine.orm.entity_manager'
+        tags: 
+            - { name: form.type }    
+    avetmiss.client.repository:
+        class: Busybee\AVETMISS\AVETMISSBundle\Repository\ClientRepository
+        factory: 
+            - "@doctrine"
+            - 'getRepository' 
+        arguments: 
+            - "BusybeeAVETMISSBundle:Client"
+    avetmiss.student.clientManager:
+        class: Busybee\AVETMISS\AVETMISSBundle\Model\ClientManager
+        arguments:
+            - '@doctrine.orm.entity_manager'

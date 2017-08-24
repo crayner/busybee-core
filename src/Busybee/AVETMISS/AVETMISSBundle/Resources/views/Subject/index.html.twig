@@ -1,0 +1,83 @@
+{# src/Busybee/ProgramBundle/Resources/views/Subject/index.html.twig #}
+
+{% trans_default_domain "BusybeeAVETMISSBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'subject.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'subject.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'subject.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ form_start(form) }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.identifier) }}
+            </div>
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.subject) }}
+                <div class="alert alert-success" style="margin: 0" ;>
+                    {{ form_row(form.subjectList) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7 col-md-7 well">
+                <div class="row">
+                    <div class="col-sm-9">
+                        {{ form_row(form.name) }}
+                    </div>
+                    <div class="col-sm-3">
+                        {{ form_row(form.version) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 col-md-5 well">
+                {{ form_row(form.nominalHours) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.FOEIdentifier) }}
+            </div>
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.VETFlag) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.subjectFlag) }}
+            </div>
+            <div class="col-sm-6 col-md-6 well">
+                <div class="form-group text-right">
+                    {{ form_widget(form.save) }}
+                    {{ form_widget(form.cancel) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+    <script>
+        $('.subjectForm').change(function () {
+            $('.subjectList').prop('disabled', true);
+        });
+        $('.subjectList').change(function () {
+
+            var id = $(this).val();
+
+            window.open("{{ path('avetmiss_subject_manage') }}?id=" + id, "_self");
+
+        });
+        $('.yes-no').checkboxpicker({
+            iconCls: 'glyphicons'
+        });
+    </script>
+{% endblock javascripts %}

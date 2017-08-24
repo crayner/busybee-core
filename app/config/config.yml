@@ -34,8 +34,6 @@ framework:
         save_path: '%kernel.root_dir%/var/sessions' 
     fragments:       ~
     http_method_override: true
-
-
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
@@ -46,6 +44,7 @@ twig:
 #        - bootstrap_3_horizontal_layout.html.twig 
     date:
         timezone: '%timezone%'
+    exception_controller: BusybeeHomeBundle:Error:index
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"

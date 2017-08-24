@@ -1,0 +1,81 @@
+# AVETMISS
+parameters:
+    nodes:
+        1:
+            name: System
+            label: menu.system
+            role: ROLE_USER
+            order: 1
+            menu: 1
+        7:
+            name: Reports
+            label: menu.reports.title
+            role: ROLE_REGISTRAR
+            order: 7
+            menu: 7
+    items:
+        70:
+            label: menu.report
+            name: AVETMISS Report
+            route: avetmiss_report
+            role: ROLE_REGISTRAR
+            parameters: []
+            node: 7
+            order: 70
+            translate: BusybeeAVETMISSBundle
+        135:
+            name: AVETMISS
+            label: name
+            role: ROLE_ADMIN
+            node: 13
+            order: 135
+            menu: 135
+            test:
+                value1: setting.AVETMISS.Version
+                value2: parameter.AVETMISS.Version
+                comparitor: <
+            translate: BusybeeAVETMISSBundle
+        1350:
+            name: AVETMISS Install
+            label: menu.install
+            route: avetmiss_install
+            role: ROLE_ADMIN
+            test:
+                value1: setting.AVETMISS.Installed
+                value2: true
+                comparitor: !=
+            node: 135
+            order: 1350
+            translate: BusybeeAVETMISSBundle
+        1351:
+            name: AVETMISS Update
+            label: menu.update
+            route: avetmiss_update
+            role: ROLE_ADMIN
+            node: 135
+            order: 1351
+            translate: BusybeeAVETMISSBundle
+        50:
+            label: menu.course
+            name: AVETMISS Course
+            role: ROLE_REGISTRAR
+            route: avetmiss_course_manage 
+            node: 5
+            order: 50
+            translate: BusybeeAVETMISSBundle
+        51:
+            label: menu.subject
+            name: AVETMISS Subject
+            role: ROLE_REGISTRAR
+            route: avetmiss_subject_manage 
+            node: 5
+            order: 51
+            translate: BusybeeAVETMISSBundle
+        52:
+            label: menu.schedule
+            name: AVETMISS Schedule
+            role: ROLE_REGISTRAR
+            route: avetmiss_schedule_manage 
+            node: 5
+            order: 52
+            translate: BusybeeAVETMISSBundle

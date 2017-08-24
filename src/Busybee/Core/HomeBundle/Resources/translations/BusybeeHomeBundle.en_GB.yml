@@ -140,6 +140,7 @@ Validation Management: Validation Management
 error:
     save: 
         parameters: The parameter file was not save correctly.
+    title: Busybee Error
 success:
     save:
         parameters: The parameters file was saved.

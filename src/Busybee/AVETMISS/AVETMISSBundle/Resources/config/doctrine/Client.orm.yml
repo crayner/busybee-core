@@ -1,0 +1,77 @@
+Busybee\AVETMISS\AVETMISSBundle\Entity\Client:
+    type: entity
+    table: avetmiss_client
+    repositoryClass: Busybee\AVETMISS\AVETMISSBundle\Repository\ClientRepository
+#    indexes:
+#        type:
+#            columns: [ type, name ] 
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        clientID:
+            type: string
+            length: '10'
+            unique: true
+        schoolAttainment:
+            type: string
+            length: '2'
+        schoolAttainmentYear:
+            type: string
+            length: '4'
+        indigenous:
+            type: string
+            length: '1'
+        language:
+            type: string
+            length: '4'
+        labourForce:
+            type: string
+            length: '2'
+        countryBorn:
+            type: string
+            length: '4'
+        disability:
+            type: string
+            length: '2'
+        priorEducation:
+            type: string
+            length: '3'
+        atSchool:
+            type: boolean
+        englishProficiency:
+            type: string
+            length: '1'
+            nullable: true
+        usi:
+            type: string
+            length: '10'
+            nullable: true
+        sal1:
+            type: string
+            length: '11'
+            nullable: true
+        sal2:
+            type: string
+            length: '9'
+            nullable: true
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    oneToOne:
+        student:
+            targetEntity: Busybee\PersonBundle\Entity\Student
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

@@ -1,0 +1,31 @@
+{# src/Busybee/Plugin/AVETMISSBundle/Resources/views/Report/index.html.twig #}
+
+{% trans_default_domain "BusybeeAVETMISSBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'install.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'install.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'install.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="well col-sm-6">
+                <p class="alert alert-warning">{{ 'install.warning'|trans }}</p>
+            </div>
+            <div class="well col-sm-6">
+                <div class="form-group text-right">
+                    <button onclick="window.open('{{ path('avetmiss_install_start') }}','_self')" id="start-report"
+                            name="start-report"
+                            class="btn btn-{% if get_setting('AVETMISS.Version') == get_parameter('AVETMISS.Version') %}default{% else %}success{% endif %} glyphicons glyphicons-circle-arrow-right"{% if get_setting('AVETMISS.Version') == get_parameter('AVETMISS.Version') %} disabled{% endif %}>{{ 'install.start'|trans }}</button>
+                    {% if get_setting('AVETMISS.Version') != get_parameter('AVETMISS.Version') %}
+                        <span class='field-help'>{{ 'install.version.build'|trans({'%version%': get_parameter('AVETMISS.Version')}) }}</span>
+                    {% else %}
+                        <span class='field-help'>{{ 'install.version.complete'|trans({'%version%': get_parameter('AVETMISS.Version')}) }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contentContainer %}

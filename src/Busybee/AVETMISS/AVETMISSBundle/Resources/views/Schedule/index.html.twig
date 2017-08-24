@@ -1,0 +1,18 @@
+{# src/Busybee/ProgramBundle/Resources/views/Schedule/index.html.twig #}
+
+{% trans_default_domain "BusybeeAVETMISSBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{# {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %} #}
+
+{% block title %}{{ parent() }}{{ 'schedule.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'schedule.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'schedule.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}

@@ -1,0 +1,33 @@
+{# src/Busybee/Plugin/AVETMISSBundle/Resources/views/Client/script.html.twig #}
+
+
+<script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+<script type="text/javascript">
+    $('.clientDisability').change(function () {
+        var help = JSON.parse('{{ get_setting('AVETMISS.Client.Disability.help')|json_encode|raw }}');
+        var disability = $(this).val();
+        if (disability < 10) disability = '00';
+        $('#disabilityHelp').html(help[disability]);
+    });
+    $('.yes-no').checkboxpicker({
+        iconCls: 'glyphicons'
+    });
+    $(document).ready(function () {
+        var ll = ['1201', '9700', '9701', '9702', '9799', '@@@@'];
+        var lang = $('.languageSpoken').val();
+        if ($.inArray(lang, ll) !== -1) {
+            $(".englishProficiency").val('');
+            $(".englishProficiency").prop('disabled', true);
+        }
+    });
+    $('.languageSpoken').change(function () {
+        var ll = ['1201', '9700', '9701', '9702', '9799', '@@@@'];
+        if ($.inArray($(this).val(), ll) !== -1) {
+            $(".englishProficiency").val('');
+            $(".englishProficiency").prop('disabled', true);
+        } else {
+            $(".englishProficiency").val('@');
+            $(".englishProficiency").prop('disabled', false);
+        }
+    });
+</script>

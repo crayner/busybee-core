@@ -1,20 +1,25 @@
 <?php
-
 namespace Busybee\Core\HomeBundle\Controller;
 
+use Symfony\Bridge\Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Yaml\Dumper;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ErrorController extends Controller
 {
-	public function indexAction(Request $request, $message)
+	public function indexAction(FlattenException $exception, Logger $logger = null)
 	{
-		$config         = new \stdClass();
-		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 
-		return $this->render('BusybeeHomeBundle:Error:index.html.twig', array('message' => $message, 'config' => $config));
+		if (in_array($this->getParameter('kernel.environment'), ['dev']))
+		{
+			$tokens = $this->get('profiler')->find('', '', 1, '', '', '');
+
+			return new RedirectResponse($this->generateUrl('_profiler_exception', ['token' => $tokens[0]['token']]));
+
+		}
+
+		return $this->render('BusybeeHomeBundle:Error:index.html.twig', ['exception' => $exception]);
 	}
 
 }

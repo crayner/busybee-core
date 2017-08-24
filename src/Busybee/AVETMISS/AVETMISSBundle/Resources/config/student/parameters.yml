@@ -1,0 +1,22 @@
+# AVETMISS
+parameters:
+    student:
+        avetmiss:
+            label: student.tab.client
+            include: 'BusybeeAVETMISSBundle:Client:index.html.twig'    
+            translation: BusybeeAVETMISSBundle
+            name: client
+            form: "Busybee\\Plugin\\AVETMISSBundle\\Form\\ClientType"
+            options:
+                mapped: false 
+            data: 
+                name: avetmiss.client.repository
+            request: 
+                name: avetmiss.student.clientManager
+                post: client
+            script: 'BusybeeAVETMISSBundle:Client:script.html.twig'
+            entity:
+                name: BusybeeAVETMISSBundle:Client
+                repository: avetmiss.client.repository
+
+            

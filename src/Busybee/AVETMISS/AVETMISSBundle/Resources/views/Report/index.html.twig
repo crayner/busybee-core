@@ -1,0 +1,51 @@
+{# src/Busybee/Plugin/AVETMISSBundle/Resources/views/Report/index.html.twig #}
+
+{% trans_default_domain "BusybeeAVETMISSBundle" %}
+
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'report.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'report.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'report.description'|trans|raw }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    <p class="alert alert-warning">{{ 'report.paragraph1'|trans|raw }}</p>
+    <form action="{{ path("avetmiss_report_start") }}" method="post">
+        <div class="container-fluid">
+
+            {% for name,report in result %}
+                {% include 'BusybeeAVETMISSBundle:Report:element.html.twig' with {'report': report} %}
+            {% endfor %}
+
+            <div class="row">
+                <div class="well col-sm-6">
+                    <div class="form-group">
+                        <select class="form-control" name="year">
+                            <option{% if "now"|date("Y") == app.request.get('year') %} selected{% endif %}>{{ "now"|date("Y") }}</option>
+                            <option{% if "now -1 Year"|date("Y") == app.request.get('year') %} selected{% endif %}>{{ "now -1 Year"|date("Y") }}</option>
+                            <option{% if "now -2 Years"|date("Y") == app.request.get('year') %} selected{% endif %}>{{ "now -2 Years"|date("Y") }}</option>
+                        </select>
+                        <label for="years">{{ 'report.years.title'|trans }}</label><br/>
+                        <span class='field-help'>{{ 'report.years.description'|trans }}</span>
+                    </div>
+                </div>
+                <div class="well col-sm-6">
+                    <div class="form-group text-right">
+                        <button type="submit" id="start-report" name="start-report"
+                                class="btn btn-success glyphicons glyphicons-circle-arrow-right">{{ 'report.start'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/bootstrap-checkbox.min.js') }}"></script>
+    <script type="text/javascript">
+        $('.yes-no').checkboxpicker({
+            iconCls: 'glyphicons'
+        });
+    </script>
+{% endblock javascripts %}
