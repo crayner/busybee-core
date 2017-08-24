@@ -1,6 +1,6 @@
 services:
     pagination.Type:
-        class: Busybee\PaginationBundle\Form\PaginationType
+        class: Busybee\Core\PaginationBundle\Form\PaginationType
         arguments:
             - '@router'
         tags:

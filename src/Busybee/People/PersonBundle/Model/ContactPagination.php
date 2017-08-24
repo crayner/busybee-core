@@ -2,7 +2,7 @@
 
 namespace Busybee\People\PersonBundle\Model;
 
-use Busybee\PaginationBundle\Model\PaginationManager;
+use Busybee\Core\PaginationBundle\Model\PaginationManager;
 
 class ContactPagination extends PaginationManager
 {

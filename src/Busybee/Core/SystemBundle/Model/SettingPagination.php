@@ -2,7 +2,7 @@
 
 namespace Busybee\Core\SystemBundle\Model;
 
-use Busybee\PaginationBundle\Model\PaginationManager;
+use Busybee\Core\PaginationBundle\Model\PaginationManager;
 
 class SettingPagination extends PaginationManager
 {

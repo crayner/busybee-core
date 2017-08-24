@@ -2,7 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
-use Busybee\PaginationBundle\Model\PaginationManager;
+use Busybee\Core\PaginationBundle\Model\PaginationManager;
 use Busybee\TimeTableBundle\Entity\TimeTable;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\EntityRepository;

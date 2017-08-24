@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\FamilyBundle\Model;
 
-use Busybee\PaginationBundle\Model\PaginationManager;
+use Busybee\Core\PaginationBundle\Model\PaginationManager;
 
 class FamilyPagination extends PaginationManager
 {

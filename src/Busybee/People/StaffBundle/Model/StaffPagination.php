@@ -2,7 +2,7 @@
 
 namespace Busybee\People\StaffBundle\Model;
 
-use Busybee\PaginationBundle\Model\PaginationManager;
+use Busybee\Core\PaginationBundle\Model\PaginationManager;
 
 class StaffPagination extends PaginationManager
 {

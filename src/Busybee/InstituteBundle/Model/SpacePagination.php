@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\InstituteBundle\Model;
 
-use Busybee\PaginationBundle\Model\PaginationManager ;
+use Busybee\Core\PaginationBundle\Model\PaginationManager;
 
 class SpacePagination extends PaginationManager
 {
@@ -12,8 +12,10 @@ class SpacePagination extends PaginationManager
 	 *
 	 * @version	13th December 2016
 	 * @since	13th December 2016
+	 *
 	 * @param	boolean		$count
-	 * @return	\Busybee\PaginationBundle\Model\query
+	 *
+	 * @return    \Busybee\Core\PaginationBundle\Model\query
 	 */
 	public function buildQuery($count = false)
 	{

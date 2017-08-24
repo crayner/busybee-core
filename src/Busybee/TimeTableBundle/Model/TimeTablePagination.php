@@ -2,7 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
-use Busybee\PaginationBundle\Model\PaginationManager;
+use Busybee\Core\PaginationBundle\Model\PaginationManager;
 
 class TimeTablePagination extends PaginationManager
 {

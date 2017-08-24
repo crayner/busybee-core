@@ -20,13 +20,13 @@
     <div class="row">
         <div class="col-sm-3 text-right">
             {% if pagination.displaySearch %}
-            <label class="control-label">{{ form.currentSearch.vars.label|trans }}</label>
-            <div class="input-group">
-                {{ form_widget(form.currentSearch) }}
-                <div class="input-group-btn">
-                    {{ saveButton({'class': 'btn btn-success halflings halflings-search', 'additional': 'id="paginator_startSearch" name="paginator[startSearch]"', 'style': 'height: 33px; margin-top: -2px; '})|raw }}
+                <label class="control-label">{{ form.currentSearch.vars.label|trans }}</label>
+                <div class="input-group">
+                    {{ form_widget(form.currentSearch) }}
+                    <div class="input-group-btn">
+                        {{ saveButton({'class': 'btn btn-success halflings halflings-search', 'additional': 'id="paginator_startSearch" name="paginator[startSearch]"', 'style': 'height: 33px; margin-top: -2px; '})|raw }}
+                    </div>
                 </div>
-            </div>
             {% endif %}
             {% do form.currentSearch.setRendered %}
         </div>
@@ -51,16 +51,16 @@
                 {{ form_widget(form.offSet, {value: pagination.getOffSet}) }}
                 <label class="control-label">{{ form.limit.vars.label|trans }}</label>
                 <div class="text-right">
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        {{ saveButton({'class': 'btn btn-info halflings halflings-backward', 'additional': 'id="paginator_prev" name="paginator[prev]"', 'style': 'height: 33px; margin-top: -2px; '})|raw }}
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            {{ saveButton({'class': 'btn btn-info halflings halflings-backward', 'additional': 'id="paginator_prev" name="paginator[prev]"', 'style': 'height: 33px; margin-top: -2px; '})|raw }}
+                        </div>
+                        {{ form_widget(form.limit, {'value': '' ~ pagination.limit}) }}
+                        {{ form_widget(form.lastLimit, {'value': '' ~ pagination.limit}) }}
+                        <div class="input-group-btn">
+                            {{ saveButton({'class': 'btn btn-info halflings halflings-forward', 'additional': 'id="paginator_next" name="paginator[next]"', 'style': 'height: 33px; margin-top: -2px;'})|raw }}
+                        </div>
                     </div>
-                    {{ form_widget(form.limit, {'value': '' ~ pagination.limit}) }}
-                    {{ form_widget(form.lastLimit, {'value': '' ~ pagination.limit}) }}
-                    <div class="input-group-btn">
-                        {{ saveButton({'class': 'btn btn-info halflings halflings-forward', 'additional': 'id="paginator_next" name="paginator[next]"', 'style': 'height: 33px; margin-top: -2px;'})|raw }}
-                    </div>
-                </div>
                 </div>
                 {{ form_widget(form.total, {value: pagination.getTotal}) }}
                 {% set pages = pagination.getTotalPages %}

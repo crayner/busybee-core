@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\CurriculumBundle\Model;
 
-use Busybee\PaginationBundle\Model\PaginationManager;
+use Busybee\Core\PaginationBundle\Model\PaginationManager;
 
 class CoursePagination extends PaginationManager
 {
