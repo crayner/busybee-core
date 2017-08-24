@@ -1,0 +1,17 @@
+Busybee\People\StaffBundle\Entity\Staff:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: person
+    properties:
+        staffType:
+            - \Busybee\Core\FormBundle\Validator\SettingChoice:
+                name: 'Staff.Categories'
+            - NotBlank: ~
+        jobTitle:
+            - NotBlank: ~
+        house:
+            - Busybee\Core\FormBundle\Validator\SettingChoice:
+                name: 'house.list'
+        person:
+            - NotBlank: ~
+        department:
+            - Valid: ~

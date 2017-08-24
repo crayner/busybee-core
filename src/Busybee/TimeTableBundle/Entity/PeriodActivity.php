@@ -29,17 +29,17 @@ class PeriodActivity extends PeriodActivityModel
     private $space;
 
     /**
-     * @var \Busybee\StaffBundle\Entity\Staff
+     * @var \Busybee\People\StaffBundle\Entity\Staff
      */
     private $tutor1;
 
     /**
-     * @var \Busybee\StaffBundle\Entity\Staff
+     * @var \Busybee\People\StaffBundle\Entity\Staff
      */
     private $tutor2;
 
     /**
-     * @var \Busybee\StaffBundle\Entity\Staff
+     * @var \Busybee\People\StaffBundle\Entity\Staff
      */
     private $tutor3;
 
@@ -184,7 +184,7 @@ class PeriodActivity extends PeriodActivityModel
     /**
      * Get tutor1
      *
-     * @return \Busybee\StaffBundle\Entity\Staff
+     * @return \Busybee\People\StaffBundle\Entity\Staff
      */
     public function getTutor1()
     {
@@ -206,11 +206,11 @@ class PeriodActivity extends PeriodActivityModel
     /**
      * Set tutor1
      *
-     * @param \Busybee\StaffBundle\Entity\Staff $tutor1
+     * @param \Busybee\People\StaffBundle\Entity\Staff $tutor1
      *
      * @return PeriodActivity
      */
-    public function setTutor1(\Busybee\StaffBundle\Entity\Staff $tutor1 = null)
+	public function setTutor1(\Busybee\People\StaffBundle\Entity\Staff $tutor1 = null)
     {
         $this->tutor1 = $tutor1;
 
@@ -220,7 +220,7 @@ class PeriodActivity extends PeriodActivityModel
     /**
      * Get tutor2
      *
-     * @return \Busybee\StaffBundle\Entity\Staff
+     * @return \Busybee\People\StaffBundle\Entity\Staff
      */
     public function getTutor2()
     {
@@ -236,11 +236,11 @@ class PeriodActivity extends PeriodActivityModel
     /**
      * Set tutor2
      *
-     * @param \Busybee\StaffBundle\Entity\Staff $tutor2
+     * @param \Busybee\People\StaffBundle\Entity\Staff $tutor2
      *
      * @return PeriodActivity
      */
-    public function setTutor2(\Busybee\StaffBundle\Entity\Staff $tutor2 = null)
+	public function setTutor2(\Busybee\People\StaffBundle\Entity\Staff $tutor2 = null)
     {
         $this->tutor2 = $tutor2;
 
@@ -250,7 +250,7 @@ class PeriodActivity extends PeriodActivityModel
     /**
      * Get tutor3
      *
-     * @return \Busybee\StaffBundle\Entity\Staff
+     * @return \Busybee\People\StaffBundle\Entity\Staff
      */
     public function getTutor3()
     {
@@ -266,11 +266,11 @@ class PeriodActivity extends PeriodActivityModel
     /**
      * Set tutor3
      *
-     * @param \Busybee\StaffBundle\Entity\Staff $tutor3
+     * @param \Busybee\People\StaffBundle\Entity\Staff $tutor3
      *
      * @return PeriodActivity
      */
-    public function setTutor3(\Busybee\StaffBundle\Entity\Staff $tutor3 = null)
+	public function setTutor3(\Busybee\People\StaffBundle\Entity\Staff $tutor3 = null)
     {
         $this->tutor3 = $tutor3;
 

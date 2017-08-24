@@ -3,7 +3,7 @@
 namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\InstituteBundle\Entity\Space;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\TimeTableBundle\Entity\Period;
 use Doctrine\Common\Collections\ArrayCollection;
 

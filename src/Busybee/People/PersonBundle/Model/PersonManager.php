@@ -11,7 +11,7 @@ use Busybee\People\PersonBundle\Entity\Locality;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Entity\Phone;
 use Busybee\SecurityBundle\Entity\User;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\StudentBundle\Entity\StudentGrade;

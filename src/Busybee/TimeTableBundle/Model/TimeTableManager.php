@@ -4,7 +4,7 @@ namespace Busybee\TimeTableBundle\Model;
 use Busybee\Core\CalendarBundle\Entity\SpecialDay;
 use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\StartRotate;

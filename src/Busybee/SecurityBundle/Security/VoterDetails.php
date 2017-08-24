@@ -7,7 +7,7 @@ use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Model\PersonInterface;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;

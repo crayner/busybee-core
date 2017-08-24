@@ -110,7 +110,7 @@ Busybee\People\PersonBundle\Entity\Person:
             mappedBy: person
             nullable: true
         staff:
-            targetEntity: Busybee\StaffBundle\Entity\Staff
+            targetEntity: Busybee\People\StaffBundle\Entity\Staff
             cascade: [all]
             mappedBy: person
             nullable: true

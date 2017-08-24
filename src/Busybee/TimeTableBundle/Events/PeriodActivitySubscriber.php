@@ -3,7 +3,7 @@
 namespace Busybee\TimeTableBundle\Events;
 
 use Busybee\InstituteBundle\Entity\Space;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;

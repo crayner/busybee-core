@@ -33,7 +33,7 @@ class DepartmentStaff
     private $department;
 
     /**
-     * @var \Busybee\StaffBundle\Entity\Staff
+     * @var \Busybee\People\StaffBundle\Entity\Staff
      */
     private $staff;
 
@@ -186,7 +186,7 @@ class DepartmentStaff
     /**
      * Get staff
      *
-     * @return \Busybee\StaffBundle\Entity\Staff
+     * @return \Busybee\People\StaffBundle\Entity\Staff
      */
     public function getStaff()
     {
@@ -196,11 +196,11 @@ class DepartmentStaff
     /**
      * Set staff
      *
-     * @param \Busybee\StaffBundle\Entity\Staff $staff
+     * @param \Busybee\People\StaffBundle\Entity\Staff $staff
      *
      * @return DepartmentStaff
      */
-    public function setStaff(\Busybee\StaffBundle\Entity\Staff $staff = null)
+	public function setStaff(\Busybee\People\StaffBundle\Entity\Staff $staff = null)
     {
         $this->staff = $staff;
 

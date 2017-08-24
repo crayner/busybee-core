@@ -11,7 +11,7 @@ use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\SecurityBundle\Entity\User;
 use Busybee\SecurityBundle\Model\UserInterface;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\StudentBundle\Entity\Student;
 use Busybee\Core\SystemBundle\Setting\SettingManager;

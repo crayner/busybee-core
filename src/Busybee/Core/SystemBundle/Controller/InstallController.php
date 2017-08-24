@@ -5,7 +5,7 @@ namespace Busybee\Core\SystemBundle\Controller;
 use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\Core\SystemBundle\Event\MiscellaneousSubscriber;
 use Busybee\Core\SystemBundle\Form\MailerType;
 use Busybee\Core\SystemBundle\Form\MiscellaneousType;

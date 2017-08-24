@@ -25,17 +25,17 @@ Busybee\TimeTableBundle\Entity\PeriodActivity:
                 space_id:
                     referencedColumnName: id
         tutor1:
-            targetEntity: Busybee\StaffBundle\Entity\Staff
+            targetEntity: Busybee\People\StaffBundle\Entity\Staff
             joinColumns:
                 tutor_1:
                     referencedColumnName: id
         tutor2:
-            targetEntity: Busybee\StaffBundle\Entity\Staff
+            targetEntity: Busybee\People\StaffBundle\Entity\Staff
             joinColumns:
                 tutor_2:
                     referencedColumnName: id
         tutor3:
-            targetEntity: Busybee\StaffBundle\Entity\Staff
+            targetEntity: Busybee\People\StaffBundle\Entity\Staff
             joinColumns:
                 tutor_3:
                     referencedColumnName: id

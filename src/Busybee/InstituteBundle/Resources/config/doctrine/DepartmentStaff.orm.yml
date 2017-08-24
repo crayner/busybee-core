@@ -27,7 +27,7 @@ Busybee\InstituteBundle\Entity\DepartmentStaff:
                 name: dept_id
                 referencedColumnName: id
         staff:
-            targetEntity: Busybee\StaffBundle\Entity\Staff
+            targetEntity: Busybee\People\StaffBundle\Entity\Staff
             inversedBy: department
             joinColumn:
                 name: staff

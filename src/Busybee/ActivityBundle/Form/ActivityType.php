@@ -6,7 +6,7 @@ use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\ActivityBundle\Events\ActivitySubscriber;
 use Busybee\StudentBundle\Model\StudentManager;

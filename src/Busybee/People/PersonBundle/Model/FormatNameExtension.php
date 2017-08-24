@@ -5,7 +5,7 @@ namespace Busybee\People\PersonBundle\Model;
 use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\SecurityBundle\Entity\User;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\StudentBundle\Entity\Student;
 use Doctrine\Common\CommonException;
 

@@ -5,7 +5,7 @@ namespace Busybee\InstituteBundle\Form;
 use Busybee\Core\FormBundle\Type\ToggleType;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
-use Busybee\StaffBundle\Entity\Staff;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType ;

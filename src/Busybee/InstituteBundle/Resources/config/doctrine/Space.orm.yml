@@ -56,7 +56,7 @@ Busybee\InstituteBundle\Entity\Space:
             type: datetime
     oneToOne:
         staff:
-            targetEntity: Busybee\StaffBundle\Entity\Staff
+            targetEntity: Busybee\People\StaffBundle\Entity\Staff
             inversedBy: homeroom
             cascade: [ all ]
     manyToOne:
