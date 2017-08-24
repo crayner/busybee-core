@@ -2,7 +2,7 @@
 namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Entity\Student;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\Period;
 use Doctrine\Common\Collections\ArrayCollection;

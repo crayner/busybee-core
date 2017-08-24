@@ -3,9 +3,9 @@
 namespace Busybee\ActivityBundle\Events;
 
 use Busybee\ActivityBundle\Entity\Activity;
-use Busybee\StudentBundle\Entity\Student;
-use Busybee\StudentBundle\Form\StudentActivityType;
-use Busybee\StudentBundle\Model\StudentManager;
+use Busybee\People\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Form\StudentActivityType;
+use Busybee\People\StudentBundle\Model\StudentManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;

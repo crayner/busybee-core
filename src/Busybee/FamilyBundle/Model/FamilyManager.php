@@ -5,7 +5,7 @@ use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\FamilyBundle\Entity\Family;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Model\PersonManager;
-use Busybee\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Entity\Student;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\ORM\EntityManager;
 
@@ -104,7 +104,7 @@ class FamilyManager
     }
 
     /**
-     * @return \Busybee\StudentBundle\Repository\StudentRepository|\Doctrine\ORM\EntityRepository
+     * @return \Busybee\People\StudentBundle\Repository\StudentRepository|\Doctrine\ORM\EntityRepository
      */
     public function getStudentRepository()
     {

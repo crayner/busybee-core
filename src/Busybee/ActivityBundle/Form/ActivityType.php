@@ -9,7 +9,7 @@ use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
 use Busybee\ActivityBundle\Events\ActivitySubscriber;
-use Busybee\StudentBundle\Model\StudentManager;
+use Busybee\People\StudentBundle\Model\StudentManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

@@ -44,7 +44,7 @@ Busybee\ActivityBundle\Entity\Activity:
                     grade_id:
                         referencedColumnName: id
         students:
-            targetEntity: Busybee\StudentBundle\Entity\Student
+            targetEntity: Busybee\People\StudentBundle\Entity\Student
             inversedBy: activities
             joinTable:
                 name: activity_students

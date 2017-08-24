@@ -123,7 +123,7 @@ class Person extends PersonModel implements PersonInterface
 	private $staff;
 
 	/**
-	 * @var \Busybee\StudentBundle\Entity\Student
+	 * @var \Busybee\People\StudentBundle\Entity\Student
 	 */
 	private $student;
 
@@ -721,7 +721,7 @@ class Person extends PersonModel implements PersonInterface
 	/**
 	 * Get student
 	 *
-	 * @return \Busybee\StudentBundle\Entity\Student|null
+	 * @return \Busybee\People\StudentBundle\Entity\Student|null
 	 */
 	public function getStudent()
 	{
@@ -734,11 +734,11 @@ class Person extends PersonModel implements PersonInterface
 	/**
 	 * Set student
 	 *
-	 * @param \Busybee\StudentBundle\Entity\Student $student
+	 * @param \Busybee\People\StudentBundle\Entity\Student $student
 	 *
 	 * @return Person
 	 */
-	public function setStudent(\Busybee\StudentBundle\Entity\Student $student = null)
+	public function setStudent(\Busybee\People\StudentBundle\Entity\Student $student = null)
 	{
 		$this->student = $student;
 

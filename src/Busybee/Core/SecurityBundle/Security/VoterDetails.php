@@ -9,7 +9,7 @@ use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
-use Busybee\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Entity\Student;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;

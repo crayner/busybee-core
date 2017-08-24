@@ -20,7 +20,7 @@ Busybee\Core\CalendarBundle\Entity\Grade:
             length: 2
     oneToMany:
         students:
-            targetEntity: Busybee\StudentBundle\Entity\StudentGrade
+            targetEntity: Busybee\People\StudentBundle\Entity\StudentGrade
             mappedBy: grade
             cascade: [ 'persist' ]
     manyToMany:

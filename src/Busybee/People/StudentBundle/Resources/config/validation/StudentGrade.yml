@@ -1,0 +1,4 @@
+Busybee\People\StudentBundle\Entity\StudentGrade:
+    properties:
+        status:
+            - NotBlank: ~

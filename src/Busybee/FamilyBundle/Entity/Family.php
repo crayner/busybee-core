@@ -2,7 +2,7 @@
 
 namespace Busybee\FamilyBundle\Entity;
 
-use Busybee\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Entity\Student;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

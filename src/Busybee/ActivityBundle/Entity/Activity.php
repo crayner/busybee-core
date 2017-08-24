@@ -284,11 +284,11 @@ class Activity extends ActivityModel
     /**
      * Add student
      *
-     * @param \Busybee\StudentBundle\Entity\Student $student
+     * @param \Busybee\People\StudentBundle\Entity\Student $student
      *
      * @return Activity
      */
-    public function addStudent(\Busybee\StudentBundle\Entity\Student $student)
+	public function addStudent(\Busybee\People\StudentBundle\Entity\Student $student)
     {
         if ($this->students->contains($student))
             return $this;
@@ -301,9 +301,9 @@ class Activity extends ActivityModel
     /**
      * Remove student
      *
-     * @param \Busybee\StudentBundle\Entity\Student $student
+     * @param \Busybee\People\StudentBundle\Entity\Student $student
      */
-    public function removeStudent(\Busybee\StudentBundle\Entity\Student $student)
+	public function removeStudent(\Busybee\People\StudentBundle\Entity\Student $student)
     {
         $this->students->removeElement($student);
     }

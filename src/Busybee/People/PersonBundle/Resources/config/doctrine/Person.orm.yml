@@ -115,7 +115,7 @@ Busybee\People\PersonBundle\Entity\Person:
             mappedBy: person
             nullable: true
         student:
-            targetEntity: Busybee\StudentBundle\Entity\Student
+            targetEntity: Busybee\People\StudentBundle\Entity\Student
             cascade: [all]
             mappedBy: person
             nullable: true

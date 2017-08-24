@@ -6,7 +6,7 @@ use Busybee\FamilyBundle\Entity\CareGiver;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\People\StaffBundle\Entity\Staff;
-use Busybee\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Entity\Student;
 use Doctrine\Common\CommonException;
 
 trait FormatNameExtension

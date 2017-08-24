@@ -25,7 +25,7 @@ class AppKernel extends Kernel
 	        new Busybee\People\PersonBundle\BusybeePersonBundle(),
             new Busybee\CurriculumBundle\BusybeeCurriculumBundle(),
 	        new Busybee\People\StaffBundle\BusybeeStaffBundle(),
-            new Busybee\StudentBundle\BusybeeStudentBundle(),
+	        new Busybee\People\StudentBundle\BusybeeStudentBundle(),
             new Busybee\InstituteBundle\BusybeeInstituteBundle(),
             new Busybee\FamilyBundle\BusybeeFamilyBundle(),
             new Busybee\TimeTableBundle\BusybeeTimeTableBundle(),

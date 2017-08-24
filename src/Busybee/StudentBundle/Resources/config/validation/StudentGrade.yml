@@ -1,4 +1,0 @@
-Busybee\StudentBundle\Entity\StudentGrade:
-    properties:
-        status:
-            - NotBlank: ~

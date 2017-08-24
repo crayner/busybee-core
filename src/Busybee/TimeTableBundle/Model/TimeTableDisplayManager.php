@@ -13,7 +13,7 @@ use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SecurityBundle\Model\UserInterface;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
-use Busybee\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Entity\Student;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\Column;
 use Busybee\TimeTableBundle\Entity\Line;

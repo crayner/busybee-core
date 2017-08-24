@@ -3,7 +3,7 @@
 namespace Busybee\FamilyBundle\Form;
 
 use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

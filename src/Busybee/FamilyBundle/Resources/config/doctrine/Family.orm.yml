@@ -50,7 +50,7 @@ Busybee\FamilyBundle\Entity\Family:
                     phone_id:
                         referencedColumnName: id
         students:
-            targetEntity: Busybee\StudentBundle\Entity\Student
+            targetEntity: Busybee\People\StudentBundle\Entity\Student
             orderBy: { 'startAtSchool': 'ASC' }
             cascade: [ 'persist' ]
             joinTable:
