@@ -1,0 +1,17 @@
+{% trans_default_domain "SystemBundle" %}
+
+{% block bundleType_label %}{% endblock %}
+{% block bundleType_errors %}{% endblock %}
+
+{% block bundleType_widget %}
+    {% spaceless %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ saveButton() %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ toggleButton({form: form.active})|raw %}
+        {% set h3Content = h3Content ~ '<span class="small" style="margin-top: 8px; float: right;">' ~ form.active.vars.label|trans ~ '</span>' %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% include '@BusybeeHome/Page/panelStart.html.twig' with {header: 'system.bundle.name.header'|trans({'%name%': form.name.vars.value}), 'panelStyle': 'default', panelParagraph: form.description.vars.value, transDomain: 'SystemBundle'} %}
+        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock bundleType_widget %}

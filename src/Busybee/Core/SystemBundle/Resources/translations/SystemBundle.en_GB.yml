@@ -56,6 +56,17 @@ system:
     upload:
         title: Upload Setting Package
         description: 'Upload a set of pre coded default settings.'
+    bundle:
+        manage:
+            title: Bundle Management
+            description: Sort and edit bundle details.
+        name:
+            header: 'Bundle: %name%'
+        namespace:
+            label: Name Space used by the Program.
+            help: Set by the programmer of this bundle.
+        active:
+            label: Active
 parameter:
     file:    
         title: Parameter File Status
@@ -265,3 +276,7 @@ language:
 English (Australia): English (Australia)
 English (Great Britian): English (Great Britian)
 English (United States): English (United States)
+bundle:
+    description:
+        avetmiss: Australian Vocational Education Training management and reporting standards bundle.
+        missing: No description supplied.

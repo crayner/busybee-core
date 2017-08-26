@@ -57,6 +57,7 @@ class ButtonExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('upButton', array($this, 'upButton')),
 			new \Twig_SimpleFunction('downButton', array($this, 'downButton')),
 			new \Twig_SimpleFunction('upDownButton', array($this, 'upDownButton')),
+			new \Twig_SimpleFunction('toggleButton', array($this, 'toggleButton')),
 		);
 	}
 
@@ -265,5 +266,62 @@ class ButtonExtension extends \Twig_Extension
 	public function upDownButton($details = array())
 	{
 		return $this->generateButton($this->buttons['down'], $details) . $this->generateButton($this->buttons['up'], $details);
+	}
+
+	/**
+	 * @param array $details
+	 *
+	 * @return string
+	 */
+	public function toggleButton(array $details)
+	{
+		$toggle = '<div class="divClass"><input type="checkbox" attributes inputClass></div>';
+
+		$details['class'] = empty($details['class']) ? 'toggle form-control' : $details['class'] . ' toggle form-control';
+		$vars             = $details['form']->vars;
+
+		$toggle = str_replace('divClass', $vars['div_class'], $toggle);
+		dump($vars);
+
+		$attributes = [];
+
+//		$attributes = $form->setAttr(array_merge($form->getAttr(), ['data-toggle' => 'toggle'] ));
+
+		$attributes['data-toggle'] = 'toggle';
+
+		$attributes['data-off'] = empty($vars['attr']['data-off']) ? '<span class=\'halflings halflings-thumbs-down\'></span>' : $vars['attr']['data-off'];
+
+		$attributes['data-on'] = empty($vars['attr']['data-on']) ? '<span class=\'halflings halflings-thumbs-up\'></span>' : $vars['attr']['data-on'];
+
+		$attributes['data-size'] = empty($vars['attr']['data-size']) ? 'small' : $vars['attr']['data-size'];
+
+		$attributes['data-onstyle'] = empty($vars['attr']['data-onstyle']) ? 'success' : $vars['attr']['data-onstyle'];
+
+		$attributes['data-offstyle'] = empty($vars['attr']['data-offstyle']) ? 'danger' : $vars['attr']['data-offstyle'];
+
+		$attributes['data-height'] = empty($vars['attr']['data-height']) ? '' : $vars['attr']['data-height'];
+
+		$attributes['data-width'] = empty($vars['attr']['data-width']) ? '' : $vars['attr']['data-width'];
+
+		if (isset($attributes['value']))
+			$attributes['value'] = $vars['value'];
+
+		if ($vars['checked'])
+			$attributes['checked'] = 'checked';
+
+		$attributes['style'] = empty($vars['attr']['style']) ? 'float: right;' : $vars['attr']['style'];
+
+		$attrib = '';
+		foreach ($attributes as $name => $value)
+		{
+			$attrib .= ' ' . $name . '="' . $value . '"';
+			$attrib = trim($attrib);
+		}
+
+		$vars['attr']['class'] = empty($vars['attr']['class']) ? '' : 'class="' . $vars['attr']['class'] . '"';
+		$toggle                = str_replace('attributes', $attrib . ' data-height=20 data-width=40', $toggle);
+		$toggle                = str_replace('inputClass', $vars['attr']['class'], $toggle);
+
+		return $toggle;
 	}
 }

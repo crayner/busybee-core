@@ -37,3 +37,6 @@ plugin_manage:
 setting_create:
     path: /setting/create/
     defaults: { _controller: SystemBundle:Setting:create }
+bundle_list:
+    path: /bundles/list/
+    defaults: { _controller: SystemBundle:Bundle:list }

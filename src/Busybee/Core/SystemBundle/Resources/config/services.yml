@@ -131,3 +131,11 @@ services:
         factory:
             - '@my_service_container'
             - 'getParameterBag'
+    busybee_core_system.model.bundle_manager:
+        class: Busybee\Core\SystemBundle\Model\BundleManager
+        arguments:
+            - '@kernel'
+    busybee_core_setting.validator_constraints.bundle_validator:
+        class: Busybee\Core\SettingBundle\Validator\Constraints\BundleValidator
+        tags:
+            - { name: validator.constraint_validator, alias: bundle.validator }

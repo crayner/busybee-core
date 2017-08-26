@@ -1,0 +1,37 @@
+{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+{% trans_default_domain "SystemBundle" %}
+
+
+{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig"
+"@BusybeeForm/Template/jquery.collection.html.twig"
+"SystemBundle:Bundle:bundle.html.twig" %}
+
+{% block title %}{{ 'system.bundle.manage.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'system.bundle.manage.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'system.bundle.manage.description'|trans }}{% endblock headerLead %}
+
+{% block stylesheets %}{{ parent() }}
+    {% include "@BusybeeHome/Toggle/style.html.twig" %}
+    <style type="text/css">
+        .toggle.btn-sm {
+            min-width: 40px;
+            min-height: 25px;
+        }
+
+        .panel-body {
+            padding: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block contentContainer %}
+    {{ form_start(form) }}
+    {{ form_widget(form.bundles) }}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include "@BusybeeHome/Toggle/script.html.twig" %}
+    {% include "@BusybeeForm/Scripts/jquery.collection.js.html.twig" %}
+{% endblock %}

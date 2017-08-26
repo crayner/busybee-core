@@ -77,6 +77,8 @@ menu:
             manage: Institute
         page:
             roles: Page Roles
+        bundle:
+            list: Manage Bundles
     family:
         manage: Manage Family       
     people:

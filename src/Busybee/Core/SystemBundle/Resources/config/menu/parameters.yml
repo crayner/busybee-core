@@ -29,7 +29,7 @@ parameters:
             role: ROLE_REGISTRAR
             node: 12
             route: setting_upload
-            order: 120
+            order: 121
         122:
             name: Update
             label: menu.site.update
@@ -42,3 +42,10 @@ parameters:
                 value2: true
                 comparitor: ==
                 default1: false
+        124:
+            name: Bundle List
+            label: menu.site.bundle.list
+            role: ROLE_SYSTEM_ADMIN
+            node: 12
+            route: bundle_list
+            order: 124

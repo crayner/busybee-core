@@ -26,7 +26,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 
-	    $parameters = Yaml::parse(file_get_contents($this->getConfigDir() . '/parameters.yml'));
+	    $parameters = Yaml::parse(file_get_contents($this->getConfigDir() . '/bundles.yml'));
 
 	    foreach ($parameters['parameters']['bundles'] as $bundle)
 	    {

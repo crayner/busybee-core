@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\SystemBundle\Form;
 
 use Busybee\Core\FormBundle\Type\ToggleType;
