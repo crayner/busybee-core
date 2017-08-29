@@ -283,35 +283,6 @@ class Bundle
 
 		return $this;
 	}
-
-	/**
-	 * @param string $requirement
-	 *
-	 * @return Bundle
-	 */
-	public function addRequirement(string $requirement): Bundle
-	{
-		if (in_array($requirement, $this->requirements))
-			return $this;
-
-		$this->requirements[] = $requirement;
-
-		return $this;
-	}
-
-	/**
-	 * @param string $requirement
-	 *
-	 * @return Bundle
-	 */
-	public function removeRequirement(string $requirement): Bundle
-	{
-		if (in_array($requirement, $this->requirements))
-			unset($this->requirements[array_search($requirement, $this->requirements)]);
-
-		return $this;
-	}
-
 	/**
 	 * @return array
 	 */
@@ -326,34 +297,6 @@ class Bundle
 	public function setExclusions(array $exclusions): Bundle
 	{
 		$this->exclusions = $exclusions;
-
-		return $this;
-	}
-
-	/**
-	 * @param string $exclusion
-	 *
-	 * @return Bundle
-	 */
-	public function addExclusion(string $exclusion): Bundle
-	{
-		if (in_array($exclusion, $this->exclusions))
-			return $this;
-
-		$this->exclusions[] = $exclusion;
-
-		return $this;
-	}
-
-	/**
-	 * @param string $exclusion
-	 *
-	 * @return Bundle
-	 */
-	public function removeExclusion(string $exclusion): Bundle
-	{
-		if (in_array($exclusion, $this->exclusions))
-			unset($this->exclusions[array_search($exclusion, $this->exclusions)]);
 
 		return $this;
 	}

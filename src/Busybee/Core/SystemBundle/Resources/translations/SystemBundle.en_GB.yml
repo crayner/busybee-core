@@ -280,3 +280,10 @@ bundle:
     description:
         avetmiss: Australian Vocational Education Training management and reporting standards bundle.
         missing: No description supplied.
+    activate:
+        excluded: 'The bundle %name% will not work with the "%conflict%" bundle.'
+        success: 'The bundle %name% has changed status.'
+        required: 'The bundle %name% is required by the active bundle %conflict%.'
+        save:
+            failure: The bundle changes were not saved.
+            success: The bundle changes were saved.

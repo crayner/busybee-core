@@ -30,8 +30,6 @@ class BundlesType extends AbstractType
 					],
 				]
 			);
-
-		$builder->addEventSubscriber(new BundlesSubscriber());
 	}
 
 	/**

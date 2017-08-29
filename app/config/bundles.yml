@@ -23,14 +23,14 @@ parameters:
             namespace: Busybee\Core\SecurityBundle\BusybeeSecurityBundle
             route:
                 resource: BusybeeSecurityBundle/Resources/config/routing.yml
-                prefix: /security/
+                prefix: security
         System:
             active: true
             type: core
             namespace: Busybee\Core\SystemBundle\SystemBundle
             route:
                 resource: SystemBundle/Resources/config/routing.yml
-                prefix: /system/
+                prefix: system
         Form:
             active: true
             type: core
@@ -45,21 +45,21 @@ parameters:
             namespace: Busybee\Core\CalendarBundle\BusybeeCalendarBundle
             route:
                 resource: BusybeeCalendarBundle/Resources/config/routing.yml
-                prefix: /calendar/
+                prefix: calendar
         Family:
             active: true
             type: plugin
             namespace: Busybee\People\FamilyBundle\BusybeeFamilyBundle
             route:
                 resource: BusybeeFamilyBundle/Resources/config/routing.yml
-                prefix: /family/
+                prefix: family
         Person:
             active: true
             type: plugin
             namespace: Busybee\People\PersonBundle\BusybeePersonBundle
             route:
                 resource: BusybeePersonBundle/Resources/config/routing.yml
-                prefix: /person/
+                prefix: person
         Staff:
             active: true
             type: plugin
@@ -67,6 +67,9 @@ parameters:
             route:
                 resource: BusybeeStaffBundle/Resources/config/routing.yml
                 prefix: staff
+            requirements:
+                - Person
+            description: Used to manage staff details.
         Student:
             active: true
             type: plugin
@@ -74,6 +77,9 @@ parameters:
             route:
                 resource: BusybeeStudentBundle/Resources/config/routing.yml
                 prefix: student
+            requirements:
+                - Person
+            description: Used to manage student details.
         Curriculum:
             active: true
             type: plugin
@@ -125,3 +131,5 @@ parameters:
                 resource: BusybeeAVETMISSBundle/Resources/config/routing.yml
                 prefix: avetmiss
             description: bundle.description.avetmiss
+            requirements:
+                - Student

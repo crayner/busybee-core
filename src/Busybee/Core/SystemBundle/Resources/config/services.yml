@@ -135,7 +135,8 @@ services:
         class: Busybee\Core\SystemBundle\Model\BundleManager
         arguments:
             - '@kernel'
-    busybee_core_setting.validator_constraints.bundle_validator:
-        class: Busybee\Core\SettingBundle\Validator\Constraints\BundleValidator
-        tags:
-            - { name: validator.constraint_validator, alias: bundle.validator }
+    busybee_core_system.model.flash_bag_manager:
+        class: Busybee\Core\SystemBundle\Model\FlashBagManager
+        arguments:
+          - '@session.flash_bag'
+          - '@translator'

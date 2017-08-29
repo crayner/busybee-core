@@ -19,12 +19,9 @@ class BundleController extends Controller
 
 		$form = $this->createForm(BundlesType::class, $bundles);
 
-		$form->handleRequest($request);
+		$bundles->handleRequest($form, $request);
 
-		if ($form->isSubmitted() && $form->isValid())
-		{
-			$bundles->saveBundles($form->get('bundles')->getData());
-		}
+		$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($bundles->getMessages());
 
 		return $this->render('@System/Bundle/list.html.twig', ['form' => $form->createView()]);
 	}

@@ -281,11 +281,8 @@ class ButtonExtension extends \Twig_Extension
 		$vars             = $details['form']->vars;
 
 		$toggle = str_replace('divClass', $vars['div_class'], $toggle);
-		dump($vars);
 
 		$attributes = [];
-
-//		$attributes = $form->setAttr(array_merge($form->getAttr(), ['data-toggle' => 'toggle'] ));
 
 		$attributes['data-toggle'] = 'toggle';
 
@@ -302,6 +299,10 @@ class ButtonExtension extends \Twig_Extension
 		$attributes['data-height'] = empty($vars['attr']['data-height']) ? '' : $vars['attr']['data-height'];
 
 		$attributes['data-width'] = empty($vars['attr']['data-width']) ? '' : $vars['attr']['data-width'];
+
+		$attributes['name'] = $vars['full_name'];
+
+		$attributes['id'] = $vars['id'];
 
 		if (isset($attributes['value']))
 			$attributes['value'] = $vars['value'];

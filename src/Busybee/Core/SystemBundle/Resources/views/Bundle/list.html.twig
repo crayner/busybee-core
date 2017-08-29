@@ -25,7 +25,8 @@
 {% endblock %}
 
 {% block contentContainer %}
-    {{ form_start(form) }}
+    {% include '@BusybeeHome/Default/flash.html.twig' %}
+    {{ form_start(form, {attr: {id: 'bundleForm'}}) }}
     {{ form_widget(form.bundles) }}
     {{ form_end(form) }}
 {% endblock contentContainer %}
@@ -34,4 +35,9 @@
     {{ parent() }}
     {% include "@BusybeeHome/Toggle/script.html.twig" %}
     {% include "@BusybeeForm/Scripts/jquery.collection.js.html.twig" %}
+    <script>
+        $('input:checkbox').change(function () {
+            $("#bundleForm").submit();
+        });
+    </script>
 {% endblock %}
