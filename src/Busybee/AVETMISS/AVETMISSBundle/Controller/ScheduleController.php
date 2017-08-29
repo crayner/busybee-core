@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormError;
 
 class ScheduleController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	public function indexAction(Request $request)
 	{

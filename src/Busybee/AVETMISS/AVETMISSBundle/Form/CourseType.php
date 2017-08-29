@@ -5,15 +5,14 @@ namespace Busybee\AVETMISS\AVETMISSBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CourseType extends AbstractType
 {
 	/**
-	 * @var    Busybee\SystemBundle\Setting\SettingManager
+	 * @var    Busybee\Core\SystemBundle\Setting\SettingManager
 	 */
 	private $sm;
 
@@ -118,7 +117,7 @@ class CourseType extends AbstractType
 					),
 				)
 			)
-			->add('VETFlag', 'Busybee\FormBundle\Type\YesNoType',
+			->add('VETFlag', 'Busybee\Core\FormBundle\Type\YesNoType',
 				array(
 					'label' => 'course.label.VETFlag',
 					'attr'  => array(

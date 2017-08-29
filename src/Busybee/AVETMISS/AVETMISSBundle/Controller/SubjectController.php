@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SubjectController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	public function indexAction(Request $request)
 	{

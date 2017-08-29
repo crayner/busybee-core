@@ -4,11 +4,11 @@ namespace Busybee\AVETMISS\AVETMISSBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Busybee\SystemBundle\Form\SettingListType;
+use Busybee\Core\SystemBundle\Form\SettingListType;
 
 class NAT00010Controller extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	public function indexAction(Request $request)
 	{

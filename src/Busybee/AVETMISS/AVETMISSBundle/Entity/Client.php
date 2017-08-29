@@ -35,17 +35,17 @@ class Client extends ClientModel
 	private $createdOn;
 
 	/**
-	 * @var \Busybee\PersonBundle\Entity\Student
+	 * @var \Busybee\People\PersonBundle\Entity\Student
 	 */
 	private $student;
 
 	/**
-	 * @var \Busybee\SecurityBundle\Entity\User
+	 * @var \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	private $createdBy;
 
 	/**
-	 * @var \Busybee\SecurityBundle\Entity\User
+	 * @var \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	private $modifiedBy;
 	/**
@@ -206,7 +206,7 @@ class Client extends ClientModel
 	/**
 	 * Get student
 	 *
-	 * @return \Busybee\PersonBundle\Entity\Student
+	 * @return \Busybee\People\PersonBundle\Entity\Student
 	 */
 	public function getStudent()
 	{
@@ -216,11 +216,11 @@ class Client extends ClientModel
 	/**
 	 * Set student
 	 *
-	 * @param \Busybee\PersonBundle\Entity\Student $student
+	 * @param \Busybee\People\PersonBundle\Entity\Student $student
 	 *
 	 * @return Client
 	 */
-	public function setStudent(\Busybee\PersonBundle\Entity\Student $student = null)
+	public function setStudent(\Busybee\People\PersonBundle\Entity\Student $student = null)
 	{
 		$this->student = $student;
 
@@ -230,7 +230,7 @@ class Client extends ClientModel
 	/**
 	 * Get createdBy
 	 *
-	 * @return \Busybee\SecurityBundle\Entity\User
+	 * @return \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	public function getCreatedBy()
 	{
@@ -240,11 +240,11 @@ class Client extends ClientModel
 	/**
 	 * Set createdBy
 	 *
-	 * @param \Busybee\SecurityBundle\Entity\User $createdBy
+	 * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
 	 *
 	 * @return Client
 	 */
-	public function setCreatedBy(\Busybee\SecurityBundle\Entity\User $createdBy = null)
+	public function setCreatedBy(\Busybee\Core\SecurityBundle\Entity\User $createdBy = null)
 	{
 		$this->createdBy = $createdBy;
 
@@ -254,7 +254,7 @@ class Client extends ClientModel
 	/**
 	 * Get modifiedBy
 	 *
-	 * @return \Busybee\SecurityBundle\Entity\User
+	 * @return \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	public function getModifiedBy()
 	{
@@ -264,11 +264,11 @@ class Client extends ClientModel
 	/**
 	 * Set modifiedBy
 	 *
-	 * @param \Busybee\SecurityBundle\Entity\User $modifiedBy
+	 * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
 	 *
 	 * @return Client
 	 */
-	public function setModifiedBy(\Busybee\SecurityBundle\Entity\User $modifiedBy = null)
+	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
 	{
 		$this->modifiedBy = $modifiedBy;
 

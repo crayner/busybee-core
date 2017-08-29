@@ -2,8 +2,7 @@
 
 namespace Busybee\AVETMISS\AVETMISSBundle\Update\dBase;
 
-use Busybee\SystemBundle\Model\PluginManager;
-use Symfony\Component\Yaml\Yaml;
+use Busybee\Core\SystemBundle\Model\PluginManager;
 
 /**
  * Update 0.0.00
@@ -34,7 +33,7 @@ class Update_0_0_00 extends PluginManager
 
 		$role = $this->em->getRepository('BusybeeSecurityBundle:Role');
 		//1
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('0.0.01');
 		$entity->setName('AVETMISS.Version');
@@ -44,7 +43,7 @@ class Update_0_0_00 extends PluginManager
 
 		$this->sm->createSetting($entity);
 		//2
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('boolean');
 		$entity->setValue(true);
 		$entity->setName('AVETMISS.Installed');
@@ -70,7 +69,7 @@ class Update_0_0_00 extends PluginManager
 
 		$this->container->get('setting.manager')->set('Address.TerritoryList', $territories);
 		//4
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('string');
 		$entity->setValue('00');
 		$entity->setName('AVETMISS.Org.Type');
@@ -81,7 +80,7 @@ class Update_0_0_00 extends PluginManager
 
 		$this->sm->createSetting($entity);
 		//5
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue('');
 		$entity->setName('AVETMISS.Location.List');
@@ -94,7 +93,7 @@ class Update_0_0_00 extends PluginManager
 		//6
 		$this->container->get('setting.manager')->set('CountryType', 'Busybee\AVETMISS\AVETMISSBundle\Type\CountryType');
 		//7
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 choices:
@@ -120,7 +119,7 @@ description:
 
 		$this->sm->createSetting($entity);
 		//8
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 Graduate diploma level:
@@ -161,7 +160,7 @@ Other education – miscellaneous education:
 
 		$this->sm->createSetting($entity);
 		//9
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 NATURAL AND PHYSICAL SCIENCES:
@@ -256,7 +255,7 @@ MIXED FIELD PROGRAMMES:
 
 		$this->sm->createSetting($entity);
 		//10
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 NATURAL AND PHYSICAL SCIENCES:
@@ -707,7 +706,7 @@ MIXED FIELD PROGRAMMES:
 
 		$this->sm->createSetting($entity);
 		//11
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 Did not go to school: '02'
@@ -725,7 +724,7 @@ Completed Year 12: '12'
 
 		$this->sm->createSetting($entity);
 		//12
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 'Yes, Aboriginal': '1'
@@ -741,7 +740,7 @@ Completed Year 12: '12'
 
 		$this->sm->createSetting($entity);
 		//13
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 NORTHERN EUROPEAN LANGUAGES:
@@ -1275,7 +1274,7 @@ OTHER LANGUAGES:
 
 		$this->sm->createSetting($entity);
 		//14
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 Employed:
@@ -1299,7 +1298,7 @@ Not SPecified: '@@'
 
 		$this->sm->createSetting($entity);
 		//15
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 OCEANIA AND ANTARCTICA:
@@ -1612,7 +1611,7 @@ OTHER:
 
 		$this->sm->createSetting($entity);
 		//16
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 identifiers:
@@ -1646,7 +1645,7 @@ help:
 
 		$this->sm->createSetting($entity);
 		//17
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 No post secondary education: '000'
@@ -1667,7 +1666,7 @@ Miscellaneous education: '990'
 
 		$this->sm->createSetting($entity);
 		//18
-		$entity = new \Busybee\SystemBundle\Entity\Setting();
+		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');
 		$entity->setValue("
 Very well: '1'

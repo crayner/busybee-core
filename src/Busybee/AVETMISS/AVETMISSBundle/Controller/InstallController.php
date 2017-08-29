@@ -8,7 +8,7 @@ use Doctrine\ORM\Tools\SchemaTool;
 
 class InstallController extends Controller
 {
-	use \Busybee\SecurityBundle\Security\DenyAccessUnlessGranted;
+	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
 
 	public function indexAction()
 	{

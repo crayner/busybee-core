@@ -2,7 +2,7 @@
 
 namespace Busybee\AVETMISS\AVETMISSBundle\Form\DataTransformer;
 
-use Busybee\PersonBundle\Entity\Person;
+use Busybee\People\PersonBundle\Entity\Person;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;

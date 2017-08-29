@@ -51,14 +51,14 @@ Busybee\AVETMISS\AVETMISSBundle\Entity\Course:
             cascade: [persist]
     manyToOne:
         createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             nullable: true
             joinColumns:
                 createdBy:
                     referencedColumnName: id
                     
         modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             nullable: true
             joinColumns:
                 modifiedBy:

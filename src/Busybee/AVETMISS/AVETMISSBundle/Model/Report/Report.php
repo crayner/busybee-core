@@ -3,10 +3,9 @@
 namespace Busybee\AVETMISS\AVETMISSBundle\Model\Report;
 
 
-use Busybee\SystemBundle\Model\ErrorManager;
+use Busybee\Core\SystemBundle\Model\ErrorManager;
 use Busybee\AVETMISS\AVETMISSBundle\Entity\Report as ReportEntity;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use Busybee\AVETMISS\AVETMISSBundle\Model\Report\ReportInterface;
 
 abstract class Report implements ReportInterface
 {

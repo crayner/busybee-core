@@ -2,25 +2,22 @@
 
 namespace Busybee\AVETMISS\AVETMISSBundle\Form;
 
-use Busybee\PersonBundle\Entity\Student;
-use Busybee\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\People\PersonBundle\Entity\Student;
+use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Busybee\SystemBundle\Setting\SettingManager;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Busybee\FormBundle\Type\YesNoType;
+use Busybee\Core\FormBundle\Type\YesNoType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Doctrine\Common\Persistence\ObjectManager;
-use Busybee\AVETMISS\AVETMISSBundle\Form\DataTransformer\PersonToNumberTransformer;
-use Busybee\FormBundle\Form\DataTransformer\YesNoTransformer;
+use Busybee\Core\FormBundle\Form\DataTransformer\YesNoTransformer;
 
 class ClientType extends AbstractType
 {
 	/**
-	 * @var    Busybee\SystemBundle\Setting\SettingManager
+	 * @var    Busybee\Core\SystemBundle\Setting\SettingManager
 	 */
 	private $sm;
 	/**

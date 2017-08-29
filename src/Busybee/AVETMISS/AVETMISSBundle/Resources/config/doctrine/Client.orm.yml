@@ -63,15 +63,15 @@ Busybee\AVETMISS\AVETMISSBundle\Entity\Client:
             type: datetime
     oneToOne:
         student:
-            targetEntity: Busybee\PersonBundle\Entity\Student
+            targetEntity: Busybee\People\PersonBundle\Entity\Student
     manyToOne:
         createdBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
                 createdBy:
                     referencedColumnName: id
         modifiedBy:
-            targetEntity: Busybee\SecurityBundle\Entity\User
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
                 modifiedBy:
                     referencedColumnName: id
