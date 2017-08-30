@@ -9,6 +9,8 @@ use Busybee\Core\SystemBundle\Model\Bundle;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BundleType extends AbstractType
@@ -48,6 +50,7 @@ class BundleType extends AbstractType
 		$resolver->setRequired(
 			[
 				'bundleList',
+				'manager',   // Bundle Manager
 			]
 		);
 	}
@@ -60,5 +63,8 @@ class BundleType extends AbstractType
 		return 'bundleType';
 	}
 
-
+	public function buildView(FormView $view, FormInterface $form, array $options)
+	{
+		$view->vars['manager'] = $options['manager'];
+	}
 }

@@ -1,0 +1,6 @@
+TimeTable.version:
+    type: system
+    value: 0.0.01
+    displayName: TimeTable Bundle Version
+    description: TimeTable Bundle Version
+    role: ROLE_SYSTEM_ADMIN

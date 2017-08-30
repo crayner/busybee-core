@@ -1,3 +1,9 @@
+parameters:
+    Calendar:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeCalendarBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     current.year:
         class: Busybee\Core\CalendarBundle\Model\CurrentYear

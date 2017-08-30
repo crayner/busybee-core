@@ -27,6 +27,7 @@ class BundlesType extends AbstractType
 					'allow_delete'  => false,
 					'entry_options' => [
 						'bundleList' => $options['data']->getBundleList(),
+						'manager'    => $options['data'],
 					],
 				]
 			);

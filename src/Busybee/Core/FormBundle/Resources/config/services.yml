@@ -1,3 +1,9 @@
+parameters:
+    Form:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeFormBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     form.errors.parser:
         class: Busybee\Core\FormBundle\Model\FormErrorsParser

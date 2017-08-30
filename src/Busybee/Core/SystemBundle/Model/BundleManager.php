@@ -3,6 +3,7 @@
 namespace Busybee\Core\SystemBundle\Model;
 
 use Busybee\Core\HomeBundle\Exception\Exception;
+use Busybee\Core\SystemBundle\Entity\Setting;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\FormInterface;
@@ -34,6 +35,21 @@ class BundleManager
 	private $messages;
 
 	/**
+	 * @var SettingManager
+	 */
+	private $settingManager;
+
+	/**
+	 * @var array
+	 */
+	private $objectManager;
+
+	/**
+	 * @var string
+	 */
+	private $projectDir;
+
+	/**
 	 * BundleManager constructor.
 	 *
 	 * @param Kernel $kernel
@@ -43,15 +59,16 @@ class BundleManager
 		$this->bundleFileName = $kernel->getProjectDir() . '/app/config/bundles.yml';
 		$parameters           = Yaml::parse(file_get_contents($this->bundleFileName));
 		$bundles              = $parameters['parameters']['bundles'];
-
-		$this->bundles = new ArrayCollection();
+		$this->settingManager = $kernel->getContainer()->get('setting.manager');
+		$this->bundles        = new ArrayCollection();
 
 		foreach ($bundles as $name => $bundle)
 		{
 			$this->bundles->set($name, new Bundle($name, $bundle));
 		}
+		$this->projectDir = $kernel->getProjectDir();
 
-		$this->help     = "# This file contains the details of all Busybee Bundles.
+		$this->help          = "# This file contains the details of all Busybee Bundles.
 # Format is:
 #       name: Name of the Bundle
 #       active:  true or false (Defaults to false)
@@ -65,7 +82,8 @@ class BundleManager
 #       requirements: array of Bundles that are required to be active if this bundle is active.
 #       exclusions: array of Bundle that must not be active if this bundle is active.
 ";
-		$this->messages = [];
+		$this->messages      = [];
+		$this->objectManager = $kernel->getContainer()->get('doctrine')->getManager();
 	}
 
 	/**
@@ -103,7 +121,9 @@ class BundleManager
 		}
 		catch (\Exception $e)
 		{
-			$this->addMessage('danger', 'bundle.activate.save.failure');
+			dump($e);
+			$this->addMessage('danger', 'bundle.activate.save.failure', ['%message%' => empty($e->getMessage()) ? '
+			Empty' : $e->getMessage()]);
 
 			return;
 		}
@@ -320,5 +340,137 @@ class BundleManager
 		}
 
 		return false;
+	}
+
+	/**
+	 * @param $name
+	 *
+	 * @return bool
+	 */
+	public function updateRequired($name)
+	{
+
+		if (!$this->settingManager->hasParameter($name))
+			return false;
+
+		$bundle = $this->getBundleByName($name);
+		if (!$bundle->isActive())
+			return false;
+		$bundleParams = $this->settingManager->getParameter($name);
+
+		$current   = $this->settingManager->get($name . '.version', '0.0.00');
+		$available = isset($bundleParams['version']) ? $bundleParams['version'] : '0.0.00';
+
+		$this->updateDetails = ['%available%' => $available, '%current%' => $current];
+
+		return version_compare($available, $current, '>');
+	}
+
+	/**
+	 * @var array
+	 */
+	private $updateDetails;
+
+	/**
+	 * @return array
+	 */
+	public function getUpdateDetails(): array
+	{
+		return empty($this->updateDetails) ? ['%available%' => '', '%current%' => ''] : $this->updateDetails;
+	}
+
+	/**
+	 * @param $name
+	 */
+	public function updateBundle($name)
+	{
+		if (!$this->updateRequired($name))
+		{
+			$this->addMessage('warning', 'bundle.activate.update.notrequired', ['%name%' => $name]);
+
+			return;
+		}
+
+		$bundleParams = $this->settingManager->getParameter($name);
+		$bv           = $this->settingManager->get($name . '.version', '0.0.00');
+
+		if (isset($bundleParams['settings']) && isset($bundleParams['settings']['resources']))
+		{
+			$resources = is_array($bundleParams['settings']['resources']) ? $bundleParams['settings']['resources'] : [$bundleParams['settings']['resources']];
+
+			foreach ($resources as $resource)
+			{
+				$data    = $this->load('@' . $resource);
+				$version = empty($data[$name . '.version']) ? false : $data[$name . '.version'];
+				if ($version === false)
+				{
+					$this->addMessage('warning', 'bundle.update.resource.misconfigured', ['%name%' => $resource]);
+
+					return;
+				}
+				$version = empty($version['value']) ? false : $version['value'];
+				if ($version === false)
+				{
+					$this->addMessage('warning', 'bundle.update.resource.misconfigured', ['%name%' => $resource]);
+
+					return;
+				}
+				if (version_compare($version, $bv, '>='))
+					$this->buildSettings($data, $resource);
+				else
+					$this->addMessage('info', 'bundle.update.resource.old', ['%name%' => $resource]);
+			}
+		}
+		else
+			$this->addMessage('warning', 'bundle.update.resource.missing', ['%name%' => $name]);
+
+
+	}
+
+
+	/**
+	 * @param $data
+	 */
+	private function buildSettings($data, $resource)
+	{
+		if (empty($data))
+			return;
+		foreach ($data as $name => $datum)
+		{
+			$entity = new Setting();
+			$entity->setName($name);
+			foreach ($datum as $field => $value)
+			{
+				$w = 'set' . ucwords($field);
+				$entity->$w($value);
+			}
+			$this->settingManager->createSetting($entity);
+		}
+
+		$this->addMessage('success', 'bundle.update.resource.success', ['%resource%' => $resource]);
+	}
+
+	/**
+	 * @param $resource
+	 *
+	 * @return array|mixed
+	 */
+	private function load($resource)
+	{
+		$res = explode('/', str_replace('@', '', $resource));
+		$w   = $this->settingManager->getParameter('kernel.bundles')[$res[0]];
+		$w   = explode('\\', $w);
+		array_pop($w);
+		$w = implode('/', $w);
+
+		$res[0]   = $this->projectDir . '/src/' . str_replace('\\', '/', $w);
+		$resource = implode('/', $res);
+
+		if (file_exists(realpath($resource)))
+			return Yaml::parse(file_get_contents($resource));
+
+		$this->addMessage('warning', 'bundle.update.resource.notavailable', ['%resource%' => $resource]);
+
+		return [];
 	}
 }

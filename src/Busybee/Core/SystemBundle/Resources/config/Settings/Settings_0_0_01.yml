@@ -1,18 +1,24 @@
+System.version:
+    type: system
+    value: 0.0.01
+    displayName: System Bundle Version
+    description: System Bundle Version
+    role: ROLE_SYSTEM_ADMIN
 Installed:
-    type: boolean
+    type: system
     value: 1
     displayName: System Installed
     description: A flag showing the system has finished installing.
     role: ROLE_SYSTEM_ADMIN
 Version.System:
-    type: 'string'
-    value: '0.0.00'
+    type: system
+    value: '0.0.01'
     displayName: 'System Version'
     description: 'The version of Busybee currently configured on your system.'
     role: 'ROLE_SYSTEM_ADMIN'
 Version.Database:
-    type: 'string'
-    value: '0.0.00'
+    type: system
+    value: '0.0.01'
     displayName: 'Database Version'
     description: 'The version of Busybee Database currently configured on your system.'
     role: 'ROLE_SYSTEM_ADMIN'

@@ -8,7 +8,11 @@
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ toggleButton({form: form.active})|raw %}
-        {% set h3Content = h3Content ~ '<span class="small" style="margin-top: 8px; float: right; font-weight: bold;">' ~ form.active.vars.label|trans ~ '</span>' %}
+        {% set h3Content = h3Content ~ '<span class="small" style="margin-top: 8px; float: right; font-weight: bold;">&nbsp;' ~ form.active.vars.label|trans ~ '</span>' %}
+        {% if form.vars.manager.updateRequired(form.name.vars.value) %}
+            {% set h3Content = h3Content ~ miscButton({class: 'btn btn-warning halflings halflings-arrow-up', title: 'bundle.update.button', transDomain: 'SystemBundle', windowOpen: {route: path('bundle_update', {name: form.name.vars.value})}}) %}
+            {% set h3Content = h3Content ~ '<span class="small" style="margin-top: 8px; float: right;">&nbsp;' ~ 'bundle.update.required'|trans(form.vars.manager.updateDetails) ~ '&nbsp;</span>' %}
+        {% endif %}
         {% set h3Content = h3Content ~ '</div>' %}
         {% include '@BusybeeHome/Page/panelStart.html.twig' with {header: 'system.bundle.name.header'|trans({'%name%': form.name.vars.value}), 'panelStyle': 'default', panelParagraph: form.description.vars.value, transDomain: 'SystemBundle'} %}
         {{ form_row(form.name) }}

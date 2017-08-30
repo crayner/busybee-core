@@ -1,0 +1,6 @@
+Student.version:
+    type: system
+    value: 0.0.01
+    displayName: Student Bundle Version
+    description: Student Bundle Version
+    role: ROLE_SYSTEM_ADMIN

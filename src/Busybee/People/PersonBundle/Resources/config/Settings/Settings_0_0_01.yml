@@ -1,0 +1,6 @@
+Person.version:
+    type: system
+    value: 0.0.01
+    displayName: Person Bundle Version
+    description: Person Bundle Version
+    role: ROLE_SYSTEM_ADMIN

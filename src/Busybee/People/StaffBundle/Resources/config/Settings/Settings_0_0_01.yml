@@ -1,0 +1,6 @@
+Staff.version:
+    type: system
+    value: 0.0.01
+    displayName: Staff Bundle Version
+    description: Staff Bundle Version
+    role: ROLE_SYSTEM_ADMIN

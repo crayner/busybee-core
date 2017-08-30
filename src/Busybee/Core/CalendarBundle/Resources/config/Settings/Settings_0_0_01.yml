@@ -1,0 +1,6 @@
+Calendar.version:
+    type: system
+    value: 0.0.01
+    displayName: Calendar Bundle Version
+    description: Calendar Bundle Version
+    role: ROLE_SYSTEM_ADMIN

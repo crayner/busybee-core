@@ -1,0 +1,6 @@
+Period.version:
+    type: system
+    value: 0.0.01
+    displayName: Period Bundle Version
+    description: Period Bundle Version
+    role: ROLE_SYSTEM_ADMIN

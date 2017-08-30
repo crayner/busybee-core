@@ -1,0 +1,6 @@
+Form.version:
+    type: system
+    value: 0.0.01
+    displayName: Form Bundle Version
+    description: Form Bundle Version
+    role: ROLE_SYSTEM_ADMIN

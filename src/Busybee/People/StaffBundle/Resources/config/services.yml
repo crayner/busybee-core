@@ -48,6 +48,10 @@ parameters:
             contact:
                 route: contact_manage
                 prompt: pagination.person.contact
+    Staff:
+        version: 0.0.01
+        settings:
+            resources: 'BusybeeStaffBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     staff.repository:
         class: Busybee\People\StaffBundle\Repository\StaffRepository

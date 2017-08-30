@@ -25,6 +25,11 @@ parameters:
             - c.version
             - c.targetYear
             - c.code
+    Curriculum:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeCurriculumBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     course.repository:
         class: Busybee\CurriculumBundle\Repository\CourseRepository

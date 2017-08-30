@@ -1,0 +1,6 @@
+Institute.version:
+    type: system
+    value: 0.0.01
+    displayName: Institute Bundle Version
+    description: Institute Bundle Version
+    role: ROLE_SYSTEM_ADMIN

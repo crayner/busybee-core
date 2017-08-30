@@ -28,6 +28,11 @@ parameters:
             - a.nameShort
             - a.id
             - y.name as year
+    Activity:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeActivityBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     activity.staff.voter:
         class: Busybee\ActivityBundle\Security\StaffVoter

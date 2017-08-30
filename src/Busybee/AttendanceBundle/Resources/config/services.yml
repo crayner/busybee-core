@@ -1,3 +1,9 @@
+parameters:
+    Attendance:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeAttendanceBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     attendance.repository:
         class: Busybee\AttendanceBundle\Repository\AttendancePeriodRepository

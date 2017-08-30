@@ -56,6 +56,11 @@ parameters:
             contact:
                 route: contact_manage
                 prompt: pagination.person.contact
+    Student:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeStudentBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     student.repository:
         class: Busybee\People\StudentBundle\Repository\StudentRepository

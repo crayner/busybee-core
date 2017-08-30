@@ -13,6 +13,10 @@ parameters:
             - s.name
             - s.comment
         limit: '25'
+    Institute:
+        version: 0.0.01
+        settings:
+            resources: 'BusybeeInstituteBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     campus.repository:
         class: Busybee\InstituteBundle\Repository\CampusRepository

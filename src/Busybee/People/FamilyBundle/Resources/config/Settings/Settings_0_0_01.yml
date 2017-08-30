@@ -1,0 +1,6 @@
+Family.version:
+    type: system
+    value: 0.0.01
+    displayName: Family Bundle Version
+    description: Family Bundle Version
+    role: ROLE_SYSTEM_ADMIN

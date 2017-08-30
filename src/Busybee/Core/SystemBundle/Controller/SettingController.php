@@ -224,6 +224,19 @@ class SettingController extends Controller
 					)
 				);
 				break;
+			case 'system':
+				$form->add('value', TextType::class, array_merge($options, array(
+							'attr'        => array_merge($attr,
+								[
+									'maxLength' => 25,
+									'readonly'  => 'readonly',
+								]
+							),
+							'constraints' => $constraints,
+						)
+					)
+				);
+				break;
 			case 'string':
 				if (is_null($setting->getChoice()))
 					$form->add('value', TextType::class, array_merge($options, array(

@@ -1,0 +1,6 @@
+Activity.version:
+    type: system
+    value: 0.0.01
+    displayName: Activity Bundle Version
+    description: Activity Bundle Version
+    role: ROLE_SYSTEM_ADMIN

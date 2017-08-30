@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 interface UserInterface extends AdvancedUserInterface, \Serializable
 {
 	const ROLE_DEFAULT = 'ROLE_USER';
-	const ROLE_SUPER_ADMIN = 'ROLE_SYSTEM_ADMIN';
+	const ROLE_SYSTEM_ADMIN = 'ROLE_SYSTEM_ADMIN';
 
 	/**
 	 * Sets the username.

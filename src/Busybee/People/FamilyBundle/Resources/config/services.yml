@@ -11,6 +11,11 @@ parameters:
         select:
             - f.name
             - f.id
+   Family:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeFamilyBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     family.repository:
         class: Busybee\People\FamilyBundle\Repository\FamilyRepository

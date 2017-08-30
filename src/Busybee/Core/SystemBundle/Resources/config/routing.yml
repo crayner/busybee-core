@@ -40,3 +40,6 @@ setting_create:
 bundle_list:
     path: /bundles/list/
     defaults: { _controller: SystemBundle:Bundle:list }
+bundle_update:
+    path: /bundle/{name}/update/
+    defaults: { _controller: SystemBundle:Bundle:update }

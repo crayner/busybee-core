@@ -1,3 +1,5 @@
+System.version:
+    value: 0.0.02
 Address.Format:
     type: 'twig'
     displayName: 'Address Format'

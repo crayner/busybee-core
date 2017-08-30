@@ -58,16 +58,16 @@ abstract class User implements UserInterface
 
 	public function isSuperAdmin()
 	{
-		return $this->hasRole(static::ROLE_SUPER_ADMIN);
+		return $this->hasRole(static::ROLE_SYSTEM_ADMIN);
 	}
 
 	public function setSuperAdmin($boolean)
 	{
 
 		if (true === $boolean)
-			$this->addRole(static::ROLE_SUPER_ADMIN);
+			$this->addRole(static::ROLE_SYSTEM_ADMIN);
 		else
-			$this->removeRole(static::ROLE_SUPER_ADMIN);
+			$this->removeRole(static::ROLE_SYSTEM_ADMIN);
 
 		return $this;
 	}

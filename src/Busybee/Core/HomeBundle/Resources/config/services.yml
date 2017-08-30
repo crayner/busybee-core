@@ -91,6 +91,11 @@ parameters:
             style: 'float: right;'
             additional: ''
             prompt: ''
+    Home:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeHomeBundle/Resources/config/Settings/settings_0_0_01.yml'
 services:
     menu.manager:
         class: Busybee\Core\HomeBundle\Model\MenuManager

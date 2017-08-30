@@ -20,6 +20,15 @@ parameters:
             - s.displayName
             - s.description
             - s.id
+    System:
+        settings:
+            resources:
+                - 'SystemBundle/Resources/config/Settings/Settings_0_0_01.yml'
+                - 'SystemBundle/Resources/config/Settings/Settings_0_0_02.yml'
+                - 'SystemBundle/Resources/config/Settings/Settings_0_0_03.yml'
+                - 'SystemBundle/Resources/config/Settings/Settings_0_0_04.yml'
+        version: 0.0.04
+
 
 services:
     monolog.formatter.session_request:
@@ -56,10 +65,10 @@ services:
             - getRepository 
         arguments: 
             - "SystemBundle:Setting"
-    system.update.manager:
+    busybee_core_system.update.update_manager:
         class: Busybee\Core\SystemBundle\Update\UpdateManager
         arguments: 
-            - "@my_service_container"
+            - "@setting.manager"
     system.password.manager:
         class: Busybee\Core\SystemBundle\Password\PasswordManager
     busybee.writeDoctrine.listener:
@@ -72,7 +81,11 @@ services:
     setting.manager:
         class: Busybee\Core\SystemBundle\Setting\SettingManager
         arguments: 
-            - '@my_service_container'
+            - '@setting.repository'
+            - '@session'
+            - '@kernel'
+        call:
+             - [setParameterBag, ["@=service('kernel').getContainer().getParameterBag()"]]
     plugin.manager:
         class: Busybee\Core\SystemBundle\Plugin\PluginManager
         arguments: 

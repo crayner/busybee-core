@@ -9,6 +9,9 @@ use Busybee\Core\SystemBundle\Repository\SettingRepository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Busybee\PersonBundle\Validator\Phone;
@@ -40,7 +43,7 @@ class SettingManager implements ContainerAwareInterface
 	/**
 	 * @var SettingRepository
 	 */
-	private $repo;
+	private $settingRepo;
 
 	/**
 	 * @var ContainerInterface
@@ -52,13 +55,13 @@ class SettingManager implements ContainerAwareInterface
 	 *
 	 * @param ContainerInterface $container
 	 */
-	public function __construct(ContainerInterface $container)
+	public function __construct(SettingRepository $sr, Session $session, Kernel $kernel)
 	{
-		$this->setContainer($container);
-		$this->settings     = $this->container->get('session')->get('settings');
-		$this->settingCache = $this->container->get('session')->get('settingCache');
-		$this->repo         = $this->container->get('doctrine')->getManager()->getRepository(Setting::class);
-		$this->projectDir   = $this->container->get('kernel')->getProjectDir();
+		$this->settings     = $session->get('settings');
+		$this->settingCache = $session->get('settingCache');
+		$this->settingRepo  = $sr;
+		$this->projectDir   = $kernel->getProjectDir();
+		$this->setContainer($kernel->getContainer());
 	}
 
 	/**
@@ -145,7 +148,7 @@ class SettingManager implements ContainerAwareInterface
 
 		try
 		{
-			$this->setting = $this->repo->findOneByName($name);
+			$this->setting = $this->settingRepo->findOneByName($name);
 		}
 		catch (\Exception $e)
 		{
@@ -231,10 +234,10 @@ class SettingManager implements ContainerAwareInterface
 	public function setSetting($name, $value)
 	{
 		$name          = strtolower($name);
-		$this->setting = $this->repo->findOneByName($name);
+		$this->setting = $this->settingRepo->findOneByName($name);
 		if (is_null($this->setting) || empty($this->setting->getName()))
 			return $this;
-		if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole(), 'security.authorisation.setting', ['settingName' => $this->setting->getName()])) return $this;
+		if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole(), 'security.authorisation.setting', ['settingName' => $this->setting->getName(), 'role%' => $this->setting->getRole()])) return $this;
 		switch ($this->setting->getType())
 		{
 			case 'string':
@@ -407,11 +410,11 @@ class SettingManager implements ContainerAwareInterface
 		{
 			$name = substr($choice, 10);
 			if (false === strpos($name, '.'))
-				$list = $this->container->getParameter($name);
+				$list = $this->getParameter($name);
 			else
 			{
 				$name = explode('.', $name);
-				$list = $this->container->getParameter($name[0]);
+				$list = $this->getParameter($name[0]);
 				array_shift($name);
 				while (!empty($name))
 				{
@@ -474,7 +477,7 @@ class SettingManager implements ContainerAwareInterface
 	{
 		foreach ($settings as $name => $setting)
 		{
-			$details                = $this->repo->findOneByName($setting['setting']);
+			$details                = $this->settingRepo->findOneByName($setting['setting']);
 			$type                   = null;
 			$options                = array(
 				'data'              => $details->getValue(),
@@ -494,7 +497,7 @@ class SettingManager implements ContainerAwareInterface
 			{
 				if (0 === strpos($details->getChoice(), 'parameter.'))
 				{
-					$options['choices'] = $this->container->getParameter(str_replace('parameter.', '', $details->getChoice()));
+					$options['choices'] = $this->getParameter(str_replace('parameter.', '', $details->getChoice()));
 				}
 				else
 				{
@@ -522,16 +525,6 @@ class SettingManager implements ContainerAwareInterface
 		}
 
 		return $form;
-	}
-
-	/**
-	 * @param $name
-	 *
-	 * @return mixed
-	 */
-	public function getParameter($name)
-	{
-		return $this->container->getParameter($name);
 	}
 
 	/**
@@ -648,7 +641,7 @@ class SettingManager implements ContainerAwareInterface
 	 */
 	public function getLikeSettingNames($name)
 	{
-		$query   = $this->repo->createQueryBuilder('s')
+		$query   = $this->settingRepo->createQueryBuilder('s')
 			->select(['s.name', 's.displayName'])
 			->where('s.name LIKE :name1')
 			->orWhere('s.description LIKE :name2')
@@ -700,5 +693,59 @@ class SettingManager implements ContainerAwareInterface
 		}
 
 		return $this->settingExists($name);
+	}
+
+	/**
+	 * Get parameter
+	 *
+	 * @param   string $name
+	 * @param   mixed  $default
+	 *
+	 * @return  mixed
+	 */
+	public function getParameter($name, $default = null)
+	{
+		if (!$this->hasParameter($name))
+			return $default;
+
+		return $this->container->getParameter($name);
+	}
+
+
+	/**
+	 * load Setting File
+	 *
+	 * @version 12th March 2017
+	 * @since   12th March 2017
+	 * @return  array
+	 * @throws  ParseException
+	 */
+	private function loadSettingFile($fName)
+	{
+		try
+		{
+			$data = Yaml::parse(file_get_contents($fName));
+		}
+		catch (ParseException $e)
+		{
+			$this->container->get('session')->getFlashBag()->add('error', $this->container->get('translator')->trans('updateDatabase.failure', array('%fName%' => $fName), 'SystemBundle'));
+
+			return [];
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Has parameter
+	 *
+	 * @param   string $name
+	 * @param   mixed  $default
+	 *
+	 * @return  mixed
+	 */
+	public function hasParameter($name)
+	{
+		return $this->container->hasParameter($name);
 	}
 }

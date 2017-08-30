@@ -30,7 +30,7 @@ class UpdateController extends Controller
 			$entity->setName('Installed');
 			$entity->setDisplayName('System Installed');
 			$entity->setDescription('A flag showing the system has finished installing.');
-			$entity->setRole('ROLE_SUPER_ADMIN');
+			$entity->setRole('ROLE_SYSTEM_ADMIN');
 
 			$sm->createSetting($entity);
 		}
