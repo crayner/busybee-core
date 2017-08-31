@@ -39,6 +39,7 @@ class AdvancedLoader extends Loader
 
 		foreach ($this->bundles as $name => $bundle)
 		{
+
 			if (($bundle['active'] || $bundle['type'] === 'core') && !empty($bundle['route']))
 			{
 				$route          = $bundle['route'];
@@ -75,8 +76,11 @@ class AdvancedLoader extends Loader
 	 */
 	public function __construct(Kernel $kernel)
 	{
-		$this->path = $kernel->getProjectDir();
-		$parameters = Yaml::parse(file_get_contents($this->path . '/app/config/bundles.yml'));
+		$this->path                          = $kernel->getProjectDir();
+		$parameters['parameters']['bundles'] = [];
+
+		if (file_exists($this->path . '/app/config/bundles.yml'))
+			$parameters = Yaml::parse(file_get_contents($this->path . '/app/config/bundles.yml'));
 
 		$this->bundles = $parameters['parameters']['bundles'];
 	}

@@ -6,6 +6,7 @@ use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\SystemBundle\Entity\Setting;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -66,6 +67,7 @@ class BundleManager
 		{
 			$this->bundles->set($name, new Bundle($name, $bundle));
 		}
+
 		$this->projectDir = $kernel->getProjectDir();
 
 		$this->help          = "# This file contains the details of all Busybee Bundles.
@@ -121,7 +123,6 @@ class BundleManager
 		}
 		catch (\Exception $e)
 		{
-			dump($e);
 			$this->addMessage('danger', 'bundle.activate.save.failure', ['%message%' => empty($e->getMessage()) ? '
 			Empty' : $e->getMessage()]);
 
@@ -130,12 +131,19 @@ class BundleManager
 		$this->addMessage('success', 'bundle.activate.save.success');
 	}
 
-	public function getBundleList()
+	/**
+	 * Bundle List
+	 *
+	 * @param bool $withCore
+	 *
+	 * @return array
+	 */
+	public function getBundleList($withCore = false): array
 	{
 		$list = [];
-		foreach ($this->getBundles()->toArray() as $bundle)
-			if (!$bundle->isCore())
-				$list[$bundle->getName()] = $bundle->getName();
+		foreach ($this->getBundles()->toArray() as $name => $bundle)
+			if (!$bundle->isCore() || $withCore)
+				$list[$name] = $name;
 
 		return $list;
 	}
@@ -379,14 +387,18 @@ class BundleManager
 		return empty($this->updateDetails) ? ['%available%' => '', '%current%' => ''] : $this->updateDetails;
 	}
 
-	/**
-	 * @param $name
+	/**\
+	 * Update Bundle
+	 *
+	 * @param      $name
+	 * @param bool $requiredWarning
 	 */
-	public function updateBundle($name)
+	public function updateBundle($name, $requiredWarning = true)
 	{
 		if (!$this->updateRequired($name))
 		{
-			$this->addMessage('warning', 'bundle.activate.update.notrequired', ['%name%' => $name]);
+			if ($requiredWarning)
+				$this->addMessage('warning', 'bundle.activate.update.notrequired', ['%name%' => $name]);
 
 			return;
 		}
@@ -458,6 +470,7 @@ class BundleManager
 	private function load($resource)
 	{
 		$res = explode('/', str_replace('@', '', $resource));
+
 		$w   = $this->settingManager->getParameter('kernel.bundles')[$res[0]];
 		$w   = explode('\\', $w);
 		array_pop($w);
@@ -473,4 +486,68 @@ class BundleManager
 
 		return [];
 	}
+
+	/**
+	 * get SQL Count
+	 *
+	 * @version 23rd October 2016
+	 * @since   23rd October 2016
+	 * @return  integer
+	 */
+	public function getSQLCount(): int
+	{
+		$schemaTool = new SchemaTool($this->objectManager);
+
+		$metaData = $this->objectManager->getMetadataFactory()->getAllMetadata();
+
+		$xx = $schemaTool->getUpdateSchemaSql($metaData, true);
+
+		return count($xx);
+	}
+
+	/**
+	 * Build Database
+	 *
+	 * @version 30th August 2017
+	 * @since   23rd October 2016
+	 * @return  void
+	 */
+	public function buildDatabase()
+	{
+		$schemaTool = new SchemaTool($this->objectManager);
+
+		$metaData = $this->objectManager->getMetadataFactory()->getAllMetadata();
+
+		$xx = $schemaTool->getUpdateSchemaSql($metaData, true);
+
+		$count = count($xx);
+
+		$schemaTool->updateSchema($metaData, true);
+
+		$this->addMessage('success', 'bundle.update.database.success', ['%count%' => $count]);
+	}
+
+	/**
+	 * Upadte All Bundles
+	 */
+	public function updateAllBundles()
+	{
+		foreach ($this->getBundleList(true) as $name)
+			$this->updateBundle($name, false);
+	}
+
+	/**
+	 * Any Update Required
+	 *
+	 * @return bool
+	 */
+	public function anyUpdateRequired()
+	{
+		foreach ($this->getBundleList(true) as $name)
+			if ($this->updateRequired($name))
+				return true;
+
+		return false;
+	}
+
 }

@@ -14,23 +14,14 @@ parameters:
             active: true
             type: core
             namespace: Busybee\Core\HomeBundle\BusybeeHomeBundle
-            route:
-                resource: BusybeeHomeBundle/Resources/config/routing.yml
-                prefix: /
         Security:
             active: true
             type: core
             namespace: Busybee\Core\SecurityBundle\BusybeeSecurityBundle
-            route:
-                resource: BusybeeSecurityBundle/Resources/config/routing.yml
-                prefix: security
         System:
             active: true
             type: core
             namespace: Busybee\Core\SystemBundle\SystemBundle
-            route:
-                resource: SystemBundle/Resources/config/routing.yml
-                prefix: system
         Form:
             active: true
             type: core

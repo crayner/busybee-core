@@ -288,13 +288,17 @@ bundle:
             failure: 'The bundle changes were not saved. %message%'
             success: 'The bundle changes were saved.'
         update:
-            notrequired: 'The update for %name% is not required.'
+            notrequired: 'The update for bundle "%name%" is not required.'
     update:
         button: 'Update Bundle'
+        sqlbutton: 'Update Database Schema'
+        allbutton: 'Update All Bundles'
         required: 'Upgrade from %current% to %available% version.'
         resource:
             misconfigured: 'The bundle setting file does not contain a correctly formatted bundle version. Resource = %name% must contain a valid version in the Semantic Versioning Specification as defined at http://semver.org'
             missing: 'The bundle has not set any resources to use.'
-            old: 'The resourse %name% has already been loaded.'
+            old: 'The resource %name% has already been loaded.'
             success: 'The resource %resource% was loaded into the settings.'
             notavailable: 'The resource %resource% is not available.'
+        database:
+            success: 'The database had %count% changes applied.'

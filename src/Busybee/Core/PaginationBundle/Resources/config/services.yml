@@ -3,7 +3,7 @@ parameters:
         version: 0.0.01
         settings:
             resources:
-                - 'BusybeePaginationBundle/Resources/config/Settings/Settings_0_0_01.yml'
+                - 'PaginationBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     pagination.Type:
         class: Busybee\Core\PaginationBundle\Form\PaginationType

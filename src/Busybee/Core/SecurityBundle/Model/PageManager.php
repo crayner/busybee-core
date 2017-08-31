@@ -87,7 +87,6 @@ class PageManager
 
 		if (empty($this->page->getId()))
 		{
-
 			$this->page->setPath($this->router->getRouteCollection()->get($routeName)->getPath());
 			$this->page->setCacheTime();
 			$this->om->persist($this->page);

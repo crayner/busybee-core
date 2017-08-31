@@ -25,10 +25,21 @@
 {% endblock %}
 
 {% block contentContainer %}
+    {% set h3Content = '' %}
+    {% if form.vars.manager.anyUpdateRequired() %}
+        {% set h3Content = h3Content ~ miscButton({class: 'btn btn-warning halflings halflings-arrow-up', title: 'bundle.update.allbutton', transDomain: 'SystemBundle', windowOpen: {route: path('bundle_update', {name: 'All'})}}) %}
+    {% endif %}
+    {% if form.vars.manager.SQLCount > 0 %}
+        {% set h3Content = h3Content ~ miscButton({class: 'btn btn-warning halflings halflings-save', title: 'bundle.update.sqlbutton', transDomain: 'SystemBundle', windowOpen: {route: path('bundle_database_update')}}) %}{{ dump(form.vars.manager.SQLCount) }}
+    {% endif %}
+    {% include '@BusybeeHome/Page/panelStart.html.twig' with {header: 'system.bundle.manage.title'|trans, transDomain: 'SystemBundle'} %}
     {% include '@BusybeeHome/Default/flash.html.twig' %}
+
     {{ form_start(form, {attr: {id: 'bundleForm'}}) }}
     {{ form_widget(form.bundles) }}
     {{ form_end(form) }}
+
+    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}

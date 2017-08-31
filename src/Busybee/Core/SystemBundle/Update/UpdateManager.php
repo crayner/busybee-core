@@ -205,7 +205,7 @@ class UpdateManager
 
 		$schemaTool = new SchemaTool($this->em);
 		$metaData   = $this->em->getMetadataFactory()->getAllMetadata();
-
+		dump($metaData);
 		$schemaTool->updateSchema($metaData, true);
 
 		$sysVersion = $this->version->current['system'];

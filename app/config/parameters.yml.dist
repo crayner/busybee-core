@@ -43,3 +43,102 @@ parameters:
         oauth: off
         client_id: ''
         client_secret: ''
+    bundles:
+        Home:
+            type: core
+            namespace: Busybee\Core\HomeBundle\BusybeeHomeBundle
+        Security:
+
+            type: core
+            namespace: Busybee\Core\SecurityBundle\BusybeeSecurityBundle
+        System:
+            type: core
+            namespace: Busybee\Core\SystemBundle\SystemBundle
+        Form:
+            type: core
+            namespace: Busybee\Core\FormBundle\BusybeeFormBundle
+        Pagination:
+            type: core
+            namespace: Busybee\Core\PaginationBundle\PaginationBundle
+        Calendar:
+            type: plugin
+            namespace: Busybee\Core\CalendarBundle\BusybeeCalendarBundle
+            route:
+                resource: BusybeeCalendarBundle/Resources/config/routing.yml
+                prefix: calendar
+        Family:
+            type: plugin
+            namespace: Busybee\People\FamilyBundle\BusybeeFamilyBundle
+            route:
+                resource: BusybeeFamilyBundle/Resources/config/routing.yml
+                prefix: family
+        Person:
+            type: plugin
+            namespace: Busybee\People\PersonBundle\BusybeePersonBundle
+            route:
+                resource: BusybeePersonBundle/Resources/config/routing.yml
+                prefix: person
+        Staff:
+            type: plugin
+            namespace: Busybee\People\StaffBundle\BusybeeStaffBundle
+            route:
+                resource: BusybeeStaffBundle/Resources/config/routing.yml
+                prefix: staff
+            requirements:
+                - Person
+            description: Used to manage staff details.
+        Student:
+            type: plugin
+            namespace: Busybee\People\StudentBundle\BusybeeStudentBundle
+            route:
+                resource: BusybeeStudentBundle/Resources/config/routing.yml
+                prefix: student
+            requirements:
+                - Person
+            description: Used to manage student details.
+        Curriculum:
+            type: plugin
+            namespace: Busybee\CurriculumBundle\BusybeeCurriculumBundle
+            route:
+                resource: "BusybeeCurriculumBundle/Resources/config/routing.yml"
+                prefix:   curriculum
+                type: yaml
+        Institute:
+            type: plugin
+            namespace: Busybee\InstituteBundle\BusybeeInstituteBundle
+            route:
+                prefix:   institute
+                resource: "BusybeeInstituteBundle/Resources/config/routing.yml"
+        TimeTable:
+            type: plugin
+            namespace: Busybee\TimeTableBundle\BusybeeTimeTableBundle
+            route:
+                resource: "BusybeeTimeTableBundle/Resources/config/routing.yml"
+                prefix:   timetable
+        Activity:
+            type: plugin
+            namespace: Busybee\ActivityBundle\BusybeeActivityBundle
+            route:
+                resource: "BusybeeActivityBundle/Resources/config/routing.yml"
+                prefix:   activity
+        Attendance:
+            type: plugin
+            namespace: Busybee\AttendanceBundle\BusybeeAttendanceBundle
+            route:
+                resource: "BusybeeAttendanceBundle/Resources/config/routing.yml"
+                prefix:   attendance
+        Period:
+            type: plugin
+            namespace: Busybee\PeriodBundle\BusybeePeriodBundle
+            route:
+                resource: "BusybeePeriodBundle/Resources/config/routing.yml"
+                prefix:   period
+        AVETMISS:
+            type: plugin
+            namespace: Busybee\AVETMISS\AVETMISSBundle\BusybeeAVETMISSBundle
+            route:
+                resource: BusybeeAVETMISSBundle/Resources/config/routing.yml
+                prefix: avetmiss
+            description: bundle.description.avetmiss
+            requirements:
+                - Student

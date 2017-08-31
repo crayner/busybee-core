@@ -7,6 +7,8 @@ use Busybee\Core\SystemBundle\Model\BundleManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BundlesType extends AbstractType
@@ -52,5 +54,9 @@ class BundlesType extends AbstractType
 		return 'bundles_manage';
 	}
 
+	public function buildView(FormView $view, FormInterface $form, array $options)
+	{
+		$view->vars['manager'] = $options['data'];
 
+	}
 }

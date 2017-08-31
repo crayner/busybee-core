@@ -18,6 +18,7 @@
 # Parameters
 /app/config/parameters.yml
 /app/config/parameters.ini
+/app/config/bundles.yml
 
 # Vendor Files
 /vendor/

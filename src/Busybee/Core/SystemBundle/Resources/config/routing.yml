@@ -43,3 +43,6 @@ bundle_list:
 bundle_update:
     path: /bundle/{name}/update/
     defaults: { _controller: SystemBundle:Bundle:update }
+bundle_database_update:
+    path: /bundle/update/database/
+    defaults: { _controller: SystemBundle:Bundle:database }

@@ -6,7 +6,6 @@ use Busybee\Core\SystemBundle\Form\BundlesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Yaml\Yaml;
 
 class BundleController extends Controller
 {
@@ -47,10 +46,35 @@ class BundleController extends Controller
 
 		$um = $this->get('busybee_core_system.model.bundle_manager');
 
-		$um->updateBundle($name);
+		if ($name === 'All')
+			$um->updateAllBundles();
+		else
+			$um->updateBundle($name);
 
 		$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($um->getMessages());
 
 		return new RedirectResponse($this->generateUrl('bundle_list'));
 	}
+
+	/**
+	 * Update Database Scheme
+	 *
+	 * @param $name
+	 *
+	 * @return RedirectResponse
+	 */
+	public function databaseAction()
+	{
+		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
+
+		$um = $this->get('busybee_core_system.model.bundle_manager');
+
+		$um->buildDatabase();
+
+		$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($um->getMessages());
+
+		return new RedirectResponse($this->generateUrl('bundle_list'));
+	}
+
+
 }

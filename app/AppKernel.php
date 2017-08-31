@@ -8,7 +8,7 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        $bundles = array(
+	    $bundles = [
 	        new Core23\DompdfBundle\Core23DompdfBundle(),
 	        new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 	        new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
@@ -17,7 +17,13 @@ class AppKernel extends Kernel
 	        new Symfony\Bundle\MonologBundle\MonologBundle(),
 	        new Symfony\Bundle\SecurityBundle\SecurityBundle(),
 	        new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-	        new Symfony\Bundle\TwigBundle\TwigBundle(),);
+		    new Symfony\Bundle\TwigBundle\TwigBundle(),
+		    new Busybee\Core\HomeBundle\BusybeeHomeBundle(),
+		    new Busybee\Core\SecurityBundle\BusybeeSecurityBundle(),
+		    new Busybee\Core\SystemBundle\SystemBundle(),
+		    new Busybee\Core\FormBundle\BusybeeFormBundle(),
+		    new Busybee\Core\PaginationBundle\PaginationBundle(),
+	    ];
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
@@ -25,12 +31,15 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
+	    $parameters['parameters']['bundles'] = [];
 
-	    $parameters = Yaml::parse(file_get_contents($this->getConfigDir() . '/bundles.yml'));
+	    if (file_exists($this->getConfigDir() . '/bundles.yml'))
+		    $parameters = Yaml::parse(file_get_contents($this->getConfigDir() . '/bundles.yml'));
 
 	    foreach ($parameters['parameters']['bundles'] as $bundle)
 	    {
-		    if ($bundle['active'] || $bundle['type'] === 'core')
+		    // Core must be loaded manually above.
+		    if ($bundle['active'] && $bundle['type'] !== 'core')
 			    $bundles[] = new $bundle['namespace']();
 	    }
 
