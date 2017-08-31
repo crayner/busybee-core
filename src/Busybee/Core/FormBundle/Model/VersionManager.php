@@ -1,9 +1,7 @@
 <?php
 
-namespace Busybee\Core\HomeBundle\Model;
+namespace Busybee\Core\FormBundle\Model;
 
-
-use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Version;
 use Symfony\Component\HttpKernel\Kernel;
@@ -12,7 +10,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 class VersionManager
 {
 	/**
-	 * @var SettingManager
+	 * @var SettingManagerInterface
 	 */
 	private $settingManager;
 
@@ -32,19 +30,14 @@ class VersionManager
 	private $translator;
 
 	/**
-	 * @var bool
-	 */
-	private $ok = true;
-
-	/**
 	 * VersionManager constructor.
 	 *
-	 * @param Connection          $connection
-	 * @param SettingManager      $settingManager
+	 * @param Connection              $connection
+	 * @param SettingManagerInterface $settingManager
 	 * @param                     $version
-	 * @param TranslatorInterface $translator
+	 * @param TranslatorInterface     $translator
 	 */
-	public function __construct(Connection $connection, SettingManager $settingManager, $version, TranslatorInterface $translator)
+	public function __construct(Connection $connection, SettingManagerInterface $settingManager, $version, TranslatorInterface $translator)
 	{
 		$this->connection     = $connection;
 		$this->settingManager = $settingManager;

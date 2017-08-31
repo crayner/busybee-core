@@ -47,13 +47,21 @@ parameters:
         Home:
             type: core
             namespace: Busybee\Core\HomeBundle\BusybeeHomeBundle
+            route:
+                resource: BusybeeHomeBundle/Resources/config/routing.yml
+                prefix: /
         Security:
-
             type: core
             namespace: Busybee\Core\SecurityBundle\BusybeeSecurityBundle
+            route:
+                resource: BusybeeSecurityBundle/Resources/config/routing.yml
+                prefix: /security/
         System:
             type: core
             namespace: Busybee\Core\SystemBundle\SystemBundle
+            route:
+                resource: SystemBundle/Resources/config/routing.yml
+                prefix: /system/
         Form:
             type: core
             namespace: Busybee\Core\FormBundle\BusybeeFormBundle

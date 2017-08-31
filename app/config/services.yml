@@ -4,9 +4,3 @@ parameters:
 #    parameter_name: value
 
 services:
-    advanced_routing_loader:
-        class: Busybee\Core\SystemBundle\Router\AdvancedLoader
-        tags:
-            - { name: routing.loader }
-        arguments:
-            - '@kernel'

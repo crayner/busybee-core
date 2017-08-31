@@ -1,6 +1,6 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+{% extends "BusybeeFormBundle:Default:template.html.twig" %}
 
 
 {% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
@@ -17,7 +17,7 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {flashClass: 'fadeAlert', transDomain: 'BusybeeTimeTableBundle'} %}
+        {% include 'BusybeeFormBundle:Default:flash.html.twig' with {flashClass: 'fadeAlert', transDomain: 'BusybeeTimeTableBundle'} %}
     {% endblock %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {{ form_start(form) }}

@@ -1,18 +1,3 @@
-install_start:
-    path:     /install/start/
-    defaults: { _controller: SystemBundle:Install:index }
-install_check_mailer_parameters:
-    path:     /install/mailer/
-    defaults: { _controller: SystemBundle:Install:mailer }
-install_misc_check:
-    path:     /install/miscellaneous/
-    defaults: { _controller: SystemBundle:Install:miscellaneous }
-install_build_system:
-    path:     /install/build/
-    defaults: { _controller: SystemBundle:Install:build }
-install_build_complete:
-    path:     /install/complete/
-    defaults: { _controller: SystemBundle:Install:complete }
 update_start:
     path:     /update/start/
     defaults: { _controller: SystemBundle:Update:index }

@@ -18,11 +18,6 @@ class AppKernel extends Kernel
 	        new Symfony\Bundle\SecurityBundle\SecurityBundle(),
 	        new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
 		    new Symfony\Bundle\TwigBundle\TwigBundle(),
-		    new Busybee\Core\HomeBundle\BusybeeHomeBundle(),
-		    new Busybee\Core\SecurityBundle\BusybeeSecurityBundle(),
-		    new Busybee\Core\SystemBundle\SystemBundle(),
-		    new Busybee\Core\FormBundle\BusybeeFormBundle(),
-		    new Busybee\Core\PaginationBundle\PaginationBundle(),
 	    ];
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
@@ -31,18 +26,23 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
-	    $parameters['parameters']['bundles'] = [];
 
 	    if (file_exists($this->getConfigDir() . '/bundles.yml'))
+	    {
 		    $parameters = Yaml::parse(file_get_contents($this->getConfigDir() . '/bundles.yml'));
 
-	    foreach ($parameters['parameters']['bundles'] as $bundle)
-	    {
-		    // Core must be loaded manually above.
-		    if ($bundle['active'] && $bundle['type'] !== 'core')
-			    $bundles[] = new $bundle['namespace']();
+		    foreach ($parameters['parameters']['bundles'] as $bundle)
+		    {
+			    // Core must be loaded manually above.
+			    if ($bundle['active'] && $bundle['type'] !== 'core')
+				    $bundles[] = new $bundle['namespace']();
+		    }
 	    }
-
+	    else
+	    {
+		    $bundles[] = new Busybee\Core\InstallBundle\BusybeeInstallBundle();
+		    $bundles[] = new Busybee\Core\FormBundle\BusybeeFormBundle();
+	    }
 		return $bundles;
     }
 
@@ -51,11 +51,12 @@ class AppKernel extends Kernel
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
     }
 
-    public function getProjectDir()
-    {
-        return dirname(__DIR__);
-    }
-
+	/*
+		public function getProjectDir()
+		{
+			return dirname(__DIR__);
+		}
+	*/
 	public function getLogDir()
 	{
 		return dirname(__DIR__) . '/var/logs';
@@ -70,9 +71,4 @@ class AppKernel extends Kernel
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
-
-	public function getCharset()
-	{
-		return 'utf-8';
-	}
 }

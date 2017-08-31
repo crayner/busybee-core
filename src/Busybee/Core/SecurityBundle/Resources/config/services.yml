@@ -76,14 +76,14 @@ services:
         arguments:
             - '@router'
             - '@doctrine.orm.entity_manager'
-            - '@service_container' 
+            - '@my_service_container'
     busybee_security.authentication.failure_handler:
         class:  Busybee\Core\SecurityBundle\Model\failureHandler
         arguments:  
             - "@http_kernel"
             - "@security.http_utils"
             - {}
-            - '@service_container'
+            - '@my_service_container'
         tags:
             - { name: 'monolog.logger.busybee', channel: 'security' }
     busybee_security.user.classmetadata:

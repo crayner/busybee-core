@@ -4,6 +4,98 @@ parameters:
         settings:
             resources:
                 - 'BusybeeFormBundle/Resources/config/Settings/Settings_0_0_01.yml'
+    buttons:
+        save:
+            class: "halflings halflings-save btn btn-success"
+            type: submit
+            title: 'form.save'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        cancel:
+            class: "halflings halflings-remove-circle btn btn-info"
+            type: button
+            title: 'form.cancel'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        upload:
+            class: "halflings halflings-cloud-upload btn btn-success"
+            type: submit
+            title: 'form.upload'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        add:
+            class: "halflings halflings-plus-sign btn btn-info"
+            type: button
+            title: 'form.add'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        edit:
+            class: "halflings halflings-edit btn btn-info"
+            type: button
+            title: 'form.edit'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        proceed:
+            class: "halflings halflings-hand-right btn btn-info"
+            type: button
+            title: 'form.proceed'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        return:
+            class: "halflings halflings-hand-left btn btn-primary"
+            type: button
+            title: 'form.return'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        delete:
+            class: "halflings halflings-erase btn btn-danger"
+            type: button
+            title: 'form.delete'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        reset:
+            class: "halflings halflings-refresh btn btn-warning"
+            type: reset
+            title: 'form.reset'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        misc:
+            class: ""
+            type: button
+            title: 'form.misc'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        close:
+            class: "halflings halflings-remove-sign btn btn-primary"
+            type: button
+            title: 'form.close'
+            style: 'float: right;'
+            additional: 'onclick="window.close();"'
+            prompt: ''
+        up:
+            class: "collection-up collection-action halflings halflings-arrow-up btn btn-default"
+            type: button
+            title: 'form.up'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        down:
+            class: "collection-down collection-action halflings halflings-arrow-down btn btn-default"
+            type: button
+            title: 'form.down'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
 services:
     form.errors.parser:
         class: Busybee\Core\FormBundle\Model\FormErrorsParser
@@ -86,3 +178,17 @@ services:
         class: Busybee\Core\FormBundle\Validator\Constraints\UpperCaseValidator
         tags:
             - { name: validator.constraint_validator, alias: uppercase_validator }
+    version.manager:
+        class: Busybee\Core\FormBundle\Model\VersionManager
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - '@setting.manager'
+            - '%version%'
+            - '@translator'
+    busybee_form.button.extension:
+        class: Busybee\Core\FormBundle\Model\ButtonExtension
+        arguments:
+            - '%buttons%'
+            - '@translator'
+        tags:
+            - { name: twig.extension }

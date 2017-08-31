@@ -132,12 +132,6 @@ services:
         class: Symfony\Component\Validator\Constraints\Length
         arguments:
             - {max: 8}
-    install.manager:
-        class: Busybee\Core\SystemBundle\Model\InstallManager
-        arguments:
-            - '%kernel.project_dir%'
-            - '@doctrine.dbal.connection_factory'
-            - '@system.password.manager'
     busybee.parameters:
         public: false
         class: stdClass
@@ -153,3 +147,9 @@ services:
         arguments:
           - '@session.flash_bag'
           - '@translator'
+    advanced_routing_loader:
+        class: Busybee\Core\SystemBundle\Router\AdvancedLoader
+        tags:
+            - { name: routing.loader }
+        arguments:
+            - '@kernel'

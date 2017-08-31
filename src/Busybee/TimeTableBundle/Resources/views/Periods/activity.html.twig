@@ -6,7 +6,7 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
+        {% include 'BusybeeFormBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
     {% endblock %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     <h2>{{ form.vars.value.activity.fullName }}</h2>

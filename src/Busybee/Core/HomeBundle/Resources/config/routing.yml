@@ -1,6 +1,6 @@
 home_page:
     path:     /
-    defaults: { _controller: BusybeeHomeBundle:Default:index }
+    defaults: { _controller: BusybeeFormBundle:Default:index }
 error_page:
     path:     /error/{exception}/{logger}
     defaults: { _controller: BusybeeHomeBundle:Error:index }
@@ -9,4 +9,4 @@ home_template:
     defaults: { _controller: BusybeeHomeBundle:Template:index }
 acknowledgement:
     path:     /acknowledgement
-    defaults: { _controller: BusybeeHomeBundle:Default:acknowledgement }
+    defaults: { _controller: BusybeeFormBundle:Default:acknowledgement }

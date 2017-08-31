@@ -1,20 +1,19 @@
 <?php
-
 namespace Busybee\Core\SystemBundle\Setting;
 
+use Busybee\Core\FormBundle\Model\SettingManagerInterface;
 use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SystemBundle\Entity\Setting;
 use Busybee\Core\SystemBundle\Repository\SettingRepository;
+use Busybee\People\PersonBundle\Validator\Phone;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Busybee\PersonBundle\Validator\Phone;
 
 /**
  * Setting Manager
@@ -23,7 +22,7 @@ use Busybee\PersonBundle\Validator\Phone;
  * @since      20th October 2016
  * @author     Craig Rayner
  */
-class SettingManager implements ContainerAwareInterface
+class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 {
 	private $setting;
 	private $settingCache;

@@ -95,7 +95,7 @@ class YearManager
 		}
 		catch (PDOException $e)
 		{
-			if (!in_array($e->getErrorCode(), []))
+			if (!in_array($e->getErrorCode(), ['1146']))
 				throw new \Exception($e->getMessage());
 		}
 		catch (DriverException $e)

@@ -26,37 +26,37 @@
     <div class="container theme-showcase" role="main">
         <div class="container-fluid" id="contentContainer">
             {% block flashMessages %}
-                {% include 'BusybeeHomeBundle:Default:flash.html.twig' %}
+                {% include 'BusybeeFormBundle:Default:flash.html.twig' %}
             {% endblock flashMessages %}
             {% block contentContainer %}
 
-                {{ include('BusybeeHomeBundle:Default:buttons.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:buttons.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:tables.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:tables.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:thumbnails.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:thumbnails.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:labels.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:labels.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:badges.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:badges.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:dropdowns.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:dropdowns.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:navs.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:navs.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:navBars.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:navBars.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:alerts.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:alerts.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:progressBars.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:progressBars.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:listGroups.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:listGroups.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:panels.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:panels.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:wells.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:wells.html.twig') }}
 
-                {{ include('BusybeeHomeBundle:Default:carousel.html.twig') }}
+                {{ include('BusybeeFormBundle:Default:carousel.html.twig') }}
 
             {% endblock contentContainer %}
         </div>
@@ -64,13 +64,13 @@
 
     <div class="container theme-showcase" id="footerContainer">
         {% block footerContainer %}
-            {{ include('BusybeeHomeBundle:Default:footer.html.twig') }}
+            {{ include('BusybeeFormBundle:Default:footer.html.twig') }}
         {% endblock footerContainer %}
     </div> <!-- /container footer -->
 
 
     {% block javascripts %}
-        {% include "BusybeeHomeBundle:Default:scripts.html.twig" %}
+        {% include "BusybeeFormBundle:Default:scripts.html.twig" %}
     {% endblock javascripts %}
 
 

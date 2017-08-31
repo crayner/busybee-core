@@ -2,7 +2,7 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% extends "BusybeeHomeBundle:Default:template.html.twig" %}
+{% extends "BusybeeFormBundle:Default:template.html.twig" %}
 
 {% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
 
@@ -19,7 +19,7 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include 'BusybeeHomeBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
+        {% include 'BusybeeFormBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
     {% endblock flashMessages %}
     {{ form_start(form) }}
     <div class="container-fluid">

@@ -1,0 +1,45 @@
+parameters:
+    version:
+        system: '0.0.00'
+        database: '0.0.00'
+services:
+    monolog.logger.busybee:
+        class: Busybee\Core\InstallBundle\Model\Logger
+        arguments: ['@logger']
+        tags:
+            - { name: monolog.logger, channel: busybee }
+    monolog.formatter.session_request:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%% %%context%% %%extra%%\n"
+    busybee_security.user_provider.username:
+        class: Busybee\Core\InstallBundle\Model\UserProvider
+    busybee_security.authentication.login_handler:
+        class: Busybee\Core\InstallBundle\Model\loginHandler
+        arguments:
+            - '@router'
+            - '@doctrine.orm.entity_manager'
+            - '@service_container'
+    busybee_security.authentication.failure_handler:
+        class:  Busybee\Core\InstallBundle\Model\failureHandler
+        arguments:
+            - "@http_kernel"
+            - "@security.http_utils"
+            - {}
+            - '@service_container'
+        tags:
+            - { name: 'monolog.logger.busybee', channel: 'security' }
+    advanced_routing_loader:
+        class: Busybee\Core\InstallBundle\Router\AdvancedLoader
+        tags:
+            - { name: routing.loader }
+    setting.manager:
+        class: Busybee\Core\InstallBundle\Model\SettingManager
+    install.manager:
+        class: Busybee\Core\InstallBundle\Model\InstallManager
+        arguments:
+            - '%kernel.project_dir%'
+            - '@doctrine.dbal.connection_factory'
+            - '@system.password.manager'
+    system.password.manager:
+        class: Busybee\Core\InstallBundle\Model\PasswordManager

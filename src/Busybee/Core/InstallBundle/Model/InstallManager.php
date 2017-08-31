@@ -1,8 +1,7 @@
 <?php
 
-namespace Busybee\Core\SystemBundle\Model;
+namespace Busybee\Core\InstallBundle\Model;
 
-use Busybee\Core\SystemBundle\Password\PasswordManager;
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\ConnectionException;

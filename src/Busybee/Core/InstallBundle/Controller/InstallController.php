@@ -1,29 +1,24 @@
 <?php
 
-namespace Busybee\Core\SystemBundle\Controller;
+namespace Busybee\Core\InstallBundle\Controller;
 
 use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\StaffBundle\Entity\Staff;
-use Busybee\Core\SystemBundle\Event\MiscellaneousSubscriber;
 use Busybee\Core\SystemBundle\Form\MailerType;
 use Busybee\Core\SystemBundle\Form\MiscellaneousType;
 use Busybee\Core\SystemBundle\Form\StartInstallType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Busybee\Core\SecurityBundle\Entity\User;
-use Symfony\Component\Intl\Intl;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class InstallController extends Controller
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
-
 	public function indexAction(Request $request)
 	{
 		$config         = $this->get('install.manager');
@@ -78,7 +73,7 @@ class InstallController extends Controller
 			$config->sql->error     = $this->get('translator')->trans('install.database.not.tested', [], 'SystemBundle');
 		}
 
-		return $this->render('SystemBundle:Install:start.html.twig',
+		return $this->render('BusybeeInstallBundle:Install:start.html.twig',
 			[
 				'config'          => $config,
 				'form'            => $form->createView(),

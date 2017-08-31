@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Core\HomeBundle\Model;
+namespace Busybee\Core\FormBundle\Model;
 
 
 use Symfony\Component\Translation\TranslatorInterface;

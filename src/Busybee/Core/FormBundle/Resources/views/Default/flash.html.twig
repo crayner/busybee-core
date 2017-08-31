@@ -11,21 +11,21 @@
 {% endif %}
 
 {% for flashMessage in app.session.flashbag.get('error') %}
-    {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}
+    {% include 'BusybeeFormBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('danger') %}
-    {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}
+    {% include 'BusybeeFormBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'danger'} %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('warning') %}
-    {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'warning'} %}
+    {% include 'BusybeeFormBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'warning'} %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('info') %}
-    {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'info'} %}
+    {% include 'BusybeeFormBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'info'} %}
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('success') %}
-    {% include 'BusybeeHomeBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'success'} %}
+    {% include 'BusybeeFormBundle:Default:flashSplit.html.twig' with {'theMessage': flashMessage, level: 'success'} %}
 {% endfor %}

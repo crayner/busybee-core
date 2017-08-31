@@ -1,8 +1,5 @@
 <?php
-
 namespace Busybee\Core\SystemBundle\Password;
-
-use stdClass;
 
 class PasswordManager
 {
