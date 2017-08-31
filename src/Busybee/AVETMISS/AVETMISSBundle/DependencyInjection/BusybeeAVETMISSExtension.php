@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Loader;
 class BusybeeAVETMISSExtension extends Extension
 {
 
-	use \Busybee\HomeBundle\DependencyInjection\MenuExtension;
+	use \Busybee\Core\HomeBundle\DependencyInjection\MenuExtension;
 
 	/**
 	 * {@inheritdoc}

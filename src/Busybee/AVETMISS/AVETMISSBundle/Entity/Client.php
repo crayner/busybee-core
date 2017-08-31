@@ -216,11 +216,11 @@ class Client extends ClientModel
 	/**
 	 * Set student
 	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Student $student
+	 * @param \Busybee\People\StudentBundle\Entity\Student $student
 	 *
 	 * @return Client
 	 */
-	public function setStudent(\Busybee\People\PersonBundle\Entity\Student $student = null)
+	public function setStudent(\Busybee\People\StudentBundle\Entity\Student $student = null)
 	{
 		$this->student = $student;
 

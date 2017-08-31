@@ -7,9 +7,6 @@ Busybee\AVETMISS\AVETMISSBundle\Entity\Subject:
             fields: [identifier, subject]
             errorPath: identifier
             message: 'subject.error.name.unique'
-#    indexes:
-#        type:
-#            columns: [ type, name ] 
     id:
         id:
             type: integer

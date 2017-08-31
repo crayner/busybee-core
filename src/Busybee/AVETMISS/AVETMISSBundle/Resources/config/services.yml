@@ -25,8 +25,7 @@ parameters:
                 'Equipment and/or product manufacturer or supplier': '97'
                 'Other – not elsewhere classified': '99'
         settings:
-            resources:
-                - 'BusybeeAVETMISSBundle/Resources/config/Settings/Settings_0_0_01.yml'
+            resources: 'BusybeeAVETMISSBundle/Resources/config/Settings/Settings_0_0_01.yml'
     AVETMISS Report:
         nat00005:
             Training Authority Identifier:

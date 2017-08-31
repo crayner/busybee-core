@@ -63,7 +63,7 @@ Busybee\AVETMISS\AVETMISSBundle\Entity\Client:
             type: datetime
     oneToOne:
         student:
-            targetEntity: Busybee\People\PersonBundle\Entity\Student
+            targetEntity: Busybee\People\StudentBundle\Entity\Student
     manyToOne:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
