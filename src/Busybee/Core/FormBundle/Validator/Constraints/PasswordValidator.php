@@ -1,6 +1,6 @@
 <?php
-// src/General/ValidationBundle/Validator/Constraints/PasswordValidator.php
-namespace Busybee\Core\SecurityBundle\Validator\Constraints;
+
+namespace Busybee\Core\FormBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator as ConstraintValidatorBase;

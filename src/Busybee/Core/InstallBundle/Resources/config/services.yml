@@ -35,11 +35,15 @@ services:
             - { name: routing.loader }
     setting.manager:
         class: Busybee\Core\InstallBundle\Model\SettingManager
-    install.manager:
-        class: Busybee\Core\InstallBundle\Model\InstallManager
-        arguments:
-            - '%kernel.project_dir%'
-            - '@doctrine.dbal.connection_factory'
-            - '@system.password.manager'
-    system.password.manager:
-        class: Busybee\Core\InstallBundle\Model\PasswordManager
+    menu.manager:
+        class: Busybee\Core\InstallBundle\Model\MenuManager
+    busybee.parameters:
+        public: false
+        class: stdClass
+        factory:
+            - '@service_container'
+            - 'getParameterBag'
+    user.manager.extension:
+        class: Busybee\Core\InstallBundle\Extension\UserManagerExtension
+        tags:
+            - { name: twig.extension }

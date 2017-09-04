@@ -10,7 +10,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include '@BusybeeHome/Toggle/style.html.twig' %}
+    {% include '@BusybeeForm/Toggle/style.html.twig' %}
 {% endblock stylesheets %}
 
 {% block contentContainer %}
@@ -23,7 +23,7 @@
     {% set h3Content = h3Content ~ uploadButton({'type': 'button', 'transDomain': transDomain, 'title': 'person.title.import', 'windowOpen': {'route': path('people_import')}})|raw %}
 
     {% if header is not defined %}{% set header = 'people.title' %}{% endif %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': header} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': header} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 col-sm-12" id="peopleError">
@@ -168,13 +168,13 @@
             </div>
         {% endfor %}
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
     {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
-    {% include '@BusybeeHome/Toggle/script.html.twig' %}
+    {% include '@BusybeeForm/Toggle/script.html.twig' %}
     <script type="text/javascript">
         $(".studentToggle").change(function () {
             var id = $(this).prop('id');

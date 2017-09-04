@@ -1,9 +1,5 @@
 # InstituteBundle
 parameters:
-    calendarStatus:
-        calendar.status.past: past
-        calendar.status.current: current
-        calendar.status.future: future
     spacePagination:
         alias: s
         sortBy:

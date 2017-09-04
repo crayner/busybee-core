@@ -11,7 +11,7 @@
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
     {% set h3Content = addButton({'windowOpen': {'route': path('campus_space_edit', {'id': 'Add'})}}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.spaces.title', 'transDomain': 'BusybeeInstituteBundle'} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'campus.spaces.title', 'transDomain': 'BusybeeInstituteBundle'} %}
     <div class="container-fluid">
         <div class="row row-header">
             <div class="col-sm-3 col-md-3" style="display: inline-block;">
@@ -45,5 +45,5 @@
             </div>
         {% endfor %}
         </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}

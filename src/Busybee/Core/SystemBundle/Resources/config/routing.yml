@@ -31,3 +31,9 @@ bundle_update:
 bundle_database_update:
     path: /bundle/update/database/
     defaults: { _controller: SystemBundle:Bundle:database }
+install_build_system:
+    path: /install/build/
+    defaults: { _controller: SystemBundle:Install:build }
+install_build_complete:
+    path: /install/complete/
+    defaults: { _controller: SystemBundle:Install:complete }

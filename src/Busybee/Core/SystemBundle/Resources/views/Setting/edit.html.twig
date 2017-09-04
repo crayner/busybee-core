@@ -9,7 +9,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Toggle:style.html.twig' %}
+    {% include 'BusybeeFormBundle:Toggle:style.html.twig' %}
 {% endblock stylesheets %}
 
 {% block contentContainer %}
@@ -17,7 +17,7 @@
     {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.nameSelect, {'value': setting_id ~ ""}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', 'transDomain': 'SystemBundle', 'panelParagraph': 'system.setting.edit.description'} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', 'transDomain': 'SystemBundle', 'panelParagraph': 'system.setting.edit.description'} %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert", 'system.setting.edit.success'|trans, "alert alert-success fadeAlert") }}
     <div class="container-fluid">
         <div class="row">
@@ -40,13 +40,13 @@
             </div>
         </div>
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
+    {% include 'BusybeeFormBundle:Toggle:script.html.twig' %}
     <script type="text/javascript">
         if ($(".fadeAlert").length) {
             $(".fadeAlert").fadeOut(3000);

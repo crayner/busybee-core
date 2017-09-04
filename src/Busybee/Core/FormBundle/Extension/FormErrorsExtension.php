@@ -5,7 +5,7 @@
  * @author Maciej Szkamruk <ex3v@ex3v.com>
  */
 
-namespace Busybee\Core\FormBundle\Model;
+namespace Busybee\Core\FormBundle\Extension;
 
 use Busybee\Core\FormBundle\Model\FormErrorsParser;
 use Symfony\Component\Form\FormError;

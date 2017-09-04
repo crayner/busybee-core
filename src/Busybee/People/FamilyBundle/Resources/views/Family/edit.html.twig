@@ -13,7 +13,7 @@
 {% block stylesheets %}
     {{ parent() }}
     {% include 'BusybeeHomeBundle:AutoComplete:style.html.twig' %}
-    {% include 'BusybeeHomeBundle:Toggle:style.html.twig' %}
+    {% include 'BusybeeFormBundle:Toggle:style.html.twig' %}
 {% endblock stylesheets %}
 
 
@@ -66,6 +66,6 @@
     {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
     {% include 'BusybeeFamilyBundle:Family:script.html.twig' %}
     {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'family_manage'} %}
-    {% include 'BusybeeHomeBundle:Toggle:script.html.twig' %}
-    {% include '@BusybeeHome/Scripts/formTabSubmitScript.html.twig' with {'route': 'family_edit'} %}
+    {% include 'BusybeeFormBundle:Toggle:script.html.twig' %}
+    {% include '@BusybeeForm/Scripts/formTabSubmitScript.html.twig' with {'route': 'family_edit'} %}
 {% endblock javascripts %}

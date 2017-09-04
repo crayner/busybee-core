@@ -11,14 +11,14 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include '@BusybeeHome/Default/flash.html.twig' with {transDomain: 'BusybeeStudentBundle', flashClass: 'fadeAlert'} %}
+        {% include '@BusybeeForm/Default/flash.html.twig' with {transDomain: 'BusybeeStudentBundle', flashClass: 'fadeAlert'} %}
     {% endblock flashMessages %}
     {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('activity_list') } } %}
     {% set transDomain = 'BusybeeStudentBundle' %}
 
     {% set h3Content = addButton({'windowOpen': {'route': path('activity_edit', {'id': 'Add'})}})|raw %}
 
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activities.title'} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'activities.title'} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 col-sm-12" id="activityError">
@@ -81,12 +81,12 @@
             </div>
         {% endfor %}
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
     {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
-    {% include '@BusybeeHome/Scripts/confirmDelete.html.twig' %}
+    {% include '@BusybeeForm/Scripts/confirmDelete.html.twig' %}
 {% endblock javascripts %}
 

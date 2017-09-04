@@ -1,4 +1,4 @@
-{% trans_default_domain 'BusybeeHomeBundle' %}
+{% trans_default_domain 'BusybeeFormBundle' %}
 
 {% for name,version in versions %}
     {% if version['value'] is not defined %}
@@ -34,7 +34,7 @@
         </div>
     {% endif %}
     {% if name == 'Symfony' %}
-        {% if majorProblems is not empty %}
+        {% if majorProblems is defined and majorProblems is not empty %}
             <div class="row alert alert-danger">
                 <div class="col-sm-10 col-sm-offset-1">
                     <h4>{{ 'symfony.problems'|trans }}</h4>
@@ -48,7 +48,7 @@
                 </div>
             </div>
         {% endif %}
-        {% if minorProblems is not empty %}
+        {% if minorProblems is defined and minorProblems is not empty %}
             <div class="row alert alert-warning">
                 <div class="col-sm-10 col-sm-offset-1">
                     <h4>{{ 'symfony.recommendations'|trans }}</h4>

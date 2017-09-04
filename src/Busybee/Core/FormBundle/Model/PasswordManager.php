@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Core\InstallBundle\Model;
+namespace Busybee\Core\FormBundle\Model;
 
 class PasswordManager
 {

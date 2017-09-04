@@ -100,7 +100,7 @@ services:
     form.errors.parser:
         class: Busybee\Core\FormBundle\Model\FormErrorsParser
     form.all_form_errors_extension:
-        class: Busybee\Core\FormBundle\Model\FormErrorsExtension
+        class: Busybee\Core\FormBundle\Extension\FormErrorsExtension
         arguments:
             - '@form.errors.parser'
             - '@translator'
@@ -186,9 +186,41 @@ services:
             - '%version%'
             - '@translator'
     busybee_form.button.extension:
-        class: Busybee\Core\FormBundle\Model\ButtonExtension
+        class: Busybee\Core\FormBundle\Extension\ButtonExtension
         arguments:
             - '%buttons%'
             - '@translator'
         tags:
             - { name: twig.extension }
+    busybee_form.setting.extension:
+        class: Busybee\Core\FormBundle\Extension\SettingExtension
+        arguments:
+            - '@setting.manager'
+            - '@menu.manager'
+            - '@busybee.parameters'
+        tags:
+            - { name: twig.extension }
+    busybee_form.session.extension:
+        class: Busybee\Core\FormBundle\Extension\SessionExtension
+        arguments:
+            - '@session'
+        tags:
+            - { name: twig.extension }
+    busybee_form.flash.extension:
+        class: Busybee\Core\FormBundle\Extension\FlashExtension
+        tags:
+            - { name: twig.extension }
+    busybee_form.password.validator:
+        class: Busybee\Core\FormBundle\Validator\Constraints\PasswordValidator
+        tags:
+            - { name: validator.constraint_validator, alias: password.validator  }
+        arguments:
+            - '%password%'
+    install.manager:
+        class: Busybee\Core\FormBundle\Model\InstallManager
+        arguments:
+            - '%kernel.project_dir%'
+            - '@doctrine.dbal.connection_factory'
+            - '@system.password.manager'
+    system.password.manager:
+        class: Busybee\Core\FormBundle\Model\PasswordManager

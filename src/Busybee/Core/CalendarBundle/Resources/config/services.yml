@@ -4,6 +4,10 @@ parameters:
         settings:
             resources:
                 - 'BusybeeCalendarBundle/Resources/config/Settings/Settings_0_0_01.yml'
+    calendarStatus:
+        calendar.status.past: past
+        calendar.status.current: current
+        calendar.status.future: future
 services:
     current.year:
         class: Busybee\Core\CalendarBundle\Model\CurrentYear

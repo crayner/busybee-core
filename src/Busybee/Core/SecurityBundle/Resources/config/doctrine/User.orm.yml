@@ -1,7 +1,7 @@
 # src\Busybee\Core\SecurityBundle\Resources\config\doctrine\User.orm.yml
 Busybee\Core\SecurityBundle\Entity\User:
     type: entity
-    table: users
+    table: user
     repositoryClass: Busybee\Core\SecurityBundle\Repository\UserRepository
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 

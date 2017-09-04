@@ -1,6 +1,6 @@
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
-{% extends "@BusybeeHome/Default/template.html.twig" %}
+{% extends "@BusybeeForm/Default/template.html.twig" %}
 
 {% form_theme form
 "@BusybeeForm/Template/bootstrap.html.twig"
@@ -19,7 +19,7 @@
     {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('department_edit', {'id': app.request.get('id')})}})|raw %}
     {% set h3Content = h3Content ~ saveButton()|raw %}
     {% set h3Content = h3Content ~ form_widget(form.departmentList, {'value': app.request.attributes.get('id')}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'department.edit.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': ''} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'department.edit.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': ''} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6 well">
@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-sm-12 well">
                         {% set h3Content = '' %}
-                        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'department.course.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': form.courses.vars.attr.help, 'panelStyle': 'info'} %}
+                        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'department.course.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': form.courses.vars.attr.help, 'panelStyle': 'info'} %}
                         {% for error in form.courses.parent.vars.errors %}
                             {% set printMe = error.messageTemplate|replace({'department.course.unique': 'print_me'}) %}
                             {% if printMe == 'print_me' %}
@@ -49,14 +49,14 @@
                             {% endif %}
                         {% endfor %}
                         {{ form_widget(form.courses) }}
-                        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+                        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
                     </div>
                 </div>
             </div>
             {% if form.staff is defined %}
                 <div class="col-sm-6 well">
                     {% set h3Content = '' %}
-                    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'department.staff.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': form.staff.vars.attr.help, 'panelStyle': 'info'} %}
+                    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'department.staff.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': form.staff.vars.attr.help, 'panelStyle': 'info'} %}
                     {% for error in form.staff.parent.vars.errors %}
                         {% set printMe = error.messageTemplate|replace({'department.staff.uniquestaff': 'print_me'}) %}
                         {% if printMe == 'print_me' %}
@@ -65,20 +65,20 @@
                         {% endif %}
                     {% endfor %}
                     {{ form_widget(form.staff) }}
-                    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+                    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
                 </div>
             {% endif %}
         </div>
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
     {% set route = 'department_edit' %}
-    {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
-    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeForm/Scripts/monitorForm.html.twig' %}
+    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
     {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
     {% include '@BusybeeInstitute/Department/staffCollection.js.html.twig' %}
     {% include '@BusybeeInstitute/Department/courseCollection.js.html.twig' %}

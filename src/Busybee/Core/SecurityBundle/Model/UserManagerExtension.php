@@ -5,14 +5,8 @@ namespace Busybee\Core\SecurityBundle\Model;
 use Busybee\Core\SecurityBundle\Doctrine\UserManager;
 use Symfony\Component\Form\FormInterface;
 
-
 class UserManagerExtension extends \Twig_Extension
 {
-	/**
-	 * @var FormErrorsParser
-	 */
-	private $parser;
-
 	/**
 	 * @var UserManager
 	 */

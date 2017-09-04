@@ -30,7 +30,7 @@
     {% set h3Content = h3Content ~ resetButton({'windowOpen': {'route': path('period_plan', {'id': app.request.get('id')})}, 'title': 'form.refresh.button', 'transDomain': 'BusybeeHomeBundle'})|raw %}
     {% set h3Content = h3Content ~ form_widget(form.line) %}
     {% set transDomain = 'BusybeeTimeTableBundle' %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' %}
     <div class="row row-header">
         <div class="col-sm-4 text-center">{{ 'period.activities.activity.label'|trans }}</div>
         <div class="col-sm-4 text-center">{{ 'period.activities.activity.details.label'|trans }}</div>
@@ -54,7 +54,7 @@
         </div>
     </div>
     {{ 'period.activities.activity.details.help'|trans|raw }}
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
@@ -62,6 +62,6 @@
 {% block javascripts %}
     {{ parent() }}
     {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
-    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
     {% include '@BusybeeTimeTable/Plan/planScript.html.twig' %}
 {% endblock javascripts %}

@@ -1,23 +1,23 @@
 <?php
 
-namespace Busybee\Core\SystemBundle\Model;
+namespace Busybee\Core\FormBundle\Extension;
 
-use Busybee\Core\HomeBundle\Model\MenuManager;
-use Busybee\Core\SystemBundle\Setting\SettingManager;
+use Busybee\Core\FormBundle\Source\MenuManagerInterface;
+use Busybee\Core\FormBundle\Source\SettingManagerInterface;
 
 class SettingExtension extends \Twig_Extension
 {
 	/**
-	 * @var SettingManager
+	 * @var SettingManagerInterface
 	 */
 	private $sm;
 
 	/**
-	 * @var MenuManager
+	 * @var MenuManagerInterface
 	 */
 	private $menuManager;
 
-	public function __construct(SettingManager $sm, MenuManager $menuManager, $parameters)
+	public function __construct(SettingManagerInterface $sm, MenuManagerInterface $menuManager, $parameters)
 	{
 		$this->sm          = $sm;
 		$this->menuManager = $menuManager;

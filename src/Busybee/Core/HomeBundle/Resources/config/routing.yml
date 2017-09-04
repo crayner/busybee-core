@@ -1,6 +1,6 @@
 home_page:
     path:     /
-    defaults: { _controller: BusybeeFormBundle:Default:index }
+    defaults: { _controller: BusybeeHomeBundle:Default:index }
 error_page:
     path:     /error/{exception}/{logger}
     defaults: { _controller: BusybeeHomeBundle:Error:index }

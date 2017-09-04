@@ -10,11 +10,11 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include '@BusybeeHome/Default/flash.html.twig' with {transDomain: 'BusybeeTimeTableBundle', } %}
+        {% include '@BusybeeForm/Default/flash.html.twig' with {transDomain: 'BusybeeTimeTableBundle', } %}
     {% endblock flashMessages %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
     {% set h3Content = addButton({'title': 'line.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('line_manage', {'id': 'Add'})}}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'line.title.list', 'transDomain': 'BusybeeTimeTableBundle'} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'line.title.list', 'transDomain': 'BusybeeTimeTableBundle'} %}
     <div class="container-fluid well">
         <div class="row row-header">
             <div class="col-sm-3" style="display: inline-block;">
@@ -60,10 +60,10 @@
             </div>
         {% endfor %}
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeHome/Scripts/confirmDelete.html.twig' %}
+    {% include '@BusybeeForm/Scripts/confirmDelete.html.twig' %}
 {% endblock javascripts %}

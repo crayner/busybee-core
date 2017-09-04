@@ -8,7 +8,7 @@
 {% block studentActivity_row %}
     {% set header = 'activity.students.title' %}
     {% set transDomain = 'BusybeeStudentBundle' %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': {'%name%': form.vars.value|length, '%total%': form.vars.choices|length}} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'name': {'%name%': form.vars.value|length, '%total%': form.vars.choices|length}} %}
     {{ form_label(form) }}
 
 
@@ -16,7 +16,7 @@
     {{ form_errors(form) }}
     {{ miscButton({'additional': 'id="deSelectAll_' ~ name ~ '"', 'style': 'display: hidden; float: right', 'class': 'btn btn-default halflings halflings-unchecked', 'title': 'De-select All'})|raw }}
     {{ miscButton({'additional': 'id="selectAll_' ~ name ~ '"', 'class': 'btn btn-default halflings halflings-tick', 'title': 'Select All'})|raw }}
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 {% endblock studentActivity_row %}
 
 {% block _activity_students_entry_widget %}

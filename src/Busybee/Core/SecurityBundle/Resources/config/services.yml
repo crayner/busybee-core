@@ -206,12 +206,6 @@ services:
             - '%signin_count_minimum%'
             - '%session_max_idle_time%'
             - '%signin_ip_exceptions%' 
-    password.validator:
-        class: Busybee\Core\SecurityBundle\Validator\Constraints\PasswordValidator
-        tags:
-            - { name: validator.constraint_validator, alias: password.validator  }
-        arguments:
-            - '%password%'
     user.pagination:
         class: Busybee\Core\SecurityBundle\Model\UserPagination
         arguments: 

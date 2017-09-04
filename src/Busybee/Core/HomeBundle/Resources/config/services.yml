@@ -8,15 +8,9 @@ services:
     menu.manager:
         class: Busybee\Core\HomeBundle\Model\MenuManager
         arguments:
-            - '@service_container'
+            - '@my_service_container'
     math.extension:
         class: Busybee\Core\HomeBundle\Model\MathExtension
-        tags:
-            - { name: twig.extension }
-    session.extension:
-        class: Busybee\Core\HomeBundle\Model\SessionExtension
-        arguments:
-            - '@session'
         tags:
             - { name: twig.extension }
     hide.section:
@@ -24,7 +18,11 @@ services:
         arguments:
             - '@session'
             - '@request_stack'
-    flash.extension:
-        class: Busybee\Core\HomeBundle\Model\FlashExtension
+    busybee_home.kernel.listener:
+        class: Busybee\Core\HomeBundle\Listener\KernelListener
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@router'
+            - '%kernel.cache_dir%'
         tags:
-            - { name: twig.extension }
+            - { name: kernel.event_listener, event: kernel.exception }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Busybee\Core\SystemBundle\Form;
+namespace Busybee\Core\InstallBundle\Form;
 
 use Busybee\Core\FormBundle\Type\TextType;
 use Busybee\Core\FormBundle\Type\ToggleType;
-use Busybee\Core\SecurityBundle\Validator\Password;
+use Busybee\Core\FormBundle\Validator\Password;
 use Busybee\Core\SystemBundle\Event\MiscellaneousSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,8 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -244,7 +242,7 @@ class MiscellaneousType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults([
-			'translation_domain' => 'SystemBundle',
+			'translation_domain' => 'BusybeeInstallBundle',
 			'data_class'         => null,
 		]);
 	}
@@ -254,7 +252,7 @@ class MiscellaneousType extends AbstractType
 	 */
 	public function getBlockPrefix()
 	{
-		return 'mailer';
+		return 'install_miscellaneous';
 	}
 
 

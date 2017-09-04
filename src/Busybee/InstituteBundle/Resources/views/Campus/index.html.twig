@@ -18,7 +18,7 @@
     {% set locationValue = 'Add' %}
     {% if app.request.attributes.get('id') is not empty %}{% set locationValue = 'Add' %}{% endif %}
     {% set h3Content = h3Content ~ form_widget(form.locationList, {'value': app.request.attributes.get('id')}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'campus.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': ''} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'campus.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': ''} %}
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-6 col-md-6 well">
@@ -45,13 +45,13 @@
 			</div>
 			</div>
 		</div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
 	{{ parent() }}
     {% set route = 'campus_manage' %}
-    {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
-    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeForm/Scripts/monitorForm.html.twig' %}
+    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

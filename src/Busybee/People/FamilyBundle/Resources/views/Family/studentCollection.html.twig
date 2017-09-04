@@ -23,7 +23,7 @@
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
     {% set h3Content = h3Content ~ '</div>' %}
 
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'name': displayStudentField(form.vars['value'], 'formatName')} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'name': displayStudentField(form.vars['value'], 'formatName')} %}
     <div class="container-fluid familyStudent">
         <div class="row">
             <div class="col-sm-6 well">
@@ -31,5 +31,5 @@
             </div>
         </div>
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 {% endblock student_widget %}

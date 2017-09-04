@@ -51,14 +51,14 @@ class DefaultController extends Controller
 			{
 				$this->get('session')->invalidate();
 
-				return new RedirectResponse($this->generateUrl('install_start'));
+				return new RedirectResponse($this->generateUrl('install_build_system'));
 			}
 		}
 		catch (\Exception $e)
 		{
 			$this->get('session')->invalidate();
 
-			return new RedirectResponse($this->generateUrl('install_start'));
+			return new RedirectResponse($this->generateUrl('install_build_system'));
 		}
 
 		$config         = new \stdClass();
@@ -106,7 +106,7 @@ class DefaultController extends Controller
 		$SymfonyRequirements = new \SymfonyRequirements();
 
 
-		return $this->render('@BusybeeHome/Acknowledgement/acknowledgement.html.twig',
+		return $this->render('@BusybeeForm/Acknowledgement/acknowledgement.html.twig',
 			[
 				'versions'      => $versions,
 				'majorProblems' => $SymfonyRequirements->getFailedRequirements(),

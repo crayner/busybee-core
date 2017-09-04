@@ -6,7 +6,7 @@
 {% block menuContainer %}
 {% endblock menuContainer %}
 
-{% trans_default_domain 'SystemBundle' %}
+{% trans_default_domain 'BusybeeInstallBundle' %}
 {% block title %}{{ 'system.install.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'system.install.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
@@ -15,7 +15,8 @@
     {{ form_start(form) }}
     {% set h3Content = proceedButton({additional: 'id=proceedButton', windowOpen: {route: path("install_misc_check")}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'install.mailer.parameters'} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'install.mailer.parameters'} %}
+    {% block flashMessages %}{% include '@BusybeeForm/Default/flash.html.twig' with {flashClass: 'fadeAlert'} %}{% endblock flashMessages %}
     <div id="form_body" class="container-fluid">
         <div class="row">
             <div class="well col-sm-6">
@@ -56,7 +57,7 @@
             </div>
         </div>
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
@@ -111,4 +112,5 @@
             }
         });
     </script>
+    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

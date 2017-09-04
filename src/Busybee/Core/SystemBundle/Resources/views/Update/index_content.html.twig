@@ -2,9 +2,9 @@
 
 {% trans_default_domain 'SystemBundle' %}
 
-{% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'system.version.system.title', 'name': config.version.current['system']} %}
+{% include '@BusybeeForm/Page/panelStart.html.twig' with {'transDomain': 'SystemBundle', 'header': 'system.version.system.title', 'name': config.version.current['system']} %}
 <div class="container-fluid">
-    {% include '@BusybeeHome/Default/flash.html.twig' with {'transDomain': 'SystemBundle'} %}
+    {% include '@BusybeeForm/Default/flash.html.twig' with {'transDomain': 'SystemBundle'} %}
     <div class="row">
         <div class="col-sm-6">
             <div class="panel panel-{% if config.version.shouldBe['system'] == config.version.current['system'] %}success{% else %}warning{% endif %}">
@@ -55,4 +55,4 @@
         </div>
     </div>
 </div>
-{% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% include '@BusybeeForm/Page/panelEnd.html.twig' %}

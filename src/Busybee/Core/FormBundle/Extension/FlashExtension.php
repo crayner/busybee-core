@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Core\HomeBundle\Model;
+namespace Busybee\Core\FormBundle\Extension;
 
 class FlashExtension extends \Twig_Extension
 {

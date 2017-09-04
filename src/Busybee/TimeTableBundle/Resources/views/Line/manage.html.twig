@@ -12,7 +12,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include '@BusybeeHome/Toggle/style.html.twig' %}
+    {% include '@BusybeeForm/Toggle/style.html.twig' %}
 {% endblock stylesheets %}
 
 {% block contentContainer %}
@@ -29,7 +29,7 @@
     {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('line_manage', {'id': app.request.get('id')}|merge(route))}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'line.title.manage', 'transDomain': 'BusybeeTimeTableBundle'} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'line.title.manage', 'transDomain': 'BusybeeTimeTableBundle'} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
@@ -74,16 +74,16 @@
                     <div class="col-sm-12">
                         {% if form.activities is defined %}
                             {% set h3Content = '' %}
-                            {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': form.activities.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.activities.vars.attr.help, 'panelStyle': 'info'} %}
+                            {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': form.activities.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.activities.vars.attr.help, 'panelStyle': 'info'} %}
                             {{ form_widget(form.activities) }}
-                            {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+                            {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
                         {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
@@ -92,9 +92,9 @@
     {{ parent() }}
     {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
     {% include '@BusybeeTimeTable/Activities/activityScript.html.twig' %}
-    {% include '@BusybeeHome/Toggle/script.html.twig' %}
+    {% include '@BusybeeForm/Toggle/script.html.twig' %}
     {% set route = 'line_manage' %}
-    {% include '@BusybeeHome/Scripts/monitorForm.html.twig' %}
+    {% include '@BusybeeForm/Scripts/monitorForm.html.twig' %}
     <script type="text/javascript" language="JavaScript">
         $('.testLine').click(function (e) {
             var path = '{{ path('line_test', {'id': '__id__'}) }}';
@@ -102,7 +102,7 @@
             window.open(path, 'Report', 'width=500,height=500,menubar=no,top=200,left=200');
         })
     </script>
-    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
     {% if app.request.get('closeWindow') is not empty %}
         <script type="application/javascript" language="JavaScript">
             $('#line_form').submit(function (event) {

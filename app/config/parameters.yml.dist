@@ -69,25 +69,25 @@ parameters:
             type: core
             namespace: Busybee\Core\PaginationBundle\PaginationBundle
         Calendar:
-            type: plugin
+            type: core
             namespace: Busybee\Core\CalendarBundle\BusybeeCalendarBundle
             route:
                 resource: BusybeeCalendarBundle/Resources/config/routing.yml
                 prefix: calendar
         Family:
-            type: plugin
+            type: core
             namespace: Busybee\People\FamilyBundle\BusybeeFamilyBundle
             route:
                 resource: BusybeeFamilyBundle/Resources/config/routing.yml
                 prefix: family
         Person:
-            type: plugin
+            type: core
             namespace: Busybee\People\PersonBundle\BusybeePersonBundle
             route:
                 resource: BusybeePersonBundle/Resources/config/routing.yml
                 prefix: person
         Staff:
-            type: plugin
+            type: core
             namespace: Busybee\People\StaffBundle\BusybeeStaffBundle
             route:
                 resource: BusybeeStaffBundle/Resources/config/routing.yml
@@ -96,7 +96,7 @@ parameters:
                 - Person
             description: Used to manage staff details.
         Student:
-            type: plugin
+            type: core
             namespace: Busybee\People\StudentBundle\BusybeeStudentBundle
             route:
                 resource: BusybeeStudentBundle/Resources/config/routing.yml
@@ -105,26 +105,26 @@ parameters:
                 - Person
             description: Used to manage student details.
         Curriculum:
-            type: plugin
+            type: core
             namespace: Busybee\CurriculumBundle\BusybeeCurriculumBundle
             route:
                 resource: "BusybeeCurriculumBundle/Resources/config/routing.yml"
                 prefix:   curriculum
                 type: yaml
         Institute:
-            type: plugin
+            type: core
             namespace: Busybee\InstituteBundle\BusybeeInstituteBundle
             route:
                 prefix:   institute
                 resource: "BusybeeInstituteBundle/Resources/config/routing.yml"
         TimeTable:
-            type: plugin
+            type: core
             namespace: Busybee\TimeTableBundle\BusybeeTimeTableBundle
             route:
                 resource: "BusybeeTimeTableBundle/Resources/config/routing.yml"
                 prefix:   timetable
         Activity:
-            type: plugin
+            type: core
             namespace: Busybee\ActivityBundle\BusybeeActivityBundle
             route:
                 resource: "BusybeeActivityBundle/Resources/config/routing.yml"

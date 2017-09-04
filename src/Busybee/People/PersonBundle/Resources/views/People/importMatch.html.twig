@@ -13,7 +13,7 @@
     {% set transDomain = 'BusybeePersonBundle' %}
     {% set h3Content = returnButton({'windowOpen': {'route': path('person_manage')}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'people.matchimport.title', 'panelParagraph': 'people.matchimport.help.help'} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'people.matchimport.title', 'panelParagraph': 'people.matchimport.help.help'} %}
     <div class="container-fluid">
         {% set value = 0 %}
         {% for field in form.fields %}
@@ -31,7 +31,7 @@
         {% endfor %}
         {{ form_row(form.file) }}
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 

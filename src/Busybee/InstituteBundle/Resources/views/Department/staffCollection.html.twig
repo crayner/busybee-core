@@ -14,7 +14,7 @@
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
     {% set h3Content = h3Content ~ '</div>' %}
 
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'panelStyle': 'default', 'name': 'Member'} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'panelStyle': 'default', 'name': 'Member'} %}
     <div class="container-fluid departmentStaff">
         <div class="row">
             <div class="col-sm-6">
@@ -28,5 +28,5 @@
             </div>
         </div>
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 {% endblock departmentStaff_widget %}

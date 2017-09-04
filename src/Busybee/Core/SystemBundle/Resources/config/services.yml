@@ -96,14 +96,6 @@ services:
             - '%settingPagination%'
             - '@setting.repository'
             - '@my_service_container'
-    setting.extension:
-        class: Busybee\Core\SystemBundle\Model\SettingExtension
-        arguments:
-            - '@setting.manager'
-            - '@menu.manager'
-            - '@busybee.parameters'
-        tags:
-            - { name: twig.extension }
     test.plugin.manage:
         class: Busybee\Core\SystemBundle\Model\Test\TestPluginManage
         arguments:

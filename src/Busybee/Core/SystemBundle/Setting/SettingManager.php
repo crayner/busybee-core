@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\Core\SystemBundle\Setting;
 
-use Busybee\Core\FormBundle\Model\SettingManagerInterface;
+use Busybee\Core\FormBundle\Source\SettingManagerInterface;
 use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SystemBundle\Entity\Setting;
@@ -195,6 +195,10 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 					return $this->container->get('twig')->createTemplate($this->setting->getValue())->render($options);
 				}
 				catch (\Twig_Error_Runtime $e)
+				{
+					return $this->getContainer()->get('translator')->trans('setting.twig.error', ['%name%' => $this->setting->getName(), '%value%' => $this->setting->getValue(), '%error%' => $e->getMessage(), '%options%' => implode(', ', $options)], 'SystemBundle');
+				}
+				catch (\Twig_Error_Loader $e)
 				{
 					return $this->getContainer()->get('translator')->trans('setting.twig.error', ['%name%' => $this->setting->getName(), '%value%' => $this->setting->getValue(), '%error%' => $e->getMessage(), '%options%' => implode(', ', $options)], 'SystemBundle');
 				}

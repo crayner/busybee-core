@@ -11,7 +11,7 @@
 {% block headerLead %}{{ 'system.bundle.manage.description'|trans }}{% endblock headerLead %}
 
 {% block stylesheets %}{{ parent() }}
-    {% include "@BusybeeHome/Toggle/style.html.twig" %}
+    {% include "@BusybeeForm/Toggle/style.html.twig" %}
     <style type="text/css">
         .toggle.btn-sm {
             min-width: 40px;
@@ -32,19 +32,21 @@
     {% if form.vars.manager.SQLCount > 0 %}
         {% set h3Content = h3Content ~ miscButton({class: 'btn btn-warning halflings halflings-save', title: 'bundle.update.sqlbutton', transDomain: 'SystemBundle', windowOpen: {route: path('bundle_database_update')}}) %}{{ dump(form.vars.manager.SQLCount) }}
     {% endif %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {header: 'system.bundle.manage.title'|trans, transDomain: 'SystemBundle'} %}
-    {% include '@BusybeeHome/Default/flash.html.twig' %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {header: 'system.bundle.manage.title'|trans, transDomain: 'SystemBundle'} %}
+    {% block flashMessages %}
+        {% include '@BusybeeForm/Default/flash.html.twig' with {transDomain: 'SystemBundle', flashClass: 'fadeAlert'} %}
+    {% endblock flashMessages %}
 
     {{ form_start(form, {attr: {id: 'bundleForm'}}) }}
     {{ form_widget(form.bundles) }}
     {{ form_end(form) }}
 
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include "@BusybeeHome/Toggle/script.html.twig" %}
+    {% include "@BusybeeForm/Toggle/script.html.twig" %}
     {% include "@BusybeeForm/Scripts/jquery.collection.js.html.twig" %}
     <script>
         $('input:checkbox').change(function () {

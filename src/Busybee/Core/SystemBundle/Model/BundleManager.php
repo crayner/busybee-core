@@ -58,8 +58,7 @@ class BundleManager
 	public function __construct(Kernel $kernel)
 	{
 		$this->bundleFileName = $kernel->getProjectDir() . '/app/config/bundles.yml';
-		$parameters           = Yaml::parse(file_get_contents($this->bundleFileName));
-		$bundles              = $parameters['parameters']['bundles'];
+		$bundles              = Yaml::parse(file_get_contents($this->bundleFileName));
 		$this->settingManager = $kernel->getContainer()->get('setting.manager');
 		$this->bundles        = new ArrayCollection();
 
@@ -94,8 +93,6 @@ class BundleManager
 	public function saveBundles()
 	{
 		$data                          = [];
-		$data['parameters']            = [];
-		$data['parameters']['bundles'] = [];
 
 		foreach ($this->bundles->toArray() as $name => $bundle)
 		{
@@ -111,10 +108,10 @@ class BundleManager
 				$x['route']['type']     = $bundle->getRouteType();
 				$x['route']['prefix']   = trim($bundle->getRoutePrefix(), '/');
 			}
-			$x['description']                     = $bundle->getDescription();
-			$x['exclusions']                      = $bundle->getExclusions();
-			$x['requirements']                    = $bundle->getRequirements();
-			$data['parameters']['bundles'][$name] = $x;
+			$x['description']  = $bundle->getDescription();
+			$x['exclusions']   = $bundle->getExclusions();
+			$x['requirements'] = $bundle->getRequirements();
+			$data[$name]       = $x;
 		}
 
 		try

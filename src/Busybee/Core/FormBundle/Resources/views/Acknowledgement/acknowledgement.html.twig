@@ -2,13 +2,13 @@
 
 {% extends "BusybeeFormBundle:Default:template.html.twig" %}
 
-{% trans_default_domain 'BusybeeHomeBundle' %}
+{% trans_default_domain 'BusybeeFormBundle' %}
 
 {% block title %}Busybee {{ 'acknowledgement.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'acknowledgement.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'acknowledgement.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {% include '@BusybeeHome/Acknowledgement/acknowledgementContent.html.twig' %}
+    {% include '@BusybeeForm/Acknowledgement/acknowledgementContent.html.twig' %}
 {% endblock contentContainer %}
 

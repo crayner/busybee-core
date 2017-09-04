@@ -1,37 +1,43 @@
 <?php
-
 namespace Busybee\Core\HomeBundle\Listener;
 
-use Doctrine\DBAL\Exception\ConnectionException;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\DBAL\Driver\PDOException;
+use Doctrine\DBAL\Exception\TableNotFoundException;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\SchemaTool;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\Routing\Router;
 
 class KernelListener
 {
 	/**
+	 * @var ObjectManager
+	 */
+	private $objectManager;
+
+	/**
 	 * @var string
 	 */
-	private $route;
+	private $router;
 
 	/**
-	 * @var Session
+	 * @var string
 	 */
-	private $session;
-
+	private $cacheDir;
 	/**
-	 * TableNotFoundListener Sonstructor.
+	 * KernelListener constructor.
 	 *
-	 * @param Router $router
+	 * @param ObjectManager $objectManager
 	 */
-	public function __construct(Router $router, Session $session)
+	public function __construct(ObjectManager $objectManager, Router $router, $cacheDir)
 	{
-		$this->route                  = [];
-		$this->route['install_start'] = $router->generate('install_start');
-		$this->session                = $session;
+		$this->objectManager = $objectManager;
+		$this->router        = $router;
+		$this->cacheDir      = $cacheDir;
 	}
-
 	/**
 	 * on Kernel Exception
 	 *
@@ -40,10 +46,29 @@ class KernelListener
 	public function onKernelException(GetResponseForExceptionEvent $event)
 	{
 		$exception = $event->getException();
-		if ($exception instanceof ConnectionException)
+
+		if ($exception instanceof TableNotFoundException)
 		{
-			$this->session->set('databaseException', $exception);
-			$event->setResponse(new RedirectResponse($this->route['install_start']));
+			$pdoException = $exception->getPrevious();
+			if ($pdoException instanceof PDOException)
+			{
+				$newEm = EntityManager::create($this->objectManager->getConnection(), $this->objectManager->getConfiguration());
+				$meta  = $this->objectManager->getMetadataFactory()->getAllMetadata();
+
+				$tool = new SchemaTool($newEm);
+				$tool->createSchema($meta);
+				$route = 'install_build_system';
+
+				$url = $this->router->generate($route);
+
+				$fs = new Filesystem();
+				$fs->remove($this->cacheDir);
+
+				sleep(2);
+
+				$response = new RedirectResponse($url);
+				$event->setResponse($response);
+			}
 		}
 	}
 }

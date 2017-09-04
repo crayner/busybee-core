@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Core\SystemBundle\Form;
+namespace Busybee\Core\InstallBundle\Form;
 
 use Busybee\Core\FormBundle\Type\TextType;
 use Busybee\Core\FormBundle\Validator\NoWhiteSpace;
@@ -118,7 +118,7 @@ class StartInstallType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
-			'translation_domain' => 'SystemBundle',
+			'translation_domain' => 'BusybeeInstallBundle',
 			'data_class'         => null,
 		));
 	}

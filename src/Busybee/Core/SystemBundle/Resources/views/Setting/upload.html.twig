@@ -10,7 +10,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include '@BusybeeHome/Toggle/style.html.twig' %}
+    {% include '@BusybeeForm/Toggle/style.html.twig' %}
 {% endblock %}
 
 {% block contentContainer %}
@@ -19,9 +19,9 @@
     {% set header = 'system.upload.title' %}
     {% set transDomain = 'SystemBundle' %}
     {% set h3Content = uploadButton() %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' %}
     <div class="container-fluid">
-        {% include '@BusybeeHome/Default/flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'SystemBundle'} %}
+        {% include '@BusybeeForm/Default/flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'SystemBundle'} %}
         <div class="row">
             <div class="col-sm-6 well">
                 {{ form_row(form.default) }}
@@ -31,14 +31,14 @@
             </div>
         </div>
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
-    {% include '@BusybeeHome/Toggle/script.html.twig' %}
+    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeForm/Toggle/script.html.twig' %}
 {% endblock %}
 
 

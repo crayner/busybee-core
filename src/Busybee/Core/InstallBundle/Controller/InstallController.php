@@ -6,16 +6,18 @@ use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\StaffBundle\Entity\Staff;
-use Busybee\Core\SystemBundle\Form\MailerType;
-use Busybee\Core\SystemBundle\Form\MiscellaneousType;
-use Busybee\Core\SystemBundle\Form\StartInstallType;
+use Busybee\Core\InstallBundle\Form\MailerType;
+use Busybee\Core\InstallBundle\Form\MiscellaneousType;
+use Busybee\Core\InstallBundle\Form\StartInstallType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Yaml\Yaml;
 
 class InstallController extends Controller
 {
@@ -36,7 +38,7 @@ class InstallController extends Controller
 
 			if (!$config->testConnected($sql))
 			{
-				return $this->render('SystemBundle:Install:start.html.twig',
+				return $this->render('BusybeeInstallBundle:Install:start.html.twig',
 					[
 						'config' => $config,
 						'form'   => $form->createView(),
@@ -47,7 +49,7 @@ class InstallController extends Controller
 
 			if (!$config->hasDatabase())
 			{
-				return $this->render('SystemBundle:Install:start.html.twig',
+				return $this->render('BusybeeInstallBundle:Install:start.html.twig',
 					[
 						'config' => $config,
 						'form'   => $form->createView(),
@@ -58,19 +60,19 @@ class InstallController extends Controller
 
 			if ($config->saveDatabase)
 			{
-				$this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('install.database.save.success', [], 'SystemBundle'));
+				$this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('install.database.save.success', [], 'BusybeeInstallBundle'));
 			}
 			else
 			{
-				$this->get('session')->getFlashBag()->add('danger', $this->get('translator')->trans('install.database.save.failed', [], 'SystemBundle'));
+				$this->get('session')->getFlashBag()->add('danger', $this->get('translator')->trans('install.database.save.failed', [], 'BusybeeInstallBundle'));
 				$config->sql->connected = false;
-				$config->sql->error     = $this->get('translator')->trans('install.database.save.failed', [], 'SystemBundle');
+				$config->sql->error     = $this->get('translator')->trans('install.database.save.failed', [], 'BusybeeInstallBundle');
 			}
 		}
 		else
 		{
 			$config->sql->connected = false;
-			$config->sql->error     = $this->get('translator')->trans('install.database.not.tested', [], 'SystemBundle');
+			$config->sql->error     = $this->get('translator')->trans('install.database.not.tested', [], 'BusybeeInstallBundle');
 		}
 
 		return $this->render('BusybeeInstallBundle:Install:start.html.twig',
@@ -116,7 +118,7 @@ class InstallController extends Controller
 					->setTo($config->mailer->mailer_sender_address, $config->mailer->mailer_sender_name)
 					->setBody(
 						$this->renderView(
-							'SystemBundle:Emails:test.html.twig', []
+							'BusybeeInstallBundle:Emails:test.html.twig', []
 						),
 						'text/html'
 					)/*
@@ -150,15 +152,15 @@ class InstallController extends Controller
 		if ($form->isSubmitted())
 		{
 			if ($config->saveMailer)
-				$this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('mailer.save.success', [], 'SystemBundle'));
+				$this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('mailer.save.success', [], 'BusybeeInstallBundle'));
 			else
 			{
-				$this->get('session')->getFlashBag()->add('danger', $this->get('translator')->trans('mailer.save.failed', [], 'SystemBundle'));
+				$this->get('session')->getFlashBag()->add('danger', $this->get('translator')->trans('mailer.save.failed', [], 'BusybeeInstallBundle'));
 				$config->mailer->canDeliver = false;
 			}
 		}
 
-		return $this->render('SystemBundle:Install:checkMailer.html.twig',
+		return $this->render('BusybeeInstallBundle:Install:checkMailer.html.twig',
 			[
 				'config' => $config,
 				'form'   => $form->createView(),
@@ -188,7 +190,7 @@ class InstallController extends Controller
 
 		$config->handleMiscellaneousRequest($form, $request);
 
-		return $this->render('SystemBundle:Install:misc.html.twig',
+		return $this->render('BusybeeInstallBundle:Install:misc.html.twig',
 			[
 				'config' => $config,
 				'form'   => $form->createView(),
@@ -196,113 +198,29 @@ class InstallController extends Controller
 		);
 	}
 
-	public function buildAction(Request $request)
+
+	public function bundlesAction()
 	{
-		$em    = $this->get('doctrine')->getManager('default');
-		$x     = $this->get('doctrine')->getManager('default');
-		$newEm = EntityManager::create($x->getConnection(), $em->getConfiguration());
-		$meta  = $em->getMetadataFactory()->getAllMetadata();
+		$bundles = $this->getParameter('bundles');
 
-		$tool = new SchemaTool($newEm);
-		$tool->createSchema($meta);
-
-		$im = $this->get('install.manager');
-
-		$this->entity = $newEm->getRepository('BusybeeSecurityBundle:User')->find(1);
-		if (is_null($this->entity))
-			$this->entity = new User();
-		$parameters = $im->getParameters();
-		$user       = $parameters['systemUser'];
-
-		if (intval($this->entity->getId()) == 0)
+		foreach ($bundles as $name => $bundle)
 		{
-			$this->entity->setUsername($user['username']);
-			$this->entity->setUsernameCanonical($user['username']);
-			$this->entity->setEmail($user['email']);
-			$this->entity->setEmailCanonical($user['email']);
-			$this->entity->setLocale('en_GB');
-			$this->entity->setLocked(false);
-			$this->entity->setExpired(false);
-			$this->entity->setCredentialsExpired(false);
-			$this->entity->setEnabled(true);
-			$this->entity->setDirectroles(['ROLE_SYSTEM_ADMIN']);
-			$this->entity->setCreatedBy($this->entity);
-			$this->entity->setModifiedBy($this->entity);
-			$encoder  = $this->get('security.password_encoder');
-			$password = $encoder->encodePassword($this->entity, $user['password']);
-			$this->entity->setPassword($password);
-			$newEm->persist($this->entity);
-			$newEm->flush();
+			if ($bundle['type'] === 'core')
+				$bundle['active'] = true;
+			else
+				$bundle['active'] = false;
+			$bundles[$name] = $bundle;
 		}
 
+		$path = $this->getParameter('kernel.project_dir') . '/app/config/bundles.yml';
 
-		$session = $this->get('session');
+		file_put_contents($path, Yaml::dump($bundles));
 
-		$session->invalidate();
+		$url = $this->generateUrl('install_build_system');
 
-		unset($parameters['systemUser']);
+		$fs = new Filesystem();
+		$fs->remove($this->getParameter('kernel.cache_dir'));
 
-		$im->saveParameters($parameters);
-
-		$this->get('session')->getFlashBag()->add('success', 'buildDatabase.success');
-		$user = $newEm->getRepository(User::class)->find(1);
-
-		$token = new UsernamePasswordToken($user, null, "default", $user->getRoles());
-
-		$this->get('security.token_storage')->setToken($token);
-
-		return new RedirectResponse($this->generateUrl('install_build_complete'));
-	}
-
-	public function completeAction()
-	{
-		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
-
-		$user = $this->get('user.repository')->find(1);
-
-		$newEm = $this->get('doctrine')->getManager();
-
-		if (!$user->hasPerson())
-		{
-			$person = new Person();
-			$person->setUser($user);
-			$user->setPerson($person);
-			$person->setEmail($user->getEmail());
-			$person->setFirstName('System');
-			$person->setSurname('Administrator');
-			$person->setPreferredName('Sys.Ad.');
-			$person->setOfficialName('System Administrator');
-			$staff = new Staff();
-			$staff->setPerson($person);
-			$newEm->persist($person);
-			$newEm->persist($staff);
-			$newEm->flush();
-		}
-
-		$year = $this->get('current.year.currentYear');
-
-		if (empty($year->getId()))
-		{
-			$year = new Year();
-		}
-
-		$year->setName(date('Y'));
-		$year->setFirstDay(new \DateTime(date('Y') . '0101 00:00:00'));
-		$year->setLastDay(new \DateTime(date('Y') . '1231 00:00:00'));
-		$year->setStatus('Current');
-		$newEm->persist($year);
-		$newEm->flush();
-		$term = new Term();
-		$term->setYear($year);
-		$term->setFirstDay($year->getFirstDay());
-		$term->setLastDay($year->getLastDay());
-		$term->setName('Term');
-		$term->setNameShort('T');
-		$newEm->persist($term);
-		$newEm->flush();
-
-		$this->get('session')->getFlashBag()->add('success', 'buildComplete.success');
-
-		return new RedirectResponse($this->generateUrl('update_database'));
+		return new RedirectResponse($url);
 	}
 }

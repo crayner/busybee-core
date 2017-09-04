@@ -9,7 +9,7 @@
 {% block headerLead %}{{ 'people.importresults.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'people.importresults.title', 'transDomain': 'BusybeePersonBundle' } %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'people.importresults.title', 'transDomain': 'BusybeePersonBundle' } %}
     <div class="container-fluid">
         {% if results is not empty %}
             {% for stuff in results %}
@@ -47,7 +47,7 @@
             {% endfor %}
         {% endif %}
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}

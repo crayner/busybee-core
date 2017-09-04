@@ -31,10 +31,10 @@ class AppKernel extends Kernel
 	    {
 		    $parameters = Yaml::parse(file_get_contents($this->getConfigDir() . '/bundles.yml'));
 
-		    foreach ($parameters['parameters']['bundles'] as $bundle)
+		    foreach ($parameters as $bundle)
 		    {
 			    // Core must be loaded manually above.
-			    if ($bundle['active'] && $bundle['type'] !== 'core')
+			    if ($bundle['active'] || $bundle['type'] === 'core')
 				    $bundles[] = new $bundle['namespace']();
 		    }
 	    }
@@ -48,7 +48,7 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
+	    return $this->getProjectDir() . '/var/cache/' . $this->getEnvironment();
     }
 
 	/*
@@ -59,12 +59,12 @@ class AppKernel extends Kernel
 	*/
 	public function getLogDir()
 	{
-		return dirname(__DIR__) . '/var/logs';
+		return $this->getProjectDir() . '/var/logs';
 	}
 
 	public function getConfigDir()
 	{
-		return dirname(__DIR__) . '/app/config';
+		return $this->getProjectDir() . '/app/config';
 	}
 
 	public function registerContainerConfiguration(LoaderInterface $loader)

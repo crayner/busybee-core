@@ -1,12 +1,12 @@
 <?php
-
 namespace Busybee\Core\HomeBundle\Model;
 
+use Busybee\Core\FormBundle\Source\MenuManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 
-class MenuManager
+class MenuManager implements MenuManagerInterface
 {
 	/**
 	 * @var Container

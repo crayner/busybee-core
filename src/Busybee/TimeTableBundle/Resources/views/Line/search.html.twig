@@ -13,7 +13,7 @@
     {% block flashMessages %}
         <div class="row">
             <div class="col-sm-12">
-                {% include '@BusybeeHome/Default/flash.html.twig' with {flashClass: 'fadeAlert', transDomain: 'BusybeeTimeTableBundle'} %}
+                {% include '@BusybeeForm/Default/flash.html.twig' with {flashClass: 'fadeAlert', transDomain: 'BusybeeTimeTableBundle'} %}
             </div>
         </div>
     {% endblock flashMessages %}
@@ -46,5 +46,5 @@
             window.open(path, '_self');
         }
     </script>
-    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

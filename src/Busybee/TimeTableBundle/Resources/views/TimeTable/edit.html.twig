@@ -14,7 +14,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include '@BusybeeHome/Toggle/style.html.twig' %}
+    {% include '@BusybeeForm/Toggle/style.html.twig' %}
 {% endblock stylesheets %}
 
 {% block contentContainer %}
@@ -33,7 +33,7 @@
     {% endif %}
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
     {% set h3Content = h3Content ~ miscButton({'javascript': {'function': 'resetColumnTimes', 'options': [app.request.get('id')]}, 'class': 'btn btn-danger halflings halflings-asterisk', 'title': 'column.resettime.title', 'transDomain': 'BusybeeTimeTableBundle'}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.edit.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.edit.description', 'name': form.vars.value.getFullName} %}
+    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'timetable.edit.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.edit.description', 'name': form.vars.value.getFullName} %}
     <div class="container-fluid">
         {% if form.locked.vars.data %}
             <div class="row">
@@ -65,9 +65,9 @@
                 <div class="row">
                     <div class="col-sm-12" style="padding-right: inherit; padding-left: inherit;">
                         {% set h3Content = '' %}
-                        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': form.days.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.days.vars.attr.help, 'panelStyle': 'info'} %}
+                        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': form.days.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.days.vars.attr.help, 'panelStyle': 'info'} %}
                         {{ form_widget(form.days) }}
-                        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+                        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
                     </div>
                 </div>
             </div>
@@ -75,17 +75,17 @@
                 <div class="row">
                     <div class="col-sm-12" style="padding-right: inherit; padding-left: inherit;">
                         {% set h3Content = '' %}
-                        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': form.columns.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.columns.vars.attr.help, 'panelStyle': 'info'} %}
+                        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': form.columns.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.columns.vars.attr.help, 'panelStyle': 'info'} %}
                         <div id="TimeTableColumns">
                             {{ form_widget(form.columns) }}
                         </div>
-                        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+                        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
@@ -95,6 +95,6 @@
     {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
     {% include '@BusybeeTimeTable/Columns/columnScript.html.twig' %}
     {% include '@BusybeeTimeTable/Days/dayScript.html.twig' %}
-    {% include '@BusybeeHome/Toggle/script.html.twig' %}
-    {% include '@BusybeeHome/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeForm/Toggle/script.html.twig' %}
+    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

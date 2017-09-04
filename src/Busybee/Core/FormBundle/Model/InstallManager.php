@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Core\InstallBundle\Model;
+namespace Busybee\Core\FormBundle\Model;
 
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
 use Doctrine\DBAL\Connection;
@@ -238,6 +238,10 @@ class InstallManager
 		if (file_put_contents($this->projectDir . '/app/config/config.yml', Yaml::dump($config)))
 			$this->savedConfig = true;
 
+		if (file_exists($this->projectDir . '/app/config/bundles.yml'))
+			unlink($this->projectDir . '/app/config/bundles.yml');
+		if (file_exists($this->projectDir . '/app/config/user.yml'))
+			unlink($this->projectDir . '/app/config/user.yml');
 		return $this->savedConfig;
 	}
 
@@ -336,11 +340,12 @@ class InstallManager
 
 		if ($form->isValid())
 		{
-
 			$params = $this->getParameters();
+			$this->saveSystemUser($this->misc->systemUser);
 			foreach ((array) $this->misc as $name => $value)
 			{
-				$params[$name] = $value;
+				if ($name !== 'systemUser')
+					$params[$name] = $value;
 			}
 			$this->proceed = $this->saveParameters($params);
 		}
@@ -353,9 +358,10 @@ class InstallManager
 	 */
 	public function getMiscellaneousParameters()
 	{
-		$this->misc = new \stdClass();
-		$params     = $this->getParameters();
-		$misc       = [];
+		$this->misc           = new \stdClass();
+		$params               = $this->getParameters();
+		$params['systemUser'] = $this->getSystemUser();
+		$misc                 = [];
 
 
 		$valueList = [
@@ -400,5 +406,55 @@ class InstallManager
 		}
 
 		return $misc;
+	}
+
+	/**
+	 * Save SystemUser
+	 *
+	 * @param $params array
+	 *
+	 * @return bool
+	 */
+	public function saveSystemUser(array $params)
+	{
+		$params['cache'] = new \DateTime('now');
+		if (file_put_contents($this->projectDir . '/app/config/user.yml', Yaml::dump($params)))
+			return true;
+
+		return false;
+	}
+
+	/**
+	 * Save SystemUser
+	 *
+	 * @param $params array
+	 *
+	 * @return bool
+	 */
+	public function getSystemUser()
+	{
+		$x = [];
+		if (file_exists($this->projectDir . '/app/config/user.yml'))
+			$x = Yaml::parse(file_get_contents($this->projectDir . '/app/config/user.yml'));
+		if (isset($x['cache']) && $x['cache'] instanceof \DateTime)
+		{
+			$diff = $x['cache']->diff(new \DateTime('now'));
+			dump($diff);
+		}
+
+		return $x;
+	}
+
+	/**
+	 * Remove SystemUser
+	 *
+	 * @return
+	 */
+	public function removeSystemUser()
+	{
+		if (file_exists($this->projectDir . '/app/config/user.yml'))
+			unlink($this->projectDir . '/app/config/user.yml');
+
+		return;
 	}
 }

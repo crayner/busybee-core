@@ -10,7 +10,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include '@BusybeeHome/Toggle/style.html.twig' %}
+    {% include '@BusybeeForm/Toggle/style.html.twig' %}
 {% endblock %}
 
 {% block contentContainer %}
@@ -20,7 +20,7 @@
                 {% include 'PaginationBundle:Default:search_only.html.twig' %}
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
                 {% set h3Content = h3Content ~ resetButton({'javascript': {'function': 'resetBuilder'}, 'additional': 'id="resetButton" reset="All"'}) %}
-                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel'} %}
+                {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'timetable.period.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.list.description', 'bodyAttr': 'id=tt_periods', 'panelAttr': 'id=tt_periods_panel'} %}
 
                 {% for period in report.periods %}
                     <div class="row-border row row-hover row-striped fixPeriod" id="periodRow{{ period.id }}">
@@ -68,8 +68,8 @@
                         </div>
                     </div>
                 {% endfor %}
-                {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
-                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'grade.control.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': 'grade.control.description', 'h3Content': '', 'panelAttr': 'id=tt_grade_control'} %}
+                {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+                {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'grade.control.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': 'grade.control.description', 'h3Content': '', 'panelAttr': 'id=tt_grade_control'} %}
                 {% set row = 0 %}
                 {% set toggle = 'data-toggle=toggle data-onstyle=success data-offstyle=danger data-height=25 data-size=small data-on="<span class=\'halflings halflings-thumbs-up\'></span>" data-off="<span class=\'halflings halflings-thumbs-down\'></span>"' %}
                 {% set control = app.session.get('gradeControl') %}
@@ -106,12 +106,12 @@
                 {% if row > 0 %}
             </div>
             {% endif %}
-            {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+            {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
             </div>
             <div class="col-md-4 well">
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
                 {% set h3Content = h3Content ~ addButton({windowOpen: {route: path('line_manage', {id: 'Add', closeWindow: '_closeWindow'}), target: 'LineEdit', params: 'width=1200,height=900'}}) %}
-                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'line.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'line.list.description'} %}
+                {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'line.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'line.list.description'} %}
                 {% for line in line_pagination.result %}
                     <div class="row-border row row-striped dragLine" id="line{{ line.id }}">
                         <div class="col-sm-12 small">
@@ -122,11 +122,11 @@
                         </div>
                     </div>
                 {% endfor %}
-                {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+                {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 
                 {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
                 {% set h3Content = h3Content ~ addButton({windowOpen: {route: path('activity_edit', {id: 'Add', closeWindow: '_closeWindow'}), target: 'ActivityEdit', params: 'width=1200,height=900'}}) %}
-                {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': 'activity.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'activity.list.description'} %}
+                {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'activity.list.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'activity.list.description'} %}
                 {% for activity in activity_pagination.result %}
                     <div class="row-border row row-striped dragActivity" id="activity{{ activity.id }}">
                         <div class="small col-sm-12 {{ activity_pagination.manager.getAlert(activity.0) }}">
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                 {% endfor %}
-                {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+                {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
 
             </div>
         </div>
@@ -361,5 +361,5 @@
             window.open(path, 'LinePeriodSearch', 'width=1200,height=900');
         }
     </script>
-    {% include '@BusybeeHome/Toggle/script.html.twig' %}
+    {% include '@BusybeeForm/Toggle/script.html.twig' %}
 {% endblock javascripts %}

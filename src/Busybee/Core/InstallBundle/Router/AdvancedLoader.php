@@ -51,9 +51,21 @@ class AdvancedLoader extends Loader
 		$routes->add($routeName, $route);
 
 
-		$path         = '/install/build/';
+		$path         = '/install/miscellaneous/';
 		$defaults     = array(
-			'_controller' => 'BusybeeInstallBundle:Install:build',
+			'_controller' => 'BusybeeInstallBundle:Install:miscellaneous',
+		);
+		$requirements = [];
+		$route        = new Route($path, $defaults, $requirements);
+
+		// add the new route to the route collection
+		$routeName = 'install_misc_check';
+		$routes->add($routeName, $route);
+
+
+		$path         = '/system/install/build/';
+		$defaults     = array(
+			'_controller' => 'SystemBundle:Install:build',
 		);
 		$requirements = [];
 		$route        = new Route($path, $defaults, $requirements);
@@ -63,15 +75,15 @@ class AdvancedLoader extends Loader
 		$routes->add($routeName, $route);
 
 
-		$path         = '/install/complete/';
+		$path         = '/install/bundles/';
 		$defaults     = [
-			'_controller' => 'BusybeeInstallBundle:Install:build',
+			'_controller' => 'BusybeeInstallBundle:Install:bundles',
 		];
 		$requirements = [];
 		$route        = new Route($path, $defaults, $requirements);
 
 		// add the new route to the route collection
-		$routeName = 'install_build_complete';
+		$routeName = 'install_bundles';
 		$routes->add($routeName, $route);
 
 

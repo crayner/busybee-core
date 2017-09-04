@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Core\SystemBundle\Form;
+namespace Busybee\Core\InstallBundle\Form;
 
 use Busybee\Core\FormBundle\Type\TextType;
 use Busybee\Core\SystemBundle\Event\MailerSubscriber;
@@ -158,7 +158,7 @@ class MailerType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults([
-			'translation_domain' => 'SystemBundle',
+			'translation_domain' => 'BusybeeInstallBundle',
 			'data_class'         => null,
 		]);
 	}
@@ -168,7 +168,7 @@ class MailerType extends AbstractType
 	 */
 	public function getBlockPrefix()
 	{
-		return 'mailer';
+		return 'install_mailer';
 	}
 
 
