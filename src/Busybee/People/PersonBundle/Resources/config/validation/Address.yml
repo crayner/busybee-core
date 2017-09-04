@@ -12,7 +12,7 @@ Busybee\People\PersonBundle\Entity\Address:
             message: 'address.unique'
     properties:
         buildingType:
-            - \Busybee\Core\FormBundle\Validator\SettingChoice:
+            - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'Address.BuildingType'
         locality:
             - Valid: ~

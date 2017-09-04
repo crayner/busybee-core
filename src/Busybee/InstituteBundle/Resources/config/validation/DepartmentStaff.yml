@@ -2,5 +2,5 @@ Busybee\InstituteBundle\Entity\DepartmentStaff:
     properties:
         staffType:
             - NotBlank: ~
-            - Busybee\Core\FormBundle\Validator\SettingChoice:
+            - Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: department.staff.type.list

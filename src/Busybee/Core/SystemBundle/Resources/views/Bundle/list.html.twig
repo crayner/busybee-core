@@ -1,9 +1,9 @@
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 {% trans_default_domain "SystemBundle" %}
 
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig"
-"@BusybeeForm/Template/jquery.collection.html.twig"
+{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig"
+"@BusybeeTemplate/Template/jquery.collection.html.twig"
 "SystemBundle:Bundle:bundle.html.twig" %}
 
 {% block title %}{{ 'system.bundle.manage.title'|trans }}{% endblock title %}
@@ -11,7 +11,7 @@
 {% block headerLead %}{{ 'system.bundle.manage.description'|trans }}{% endblock headerLead %}
 
 {% block stylesheets %}{{ parent() }}
-    {% include "@BusybeeForm/Toggle/style.html.twig" %}
+    {% include "@BusybeeTemplate/Toggle/style.html.twig" %}
     <style type="text/css">
         .toggle.btn-sm {
             min-width: 40px;
@@ -32,22 +32,22 @@
     {% if form.vars.manager.SQLCount > 0 %}
         {% set h3Content = h3Content ~ miscButton({class: 'btn btn-warning halflings halflings-save', title: 'bundle.update.sqlbutton', transDomain: 'SystemBundle', windowOpen: {route: path('bundle_database_update')}}) %}{{ dump(form.vars.manager.SQLCount) }}
     {% endif %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {header: 'system.bundle.manage.title'|trans, transDomain: 'SystemBundle'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'system.bundle.manage.title'|trans, transDomain: 'SystemBundle'} %}
     {% block flashMessages %}
-        {% include '@BusybeeForm/Default/flash.html.twig' with {transDomain: 'SystemBundle', flashClass: 'fadeAlert'} %}
+        {% include '@BusybeeTemplate/Default/flash.html.twig' with {transDomain: 'SystemBundle', flashClass: 'fadeAlert'} %}
     {% endblock flashMessages %}
 
     {{ form_start(form, {attr: {id: 'bundleForm'}}) }}
     {{ form_widget(form.bundles) }}
     {{ form_end(form) }}
 
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include "@BusybeeForm/Toggle/script.html.twig" %}
-    {% include "@BusybeeForm/Scripts/jquery.collection.js.html.twig" %}
+    {% include "@BusybeeTemplate/Toggle/script.html.twig" %}
+    {% include "@BusybeeTemplate/Scripts/jquery.collection.js.html.twig" %}
     <script>
         $('input:checkbox').change(function () {
             $("#bundleForm").submit();

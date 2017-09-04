@@ -2,7 +2,7 @@
 
 {% trans_default_domain "BusybeeStudentBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% block title %}{{ parent() }}{{ 'student.activities.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'student.activities.title'|trans }}{% endblock headerTitle %}
@@ -11,14 +11,14 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include '@BusybeeForm/Default/flash.html.twig' with {transDomain: 'BusybeeStudentBundle', flashClass: 'fadeAlert'} %}
+        {% include '@BusybeeTemplate/Default/flash.html.twig' with {transDomain: 'BusybeeStudentBundle', flashClass: 'fadeAlert'} %}
     {% endblock flashMessages %}
     {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('activity_list') } } %}
     {% set transDomain = 'BusybeeStudentBundle' %}
 
     {% set h3Content = addButton({'windowOpen': {'route': path('activity_edit', {'id': 'Add'})}})|raw %}
 
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'activities.title'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'activities.title'} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 col-sm-12" id="activityError">
@@ -81,12 +81,12 @@
             </div>
         {% endfor %}
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
-    {% include '@BusybeeForm/Scripts/confirmDelete.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/confirmDelete.html.twig' %}
 {% endblock javascripts %}
 

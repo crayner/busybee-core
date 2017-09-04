@@ -2,7 +2,7 @@
 
 namespace Busybee\Core\InstallBundle\Model;
 
-use Busybee\Core\FormBundle\Source\SettingManagerInterface;
+use Busybee\Core\TemplateBundle\Source\SettingManagerInterface;
 
 class SettingManager implements SettingManagerInterface
 {

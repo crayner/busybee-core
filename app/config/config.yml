@@ -40,7 +40,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - bootstrap_3_layout.html.twig
-        - 'BusybeeFormBundle:Template:bootstrap.html.twig'
+        - 'BusybeeTemplateBundle:Template:bootstrap.html.twig'
 #        - bootstrap_3_horizontal_layout.html.twig 
     date:
         timezone: '%timezone%'

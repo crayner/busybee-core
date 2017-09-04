@@ -13,7 +13,7 @@ Busybee\TimeTableBundle\Entity\Line:
             - NotBlank: ~
         nameShort:
             - NotBlank: ~
-            - Busybee\Core\FormBundle\Validator\NoWhiteSpace: ~
+            - Busybee\Core\TemplateBundle\Validator\NoWhiteSpace: ~
         year:
             - Valid: ~
             - NotBlank: ~

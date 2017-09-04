@@ -2,18 +2,18 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% form_theme form
-"BusybeeFormBundle:Template:bootstrap.html.twig"
-"BusybeeFormBundle:Template:jquery.collection.html.twig"
+"BusybeeTemplateBundle:Template:bootstrap.html.twig"
+"BusybeeTemplateBundle:Template:jquery.collection.html.twig"
 "BusybeePersonBundle:Form:phoneCollection.html.twig"
 "BusybeeStudentBundle:Person:gradeCollection.html.twig" %}
 
 {% block stylesheets %}
     {{ parent() }}
     {% include 'BusybeeHomeBundle:AutoComplete:style.html.twig' %}
-    {% include 'BusybeeFormBundle:Toggle:style.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Toggle:style.html.twig' %}
 {% endblock stylesheets %}
 
 
@@ -50,23 +50,23 @@
                 {% if tab.translation is defined %}{% set translation = tab.translation %}{% endif %}
                 {% if name == 'staff' and form.staff.person is not defined %}
                     <div class="tab-pane" id="{{ name }}">
-                        {% include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.staff.title'|trans({'%name%': form.vars.value.formatName}) } %}
+                        {% include 'BusybeeTemplateBundle:Forms:emptyTab.html.twig' with {'name': 'person.staff.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>
                 {% elseif name == 'student' and form.student.person is not defined %}
                     <div class="tab-pane" id="{{ name }}">
-                        {% include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
+                        {% include 'BusybeeTemplateBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>
                 {% elseif name == 'immigration' and form.student.person is not defined %}
                     <div class="tab-pane" id="{{ name }}">
-                        {% include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
+                        {% include 'BusybeeTemplateBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>
                 {% elseif name == 'grades' and form.student.person is not defined %}
                     <div class="tab-pane" id="{{ name }}">
-                        {% include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
+                        {% include 'BusybeeTemplateBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>
                 {% elseif name == 'user' and form.user.person is not defined %}
                     <div class="tab-pane" id="{{ name }}">
-                        {% include 'BusybeeFormBundle:Forms:emptyTab.html.twig' with {'name': 'person.user.title'|trans({'%name%': form.vars.value.formatName}) } %}
+                        {% include 'BusybeeTemplateBundle:Forms:emptyTab.html.twig' with {'name': 'person.user.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>
                 {% else %}
                     <div class="tab-pane{{ active }}" id="{{ name }}">
@@ -88,10 +88,10 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
-    {% include 'BusybeeFormBundle:Toggle:script.html.twig' %}
-    {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
+    {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Toggle:script.html.twig' %}
+    {% include "BusybeeTemplateBundle:Scripts:jquery.collection.js.html.twig" %}
     {% include 'BusybeePersonBundle:Person:script.html.twig' %}
-    {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'person_manage'} %}
-    {% include '@BusybeeForm/Scripts/formTabSubmitScript.html.twig' with {'route': 'person_edit'} %}
+    {% include 'BusybeeTemplateBundle:Scripts:monitorForm.html.twig' with {'route': 'person_manage'} %}
+    {% include '@BusybeeTemplate/Scripts/formTabSubmitScript.html.twig' with {'route': 'person_edit'} %}
 {% endblock javascripts %}

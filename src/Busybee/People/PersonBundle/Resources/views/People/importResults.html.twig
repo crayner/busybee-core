@@ -2,14 +2,14 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% block title %}{{ parent() }}{{ 'people.importresults.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'people.importresults.title'|trans }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'people.importresults.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'people.importresults.title', 'transDomain': 'BusybeePersonBundle' } %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'people.importresults.title', 'transDomain': 'BusybeePersonBundle' } %}
     <div class="container-fluid">
         {% if results is not empty %}
             {% for stuff in results %}
@@ -47,11 +47,11 @@
             {% endfor %}
         {% endif %}
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
 {% endblock javascripts %}
 

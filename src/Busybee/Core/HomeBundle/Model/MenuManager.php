@@ -1,7 +1,7 @@
 <?php
 namespace Busybee\Core\HomeBundle\Model;
 
-use Busybee\Core\FormBundle\Source\MenuManagerInterface;
+use Busybee\Core\TemplateBundle\Source\MenuManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;

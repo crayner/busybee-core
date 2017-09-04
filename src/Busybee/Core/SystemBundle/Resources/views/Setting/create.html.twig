@@ -1,5 +1,5 @@
 {# src/Busybee/SystemBundle/Resources/views/Setting/create.html.twig #}
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% trans_default_domain 'SystemBundle' %}
 
@@ -12,7 +12,7 @@
 {{ form_start(form) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('setting_manage')}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', 'transDomain': 'SystemBundle', 'panelParagraph': 'system.setting.edit.description'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'system.setting.edit.title', 'transDomain': 'SystemBundle', 'panelParagraph': 'system.setting.edit.description'} %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert", 'system.setting.edit.success'|trans, "alert alert-success fadeAlert") }}
 <div class="container-fluid">
     <div class="row">
@@ -20,11 +20,11 @@
             {{ form_row(form.setting) }}
         </div>
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
     {% endblock contentContainer %}
 
     {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

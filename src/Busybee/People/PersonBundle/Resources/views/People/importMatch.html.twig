@@ -2,7 +2,7 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% block title %}{{ 'people.matchimport.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'people.matchimport.title'|trans }}{% endblock headerTitle %}
@@ -13,7 +13,7 @@
     {% set transDomain = 'BusybeePersonBundle' %}
     {% set h3Content = returnButton({'windowOpen': {'route': path('person_manage')}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'people.matchimport.title', 'panelParagraph': 'people.matchimport.help.help'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'people.matchimport.title', 'panelParagraph': 'people.matchimport.help.help'} %}
     <div class="container-fluid">
         {% set value = 0 %}
         {% for field in form.fields %}
@@ -31,13 +31,13 @@
         {% endfor %}
         {{ form_row(form.file) }}
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
     <script>
         $(".optionLoader").change(function () {
             var id = $(this).attr('id');

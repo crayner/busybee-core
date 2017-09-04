@@ -15,7 +15,7 @@ class UserManagerExtension extends \Twig_Extension
 	/**
 	 * FormErrorsExtension constructor.
 	 *
-	 * @param \Busybee\Core\FormBundle\Model\FormErrorsParser $parser
+	 * @param \Busybee\Core\TemplateBundle\Model\FormErrorsParser $parser
 	 * @param                                                 $trans
 	 *
 	 * @throws \Exception

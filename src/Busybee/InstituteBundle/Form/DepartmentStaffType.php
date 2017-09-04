@@ -2,7 +2,7 @@
 
 namespace Busybee\InstituteBundle\Form;
 
-use Busybee\Core\FormBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Department;
 use Busybee\InstituteBundle\Entity\DepartmentStaff;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;

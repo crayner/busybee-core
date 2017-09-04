@@ -14,7 +14,7 @@ class TemplateController extends Controller
 		$config         = new \stdClass();
 		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 
-		return $this->render('BusybeeFormBundle:Default:template.html.twig', array('config' => $config));
+		return $this->render('BusybeeTemplateBundle:Default:template.html.twig', array('config' => $config));
 	}
 
 }

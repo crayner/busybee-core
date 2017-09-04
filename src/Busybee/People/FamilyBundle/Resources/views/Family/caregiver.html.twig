@@ -3,12 +3,12 @@
 {% trans_default_domain "BusybeeFamilyBundle" %}
 
 {% form_theme form
-"BusybeeFormBundle:Template:bootstrap.html.twig"
-"BusybeeFormBundle:Template:jquery.collection.html.twig"
+"BusybeeTemplateBundle:Template:bootstrap.html.twig"
+"BusybeeTemplateBundle:Template:jquery.collection.html.twig"
 "BusybeeFamilyBundle:Family:careGiverCollection.html.twig"
 "BusybeeFamilyBundle:Family:studentCollection.html.twig" %}
 
-{% include '@BusybeeForm/Page/panelStart.html.twig' with {'panelStyle': 'info', 'transDomain': 'BusybeeFamilyBundle', 'panelParagraph': 'family.help.caregiver', 'header': form.careGiver.vars.label } %}
+{% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'panelStyle': 'info', 'transDomain': 'BusybeeFamilyBundle', 'panelParagraph': 'family.help.caregiver', 'header': form.careGiver.vars.label } %}
     {{ form_widget(form.careGiver) }}
-{% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+{% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {% do form.careGiver.setRendered %}

@@ -6,7 +6,7 @@
     {% set panelParagraph = 'timetable.assign.days.help' %}
     {% set transDomain = 'BusybeeTimeTableBundle' %}
 
-    {% include '@BusybeeForm/Page/panelStart.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' %}
 
     {% set schoolDays = get_setting('schoolWeek') %}
 
@@ -69,5 +69,5 @@
             </div>
         </div>
 {% endfor %}
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {% endspaceless %}

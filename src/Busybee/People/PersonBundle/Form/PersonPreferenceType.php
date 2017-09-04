@@ -2,8 +2,8 @@
 
 namespace Busybee\People\PersonBundle\Form;
 
-use Busybee\Core\FormBundle\Type\SettingChoiceType;
-use Busybee\Core\FormBundle\Type\TextType;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\TextType;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Entity\PersonPreference;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;

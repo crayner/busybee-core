@@ -2,8 +2,8 @@
 
 namespace Busybee\Core\SystemBundle\Form;
 
-use Busybee\Core\FormBundle\Type\CollectionChoiceType;
-use Busybee\Core\FormBundle\Type\ToggleType;
+use Busybee\Core\TemplateBundle\Type\CollectionChoiceType;
+use Busybee\Core\TemplateBundle\Type\ToggleType;
 use Busybee\Core\SystemBundle\Form\Transformer\BundleTypeTransformer;
 use Busybee\Core\SystemBundle\Model\Bundle;
 use Symfony\Component\Form\AbstractType;

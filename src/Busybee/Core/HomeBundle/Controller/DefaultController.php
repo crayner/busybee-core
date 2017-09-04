@@ -106,7 +106,7 @@ class DefaultController extends Controller
 		$SymfonyRequirements = new \SymfonyRequirements();
 
 
-		return $this->render('@BusybeeForm/Acknowledgement/acknowledgement.html.twig',
+		return $this->render('@BusybeeTemplate/Acknowledgement/acknowledgement.html.twig',
 			[
 				'versions'      => $versions,
 				'majorProblems' => $SymfonyRequirements->getFailedRequirements(),

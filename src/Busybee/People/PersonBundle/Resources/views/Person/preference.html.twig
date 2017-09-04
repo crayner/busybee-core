@@ -2,10 +2,10 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% form_theme form
-"BusybeeFormBundle:Template:bootstrap.html.twig" %}
+"BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -19,13 +19,13 @@
 {% block contentContainer %}
     {{ form_start(form) }}
     {% set h3Content = saveButton() %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {header: 'person.preference.header', transDomain: 'BusybeePersonBundle'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'person.preference.header', transDomain: 'BusybeePersonBundle'} %}
     <div class="row">
         <div class="col-sm-offset-6 col-sm-6 well">
             {{ form_row(form.language, {value: manager.user.locale}) }}
         </div>
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 

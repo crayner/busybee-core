@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Busybee\Core\FormBundle\Type\YesNoType;
+use Busybee\Core\TemplateBundle\Type\YesNoType;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\AVETMISS\AVETMISSBundle\Form\DataTransformer\SubjectTransformer;
 use Doctrine\Common\Persistence\ObjectManager;

@@ -25,11 +25,11 @@ Busybee\People\PersonBundle\Entity\Person:
         dob:
             - Date: ~
         gender:
-            - \Busybee\Core\FormBundle\Validator\SettingChoice:
+            - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'Person.GenderList'
             - NotBlank: ~
         title:
-            - \Busybee\Core\FormBundle\Validator\SettingChoice:
+            - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'Person.TitleList'
         photo:
             - \Busybee\People\PersonBundle\Validator\PersonImage: ~
@@ -46,4 +46,4 @@ Busybee\People\PersonBundle\Entity\Person:
         staff:
             - Valid: ~
         importIdentifier:
-            - \Busybee\Core\FormBundle\Validator\UniqueOrBlank: ~
+            - \Busybee\Core\TemplateBundle\Validator\UniqueOrBlank: ~

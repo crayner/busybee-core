@@ -30,18 +30,17 @@ class AppKernel extends Kernel
 	    if (file_exists($this->getConfigDir() . '/bundles.yml'))
 	    {
 		    $parameters = Yaml::parse(file_get_contents($this->getConfigDir() . '/bundles.yml'));
-
 		    foreach ($parameters as $bundle)
 		    {
 			    // Core must be loaded manually above.
-			    if ($bundle['active'] || $bundle['type'] === 'core')
+			    if ((isset($bundle['active']) && $bundle['active']) || $bundle['type'] === 'core')
 				    $bundles[] = new $bundle['namespace']();
 		    }
 	    }
 	    else
 	    {
 		    $bundles[] = new Busybee\Core\InstallBundle\BusybeeInstallBundle();
-		    $bundles[] = new Busybee\Core\FormBundle\BusybeeFormBundle();
+		    $bundles[] = new Busybee\Core\TemplateBundle\BusybeeTemplateBundle();
 	    }
 		return $bundles;
     }

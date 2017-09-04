@@ -1,5 +1,5 @@
 {# src/General/SecurityBundle/Resources/views/Security/login.html.twig #}
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% trans_default_domain 'BusybeeSecurityBundle' %}
 {% block title %}{{ 'security.login.title'|trans }}{% endblock title %}
@@ -14,5 +14,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

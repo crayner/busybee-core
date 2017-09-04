@@ -1,7 +1,7 @@
 {# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
 
 {% block menuContainer %}{% endblock menuContainer %}
 
@@ -12,7 +12,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include '@BusybeeForm/Toggle/style.html.twig' %}
+    {% include '@BusybeeTemplate/Toggle/style.html.twig' %}
 {% endblock stylesheets %}
 
 {% block contentContainer %}
@@ -22,12 +22,12 @@
         {% set h3Content = h3Content ~ proceedButton({'windowOpen': {'route': path("install_bundles")}}) %}
     {% endif %}
     {% set h3Content = h3Content ~ saveButton() %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {header: 'system.install.title', transDomain: 'BusybeeInstallBundle'} %}
-    {% block flashMessages %}{% include '@BusybeeForm/Default/flash.html.twig' with {flashClass: 'fadeAlert'} %}{% endblock flashMessages %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'system.install.title', transDomain: 'BusybeeInstallBundle'} %}
+    {% block flashMessages %}{% include '@BusybeeTemplate/Default/flash.html.twig' with {flashClass: 'fadeAlert'} %}{% endblock flashMessages %}
     <div id="form_body">
 
 
-        {% include '@BusybeeForm/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'misc.user.title', panelStyle: 'default', panelParagraph: 'misc.user.description' } %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'misc.user.title', panelStyle: 'default', panelParagraph: 'misc.user.description' } %}
         <div class="container-fluid">
             <div class="row">
                 <div class="well col-sm-6">
@@ -51,10 +51,10 @@
                     </div>
                 </div>
             </div>
-            {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+            {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 
 
-            {% include '@BusybeeForm/Page/panelStart.html.twig' with {header: 'install.misc.parameters', transDomain: 'BusybeeInstallBundle', panelStyle: 'default'} %}
+            {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'install.misc.parameters', transDomain: 'BusybeeInstallBundle', panelStyle: 'default'} %}
         <div class="row">
             <div class="well col-sm-6">
                 {{ form_row(form.secret) }}
@@ -86,13 +86,13 @@
             </div>
         </div>
     </div>
-        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 
 
     {% set toggle = 'data-toggle=toggle data-onStyle=success data-offStyle=default data-on="<span class=\'halflings halflings-thumbs-up\'></span>" data-off="<span class=\'halflings halflings-thumbs-down\'></span>"' %}
 
 
-        {% include '@BusybeeForm/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'misc.password.title', panelParagraph: 'misc.password.message', panelStyle: 'default' } %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'misc.password.title', panelParagraph: 'misc.password.message', panelStyle: 'default' } %}
     <div class="container-fluid">
         <div class="row">
             <div class="well col-sm-6">
@@ -112,10 +112,10 @@
             </div>
         </div>
 
-        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 
 
-        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'misc.google.title', 'panelStyle': 'default', panelParagraph: 'misc.google.description' } %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'misc.google.title', 'panelStyle': 'default', panelParagraph: 'misc.google.description' } %}
             <div class="row">
                 <div class="well col-sm-2">
                     {{ form_row(form.oauth, {checked: config.misc.google['oauth']}) }}
@@ -128,17 +128,17 @@
                 </div>
             </div>
         </div>
-        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeForm/Toggle/script.html.twig' %}
-    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Toggle/script.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
     <script type="text/javascript" language="JavaScript">
         $("#generatePassword").on('click', function () {
             $('input[name="mailer[password]"]').val('{{ config.misc.systemUser['text'].text|raw }}');

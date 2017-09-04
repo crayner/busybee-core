@@ -2,8 +2,8 @@
 
 namespace Busybee\Core\InstallBundle\Form;
 
-use Busybee\Core\FormBundle\Type\TextType;
-use Busybee\Core\FormBundle\Validator\NoWhiteSpace;
+use Busybee\Core\TemplateBundle\Type\TextType;
+use Busybee\Core\TemplateBundle\Validator\NoWhiteSpace;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;

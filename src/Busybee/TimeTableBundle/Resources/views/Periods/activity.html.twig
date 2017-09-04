@@ -6,7 +6,7 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include 'BusybeeFormBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
+        {% include 'BusybeeTemplateBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
     {% endblock %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     <h2>{{ form.vars.value.activity.fullName }}</h2>
@@ -28,6 +28,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}
 

@@ -2,8 +2,8 @@
 
 namespace Busybee\TimeTableBundle\Form;
 
-use Busybee\Core\FormBundle\Type\TimeType;
-use Busybee\Core\FormBundle\Type\ToggleType;
+use Busybee\Core\TemplateBundle\Type\TimeType;
+use Busybee\Core\TemplateBundle\Type\ToggleType;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\TimeTableBundle\Entity\Day;

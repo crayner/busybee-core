@@ -30,7 +30,7 @@
         {% set title = 'timetable.period.add.title'|trans %}
         <div class="PeriodIdentifier" period="{{ period_id }}" page="{{ form.parent.parent.vars.name }}"></div>
         {% if form.vars.data is not empty %}{% set title = form.vars.data.columnName %}{% endif %}
-        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'name': title} %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'name': title} %}
         <div class="container-fluid period">
             <div class="row">
                 <div class="col-sm-3 well">
@@ -52,6 +52,6 @@
             </div>
             <div class="messageWindow"></div>
         </div>
-        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {% endspaceless %}
 {% endblock tt_period_widget %}

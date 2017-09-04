@@ -2,11 +2,11 @@
 
 namespace Busybee\Core\SystemBundle\Controller;
 
-use Busybee\Core\FormBundle\Type\SettingChoiceType;
-use Busybee\Core\FormBundle\Type\TextType;
-use Busybee\Core\FormBundle\Type\TimeType;
-use Busybee\Core\FormBundle\Type\ToggleType;
-use Busybee\Core\FormBundle\Validator\Integer;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\TextType;
+use Busybee\Core\TemplateBundle\Type\TimeType;
+use Busybee\Core\TemplateBundle\Type\ToggleType;
+use Busybee\Core\TemplateBundle\Validator\Integer;
 use Busybee\Core\SystemBundle\Entity\Setting;
 use Busybee\Core\SystemBundle\Form\CreateType;
 use Busybee\Core\SystemBundle\Form\SettingType;
@@ -20,8 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Form\FormError;
 use InvalidArgumentException;
-use Busybee\Core\FormBundle\Type\ImageType;
-use Busybee\Core\FormBundle\Type\YamlArrayType;
+use Busybee\Core\TemplateBundle\Type\ImageType;
+use Busybee\Core\TemplateBundle\Type\YamlArrayType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 

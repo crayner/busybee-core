@@ -2,7 +2,7 @@
 
 namespace Busybee\People\PersonBundle\Form;
 
-use Busybee\Core\FormBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\People\PersonBundle\Entity\Phone;
 use Busybee\People\PersonBundle\Events\PhoneSubscriber;
 use Busybee\People\PersonBundle\Repository\PhoneRepository;

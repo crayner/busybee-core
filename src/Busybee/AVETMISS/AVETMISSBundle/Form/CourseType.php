@@ -117,7 +117,7 @@ class CourseType extends AbstractType
 					),
 				)
 			)
-			->add('VETFlag', 'Busybee\Core\FormBundle\Type\YesNoType',
+			->add('VETFlag', 'Busybee\Core\TemplateBundle\Type\YesNoType',
 				array(
 					'label' => 'course.label.VETFlag',
 					'attr'  => array(

@@ -7,7 +7,7 @@
 <form action="{{ path("busybee_security_check") }}" method="post" class="{{ ajaxOn }}">
     {% set h3Content = miscButton({'windowOpen': {'route': path("busybee_security_resetting_request")}, 'transDomain': 'BusybeeSecurityBundle', 'class': 'btn btn-info halflings halflings-question-sign', 'title': 'security.login.forgot', 'type': 'button'}) %}
     {% set h3Content = h3Content ~ miscButton({'transDomain': 'BusybeeSecurityBundle', 'class': 'btn btn-success halflings halflings-log-in', 'title': 'security.login.submit', 'type': 'submit'}) %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'security.login.title', 'transDomain': 'BusybeeSecurityBundle'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'security.login.title', 'transDomain': 'BusybeeSecurityBundle'} %}
     <div id="form_body" class="container-fluid">
         <div class="row">
             <div class="well col-sm-6">
@@ -26,5 +26,5 @@
             </div>
         </div>
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 </form>	

@@ -17,7 +17,7 @@
         {% set h3Content = h3Content ~ '</div>' %}
         {% set count = 'New' %}
         {% if name != '__name__' %}{% set count = intVal(name) + 1 %}{% endif %}
-        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'name': count} %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'name': count} %}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 well">
@@ -25,6 +25,6 @@
                 </div>
             </div>
         </div>
-        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {% endspaceless %}
 {% endblock tt_line_widget %}

@@ -2,7 +2,7 @@
 
 {% trans_default_domain "BusybeeCurriculumBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% block title %}{{ 'course.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'course.title'|trans }}{% endblock headerTitle %}
@@ -11,7 +11,7 @@
 {% block contentContainer %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
     {% set h3Content = addButton({'title': 'course.add.title', 'transDomain': 'BusybeeCurriculumBundle', 'windowOpen': {'route': path('course_edit')}}) %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'course.title', 'transDomain': 'BusybeeCurriculumBundle'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'course.title', 'transDomain': 'BusybeeCurriculumBundle'} %}
     <div class="container-fluid well">
         <div class="row row-header">
             <div class="col-sm-3" style="display: inline-block;">
@@ -62,5 +62,5 @@
             </div>
         {% endfor %}
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}

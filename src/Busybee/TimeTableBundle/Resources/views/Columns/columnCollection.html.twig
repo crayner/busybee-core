@@ -20,7 +20,7 @@
         {% set title = 'timetable.column.add.title'|trans %}
         {% if form.vars.data is not empty %}{% set title = form.vars.data.fullName %}{% endif %}
         <div class="messageWindow"></div>
-        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'name': title} %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'name': title} %}
         {% set column_id = 0 %}
         {% if form.vars.data is not empty %}{% set column_id = form.vars.data.id %}{% endif %}
         {% set disabled = {disabled: 'disabled'} %}
@@ -49,6 +49,6 @@
                 </div>
             </div>
         </div>
-        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {% endspaceless %}
 {% endblock tt_columns_widget %}

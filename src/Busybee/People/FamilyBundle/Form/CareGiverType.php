@@ -4,8 +4,8 @@ namespace Busybee\People\FamilyBundle\Form;
 
 use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\FamilyBundle\Entity\Family;
-use Busybee\Core\FormBundle\Type\SettingChoiceType;
-use Busybee\Core\FormBundle\Type\ToggleType;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\ToggleType;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Doctrine\Common\Persistence\ObjectManager;

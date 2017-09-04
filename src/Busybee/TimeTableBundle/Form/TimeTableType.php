@@ -3,7 +3,7 @@
 namespace Busybee\TimeTableBundle\Form;
 
 use Busybee\Core\CalendarBundle\Form\YearEntityType;
-use Busybee\Core\FormBundle\Type\ToggleType;
+use Busybee\Core\TemplateBundle\Type\ToggleType;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\Core\SystemBundle\Setting\SettingManager;

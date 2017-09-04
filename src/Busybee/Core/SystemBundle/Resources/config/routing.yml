@@ -1,9 +1,3 @@
-update_start:
-    path:     /update/start/
-    defaults: { _controller: SystemBundle:Update:index }
-update_database:
-    path:     /update/database/
-    defaults: { _controller: SystemBundle:Update:database }
 setting_manage:
     path:     /setting/manage/
     defaults: { _controller: SystemBundle:Setting:index }
@@ -16,9 +10,6 @@ setting_edit:
 setting_edit_name:
     path:     /setting/{name}/editName/
     defaults: { _controller: SystemBundle:Setting:editName }
-plugin_manage:
-    path:     /plugin/manage/
-    defaults: { _controller: SystemBundle:Plugin:manager }
 setting_create:
     path: /setting/create/
     defaults: { _controller: SystemBundle:Setting:create }

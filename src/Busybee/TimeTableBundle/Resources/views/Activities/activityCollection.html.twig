@@ -20,7 +20,7 @@
         {% set h3Content = h3Content ~ '</div>' %}
         {% set title = 'activity.title.new'|trans %}
         {% if form.vars.data is not empty %}{% set title = form.vars.data.name ~ ' (' ~ form.vars.data.getStudentCount() ~ ')' %}{% endif %}
-        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'name': title} %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'name': title} %}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
@@ -28,6 +28,6 @@
                 </div>
             </div>
         </div>
-        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {% endspaceless %}
 {% endblock activities_widget %}

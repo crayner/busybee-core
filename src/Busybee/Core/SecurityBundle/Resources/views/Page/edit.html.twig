@@ -2,9 +2,9 @@
 
 {% trans_default_domain "BusybeeSecurityBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
 
 
 
@@ -21,8 +21,8 @@
     {% set header = 'security.page.title' %}
     {% set h3Content = returnButton({'windowOpen': {'route': path('page_list')}}) %}
     {% set h3Content = h3Content ~  saveButton() %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' %}
-    {% include '@BusybeeForm/Default/flash.html.twig' with {'flashClass': 'fadeAlert'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' %}
+    {% include '@BusybeeTemplate/Default/flash.html.twig' with {'flashClass': 'fadeAlert'} %}
 
     <div class="row">
         <div class="col-sm-6 well">
@@ -37,12 +37,12 @@
             {{ form_row(form.roles) }}
         </div>
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
 {% endblock javascripts %}
 

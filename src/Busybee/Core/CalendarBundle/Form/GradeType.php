@@ -2,7 +2,7 @@
 
 namespace Busybee\Core\CalendarBundle\Form;
 
-use Busybee\Core\FormBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\CalendarBundle\Events\GradeSubscriber;

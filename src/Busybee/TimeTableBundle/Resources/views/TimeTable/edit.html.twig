@@ -1,9 +1,9 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
-{% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
-'@BusybeeForm/Template/jquery.collection.html.twig'
+{% form_theme form 'BusybeeTemplateBundle:Template:bootstrap.html.twig'
+'@BusybeeTemplate/Template/jquery.collection.html.twig'
 'BusybeeTimeTableBundle:Line:lineCollection.html.twig'
 '@BusybeeTimeTable/Columns/columnCollection.html.twig'
 '@BusybeeTimeTable/Days/dayCollection.html.twig' %}
@@ -14,13 +14,13 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include '@BusybeeForm/Toggle/style.html.twig' %}
+    {% include '@BusybeeTemplate/Toggle/style.html.twig' %}
 {% endblock stylesheets %}
 
 {% block contentContainer %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {% block flashMessages %}
-        {% include 'BusybeeFormBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
+        {% include 'BusybeeTemplateBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
     {% endblock flashMessages %}
     {{ form_start(form) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}
@@ -33,7 +33,7 @@
     {% endif %}
     {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
     {% set h3Content = h3Content ~ miscButton({'javascript': {'function': 'resetColumnTimes', 'options': [app.request.get('id')]}, 'class': 'btn btn-danger halflings halflings-asterisk', 'title': 'column.resettime.title', 'transDomain': 'BusybeeTimeTableBundle'}) %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'timetable.edit.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.edit.description', 'name': form.vars.value.getFullName} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'timetable.edit.title', 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': 'timetable.edit.description', 'name': form.vars.value.getFullName} %}
     <div class="container-fluid">
         {% if form.locked.vars.data %}
             <div class="row">
@@ -65,9 +65,9 @@
                 <div class="row">
                     <div class="col-sm-12" style="padding-right: inherit; padding-left: inherit;">
                         {% set h3Content = '' %}
-                        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': form.days.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.days.vars.attr.help, 'panelStyle': 'info'} %}
+                        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': form.days.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.days.vars.attr.help, 'panelStyle': 'info'} %}
                         {{ form_widget(form.days) }}
-                        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+                        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
                     </div>
                 </div>
             </div>
@@ -75,26 +75,26 @@
                 <div class="row">
                     <div class="col-sm-12" style="padding-right: inherit; padding-left: inherit;">
                         {% set h3Content = '' %}
-                        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': form.columns.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.columns.vars.attr.help, 'panelStyle': 'info'} %}
+                        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': form.columns.vars.label, 'transDomain': 'BusybeeTimeTableBundle', 'panelParagraph': form.columns.vars.attr.help, 'panelStyle': 'info'} %}
                         <div id="TimeTableColumns">
                             {{ form_widget(form.columns) }}
                         </div>
-                        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+                        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/jquery.collection.js.html.twig' %}
     {% include '@BusybeeTimeTable/Columns/columnScript.html.twig' %}
     {% include '@BusybeeTimeTable/Days/dayScript.html.twig' %}
-    {% include '@BusybeeForm/Toggle/script.html.twig' %}
-    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Toggle/script.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

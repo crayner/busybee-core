@@ -1,7 +1,7 @@
 {# src/General/SecurityBundle/Resources/views/System/start.html.twig #}
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
 
 {% block menuContainer %}
 {% endblock menuContainer %}
@@ -12,9 +12,9 @@
 {% block headerLead %}{{ 'system.install.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'system.install.title'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'system.install.title'} %}
     {% block flashMessages %}
-        {% include '@BusybeeForm/Default/flash.html.twig' with {transDomain: 'BusybeeInstallBundle', flashClass: 'fadeAlert'} %}
+        {% include '@BusybeeTemplate/Default/flash.html.twig' with {transDomain: 'BusybeeInstallBundle', flashClass: 'fadeAlert'} %}
     {% endblock flashMessages %}
     <div class="row">
         <div class="col-sm-6">
@@ -69,7 +69,7 @@
     {% if config.sql.connected %}
         {% set h3Content = proceedButton({'type': 'submit'}) %}
         <form action="{{ path("install_check_mailer_parameters") }}" method="post">
-            {% include '@BusybeeForm/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
+            {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
             <div id="form_body" class="container-fluid">
                 <div class="row">
                     <div class="well col-sm-6 col-sm-offset-6">
@@ -80,17 +80,17 @@
                     </div>
                 </div>
             </div>
-            {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+            {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
             {% set versions = version_manager.getVersion(true) %}
-            {% include '@BusybeeForm/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'software.system.values', 'panelStyle': 'default'} %}
-            {% include '@BusybeeForm/Acknowledgement/acknowledgementContent.html.twig' %}
-            {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+            {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'software.system.values', 'panelStyle': 'default'} %}
+            {% include '@BusybeeTemplate/Acknowledgement/acknowledgementContent.html.twig' %}
+            {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
         </form>
 
     {% else %}
         {% set h3Content = saveButton() %}
         {{ form_start(form) }}
-        {% include '@BusybeeForm/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
         <div id="form_body" class="container-fluid">
             <div class="row">
                 <div class="well col-sm-6">
@@ -125,14 +125,14 @@
                 </div>
             </div>
         </div>
-        {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
         {{ form_end(form) }}
     {% endif %}
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
 {% endblock javascripts %}

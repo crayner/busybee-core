@@ -9,10 +9,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Busybee\Core\FormBundle\Type\YesNoType;
+use Busybee\Core\TemplateBundle\Type\YesNoType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Doctrine\Common\Persistence\ObjectManager;
-use Busybee\Core\FormBundle\Form\DataTransformer\YesNoTransformer;
+use Busybee\Core\TemplateBundle\Form\DataTransformer\YesNoTransformer;
 
 class ClientType extends AbstractType
 {

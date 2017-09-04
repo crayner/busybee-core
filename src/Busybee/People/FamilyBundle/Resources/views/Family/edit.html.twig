@@ -2,18 +2,18 @@
 
 {% trans_default_domain "BusybeeFamilyBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% form_theme form
-"BusybeeFormBundle:Template:bootstrap.html.twig"
-"BusybeeFormBundle:Template:jquery.collection.html.twig"
+"BusybeeTemplateBundle:Template:bootstrap.html.twig"
+"BusybeeTemplateBundle:Template:jquery.collection.html.twig"
 "BusybeeFamilyBundle:Family:careGiverCollection.html.twig"
 "BusybeeFamilyBundle:Family:studentCollection.html.twig" %}
 
 {% block stylesheets %}
     {{ parent() }}
     {% include 'BusybeeHomeBundle:AutoComplete:style.html.twig' %}
-    {% include 'BusybeeFormBundle:Toggle:style.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Toggle:style.html.twig' %}
 {% endblock stylesheets %}
 
 
@@ -62,10 +62,10 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
-    {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
+    {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
+    {% include "BusybeeTemplateBundle:Scripts:jquery.collection.js.html.twig" %}
     {% include 'BusybeeFamilyBundle:Family:script.html.twig' %}
-    {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'family_manage'} %}
-    {% include 'BusybeeFormBundle:Toggle:script.html.twig' %}
-    {% include '@BusybeeForm/Scripts/formTabSubmitScript.html.twig' with {'route': 'family_edit'} %}
+    {% include 'BusybeeTemplateBundle:Scripts:monitorForm.html.twig' with {'route': 'family_manage'} %}
+    {% include 'BusybeeTemplateBundle:Toggle:script.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/formTabSubmitScript.html.twig' with {'route': 'family_edit'} %}
 {% endblock javascripts %}

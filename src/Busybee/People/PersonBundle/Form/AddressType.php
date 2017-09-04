@@ -2,8 +2,8 @@
 
 namespace Busybee\People\PersonBundle\Form;
 
-use Busybee\Core\FormBundle\Type\AutoCompleteType;
-use Busybee\Core\FormBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\AutoCompleteType;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\People\PersonBundle\Entity\Locality;
 use Busybee\People\PersonBundle\Events\AddressSubscriber;
 use Busybee\People\PersonBundle\Repository\LocalityRepository;

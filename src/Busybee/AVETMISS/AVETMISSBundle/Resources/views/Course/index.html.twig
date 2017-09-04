@@ -2,9 +2,9 @@
 
 {% trans_default_domain "BusybeeAVETMISSBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
 
 {% block title %}{{ parent() }}{{ 'course.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'course.title'|trans }}{% endblock headerTitle %}

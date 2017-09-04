@@ -13,5 +13,5 @@ Busybee\People\StudentBundle\Entity\Student:
         person:
             - NotBlank: ~
         house:
-            - Busybee\Core\FormBundle\Validator\SettingChoice:
+            - Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'house.list'

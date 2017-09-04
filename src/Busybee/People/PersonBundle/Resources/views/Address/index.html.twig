@@ -2,9 +2,9 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
-{% form_theme form "BusybeeFormBundle:Template:bootstrap.html.twig" %}
+{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -19,7 +19,7 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include 'BusybeeFormBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
+        {% include 'BusybeeTemplateBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
     {% endblock flashMessages %}
     {{ form_start(form) }}
     <div class="container-fluid">
@@ -34,7 +34,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:Scripts:fadeAlert.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
     {% include 'BusybeePersonBundle:Address:script.html.twig' %}
-    {% include 'BusybeeHomeBundle:Scripts:monitorForm.html.twig' with {'route': 'address_manage'} %}
+    {% include 'BusybeeTemplateBundle:Scripts:monitorForm.html.twig' with {'route': 'address_manage'} %}
 {% endblock javascripts %}

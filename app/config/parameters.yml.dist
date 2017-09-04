@@ -62,9 +62,9 @@ parameters:
             route:
                 resource: SystemBundle/Resources/config/routing.yml
                 prefix: /system/
-        Form:
+        Template:
             type: core
-            namespace: Busybee\Core\FormBundle\BusybeeFormBundle
+            namespace: Busybee\Core\TemplateBundle\BusybeeTemplateBundle
         Pagination:
             type: core
             namespace: Busybee\Core\PaginationBundle\PaginationBundle

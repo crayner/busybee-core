@@ -1,0 +1,3 @@
+{% trans_default_domain 'BusybeeTemplateBundle' %}
+
+<p class="footerDetails">{{ 'footer.details'|trans( {'%version%': get_setting('Version.System'), '%name%': get_parameter('author') } )|raw }}</p>

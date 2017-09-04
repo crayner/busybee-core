@@ -2,7 +2,7 @@
 
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% block title %}{{ 'line.title.list'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'line.title.list'|trans }}{% endblock headerTitle %}
@@ -10,11 +10,11 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include '@BusybeeForm/Default/flash.html.twig' with {transDomain: 'BusybeeTimeTableBundle', } %}
+        {% include '@BusybeeTemplate/Default/flash.html.twig' with {transDomain: 'BusybeeTimeTableBundle', } %}
     {% endblock flashMessages %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
     {% set h3Content = addButton({'title': 'line.title.add', 'transDomain': 'BusybeeTimeTableBundle', 'windowOpen': {'route': path('line_manage', {'id': 'Add'})}}) %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'line.title.list', 'transDomain': 'BusybeeTimeTableBundle'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'line.title.list', 'transDomain': 'BusybeeTimeTableBundle'} %}
     <div class="container-fluid well">
         <div class="row row-header">
             <div class="col-sm-3" style="display: inline-block;">
@@ -60,10 +60,10 @@
             </div>
         {% endfor %}
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeForm/Scripts/confirmDelete.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/confirmDelete.html.twig' %}
 {% endblock javascripts %}

@@ -3,13 +3,13 @@ Busybee\People\StaffBundle\Entity\Staff:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: person
     properties:
         staffType:
-            - \Busybee\Core\FormBundle\Validator\SettingChoice:
+            - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'Staff.Categories'
             - NotBlank: ~
         jobTitle:
             - NotBlank: ~
         house:
-            - Busybee\Core\FormBundle\Validator\SettingChoice:
+            - Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'house.list'
         person:
             - NotBlank: ~

@@ -1,9 +1,9 @@
 {% trans_default_domain "BusybeeStudentBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% form_theme form
-"BusybeeFormBundle:Template:bootstrap.html.twig"
+"BusybeeTemplateBundle:Template:bootstrap.html.twig"
 '@BusybeeActivity/Activity/studentCollection.html.twig' %}
 
 {% block title %}{{ parent() }}{{ 'student.activity.title'|trans }}{% endblock title %}
@@ -28,7 +28,7 @@
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.get('id')}) %}
     {{ form_start(form, {'attr':{'id': 'activity_form'}}) }}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'student.activity.title', 'panelParagraph': 'student.activity.description'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'student.activity.title', 'panelParagraph': 'student.activity.description'} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
@@ -80,7 +80,7 @@
             {% endif %}
         </div>
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 
@@ -88,8 +88,8 @@
     {{ parent() }}
     {% include '@BusybeeActivity/Activity/studentScript.html.twig' %}
     {% set route = 'activity_edit' %}
-    {% include '@BusybeeForm/Scripts/monitorForm.html.twig' %}
-    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/monitorForm.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
     {% if app.request.get('closeWindow') is not empty %}
         <script type="application/javascript" language="JavaScript">
             $('#activity_form').submit(function (event) {

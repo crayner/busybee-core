@@ -2,7 +2,7 @@
 
 namespace Busybee\InstituteBundle\Form;
 
-use Busybee\Core\FormBundle\Type\ToggleType;
+use Busybee\Core\TemplateBundle\Type\ToggleType;
 use Busybee\InstituteBundle\Entity\Space;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\People\StaffBundle\Entity\Staff;

@@ -2,7 +2,7 @@
 
 {% trans_default_domain "BusybeeCurriculumBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% block title %}{{ parent() }}{{ 'course.edit.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'course.edit.title'|trans }}{% endblock headerTitle %}
@@ -10,7 +10,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include 'BusybeeFormBundle:Toggle:style.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Toggle:style.html.twig' %}
 {% endblock %}
 
 {% block contentContainer %}
@@ -20,7 +20,7 @@
     {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('course_edit', {'id': app.request.get('id')})}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
-    {% include '@BusybeeForm/Page/panelStart.html.twig' with {'header': 'course.edit.title', 'transDomain': 'BusybeeCurriculumBundle', 'panelParagraph': 'course.edit.description'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'course.edit.title', 'transDomain': 'BusybeeCurriculumBundle', 'panelParagraph': 'course.edit.description'} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4 well">
@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    {% include '@BusybeeForm/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}
 {% endblock contentContainer %}
 

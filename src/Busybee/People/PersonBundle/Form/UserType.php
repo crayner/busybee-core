@@ -3,7 +3,7 @@
 namespace Busybee\People\PersonBundle\Form;
 
 use Busybee\Core\CalendarBundle\Form\YearEntityType;
-use Busybee\Core\FormBundle\Type\ToggleType;
+use Busybee\Core\TemplateBundle\Type\ToggleType;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Events\UserSubscriber;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;

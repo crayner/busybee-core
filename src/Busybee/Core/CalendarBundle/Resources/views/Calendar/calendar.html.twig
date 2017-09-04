@@ -5,14 +5,14 @@
 {% set flashClass = 'fadeAlert' %}
 {% set transDomain = 'BusybeeCalendarBundle' %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% form_theme form
-'BusybeeFormBundle:Template:jquery.collection.html.twig'
+'BusybeeTemplateBundle:Template:jquery.collection.html.twig'
 '@BusybeeCalendar/Term/term.html.twig'
 '@BusybeeCalendar/SpecialDays/specialDay.html.twig'
 '@BusybeeCalendar/Grade/grade.html.twig'
-'BusybeeFormBundle:Template:bootstrap.html.twig' %}
+'BusybeeTemplateBundle:Template:bootstrap.html.twig' %}
 
 {% block title %}{{ parent() }}{{ 'calendar.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'calendar.title'|trans }}{% endblock headerTitle %}
@@ -61,7 +61,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include "BusybeeFormBundle:Scripts:jquery.collection.js.html.twig" %}
+    {% include "BusybeeTemplateBundle:Scripts:jquery.collection.js.html.twig" %}
     <script type="text/javascript">
         if ($(".fadeAlert").length) {
             $(".fadeAlert").fadeOut(3000);

@@ -2,8 +2,8 @@
 
 namespace Busybee\People\StudentBundle\Form;
 
-use Busybee\Core\FormBundle\Type\ImageType;
-use Busybee\Core\FormBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\ImageType;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\People\StudentBundle\Entity\Student;

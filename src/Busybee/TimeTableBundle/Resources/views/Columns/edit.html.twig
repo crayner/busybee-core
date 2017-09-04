@@ -1,14 +1,14 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
-{% form_theme form 'BusybeeFormBundle:Template:bootstrap.html.twig'
-'@BusybeeForm/Template/jquery.collection.html.twig'
+{% form_theme form 'BusybeeTemplateBundle:Template:bootstrap.html.twig'
+'@BusybeeTemplate/Template/jquery.collection.html.twig'
 '@BusybeeTimeTable/Periods/periodCollection.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include '@BusybeeForm/Toggle/style.html.twig' %}
+    {% include '@BusybeeTemplate/Toggle/style.html.twig' %}
 {% endblock stylesheets %}
 
 {% block title %}{{ parent() }}{{ 'timetable.periods.manage.title'|trans({'%name%': timetable.getFullName}) }}{% endblock title %}
@@ -35,9 +35,9 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeForm/Scripts/jquery.collection.js.html.twig' %}
-    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
-    {% include '@BusybeeForm/Scripts/formTabSubmitScript.html.twig' with {'route': 'timetable_days_edit'} %}
+    {% include '@BusybeeTemplate/Scripts/jquery.collection.js.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/formTabSubmitScript.html.twig' with {'route': 'timetable_days_edit'} %}
     {% include '@BusybeeTimeTable/Periods/periodScript.html.twig' %}
-    {% include '@BusybeeForm/Toggle/script.html.twig' %}
+    {% include '@BusybeeTemplate/Toggle/script.html.twig' %}
 {% endblock javascripts %}

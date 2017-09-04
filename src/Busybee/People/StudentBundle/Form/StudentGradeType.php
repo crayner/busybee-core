@@ -2,7 +2,7 @@
 
 namespace Busybee\People\StudentBundle\Form;
 
-use Busybee\Core\FormBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\People\StudentBundle\Entity\Student;

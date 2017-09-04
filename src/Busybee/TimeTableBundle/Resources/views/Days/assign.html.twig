@@ -1,6 +1,6 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% extends "BusybeeFormBundle:Default:template.html.twig" %}
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
 
 {% block title %}{{ parent() }}{{ 'timetable.daysassign.title'|trans() }}{% endblock title %}
 {% block headerTitle %}{{ 'timetable.daysassign.title'|trans() }}{% endblock headerTitle %}
@@ -29,8 +29,8 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include '@BusybeeForm/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
     {% set route = 'timetable_day_assignment' %}
-    {% include '@BusybeeForm/Scripts/formTabSubmitScript.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/formTabSubmitScript.html.twig' %}
     {% include '@BusybeeTimeTable/Days/rotateToggleScript.html.twig' %}
 {% endblock %}
