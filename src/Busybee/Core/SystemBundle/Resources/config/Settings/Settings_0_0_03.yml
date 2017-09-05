@@ -11,7 +11,7 @@ student.groups:
     displayName: Student Groups
     description: Usually the year groups that attend this school.
     role: ROLE_REGISTRAR
-    value: |
+    value:
         'Year 13': Y13
         'Year 12': Y12
         'Year 11': Y11

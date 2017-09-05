@@ -154,6 +154,12 @@ services:
             - '@file.uploader'
         tags:
             - { name: form.type }
+    form.type.yaml:
+        class: Busybee\Core\TemplateBundle\Type\YamlType
+        arguments:
+            - '@file.uploader'
+        tags:
+            - { name: form.type }
     form.type.setting.choice:
         class: Busybee\Core\TemplateBundle\Type\SettingChoiceType
         arguments:

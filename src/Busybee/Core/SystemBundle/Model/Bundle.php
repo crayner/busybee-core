@@ -100,6 +100,11 @@ class Bundle
 	 */
 	public function isActive(): bool
 	{
+		if (!isset($this->active))
+			$this->setActive(false);
+		if ($this->getType() === 'core')
+			$this->setActive(true);
+
 		return $this->active;
 	}
 

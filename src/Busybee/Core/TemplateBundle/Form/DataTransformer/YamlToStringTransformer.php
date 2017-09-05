@@ -6,7 +6,7 @@ use Busybee\Core\TemplateBundle\Model\FileUpLoad;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
-class CSVToStringTransformer implements DataTransformerInterface
+class YamlToStringTransformer implements DataTransformerInterface
 {
 	private $loader;
 
@@ -36,7 +36,7 @@ class CSVToStringTransformer implements DataTransformerInterface
 	 *
 	 * @param mixed $data
 	 *
-	 * @return Person|null
+	 * @return File|null
 	 * @internal param string $personNumber
 	 */
 	public function reverseTransform($data)

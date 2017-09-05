@@ -2,8 +2,9 @@
 
 namespace Busybee\Core\SystemBundle\Form;
 
-use Busybee\Core\SystemBundle\Event\BundlesSubscriber;
 use Busybee\Core\SystemBundle\Model\BundleManager;
+use Busybee\Core\TemplateBundle\Type\ToggleType;
+use Busybee\Core\TemplateBundle\Type\YamlType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,6 +32,29 @@ class BundlesType extends AbstractType
 						'bundleList' => $options['data']->getBundleList(),
 						'manager'    => $options['data'],
 					],
+				]
+			)
+			->add('orgSettingDefault', ToggleType::class,
+				[
+					'label' => 'bundles.orgSettingDefault.label',
+					'attr'  => [
+						'help'  => 'bundles.orgSettingDefault.help',
+						'class' => 'noSubmit',
+					],
+				]
+			)
+			->add('orgSettingFile', YamlType::class,
+				[
+					'label'    => 'bundles.orgSettingFile.label',
+					'attr'     => [
+						'help' => [
+							'bundles.orgSettingFile.help',
+							[
+								'%fileName%' => $options['data']->getDefaultFileName(),
+							]
+						]
+					],
+					'required' => false,
 				]
 			);
 	}

@@ -76,5 +76,18 @@ class BundleController extends Controller
 		return new RedirectResponse($this->generateUrl('bundle_list'));
 	}
 
+	/**
+	 * @return RedirectResponse
+	 */
+	public function removeFileAction()
+	{
+		$sm = $this->get('setting.manager');
+		if ($sm->has('settings.default.overwrite') && !empty($sm->get('settings.default.overwrite', '')))
+		{
+			unlink($this->get('setting.manager')->get('settings.default.overwrite'));
+			$sm->set('settings.default.overwrite', '');
+		}
 
+		return new RedirectResponse($this->generateUrl('bundle_list'));
+	}
 }

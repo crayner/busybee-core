@@ -154,9 +154,10 @@ class TimeTableManager
         } catch (\Exception $e) {
             $this->timetable = new TimeTable();
         }
-        $this->schoolWeek = $this->sm->get('schoolWeek');
-        $this->firstDayofWeek = $this->sm->get('firstDayofWeek');
-        $this->pm = $pm;
+        $this->schoolWeek     = $this->sm->get('schoolWeek');
+	    $this->firstDayofWeek = $this->sm->get('firstdayofweek', 'Monday');
+
+	    $this->pm            = $pm;
         $this->sess = $sess;
         $this->gradeControl = $this->sess->get('gradeControl');
         $fin = new \DateTime('1970-01-01 ' . $this->sm->get('SchoolDay.Finish'));
@@ -837,4 +838,12 @@ class TimeTableManager
 
         return $per;
     }
+
+	/**
+	 * @return TranslatorInterface
+	 */
+	public function getTranslator()
+	{
+		return $this->translator;
+	}
 }

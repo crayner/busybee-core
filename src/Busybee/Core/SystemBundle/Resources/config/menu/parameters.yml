@@ -30,18 +30,6 @@ parameters:
             node: 12
             route: setting_upload
             order: 121
-        122:
-            name: Update
-            label: menu.site.update
-            role: ROLE_ADMIN
-            node: 12
-            route: update_start
-            order: 122
-            test:
-                value1: test.update.available
-                value2: true
-                comparitor: ==
-                default1: false
         124:
             name: Bundle List
             label: menu.site.bundle.list

@@ -4,6 +4,7 @@ namespace Busybee\Core\SystemBundle\Model;
 
 use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\SystemBundle\Entity\Setting;
+use Busybee\Core\TemplateBundle\Model\FileUpLoad;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Tools\SchemaTool;
@@ -51,6 +52,21 @@ class BundleManager
 	private $projectDir;
 
 	/**
+	 * @var bool
+	 */
+	private $orgSettingDefault = false;
+
+	/**
+	 * @var string
+	 */
+	private $orgSettingFile = '';
+
+	/**
+	 * @var FileUpLoadl
+	 */
+	private $uploader;
+
+	/**
 	 * BundleManager constructor.
 	 *
 	 * @param Kernel $kernel
@@ -61,6 +77,7 @@ class BundleManager
 		$bundles              = Yaml::parse(file_get_contents($this->bundleFileName));
 		$this->settingManager = $kernel->getContainer()->get('setting.manager');
 		$this->bundles        = new ArrayCollection();
+		$this->upLoader       = $kernel->getContainer()->get('file.uploader');
 
 		foreach ($bundles as $name => $bundle)
 		{
@@ -168,6 +185,9 @@ class BundleManager
 			return [];
 		// Do any sort stuff here ...
 		$formData = $form->getData();
+		$files    = $request->files->get('bundles_manage');
+		$file     = isset($files['orgSettingFile']) ? $files['orgSettingFile'] : null;
+		$default  = isset($data['orgSettingDefault']) ? true : false;
 
 		$data    = $data['bundles'];
 		$w       = new ArrayCollection();
@@ -225,6 +245,20 @@ class BundleManager
 			$this->addMessage('success', 'bundle.activate.success', ['%name%' => $bundle['name']]);
 
 		$this->saveBundles();
+
+		if (!is_null($file))
+		{
+			$content = Yaml::parse(file_get_contents($file->getRealPath()));
+
+			if ($default)
+			{
+				if ($this->settingManager->has('settings.default.overwrite') && !empty($this->settingManager->get('settings.default.overwrite', '')))
+					unlink($this->settingManager->get('settings.default.overwrite', ''));
+				$this->settingManager->set('settings.default.overwrite', $this->upLoader->upload($file));
+				$this->addMessage('info', 'bundles.settings.default.saved', ['%name%' => $content['name']]);
+			}
+			$this->buildSettings($this->convertSettings($content['settings']), $content['name']);
+		}
 	}
 
 	/**
@@ -298,6 +332,11 @@ class BundleManager
 		return $this->bundles->get($name);
 	}
 
+	/**
+	 * @param Bundle $bundle
+	 *
+	 * @return bool
+	 */
 	private function requiredExclusion(Bundle $bundle)
 	{
 		$excluded = false;
@@ -433,7 +472,7 @@ class BundleManager
 		else
 			$this->addMessage('warning', 'bundle.update.resource.missing', ['%name%' => $name]);
 
-
+		$this->loadSettings();
 	}
 
 
@@ -511,6 +550,9 @@ class BundleManager
 	 */
 	public function buildDatabase()
 	{
+
+		$this->objectManager->getConnection()->exec('SET FOREIGN_KEY_CHECKS = 0;');
+
 		$schemaTool = new SchemaTool($this->objectManager);
 
 		$metaData = $this->objectManager->getMetadataFactory()->getAllMetadata();
@@ -520,6 +562,8 @@ class BundleManager
 		$count = count($xx);
 
 		$schemaTool->updateSchema($metaData, true);
+
+		$this->objectManager->getConnection()->exec('SET FOREIGN_KEY_CHECKS = 1;');
 
 		$this->addMessage('success', 'bundle.update.database.success', ['%count%' => $count]);
 	}
@@ -547,4 +591,79 @@ class BundleManager
 		return false;
 	}
 
+	/**
+	 * Load Default Settings for Organisation
+	 */
+	private function loadSettings()
+	{
+		$file = $this->settingManager->get('settings.default.overwrite', '');
+		if (empty($file))
+			return;
+
+		$content = Yaml::parse(file_get_contents($file));
+
+		$this->buildSettings($this->convertSettings($content['settings']), $file);
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isOrgSettingDefault(): bool
+	{
+		return $this->orgSettingDefault;
+	}
+
+	/**
+	 * @param bool $orgSettingDefault
+	 *
+	 * @return BundleManager
+	 */
+	public function setOrgSettingDefault(bool $orgSettingDefault): BundleManager
+	{
+		$this->orgSettingDefault = $orgSettingDefault;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getOrgSettingFile(): string
+	{
+		return $this->orgSettingFile;
+	}
+
+	/**
+	 * @param string $orgSettingFile
+	 *
+	 * @return BundleManager
+	 */
+	public function setOrgSettingFile(string $orgSettingFile): BundleManager
+	{
+		$this->orgSettingFile = $orgSettingFile;
+
+		return $this;
+	}
+
+	private function convertSettings($content): array
+	{
+		$settings = [];
+		foreach ($content as $name => $value)
+			$settings[$name]['value'] = $value;
+
+		return $settings;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDefaultFileName()
+	{
+		$fileName = $this->settingManager->get('settings.default.overwrite', '');
+		if (empty($fileName))
+			return '';
+		$content = Yaml::parse(file_get_contents($fileName));
+
+		return $content['name'];
+	}
 }

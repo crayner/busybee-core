@@ -84,8 +84,6 @@ services:
             - '@setting.repository'
             - '@session'
             - '@kernel'
-        call:
-             - [setParameterBag, ["@=service('kernel').getContainer().getParameterBag()"]]
     plugin.manager:
         class: Busybee\Core\SystemBundle\Plugin\PluginManager
         arguments: 

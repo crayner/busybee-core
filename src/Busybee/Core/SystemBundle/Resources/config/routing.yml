@@ -28,3 +28,6 @@ install_build_system:
 install_build_complete:
     path: /install/complete/
     defaults: { _controller: SystemBundle:Install:complete }
+bundle_default_remove:
+    path: /bundles/default/remove/
+    defaults: { _controller: SystemBundle:Bundle:removeFile }

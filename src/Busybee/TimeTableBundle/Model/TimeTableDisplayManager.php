@@ -171,9 +171,12 @@ class TimeTableDisplayManager extends TimeTableManager
     /**
      * @return string
      */
-    public function getDescription(): string
+	public function getDescription($translated = false): string
     {
-        return $this->description;
+	    if (!$translated)
+		    return $this->description;
+
+	    return $this->getTranslator()->trans($this->description, ['%type%' => $this->getType(), '%identifier%' => $this->getIdDesc()], 'BusybeeTimeTableBundle');
     }
 
     /**
@@ -398,7 +401,6 @@ class TimeTableDisplayManager extends TimeTableManager
     {
         if (false === $this->isTimeTable)
             return $this;
-
         $this->clearWeeks();
         $week = new \stdClass();
         $week->days = [];
@@ -410,7 +412,8 @@ class TimeTableDisplayManager extends TimeTableManager
         $week->title = 'Hol';
 
         do {
-            if ($day->format('l') === $this->getFirstDayofWeek() && !empty($week->days)) {
+	        if ($day->format('l') === $this->getFirstDayofWeek() && !empty($week->days))
+	        {
                 $this->addWeek($week);
                 $week = new \stdClass();
                 $week->days = [];
@@ -432,6 +435,7 @@ class TimeTableDisplayManager extends TimeTableManager
 
         if (!empty($week->days))
             $this->addWeek($week);
+	    dump($this);
 
         return $this;
     }

@@ -39,13 +39,12 @@ class AdvancedLoader extends Loader
 
 		foreach ($this->bundles as $name => $bundle)
 		{
-
 			if ((isset($bundles['active']) && $bundle['active']) || ($bundle['type'] === 'core' && !empty($bundle['route'])))
 			{
 				$route          = $bundle['route'];
 				$importedRoutes = null;
 				$importedRoutes = $this->import('@' . $route['resource'], empty($route['type']) ? 'yaml' : $route['type']);
-				$importedRoutes->addPrefix(empty($route['prefix']) ? strtolower($name) : $route['prefix']);
+				$importedRoutes->addPrefix(empty($route['prefix']) ? '' : $route['prefix']);
 				$routes->addCollection($importedRoutes);
 			}
 		}

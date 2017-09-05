@@ -7,13 +7,26 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class FileUpLoad
 {
+	/**
+	 * @var string
+	 */
 	private $targetDir;
 
+	/**
+	 * FileUpLoad constructor.
+	 *
+	 * @param $targetDir
+	 */
 	public function __construct($targetDir)
 	{
 		$this->targetDir = $targetDir;
 	}
 
+	/**
+	 * @param File $file
+	 *
+	 * @return string|File
+	 */
 	public function upload(File $file)
 	{
 		if (!$file instanceof UploadedFile)

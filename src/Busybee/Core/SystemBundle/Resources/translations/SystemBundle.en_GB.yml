@@ -134,3 +134,15 @@ bundle:
             notavailable: 'The resource %resource% is not available.'
         database:
             success: 'The database had %count% changes applied.'
+bundles:
+    orgSettingFile:
+        label: Organisation Setting File
+        help: 'The file of settings will be loaded after all other updates to ensure that these settings are used.  The file can be permanently saved by the system and will be used automatically ensure organisation defaults. Current Default File: %fileName%'
+    orgSettingDefault:
+        help: Save this file as the Organisation Default File.
+        label: Set File as Default
+    remove:
+        file: Remove Default File
+    settings:
+        default:
+            saved: 'The file "%name%" was set as default for your organisation.'

@@ -39,8 +39,6 @@ AVETMISS.Location.List:
     displayName: 'AVETMISS Training Organisation Delivery Locations'
     description: 'A list of locations that your training organisation uses to deliver training.'
     role: 'ROLE_ADMIN'
-CountryType:
-    value: 'Busybee\AVETMISS\AVETMISSBundle\Type\CountryType'
 AVETMISS.Recognition.Identifier:
     type: array
     value:

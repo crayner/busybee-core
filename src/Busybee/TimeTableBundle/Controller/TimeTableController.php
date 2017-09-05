@@ -114,9 +114,10 @@ class TimeTableController extends Controller
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
         $tm = $this->get('timetable.manager')->setTimeTable($this->get('timetable.repository')->find($id));
+	    dump($tm);
 
-	    if ($tm->getTimeTable()->getLocked() && !$tm->getTimeTable()->getGenerated())
-		    return $this->generateTimeTable($id);
+//	    if ($tm->getTimeTable()->getLocked() && ! $tm->getTimeTable()->getGenerated())
+//		    return $this->generateTimeTable($id);
 
         $up = $this->get('period.pagination');
         $lp = $this->get('line.pagination');
@@ -261,13 +262,13 @@ class TimeTableController extends Controller
         else
             $this->get('hide.section')->HideSectionOff();
 
-        $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $this->get('timetable.display.manager')->getTimeTableIdentifier($this->getUser());
+	    $tm = $this->get('timetable.display.manager');
+
+	    $identifier = $sess->has('tt_identifier') ? $sess->get('tt_identifier') : $tm->getTimeTableIdentifier($this->getUser());
 
         $vd->parseIdentifier($identifier);
 
         $this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', $vd, null);
-
-        $tm = $this->get('timetable.display.manager');
 
         return $this->render('BusybeeTimeTableBundle:Display:index.html.twig',
             [
@@ -309,7 +310,8 @@ class TimeTableController extends Controller
 
         return new JsonResponse(
             [
-                'content' => $content,
+	            'content'     => $content,
+	            'description' => $tm->getDescription(true),
             ],
             200
         );

@@ -10,6 +10,7 @@ use Busybee\People\PersonBundle\Validator\Phone;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
@@ -751,4 +752,5 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 	{
 		return $this->container->hasParameter($name);
 	}
+
 }
