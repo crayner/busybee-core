@@ -445,20 +445,20 @@ services:
     avetmiss.form.courseType:
         class: Busybee\AVETMISS\AVETMISSBundle\Form\CourseType
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags: 
             - { name: form.type }    
     avetmiss.form.subjectType:
         class: Busybee\AVETMISS\AVETMISSBundle\Form\SubjectType
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@doctrine.orm.entity_manager'
         tags: 
             - { name: form.type }    
     avetmiss_client_form:
         class: Busybee\AVETMISS\AVETMISSBundle\Form\ClientType
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@doctrine.orm.entity_manager'
         tags: 
             - { name: form.type }    

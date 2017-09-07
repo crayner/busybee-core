@@ -6,4 +6,4 @@
 {% endif %}
 {% set h3Content = h3Content ~ resetButton({'type': 'button', 'javascript': {'function': 'resetYear', 'options': []}}) %}
 {% set h3Content = h3Content ~ saveButton() %}
-{% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': header, 'transDomain': 'BusybeeCalendarBundle'} %}
+{% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': header, 'transDomain': 'BusybeeCalendarBundle'} %}

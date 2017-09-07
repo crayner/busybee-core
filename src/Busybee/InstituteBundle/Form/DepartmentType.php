@@ -38,19 +38,19 @@ class DepartmentType extends AbstractType
         $builder
             ->add('name', null,
                 [
-                    'label' => 'department.label.name'
+	                'label' => 'department.name.label'
                 ]
             )
             ->add('type', SettingChoiceType::class,
                 [
-                    'label' => 'department.label.type',
-                    'setting_name' => 'department.type.list',
-                    'placeholder' => 'department.placeholder.type',
+	                'label'        => 'department.type.label',
+	                'setting_name' => 'department.type.list',
+	                'placeholder'  => 'department.type.placeholder',
                 ]
             )
             ->add('nameShort', null,
                 [
-                    'label' => 'department.label.nameShort'
+	                'label' => 'department.nameShort.label'
                 ]
             )
             ->add('courses', CollectionType::class,
@@ -58,38 +58,38 @@ class DepartmentType extends AbstractType
                     'entry_type' => EntityType::class,
                     'attr' =>
                         [
-                            'class' => 'courseList',
-                            'help' => 'department.help.courses',
+	                        'class' => 'courseList',
+	                        'help'  => 'department.course.help',
                         ],
                     'allow_add' => true,
                     'allow_delete' => true,
                     'entry_options' => [
-                        'label' => 'department.course.label.name',
-                        'class' => Course::class,
-                        'choice_label' => 'name',
-                        'query_builder' => function (EntityRepository $er) {
+	                    'label'         => 'department.course.name.label',
+	                    'class'         => Course::class,
+	                    'choice_label'  => 'name',
+	                    'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('c')
                                 ->orderBy('c.name', 'ASC');
                         },
-                        'placeholder' => 'department.course.placeholder.name',
+	                    'placeholder'   => 'department.course.name.placeholder',
                     ],
                 ]
             )
             ->add('departmentList', EntityType::class, array(
-                    'class' => Department::class,
-                    'attr' => array(
+		            'class'         => Department::class,
+		            'attr'          => array(
                         'class' => 'departmentList changeRecord formChanged',
                     ),
-                    'label' => '',
-                    'mapped' => false,
-                    'choice_label' => 'name',
-                    'query_builder' => function (EntityRepository $er) {
+		            'label'         => '',
+		            'mapped'        => false,
+		            'choice_label'  => 'name',
+		            'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('d')
                             ->orderBy('d.name', 'ASC');
                     },
-                    'placeholder' => 'department.placeholder.departments',
-                    'required' => false,
-                    'data' => $options['data']->getId(),
+		            'placeholder'   => 'department.departments.placeholder',
+		            'required'      => false,
+		            'data'          => $options['data']->getId(),
                 )
             );
 

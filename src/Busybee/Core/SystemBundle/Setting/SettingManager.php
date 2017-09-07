@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\Core\SystemBundle\Setting;
 
+use Busybee\Core\SystemBundle\Model\MessageManager;
 use Busybee\Core\TemplateBundle\Source\SettingManagerInterface;
 use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\SecurityBundle\Entity\User;
@@ -10,7 +11,6 @@ use Busybee\People\PersonBundle\Validator\Phone;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
@@ -19,15 +19,30 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 /**
  * Setting Manager
  *
- * @version    13th May 2017
+ * @version    6th September 2017
  * @since      20th October 2016
  * @author     Craig Rayner
  */
 class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 {
+	/**
+	 * @var Setting
+	 */
 	private $setting;
+
+	/**
+	 * @var array
+	 */
 	private $settingCache;
+
+	/**
+	 * @var User
+	 */
 	private $currentUser;
+
+	/**
+	 * @var array
+	 */
 	private $settings;
 
 	/**
@@ -51,6 +66,11 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 	private $container;
 
 	/**
+	 * @var MessageManager
+	 */
+	private $messages;
+
+	/**
 	 * SettingManager constructor.
 	 *
 	 * @param ContainerInterface $container
@@ -62,6 +82,7 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 		$this->settingRepo  = $sr;
 		$this->projectDir   = $kernel->getProjectDir();
 		$this->setContainer($kernel->getContainer());
+		$this->messages = new MessageManager('SystemBundle');
 	}
 
 	/**
@@ -163,6 +184,15 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 			$last = end($name);
 			array_pop($name);
 			$value = $this->getSetting(implode('.', $name), $default, $options);
+
+			if (is_array($value))
+			{
+				$x = [];
+				foreach ($value as $name => $data)
+					$x[strtolower($name)] = $data;
+				$value = $x;
+			}
+
 			if (is_array($value) && isset($value[$last]))
 				return $value[$last];
 
@@ -715,6 +745,14 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 		return $this->container->getParameter($name);
 	}
 
+	/**
+	 * @return MessageManager
+	 */
+	public function getMessages(): MessageManager
+	{
+		return $this->messages;
+	}
+
 
 	/**
 	 * load Setting File
@@ -752,5 +790,6 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 	{
 		return $this->container->hasParameter($name);
 	}
+
 
 }

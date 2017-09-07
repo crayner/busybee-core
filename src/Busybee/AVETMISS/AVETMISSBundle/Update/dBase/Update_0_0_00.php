@@ -67,7 +67,7 @@ class Update_0_0_00 extends PluginManager
 			'Overseas'                      => 'OS'
 		);
 
-		$this->container->get('setting.manager')->set('Address.TerritoryList', $territories);
+		$this->container->get('busybee_core_system.setting.setting_manager')->set('Address.TerritoryList', $territories);
 		//4
 		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('string');
@@ -91,7 +91,7 @@ class Update_0_0_00 extends PluginManager
 
 		$this->sm->createSetting($entity);
 		//6
-		$this->container->get('setting.manager')->set('CountryType', 'Busybee\AVETMISS\AVETMISSBundle\Type\CountryType');
+		$this->container->get('busybee_core_system.setting.setting_manager')->set('CountryType', 'Busybee\AVETMISS\AVETMISSBundle\Type\CountryType');
 		//7
 		$entity = new \Busybee\Core\SystemBundle\Entity\Setting();
 		$entity->setType('array');

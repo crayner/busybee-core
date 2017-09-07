@@ -2,15 +2,14 @@
 
 namespace Busybee\Core\SystemBundle\Model;
 
-use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\SystemBundle\Entity\Setting;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\Core\TemplateBundle\Model\FileUpLoad;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
 
@@ -62,9 +61,9 @@ class BundleManager
 	private $orgSettingFile = '';
 
 	/**
-	 * @var FileUpLoadl
+	 * @var FileUpLoad
 	 */
-	private $uploader;
+	private $upLoader;
 
 	/**
 	 * BundleManager constructor.
@@ -75,7 +74,7 @@ class BundleManager
 	{
 		$this->bundleFileName = $kernel->getProjectDir() . '/app/config/bundles.yml';
 		$bundles              = Yaml::parse(file_get_contents($this->bundleFileName));
-		$this->settingManager = $kernel->getContainer()->get('setting.manager');
+		$this->settingManager = $kernel->getContainer()->get('busybee_core_system.setting.setting_manager');
 		$this->bundles        = new ArrayCollection();
 		$this->upLoader       = $kernel->getContainer()->get('file.uploader');
 
@@ -86,7 +85,7 @@ class BundleManager
 
 		$this->projectDir = $kernel->getProjectDir();
 
-		$this->help          = "# This file contains the details of all Busybee Bundles.
+		$this->help     = "# This file contains the details of all Busybee Bundles.
 # Format is:
 #       name: Name of the Bundle
 #       active:  true or false (Defaults to false)
@@ -100,7 +99,8 @@ class BundleManager
 #       requirements: array of Bundles that are required to be active if this bundle is active.
 #       exclusions: array of Bundle that must not be active if this bundle is active.
 ";
-		$this->messages      = [];
+		$this->messages = $kernel->getContainer()->get('busybee_core_system.model.message_manager');
+
 		$this->objectManager = $kernel->getContainer()->get('doctrine')->getManager();
 	}
 
@@ -293,28 +293,6 @@ class BundleManager
 	}
 
 	/**
-	 * @param       $level
-	 * @param       $message
-	 * @param array $options
-	 *
-	 * @return $this
-	 */
-	private function addMessage($level, $message, $options = [])
-	{
-		$mess = new Message();
-
-		$mess->setDomain('SystemBundle');
-		$mess->setLevel($level);
-		$mess->setMessage($message);
-		foreach ($options as $name => $element)
-			$mess->addOption($name, $element);
-
-		$this->messages[] = $mess;
-
-		return $this;
-	}
-
-	/**
 	 * @return array
 	 */
 	public function getMessages()
@@ -393,13 +371,14 @@ class BundleManager
 	 */
 	public function updateRequired($name)
 	{
-
 		if (!$this->settingManager->hasParameter($name))
 			return false;
 
 		$bundle = $this->getBundleByName($name);
+
 		if (!$bundle->isActive())
 			return false;
+
 		$bundleParams = $this->settingManager->getParameter($name);
 
 		$current   = $this->settingManager->get($name . '.version', '0.0.00');
@@ -602,7 +581,7 @@ class BundleManager
 
 		$content = Yaml::parse(file_get_contents($file));
 
-		$this->buildSettings($this->convertSettings($content['settings']), $file);
+		$this->buildSettings($this->convertSettings($content['settings']), $content['name']);
 	}
 
 	/**
@@ -665,5 +644,21 @@ class BundleManager
 		$content = Yaml::parse(file_get_contents($fileName));
 
 		return $content['name'];
+	}
+
+	/**
+	 * Add Message
+	 *
+	 * @param       $level
+	 * @param       $message
+	 * @param array $options
+	 *
+	 * @return $this
+	 */
+	private function addMessage($level, $message, $options = [])
+	{
+		$this->messages->addMessage($level, $message, $options, 'SystemBundle');
+
+		return $this;
 	}
 }

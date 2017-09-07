@@ -16,7 +16,7 @@ class NAT00005Controller extends Controller
 
 		$settings = $this->get('service_container')->getParameter('AVETMISS Report.nat00005');
 
-		$sm = $this->get('setting.manager');
+		$sm = $this->get('busybee_core_system.setting.setting_manager');
 
 		$form = $this->createForm(SettingListType::class, array());
 

@@ -46,7 +46,7 @@ services:
     family.manager:
         class: Busybee\People\FamilyBundle\Model\FamilyManager
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@doctrine.orm.entity_manager'
             - '@person.manager'
     caregiver.validator:

@@ -23,7 +23,7 @@ class TestUpdateAvailable extends Tester
 	 */
 	public function test()
 	{
-		$setting = $this->container->get('setting.manager');
+		$setting = $this->container->get('busybee_core_system.setting.setting_manager');
 		if (version_compare($setting->get('Version.System'), $this->container->getParameter('version.system'), '<'))
 			return true;
 		if (version_compare($setting->get('Version.Database'), $this->container->getParameter('version.database'), '<'))

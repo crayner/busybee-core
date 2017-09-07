@@ -64,6 +64,9 @@ system:
             help: Set by the programmer of this bundle.
         active:
             label: Active
+        defaults:
+            title: Organisation Default Settings.
+            description: 'You can create your own set of default settings in a YAML style file and ensure that they are applied to your system after each upgrade.  (Some upgrades may write over settings, although for backwards compatibility, we endeavour to ensure that overwriting does not happen.  You can use files from the resources website to start you setting file.'
 user:
     list:
         title: User List

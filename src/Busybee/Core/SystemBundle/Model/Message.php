@@ -10,14 +10,17 @@ class Message
 	 * @var string
 	 */
 	private $level;
+
 	/**
 	 * @var string
 	 */
 	private $message;
+
 	/**
 	 * @var array
 	 */
 	private $options;
+
 	/**
 	 * @var string
 	 */

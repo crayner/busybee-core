@@ -1,5 +1,5 @@
 parameters:
-    Form:
+    Template:
         version: 0.0.01
         settings:
             resources:
@@ -137,7 +137,7 @@ services:
     validator.setting.choice.constraint:
         class: Busybee\Core\TemplateBundle\Validator\Constraints\SettingChoiceValidator
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: validator.constraint_validator, alias: setting_validator }
     validator.blank.or.valid.constraint:
@@ -163,7 +163,7 @@ services:
     form.type.setting.choice:
         class: Busybee\Core\TemplateBundle\Type\SettingChoiceType
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     validator.unique.or.blank:
@@ -188,7 +188,7 @@ services:
         class: Busybee\Core\TemplateBundle\Model\VersionManager
         arguments:
             - '@doctrine.dbal.default_connection'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '%version%'
             - '@translator'
     busybee_form.button.extension:
@@ -201,7 +201,7 @@ services:
     busybee_form.setting.extension:
         class: Busybee\Core\TemplateBundle\Extension\SettingExtension
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@menu.manager'
             - '@busybee.parameters'
         tags:

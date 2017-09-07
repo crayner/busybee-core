@@ -118,6 +118,7 @@ class MenuManager implements MenuManagerInterface
 		$items  = $this->container->getParameter('items');
 		$result = [];
 		foreach ($items as $w)
+		{
 			if ($w['node'] == $node && $this->itemRoleCheck($w))
 			{
 				$w['parameters'] = !empty($w['parameters']) ? $w['parameters'] : array();
@@ -127,6 +128,7 @@ class MenuManager implements MenuManagerInterface
 					unset($w['role']);
 				$result[] = $w;
 			}
+		}
 		$items = $this->msort($result, 'order');
 
 		$this->nodeItems[$node] = $items;
@@ -152,6 +154,7 @@ class MenuManager implements MenuManagerInterface
 
 		if (!empty($node['route']))
 		{
+			$this->pageRoles[$node['route']] = array_values($this->pageRoles[$node['route']]);
 
 			if (empty($this->pageRoles[$node['route']]) || (count($this->pageRoles[$node['route']]) == 1 && is_null($this->pageRoles[$node['route']][0])))
 				$this->pageRoles[$node['route']] = [];
@@ -256,7 +259,7 @@ class MenuManager implements MenuManagerInterface
 	private function manageValue($value, $default = null)
 	{
 		if (0 === strpos($value, 'setting.'))
-			return $this->container->get('setting.manager')->get(substr($value, 8), $default);
+			return $this->container->get('busybee_core_system.setting.setting_manager')->get(substr($value, 8), $default);
 
 		if (0 === strpos($value, 'parameter.'))
 		{

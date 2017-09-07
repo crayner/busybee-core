@@ -1,6 +1,6 @@
 Home.version:
     type: system
     value: 0.0.01
-    displayName: Home Bundle Version
-    description: Home Bundle Version
+    displayName: 'Version: Home Bundle'
+    description: System Setting ONLY
     role: ROLE_SYSTEM_ADMIN

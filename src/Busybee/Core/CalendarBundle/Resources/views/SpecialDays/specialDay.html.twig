@@ -11,7 +11,7 @@
     {% set h3Content = h3Content ~ deleteButton({'title': 'specialDay.delete.title', 'transDomain': 'BusybeeCalendarBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;', 'javascript': {'function': 'return removeSpecialDay', 'options': {'id': sday_id, 'year': app.request.get('id')}}}) %}
     {% set h3Content = h3Content ~ saveButton({'name': 'specialDays'}) %}
     {% set h3Content = h3Content ~ '</div>' %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': panelTitle, 'panelStyle': 'info', 'transDomain': 'BusybeeCalendarBundle'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': panelTitle, 'panelStyle': 'info', 'transDomain': 'BusybeeCalendarBundle'} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 well">
@@ -46,5 +46,5 @@
         </div>
     </div>
     {% include '@BusybeeCalendar/SpecialDays/specialDayScript.html.twig' with {'name': form.vars.name} %}
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {% endblock specialday_widget %}

@@ -1,6 +1,6 @@
 Pagination.version:
     type: system
     value: 0.0.01
-    displayName: Pagination Bundle Version
-    description: Pagination Bundle Version
+    displayName: 'Version: Pagination Bundle'
+    description: System Setting ONLY
     role: ROLE_SYSTEM_ADMIN

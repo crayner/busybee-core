@@ -12,7 +12,7 @@
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ upDownButton()|raw %}
         {% set h3Content = h3Content ~ '</div>' %}
-        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': gradeTitle, 'panelStyle': 'info'} %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': gradeTitle, 'panelStyle': 'info'} %}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 well">
@@ -23,6 +23,6 @@
                 </div>
             </div>
         </div>
-        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {% endspaceless %}
 {% endblock grade_widget %}

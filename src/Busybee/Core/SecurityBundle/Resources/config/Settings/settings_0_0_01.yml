@@ -1,6 +1,6 @@
 Security.version:
     type: system
     value: 0.0.01
-    displayName: Security Bundle Version
-    description: Security Bundle Version
+    displayName: 'Version: Security Bundle'
+    description: System Setting ONLY
     role: ROLE_SYSTEM_ADMIN

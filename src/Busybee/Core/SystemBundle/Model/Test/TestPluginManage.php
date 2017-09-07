@@ -26,7 +26,7 @@ class TestPluginManage extends Tester
 	 */
 	public function test()
 	{
-		$setting = $this->container->get('setting.manager');
+		$setting = $this->container->get('busybee_core_system.setting.setting_manager');
 		foreach (new DirectoryIterator(__DIR__ . '/../../../Plugin') as $fileInfo)
 		{
 			if ($fileInfo->isDot()) continue;

@@ -33,7 +33,7 @@ services:
         class: Busybee\Core\InstallBundle\Router\AdvancedLoader
         tags:
             - { name: routing.loader }
-    setting.manager:
+    busybee_core_system.setting.setting_manager:
         class: Busybee\Core\InstallBundle\Model\SettingManager
     menu.manager:
         class: Busybee\Core\InstallBundle\Model\MenuManager

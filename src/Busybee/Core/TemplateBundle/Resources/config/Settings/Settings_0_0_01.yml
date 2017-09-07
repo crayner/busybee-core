@@ -1,6 +1,6 @@
-Form.version:
+Template.version:
     type: system
     value: 0.0.01
-    displayName: Form Bundle Version
-    description: Form Bundle Version
+    displayName: 'Version: Template Bundle'
+    description: System Setting ONLY
     role: ROLE_SYSTEM_ADMIN

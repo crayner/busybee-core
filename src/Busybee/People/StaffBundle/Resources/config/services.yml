@@ -64,7 +64,7 @@ services:
         class: Busybee\People\StaffBundle\Form\StaffType
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     staff.pagination:

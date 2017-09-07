@@ -86,7 +86,7 @@ class SettingController extends Controller
 		if (is_null($setting)) throw new InvalidArgumentException('The System setting of identifier: ' . $id . ' was not found');
 		$this->denyAccessUnlessGranted($setting->getRole(), null, null);
 
-		$sm = $this->get('setting.manager');
+		$sm = $this->get('busybee_core_system.setting.setting_manager');
 
 		$data  = $request->request->get('setting');
 		$valid = true;
@@ -331,66 +331,6 @@ class SettingController extends Controller
 		);
 	}
 
-	public function uploadAction(Request $request)
-	{
-		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
-
-		$form = $this->createForm(UploadType::class, new \stdClass());
-
-		$form->handleRequest($request);
-
-		$errors = array();
-		$error  = 0;
-		if ($form->isValid())
-		{
-			$file    = $form->get('file')->getData();
-			$content = file_get_contents($file->getRealPath());
-			unlink($file->getRealPath());
-			$content = Yaml::parse($content);
-			$sess    = $request->getSession();
-			if (empty($content['name']) || $content['name'] !== $file->getClientOriginalName())
-			{
-				$sess->getFlashBag()
-					->add('warning', array('upload.error.fileNameMatch' => array('%name%' => $file->getClientOriginalName())));;
-			}
-			if (empty($content['settings']))
-			{
-				$sess
-					->getFlashBag()
-					->add('error', 'upload.error.settingsMissing');
-			}
-			if (empty($errors))
-			{
-				$sm = $this->get('setting.manager');
-				foreach ($content['settings'] as $name => $value)
-					$sm->set($name, $value);
-				$sess
-					->getFlashBag()
-					->add('success', array('upload.success.settings' => array('%count%' => count($content['settings']))));
-				if ($form->get('default'))
-				{
-					$exists = $this->get('setting.manager')->get('Settings.Default.Overwrite');
-					if (!empty($exists) && file_exists($exists))
-						unlink($exists);
-					$path  = str_replace('app/../', '', $this->getParameter('upload_path'));
-					$fName = $path . '/' . md5(uniqid()) . '.yml';
-					file_put_contents($fName, Yaml::dump($content));
-					$this->get('setting.manager')->set('Settings.Default.Overwrite', $fName);
-					$sess
-						->getFlashBag()
-						->add('success', 'default.success');
-				}
-			}
-
-
-		}
-
-		return $this->render('SystemBundle:Setting:upload.html.twig',
-			array(
-				'form' => $form->createView(),
-			)
-		);
-	}
 
 	/**
 	 * This action is only used by the program developer.
@@ -411,7 +351,7 @@ class SettingController extends Controller
 		{
 			$create = $request->request->get('create');
 			$data   = Yaml::parse($create['setting']);
-			$sm     = $this->get('setting.manager');
+			$sm     = $this->get('busybee_core_system.setting.setting_manager');
 			foreach ($data as $name => $values)
 			{
 				$setting = new Setting();

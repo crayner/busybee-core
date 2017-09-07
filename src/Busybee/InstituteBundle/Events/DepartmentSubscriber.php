@@ -79,8 +79,8 @@ class DepartmentSubscriber implements EventSubscriberInterface
                     'entry_type' => DepartmentStaffType::class,
                     'attr' =>
                         [
-                            'class' => 'staffList',
-                            'help' => 'department.help.staff',
+	                        'class' => 'staffList',
+	                        'help'  => 'department.staff.help',
                         ],
                     'allow_add' => true,
                     'allow_delete' => true,

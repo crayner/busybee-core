@@ -45,7 +45,7 @@ class PluginManager
 	public function __construct(Container $container)
 	{
 		$this->container = $container;
-		$this->sm        = $this->container->get('setting.manager');
+		$this->sm        = $this->container->get('busybee_core_system.setting.setting_manager');
 		$this->sm->setCurrentUser($this->container->get('security.token_storage')->getToken()->getUser());
 
 		return $this;

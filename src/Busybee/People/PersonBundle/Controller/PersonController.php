@@ -222,7 +222,7 @@ class PersonController extends Controller
 
 		$preference = $pm->getPerson()->getPreference();
 
-		$list       = $this->get('setting.manager')->get('languages.translated');
+		$list       = $this->get('busybee_core_system.setting.setting_manager')->get('languages.translated');
 		$localeList = [];
 		foreach ($list as $q => $w)
 		{

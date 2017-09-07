@@ -24,7 +24,7 @@ services:
     campus.form.campusType:
         class: Busybee\InstituteBundle\Form\CampusType
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags: 
             - { name: form.type }    
     institute.name.validator:
@@ -49,7 +49,7 @@ services:
         class: Busybee\InstituteBundle\Form\SpaceType
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     campus.subscriber:
@@ -67,12 +67,12 @@ services:
         class: Busybee\InstituteBundle\Form\DepartmentStaffType
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     form.department.type:
         class: Busybee\InstituteBundle\Form\DepartmentType
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }

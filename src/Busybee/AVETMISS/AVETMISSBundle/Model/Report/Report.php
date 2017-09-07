@@ -36,7 +36,7 @@ abstract class Report implements ReportInterface
 	public function __construct(Container $container)
 	{
 		$this->container   = $container;
-		$this->sm          = $container->get('setting.manager');
+		$this->sm          = $container->get('busybee_core_system.setting.setting_manager');
 		$this->errors      = new ErrorManager();
 		$this->status      = 'warning';
 		$this->em          = $container->get('doctrine')->getManager();

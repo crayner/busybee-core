@@ -23,13 +23,6 @@ parameters:
             node: 12
             route: setting_manage
             order: 120
-        121:
-            name: Upload Default Settings
-            label: menu.site.setting.upload
-            role: ROLE_REGISTRAR
-            node: 12
-            route: setting_upload
-            order: 121
         124:
             name: Bundle List
             label: menu.site.bundle.list

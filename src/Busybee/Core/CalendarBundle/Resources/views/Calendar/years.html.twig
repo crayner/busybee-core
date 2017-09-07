@@ -10,7 +10,7 @@
 
 {% block contentContainer %}
     {% set h3Content = addButton({'windowOpen': {'route': path('year_edit', {'id': 'Add'})}}) %}
-    {% include '@BusybeeHome/Page/panelStart.html.twig' with {'transDomain': 'BusybeeCalendarBundle', 'header': 'years.list'} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeCalendarBundle', 'header': 'years.list'} %}
     <div class="container-fluid">
         {% if Years|length > 0 %}
         <div class="row row-header">
@@ -51,7 +51,7 @@
         <p class="alert alert-warning">{{ 'years.empty'|trans }}<p>
             {% endif %}
     </div>
-    {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}
 
 

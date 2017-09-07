@@ -44,7 +44,7 @@ class DefaultController extends Controller
 
 	public function indexAction(Request $request)
 	{
-		$setting = $this->get('setting.manager');
+		$setting = $this->get('busybee_core_system.setting.setting_manager');
 		try
 		{
 			if (!$setting->has('Installed', true) || !$setting->get('Installed', false))

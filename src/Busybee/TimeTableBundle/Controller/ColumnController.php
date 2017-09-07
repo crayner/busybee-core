@@ -61,10 +61,10 @@ class ColumnController extends Controller
             return new RedirectResponse($this->generateUrl('timetable_edit', ['id' => $id]));
         }
 
-        $sm = $this->get('setting.manager');
-        $begin = new \DateTime('1970-01-01 ' . $sm->get('SchoolDay.Begin'));
+	    $sm     = $this->get('busybee_core_system.setting.setting_manager');
+        $begin  = new \DateTime('1970-01-01 ' . $sm->get('SchoolDay.Begin'));
         $finish = new \DateTime('1970-01-01 ' . $sm->get('SchoolDay.Finish'));
-        $om = $this->get('doctrine')->getManager();
+        $om     = $this->get('doctrine')->getManager();
 
         if ($tt->getColumns()->count() > 0) {
             try {

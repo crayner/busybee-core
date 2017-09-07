@@ -31,7 +31,7 @@ student.enrolment.status:
     displayName: Student Enrolment Status
     description: Reflects the status of student enrolment.
     role: ROLE_ADMIN
-    value: |
+    value:
         Future: Future
         Current: Current
         Left: Left
@@ -42,7 +42,7 @@ department.type.list:
     displayName: Department Type List
     role: ROLE_REGISTRAR
     description: Types of departments within the institute.
-    value: |
+    value:
         Learning Area: Learning Area
         Administration: Administration
 department.staff.type.list:
@@ -50,7 +50,7 @@ department.staff.type.list:
     displayName: Department Staff Type List
     role: ROLE_REGISTRAR
     description: Types of staff within departments within the institute.
-    value: |
+    value:
         Learning:
             Coordinator: Coordinator
             Assistant Coordinator: Assistant Coordinator
@@ -64,7 +64,7 @@ department.staff.type.list:
             Other: Other
 date.format:
     type: array
-    value: |
+    value:
         long: D, jS M/Y
         short: j/m/Y
     displayName: Date Format
@@ -72,7 +72,7 @@ date.format:
     role: ROLE_REGISTRAR
 time.format:
     type: array
-    value: |
+    value:
         long: H:i:s
         short: h:i
     displayName: Time Format
@@ -80,7 +80,7 @@ time.format:
     role: ROLE_REGISTRAR
 SchoolDay.Periods:
       type: array
-      value: |
+      value:
           Housekeeping:
               start: '09:00'
               end: '09:05'
@@ -126,7 +126,7 @@ SchoolDay.Periods:
       role: ROLE_REGISTRAR
 languages.translated:
       type: array
-      value: |
+      value:
           English (Australia): en_AU
           English (Great Britian): en_GB
           English (United States): en_US

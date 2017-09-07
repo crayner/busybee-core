@@ -1,9 +1,6 @@
 setting_manage:
     path:     /setting/manage/
     defaults: { _controller: SystemBundle:Setting:index }
-setting_upload:
-    path:     /setting/upload/
-    defaults: { _controller: SystemBundle:Setting:upload }
 setting_edit:
     path:     /setting/{id}/edit/
     defaults: { _controller: SystemBundle:Setting:edit }

@@ -1,14 +1,8 @@
 System.version:
     type: system
     value: 0.0.01
-    displayName: System Bundle Version
-    description: System Bundle Version
-    role: ROLE_SYSTEM_ADMIN
-Installed:
-    type: system
-    value: 1
-    displayName: System Installed
-    description: A flag showing the system has finished installing.
+    displayName: 'Version: System Bundle'
+    description: System Setting ONLY
     role: ROLE_SYSTEM_ADMIN
 Version.System:
     type: system

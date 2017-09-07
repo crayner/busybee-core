@@ -81,10 +81,10 @@ class BundleController extends Controller
 	 */
 	public function removeFileAction()
 	{
-		$sm = $this->get('setting.manager');
+		$sm = $this->get('busybee_core_system.setting.setting_manager');
 		if ($sm->has('settings.default.overwrite') && !empty($sm->get('settings.default.overwrite', '')))
 		{
-			unlink($this->get('setting.manager')->get('settings.default.overwrite'));
+			unlink($this->get('busybee_core_system.setting.setting_manager')->get('settings.default.overwrite'));
 			$sm->set('settings.default.overwrite', '');
 		}
 

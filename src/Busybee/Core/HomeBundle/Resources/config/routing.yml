@@ -9,4 +9,4 @@ home_template:
     defaults: { _controller: BusybeeHomeBundle:Template:index }
 acknowledgement:
     path:     /acknowledgement
-    defaults: { _controller: BusybeeTemplateBundle:Default:acknowledgement }
+    defaults: { _controller: BusybeeHomeBundle:Default:acknowledgement }

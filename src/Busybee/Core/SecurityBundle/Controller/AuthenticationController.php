@@ -126,7 +126,7 @@ class AuthenticationController extends Controller
 		$token->setToken(null);
 		$session->set('_timeout', true);
 
-		$lapse = $this->get('setting.manager')->get('idleTimeout', 15);
+		$lapse = $this->get('busybee_core_system.setting.setting_manager')->get('idleTimeout', 15);
 
 		$session->getFlashBag()->add(
 			'info',

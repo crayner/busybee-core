@@ -6,4 +6,4 @@ Busybee\InstituteBundle\Entity\Space:
             message: campus.space.unique.name
     properties:
         phoneExt:
-            - Busybee\PersonBundle\Validator\Phone: ~
+            - Busybee\People\PersonBundle\Validator\Phone: ~

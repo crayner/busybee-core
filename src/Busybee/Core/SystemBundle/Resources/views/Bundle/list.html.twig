@@ -39,6 +39,7 @@
 
 
     {{ form_start(form, {attr: {id: 'bundleForm'}}) }}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'system.bundle.defaults.title'|trans, transDomain: 'SystemBundle', h3Content: '', panelStyle: 'info', panelParagraph: 'system.bundle.defaults.description'} %}
     <div style="max-width: 100%" class="container">
         <div class="row">
             <div class="col-sm-6 well">
@@ -54,6 +55,7 @@
             </div>
         </div>
     </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 
     {{ form_widget(form.bundles) }}
     {{ form_end(form) }}

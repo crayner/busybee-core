@@ -48,6 +48,6 @@ services:
         class: Busybee\CurriculumBundle\Form\CourseType
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }

@@ -103,7 +103,7 @@ services:
         class: Busybee\TimeTableBundle\Form\TimeTableType
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     line.repository:
@@ -130,7 +130,7 @@ services:
         class: Busybee\TimeTableBundle\Form\ColumnEntityType
         arguments:
             - '@doctrine.orm.default_entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     form.timetable.day.type:
@@ -144,7 +144,7 @@ services:
         arguments:
             - '@current.year.currentYear'
             - '@doctrine.orm.default_entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@period.manager'
             - '@session'
             - '@translator'
@@ -153,7 +153,7 @@ services:
         arguments:
             - '@current.year.currentYear'
             - '@doctrine.orm.default_entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@period.manager'
             - '@session'
             - '@person.manager'
@@ -168,14 +168,14 @@ services:
         class: Busybee\TimeTableBundle\Form\ColumnType
         arguments:
             - '@doctrine.orm.default_entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     form.timetable.period.type:
         class: Busybee\TimeTableBundle\Form\PeriodType
         arguments:
             - '@doctrine.orm.default_entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     column.repository:
@@ -216,13 +216,13 @@ services:
     periods.validator:
         class: Busybee\TimeTableBundle\Validator\Constraints\PeriodsValidator
         arguments:
-            - "@setting.manager"
+            - "@busybee_core_system.setting.setting_manager"
         tags:
             - { name: validator.constraint_validator, alias: periods_validator }
     columns.validator:
         class: Busybee\TimeTableBundle\Validator\Constraints\ColumnsValidator
         arguments:
-            - "@setting.manager"
+            - "@busybee_core_system.setting.setting_manager"
         tags:
             - { name: validator.constraint_validator, alias: columns_validator }
     period.activity.repository:

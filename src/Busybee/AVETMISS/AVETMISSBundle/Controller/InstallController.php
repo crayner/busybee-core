@@ -29,7 +29,7 @@ class InstallController extends Controller
 		$xx = $schemaTool->updateSchema($metaData, true);
 
 		$avetmiss = $this->getParameter('AVETMISS');
-		$set      = $this->get('setting.manager');
+		$set      = $this->get('busybee_core_system.setting.setting_manager');
 		$version  = $set->get('AVETMISS.Version', '0.0.00');
 		$buildto  = $avetmiss['Version'];
 

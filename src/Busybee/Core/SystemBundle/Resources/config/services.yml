@@ -68,7 +68,7 @@ services:
     busybee_core_system.update.update_manager:
         class: Busybee\Core\SystemBundle\Update\UpdateManager
         arguments: 
-            - "@setting.manager"
+            - "@busybee_core_system.setting.setting_manager"
     system.password.manager:
         class: Busybee\Core\SystemBundle\Password\PasswordManager
     busybee.writeDoctrine.listener:
@@ -78,7 +78,7 @@ services:
         tags:
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: prePersist }
-    setting.manager:
+    busybee_core_system.setting.setting_manager:
         class: Busybee\Core\SystemBundle\Setting\SettingManager
         arguments: 
             - '@setting.repository'
@@ -109,7 +109,7 @@ services:
     system.SettingListType:
         class: Busybee\Core\SystemBundle\Form\SettingListType
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     system.SettingType:
@@ -143,3 +143,5 @@ services:
             - { name: routing.loader }
         arguments:
             - '@kernel'
+    busybee_core_system.model.message_manager:
+        class: Busybee\Core\SystemBundle\Model\MessageManager

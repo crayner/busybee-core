@@ -32,9 +32,9 @@ class FlashBagManager
 	/**
 	 * @param array $messages
 	 */
-	public function addMessages(array $messages)
+	public function addMessages(MessageManager $messages)
 	{
-		foreach ($messages as $message)
+		foreach ($messages->getMessages() as $message)
 		{
 			if (!$message instanceof Message)
 				continue;

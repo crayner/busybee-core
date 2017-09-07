@@ -59,8 +59,8 @@ class DayController extends Controller
             'term' => $terms[$termName],
         ]);
 
-        $date = new \DateTime($date);
-        $formatDate = $date->format($this->get('setting.manager')->get('date.format.long'));
+        $date       = new \DateTime($date);
+	    $formatDate = $date->format($this->get('busybee_core_system.setting.setting_manager')->get('date.format.long'));
 
         return new JsonResponse(
             [

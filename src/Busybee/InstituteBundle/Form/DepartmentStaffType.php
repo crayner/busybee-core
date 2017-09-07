@@ -38,27 +38,31 @@ class DepartmentStaffType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $options['staff_type'] = $options['staff_type'] === 'Learning Area' ? 'Learning' : 'Administration';
+	    $options['staff_type'] = $options['staff_type'] == 'Learning Area' ? 'Learning' : 'Administration';
+
         $builder
             ->add('staff', EntityType::class,
                 [
-                    'label' => 'department.staff.label.member',
-                    'class' => Staff::class,
-                    'choice_label' => 'formatName',
-                    'query_builder' => function (EntityRepository $er) {
+	                'label'         => 'department.staff.member.label',
+	                'class'         => Staff::class,
+	                'choice_label'  => 'formatName',
+	                'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('s')
                             ->leftJoin('s.person', 'p')
                             ->orderBy('p.surname', 'ASC')
                             ->addOrderBy('p.firstName', 'ASC');
                     },
-                    'placeholder' => 'department.staff.placeholder.member',
+	                'placeholder'   => 'department.staff.member.placeholder',
+	                'attr'          => [
+		                'help' => 'department.staff.member.help',
+	                ]
                 ]
             )
             ->add('staffType', SettingChoiceType::class,
                 [
-                    'label' => 'department.staff.label.type',
-                    'setting_name' => 'department.staff.type.list.' . $options['staff_type'],
-                    'placeholder' => 'department.staff.placeholder.type',
+	                'label'        => 'department.staff.type.label',
+	                'setting_name' => 'department.staff.type.list.' . $options['staff_type'],
+	                'placeholder'  => 'department.staff.type.placeholder',
                 ]
             )
             ->add('department', HiddenType::class);

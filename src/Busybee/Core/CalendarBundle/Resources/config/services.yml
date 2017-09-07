@@ -91,17 +91,17 @@ services:
     calendar.widget:
         class: Busybee\Core\CalendarBundle\Service\WidgetService
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
     calendar.manager:
         class: Busybee\Core\CalendarBundle\Model\CalendarManager
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@year.repository'
             - '@doctrine.orm.entity_manager'
     calendar.extension:
         class: Busybee\Core\CalendarBundle\Model\CalendarExtension
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@calendar.manager'
             - '@my_service_container'
         tags:
@@ -117,7 +117,7 @@ services:
         class: Busybee\Core\CalendarBundle\Form\GradeType
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     calendar.grade.validator:

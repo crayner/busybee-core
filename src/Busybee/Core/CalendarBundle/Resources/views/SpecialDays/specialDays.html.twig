@@ -2,6 +2,6 @@
 
 {% include 'BusybeeCalendarBundle:Calendar:calendarMenu.html.twig' with {'header': 'calendar.specialDay.title', 'name': form.name.vars.value, 'panelParagraph': 'calendar.help.specialDays'} %}
 	{{ form_widget(form.specialDays) }}
-{% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+{% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 
 {% do form.specialDays.setRendered %}

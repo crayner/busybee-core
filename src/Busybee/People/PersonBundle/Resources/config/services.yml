@@ -82,7 +82,7 @@ services:
         class: Busybee\People\PersonBundle\Model\AddressManager
         arguments:
             - '@translator'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@address.repository'
     locality.repository:
         class: Busybee\People\PersonBundle\Repository\LocalityRepository
@@ -129,34 +129,34 @@ services:
     person.form.addressType:
         class: Busybee\People\PersonBundle\Form\AddressType
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@doctrine.orm.entity_manager'
         tags: 
             - { name: form.type }
     person.form.localityType:
         class: Busybee\People\PersonBundle\Form\LocalityType
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@locality.repository'
         tags: 
             - { name: form.type }
     person.form.type.phone:
         class: Busybee\People\PersonBundle\Form\PhoneType
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@phone.repository'
         tags: 
             - { name: form.type }    
     person.phone.validator:
         class: Busybee\People\PersonBundle\Validator\Constraints\PhoneValidator
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: validator.constraint_validator, alias: phone_validator }
     person.manager:
         class: Busybee\People\PersonBundle\Model\PersonManager
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@doctrine.orm.entity_manager'
             - '@validator'
             - '@current.year.currentYear'
@@ -167,7 +167,7 @@ services:
     person.extension:
         class: Busybee\People\PersonBundle\Model\PersonExtension
         arguments:
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@person.manager'
             - '@address.manager'
             - '@phone.manager'
@@ -177,7 +177,7 @@ services:
         class: Busybee\People\PersonBundle\Form\UserType
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
     person.email.validator:
@@ -190,7 +190,7 @@ services:
         class: Busybee\People\PersonBundle\Model\PhoneManager
         arguments:
             - '@translator'
-            - '@setting.manager'
+            - '@busybee_core_system.setting.setting_manager'
             - '@phone.repository'
     person.name.validator:
         class: Busybee\People\PersonBundle\Validator\Constraints\PersonNameValidator

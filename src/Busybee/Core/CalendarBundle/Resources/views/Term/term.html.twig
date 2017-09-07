@@ -14,7 +14,7 @@
         {% set h3Content = h3Content ~ deleteButton({'javascript': {'function': 'return removeTerm', 'options': {'id': term_id, 'year': app.request.get('id')}}, 'title': 'term.delete.title', 'transDomain': 'BusybeeCalendarBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'}) %}
         {% set h3Content = h3Content ~ saveButton({'name': 'terms'}) %}
         {% set h3Content = h3Content ~ '</div>' %}
-        {% include '@BusybeeHome/Page/panelStart.html.twig' with {'header': termTitle, 'panelStyle': 'info'} %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': termTitle, 'panelStyle': 'info'} %}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-2 well">
@@ -32,6 +32,6 @@
                 </div>
             </div>
         </div>
-        {% include '@BusybeeHome/Page/panelEnd.html.twig' %}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {% endspaceless %}
 {% endblock term_widget %}
