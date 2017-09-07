@@ -28,7 +28,7 @@ parameters:
             - a.nameShort
             - a.id
             - y.name as year
-    Activity:
+    ActivityBundle:
         version: 0.0.01
         settings:
             resources:

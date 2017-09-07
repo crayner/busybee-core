@@ -19,15 +19,30 @@ class FamilyRepository extends \Doctrine\ORM\EntityRepository
 		return $family instanceof Family ? $family : new Family();
 	}
 
-	public function findByStudents($student)
+	public function findByStudentsPerson($person)
 	{
 		$result = $this->createQueryBuilder('f')
 			->leftJoin('f.students', 's')
-			->where('s.id = :student')
-			->setParameter('student', $student)
+			->leftJoin('s.person', 'p')
+			->where('p.id = :student')
+			->setParameter('student', $person->getId())
+			->getQuery()
+			->getResult();
+		return $result;
+	}
+
+
+	public function findByCareGiverPerson($person)
+	{
+		$result = $this->createQueryBuilder('f')
+			->leftJoin('f.careGiver', 'c')
+			->leftJoin('c.person', 'p')
+			->where('p.id = :person_id')
+			->setParameter('person_id', $person->getId())
 			->getQuery()
 			->getResult();
 
 		return $result;
 	}
+
 }

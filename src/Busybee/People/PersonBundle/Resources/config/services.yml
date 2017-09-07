@@ -53,7 +53,7 @@ parameters:
             contact:
                 route: contact_manage
                 prompt: pagination.person.contact
-    Person:
+    PersonBundle:
         version: 0.0.01
         settings:
             resources:

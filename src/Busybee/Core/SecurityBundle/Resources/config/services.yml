@@ -64,7 +64,7 @@ parameters:
         ROLE_SYSTEM_ADMIN:
             - ROLE_REGISTRAR
             - ROLE_PARENT
-    Security:
+    SecurityBundle:
         settings:
             resources:
                 - 'BusybeeSecurityBundle/Resources/config/Settings/settings_0_0_01.yml'

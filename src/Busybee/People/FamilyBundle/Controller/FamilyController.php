@@ -1,9 +1,7 @@
 <?php
-
 namespace Busybee\People\FamilyBundle\Controller;
 
 use Busybee\People\FamilyBundle\Form\FamilyType;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

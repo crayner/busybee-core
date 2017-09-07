@@ -20,7 +20,7 @@ parameters:
             - s.displayName
             - s.description
             - s.id
-    System:
+    SystemBundle:
         settings:
             resources:
                 - 'SystemBundle/Resources/config/Settings/Settings_0_0_01.yml'

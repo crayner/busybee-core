@@ -1,6 +1,9 @@
 parameters:
-    AVETMISS:
+    AVETMISSBundle:
         version: '0.0.01'
+        settings:
+            resources: 'BusybeeAVETMISSBundle/Resources/config/Settings/Settings_0_0_01.yml'
+    AVETMISS:
         Namespace: 'Busybee\AVETMISS\AVETMISSBundle\BusybeeAVETMISSBundle'
         Org_Type_List:
             'Secondary school':
@@ -24,8 +27,6 @@ parameters:
                 'Industry association': '95'
                 'Equipment and/or product manufacturer or supplier': '97'
                 'Other – not elsewhere classified': '99'
-        settings:
-            resources: 'BusybeeAVETMISSBundle/Resources/config/Settings/Settings_0_0_01.yml'
     AVETMISS Report:
         nat00005:
             Training Authority Identifier:

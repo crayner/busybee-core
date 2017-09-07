@@ -127,7 +127,7 @@
                             {% endif %}
                         </div>
                         <div class="col-sm-4">
-                            {% if person.stu_id is not empty and canDeleteStudent(person.0, get_parameter('person')) %}
+                            {% if intVal(person.stu_id) > 0 and canDeleteStudent(person.0, get_parameter('person')) %}
                                 <input type="checkbox" id="studentToggle{{ person.id }}"
                                        title="{{ 'person.student.toggle'|trans }}" checked
                                        class="studentToggle" {{ toggle|raw }} />

@@ -169,7 +169,7 @@ class PersonManager
 		if (!$student instanceof Student)
 			return true;
 
-		$families = $this->em->getRepository(Family::class)->findByStudents($student->getId());
+		$families = $this->em->getRepository(Family::class)->findByStudentsPerson($person);
 
 		if (is_array($families) && count($families) > 0)
 			return false;
@@ -847,6 +847,7 @@ class PersonManager
 	public function getAddresses(Person $person): ArrayCollection
 	{
 		$families  = $this->getFamilies($person);
+dump($families);
 		$addresses = new ArrayCollection();
 		foreach ($families as $family)
 		{
@@ -870,44 +871,20 @@ class PersonManager
 	{
 		$families = new ArrayCollection();
 
-		/*
-		$careGiver = $this->em->getRepository(CareGiver::class)->findOneByPerson($person);
-		if (!is_null($careGiver)) {
-			$xx = $this->em->getRepository(Family::class)->createQueryBuilder('f')
-				->where('f.careGiver1 = :careGiver')
-				->orWhere('f.careGiver2 = :careGiver')
-				->setParameter('careGiver', $careGiver->getId())
-				->getQuery()
-				->getResult();
-			if (!empty($xx) && is_array($xx))
-				foreach ($xx as $family)
-					if (!$families->contains($family))
-						$families->add($family);
-			$xx = $this->em->getRepository(Family::class)->createQueryBuilder('f')
-				->leftJoin('f.emergencyContact', 'c')
-				->where('c.id = :careGiverID')
-				->setParameter('careGiverID', $careGiver->getId())
-				->getQuery()
-				->getResult();
-			if (!empty($xx) && is_array($xx))
-				foreach ($xx as $family)
-					if (!$families->contains($family))
-						$families->add($family);
-		}
-		$student = $this->em->getRepository(Student::class)->findOneByPerson($person);
-		if (!is_null($student)) {
-			$xx = $this->em->getRepository(Family::class)->createQueryBuilder('f')
-				->leftJoin('f.students', 's')
-				->where('s.id = :studentID')
-				->setParameter('studentID', $student->getId())
-				->getQuery()
-				->getResult();
-			if (!empty($xx) && is_array($xx))
-				foreach ($xx as $family)
-					if (!$families->contains($family))
-						$families->add($family);
-		}
-		*/
+		$careGivers = $this->em->getRepository(Family::class)->findByCareGiverPerson($person);
+		if (! empty($careGivers))
+			foreach($careGivers as $family)
+				if (! $families->contains($family))
+					$families->add($family);
+
+
+
+
+		$students = $this->em->getRepository(Family::class)->findByStudentsPerson($person);
+		if (! empty($students))
+			foreach($students as $family)
+				if (! $families->contains($family))
+					$families->add($family);
 
 		return $families;
 	}
