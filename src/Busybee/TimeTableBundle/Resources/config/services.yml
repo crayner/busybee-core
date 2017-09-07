@@ -1,5 +1,5 @@
 parameters:
-    TimeTable:
+    TimeTableBundle:
         version: '0.0.01'
         settings:
             resources:

@@ -371,17 +371,19 @@ class BundleManager
 	 */
 	public function updateRequired($name)
 	{
-		if (!$this->settingManager->hasParameter($name))
-			return false;
-
 		$bundle = $this->getBundleByName($name);
 
 		if (!$bundle->isActive())
 			return false;
 
-		$bundleParams = $this->settingManager->getParameter($name);
+		if (!$this->settingManager->hasParameter($name . 'Bundle'))
+			throw new \InvalidArgumentException('The bundle ' . $name . ' is not correctly formatted for use in Busybee');
+
+
+		$bundleParams = $this->settingManager->getParameter($name . 'Bundle');
 
 		$current   = $this->settingManager->get($name . '.version', '0.0.00');
+		$current   = is_null($current) ? '0.0.00' : $current;
 		$available = isset($bundleParams['version']) ? $bundleParams['version'] : '0.0.00';
 
 		$this->updateDetails = ['%available%' => $available, '%current%' => $current];
@@ -418,7 +420,9 @@ class BundleManager
 			return;
 		}
 
-		$bundleParams = $this->settingManager->getParameter($name);
+		$bundleName = $name . 'Bundle';
+
+		$bundleParams = $this->settingManager->getParameter($bundleName);
 		$bv           = $this->settingManager->get($name . '.version', '0.0.00');
 
 		if (isset($bundleParams['settings']) && isset($bundleParams['settings']['resources']))
