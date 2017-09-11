@@ -26,6 +26,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
     
     locale: en_GB
+    hemisphere: South
     session_name: busybee_session
     session_remember_me_name: busybee_session_remember
     session_max_idle_time: 900
@@ -55,13 +56,13 @@ parameters:
             namespace: Busybee\Core\SecurityBundle\BusybeeSecurityBundle
             route:
                 resource: BusybeeSecurityBundle/Resources/config/routing.yml
-                prefix: /security/
+                prefix: security
         System:
             type: core
             namespace: Busybee\Core\SystemBundle\SystemBundle
             route:
                 resource: SystemBundle/Resources/config/routing.yml
-                prefix: /system/
+                prefix: system
         Template:
             type: core
             namespace: Busybee\Core\TemplateBundle\BusybeeTemplateBundle
@@ -75,19 +76,19 @@ parameters:
                 resource: BusybeeCalendarBundle/Resources/config/routing.yml
                 prefix: calendar
         Family:
-            type: core
+            type: plugin
             namespace: Busybee\People\FamilyBundle\BusybeeFamilyBundle
             route:
                 resource: BusybeeFamilyBundle/Resources/config/routing.yml
                 prefix: family
         Person:
-            type: core
+            type: plugin
             namespace: Busybee\People\PersonBundle\BusybeePersonBundle
             route:
                 resource: BusybeePersonBundle/Resources/config/routing.yml
                 prefix: person
         Staff:
-            type: core
+            type: plugin
             namespace: Busybee\People\StaffBundle\BusybeeStaffBundle
             route:
                 resource: BusybeeStaffBundle/Resources/config/routing.yml
@@ -96,7 +97,7 @@ parameters:
                 - Person
             description: Used to manage staff details.
         Student:
-            type: core
+            type: plugin
             namespace: Busybee\People\StudentBundle\BusybeeStudentBundle
             route:
                 resource: BusybeeStudentBundle/Resources/config/routing.yml
@@ -105,26 +106,26 @@ parameters:
                 - Person
             description: Used to manage student details.
         Curriculum:
-            type: core
+            type: plugin
             namespace: Busybee\CurriculumBundle\BusybeeCurriculumBundle
             route:
                 resource: "BusybeeCurriculumBundle/Resources/config/routing.yml"
                 prefix:   curriculum
                 type: yaml
         Institute:
-            type: core
+            type: plugin
             namespace: Busybee\InstituteBundle\BusybeeInstituteBundle
             route:
                 prefix:   institute
                 resource: "BusybeeInstituteBundle/Resources/config/routing.yml"
         TimeTable:
-            type: core
+            type: plugin
             namespace: Busybee\TimeTableBundle\BusybeeTimeTableBundle
             route:
                 resource: "BusybeeTimeTableBundle/Resources/config/routing.yml"
                 prefix:   timetable
         Activity:
-            type: core
+            type: plugin
             namespace: Busybee\ActivityBundle\BusybeeActivityBundle
             route:
                 resource: "BusybeeActivityBundle/Resources/config/routing.yml"

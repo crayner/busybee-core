@@ -882,4 +882,26 @@ class Person extends PersonModel implements PersonInterface
 
 		return $this;
 	}
+
+	/**
+	 * @var string
+	 */
+	private $person_type;
+
+	/**
+	 * @return string
+	 */
+	public function getPersonType()
+	{
+		return $this->person_type;
+	}
+
+	/**
+	 * @param string $person_type
+	 */
+	public function setPersonType($person_type)
+	{
+		$this->person_type = $person_type;
+	}
+
 }

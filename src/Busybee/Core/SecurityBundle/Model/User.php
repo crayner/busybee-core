@@ -14,8 +14,6 @@ use Symfony\Component\Yaml\Yaml;
  */
 abstract class User implements UserInterface
 {
-	use \Busybee\People\PersonBundle\Model\FormatNameExtension;
-
 	/**
 	 * @var string
 	 */
@@ -26,10 +24,14 @@ abstract class User implements UserInterface
 	 */
 	protected $roles;
 
+	/**
+	 * @var bool
+	 */
+	protected $installer = false;
+
 	public function __construct()
 	{
-
-		$this->roles = array();
+		$this->roles = [];
 		$this->setLocked(false);
 		$this->setEnabled(false);
 		$this->setExpired(false);
@@ -188,14 +190,6 @@ abstract class User implements UserInterface
 		return false;
 	}
 
-	public function hasPerson()
-	{
-		if ($this->getPerson() instanceof Person)
-			return true;
-
-		return false;
-	}
-
 	public function rolesToString()
 	{
 		$roles = $this->getRoles();
@@ -237,7 +231,7 @@ abstract class User implements UserInterface
 				$this->roles[] = $role;
 			}
 		}
-		foreach ($this->getDirectroles() As $role)
+		foreach ($this->getDirectroles() as $role)
 			$this->roles = array_merge($this->roles, array($role));
 
 		return $this->roles;
@@ -257,5 +251,29 @@ abstract class User implements UserInterface
 
 		return $groups;
 
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isInstaller(): bool
+	{
+		return $this->installer;
+	}
+
+	/**
+	 * @param $installer
+	 *
+	 * @return User
+	 */
+	public function setInstaller($installer): User
+	{
+		$this->installer = $installer;
+
+		return $this;
+	}
+
+	public function formatName(){
+		return $this->getUsername();
 	}
 }

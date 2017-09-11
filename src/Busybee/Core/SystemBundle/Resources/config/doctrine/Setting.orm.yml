@@ -41,20 +41,18 @@ Busybee\Core\SystemBundle\Entity\Setting:
             length: 64
         lastModified:
             type: datetime
-            nullable: true 
+            column: last_modified
         createdOn:
             type: datetime
-            nullable: true 
+            column: created_on
     manyToOne:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
-            nullable: true
             joinColumns:
-                createdBy:
+                created_by:
                     referencedColumnName: id
         modifiedBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
-            nullable: true
             joinColumns:
-                modifiedBy:
+                modified_by:
                     referencedColumnName: id

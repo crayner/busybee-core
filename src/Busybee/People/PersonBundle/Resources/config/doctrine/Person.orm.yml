@@ -1,5 +1,12 @@
 Busybee\People\PersonBundle\Entity\Person:
     type: entity
+    inheritanceType: single_table
+    discriminatorColumn:
+        name: person_type
+        type: string
+    discriminatorMap:
+        person: Person
+        student: Busybee\People\StudentBundle\Entity\Student
     table: person
     repositoryClass: Busybee\People\PersonBundle\Repository\PersonRepository
     id:
@@ -63,10 +70,12 @@ Busybee\People\PersonBundle\Entity\Person:
             name: student_question
         lastModified:
             type: datetime
-            nullable: true 
+            nullable: true
+            name: last_modified
         createdOn:
             type: datetime
-            nullable: true 
+            nullable: true
+            name: created_on
     manyToOne:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
@@ -111,11 +120,6 @@ Busybee\People\PersonBundle\Entity\Person:
             nullable: true
         staff:
             targetEntity: Busybee\People\StaffBundle\Entity\Staff
-            cascade: [all]
-            mappedBy: person
-            nullable: true
-        student:
-            targetEntity: Busybee\People\StudentBundle\Entity\Student
             cascade: [all]
             mappedBy: person
             nullable: true

@@ -21,6 +21,7 @@ install:
         save:
             failed: 'The database parameters were not saved.'
             success: 'The database parameters saved successfully.'
+            already: 'The database settings are correctly set and already saved.'
     proceed: Proceed
     mailer:
         parameters: Email Settings
@@ -97,6 +98,7 @@ mailer:
     save:
         success: The mailer details were saved successfully.
         failed: The mailer details did not save correctly.
+        already: The mailer setting are already correctly set and saved.
     test:
         success: The email system on your server has been correctly configured.
 misc:
@@ -118,6 +120,9 @@ misc:
     locale:
         label: Locale (Language)
         help: System Default Language
+    hemisphere:
+        label: Hemisphere
+        help: 'Used to generate a default school calendar of 1 Jul to 30 Jun for northern, and 1 Jan to 31 Dec for southern.'
     country:
         label: Location Country
         help: ''

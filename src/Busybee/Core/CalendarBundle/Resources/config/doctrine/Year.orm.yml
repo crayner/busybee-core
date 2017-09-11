@@ -21,10 +21,10 @@ Busybee\Core\CalendarBundle\Entity\Year:
             length: '20'
         lastModified:
             type: datetime
-            nullable: true 
+            column: last_modified
         createdOn:
             type: datetime
-            nullable: true 
+            column: created_on
     oneToMany:
         terms:
             targetEntity: Busybee\Core\CalendarBundle\Entity\Term
@@ -43,10 +43,10 @@ Busybee\Core\CalendarBundle\Entity\Year:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
-                createdBy:
+                created_by:
                     referencedColumnName: id
         modifiedBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
-                modifiedBy:
+                modified_by:
                     referencedColumnName: id

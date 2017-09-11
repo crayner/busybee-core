@@ -66,8 +66,8 @@
     </div>
 
 
-    {% if config.sql.connected %}
-        {% set h3Content = proceedButton({'type': 'submit'}) %}
+    {% if config.sql.connected and not config.sql.displayForm %}
+        {% set h3Content = proceedButton({windowOpen: {route: path('install_check_mailer_parameters')}}) %}
         <form action="{{ path("install_check_mailer_parameters") }}" method="post">
             {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
             <div id="form_body" class="container-fluid">
@@ -88,7 +88,11 @@
         </form>
 
     {% else %}
-        {% set h3Content = saveButton() %}
+        {% set h3Content = '' %}
+        {% if config.sql.displayForm %}
+            {% set h3Content = h3Content ~ proceedButton({windowOpen: {route: path('install_check_mailer_parameters')}}) %}
+        {% endif %}
+        {% set h3Content = h3Content ~ saveButton() %}
         {{ form_start(form) }}
         {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'transDomain': 'BusybeeInstallBundle', 'header': 'install.database.parameters', 'panelStyle': 'default'} %}
         <div id="form_body" class="container-fluid">

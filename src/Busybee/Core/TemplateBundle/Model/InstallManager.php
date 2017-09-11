@@ -2,6 +2,7 @@
 
 namespace Busybee\Core\TemplateBundle\Model;
 
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\ConnectionException;
@@ -315,10 +316,12 @@ class InstallManager
 				case 'systemUser':
 					foreach ($value as $q => $w)
 					{
-						if (!in_array($q, ['text', 'password']))
+						if (!in_array($q, ['text', 'password', 'cache']))
 							$this->misc->systemUser[$q] = $form->get($q)->getData();
 						elseif ($q === 'password')
 							$this->misc->systemUser[$q] = $form->get('pass_word')->getData();
+						elseif ($q === 'cache')
+							$this->misc->systemUser[$q] = 0;
 					}
 					break;
 				case 'password':
@@ -360,13 +363,14 @@ class InstallManager
 	{
 		$this->misc           = new \stdClass();
 		$params               = $this->getParameters();
-		$params['systemUser'] = $this->getSystemUser();
+		$params['systemUser'] = $this->getSystemUser(false);
 		$misc                 = [];
 
 
 		$valueList = [
 			'secret'                   => '',
 			'locale'                   => '',
+			'hemisphere'               => '',
 			'session_name'             => '',
 			'session_remember_me_name' => '',
 			'session_max_idle_time'    => '',
@@ -388,6 +392,7 @@ class InstallManager
 			'username',
 			'password',
 			'text',
+			'cache',
 		];
 
 		foreach ($su as $name)
@@ -418,6 +423,7 @@ class InstallManager
 	public function saveSystemUser(array $params)
 	{
 		$params['cache'] = new \DateTime('now');
+		$params['cache'] = $params['cache']->getTimestamp();
 		if (file_put_contents($this->projectDir . '/app/config/user.yml', Yaml::dump($params)))
 			return true;
 
@@ -431,15 +437,22 @@ class InstallManager
 	 *
 	 * @return bool
 	 */
-	public function getSystemUser()
+	public function getSystemUser($test = true)
 	{
 		$x = [];
 		if (file_exists($this->projectDir . '/app/config/user.yml'))
 			$x = Yaml::parse(file_get_contents($this->projectDir . '/app/config/user.yml'));
-		if (isset($x['cache']) && $x['cache'] instanceof \DateTime)
+
+		if ($test)
 		{
-			$diff = $x['cache']->diff(new \DateTime('now'));
-			dump($diff);
+			if (isset($x['cache']) && is_int($x['cache']))
+			{
+				$diff = strtotime('now') - $x['cache'];
+				if ($diff > 900)
+					throw new Exception('The installation time has expired.  Please start the installation process again. Delete the database and the file bundles.yml in the app/config directory.');
+			}
+			else
+				throw new Exception('The installation time has not set correctly.  Please start the installation process again. Delete the database and the file bundles.yml in the app/config directory.');
 		}
 
 		return $x;

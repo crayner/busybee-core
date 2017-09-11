@@ -27,7 +27,7 @@
     <div id="form_body">
 
 
-        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'misc.user.title', panelStyle: 'default', panelParagraph: 'misc.user.description' } %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {transDomain: 'BusybeeInstallBundle', header: 'misc.user.title', panelStyle: 'warning', panelParagraph: 'misc.user.description' } %}
         <div class="container-fluid">
             <div class="row">
                 <div class="well col-sm-6">
@@ -37,9 +37,11 @@
                     {{ form_row(form.username, {value: config.misc.systemUser['username']}) }}
                 </div>
             </div>
-
             <div class="row">
-                <div class="well col-sm-4 col-sm-offset-4">
+                <div class="well col-sm-4">
+                    {{ form_row(form.hemisphere, {value: config.misc.hemisphere}) }}
+                </div>
+                <div class="well col-sm-4 ">
                     {{ form_row(form.pass_word, {value: config.misc.systemUser['password']}) }}
                 </div>
                 <div class="well col-sm-4">
@@ -51,10 +53,11 @@
                     </div>
                 </div>
             </div>
-            {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+        </div>
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 
 
-            {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'install.misc.parameters', transDomain: 'BusybeeInstallBundle', panelStyle: 'default'} %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'install.misc.parameters', transDomain: 'BusybeeInstallBundle', panelStyle: 'default'} %}
         <div class="row">
             <div class="well col-sm-6">
                 {{ form_row(form.secret) }}
@@ -141,7 +144,7 @@
     {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
     <script type="text/javascript" language="JavaScript">
         $("#generatePassword").on('click', function () {
-            $('input[name="mailer[password]"]').val('{{ config.misc.systemUser['text'].text|raw }}');
+            $('#install_miscellaneous_pass_word').val('{{ config.misc.systemUser['text'].text|raw }}');
         });
     </script>
 {% endblock javascripts %}

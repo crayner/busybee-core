@@ -17,10 +17,10 @@ Busybee\Core\SecurityBundle\Entity\Failure:
             type: integer
         lastModified:
             type: datetime
-            nullable: true
+            column: last_modified
         createdOn:
             type: datetime
-            nullable: true
+            column: created_on
     manyToOne:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User

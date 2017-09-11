@@ -21,63 +21,78 @@ use Symfony\Component\Yaml\Yaml;
 
 class InstallController extends Controller
 {
+	/**
+	 * @param Request $request
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
 	public function indexAction(Request $request)
 	{
-		$config         = $this->get('install.manager');
-		$config->signin = null;
+		$installer         = $this->get('install.manager');
+		$installer->signin = null;
 
-		$params = $config->getParameters();
-		$sql    = $config->getSQLParameters($params);
+		$params = $installer->getParameters();
+		$sql    = $installer->getSQLParameters($params);
 
 		$form = $this->createForm(StartInstallType::class, null, ['data' => $sql]);
 
-		$sql = $config->handleDataBaseRequest($form, $request);
+		$sql = $installer->handleDataBaseRequest($form, $request);
 
-		if ($form->isSubmitted() && $form->isValid())
+		$testDatabase = false;
+		if (! empty($sql['name']) && ! empty($sql['user']) && ! empty($sql['password']))
+			$testDatabase = true;
+
+		if (($form->isSubmitted() && $form->isValid()) || $testDatabase)
 		{
 
-			if (!$config->testConnected($sql))
+			if (!$installer->testConnected($sql))
 			{
 				return $this->render('BusybeeInstallBundle:Install:start.html.twig',
 					[
-						'config' => $config,
+						'config' => $installer,
 						'form'   => $form->createView(),
 					]
 				);
 
 			}
 
-			if (!$config->hasDatabase())
+			if (!$installer->hasDatabase())
 			{
 				return $this->render('BusybeeInstallBundle:Install:start.html.twig',
 					[
-						'config' => $config,
+						'config' => $installer,
 						'form'   => $form->createView(),
 					]
 				);
 
 			}
+			$installer->sql->displayForm = false;
 
-			if ($config->saveDatabase)
+			if ($installer->saveDatabase)
 			{
 				$this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('install.database.save.success', [], 'BusybeeInstallBundle'));
+			}
+			elseif($installer->sql->connected)
+			{
+				$this->get('session')->getFlashBag()->add('info', $this->get('translator')->trans('install.database.save.already', [], 'BusybeeInstallBundle'));
+				$installer->sql->displayForm = true;
 			}
 			else
 			{
 				$this->get('session')->getFlashBag()->add('danger', $this->get('translator')->trans('install.database.save.failed', [], 'BusybeeInstallBundle'));
-				$config->sql->connected = false;
-				$config->sql->error     = $this->get('translator')->trans('install.database.save.failed', [], 'BusybeeInstallBundle');
+				$installer->sql->connected = false;
+				$installer->sql->error     = $this->get('translator')->trans('install.database.save.failed', [], 'BusybeeInstallBundle');
 			}
 		}
 		else
 		{
-			$config->sql->connected = false;
-			$config->sql->error     = $this->get('translator')->trans('install.database.not.tested', [], 'BusybeeInstallBundle');
+			$installer->sql->connected = false;
+			$installer->sql->error     = $this->get('translator')->trans('install.database.not.tested', [], 'BusybeeInstallBundle');
 		}
 
 		return $this->render('BusybeeInstallBundle:Install:start.html.twig',
 			[
-				'config'          => $config,
+				'config'          => $installer,
 				'form'            => $form->createView(),
 				'version_manager' => $this->get('version.manager'),
 			]
@@ -87,9 +102,9 @@ class InstallController extends Controller
 	public function mailerAction(Request $request)
 	{
 
-		$config = $this->get('install.manager');
+		$installer = $this->get('install.manager');
 
-		$w = $config->getConfig();
+		$w = $installer->getConfig();
 
 		//turn spooler off
 		$swift              = $w['swiftmailer'];
@@ -98,71 +113,71 @@ class InstallController extends Controller
 		$swift['username']  = "%mailer_user%";
 		$swift['password']  = "%mailer_password%";
 		$w['swiftmailer']   = $swift;
-		$config->saveConfig($w);
+		$installer->saveConfig($w);
 
-		$config->getMailerParameters();
-		$config->mailer->canDeliver = false;
+		$installer->getMailerParameters();
+		$installer->mailer->canDeliver = false;
 
 		$form = $this->createForm(MailerType::class);
 
-		$config->handleMailerRequest($form, $request);
+		$installer->handleMailerRequest($form, $request);
 
-		if ($form->isSubmitted() && $form->isValid())
+		$installer->mailer->canDeliver = false;
+		if ($installer->mailer->mailer_transport != '')
 		{
-			$config->mailer->canDeliver = false;
-			if ($config->mailer->mailer_transport != '')
+			$message                    = \Swift_Message::newInstance()
+				->setSubject('Test Email')
+				->setFrom($installer->mailer->mailer_sender_address, $installer->mailer->mailer_sender_name)
+				->setTo($installer->mailer->mailer_sender_address, $installer->mailer->mailer_sender_name)
+				->setBody(
+					$this->renderView(
+						'BusybeeInstallBundle:Emails:test.html.twig', []
+					),
+					'text/html'
+				)/*
+				 * If you also want to include a plaintext version of the message
+				->addPart(
+					$this->renderView(
+						'Emails/registration.txt.twig', []
+					),
+					'text/plain'
+				)
+				*/
+			;
+			$installer->mailer->canDeliver = true;
+			try
 			{
-				$message                    = \Swift_Message::newInstance()
-					->setSubject('Test Email')
-					->setFrom($config->mailer->mailer_sender_address, $config->mailer->mailer_sender_name)
-					->setTo($config->mailer->mailer_sender_address, $config->mailer->mailer_sender_name)
-					->setBody(
-						$this->renderView(
-							'BusybeeInstallBundle:Emails:test.html.twig', []
-						),
-						'text/html'
-					)/*
-					 * If you also want to include a plaintext version of the message
-					->addPart(
-						$this->renderView(
-							'Emails/registration.txt.twig', []
-						),
-						'text/plain'
-					)
-					*/
-				;
-				$config->mailer->canDeliver = true;
-				try
-				{
-					$mailer = $this->get('mailer')->send($message);
-				}
-				catch (\Swift_TransportException $e)
-				{
-					$this->get('session')->getFlashBag()->add('error', $e->getMessage());
-					$config->mailer->canDeliver = false;
-				}
-				catch (\Swift_RfcComplianceException $e)
-				{
-					$this->get('session')->getFlashBag()->add('error', $e->getMessage());
-					$config->mailer->canDeliver = false;
-				}
+				$mailer = $this->get('mailer')->send($message);
+			}
+			catch (\Swift_TransportException $e)
+			{
+				$this->get('session')->getFlashBag()->add('error', $e->getMessage());
+				$installer->mailer->canDeliver = false;
+			}
+			catch (\Swift_RfcComplianceException $e)
+			{
+				$this->get('session')->getFlashBag()->add('error', $e->getMessage());
+				$installer->mailer->canDeliver = false;
 			}
 		}
 
 		if ($form->isSubmitted())
 		{
-			if ($config->saveMailer)
+			if ($installer->saveMailer)
 				$this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('mailer.save.success', [], 'BusybeeInstallBundle'));
 			else
 			{
 				$this->get('session')->getFlashBag()->add('danger', $this->get('translator')->trans('mailer.save.failed', [], 'BusybeeInstallBundle'));
-				$config->mailer->canDeliver = false;
+				$installer->mailer->canDeliver = false;
 			}
+		} elseif ($installer->mailer->canDeliver)
+		{
+			$this->get('session')->getFlashBag()->add('info', $this->get('translator')->trans('mailer.save.already', [], 'BusybeeInstallBundle'));
 		}
 
 		return $this->render('BusybeeInstallBundle:Install:checkMailer.html.twig',
 			[
-				'config' => $config,
+				'config' => $installer,
 				'form'   => $form->createView(),
 			]
 		);
@@ -171,10 +186,10 @@ class InstallController extends Controller
 	public function miscellaneousAction(Request $request)
 	{
 
-		$config          = $this->get('install.manager');
-		$config->proceed = false;
+		$installer          = $this->get('install.manager');
+		$installer->proceed = false;
 
-		$w = $config->getConfig();
+		$w = $installer->getConfig();
 
 		//turn spooler on
 		$swift                  = $w['swiftmailer'];
@@ -184,15 +199,15 @@ class InstallController extends Controller
 		$swift['password']      = "%mailer_password%";
 		$swift['spool']['type'] = 'memory';
 		$w['swiftmailer']       = $swift;
-		$config->saveConfig($w);
+		$installer->saveConfig($w);
 
 		$form = $this->createForm(MiscellaneousType::class);
 
-		$config->handleMiscellaneousRequest($form, $request);
+		$installer->handleMiscellaneousRequest($form, $request);
 
 		return $this->render('BusybeeInstallBundle:Install:misc.html.twig',
 			[
-				'config' => $config,
+				'config' => $installer,
 				'form'   => $form->createView(),
 			]
 		);

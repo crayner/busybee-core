@@ -36,11 +36,20 @@ class WriteDoctrineListener implements EventSubscriberInterface
 		$entity        = $args->getEntity();
 		$entityManager = $args->getEntityManager();
 
-		$entity->setCreatedOn(new \Datetime('now'));
-		$entity->setCreatedBy($this->getCurrentUser());
-		$entity->setLastModified(new \Datetime('now'));
-		$entity->setModifiedBy($this->getCurrentUser());
-
+		if ($entity instanceof User && intval($this->getCurrentUser()->getId()) == 0)
+		{
+			$entity->setCreatedOn(new \Datetime('now'));
+			$entity->setCreatedBy(null);
+			$entity->setLastModified(new \Datetime('now'));
+			$entity->setModifiedBy(null);
+		}
+		else
+		{
+			$entity->setCreatedOn(new \Datetime('now'));
+			$entity->setCreatedBy($this->getCurrentUser());
+			$entity->setLastModified(new \Datetime('now'));
+			$entity->setModifiedBy($this->getCurrentUser());
+		}
 		if (!is_null($entity->getCreatedBy()) && $entityManager->getUnitOfWork()->isScheduledForInsert($entity->getCreatedBy()))
 		{
 			$entityManager->detach($entity->getCreatedBy());

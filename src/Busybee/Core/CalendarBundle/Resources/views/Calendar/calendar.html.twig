@@ -20,7 +20,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include '@BusybeeHome/Scripts/jquery.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/jquery.html.twig' %}
 {% endblock stylesheets %}
 
 {% set tabs = get_parameter('calendar') %}
@@ -71,5 +71,5 @@
     {% include '@BusybeeCalendar/Term/termScript.html.twig' %}
     {% include "@BusybeeCalendar/SpecialDays/specialDaysScript.html.twig" %}
     {% include 'BusybeeCalendarBundle:Calendar:script.html.twig' %}
-    {% include '@BusybeeHome/Scripts/formTabSubmitScript.html.twig' with {'route': 'year_edit'} %}
+    {% include '@BusybeeTemplate/Scripts/formTabSubmitScript.html.twig' with {'route': 'year_edit'} %}
 {% endblock javascripts %}

@@ -114,14 +114,13 @@ class MenuManager implements MenuManagerInterface
 	{
 		if (!empty($this->nodeItems[$node]))
 			return $this->nodeItems[$node];
-
 		$items  = $this->container->getParameter('items');
 		$result = [];
 		foreach ($items as $w)
 		{
 			if ($w['node'] == $node && $this->itemRoleCheck($w))
 			{
-				$w['parameters'] = !empty($w['parameters']) ? $w['parameters'] : array();
+				$w['parameters'] = ! empty($w['parameters']) ? $w['parameters'] : array();
 				if (isset($w['route']))
 					$w['role'] = $this->getRouteAccess($w['route'], empty($w['role']) ? null : $w['role']);
 				if (empty($w['role']))
@@ -145,16 +144,16 @@ class MenuManager implements MenuManagerInterface
 	{
 		if (null === $this->checker)
 			return false;
-
 		if (empty($node['role']) && empty($node['route']))
 			return true;
 
 		if (empty($node['role']) && empty($this->pageRoles[$node['route']]))
 			return true;
 
-		if (!empty($node['route']))
+		if (! empty($node['route']))
 		{
-			$this->pageRoles[$node['route']] = array_values($this->pageRoles[$node['route']]);
+			$this->pageRoles[$node['route']] = array_values(empty($this->pageRoles[$node['route']]) ? [] : $this->pageRoles[$node['route']]);
+			dump($node);
 
 			if (empty($this->pageRoles[$node['route']]) || (count($this->pageRoles[$node['route']]) == 1 && is_null($this->pageRoles[$node['route']][0])))
 				$this->pageRoles[$node['route']] = [];

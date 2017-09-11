@@ -43,7 +43,6 @@ class AttendanceManager
 
     public function getAttendDates()
     {
-        dump($this);
         return [];
     }
 

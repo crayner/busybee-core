@@ -623,6 +623,9 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 		if (!$this->settingExists($setting->getName()))
 		{
 			$em = $this->container->get('doctrine')->getManager();
+			if ($setting->getType() == 'array' && is_array($setting->getValue()))
+				$setting->setValue(Yaml::dump($setting->getValue()));
+
 			$em->persist($setting);
 			$em->flush();
 		}

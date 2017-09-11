@@ -45,56 +45,9 @@ class DefaultController extends Controller
 	public function indexAction(Request $request)
 	{
 		$setting = $this->get('busybee_core_system.setting.setting_manager');
-		try
-		{
-			if (!$setting->has('Installed', true) || !$setting->get('Installed', false))
-			{
-				$this->get('session')->invalidate();
 
-				return new RedirectResponse($this->generateUrl('install_build_system'));
-			}
-		}
-		catch (\Exception $e)
-		{
-			$this->get('session')->invalidate();
 
-			return new RedirectResponse($this->generateUrl('install_build_system'));
-		}
-
-		$config         = new \stdClass();
-		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
-
-		$user = $this->getUser();
-
-		$tm = $this->get('timetable.display.manager');
-
-		if (!is_null($user))
-		{
-			$encoder = $this->get('security.encoder_factory');
-			$encoder = $encoder->getEncoder($user);
-
-			$identifier = $tm->getTimeTableIdentifier($this->getUser());
-
-			if ($encoder->isPasswordValid($user->getPassword(), 'p@ssword', $user->getSalt()) || $user->getExpired())
-			{
-				$email = null;
-				if (!empty($user))
-					$email = trim($user->getEmail());
-
-				$config         = new \stdClass();
-				$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
-
-				return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
-					'email'              => $email,
-					'config'             => $config,
-					'forcePasswordReset' => $user->getExpired(),
-				));
-			}
-		}
-
-		return $this->render('BusybeeHomeBundle::home.html.twig', array('config'  => $config,
-		                                                                'manager' => $tm,
-		));
+		return $this->render('BusybeeHomeBundle::home.html.twig');
 	}
 
 	public function acknowledgementAction()

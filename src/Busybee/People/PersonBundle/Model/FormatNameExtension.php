@@ -37,15 +37,6 @@ trait FormatNameExtension
 				return $person->formatName($options);
 		}
 
-		if ($this instanceof User)
-		{
-			$person = $this->getPerson();
-			if ($person instanceof Person)
-				return $person->formatName($options);
-			else
-				return $this->getUsername();
-		}
-
 		if ($this instanceof Staff)
 		{
 			$person = $this->getPerson();

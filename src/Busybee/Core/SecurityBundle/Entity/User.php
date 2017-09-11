@@ -2,7 +2,6 @@
 
 namespace Busybee\Core\SecurityBundle\Entity;
 
-use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\Core\SecurityBundle\Model\User as UserModel;
 use DateTime;
 
@@ -110,11 +109,6 @@ class User extends UserModel
 	 * @var \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	private $modifiedBy;
-
-	/**
-	 * @var \Busybee\People\PersonBundle\Entity\Person
-	 */
-	private $person;
 
 	/**
 	 * @var array
@@ -619,30 +613,6 @@ class User extends UserModel
 	}
 
 	/**
-	 * Get person
-	 *
-	 * @return Person
-	 */
-	public function getPerson()
-	{
-		return $this->person;
-	}
-
-	/**
-	 * Set person
-	 *
-	 * @param Person $person
-	 *
-	 * @return User
-	 */
-	public function setPerson(Person $person = null)
-	{
-		$this->person = $person;
-
-		return $this;
-	}
-
-	/**
 	 * Get groups
 	 *
 	 * @return array
@@ -676,6 +646,9 @@ class User extends UserModel
 	 */
 	public function getDirectroles()
 	{
+		if (! is_array($this->directroles) && empty($this->directroles))
+			$this->setDirectroles([]);
+
 		return $this->directroles;
 	}
 
@@ -693,30 +666,27 @@ class User extends UserModel
 		return $this;
 	}
 
-	/**
-	 * Get year
-	 *
-	 * @return \Busybee\Core\CalendarBundle\Entity\Year
-	 */
-	public function getYear()
-	{
-		if (!is_null($this->year))
-			return $this->year;
+    /**
+     * Set year
+     *
+     * @param \Busybee\Core\CalendarBundle\Entity\Year $year
+     *
+     * @return User
+     */
+    public function setYear(\Busybee\Core\CalendarBundle\Entity\Year $year = null)
+    {
+        $this->year = $year;
 
-		return $this->year;
-	}
+        return $this;
+    }
 
-	/**
-	 * Set year
-	 *
-	 * @param \Busybee\Core\CalendarBundle\Entity\Year $year
-	 *
-	 * @return User
-	 */
-	public function setYear(\Busybee\Core\CalendarBundle\Entity\Year $year = null)
-	{
-		$this->year = $year;
-
-		return $this;
-	}
+    /**
+     * Get year
+     *
+     * @return \Busybee\Core\CalendarBundle\Entity\Year
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
 }

@@ -76,11 +76,9 @@ class AdvancedLoader extends Loader
 	public function __construct(Kernel $kernel)
 	{
 		$this->path = $kernel->getProjectDir();
-		$parameters = [];
+		$this->bundles = [];
 
 		if (file_exists($this->path . '/app/config/bundles.yml'))
-			$parameters = Yaml::parse(file_get_contents($this->path . '/app/config/bundles.yml'));
-
-		$this->bundles = $parameters;
+			$this->bundles = Yaml::parse(file_get_contents($this->path . '/app/config/bundles.yml'));
 	}
 }

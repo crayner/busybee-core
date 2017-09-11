@@ -131,6 +131,19 @@ class MiscellaneousType extends AbstractType
 					],
 				]
 			)
+			->add('hemisphere', ChoiceType::class,
+				[
+					'label'   => 'misc.hemisphere.label',
+					'attr'    => array(
+						'help' => 'misc.hemisphere.help',
+					),
+					'mapped'  => false,
+					'choices' => [
+						'Northern' => 'North',
+						'Southern' => 'South',
+					],
+				]
+			)
 			->add('numbers', ToggleType::class,
 				[
 					'label'  => 'misc.password.numbers.label',

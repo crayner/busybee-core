@@ -2,6 +2,7 @@
 
 namespace Busybee\Core\SecurityBundle\Repository;
 
+use Busybee\Core\SecurityBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +13,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+	/**
+	 * find
+	 *
+	 * @param mixed $id
+	 *
+	 * @return User
+	 */
+	public function find($id)
+	{
+		$entity = parent::find($id);
+
+		if (is_null($entity) && intval($id) === 1)
+			$entity = new User();
+
+		return $entity;
+	}
 }

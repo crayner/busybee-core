@@ -18,15 +18,12 @@ Busybee\Core\CalendarBundle\Entity\Grade:
         sequence:
             type: integer
             length: 2
-    oneToMany:
-        students:
-            targetEntity: Busybee\People\StudentBundle\Entity\StudentGrade
-            mappedBy: grade
-            cascade: [ 'persist' ]
-    manyToMany:
-        activities:
-            targetEntity: Busybee\ActivityBundle\Entity\Activity
-            mappedBy: grades
+        lastModified:
+            type: datetime
+            column: last_modified
+        createdOn:
+            type: datetime
+            column: created_on
     manyToOne:
         year:
             targetEntity: Busybee\Core\CalendarBundle\Entity\Year
@@ -37,10 +34,10 @@ Busybee\Core\CalendarBundle\Entity\Grade:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
-                createdBy:
+                created_by:
                     referencedColumnName: id
         modifiedBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
-                modifiedBy:
+                modified_by:
                     referencedColumnName: id

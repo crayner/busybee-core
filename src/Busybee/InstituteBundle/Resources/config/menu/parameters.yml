@@ -2,13 +2,6 @@
 parameters:
     nodes: []
     items:
-        14:
-            name: Manage School Settings
-            label: menu.site.institute.manage
-            role: ROLE_USER
-            node: 1
-            order: 14
-            menu: 14
         140:
             label: menu.facility.manage
             name: Facility Management

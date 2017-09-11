@@ -191,14 +191,14 @@ services:
             - '@busybee_core_system.setting.setting_manager'
             - '%version%'
             - '@translator'
-    busybee_form.button.extension:
+    busybee_core_template.extension.button_extension:
         class: Busybee\Core\TemplateBundle\Extension\ButtonExtension
         arguments:
             - '%buttons%'
             - '@translator'
         tags:
             - { name: twig.extension }
-    busybee_form.setting.extension:
+    busybee_core_template.extension.setting_extension:
         class: Busybee\Core\TemplateBundle\Extension\SettingExtension
         arguments:
             - '@busybee_core_system.setting.setting_manager'
@@ -206,13 +206,13 @@ services:
             - '@busybee.parameters'
         tags:
             - { name: twig.extension }
-    busybee_form.session.extension:
+    busybee_core_template.extension.session_extension:
         class: Busybee\Core\TemplateBundle\Extension\SessionExtension
         arguments:
             - '@session'
         tags:
             - { name: twig.extension }
-    busybee_form.flash.extension:
+    busybee_core_template.extension.flash_extension:
         class: Busybee\Core\TemplateBundle\Extension\FlashExtension
         tags:
             - { name: twig.extension }
@@ -230,3 +230,9 @@ services:
             - '@system.password.manager'
     system.password.manager:
         class: Busybee\Core\TemplateBundle\Model\PasswordManager
+    busybee_core_template.extension.router_extension:
+        class: Busybee\Core\TemplateBundle\Extension\RouterExtension
+        arguments:
+            - '@router'
+        tags:
+            - { name: twig.extension }

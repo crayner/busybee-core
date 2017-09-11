@@ -28,7 +28,9 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false">{{ app.user.formatName }}<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="{{ path('person_preference') }}" target="_self">{{ 'Preferences'|trans }}</a></li>
+                {% if routeExists('person_preference') %}
+                    <li><a href="{{ path('person_preference') }}" target="_self">{{ 'Preferences'|trans }}</a></li>
+                {% endif %}
                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                     <li>
                         <a href="{{ path('home_page', {'_switch_user': '_exit'}) }}">{{ 'Exit Impersonation'|trans }}</a>

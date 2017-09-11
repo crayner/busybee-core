@@ -114,7 +114,6 @@ class TimeTableController extends Controller
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
         $tm = $this->get('timetable.manager')->setTimeTable($this->get('timetable.repository')->find($id));
-	    dump($tm);
 
 //	    if ($tm->getTimeTable()->getLocked() && ! $tm->getTimeTable()->getGenerated())
 //		    return $this->generateTimeTable($id);

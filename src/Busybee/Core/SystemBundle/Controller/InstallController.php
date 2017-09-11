@@ -1,53 +1,58 @@
 <?php
-
 namespace Busybee\Core\SystemBundle\Controller;
 
-use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\SecurityBundle\Entity\User;
-use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\People\StaffBundle\Entity\Staff;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\Mapping\MappingException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class InstallController extends Controller
 {
+	/**
+	 * @param int $count
+	 *
+	 * @return RedirectResponse
+	 */
 	public function buildAction()
 	{
+
 		$em    = $this->get('doctrine')->getManager();
-		$newEm = EntityManager::create($em->getConnection(), $em->getConfiguration());
 
 		$im = $this->get('install.manager');
 
-		$this->entity = $newEm->getRepository(User::class)->find(1);
-		if (is_null($this->entity))
-			$this->entity = new User();
-		$parameters = $im->getParameters();
-		$user       = $im->getSystemUser();
-
-		if (intval($this->entity->getId()) == 0 && !empty($user))
+		try
 		{
-			$this->entity->setUsername($user['username']);
-			$this->entity->setUsernameCanonical($user['username']);
-			$this->entity->setEmail($user['email']);
-			$this->entity->setEmailCanonical($user['email']);
-			$this->entity->setLocale('en_GB');
-			$this->entity->setLocked(false);
-			$this->entity->setExpired(false);
-			$this->entity->setCredentialsExpired(false);
-			$this->entity->setEnabled(true);
-			$this->entity->setDirectroles(['ROLE_SYSTEM_ADMIN']);
-			$this->entity->setCreatedBy($this->entity);
-			$this->entity->setModifiedBy($this->entity);
-			$encoder  = $this->get('security.password_encoder');
-			$password = $encoder->encodePassword($this->entity, $user['password']);
-			$this->entity->setPassword($password);
-			$newEm->persist($this->entity);
-			$newEm->flush();
+			$user = $em->getRepository(User::class)->find(1);
+
+		} catch (MappingException $e) {
+
+			sleep(5);
+
+			return new RedirectResponse($this->generateUrl('install_build_system'));
 		}
 
+		$parameters = $im->getParameters();
+		$userDetails       = $im->getSystemUser();
+
+		$user->setInstaller(true);
+		$user->setUsername($userDetails['username']);
+		$user->setUsernameCanonical($userDetails['username']);
+		$user->setEmail($userDetails['email']);
+		$user->setEmailCanonical($userDetails['email']);
+		$user->setLocale('en_GB');
+		$user->setLocked(false);
+		$user->setExpired(false);
+		$user->setCredentialsExpired(false);
+		$user->setEnabled(true);
+		$user->setDirectroles(['ROLE_SYSTEM_ADMIN']);
+		$encoder  = $this->get('security.password_encoder');
+		$password = $encoder->encodePassword($user, $userDetails['password']);
+		$user->setPassword($password);
+
+		$em->persist($user);
+		$em->flush();
 
 		$session = $this->get('session');
 
@@ -58,7 +63,6 @@ class InstallController extends Controller
 		$im->saveParameters($parameters);
 
 		$this->get('session')->getFlashBag()->add('success', 'buildDatabase.success');
-		$user = $newEm->getRepository(User::class)->find(1);
 
 		$token = new UsernamePasswordToken($user, null, "default", $user->getRoles());
 
@@ -74,48 +78,57 @@ class InstallController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
 
-		$user = $this->get('user.repository')->find(1);
+		$em    = $this->get('doctrine')->getManager();
 
-		$newEm = $this->get('doctrine')->getManager();
-
-		if (!$user->hasPerson())
+		try
 		{
-			$person = new Person();
-			$person->setUser($user);
-			$user->setPerson($person);
-			$person->setEmail($user->getEmail());
-			$person->setFirstName('System');
-			$person->setSurname('Administrator');
-			$person->setPreferredName('Sys.Ad.');
-			$person->setOfficialName('System Administrator');
-			$staff = new Staff();
-			$staff->setPerson($person);
-			$newEm->persist($person);
-			$newEm->persist($staff);
-			$newEm->flush();
+			$year = $em->getRepository(Year::class)->find(1);
+
+		} catch (MappingException $e) {
+
+			sleep(5);
+
+			return new RedirectResponse($this->generateUrl('install_build_complete'));
 		}
 
-		$year = $this->get('current.year.currentYear');
-
-		if (empty($year->getId()))
+		if (is_null($year))
 		{
 			$year = new Year();
+			$hemi = $this->getParameter('hemisphere');
+			$hemi = $hemi === 'North' ? 'North' : 'South';
+			$today = new \DateTime('now');
+			$start = new \DateTime($today->format('Y').'0101');
+			$finish = new \DateTime($today->format('Y').'1231');
+			$name = $today->format('Y');
+			if ($hemi === 'North'){
+				if ($start->format('n') > '6')
+				{
+					$start = new \DateTime($today->format('Y').'0701');
+					$finish = new \DateTime(($today->format('Y') + 1).'0630');
+					$name = $today->format('Y') . ' - ' . ($today->format('Y') + 1);
+				} else {
+					$start = new \DateTime(($today->format('Y') - 1).'0701');
+					$finish = new \DateTime($today->format('Y').'0630');
+					$name = ($today->format('Y') - 1) . ' - ' . $today->format('Y');
+				}
+			}
+			$year->setFirstDay($start);
+			$year->setLastDay($finish);
+			$year->setName($name);
+			$year->setStatus('current');
+			$em->persist($year);
+			$em->flush();
 		}
 
-		$year->setName(date('Y'));
-		$year->setFirstDay(new \DateTime(date('Y') . '0101 00:00:00'));
-		$year->setLastDay(new \DateTime(date('Y') . '1231 00:00:00'));
-		$year->setStatus('Current');
-		$newEm->persist($year);
-		$newEm->flush();
-		$term = new Term();
-		$term->setYear($year);
-		$term->setFirstDay($year->getFirstDay());
-		$term->setLastDay($year->getLastDay());
-		$term->setName('Term');
-		$term->setNameShort('T');
-		$newEm->persist($term);
-		$newEm->flush();
+		$user = $this->get('user.repository')->find(1);
+
+		$user->setCreatedBy($user);
+		$user->setModifiedBy($user);
+		$user->setYear($year);
+
+		$om = $this->get('doctrine')->getManager();
+		$om->persist($user);
+		$om->flush();
 
 		$this->get('session')->getFlashBag()->add('success', 'buildComplete.success');
 

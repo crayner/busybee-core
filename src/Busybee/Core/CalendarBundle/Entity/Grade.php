@@ -41,19 +41,19 @@ class Grade extends GradeModel
 	private $sequence;
 
 	/**
-	 * @var \Doctrine\Common\Collections\Collection
-	 */
-	private $students;
-
-	/**
-	 * @var \Doctrine\Common\Collections\Collection
-	 */
-	private $activities;
-
-	/**
 	 * @var string
 	 */
 	private $name;
+
+	/**
+	 * @var \DateTime
+	 */
+	private $lastModified;
+
+	/**
+	 * @var \DateTime
+	 */
+	private $createdOn;
 
 	/**
 	 * Constructor
@@ -61,7 +61,6 @@ class Grade extends GradeModel
 	public function __construct()
 	{
 		$this->students   = new ArrayCollection();
-		$this->activities = new ArrayCollection();
 	}
 
 	/**
@@ -240,79 +239,6 @@ class Grade extends GradeModel
 		$this->sequence = $sequence;
 
 		return $this;
-	}
-
-	/**
-	 * Add student
-	 *
-	 * @param \Busybee\People\StudentBundle\Entity\StudentGrade $student
-	 *
-	 * @return Grade
-	 */
-	public function addStudent(\Busybee\People\StudentBundle\Entity\StudentGrade $student)
-	{
-		if ($this->students->contains($student))
-			return $this;
-
-		$student->setGrade($this, false);
-
-		$this->students->add($student);
-
-		return $this;
-	}
-
-	/**
-	 * Remove student
-	 *
-	 * @param \Busybee\People\StudentBundle\Entity\StudentGrade $student
-	 */
-	public function removeStudent(\Busybee\People\StudentBundle\Entity\StudentGrade $student)
-	{
-		$this->students->removeElement($student);
-	}
-
-	/**
-	 * Get students
-	 *
-	 * @return \Doctrine\Common\Collections\Collection
-	 */
-	public function getStudents()
-	{
-		return $this->students;
-	}
-
-	/**
-	 * Add activity
-	 *
-	 * @param \Busybee\ActivityBundle\Entity\Activity $activity
-	 *
-	 * @return Grade
-	 */
-	public function addActivity(\Busybee\ActivityBundle\Entity\Activity $activity)
-	{
-		$this->activities[] = $activity;
-
-		return $this;
-	}
-
-	/**
-	 * Remove activity
-	 *
-	 * @param \Busybee\ActivityBundle\Entity\Activity $activity
-	 */
-	public function removeActivity(\Busybee\ActivityBundle\Entity\Activity $activity)
-	{
-		$this->activities->removeElement($activity);
-	}
-
-	/**
-	 * Get activities
-	 *
-	 * @return \Doctrine\Common\Collections\Collection
-	 */
-	public function getActivities()
-	{
-		return $this->activities;
 	}
 
 	/**

@@ -435,7 +435,6 @@ class TimeTableDisplayManager extends TimeTableManager
 
         if (!empty($week->days))
             $this->addWeek($week);
-	    dump($this);
 
         return $this;
     }

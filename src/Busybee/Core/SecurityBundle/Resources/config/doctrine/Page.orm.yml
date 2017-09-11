@@ -28,8 +28,10 @@ Busybee\Core\SecurityBundle\Entity\Page:
             nullable: true
         lastModified:
             type: datetime
+            column: last_modified
         createdOn:
             type: datetime
+            column: created_on
     manyToOne:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User

@@ -80,11 +80,16 @@ Busybee\Core\SecurityBundle\Entity\User:
         directroles:
             type: array
             nullable: true
+            column: direct_roles
         lastModified:
             type: datetime
-            nullable: true
+            column: last_modified
         createdOn:
             type: datetime
+            column: create_on
+    oneToOne:
+        year:
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Year
             nullable: true
     manyToOne:
         createdBy:
@@ -99,10 +104,3 @@ Busybee\Core\SecurityBundle\Entity\User:
                 modified_by:
                     referencedColumnName: id
                     nullable: true
-    oneToOne:
-        person:
-            targetEntity: Busybee\People\PersonBundle\Entity\Person
-            inversedBy: user
-        year:
-            targetEntity: Busybee\Core\CalendarBundle\Entity\Year
-            nullable: true

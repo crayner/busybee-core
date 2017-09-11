@@ -34,10 +34,10 @@ Busybee\Core\CalendarBundle\Entity\SpecialDay:
             nullable: true
         lastModified:
             type: datetime
-            nullable: true 
+            column: last_modified
         createdOn:
             type: datetime
-            nullable: true 
+            column: created_on
     manyToOne:
         year:
             targetEntity: Busybee\Core\CalendarBundle\Entity\Year
@@ -48,10 +48,10 @@ Busybee\Core\CalendarBundle\Entity\SpecialDay:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
-                createdBy:
+                created_by:
                     referencedColumnName: id
         modifiedBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
-                modifiedBy:
+                modified_by:
                     referencedColumnName: id

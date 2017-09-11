@@ -1,15 +1,13 @@
 <?php
-
 namespace Busybee\People\StudentBundle\Entity;
 
-use Busybee\People\PersonBundle\Model\PersonInterface;
 use Busybee\People\StudentBundle\Model\StudentModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Student
  */
-class Student extends StudentModel implements PersonInterface
+class Student extends StudentModel
 {
 	/**
 	 * @var integer
@@ -117,29 +115,9 @@ class Student extends StudentModel implements PersonInterface
 	private $house;
 
 	/**
-	 * @var \DateTime
-	 */
-	private $lastModified;
-
-	/**
-	 * @var \DateTime
-	 */
-	private $createdOn;
-
-	/**
 	 * @var \Busybee\People\PersonBundle\Entity\Person
 	 */
 	private $person;
-
-	/**
-	 * @var \Busybee\Core\SecurityBundle\Entity\User
-	 */
-	private $createdBy;
-
-	/**
-	 * @var \Busybee\Core\SecurityBundle\Entity\User
-	 */
-	private $modifiedBy;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
@@ -659,54 +637,6 @@ class Student extends StudentModel implements PersonInterface
 	}
 
 	/**
-	 * Get lastModified
-	 *
-	 * @return \DateTime
-	 */
-	public function getLastModified()
-	{
-		return $this->lastModified;
-	}
-
-	/**
-	 * Set lastModified
-	 *
-	 * @param \DateTime $lastModified
-	 *
-	 * @return Student
-	 */
-	public function setLastModified($lastModified)
-	{
-		$this->lastModified = $lastModified;
-
-		return $this;
-	}
-
-	/**
-	 * Get createdOn
-	 *
-	 * @return \DateTime
-	 */
-	public function getCreatedOn()
-	{
-		return $this->createdOn;
-	}
-
-	/**
-	 * Set createdOn
-	 *
-	 * @param \DateTime $createdOn
-	 *
-	 * @return Student
-	 */
-	public function setCreatedOn($createdOn)
-	{
-		$this->createdOn = $createdOn;
-
-		return $this;
-	}
-
-	/**
 	 * Get person
 	 *
 	 * @return \Busybee\People\PersonBundle\Entity\Person
@@ -726,54 +656,6 @@ class Student extends StudentModel implements PersonInterface
 	public function setPerson(\Busybee\People\PersonBundle\Entity\Person $person = null)
 	{
 		$this->person = $person;
-
-		return $this;
-	}
-
-	/**
-	 * Get createdBy
-	 *
-	 * @return \Busybee\Core\SecurityBundle\Entity\User
-	 */
-	public function getCreatedBy()
-	{
-		return $this->createdBy;
-	}
-
-	/**
-	 * Set createdBy
-	 *
-	 * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
-	 *
-	 * @return Student
-	 */
-	public function setCreatedBy(\Busybee\Core\SecurityBundle\Entity\User $createdBy = null)
-	{
-		$this->createdBy = $createdBy;
-
-		return $this;
-	}
-
-	/**
-	 * Get modifiedBy
-	 *
-	 * @return \Busybee\Core\SecurityBundle\Entity\User
-	 */
-	public function getModifiedBy()
-	{
-		return $this->modifiedBy;
-	}
-
-	/**
-	 * Set modifiedBy
-	 *
-	 * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
-	 *
-	 * @return Student
-	 */
-	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
-	{
-		$this->modifiedBy = $modifiedBy;
 
 		return $this;
 	}
