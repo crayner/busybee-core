@@ -18,6 +18,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
+        '32dcc8afd4335739640db7d200c1971d' => __DIR__ . '/..' . '/symfony/polyfill-apcu/bootstrap.php',
         '975e51b86293d2a4b363adf565b28792' => __DIR__ . '/../..' . '/app/AppKernel.php',
     );
 
@@ -618,6 +619,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Busybee\\Core\\HomeBundle\\Validator\\Yaml' => __DIR__ . '/../..' . '/src/Busybee/Core/HomeBundle/Validator/Yaml.php',
         'Busybee\\Core\\HomeBundle\\Validator\\YamlValidator' => __DIR__ . '/../..' . '/src/Busybee/Core/HomeBundle/Validator/YamlValidator.php',
         'Busybee\\Core\\InstallBundle\\BusybeeInstallBundle' => __DIR__ . '/../..' . '/src/Busybee/Core/InstallBundle/BusybeeInstallBundle.php',
+        'Busybee\\Core\\InstallBundle\\Controller\\DefaultController' => __DIR__ . '/../..' . '/src/Busybee/Core/InstallBundle/Controller/DefaultController.php',
         'Busybee\\Core\\InstallBundle\\Controller\\InstallController' => __DIR__ . '/../..' . '/src/Busybee/Core/InstallBundle/Controller/InstallController.php',
         'Busybee\\Core\\InstallBundle\\DependencyInjection\\BusybeeInstallExtension' => __DIR__ . '/../..' . '/src/Busybee/Core/InstallBundle/DependencyInjection/BusybeeInstallExtension.php',
         'Busybee\\Core\\InstallBundle\\DependencyInjection\\Configuration' => __DIR__ . '/../..' . '/src/Busybee/Core/InstallBundle/DependencyInjection/Configuration.php',
@@ -748,6 +750,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Busybee\\Core\\TemplateBundle\\Extension\\ButtonExtension' => __DIR__ . '/../..' . '/src/Busybee/Core/TemplateBundle/Extension/ButtonExtension.php',
         'Busybee\\Core\\TemplateBundle\\Extension\\FlashExtension' => __DIR__ . '/../..' . '/src/Busybee/Core/TemplateBundle/Extension/FlashExtension.php',
         'Busybee\\Core\\TemplateBundle\\Extension\\FormErrorsExtension' => __DIR__ . '/../..' . '/src/Busybee/Core/TemplateBundle/Extension/FormErrorsExtension.php',
+        'Busybee\\Core\\TemplateBundle\\Extension\\RouterExtension' => __DIR__ . '/../..' . '/src/Busybee/Core/TemplateBundle/Extension/RouterExtension.php',
         'Busybee\\Core\\TemplateBundle\\Extension\\SessionExtension' => __DIR__ . '/../..' . '/src/Busybee/Core/TemplateBundle/Extension/SessionExtension.php',
         'Busybee\\Core\\TemplateBundle\\Extension\\SettingExtension' => __DIR__ . '/../..' . '/src/Busybee/Core/TemplateBundle/Extension/SettingExtension.php',
         'Busybee\\Core\\TemplateBundle\\Form\\DataTransformer\\CSVToStringTransformer' => __DIR__ . '/../..' . '/src/Busybee/Core/TemplateBundle/Form/DataTransformer/CSVToStringTransformer.php',
