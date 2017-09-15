@@ -183,15 +183,15 @@ class RequirementCollection implements IteratorAggregate
         return new ArrayIterator($this->requirements);
     }
 
-	/**
-	 * Adds a Requirement.
-	 *
-	 * @param Requirement $requirement A Requirement instance
-	 */
-	public function add(Requirement $requirement)
-	{
-		$this->requirements[] = $requirement;
-	}
+    /**
+     * Adds a Requirement.
+     *
+     * @param Requirement $requirement A Requirement instance
+     */
+    public function add(Requirement $requirement)
+    {
+        $this->requirements[] = $requirement;
+    }
 
     /**
      * Adds a mandatory requirement.
@@ -791,30 +791,27 @@ class SymfonyRequirements extends RequirementCollection
         }
     }
 
-	/**
-	 * Defines PHP required version from Symfony version.
-	 *
-	 * @return string|false The PHP required version or false if it could not be guessed
-	 */
-	protected function getPhpRequiredVersion()
-	{
-		if (!file_exists($path = __DIR__ . '/../composer.lock'))
-		{
-			return false;
-		}
+    /**
+     * Defines PHP required version from Symfony version.
+     *
+     * @return string|false The PHP required version or false if it could not be guessed
+     */
+    protected function getPhpRequiredVersion()
+    {
+        if (!file_exists($path = __DIR__.'/../composer.lock')) {
+            return false;
+        }
 
-		$composerLock = json_decode(file_get_contents($path), true);
-		foreach ($composerLock['packages'] as $package)
-		{
-			$name = $package['name'];
-			if ('symfony/symfony' !== $name && 'symfony/http-kernel' !== $name)
-			{
-				continue;
-			}
+        $composerLock = json_decode(file_get_contents($path), true);
+        foreach ($composerLock['packages'] as $package) {
+            $name = $package['name'];
+            if ('symfony/symfony' !== $name && 'symfony/http-kernel' !== $name) {
+                continue;
+            }
 
-			return (int) $package['version'][1] > 2 ? self::REQUIRED_PHP_VERSION : self::LEGACY_REQUIRED_PHP_VERSION;
-		}
+            return (int) $package['version'][1] > 2 ? self::REQUIRED_PHP_VERSION : self::LEGACY_REQUIRED_PHP_VERSION;
+        }
 
-		return false;
-	}
+        return false;
+    }
 }
