@@ -41,7 +41,7 @@
                 <div class="col-sm-4 col-md-4">
                     {{ editButton({'style': '', 'windowOpen': {'route': path('year_edit', {'id': Year.id})}, 'title': 'year.edit.title', 'class': 'btn btn-warning halflings halflings-edit', 'transDomain': 'BusybeeCalendarBundle'})|raw }}
                     {% set additional = 'onclick="confirmDelete(\'' ~ path('year_delete', {'id': Year.id}) ~ '\')"' %}
-                    {% if not Year.canDelete %}{% set additional = additional ~ ' disabled' %}{% endif %}
+                    {% if not manager.canDelete(Year) %}{% set additional = additional ~ ' disabled' %}{% endif %}
                     {{ deleteButton({'additional': additional, 'style': ''})|raw }}
                     {{ miscButton({'title': 'year.calendar.button', 'type': 'button', 'class': 'halflings halflings-calendar btn btn-info', 'style': '', 'transDomain': 'BusybeeCalendarBundle', 'windowOpen': {'route': path('year_calendar', {'id': Year.id, 'closeWindow': true}), 'target': 'window.calendar', 'params': 'width=1200,height=900'}})|raw }}
                 </div>

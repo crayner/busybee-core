@@ -2,19 +2,49 @@
 
 namespace Busybee\Core\CalendarBundle\Service\WidgetService;
 
-use Busybee\Core\SystemBundle\Setting\SettingManager;
+use Busybee\Core\CalendarBundle\Entity\Year;
+use Busybee\Core\TemplateBundle\Source\SettingManagerInterface;
 
 class Day
 {
+	/**
+	 * @var \DateTime
+	 */
 	protected $date;
 
+	/**
+	 * @var array
+	 */
 	protected $parameters;
+
+	/**
+	 * @var SettingManagerInterface
+	 */
 	protected $sm;
+
+	/**
+	 * @var int
+	 */
 	private $firstDayofWeek;
+
+	/**
+	 * @var int
+	 */
 	private $lastDayofWeek;
+
+	/**
+	 * @var int|null
+	 */
 	private $weekNumber = null;
 
-	public function __construct(\DateTime $date, SettingManager $sm)
+	/**
+	 * Day constructor.
+	 *
+	 * @param \DateTime               $date
+	 * @param SettingManagerInterface $sm
+	 * @param Year                    $year
+	 */
+	public function __construct(\DateTime $date, SettingManagerInterface $sm, int $weeks)
 	{
 		$this->parameters     = array();
 		$this->date           = $date;
@@ -22,22 +52,26 @@ class Day
 		$this->sm             = $sm;
 		$this->firstDayofWeek = $this->sm->get('firstDayofWeek', 'Monday') == 'Sunday' ? 7 : 1;
 		$this->lastDayofWeek  = $this->sm->get('firstDayofWeek', 'Monday') == 'Sunday' ? 6 : 7;
-		$this->weekNumber     = $this->getWeekNumber();
 	}
 
-	public function getWeekNumber()
+	/**
+	 * @param int $weekNumber
+	 *
+	 * @return Week
+	 */
+	public function setWeekNumber(int $weekNumber): Day
 	{
-		if (!is_null($this->weekNumber))
-			return $this->weekNumber;
-		$date = clone $this->date;
-		if ($this->sm->get('firstDayofWeek') === 'Monday')
-			return (int) $date->format('W');
+		$this->weekNumber = $weekNumber;
 
-		//  First day of week is Sunday ...
-		$oneDayInterval = new \DateInterval('P1D');
-		$date->add($oneDayInterval);
+		return $this;
+	}
 
-		return (int) $date->format('W');
+	/**
+	 * @return int
+	 */
+	public function getWeekNumber(): int
+	{
+		return $this->weekNumber;
 	}
 
 	public function getDate()

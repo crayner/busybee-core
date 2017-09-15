@@ -13,17 +13,38 @@ class Week
 	protected $weekNumber = null;
 	protected $parameters;
 
-	public function __construct(Calendar $calendar, Day $day)
+	public function __construct(Calendar $calendar, Day $day, int $weekNumber)
 	{
-		$this->parameters = array();
+		$this->parameters = [];
 		$this->calendar   = $calendar;
-		$this->days       = array();
+		$this->days       = [];
+		$this->setWeekNumber($weekNumber);
 		$this->addDay($day);
-		$this->weekNumber = $day->getWeekNumber();
+	}
+
+	/**
+	 * @param int $weekNumber
+	 *
+	 * @return Week
+	 */
+	public function setWeekNumber(int $weekNumber): Week
+	{
+		$this->weekNumber = $weekNumber;
+
+		return $this;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getWeekNumber(): int
+	{
+		return $this->weekNumber;
 	}
 
 	public function addDay($day)
 	{
+		$day->setWeekNumber($this->getWeekNumber());
 		$this->days[] = $day;
 	}
 

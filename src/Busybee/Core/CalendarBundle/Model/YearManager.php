@@ -2,11 +2,11 @@
 
 namespace Busybee\Core\CalendarBundle\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Busybee\Core\CalendarBundle\Entity\Year;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\DBAL\Driver\PDOException;
 use Doctrine\DBAL\Exception\DriverException;
-use Doctrine\ORM\Query\ResultSetMapping;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormEvent;
 
@@ -104,5 +104,31 @@ class YearManager
 				throw new \Exception($e->getMessage());
 		}
 
+	}
+
+	/**
+	 * Can Delete
+	 *
+	 * @param Year $year
+	 *
+	 * @return bool
+	 */
+	public function canDelete(Year $year)
+	{
+		if (! $year->canDelete())
+			return false;
+
+		$users = $this->manager->getRepository(User::class)->createQueryBuilder('u')
+			->leftJoin('u.year', 'y')
+			->where('y.id = :year_id')
+			->setParameter('year_id', $year->getId())
+			->setMaxResults(1)
+			->getQuery()
+			->getResult();
+
+		if (! empty($users))
+			return false;
+
+		return true;
 	}
 }

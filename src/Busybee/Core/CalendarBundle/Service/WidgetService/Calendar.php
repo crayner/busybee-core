@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\Core\CalendarBundle\Service\WidgetService;
 
+use Busybee\Core\CalendarBundle\Model\Day;
 use Busybee\Core\TemplateBundle\Source\SettingManagerInterface;
 
 /**
@@ -10,9 +11,9 @@ use Busybee\Core\TemplateBundle\Source\SettingManagerInterface;
  */
 class Calendar
 {
-	const DEFAULT_MONTH_MODEL = '\Busybee\Core\CalendarBundle\Service\WidgetService\Month';
-	const DEFAULT_WEEK_MODEL = '\Busybee\Core\CalendarBundle\Service\WidgetService\Week';
-	const DEFAULT_DAY_MODEL = \Busybee\Core\CalendarBundle\Model\Day::class;
+	const DEFAULT_MONTH_MODEL = Month::class;
+	const DEFAULT_WEEK_MODEL = Week::class;
+	const DEFAULT_DAY_MODEL = Day::class;
 
 	protected $monthModel = self::DEFAULT_MONTH_MODEL;
 	protected $weekModel = self::DEFAULT_WEEK_MODEL;
@@ -54,6 +55,11 @@ class Calendar
 
 	private $sm;
 
+	/**
+	 * Calendar constructor.
+	 *
+	 * @param SettingManagerInterface $sm
+	 */
 	public function __construct(SettingManagerInterface $sm)
 	{
 		$this->sm = $sm;
@@ -95,11 +101,11 @@ class Calendar
 		while ($dateIterator <= $lastDate)
 		{
 			$currentDate = clone $dateIterator;
-			$day         = new $this->dayModel($currentDate, $this->sm);
+			$day         = new $this->dayModel($currentDate, $this->sm, count($this->weeks));
 			$this->addDay($day);
 
 			if (is_null($currentWeek))
-				$currentWeek = new $this->weekModel($this, $day);
+				$currentWeek = new $this->weekModel($this, $day, count($this->weeks) + 1);
 			else
 				$currentWeek->addDay($day);
 
@@ -128,7 +134,7 @@ class Calendar
 					$currentMonth = new $this->monthModel($this, $day);
 				}
 
-				if (!is_null($currentWeek) && count($currentWeek->getDays()) == 7)
+				if ($currentWeek instanceof Week && count($currentWeek->getDays()) == 7)
 				{
 					$this->addWeek($currentWeek);
 					$currentMonth->addWeek($currentWeek);
@@ -138,7 +144,7 @@ class Calendar
 			$dateIterator->add($oneDayInterval);
 		}
 		$this->initNames();
-
+dump($this);
 		return $this;
 	}
 

@@ -2,6 +2,8 @@
 
 namespace Busybee\Core\CalendarBundle\Controller;
 
+use Busybee\Core\CalendarBundle\Model\Day;
+use Busybee\Core\CalendarBundle\Model\Month;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Busybee\Core\CalendarBundle\Form\YearType;
@@ -24,7 +26,7 @@ class CalendarController extends Controller
 
 		$years = $this->get('busybee_core_calendar.repository.year_repository')->findBy([], ['firstDay' => 'DESC']);
 
-		return $this->render('BusybeeCalendarBundle:Calendar:years.html.twig', array('Years' => $years));
+		return $this->render('BusybeeCalendarBundle:Calendar:years.html.twig', array('Years' => $years, 'manager' => $this->get('busybee_core_calendar.model.year_manager')));
 	}
 
 	/**
@@ -114,8 +116,8 @@ class CalendarController extends Controller
 		$service = $this->get('busybee_core_calendar.service.widget_service.calendar'); //calling a calendar service
 
 		//Defining a custom classes for rendering of months and days
-		$dayModelClass   = '\Busybee\Core\CalendarBundle\Model\Day';
-		$monthModelClass = '\Busybee\Core\CalendarBundle\Model\Month';
+		$dayModelClass   = Day::class;
+		$monthModelClass = Month::class;
 
 		/**
 		 * Set model classes for calendar. Arguments:
@@ -125,12 +127,11 @@ class CalendarController extends Controller
 		 * 4. Day. Default: '\TFox\CalendarBundle\Service\WidgetService\Day'
 		 * To set default classes null should be passed as argument
 		 */
-		$service->setModels(null, $monthModelClass, null, $dayModelClass);
+		$service->setModels($monthModelClass, null, $dayModelClass);
 
 		$year->initialiseTerms();
 
 		$calendar = $service->generate($year); //Generate a calendar for specified year
-dump($calendar);
 
 		$cm = $this->get('busybee_core_calendar.model.calendar_manager');
 
