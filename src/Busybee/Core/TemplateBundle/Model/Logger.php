@@ -1,8 +1,9 @@
 <?php
-
 namespace Busybee\Core\TemplateBundle\Model;
 
-class Logger
+use Psr\Log\NullLogger;
+
+class Logger extends NullLogger
 {
 
 }

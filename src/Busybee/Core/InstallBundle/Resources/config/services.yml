@@ -3,11 +3,6 @@ parameters:
         system: '0.0.00'
         database: '0.0.00'
 services:
-    busybee_core_install.model.logger:
-        class: Busybee\Core\InstallBundle\Model\Logger
-        arguments: ['@logger']
-        tags:
-            - { name: monolog.logger, channel: busybee }
     monolog.formatter.line_formatter:
         class: Monolog\Formatter\LineFormatter
         arguments:
@@ -28,14 +23,14 @@ services:
             - {}
             - '@service_container'
         tags:
-            - { name: 'busybee_core_install.model.logger', channel: 'security' }
+            - { name: 'busybee_core_template.model.logger', channel: 'security' }
     busybee_core_install.router.advanced_loader:
         class: Busybee\Core\InstallBundle\Router\AdvancedLoader
         tags:
             - { name: routing.loader }
     busybee_core_system.setting.setting_manager:
         class: Busybee\Core\InstallBundle\Model\SettingManager
-    busybee_core_install.model.menu_manager:
+    busybee_core_home.model.menu_manager:  # Dummy Manager for Installation Only
         class: Busybee\Core\InstallBundle\Model\MenuManager
     busybee_core_install.extension.user_manager_extension:
         class: Busybee\Core\InstallBundle\Extension\UserManagerExtension

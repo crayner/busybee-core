@@ -31,7 +31,7 @@ class AuthenticationController extends Controller
 		$session = $this->get('session');
 		$this->clearSession();
 
-		if (false === $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR')))
+		if (false === $this->get('busybee_core_security.repository.failure_repository')->testRemoteAddress($request->server->get('REMOTE_ADDR')))
 		{
 			$session->getFlashBag()->add(
 				'warning',
@@ -101,7 +101,7 @@ class AuthenticationController extends Controller
 	{
 		$data['ajaxOn']         = 'xxxyyyzzz';
 		$data['config']         = new \stdClass();
-		$data['config']->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+		$data['config']->signin = $this->get('busybee_core_security.repository.failure_repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 
 		return $this->render('BusybeeSecurityBundle:Security:login.html.twig', $data);
 	}

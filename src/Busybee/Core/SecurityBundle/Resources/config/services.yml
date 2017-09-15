@@ -85,7 +85,7 @@ services:
             - {}
             - '@busybee_core_system.model.my_container'
         tags:
-            - { name: 'busybee_core_install.model.logger', channel: 'security' }
+            - { name: 'busybee_core_template.model.logger', channel: 'security' }
     busybee_core_security.user.entity_name:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: 
@@ -141,7 +141,7 @@ services:
         class: Busybee\Core\SecurityBundle\Security\Role\RoleHierarchy
         public: false
         arguments:
-            - '%busybee_hierarchy_roles%'
+            - '%roles%'
             - '@doctrine.orm.default_entity_manager'
             - '%roles%'
     busybee_core_security.util.token_generator:
@@ -189,7 +189,7 @@ services:
         class: Doctrine\ORM\Mapping\ClassMetaData
         arguments: 
             - '%busybee_security.failure.entity%'
-    busybee_core_security.repository.failure_respository:
+    busybee_core_security.repository.failure_repository:
         class: Busybee\Core\SecurityBundle\Repository\FailureRepository
         arguments: 
             - "@doctrine.orm.entity_manager" 

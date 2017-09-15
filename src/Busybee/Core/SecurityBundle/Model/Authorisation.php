@@ -40,7 +40,7 @@ class Authorisation extends AuthorizationChecker implements ContainerAwareInterf
 		$this->requestUri = $pathInfo;
 		$this->response   = null;
 
-		$this->ip_test = $container->get('security.failure.repository')->testRemoteAddress($container->get('request_stack')->getCurrentRequest()->server->get('REMOTE_ADDR'));
+		$this->ip_test = $container->get('busybee_core_security.repository.failure_repository')->testRemoteAddress($container->get('request_stack')->getCurrentRequest()->server->get('REMOTE_ADDR'));
 		$this->ip      = $container->get('request_stack')->getCurrentRequest()->server->get('REMOTE_ADDR');
 	}
 

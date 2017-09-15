@@ -146,7 +146,7 @@ class UserController extends Controller
 		}
 
 		$config         = new \stdClass();
-		$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+		$config->signin = $this->get('busybee_core_security.repository.failure_repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 
 		return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
 			'email'              => $email,
@@ -174,7 +174,7 @@ class UserController extends Controller
 		if (null === $user)
 		{
 			$config         = new \stdClass();
-			$config->signin = $this->get('security.failure.repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
+			$config->signin = $this->get('busybee_core_security.repository.failure_repository')->testRemoteAddress($request->server->get('REMOTE_ADDR'));
 
 			return $this->render('BusybeeSecurityBundle:User:request.html.twig', array(
 				'invalid_username'   => $username,

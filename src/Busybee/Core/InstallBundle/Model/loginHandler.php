@@ -76,7 +76,7 @@ class loginHandler implements AuthenticationSuccessHandlerInterface
 
 	private function clearFailureCount($ip)
 	{
-		$failRep = $this->container->get('security.failure.repository');
+		$failRep = $this->container->get('busybee_core_security.repository.failure_repository');
 		if ($failRep->exceptedIP($ip))
 			return;
 		$failure = $failRep->findOneBy(array('address' => $ip));
