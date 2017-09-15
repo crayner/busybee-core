@@ -60,7 +60,7 @@ class PersonController extends Controller
 
 		$editOptions = array();
 
-		$year = $person->yearData = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
+		$year = $person->yearData = $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser());
 
 		$form = $this->createForm(PersonType::class, $person);
 

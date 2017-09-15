@@ -20,7 +20,7 @@ class InstallController extends Controller
 
 		$em    = $this->get('doctrine')->getManager();
 
-		$im = $this->get('install.manager');
+		$im = $this->get('busybee_core_template.model.install_manager');
 
 		try
 		{
@@ -120,7 +120,7 @@ class InstallController extends Controller
 			$em->flush();
 		}
 
-		$user = $this->get('user.repository')->find(1);
+		$user = $this->get('busybee_core_security.repository.user_repository')->find(1);
 
 		$user->setCreatedBy($user);
 		$user->setModifiedBy($user);

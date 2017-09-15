@@ -378,39 +378,39 @@ services:
     avetmiss.report.nat00005:
         class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00005
         arguments:
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     avetmiss.report.nat00010:
         class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00010
         arguments:
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     avetmiss.report.nat00020:
         class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00020
         arguments:
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     avetmiss.report.nat00030:
         class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00030
         arguments:
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     avetmiss.report.nat00060:
         class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00060
         arguments:
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     avetmiss.report.nat00080:
         class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00080
         arguments:
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     avetmiss.report.nat00085:
         class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00085
         arguments:
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     avetmiss.report.nat00090:
         class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00090
         arguments:
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     avetmiss.report.nat00100:
         class: Busybee\AVETMISS\AVETMISSBundle\Model\Report\nat00100
         arguments:
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     avetmiss.report.repository:
         class: Busybee\AVETMISS\AVETMISSBundle\Repository\ReportRepository
         factory: 

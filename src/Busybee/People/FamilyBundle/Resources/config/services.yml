@@ -36,7 +36,7 @@ services:
         arguments:
             - '%familyPagination%'
             - '@family.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     form.family.type:
         class: Busybee\People\FamilyBundle\Form\FamilyType
         arguments:

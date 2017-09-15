@@ -72,7 +72,7 @@ monolog:
             path: '%kernel.logs_dir%/busybee.log'
             level: debug
             channels: ['busybee']
-            formatter: monolog.formatter.session_request
+            formatter: monolog.formatter.line_formatter
             max_files: '7' 
         doctrine:
             action_level: debug

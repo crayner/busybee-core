@@ -174,7 +174,7 @@ class TimeTableController extends Controller
                 'pm' => $this->get('period.manager'),
                 'all' => $all,
                 'report' => $report,
-                'grades' => $this->get('grade.manager')->getYearGrades(),
+                'grades' => $this->get('busybee_core_calendar.model.grade_manager')->getYearGrades(),
             ]
         );
     }
@@ -252,14 +252,14 @@ class TimeTableController extends Controller
      */
     public function displayAction(Request $request)
     {
-        $vd = $this->get('voter.details');
+        $vd = $this->get('busybee_core_security.security.voter_details');
 
         $sess = $this->get('session');
 
         if (!empty($request->get('closeWindow')))
-            $this->get('hide.section')->HideSectionOn();
+            $this->get('busybee_core_home.model.hide_section')->HideSectionOn();
         else
-            $this->get('hide.section')->HideSectionOff();
+            $this->get('busybee_core_home.model.hide_section')->HideSectionOff();
 
 	    $tm = $this->get('timetable.display.manager');
 
@@ -286,7 +286,7 @@ class TimeTableController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_USER', null, null);
 
-        $vd = $this->get('voter.details');
+        $vd = $this->get('busybee_core_security.security.voter_details');
 
         $sess = $this->get('session');
 

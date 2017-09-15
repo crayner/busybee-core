@@ -3,24 +3,24 @@ parameters:
         system: '0.0.00'
         database: '0.0.00'
 services:
-    monolog.logger.busybee:
+    busybee_core_install.model.logger:
         class: Busybee\Core\InstallBundle\Model\Logger
         arguments: ['@logger']
         tags:
             - { name: monolog.logger, channel: busybee }
-    monolog.formatter.session_request:
+    monolog.formatter.line_formatter:
         class: Monolog\Formatter\LineFormatter
         arguments:
             - "[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%% %%context%% %%extra%%\n"
-    busybee_security.user_provider.username:
+    busybee_core_security.security.user_provider:
         class: Busybee\Core\InstallBundle\Model\UserProvider
-    busybee_security.authentication.login_handler:
+    busybee_core_security.model.login_handler:
         class: Busybee\Core\InstallBundle\Model\loginHandler
         arguments:
             - '@router'
             - '@doctrine.orm.entity_manager'
             - '@service_container'
-    busybee_security.authentication.failure_handler:
+    busybee_core_security.model.failure_handler:
         class:  Busybee\Core\InstallBundle\Model\failureHandler
         arguments:
             - "@http_kernel"
@@ -28,22 +28,16 @@ services:
             - {}
             - '@service_container'
         tags:
-            - { name: 'monolog.logger.busybee', channel: 'security' }
-    advanced_routing_loader:
+            - { name: 'busybee_core_install.model.logger', channel: 'security' }
+    busybee_core_install.router.advanced_loader:
         class: Busybee\Core\InstallBundle\Router\AdvancedLoader
         tags:
             - { name: routing.loader }
     busybee_core_system.setting.setting_manager:
         class: Busybee\Core\InstallBundle\Model\SettingManager
-    menu.manager:
+    busybee_core_install.model.menu_manager:
         class: Busybee\Core\InstallBundle\Model\MenuManager
-    busybee.parameters:
-        public: false
-        class: stdClass
-        factory:
-            - '@service_container'
-            - 'getParameterBag'
-    user.manager.extension:
+    busybee_core_install.extension.user_manager_extension:
         class: Busybee\Core\InstallBundle\Extension\UserManagerExtension
         tags:
             - { name: twig.extension }

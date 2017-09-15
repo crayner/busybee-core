@@ -38,7 +38,7 @@ class SettingController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
 
-		$up = $this->get('setting.pagination');
+		$up = $this->get('busybee_core_system.model.setting_pagination');
 
 		$up->injectRequest($request);
 
@@ -62,7 +62,7 @@ class SettingController extends Controller
 	public function editNameAction($name, Request $request)
 	{
 		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
-		$setting = $this->get('setting.repository')->findOneByName($name);
+		$setting = $this->get('busybee_core_system.repository.setting_repository')->findOneByName($name);
 
 		if (is_null($setting)) throw new InvalidArgumentException('The System setting of name: ' . $name . ' was not found');
 
@@ -79,7 +79,7 @@ class SettingController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
 
-		$setting = $this->get('setting.repository')->findOneById($id);
+		$setting = $this->get('busybee_core_system.repository.setting_repository')->findOneById($id);
 
 		if (is_null($setting->getRole())) $setting->setRole($this->get('security.role.repository')->findOneByRole('ROLE_SYSTEM_ADMIN'));
 

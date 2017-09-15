@@ -19,12 +19,12 @@ trait DenyAccessUnlessGranted
 		$request   = $this->get('request_stack')->getCurrentRequest();
 		$routeName = $request->get('_route');
 
-		$page = $this->get('page.manager')->findOneByRoute($routeName, $attributes);
+		$page = $this->get('busybee_core_security.model.page_manager')->findOneByRoute($routeName, $attributes);
 
 		$dev = $this->get('kernel')->getEnvironment();
 
-		if ($dev === 'dev' && !is_string($this->get('grab.user.current')))
-			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.dev', ['%page%' => implode(', ', $page->getRoles()), '%user%' => $this->get('grab.user.current')->rolesToString()], 'BusybeeSecurityBundle') : $message;
+		if ($dev === 'dev' && !is_string($this->get('busybee_core_security.model.get_current_user')))
+			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.dev', ['%page%' => implode(', ', $page->getRoles()), '%user%' => $this->get('busybee_core_security.model.get_current_user')->rolesToString()], 'BusybeeSecurityBundle') : $message;
 		else
 			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.prod', [], 'BusybeeSecurityBundle') : $message;
 

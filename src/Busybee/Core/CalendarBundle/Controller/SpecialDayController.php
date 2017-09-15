@@ -13,7 +13,7 @@ class SpecialDayController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$sday = $this->get('specialDay.repository')->find($id);
+		$sday = $this->get('busybee_core_calendar.repository.special_day_repository')->find($id);
 
 
 		if ($sday->canDelete())

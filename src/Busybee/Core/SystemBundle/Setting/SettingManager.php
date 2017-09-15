@@ -271,7 +271,7 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 		$this->setting = $this->settingRepo->findOneByName($name);
 		if (is_null($this->setting) || empty($this->setting->getName()))
 			return $this;
-		if (true !== $this->container->get('busybee_security.authorisation.checker')->redirectAuthorisation($this->setting->getRole(), 'security.authorisation.setting', ['settingName' => $this->setting->getName(), 'role%' => $this->setting->getRole()])) return $this;
+		if (true !== $this->container->get('busybee_core_security.model.authorisation')->redirectAuthorisation($this->setting->getRole(), 'security.authorisation.setting', ['settingName' => $this->setting->getName(), 'role%' => $this->setting->getRole()])) return $this;
 		switch ($this->setting->getType())
 		{
 			case 'string':

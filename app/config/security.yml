@@ -29,7 +29,7 @@ security:
 
     providers:
         busybee_security_provider:
-            id: busybee_security.user_provider.username
+            id: busybee_core_security.security.user_provider
 
     firewalls:
         dev:
@@ -51,8 +51,8 @@ security:
                 check_path:            busybee_security_check
                 csrf_parameter:        _csrf_token
                 post_only:             true
-                success_handler:       busybee_security.authentication.login_handler
-                failure_handler:       busybee_security.authentication.failure_handler 
+                success_handler:       busybee_core_security.model.login_handler
+                failure_handler:       busybee_core_security.model.failure_handler
             remember_me:
                 secret:   "%secret%"
                 lifetime: 86400 # one day in seconds 

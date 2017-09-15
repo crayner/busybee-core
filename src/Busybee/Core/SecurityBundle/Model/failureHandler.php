@@ -19,7 +19,7 @@ class failureHandler extends DefaultAuthenticationFailureHandler
 	public function __construct(HttpKernelInterface $httpKernel, HttpUtils $httpUtils, array $options, Container $container)
 	{
 		$this->container = $container;
-		$logger          = $this->container->get('monolog.logger.busybee');
+		$logger          = $this->container->get('busybee_core_install.model.logger');
 
 		parent::__construct($httpKernel, $httpUtils, $options, $logger);
 	}

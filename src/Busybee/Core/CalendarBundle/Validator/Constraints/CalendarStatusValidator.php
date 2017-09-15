@@ -4,8 +4,7 @@ namespace Busybee\Core\CalendarBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator as ConstraintValidatorBase;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use Busybee\InstituteBundle\Repository\YearRepository;
+use Busybee\Core\CalendarBundle\Repository\YearRepository;
 
 class CalendarStatusValidator extends ConstraintValidatorBase
 {

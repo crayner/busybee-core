@@ -44,7 +44,7 @@ class UserController extends Controller
 	{
 
 		/** @var $userManager \Busybee\Core\SecurityBundle\Model\UserManagerInterface */
-		$userManager = $this->get('busybee_security.user_manager');
+		$userManager = $this->get('busybee_core_security.doctrine.user_manager');
 		/** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
 		$dispatcher = $this->get('event_dispatcher');
 
@@ -109,7 +109,7 @@ class UserController extends Controller
 		}
 		$config                 = new \stdClass();
 		$config->misc           = new \stdClass();
-		$config->misc->password = $this->get('system.password.manager')->buildPassword($this->getParameter('password'));
+		$config->misc->password = $this->get('busybee_core_system.password.password_manager')->buildPassword($this->getParameter('password'));
 
 		return $this->render('BusybeeSecurityBundle:User:reset.html.twig', array(
 			'token'  => $token,
@@ -131,7 +131,7 @@ class UserController extends Controller
 		if (intval($id) > 0)
 			$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
-		$user  = intval($id) > 0 ? $this->get('user.repository')->find($id) : $this->getUser();
+		$user  = intval($id) > 0 ? $this->get('busybee_core_security.repository.user_repository')->find($id) : $this->getUser();
 		$email = null;
 		$force = false;
 		if (!empty($user))
@@ -169,7 +169,7 @@ class UserController extends Controller
 			$username = $request->request->get('email');
 
 		/** @var $user UserInterface */
-		$user = $this->get('busybee_security.user_manager')->findUserByUsernameOrEmail($username);
+		$user = $this->get('busybee_core_security.doctrine.user_manager')->findUserByUsernameOrEmail($username);
 
 		if (null === $user)
 		{
@@ -191,15 +191,15 @@ class UserController extends Controller
 		if (null === $user->getConfirmationToken())
 		{
 			/** @var $tokenGenerator \Busybee\Core\SecurityBundle\Util\TokenGeneratorInterface */
-			$tokenGenerator = $this->get('busybee_security.util.tokengenerator');
+			$tokenGenerator = $this->get('busybee_core_security.util.token_generator');
 			$user->setConfirmationToken($tokenGenerator->generateToken());
 		}
 
 		$comment = $request->get('comment');
 
-		$this->get('busybee_security.mailer')->sendResettingEmailMessage($user, $comment);
+		$this->get('busybee_core_security.mailer.mailer')->sendResettingEmailMessage($user, $comment);
 		$user->setPasswordRequestedAt(new \DateTime());
-		$this->get('busybee_security.user_manager')->updateUser($user);
+		$this->get('busybee_core_security.doctrine.user_manager')->updateUser($user);
 
 		return new RedirectResponse($this->generateUrl('busybee_security_user_reset_check_email',
 			array('email' => $this->getObfuscatedEmail($user))
@@ -241,7 +241,7 @@ class UserController extends Controller
 		$person = $this->get('person.repository')->find($personID);
 		if (empty($person->getUser()))
 		{
-			$userManager = $this->get('busybee_security.user_manager');
+			$userManager = $this->get('busybee_core_security.doctrine.user_manager');
 			$user        = $userManager->createUser();
 			$user->setEnabled(true);
 			$user->setEmail($person->getEmail());
@@ -300,7 +300,7 @@ class UserController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
-		$userManager = $this->get('user.repository');
+		$userManager = $this->get('busybee_core_security.repository.user_repository');
 
 		$user = $userManager->find($id);
 		$user->setEnabled(!$user->getEnabled());

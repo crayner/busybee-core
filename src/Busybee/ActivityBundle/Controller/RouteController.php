@@ -11,7 +11,7 @@ class RouteController extends Controller
 
     public function indexAction($id)
     {
-        $vd = $this->get('voter.details');
+        $vd = $this->get('busybee_core_security.security.voter_details');
 
         $vd->userIdentifier($this->get('person.manager'), $this->getUser())
             ->activityIdentifier($id);

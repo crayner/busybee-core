@@ -5,7 +5,7 @@ parameters:
             resources:
                 - 'PaginationBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
-    pagination.Type:
+    busybee_core_pagination.form.pagination_type:
         class: Busybee\Core\PaginationBundle\Form\PaginationType
         arguments:
             - '@router'

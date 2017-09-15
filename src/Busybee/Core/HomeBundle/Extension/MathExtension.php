@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Core\HomeBundle\Model;
+namespace Busybee\Core\HomeBundle\Extension;
 
 class MathExtension extends \Twig_Extension
 {

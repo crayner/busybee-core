@@ -22,7 +22,7 @@ class CalendarController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$years = $this->get('year.repository')->findBy([], ['firstDay' => 'DESC']);
+		$years = $this->get('busybee_core_calendar.repository.year_repository')->findBy([], ['firstDay' => 'DESC']);
 
 		return $this->render('BusybeeCalendarBundle:Calendar:years.html.twig', array('Years' => $years));
 	}
@@ -37,7 +37,7 @@ class CalendarController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$year = $id === 'Add' ? new Year() : $this->get('year.repository')->find($id);
+		$year = $id === 'Add' ? new Year() : $this->get('busybee_core_calendar.repository.year_repository')->find($id);
 
 		$form = $this->createForm(YearType::class, $year);
 
@@ -77,7 +77,7 @@ class CalendarController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$repo = $this->get('year.repository');
+		$repo = $this->get('busybee_core_calendar.repository.year_repository');
 
 		$year = $repo->find($id);
 
@@ -98,11 +98,11 @@ class CalendarController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_USER', null, null);
 
-		$repo = $this->get('year.repository');
+		$repo = $this->get('busybee_core_calendar.repository.year_repository');
 
 		if ($id == 'current')
 		{
-			$year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
+			$year = $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser());
 		}
 		else
 			$year = $repo->find($id);
@@ -111,7 +111,7 @@ class CalendarController extends Controller
 
 		$year = $repo->find($year->getId());
 
-		$service = $this->get('calendar.widget'); //calling a calendar service
+		$service = $this->get('busybee_core_calendar.service.widget_service.calendar'); //calling a calendar service
 
 		//Defining a custom classes for rendering of months and days
 		$dayModelClass   = '\Busybee\Core\CalendarBundle\Model\Day';
@@ -129,9 +129,10 @@ class CalendarController extends Controller
 
 		$year->initialiseTerms();
 
-		$calendar = $service->generateCalendar($year); //Generate a calendar for specified year
+		$calendar = $service->generate($year); //Generate a calendar for specified year
+dump($calendar);
 
-		$cm = $this->get('calendar.manager');
+		$cm = $this->get('busybee_core_calendar.model.calendar_manager');
 
 		$cm->setCalendarDays($year, $calendar);
 
@@ -165,11 +166,11 @@ class CalendarController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_USER', null, null);
 
-		$repo = $this->get('year.repository');
+		$repo = $this->get('busybee_core_calendar.repository.year_repository');
 
 		$year = $repo->find($id);
 
-		$service = $this->get('calendar.widget'); //calling a calendar service
+		$service = $this->get('busybee_core_calendar.service.widget_service.calendar'); //calling a calendar service
 
 		//Defining a custom classes for rendering of months and days
 		$dayModelClass   = '\Busybee\Core\CalendarBundle\Model\Day';
@@ -183,9 +184,9 @@ class CalendarController extends Controller
 		 * To set default classes null should be passed as argument
 		 */
 		$service->setModels(null, $monthModelClass, null, $dayModelClass);
-		$calendar = $service->generateCalendar($year); //Generate a calendar for specified year
+		$calendar = $service->generate($year); //Generate a calendar for specified year
 
-		$cm = $this->get('calendar.manager');
+		$cm = $this->get('busybee_core_calendar.model.calendar_manager');
 
 		$cm->setCalendarDays($year, $calendar);
 
@@ -226,7 +227,7 @@ class CalendarController extends Controller
 
 		if (empty($id))
 		{
-			$repo = $this->get('year.repository');
+			$repo = $this->get('busybee_core_calendar.repository.year_repository');
 			$year = $repo->createQueryBuilder('y')
 				->where('y.firstDay LIKE :now')
 				->setParameter('now', date('Y') . '%')
@@ -259,14 +260,14 @@ class CalendarController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$cm = $this->get('calendar.manager');
+		$cm = $this->get('busybee_core_calendar.model.calendar_manager');
 
 		$day = new DateTime($day);
 
 		if ($cm->testNextYear($day))
 		{
 			$nextYear   = $cm->getNextYear($day);
-			$currentDay = $this->get('specialday.repository')->findOneBy(array('day' => $day));
+			$currentDay = $this->get('busybee_core_calendar.repository.special_day_repository')->findOneBy(array('day' => $day));
 
 			$oneYear = new \DateInterval('P1Y');
 

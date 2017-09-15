@@ -71,13 +71,13 @@ services:
         arguments: 
             - '%personPagination%'
             - '@person.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     contact.pagination:
         class: Busybee\People\PersonBundle\Model\ContactPagination
         arguments:
             - '%personPagination%'
             - '@person.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     address.manager:
         class: Busybee\People\PersonBundle\Model\AddressManager
         arguments:
@@ -213,7 +213,7 @@ services:
     preference.manager:
         class: Busybee\People\PersonBundle\Model\PreferenceManager
         arguments:
-            - '@grab.user.current'
-            - '@user.manager'
+            - '@busybee_core_security.model.get_current_user'
+            - '@busybee_core_security.doctrine.user_manager'
             - '%locale%'
             - '@doctrine.orm.entity_manager'

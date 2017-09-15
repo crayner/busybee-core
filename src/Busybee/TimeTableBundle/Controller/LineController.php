@@ -87,7 +87,7 @@ class LineController extends Controller
 
         $lgm = $this->get('line.manager');
 
-        $year = $this->get('busybee_security.user_manager')->getSystemYear($this->getUser());
+        $year = $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser());
 
         $lgm->generateReport($id, $year);
 

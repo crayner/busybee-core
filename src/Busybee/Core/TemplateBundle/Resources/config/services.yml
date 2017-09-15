@@ -97,94 +97,90 @@ parameters:
             additional: ''
             prompt: ''
 services:
-    form.errors.parser:
+    busybee_core_template.model.form_errors_parser:
         class: Busybee\Core\TemplateBundle\Model\FormErrorsParser
-    form.all_form_errors_extension:
+    busybee_core_template.extension.form_errors_extension:
         class: Busybee\Core\TemplateBundle\Extension\FormErrorsExtension
         arguments:
-            - '@form.errors.parser'
+            - '@busybee_core_template.model.form_errors_parser'
             - '@translator'
         tags:
             - { name: twig.extension }
-    form.type.image:
+    busybee_core_template.type.image_type:
         class: Busybee\Core\TemplateBundle\Type\ImageType
         arguments:
-            - '@image.uploader'
+            - '@busybee_core_template.model.image_uploader'
         tags: 
             - { name: form.type }    
-    image.uploader:
+    busybee_core_template.model.image_uploader:
         class: Busybee\Core\TemplateBundle\Model\ImageUploader
         arguments:
             - "%upload_path%"
-    validator.logo:
+    busybee_core_template.validator.logo:
         class: Busybee\Core\TemplateBundle\Validator\Logo
-    validator.logo.constraint:
+    busybee_core_template.validator.constraints.logo_validator:
         class: Busybee\Core\TemplateBundle\Validator\Constraints\LogoValidator
         tags:
             - { name: validator.constraint_validator, alias: logo_validator }
-    validator.background.image:
+    busybee_core_template.validator.background_image:
         class: Busybee\Core\TemplateBundle\Validator\BackgroundImage
-    validator.background.image.constraint:
+    busybee_core_template.validator.constraints.background_image_validator:
         class: Busybee\Core\TemplateBundle\Validator\Constraints\BackgroundImageValidator
         tags:
             - { name: validator.constraint_validator, alias: background_image_validator }
-    form.time.type:
+    busybee_core_template.type.time_type:
         class: Busybee\Core\TemplateBundle\Type\TimeType
         arguments:
             - '%timezone%'
         tags: 
             - { name: form.type }
-    validator.setting.choice.constraint:
+    busybee_core_template.validator.constraints.setting_choice_validator:
         class: Busybee\Core\TemplateBundle\Validator\Constraints\SettingChoiceValidator
         arguments:
             - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: validator.constraint_validator, alias: setting_validator }
-    validator.blank.or.valid.constraint:
+    busybee_core_template.validator.constraints.blank_or_valid_validator:
         class: Busybee\Core\TemplateBundle\Validator\Constraints\BlankOrValidValidator
         tags:
             - { name: validator.constraint_validator, alias: blank_or_valid_validator }
-    file.uploader:
+    busybee_core_template.model.file_upload:
         class: Busybee\Core\TemplateBundle\Model\FileUpLoad
         arguments:
             - "%upload_path%"
-    form.type.csv:
+    busybee_core_template.type.csv_type:
         class: Busybee\Core\TemplateBundle\Type\CSVType
         arguments:
-            - '@file.uploader'
+            - '@busybee_core_template.model.file_upload'
         tags:
             - { name: form.type }
-    form.type.yaml:
+    busybee_core_template.type.yaml_type:
         class: Busybee\Core\TemplateBundle\Type\YamlType
         arguments:
-            - '@file.uploader'
+            - '@busybee_core_template.model.file_upload'
         tags:
             - { name: form.type }
-    form.type.setting.choice:
+    busybee_core_template.type.setting_choice_type:
         class: Busybee\Core\TemplateBundle\Type\SettingChoiceType
         arguments:
             - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
-    validator.unique.or.blank:
+    busybee_core_template.validator.constraints.unique_or_blank_validator:
         class: Busybee\Core\TemplateBundle\Validator\Constraints\UniqueOrBlankValidator
         arguments:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: validator.constraint_validator, alias: unique_or_blank_validator }
-    validator.integer.constraint:
+    busybee_core_template.validator.constraints.integer_validator:
         class: Busybee\Core\TemplateBundle\Validator\Constraints\IntegerValidator
         tags:
             - { name: validator.constraint_validator, alias: integer_validator }
-    validator.nowhitespace.constraint:
+    busybee_core_template.validator.constraints.no_white_space_validator:
         class: Busybee\Core\TemplateBundle\Validator\Constraints\NoWhiteSpaceValidator
         tags:
             - { name: validator.constraint_validator, alias: nowhitespace_validator }
-    validator.uppercase.constraint:
-        class: Busybee\Core\TemplateBundle\Validator\Constraints\UpperCaseValidator
-        tags:
-            - { name: validator.constraint_validator, alias: uppercase_validator }
-    version.manager:
+    busybee_core_template.model.version_manager:
         class: Busybee\Core\TemplateBundle\Model\VersionManager
         arguments:
             - '@doctrine.dbal.default_connection'
@@ -202,7 +198,7 @@ services:
         class: Busybee\Core\TemplateBundle\Extension\SettingExtension
         arguments:
             - '@busybee_core_system.setting.setting_manager'
-            - '@menu.manager'
+            - '@busybee_core_home.model.menu_manager'
             - '@busybee.parameters'
         tags:
             - { name: twig.extension }
@@ -216,19 +212,19 @@ services:
         class: Busybee\Core\TemplateBundle\Extension\FlashExtension
         tags:
             - { name: twig.extension }
-    busybee_form.password.validator:
+    busybee_core_template.validator.constraints.password_validator:
         class: Busybee\Core\TemplateBundle\Validator\Constraints\PasswordValidator
         tags:
             - { name: validator.constraint_validator, alias: password.validator  }
         arguments:
             - '%password%'
-    install.manager:
+    busybee_core_template.model.install_manager:
         class: Busybee\Core\TemplateBundle\Model\InstallManager
         arguments:
             - '%kernel.project_dir%'
             - '@doctrine.dbal.connection_factory'
-            - '@system.password.manager'
-    system.password.manager:
+            - '@busybee_core_system.password.password_manager'
+    busybee_core_system.password.password_manager:
         class: Busybee\Core\TemplateBundle\Model\PasswordManager
     busybee_core_template.extension.router_extension:
         class: Busybee\Core\TemplateBundle\Extension\RouterExtension
@@ -236,3 +232,14 @@ services:
             - '@router'
         tags:
             - { name: twig.extension }
+    busybee_core_template.model.logger:
+        class: Busybee\Core\TemplateBundle\Model\Logger
+        arguments: ['@logger']
+        tags:
+            - { name: monolog.logger, channel: busybee }
+    busybee.parameters:
+        public: false
+        class: stdClass
+        factory:
+            - '@service_container'
+            - 'getParameterBag'

@@ -5,20 +5,20 @@ parameters:
             resources:
                 - 'BusybeeHomeBundle/Resources/config/Settings/settings_0_0_01.yml'
 services:
-    menu.manager:
+    busybee_core_home.model.menu_manager:
         class: Busybee\Core\HomeBundle\Model\MenuManager
         arguments:
-            - '@my_service_container'
-    math.extension:
-        class: Busybee\Core\HomeBundle\Model\MathExtension
+            - '@busybee_core_system.model.my_container'
+    busybee_core_home.extension.math_extension:
+        class: Busybee\Core\HomeBundle\Extension\MathExtension
         tags:
             - { name: twig.extension }
-    hide.section:
+    busybee_core_home.model.hide_section:
         class: Busybee\Core\HomeBundle\Model\HideSection
         arguments:
             - '@session'
             - '@request_stack'
-    busybee_home.kernel.listener:
+    busybee_core_home.listener.kernel_listener:
         class: Busybee\Core\HomeBundle\Listener\KernelListener
         arguments:
             - '@doctrine.orm.default_entity_manager'

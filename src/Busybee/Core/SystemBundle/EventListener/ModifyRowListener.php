@@ -10,7 +10,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Busybee\Core\SecurityBundle\Entity\User;
 
-class WriteDoctrineListener implements EventSubscriberInterface
+class ModifyRowListener implements EventSubscriberInterface
 {
 
 	private $container;
@@ -73,7 +73,7 @@ class WriteDoctrineListener implements EventSubscriberInterface
 				$this->user = $token->getUser();
 		}
 		if (!$this->user instanceof User)
-			$this->user = $this->container->get('user.repository')->find(1);
+			$this->user = $this->container->get('busybee_core_security.repository.user_repository')->find(1);
 
 		return $this->user;
 	}
@@ -100,7 +100,7 @@ class WriteDoctrineListener implements EventSubscriberInterface
 		if ($entity instanceof Setting)
 		{
 			if ($entity->getSecurityActive())
-				if (true !== $this->get('busybee_security.authorisation.checker')->redirectAuthorisation($entity->getRole()->getRole()))
+				if (true !== $this->get('busybee_core_security.model.authorisation')->redirectAuthorisation($entity->getRole()->getRole()))
 				{
 					throw new \Exception ('Settings cannot be updated without a user');
 				}

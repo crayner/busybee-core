@@ -23,7 +23,7 @@ class DefaultController extends Controller
      */
     public function staffActivityAction($id)
     {
-        $vd = $this->get('voter.details');
+        $vd = $this->get('busybee_core_security.security.voter_details');
 
         $vd->addStaff($this->getUser());
 

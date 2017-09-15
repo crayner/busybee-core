@@ -28,7 +28,7 @@ class InstallController extends Controller
 	 */
 	public function indexAction(Request $request)
 	{
-		$installer         = $this->get('install.manager');
+		$installer         = $this->get('busybee_core_template.model.install_manager');
 		$installer->signin = null;
 
 		$params = $installer->getParameters();
@@ -94,7 +94,7 @@ class InstallController extends Controller
 			[
 				'config'          => $installer,
 				'form'            => $form->createView(),
-				'version_manager' => $this->get('version.manager'),
+				'version_manager' => $this->get('busybee_core_template.model.version_manager'),
 			]
 		);
 	}
@@ -102,7 +102,7 @@ class InstallController extends Controller
 	public function mailerAction(Request $request)
 	{
 
-		$installer = $this->get('install.manager');
+		$installer = $this->get('busybee_core_template.model.install_manager');
 
 		$w = $installer->getConfig();
 
@@ -186,7 +186,7 @@ class InstallController extends Controller
 	public function miscellaneousAction(Request $request)
 	{
 
-		$installer          = $this->get('install.manager');
+		$installer          = $this->get('busybee_core_template.model.install_manager');
 		$installer->proceed = false;
 
 		$w = $installer->getConfig();

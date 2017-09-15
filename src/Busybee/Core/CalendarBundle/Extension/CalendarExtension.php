@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Core\CalendarBundle\Model;
+namespace Busybee\Core\CalendarBundle\Extension;
 
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\Core\CalendarBundle\Model\CalendarManager;

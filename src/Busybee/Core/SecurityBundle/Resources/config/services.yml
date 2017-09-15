@@ -71,100 +71,91 @@ parameters:
         version: 0.0.01
 
 services:
-    busybee_security.authentication.login_handler: 
+    busybee_core_security.model.login_handler:
         class: Busybee\Core\SecurityBundle\Model\loginHandler
         arguments:
             - '@router'
             - '@doctrine.orm.entity_manager'
-            - '@my_service_container'
-    busybee_security.authentication.failure_handler:
+            - '@busybee_core_system.model.my_container'
+    busybee_core_security.model.failure_handler:
         class:  Busybee\Core\SecurityBundle\Model\failureHandler
         arguments:  
             - "@http_kernel"
             - "@security.http_utils"
             - {}
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
         tags:
-            - { name: 'monolog.logger.busybee', channel: 'security' }
-    busybee_security.user.classmetadata:
+            - { name: 'busybee_core_install.model.logger', channel: 'security' }
+    busybee_core_security.user.entity_name:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: 
             - '%busybee_security.user.entity%'
-    user.repository:
+    busybee_core_security.repository.user_repository:
         class: Busybee\Core\SecurityBundle\Repository\UserRepository
         factory: 
             - "@doctrine"
             - getRepository 
         arguments: 
             - "BusybeeSecurityBundle:User"
-    busybee_security.user.canonicaliser: 
+    busybee_core_security.util.canonicaliser:
         class: Busybee\Core\SecurityBundle\Util\Canonicaliser
-    security.user_checker:
+    busybee_core_security.user.user_checker:
         class: Symfony\Component\Security\Core\User\UserChecker
         public: false 
-    busybee_security.user_manager:
+    busybee_core_security.doctrine.user_manager:
         class: Busybee\Core\SecurityBundle\Doctrine\UserManager
         arguments: 
             - '@security.encoder_factory'
-            - '@busybee_security.user.canonicaliser'
+            - '@busybee_core_security.util.canonicaliser'
             - '@session'
             - '@doctrine.orm.entity_manager'
             - '%busybee_security.user.entity%'
         public: false
-    user.manager:
-        class: Busybee\Core\SecurityBundle\Doctrine\UserManager
-        arguments:
-            - '@security.encoder_factory'
-            - '@busybee_security.user.canonicaliser'
-            - '@session'
-            - '@doctrine.orm.entity_manager'
-            - '%busybee_security.user.entity%'
-        public: false
-    busybee_security.user_provider.username:
+    busybee_core_security.security.user_provider:
         class: Busybee\Core\SecurityBundle\Security\UserProvider
         public: false 
         arguments: 
-            - '@busybee_security.user_manager'
-    busybee_security.interactive_login_listener:
+            - '@busybee_core_security.doctrine.user_manager'
+    busybee_core_security.event_listener.last_login_listener:
         class: Busybee\Core\SecurityBundle\EventListener\LastLoginListener
         tags:
             - { name: kernel.event_subscriber }
         arguments: 
-            - '@busybee_security.user_manager'
+            - '@busybee_core_security.doctrine.user_manager'
             - '@session'
-    busybee_security.login_manager:
+    busybee_core_security.security.login_manager:
         class: Busybee\Core\SecurityBundle\Security\LoginManager
         arguments: 
             - '@security.token_storage'
-            - '@security.user_checker'
+            - '@busybee_core_security.user.user_checker'
             - '@security.authentication.session_strategy'
             - '@service_container'
-    busybee_security.listener.authentication:
+    busybee_core_security.event_listener.authentication_listener:
         class: Busybee\Core\SecurityBundle\EventListener\AuthenticationListener
         tags:
             - { name: kernel.event_subscriber }
         arguments: 
-            - '@busybee_security.login_manager'
+            - '@busybee_core_security.security.login_manager'
             - '%busybee_security.firewall_name%'
-    security.role_hierarchy:
+    busybee_core_security.security.role.role_hierarchy:
         class: Busybee\Core\SecurityBundle\Security\Role\RoleHierarchy
         public: false
         arguments:
-            - '%security.role_hierarchy.roles%'
+            - '%busybee_hierarchy_roles%'
             - '@doctrine.orm.default_entity_manager'
             - '%roles%'
-    busybee_security.util.tokengenerator:
+    busybee_core_security.util.token_generator:
         class: Busybee\Core\SecurityBundle\Util\TokenGenerator
         arguments: 
             - '@?logger'
-    busybee_security.mailer:
+    busybee_core_security.mailer.mailer:
         class: Busybee\Core\SecurityBundle\Mailer\Mailer
         arguments: 
             - '@mailer'
             - '@router'
             - '@templating'
             - { confirmation.template: '%busybee_security.registration.confirmation.template%', resetting.template: '%busybee_security.resetting.email.template%', from_email: { confirmation: '%busybee_security.registration.confirmation.from_email%', resetting: '%busybee_security.resetting.email.from_email%' } }
-    busybee_security.authorisation.checker:
+    busybee_core_security.model.authorisation:
         class: Busybee\Core\SecurityBundle\Model\Authorisation
         arguments:
             - '@security.token_storage'
@@ -172,7 +163,7 @@ services:
             - '@security.access.decision_manager'
             - '@service_container'
             - '%security.access.always_authenticate_before_granting%'
-    busybee_security.session_idle:
+    busybee_core_security.event.session_idle_handler:
         class: Busybee\Core\SecurityBundle\Event\SessionIdleHandler
         arguments: 
             - '@service_container'
@@ -180,83 +171,83 @@ services:
             - '%session_max_idle_time%'
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-    security.locale_listener:
+    busybee_core_security.event_listener.locale_listener:
         class: Busybee\Core\SecurityBundle\EventListener\LocaleListener
         arguments: 
             - '%kernel.default_locale%'
         tags:
             - { name: kernel.event_subscriber }
-    security.role.hierarchy.voter:
+    busybee_core_security.role.hierarchy.voter:
         class: Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter 
         tags:
             - { name: security.voter }
         # small performance boost
         public: false
         arguments: 
-            - "@security.role_hierarchy"
-    failure_metadata:
+            - "@busybee_core_security.security.role.role_hierarchy"
+    busybee_core_security.failure.metadata:
         class: Doctrine\ORM\Mapping\ClassMetaData
         arguments: 
             - '%busybee_security.failure.entity%'
-    security.failure.repository:
+    busybee_core_security.repository.failure_respository:
         class: Busybee\Core\SecurityBundle\Repository\FailureRepository
         arguments: 
             - "@doctrine.orm.entity_manager" 
-            - "@failure_metadata"
+            - "@busybee_core_security.failure.metadata"
             - '%signin_count_minimum%'
             - '%session_max_idle_time%'
             - '%signin_ip_exceptions%' 
-    user.pagination:
+    busybee_core_security.model.user_pagination:
         class: Busybee\Core\SecurityBundle\Model\UserPagination
         arguments: 
             - '%userPagination%'
-            - '@user.repository'
-            - '@service_container'
-    security.page.pagination:
+            - '@busybee_core_security.repository.user_repository'
+            - '@busybee_core_system.model.my_container'
+    busybee_core_security.model.page_pagination:
         class: Busybee\Core\SecurityBundle\Model\PagePagination
         arguments:
             - '%pagePagination%'
-            - '@security.page.repository'
-            - '@my_service_container'
-    security.page.repository:
+            - '@busybee_core_security.repository.page_repository'
+            - '@busybee_core_system.model.my_container'
+    busybee_core_security.repository.page_repository:
         class: Busybee\Core\SecurityBundle\Repository\PageRepository
         factory:
             - "@doctrine"
             - getRepository
         arguments:
             - "BusybeeSecurityBundle:Page"
-    form.group.type:
+    busybee_core_security.form.group_type:
         class: Busybee\Core\SecurityBundle\Form\GroupType
         arguments:
             - '%groups%'
         tags:
             - { name: form.type }
-    form.directrole.type:
+    busybee_core_security.form.direct_role_type:
         class: Busybee\Core\SecurityBundle\Form\DirectRoleType
         arguments:
             - '%roles%'
         tags:
             - { name: form.type }
-    user.manager.extension:
+    busybee_core_security.model.user_manager_extension:
         class: Busybee\Core\SecurityBundle\Model\UserManagerExtension
         arguments:
-            - '@busybee_security.user_manager'
+            - '@busybee_core_security.doctrine.user_manager'
         tags:
             - { name: twig.extension }
-    voter.details:
+    busybee_core_security.security.voter_details:
         class: Busybee\Core\SecurityBundle\Security\VoterDetails
         arguments:
             - '@doctrine.orm.entity_manager'
-    grab.user:
+    busybee_core_security.model.grab_user:
         class: Busybee\Core\SecurityBundle\Model\GrabUser
         arguments:
-            - '@my_service_container'
-    grab.user.current:
+            - '@busybee_core_system.model.my_container'
+    busybee_core_security.model.get_current_user:
         class: Busybee\Core\SecurityBundle\Model\GrabUser
         factory:
-            - '@grab.user'
+            - '@busybee_core_security.model.grab_user'
             - 'getCurrentUser'
-    page.manager:
+    busybee_core_security.model.page_manager:
         class: Busybee\Core\SecurityBundle\Model\PageManager
         arguments:
             - '@session'

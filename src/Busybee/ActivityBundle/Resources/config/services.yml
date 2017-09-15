@@ -47,7 +47,7 @@ services:
         arguments:
             - '%activityPagination%'
             - '@activity.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
             - '@current.year.currentYear'
             - '@timetable.activity.manager'
     activity.repository:

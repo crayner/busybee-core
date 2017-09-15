@@ -37,7 +37,7 @@ services:
         arguments:
             - '%spacePagination%'
             - '@space.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     space.repository:
         class: Busybee\InstituteBundle\Repository\SpaceRepository
         factory:

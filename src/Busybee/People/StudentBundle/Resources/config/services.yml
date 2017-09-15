@@ -102,7 +102,7 @@ services:
         arguments:
             - '%studentPagination%'
             - '@student.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     student.student.voter:
         class: Busybee\People\StudentBundle\Security\StudentVoter
         arguments:

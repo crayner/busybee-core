@@ -20,7 +20,7 @@ class PageController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', new \stdClass());
 
-		$up = $this->get('security.page.pagination');
+		$up = $this->get('busybee_core_security.model.page_pagination');
 
 		$up->injectRequest($request);
 
@@ -43,7 +43,7 @@ class PageController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
 
-		$page = $this->get('security.page.repository')->find($id);
+		$page = $this->get('busybee_core_security.repository.page_repository')->find($id);
 
 		if (empty($page))
 			throw new InvalidArgumentException($this->get('translator')->trans('security.page.missing', array('%id%' => $id), 'BusybeeSecurityBundle'));

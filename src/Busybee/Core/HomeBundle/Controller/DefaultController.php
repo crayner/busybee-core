@@ -52,7 +52,7 @@ class DefaultController extends Controller
 
 	public function acknowledgementAction()
 	{
-		$versions = $this->get('version.manager')->getVersion();
+		$versions = $this->get('busybee_core_template.model.version_manager')->getVersion();
 
 		require_once $this->get('kernel')->getProjectDir() . '/var/SymfonyRequirements.php';
 

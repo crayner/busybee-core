@@ -23,7 +23,7 @@ class UserController extends Controller
 
 		$person = $this->get('person.repository')->find($id);
 
-		$user = $this->get('user.repository')->findOneByPerson($id);
+		$user = $this->get('busybee_core_security.repository.user_repository')->findOneByPerson($id);
 
 		if (!$person instanceof Person)
 			return new JsonResponse(

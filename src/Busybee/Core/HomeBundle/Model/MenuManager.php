@@ -47,11 +47,11 @@ class MenuManager implements MenuManagerInterface
 	{
 		$this->container = $container;
 
-		$this->pageManager = $this->container->get('page.manager');
+		$this->pageManager = $this->container->get('busybee_core_security.model.page_manager');
 
 		$this->checker = $container->get('security.authorization_checker');
 
-		$x = $container->get('security.page.repository')->findAll();
+		$x = $container->get('busybee_core_security.repository.page_repository')->findAll();
 
 		$this->pageRoles = [];
 		foreach ($x as $page)
@@ -153,7 +153,6 @@ class MenuManager implements MenuManagerInterface
 		if (! empty($node['route']))
 		{
 			$this->pageRoles[$node['route']] = array_values(empty($this->pageRoles[$node['route']]) ? [] : $this->pageRoles[$node['route']]);
-			dump($node);
 
 			if (empty($this->pageRoles[$node['route']]) || (count($this->pageRoles[$node['route']]) == 1 && is_null($this->pageRoles[$node['route']][0])))
 				$this->pageRoles[$node['route']] = [];

@@ -77,7 +77,7 @@ class PeriodController extends Controller
 
         $pm = $this->get('period.manager')->injectPeriod($period->getId());
 
-        $form = $this->createForm(PeriodActivityType::class, $period, ['year_data' => $this->get('busybee_security.user_manager')->getSystemYear($this->getUser()), 'manager' => $pm]);
+        $form = $this->createForm(PeriodActivityType::class, $period, ['year_data' => $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser()), 'manager' => $pm]);
 
         $form->handleRequest($request);
 

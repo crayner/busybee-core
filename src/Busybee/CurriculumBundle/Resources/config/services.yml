@@ -43,7 +43,7 @@ services:
         arguments:
             - '%CoursePagination%'
             - '@course.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     course.form.type:
         class: Busybee\CurriculumBundle\Form\CourseType
         arguments:

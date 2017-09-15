@@ -98,7 +98,7 @@ services:
         arguments:
             - '%TimeTablePagination%'
             - '@timetable.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     form.timetable.type:
         class: Busybee\TimeTableBundle\Form\TimeTableType
         arguments:
@@ -118,7 +118,7 @@ services:
         arguments:
             - '%LinePagination%'
             - '@line.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
             - '@current.year.currentYear'
     line.manager:
         class: Busybee\TimeTableBundle\Model\LineManager
@@ -211,7 +211,7 @@ services:
         arguments:
             - '%PeriodPagination%'
             - '@period.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
             - '@timetable.manager.getTimeTable'
     periods.validator:
         class: Busybee\TimeTableBundle\Validator\Constraints\PeriodsValidator

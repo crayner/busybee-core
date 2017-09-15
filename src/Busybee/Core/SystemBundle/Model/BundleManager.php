@@ -76,7 +76,7 @@ class BundleManager
 		$bundles              = Yaml::parse(file_get_contents($this->bundleFileName));
 		$this->settingManager = $kernel->getContainer()->get('busybee_core_system.setting.setting_manager');
 		$this->bundles        = new ArrayCollection();
-		$this->upLoader       = $kernel->getContainer()->get('file.uploader');
+		$this->upLoader       = $kernel->getContainer()->get('busybee_core_template.model.file_upload');
 
 		foreach ($bundles as $name => $bundle)
 		{

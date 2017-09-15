@@ -1,8 +1,7 @@
 <?php
-
 namespace Busybee\Core\CalendarBundle\Service\WidgetService;
 
-use Busybee\Core\SystemBundle\Setting\SettingManager;
+use Busybee\Core\TemplateBundle\Source\SettingManagerInterface;
 
 /**
  * Represents a calendar for specified year
@@ -13,7 +12,7 @@ class Calendar
 {
 	const DEFAULT_MONTH_MODEL = '\Busybee\Core\CalendarBundle\Service\WidgetService\Month';
 	const DEFAULT_WEEK_MODEL = '\Busybee\Core\CalendarBundle\Service\WidgetService\Week';
-	const DEFAULT_DAY_MODEL = '\Busybee\Core\CalendarBundle\Service\WidgetService\Day';
+	const DEFAULT_DAY_MODEL = \Busybee\Core\CalendarBundle\Model\Day::class;
 
 	protected $monthModel = self::DEFAULT_MONTH_MODEL;
 	protected $weekModel = self::DEFAULT_WEEK_MODEL;
@@ -55,7 +54,7 @@ class Calendar
 
 	private $sm;
 
-	public function __construct(SettingManager $sm)
+	public function __construct(SettingManagerInterface $sm)
 	{
 		$this->sm = $sm;
 	}
@@ -139,6 +138,8 @@ class Calendar
 			$dateIterator->add($oneDayInterval);
 		}
 		$this->initNames();
+
+		return $this;
 	}
 
 	public function getFirstDayofWeek()
@@ -281,7 +282,7 @@ class Calendar
 		if (!class_exists($this->monthModel))
 			throw new \Exception(sprintf('Class %s not found.', $this->monthModel));
 
-		$this->weekModel = is_null($weekModel) ? self::DEFAULT_WEEK_MODEL : $weekModell;
+		$this->weekModel = is_null($weekModel) ? self::DEFAULT_WEEK_MODEL : $weekModel;
 		if (!class_exists($this->weekModel))
 			throw new \Exception(sprintf('Class %s not found.', $this->weekModel));
 

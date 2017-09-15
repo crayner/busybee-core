@@ -31,103 +31,68 @@ parameters:
 
 
 services:
-    monolog.formatter.session_request:
+    monolog.formatter.line_formatter:
         class: Monolog\Formatter\LineFormatter
         arguments:
             - "[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%% %%context%% %%extra%%\n"
-#    monolog.processor.session_request:
-#        class: Busybee\Core\SystemBundle\Model\SessionRequestProcessor
-#        arguments:  ["@session"]
-#        tags:
-#            - { name: monolog.processor, method: processRecord }
-    monolog.logger.busybee:
-        class: Busybee\Core\SystemBundle\Model\Logger
-        arguments: ['@logger']
-        tags:
-            - { name: monolog.logger, channel: busybee }
-    doctrine.tblprefix_subscriber:
+    busybee_core_system.subscriber.table_prefix_subscriber:
         class: Busybee\Core\SystemBundle\Subscriber\TablePrefixSubscriber
         arguments: 
             - '%database_prefix%'
         tags:
             - { name: doctrine.event_subscriber }    
-    system.setting.repository:
+    busybee_core_system.repository.setting_repository:
         class: Busybee\Core\SystemBundle\Repository\SettingRepository
         factory: 
             - "@doctrine"
             - getRepository 
         arguments: 
             - "SystemBundle:Setting"
-    setting.repository:
-        class: Busybee\Core\SystemBundle\Repository\SettingRepository
-        factory: 
-            - "@doctrine"
-            - getRepository 
-        arguments: 
-            - "SystemBundle:Setting"
-    busybee_core_system.update.update_manager:
-        class: Busybee\Core\SystemBundle\Update\UpdateManager
-        arguments: 
-            - "@busybee_core_system.setting.setting_manager"
-    system.password.manager:
+    busybee_core_system.password.password_manager:
         class: Busybee\Core\SystemBundle\Password\PasswordManager
-    busybee.writeDoctrine.listener:
-        class: Busybee\Core\SystemBundle\EventListener\WriteDoctrineListener
+    busybee_core_system.event_listener.modify_row_listener:
+        class: Busybee\Core\SystemBundle\EventListener\ModifyRowListener
         arguments: 
-            - "@my_service_container"
+            - "@busybee_core_system.model.my_container"
         tags:
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: prePersist }
     busybee_core_system.setting.setting_manager:
         class: Busybee\Core\SystemBundle\Setting\SettingManager
         arguments: 
-            - '@setting.repository'
+            - '@busybee_core_system.repository.setting_repository'
             - '@session'
             - '@kernel'
-    plugin.manager:
-        class: Busybee\Core\SystemBundle\Plugin\PluginManager
-        arguments: 
-            - "@my_service_container"
-    setting.pagination:
+    busybee_core_system.model.setting_pagination:
         class: Busybee\Core\SystemBundle\Model\SettingPagination
         arguments: 
             - '%settingPagination%'
-            - '@setting.repository'
-            - '@my_service_container'
-    test.plugin.manage:
-        class: Busybee\Core\SystemBundle\Model\Test\TestPluginManage
-        arguments:
-            - '@my_service_container'
-    my_service_container:
+            - '@busybee_core_system.repository.setting_repository'
+            - '@busybee_core_system.model.my_container'
+    busybee_core_system.model.my_container:
         class: Busybee\Core\SystemBundle\Model\myContainer
         arguments:
             - '@service_container'
-    test.update.available:
+    busybee_core_system.model.test.test_update_available:
         class: Busybee\Core\SystemBundle\Model\Test\TestUpdateAvailable
         arguments:
-            - '@my_service_container'
-    system.SettingListType:
+            - '@busybee_core_system.model.my_container'
+    busybee_core_system.form.setting_list_type:
         class: Busybee\Core\SystemBundle\Form\SettingListType
         arguments:
             - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
-    system.SettingType:
+    busybee_core_system.form.setting_type:
         class: Busybee\Core\SystemBundle\Form\SettingType
         arguments:
-            - '@setting.repository'
+            - '@busybee_core_system.repository.setting_repository'
         tags: 
             - { name: form.type }    
-    validator.org.name.short:
+    busybee_core_system.validator.constraints.length:
         class: Symfony\Component\Validator\Constraints\Length
         arguments:
             - {max: 8}
-    busybee.parameters:
-        public: false
-        class: stdClass
-        factory:
-            - '@my_service_container'
-            - 'getParameterBag'
     busybee_core_system.model.bundle_manager:
         class: Busybee\Core\SystemBundle\Model\BundleManager
         arguments:
@@ -137,7 +102,7 @@ services:
         arguments:
           - '@session.flash_bag'
           - '@translator'
-    advanced_routing_loader:
+    busybee_core_system.router.advanced_loader:
         class: Busybee\Core\SystemBundle\Router\AdvancedLoader
         tags:
             - { name: routing.loader }

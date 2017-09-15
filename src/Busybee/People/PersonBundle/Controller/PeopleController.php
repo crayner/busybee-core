@@ -51,7 +51,7 @@ class PeopleController extends Controller
 
 		$file = reset($files);
 
-		$file = $this->get('file.uploader')->upload($file);
+		$file = $this->get('busybee_core_template.model.file_upload')->upload($file);
 
 		$pm          = $this->get('person.manager');
 		$headerNames = $pm->getHeaderNames($file);

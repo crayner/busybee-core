@@ -72,7 +72,7 @@ services:
         arguments:
             - '%staffPagination%'
             - '@staff.repository'
-            - '@my_service_container'
+            - '@busybee_core_system.model.my_container'
     staff.grade.voter:
         class: Busybee\People\StaffBundle\Security\GradeVoter
         arguments:

@@ -2,10 +2,10 @@
 
 namespace Busybee\Core\CalendarBundle\Model;
 
-use Busybee\Core\SystemBundle\Setting\SettingManager;
-use Busybee\Core\CalendarBundle\Repository\YearRepository;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\CalendarBundle\Entity\SpecialDay;
+use Busybee\Core\CalendarBundle\Repository\YearRepository;
+use Busybee\Core\TemplateBundle\Source\SettingManagerInterface;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 
@@ -21,12 +21,26 @@ class CalendarManager
 	 */
 	private $calendar;
 
+	/**
+	 * @var SettingManagerInterface
+	 */
 	private $sm;
 
-	public function __construct(SettingManager $sm, YearRepository $repo, EntityManager $em)
+	/**
+	 * @var YearRepository
+	 */
+	private $repo;
+
+	/**
+	 * CalendarManager constructor.
+	 *
+	 * @param SettingManagerInterface $sm
+	 * @param EntityManager           $em
+	 */
+	public function __construct(SettingManagerInterface $sm, EntityManager $em)
 	{
 		$this->sm   = $sm;
-		$this->repo = $repo;
+		$this->repo = $em->getRepository(Year::class);
 		$this->em   = $em;
 	}
 

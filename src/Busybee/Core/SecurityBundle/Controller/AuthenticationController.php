@@ -226,7 +226,7 @@ class AuthenticationController extends Controller
 			// Number of seconds until the access token will expire, and need refreshing
 			echo $token->getExpires();
 		}
-		$user = $this->get('user.repository')->findOneByEmail($ownerDetails->getEmail());
+		$user = $this->get('busybee_core_security.repository.user_repository')->findOneByEmail($ownerDetails->getEmail());
 
 		if (empty($user))
 			throw new AuthenticationException($this->get('translator')->trans('google.notAvailable', array('%email%' => $ownerDetails->getEmail(), '%name%' => $ownerDetails->getName()), 'BusybeeSecurityBundle'));

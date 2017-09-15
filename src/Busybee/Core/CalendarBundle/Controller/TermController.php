@@ -13,7 +13,7 @@ class TermController extends Controller
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$repo = $this->get('term.repository');
+		$repo = $this->get('busybee_core_calendar.repository.term_repository');
 
 		$term = $repo->find($id);
 

@@ -4,7 +4,7 @@ namespace Busybee\Core\CalendarBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Busybee\InstituteBundle\Repository\YearRepository;
+use Busybee\Core\CalendarBundle\Repository\YearRepository;
 use DateTime;
 
 class CalendarDateValidator extends ConstraintValidator
