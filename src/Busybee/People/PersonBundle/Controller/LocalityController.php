@@ -3,15 +3,15 @@
 namespace Busybee\People\PersonBundle\Controller;
 
 use Busybee\People\PersonBundle\Form\LocalityType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Busybee\People\PersonBundle\Entity\Locality;
 
-class LocalityController extends Controller
+class LocalityController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * @param         $id

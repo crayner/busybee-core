@@ -9,7 +9,7 @@ use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\Core\InstallBundle\Form\MailerType;
 use Busybee\Core\InstallBundle\Form\MiscellaneousType;
 use Busybee\Core\InstallBundle\Form\StartInstallType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,7 +19,7 @@ use Busybee\Core\SecurityBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Yaml\Yaml;
 
-class InstallController extends Controller
+class InstallController extends BusybeeController
 {
 	/**
 	 * @param Request $request

@@ -4,13 +4,13 @@ namespace Busybee\InstituteBundle\Controller;
 
 use Busybee\InstituteBundle\Entity\Department;
 use Busybee\InstituteBundle\Form\DepartmentType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class DepartmentController extends Controller
+class DepartmentController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
     /**
      * @param Request $request

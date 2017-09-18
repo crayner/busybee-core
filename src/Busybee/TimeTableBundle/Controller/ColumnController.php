@@ -2,12 +2,12 @@
 
 namespace Busybee\TimeTableBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class ColumnController extends Controller
+class ColumnController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
     /**
      * @param $id

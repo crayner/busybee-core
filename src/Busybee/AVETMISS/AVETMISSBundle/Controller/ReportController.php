@@ -2,14 +2,14 @@
 
 namespace Busybee\AVETMISS\AVETMISSBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-class ReportController extends Controller
+class ReportController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	public function indexAction(Request $request)
 	{

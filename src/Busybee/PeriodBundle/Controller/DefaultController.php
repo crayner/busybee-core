@@ -2,9 +2,9 @@
 
 namespace Busybee\PeriodBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 
-class DefaultController extends Controller
+class DefaultController extends BusybeeController
 {
     public function indexAction()
     {

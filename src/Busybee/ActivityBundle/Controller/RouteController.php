@@ -3,11 +3,11 @@
 namespace Busybee\ActivityBundle\Controller;
 
 use Busybee\Core\HomeBundle\Exception\Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 
-class RouteController extends Controller
+class RouteController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
     public function indexAction($id)
     {

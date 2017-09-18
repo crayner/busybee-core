@@ -4,14 +4,14 @@ namespace Busybee\CurriculumBundle\Controller;
 
 use Busybee\CurriculumBundle\Entity\Course;
 use Busybee\CurriculumBundle\Form\CourseType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class CourseController extends Controller
+class CourseController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
     /**
      * @param Request $request

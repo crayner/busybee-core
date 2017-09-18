@@ -4,7 +4,7 @@ namespace Busybee\People\PersonBundle\Controller;
 
 use Busybee\People\PersonBundle\Entity\PersonPreference;
 use Busybee\People\PersonBundle\Form\PersonPreferenceType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Busybee\People\PersonBundle\Entity\Person;
@@ -13,9 +13,9 @@ use Busybee\People\PersonBundle\Form\PersonType;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class PersonController extends Controller
+class PersonController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * @param Request $request

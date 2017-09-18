@@ -4,14 +4,14 @@ namespace Busybee\TimeTableBundle\Controller;
 
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Form\LineType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class LineController extends Controller
+class LineController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
     /**
      * @param   Request $request

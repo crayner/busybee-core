@@ -9,3 +9,28 @@ parameters:
             node: 12
             route: page_list
             order: 123
+        16:
+            name: Manage School Settings
+            label: menu.site.user.management
+            role: ROLE_USER
+            node: 1
+            order: 16
+            menu: 16
+        160:
+            label: menu.user.list
+            name: User Management List
+            node: 16
+            order: 160
+            role: ROLE_REGISTRAR
+            menu: 160
+            route: security_user_list
+        161:
+            label: menu.user.manage
+            name: User Management
+            node: 16
+            order: 161
+            role: ROLE_USER
+            menu: 161
+            route: security_user_edit
+            parameters:
+                id: 'Current'

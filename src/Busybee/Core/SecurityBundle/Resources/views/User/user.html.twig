@@ -1,0 +1,23 @@
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% trans_default_domain 'BusybeeSecurityBundle' %}
+
+{% block title %}{{ parent() }}{{ 'security.user.manage.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'security.user.manage.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'security.user.manage.description'|trans }}{% endblock headerLead %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% include "@BusybeeTemplate/Toggle/style.html.twig" %}
+{% endblock stylesheets %}
+
+{% block contentContainer %}
+    {{ form_start(form) }}
+    {% include "@BusybeeSecurity/User/userContent.html.twig" %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include "@BusybeeTemplate/Toggle/script.html.twig" %}
+{% endblock javascripts %}

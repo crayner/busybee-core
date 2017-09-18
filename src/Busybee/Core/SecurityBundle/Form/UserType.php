@@ -1,17 +1,14 @@
 <?php
 
-namespace Busybee\People\PersonBundle\Form;
+namespace Busybee\Core\SecurityBundle\Form;
 
 use Busybee\Core\CalendarBundle\Form\YearEntityType;
+use Busybee\Core\SecurityBundle\Entity\User;
+use Busybee\Core\TemplateBundle\Type\TextType;
 use Busybee\Core\TemplateBundle\Type\ToggleType;
-use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\People\PersonBundle\Events\UserSubscriber;
-use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
-use Busybee\Core\SecurityBundle\Form\DirectRoleType;
-use Busybee\Core\SecurityBundle\Form\GroupType;
-use Busybee\Core\SystemBundle\Setting\SettingManager;
-use Doctrine\Common\Persistence\ObjectManager;
+use Busybee\Core\SecurityBundle\Event\UserSubscriber;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,40 +17,35 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserType extends AbstractType
 {
 	/**
-	 * @var ObjectManager
-	 */
-	private $manager;
-
-	/**
-	 * @var SettingManager
-	 */
-	private $sm;
-
-	/**
-	 * UserType constructor.
-	 *
-	 * @param ObjectManager $manager
-	 */
-	public function __construct(ObjectManager $manager, SettingManager $sm)
-	{
-		$this->manager = $manager;
-		$this->sm      = $sm;
-	}
-
-	/**
 	 * @param FormBuilderInterface $builder
 	 * @param array                $options
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+		$years = [];
+		$year  = intval(date('Y', strtotime('now')));
+		for ($y = 0; $y < 5; $y++)
+			$years[] = strval($year + $y);
+		if (!is_null($options['data']->getCredentialsExpireAt()))
+		{
+			$years[] = $options['data']->getCredentialsExpireAt()->format('Y');
+			$years   = array_unique($years);
+			asort($years);
+		}
+		if (!is_null($options['data']->getExpiresAt()))
+		{
+			$years[] = $options['data']->getExpiresAt()->format('Y');
+			$years   = array_unique($years);
+			asort($years);
+		}
 		$builder
-			->add('username', null, array(
+			->add('username', TextType::class, array(
 					'label'    => 'user.label.username',
 					'attr'     => array(
 						'help'  => 'user.help.username',
 						'class' => 'user',
 					),
-					'required' => true,
+					'required' => false,
 				)
 			)
 			->add('usernameCanonical', HiddenType::class,
@@ -63,10 +55,12 @@ class UserType extends AbstractType
 					),
 				)
 			)
-			->add('email', HiddenType::class, array(
-					'attr' => array(
+			->add('email', TextType::class, array(
+					'attr'  => array(
 						'class' => 'user',
+						'help'  => 'user.email.help',
 					),
+					'label' => 'user.email.label',
 				)
 			)
 			->add('emailCanonical', HiddenType::class, array(
@@ -75,8 +69,6 @@ class UserType extends AbstractType
 					),
 				)
 			)
-			->add('directroles', DirectRoleType::class)
-			->add('groups', GroupType::class)
 			->add('enabled', ToggleType::class,
 				array(
 					'label' => 'user.label.enabled',
@@ -89,11 +81,12 @@ class UserType extends AbstractType
 			)
 			->add('locale', LocaleType::class,
 				array(
-					'label' => 'user.label.locale',
-					'attr'  => array(
+					'label'    => 'user.label.locale',
+					'attr'     => array(
 						'help'  => 'user.help.locale',
 						'class' => 'user',
 					),
+					'required' => false,
 				)
 			)
 			->add('password', HiddenType::class,
@@ -123,6 +116,20 @@ class UserType extends AbstractType
 					),
 				)
 			)
+			->add('expiresAt', DateType::class,
+				[
+					'label'       => 'user.expiresAt.label',
+					'attr'        => [
+						'help'  => 'user.expiresAt.help',
+						'class' => 'user',
+					],
+					'years'       => $years,
+					'placeholder' => [
+						'year' => '', 'month' => '', 'day' => '',
+					],
+					'required'    => false,
+				]
+			)
 			->add('credentials_expired', ToggleType::class,
 				array(
 					'label' => 'user.label.credentials_expired',
@@ -133,11 +140,18 @@ class UserType extends AbstractType
 					),
 				)
 			)
-			->add('person', HiddenType::class,
+			->add('credentialsExpireAt', DateType::class,
 				array(
-					'attr' => array(
+					'label'       => 'user.credentialsExpireAt.label',
+					'attr'        => [
+						'help'  => 'user.credentialsExpireAt.help',
 						'class' => 'user',
-					)
+					],
+					'years'       => $years,
+					'placeholder' => [
+						'year' => '', 'month' => '', 'day' => ''
+					],
+					'required'    => false,
 				)
 			)
 			->add('year', YearEntityType::class, [
@@ -151,9 +165,8 @@ class UserType extends AbstractType
 					'translation_domain' => 'BusybeeSecurityBundle',
 				]
 			);
-		$builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->manager, Person::class));
 
-		$builder->addEventSubscriber(new UserSubscriber());
+		$builder->addEventSubscriber(new UserSubscriber($options['isSystemAdmin']));
 	}
 
 	/**
@@ -162,9 +175,14 @@ class UserType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class'         => 'Busybee\Core\SecurityBundle\Entity\User',
+				'data_class'         => User::class,
 				'translation_domain' => 'BusybeeSecurityBundle',
 			)
+		);
+		$resolver->setRequired(
+			[
+				'isSystemAdmin',
+			]
 		);
 	}
 

@@ -2,15 +2,12 @@
 
 namespace Busybee\Core\HomeBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class DefaultController extends Controller
+class DefaultController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
-
 	/**
 	 * Load fixtures for all bundles
 	 *
@@ -42,14 +39,17 @@ class DefaultController extends Controller
 		$executor->execute($fixtures, true);
 	}
 
-	public function indexAction(Request $request)
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function indexAction()
 	{
-		$setting = $this->get('busybee_core_system.setting.setting_manager');
-
-
 		return $this->render('BusybeeHomeBundle::home.html.twig');
 	}
 
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
 	public function acknowledgementAction()
 	{
 		$versions = $this->get('busybee_core_template.model.version_manager')->getVersion();

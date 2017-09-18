@@ -4,11 +4,11 @@ namespace Busybee\AttendanceBundle\Controller;
 
 use Busybee\AttendanceBundle\Entity\AttendancePeriod;
 use Busybee\AttendanceBundle\Form\AttendancePeriodType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 
-class DefaultController extends Controller
+class DefaultController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response

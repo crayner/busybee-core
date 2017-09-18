@@ -79,6 +79,8 @@ menu:
             roles: Page Roles
         bundle:
             list: Manage Bundles
+        user:
+            management: Manage Users
     family:
         manage: Manage Family       
     people:
@@ -127,6 +129,9 @@ menu:
         line: Activity Lines
         assigndays: Assign Days
     acknowledgement: Acknowledgement
+    user:
+        manage: Manage User
+        list: User List
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

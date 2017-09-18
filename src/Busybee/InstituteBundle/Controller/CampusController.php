@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Request ;
 use Busybee\InstituteBundle\Form\CampusType ;
 use Busybee\InstituteBundle\Entity\Campus ;
 
-class CampusController extends Controller
+class CampusController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
     /**
      * @param Request $request

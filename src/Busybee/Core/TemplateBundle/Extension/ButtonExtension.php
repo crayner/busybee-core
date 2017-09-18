@@ -3,6 +3,7 @@
 namespace Busybee\Core\TemplateBundle\Extension;
 
 
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class ButtonExtension extends \Twig_Extension
@@ -56,6 +57,9 @@ class ButtonExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('closeButton', array($this, 'closeButton')),
 			new \Twig_SimpleFunction('upButton', array($this, 'upButton')),
 			new \Twig_SimpleFunction('downButton', array($this, 'downButton')),
+			new \Twig_SimpleFunction('onButton', array($this, 'onButton')),
+			new \Twig_SimpleFunction('offButton', array($this, 'offButton')),
+			new \Twig_SimpleFunction('onOffButton', array($this, 'onOffButton')),
 			new \Twig_SimpleFunction('upDownButton', array($this, 'upDownButton')),
 			new \Twig_SimpleFunction('toggleButton', array($this, 'toggleButton')),
 		);
@@ -324,5 +328,40 @@ class ButtonExtension extends \Twig_Extension
 		$toggle                = str_replace('inputClass', $vars['attr']['class'], $toggle);
 
 		return $toggle;
+	}
+
+	/**
+	 * @param array $details
+	 *
+	 * @return string
+	 */
+	public function onButton($details = [])
+	{
+		return $this->generateButton($this->buttons['on'], $details);
+	}
+
+	/**
+	 * @param array $details
+	 *
+	 * @return string
+	 */
+	public function offButton($details = [])
+	{
+		return $this->generateButton($this->buttons['off'], $details);
+	}
+
+	/**
+	 * @param array $details
+	 *
+	 * @return string
+	 */
+	public function onOffButton($details = [])
+	{
+		if (!isset($details['value']))
+			throw new Exception('You must set a boolean value for the On/Off Button.');
+		if ($details['value'])
+			return $this->generateButton($this->buttons['on'], isset($details['on']) ? $details['on'] : []);
+		else
+			return $this->generateButton($this->buttons['off'], isset($details['off']) ? $details['off'] : []);
 	}
 }

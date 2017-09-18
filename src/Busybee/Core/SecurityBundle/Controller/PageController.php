@@ -3,13 +3,13 @@
 namespace Busybee\Core\SecurityBundle\Controller;
 
 use Busybee\Core\SecurityBundle\Form\PageType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 
-class PageController extends Controller
+class PageController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * @param Request $request

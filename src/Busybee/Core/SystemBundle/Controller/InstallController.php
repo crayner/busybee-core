@@ -4,11 +4,11 @@ namespace Busybee\Core\SystemBundle\Controller;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Doctrine\Common\Persistence\Mapping\MappingException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-class InstallController extends Controller
+class InstallController extends BusybeeController
 {
 	/**
 	 * @param int $count

@@ -184,6 +184,9 @@ abstract class User implements UserInterface
 	 */
 	public function canDelete()
 	{
+		if ($this->getId() == 1)
+			return false;
+
 		if (!$this->enabled || $this->locked)
 			return true;
 

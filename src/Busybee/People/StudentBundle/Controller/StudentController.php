@@ -3,13 +3,13 @@
 namespace Busybee\People\StudentBundle\Controller;
 
 use Busybee\People\PersonBundle\Entity\Person;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class StudentController extends Controller
+class StudentController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * @param $id

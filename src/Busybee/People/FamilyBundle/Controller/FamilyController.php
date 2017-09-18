@@ -2,13 +2,13 @@
 namespace Busybee\People\FamilyBundle\Controller;
 
 use Busybee\People\FamilyBundle\Form\FamilyType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class FamilyController extends Controller
+class FamilyController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * @param Request $request

@@ -2,17 +2,19 @@
 
 namespace Busybee\AVETMISS\AVETMISSBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Busybee\AVETMISS\AVETMISSBundle\Entity\Course;
 use Busybee\CurriculumBundle\Entity\Course as Core;
 use Busybee\AVETMISS\AVETMISSBundle\Form\CourseType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\FormError;
 
-class CourseController extends Controller
+class CourseController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
-
+	/**
+	 * @param Request $request
+	 *
+	 * @return mixed
+	 */
 	public function indexAction(Request $request)
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);

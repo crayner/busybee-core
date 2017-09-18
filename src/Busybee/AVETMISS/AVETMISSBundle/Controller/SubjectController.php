@@ -2,15 +2,15 @@
 
 namespace Busybee\AVETMISS\AVETMISSBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Busybee\AVETMISS\AVETMISSBundle\Entity\Subject;
 use Busybee\CurriculumBundle\Entity\Subject as SubjectCore;
 use Busybee\AVETMISS\AVETMISSBundle\Form\SubjectType;
 use Symfony\Component\HttpFoundation\Request;
 
-class SubjectController extends Controller
+class SubjectController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	public function indexAction(Request $request)
 	{

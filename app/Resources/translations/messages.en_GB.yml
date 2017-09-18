@@ -31,3 +31,5 @@ form:
     up: Up
     down: Down
     edit: Edit
+    on: On
+    off: Off

@@ -1,8 +1,10 @@
 <?php
 
-namespace Busybee\Core\SecurityBundle\Security;
+namespace Busybee\Core\TemplateBundle\Controller;
 
-trait DenyAccessUnlessGranted
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+abstract class BusybeeController extends Controller
 {
 	/**
 	 * Throws an exception unless the attributes are granted against the current authentication token and optionally
@@ -27,7 +29,6 @@ trait DenyAccessUnlessGranted
 			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.dev', ['%page%' => implode(', ', $page->getRoles()), '%user%' => $this->get('busybee_core_security.model.get_current_user')->rolesToString()], 'BusybeeSecurityBundle') : $message;
 		else
 			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.prod', [], 'BusybeeSecurityBundle') : $message;
-
 
 		parent::denyAccessUnlessGranted($page->getRoles(), $object, $message);
 	}

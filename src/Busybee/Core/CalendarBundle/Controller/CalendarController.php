@@ -4,7 +4,7 @@ namespace Busybee\Core\CalendarBundle\Controller;
 
 use Busybee\Core\CalendarBundle\Model\Day;
 use Busybee\Core\CalendarBundle\Model\Month;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\Request;
 use Busybee\Core\CalendarBundle\Form\YearType;
 use Busybee\Core\CalendarBundle\Entity\Year;
@@ -13,9 +13,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use DateTime;
 
-class CalendarController extends Controller
+class CalendarController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * @return Response

@@ -11,7 +11,7 @@ use Busybee\Core\SystemBundle\Entity\Setting;
 use Busybee\Core\SystemBundle\Form\CreateType;
 use Busybee\Core\SystemBundle\Form\SettingType;
 use Busybee\Core\SystemBundle\Form\UploadType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -25,9 +25,9 @@ use Busybee\Core\TemplateBundle\Type\YamlArrayType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
-class SettingController extends Controller
+class SettingController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * @param Request $request

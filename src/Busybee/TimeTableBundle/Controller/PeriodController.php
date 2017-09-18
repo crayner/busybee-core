@@ -5,13 +5,13 @@ namespace Busybee\TimeTableBundle\Controller;
 use Busybee\TimeTableBundle\Form\EditPeriodActivityType;
 use Busybee\TimeTableBundle\Form\PeriodActivityType;
 use Busybee\TimeTableBundle\Form\PeriodPlanType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class PeriodController extends Controller
+class PeriodController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
     /**
      * @param $id

@@ -2,7 +2,10 @@
 
 namespace Busybee\Core\SecurityBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Form\UserType;
+use Busybee\Core\SystemBundle\Model\MessageManager;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Busybee\Core\SecurityBundle\Event\FormEvent;
@@ -11,13 +14,10 @@ use Busybee\Core\SecurityBundle\Event\FilterUserResponseEvent;
 use Busybee\Core\SecurityBundle\BusybeeSecurityEvents;
 use Busybee\Core\SecurityBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Busybee\Core\SecurityBundle\Validator\Password;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
-class UserController extends Controller
+class UserController extends BusyBeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
-
 	/**
 	 * Tell the user his account is now confirmed
 	 */
@@ -38,7 +38,7 @@ class UserController extends Controller
 	 * @param Request $request
 	 * @param string  $token
 	 *
-	 * @return null|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+	 * @return null|\Symfony\Component\HttpFoundation\Response
 	 */
 	public function resetAction(Request $request, $token)
 	{
@@ -99,8 +99,7 @@ class UserController extends Controller
 					'success',
 					$this->get('translator')->trans('user.reset.success', array(), 'BusybeeSecurityBundle')
 				);
-				$url      = $this->generateUrl('home_page');
-				$response = new RedirectResponse($url);
+				$response = $this->redirectToRoute('/');
 			}
 
 			$dispatcher->dispatch(BusybeeSecurityEvents::RESETTING_RESET_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
@@ -160,7 +159,7 @@ class UserController extends Controller
 	 *
 	 * @param Request $request
 	 *
-	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function sendEmailAction(Request $request)
 	{
@@ -201,9 +200,7 @@ class UserController extends Controller
 		$user->setPasswordRequestedAt(new \DateTime());
 		$this->get('busybee_core_security.doctrine.user_manager')->updateUser($user);
 
-		return new RedirectResponse($this->generateUrl('busybee_security_user_reset_check_email',
-			array('email' => $this->getObfuscatedEmail($user))
-		));
+		return $this->redirectToRoute('busybee_security_user_reset_check_email', ['email' => $this->getObfuscatedEmail($user)]);
 	}
 
 	/**
@@ -257,13 +254,7 @@ class UserController extends Controller
 
 		}
 
-		return new RedirectResponse($this->generateUrl('person_manage',
-			array(
-				'personID' => $person->getId(),
-			)
-		)
-		);
-
+		return $this->redirectToRoute('person_manage', ['personID' => $person->getId()]);
 	}
 
 	/**
@@ -280,7 +271,7 @@ class UserController extends Controller
 		if (empty($email))
 		{
 			// the user does not come from the sendEmail action
-			return new RedirectResponse($this->generateUrl('busybee_security_resetting_request'));
+			return $this->redirectToRoute('busybee_security_resetting_request');
 		}
 
 
@@ -314,5 +305,104 @@ class UserController extends Controller
 			array('message' => $this->get('translator')->trans('The user %user% was ' . $enabled, array('%user%' => $user->formatName()), 'BusybeeSecurityBundle'), 'status' => $status),
 			200
 		);
+	}
+
+	/**
+	 * @param Request $request
+	 * @param         $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function editAction(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+
+		$em = $this->get('doctrine')->getManager();
+
+		if ($id === 'Add')
+			$entity = new User();
+		elseif ($id === 'Current')
+		{
+			$entity = $this->getUser();
+			$id     = $entity->getId();
+		}
+		else
+			$entity = $em->getRepository(User::class)->find($id);
+
+		$form = $this->createForm(UserType::class, $entity, ['isSystemAdmin' => $this->isGranted('ROLE_SYSTEM_ADMIN')]);
+
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+
+			$em->persist($entity);
+			$em->flush();
+			if ($id === 'Add')
+				$this->redirectToRoute('security_user_edit', ['id' => $entity->getId()]);
+		}
+
+		return $this->render('@BusybeeSecurity/User/user.html.twig', ['form' => $form->createView()]);
+	}
+
+	/**
+	 * @param Request $request
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function listAction(Request $request)
+	{
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+
+		$up = $this->get('busybee_core_security.model.user_pagination');
+
+		$up->injectRequest($request);
+
+		$up->getDataSet();
+
+		return $this->render('@BusybeeSecurity/User/list.html.twig', ['pagination' => $up,]);
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return RedirectResponse
+	 */
+	public function deleteAction($id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
+
+		$em = $this->get('doctrine')->getManager();
+
+
+		$mm = new MessageManager();
+		$mm->setDomain('BusybeeSecurityBundle');
+
+		$entity = $em->getRepository(User::class)->find($id);
+
+		if (!$entity->canDelete())
+			$mm->addMessage('warning', 'security.user.delete.enabled', ['%name%' => $entity->getUsername()]);
+		else
+		{
+			try
+			{
+				$name = $entity->getUsername();
+				$em->remove($entity);
+				$em->flush();
+				$mm->addMessage('success', 'security.user.delete.success', ['%name%' => $name]);
+			}
+			catch (\Exception $e)
+			{
+				$mess = $e->getMessage();
+				if ($this->get('kernel')->getEnvironment() == 'Prod')
+					$mess = '';
+				$mm->addMessage('danger', 'security.user.delete.database', ['%message%' => $mess]);
+			}
+		}
+
+		$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($mm);
+
+		return $this->redirectToRoute('security_user_list');
+
 	}
 }

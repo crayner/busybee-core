@@ -2,12 +2,12 @@
 
 namespace Busybee\Core\CalendarBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class SpecialDayController extends Controller
+class SpecialDayController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	public function deleteAction($id, $year)
 	{

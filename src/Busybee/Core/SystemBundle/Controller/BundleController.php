@@ -3,13 +3,13 @@
 namespace Busybee\Core\SystemBundle\Controller;
 
 use Busybee\Core\SystemBundle\Form\BundlesType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class BundleController extends Controller
+class BundleController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * List Bundles

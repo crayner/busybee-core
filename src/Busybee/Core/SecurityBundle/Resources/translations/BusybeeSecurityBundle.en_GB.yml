@@ -22,6 +22,12 @@ register:
         label: User Enabled 
         description: The user is able to sign in and use the site.
 user:
+    credentialsExpireAt:
+        help: This date, if past, will ensure that the user credentials are expired.  A null value is ignored. If a user with expired credentials attempts to use the site, the site will demand a change of password.
+        label: Credentials Expire After
+    expiresAt:
+        help: This date, if past, stops the user from accessing the site, except as a visitor.
+        label: User Expires After
     label:
         username: User Name
         email: E-mail
@@ -74,6 +80,9 @@ user:
         enabled: Enabled
     request:
         passwordReset: Send a Password Reset Email
+    email:
+        help: Each user must have an email address, as the system uses the email address to manage passwords.
+        label: User Email
 security:
     login:
         password: Password
@@ -145,6 +154,20 @@ security:
     actions: Actions
     help:
         request: This page does NOT change the users password.  User passwords can be set (and reset) by the user using the link that this page sends to the selected user.  Add a comment to the sent email if required.
+    user:
+        manage:
+            title: User Manage
+            description: Set roles, set expiry details, et.al.
+        list:
+            title: User Management List
+            description: ''
+            username: Username
+            email: Email
+            enabled: User Enabled
+        delete:
+            enabled: 'The user %name% must be disabled to delete.'
+            database: 'The user has constraints in the database that exclude deletion. %message%'
+            success: 'The user %name% was deleted.'
 role:
     label:
         name: Role Name

@@ -2,11 +2,11 @@
 namespace Busybee\Core\HomeBundle\Controller;
 
 use Symfony\Bridge\Monolog\Logger;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class ErrorController extends Controller
+class ErrorController extends BusybeeController
 {
 	public function indexAction(FlattenException $exception, Logger $logger = null)
 	{

@@ -44,3 +44,12 @@ page_list:
 page_edit:
     path:     /page/{id}/edit/
     defaults: { _controller: BusybeeSecurityBundle:Page:edit}
+security_user_edit:
+    path:     /user/{id}/edit/
+    defaults: { _controller: BusybeeSecurityBundle:User:edit, id: 'Add'}
+security_user_list:
+    path:     /user/list/
+    defaults: { _controller: BusybeeSecurityBundle:User:list }
+security_user_delete:
+    path:     /user/{id}/delete/
+    defaults: { _controller: BusybeeSecurityBundle:User:delete }

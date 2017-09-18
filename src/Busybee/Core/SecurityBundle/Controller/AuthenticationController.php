@@ -12,7 +12,7 @@
 namespace Busybee\Core\SecurityBundle\Controller;
 
 use Busybee\Core\SecurityBundle\Google\Google;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -21,10 +21,8 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class AuthenticationController extends Controller
+class AuthenticationController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
-
 	public function loginAction(Request $request)
 	{
 		/** @var $session \Symfony\Component\HttpFoundation\Session\Session */

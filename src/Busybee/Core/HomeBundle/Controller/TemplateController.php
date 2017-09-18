@@ -2,12 +2,12 @@
 
 namespace Busybee\Core\HomeBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\Yaml\Dumper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class TemplateController extends Controller
+class TemplateController extends BusybeeController
 {
 	public function indexAction(Request $request)
 	{

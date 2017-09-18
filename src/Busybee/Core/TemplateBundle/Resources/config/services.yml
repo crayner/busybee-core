@@ -96,6 +96,20 @@ parameters:
             style: 'float: right;'
             additional: ''
             prompt: ''
+        on:
+            class: "halflings halflings-thumbs-up btn btn-danger"
+            type: button
+            title: 'form.on'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
+        off:
+            class: "halflings halflings-thumbs-down btn btn-success"
+            type: button
+            title: 'form.off'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
 services:
     busybee_core_template.model.form_errors_parser:
         class: Busybee\Core\TemplateBundle\Model\FormErrorsParser

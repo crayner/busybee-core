@@ -1,0 +1,77 @@
+{% trans_default_domain "BusybeeSecurityBundle" %}
+
+{% set h3Content = '' %}
+{% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('security_user_list')}})|raw %}
+{% set h3Content = h3Content ~ saveButton()|raw %}
+{% include '@BusybeeTemplate/Page/panelStart.html.twig'  with {'header': 'security.user.manage.title', transDomain: 'BusybeeSecurityBundle'} %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 well">
+            {{ form_row(form.username) }}
+        </div>
+        <div class="col-sm-4 well">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="col-sm-3 well">
+            {{ form_row(form.locale) }}
+        </div>
+        <div class="col-sm-2 well">
+            {{ form_row(form.year) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 well">
+            {{ form_widget(form.email) }}
+            {{ form_row(form.emailCanonical) }}
+            {{ form_widget(form.password) }}
+            {{ form_row(form.enabled) }}
+        </div>
+        <div class="col-sm-3 well">
+            {{ form_row(form.locked) }}
+        </div>
+        <div class="col-sm-3 well text-center">
+            {% if app.request.get('id') != 'Add' %}
+                <div>
+                    {% set route = path('home_page') ~ '?_switch_user=' ~ form.vars.value.getUsername %}
+                    {% set additional = '' %}
+                    {% if form.vars.value.getId == app.user.getId %}{% set additional = 'disabled' %}{% endif %}
+                    {{ miscButton({style: '', transDomain: 'BusybeeSecurityBundle', title: 'security.impersonate.title', windowOpen: {'route': route }, 'class': 'btn btn-warning glyphicons glyphicons-theater', 'type': 'button', 'additional': additional})|raw }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-sm-3 well text-center">
+            {% if app.request.get('id') != 'Add' %}
+                <div>
+                    {{ editButton({style: '', title: 'user.request.passwordReset', 'class': 'btn btn-warning glyphicons glyphicons-user-key', transDomain: 'BusybeeSecurityBundle', windowOpen: {'route': path('security_user_reset_request', {'id': form.vars.value.getId})}})|raw }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 well">
+            {{ form_row(form.expired) }}
+        </div>
+        <div class="col-sm-3 well">
+            {{ form_row(form.expiresAt) }}
+
+        </div>
+        <div class="col-sm-3 well">
+            {{ form_row(form.credentials_expired) }}
+        </div>
+        <div class="col-sm-3 well">
+            {{ form_row(form.credentialsExpireAt) }}
+        </div>
+    </div>
+    {% if is_granted('ROLE_SYSTEM_ADMIN') %}
+        <div class="row">
+            <div class="col-sm-6 well">
+                {{ form_row(form.directroles) }}
+            </div>
+            <div class="col-sm-6 well">
+                {{ form_row(form.groups) }}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}

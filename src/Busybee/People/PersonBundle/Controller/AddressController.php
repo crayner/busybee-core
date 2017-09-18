@@ -2,7 +2,7 @@
 
 namespace Busybee\People\PersonBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -10,9 +10,9 @@ use Busybee\People\PersonBundle\Entity\Address;
 use Busybee\People\PersonBundle\Entity\Locality;
 use Busybee\People\PersonBundle\Form\AddressType;
 
-class AddressController extends Controller
+class AddressController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * @param Request $request

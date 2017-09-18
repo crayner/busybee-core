@@ -1,0 +1,78 @@
+{% trans_default_domain "BusybeeSecurityBundle" %}
+
+{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'security.user.list.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'security.user.list.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'security.user.list.description'|trans }}{% endblock headerLead %}
+
+
+{% block contentContainer %}
+    {% block flashMessages %}
+        {% include 'BusybeeTemplateBundle:Default:flash.html.twig' with {transDomain: 'BusybeeSecurityBundle', flashClass: 'fadeAlert'} %}
+    {% endblock flashMessages %}
+    {% include 'PaginationBundle:Default:index.html.twig' %}
+
+    {% set h3Content = addButton({windowOpen: {route: path('security_user_edit', {id: 'Add'})}})|raw %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'security.user.list.title', transDomain: 'BusybeeSecurityBundle'} %}
+    <div class="container-fluid well">
+        <div class="row">
+            <div class="col-md-12 col-sm-12" id="pageError">
+
+            </div>
+        </div>
+        <div class="row row-header">
+            <div class="col-sm-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Route' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'security.user.list.username'|trans }}
+                {% else %}
+                    {{ 'security.user.list.username'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-3" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Path' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'security.user.list.email'|trans }}
+                {% else %}
+                    {{ 'security.user.list.email'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-2" style="display: inline-block;">
+                {{ 'security.user.list.enabled'|trans }}
+            </div>
+            <div class="col-sm-4 text-center" style="display: inline-block;">
+                {{ 'security.actions'|trans }}
+            </div>
+        </div>
+
+        {% for user in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-sm-3">
+                    {{ user.username }}
+                </div>
+                <div class="col-sm-3">
+                    {{ user.email }}
+                </div>
+                <div class="col-sm-3">
+                    {{ onOffButton({value: user.enabled, on: {style: '', class: 'halflings halflings-thumbs-up btn btn-success'}, off: {style: '', class: 'halflings halflings-thumbs-down btn btn-danger'}})|raw }}
+                </div>
+                <div class="col-sm-3">
+                    {% set route = path('home_page') ~ '?_switch_user=' ~ user.username %}
+                    {% set additional = '' %}
+                    {% if user.id == app.user.getId %}{% set additional = 'disabled' %}{% endif %}
+                    {{ miscButton({style: '', transDomain: 'BusybeeSecurityBundle', title: 'security.impersonate.title', windowOpen: {'route': route }, 'class': 'btn-halflings btn btn-warning glyphicons glyphicons-theater', 'type': 'button', 'additional': additional})|raw }}
+
+                    {{ miscButton({style: '', transDomain: 'BusybeeSecurityBundle', title: 'security.user.manage.title', class: 'btn-halflings glyphicons glyphicons-edit btn btn-warning', windowOpen: {route: path('security_user_edit', {'id': user.id})}})|raw }}
+                    {{ deleteButton({style: '', windowOpen: {route: path('security_user_delete', {id: user.id})}})|raw }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
+{% endblock javascripts %}

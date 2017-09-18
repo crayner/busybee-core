@@ -3,14 +3,14 @@
 namespace Busybee\People\StaffBundle\Controller;
 
 use Busybee\People\PersonBundle\Entity\Person;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class StaffController extends Controller
+class StaffController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * @param $id

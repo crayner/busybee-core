@@ -493,3 +493,10 @@ button.btn.btn-header {
     -webkit-animation: lol 3s 500ms infinite ease-in-out;
     animation: lol 3s 500ms infinite ease-in-out;
 }
+
+.btn-halflings.glyphicons {
+    margin: 1px 0 0 0;
+    padding: 0;
+    width: 40px;
+    height: 28px;
+}

@@ -10,18 +10,19 @@ parameters:
         '%mailer_sender_address%': '%mailer_sender_name%' 
     busybee_security.resetting.email.from_email: 
         '%mailer_sender_address%': '%mailer_sender_name%'
-    userPagination: 
+    userPagination:
+        alias: u
         sortBy:
             User Name: 
-                a.username: ASC
-                a.email: ASC
+                u.username: ASC
+                u.email: ASC
             Email: 
-                a.email: ASC
-                a.username: ASC
-        limit: 15
+                u.email: ASC
+                u.username: ASC
+        limit: 25
         searchList:
-            - a.username
-            - a.email
+            - u.username
+            - u.email
     pagePagination:
         alias: p
         sortBy:

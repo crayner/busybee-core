@@ -4,13 +4,13 @@ namespace Busybee\People\PersonBundle\Controller;
 
 use Busybee\People\PersonBundle\Form\ImportType;
 use Busybee\People\PersonBundle\Form\MatchImportType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class PeopleController extends Controller
+class PeopleController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	/**
 	 * @param Request $request

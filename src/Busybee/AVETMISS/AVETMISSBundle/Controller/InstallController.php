@@ -2,13 +2,13 @@
 
 namespace Busybee\AVETMISS\AVETMISSBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Tools\SchemaTool;
 
-class InstallController extends Controller
+class InstallController extends BusybeeController
 {
-	use \Busybee\Core\SecurityBundle\Security\DenyAccessUnlessGranted;
+
 
 	public function indexAction()
 	{
