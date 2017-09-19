@@ -376,9 +376,11 @@ class BundleManager
 		if (!$bundle->isActive())
 			return false;
 
-		if (!$this->settingManager->hasParameter($name . 'Bundle'))
+		if (!$this->settingManager->hasParameter($bundle->getName() . 'Bundle'))
+		{
+			dump($this);
 			throw new \InvalidArgumentException('The bundle ' . $name . ' is not correctly formatted for use in Busybee');
-
+		}
 
 		$bundleParams = $this->settingManager->getParameter($name . 'Bundle');
 

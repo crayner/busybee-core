@@ -18,9 +18,9 @@
             <div id="navbar" class="navbar-collapse collapse">
                 {% block dynamicMenu %}
                     <ul class="nav navbar-nav">
-                        {% include "BusybeeHomeBundle:Menu:site-menu.html.twig" %}
+                        {% include "@BusybeeTemplate/Menu/site-menu.html.twig" %}
                     </ul>
-                    {% include 'BusybeeHomeBundle:Menu:sign-in-form.html.twig' %}
+                    {% include '@BusybeeTemplate/Menu/sign-in-form.html.twig' %}
                 {% endblock dynamicMenu %}
             </div><!--/.navbar-collapse -->
         </div>

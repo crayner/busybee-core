@@ -15,7 +15,7 @@
                         {% if (drop.role is defined and is_granted(drop.role)) or drop.role is not defined %}
                             {% if (drop.test is defined and test_menuItem(drop.test)) or drop.test is not defined %}
                                 {% if drop.menu is defined %}
-                                    {% include 'BusybeeHomeBundle:Menu:submenu.html.twig' with {'menu': drop} %}
+                                    {% include '@BusybeeTemplate/Menu/submenu.html.twig' with {'menu': drop} %}
                                 {% elseif drop.route is defined %}
                                     {% set translate = 'BusybeeHomeBundle' %}{% if drop.translate is defined %}{% set translate = drop.translate %}{% endif %}
                                     <li>

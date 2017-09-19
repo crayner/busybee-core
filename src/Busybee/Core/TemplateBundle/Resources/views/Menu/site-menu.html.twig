@@ -4,5 +4,5 @@
 
 {% set nodes = get_menu() %}
 {% for node in nodes %}
-    {% include 'BusybeeHomeBundle:Menu:dropdown.html.twig' with {'menu': node} %}
+    {% include '@BusybeeTemplate/Menu/dropdown.html.twig' with {'menu': node} %}
 {% endfor %}

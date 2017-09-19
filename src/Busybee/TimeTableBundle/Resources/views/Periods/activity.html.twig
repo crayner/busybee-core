@@ -1,12 +1,12 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% extends "@BusybeeHome/Popup/template.html.twig" %}
+{% extends "@BusybeeTemplate/Popup/template.html.twig" %}
 
 {% block title %}{{ parent() }}{{ 'period.activities.activity.edit.title'|trans }}{% endblock title %}
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include 'BusybeeTemplateBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
+        {% include '@BusybeeTemplate/Default/flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
     {% endblock %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     <h2>{{ form.vars.value.activity.fullName }}</h2>

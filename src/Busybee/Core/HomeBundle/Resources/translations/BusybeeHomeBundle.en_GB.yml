@@ -132,6 +132,8 @@ menu:
     user:
         manage: Manage User
         list: User List
+        self:
+            manage: Current User
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

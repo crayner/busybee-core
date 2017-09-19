@@ -33,7 +33,7 @@ class AppKernel extends Kernel
 		    foreach ($parameters as $bundle)
 		    {
 			    // Core must be loaded manually above.
-			    if ((isset($bundle['active']) && $bundle['active']) || $bundle['type'] === 'core')
+			    if ($bundle['active'] || $bundle['type'] === 'core')
 				    $bundles[] = new $bundle['namespace']();
 		    }
 	    }

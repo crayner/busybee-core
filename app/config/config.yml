@@ -44,7 +44,7 @@ twig:
 #        - bootstrap_3_horizontal_layout.html.twig 
     date:
         timezone: '%timezone%'
-#    exception_controller: BusybeeHomeBundle:Error:index
+#    exception_controller: @BusybeeTemplate/Error/index
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"

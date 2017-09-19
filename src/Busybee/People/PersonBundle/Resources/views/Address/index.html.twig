@@ -2,13 +2,13 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
 
 {% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:AutoComplete:style.html.twig' %}
+    {% include '@BusybeeTemplate/AutoComplete/style.html.twig' %}
 {% endblock stylesheets %}
 
 {% block title %}{{ parent() }}{{ 'address.title'|trans }}{% endblock title %}
@@ -19,7 +19,7 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include 'BusybeeTemplateBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
+        {% include '@BusybeeTemplate/Default/flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
     {% endblock flashMessages %}
     {{ form_start(form) }}
     <div class="container-fluid">

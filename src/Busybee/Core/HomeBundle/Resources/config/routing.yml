@@ -3,7 +3,7 @@ home_page:
     defaults: { _controller: BusybeeHomeBundle:Default:index }
 error_page:
     path:     /error/{exception}/{logger}
-    defaults: { _controller: BusybeeHomeBundle:Error:index }
+    defaults: { _controller: BusybeeTemplateBundle:Error:index }
 home_template:
     path:     /template
     defaults: { _controller: BusybeeHomeBundle:Template:index }

@@ -87,11 +87,18 @@ class PageManager
 
 		if (empty($this->page->getId()))
 		{
-			$this->page->setPath($this->router->getRouteCollection()->get($routeName)->getPath());
-			$this->page->setCacheTime();
-			$this->om->persist($this->page);
-			$this->om->flush();
-			$this->pageSecurity[$routeName] = $this->page;
+			dump($routeName);
+			dump($this->router->getRouteCollection()->get($routeName));
+			if (!is_null($this->router->getRouteCollection()->get($routeName)))
+			{
+				$this->page->setPath($this->router->getRouteCollection()->get($routeName)->getPath());
+				$this->page->setCacheTime();
+				$this->om->persist($this->page);
+				$this->om->flush();
+				$this->pageSecurity[$routeName] = $this->page;
+			}
+			else
+				return $this->page;
 		}
 
 		if ($this->page->getCacheTime() < new \DateTime('-15 Minutes'))

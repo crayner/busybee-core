@@ -115,6 +115,8 @@ bundle:
     description:
         avetmiss: Australian Vocational Education Training management and reporting standards bundle.
         missing: No description supplied.
+        staff: Used to manage staff details.
+        student:  Used to manage student details.
     activate:
         excluded: 'The bundle %name% will not work with the "%conflict%" bundle.'
         success: 'The bundle %name% has changed status.'

@@ -1,6 +1,6 @@
 {% trans_default_domain "BusybeeSecurityBundle" %}
 
-{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
 
 {% block title %}{{ parent() }}{{ 'security.user.list.title'|trans }}{% endblock title %}
 {% block headerTitle %}{{ 'security.user.list.title'|trans }}{% endblock headerTitle %}
@@ -9,7 +9,7 @@
 
 {% block contentContainer %}
     {% block flashMessages %}
-        {% include 'BusybeeTemplateBundle:Default:flash.html.twig' with {transDomain: 'BusybeeSecurityBundle', flashClass: 'fadeAlert'} %}
+        {% include '@BusybeeTemplate/Default/flash.html.twig' with {transDomain: 'BusybeeSecurityBundle', flashClass: 'fadeAlert'} %}
     {% endblock flashMessages %}
     {% include 'PaginationBundle:Default:index.html.twig' %}
 

@@ -1,41 +1,29 @@
-{# src/Busybee/HomeBundle/Resources/views/Default/template.html.twig #}
+{# src/Busybee/HomeBundle/Resources/views/Popup/template.html.twig #}
 
 {% trans_default_domain "BusybeeHomeBundle" %}
 
 {% extends '@BusybeeTemplate/Default/headerNotice.html.twig' %}
-
 
 {% block htmlContent %}
     <!DOCTYPE html >
     <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>{{ get_setting('org.name.long', 'Busybee Institute') }} - {% block title %}{% endblock title %} on
-            Busybee</title>
+        <title>{{ get_setting('org.name.long', 'Busybee') }} - {% block title %}{% endblock title %} on Busybee</title>
 
         {% block stylesheets %}
-            {% include '@BusybeeTemplate/Default/style.html.twig' %}
+            {% include 'BusybeeHomeBundle:Popup:style.html.twig' %}
         {% endblock stylesheets %}
+
     </head>
 
     <body>
 
     {% block menuContainer %}
-        {{ include('@BusybeeTemplate/Menu/main-menu.html.twig') }}
+        {% include '@@BusybeeTemplate/Menu/empty-menu.html.twig' %}
     {% endblock menuContainer %}
 
     <div class="container theme-showcase" role="main">
-
-        {% block titleContainer %}
-            <div class="jumbotron hideSection{{ containerThemeOverwrite }}">
-                <img src="{{ asset(get_setting('org.logo', 'img/bee.png')) }}" alt="Busybee" id="bee-logo"/>
-                <h2>{% block headerTitle %}Busybee - {{ get_setting('org.name.long') }}{% endblock headerTitle %}</h2>
-                <p class="lead">{% block headerLead %}Busybee{% endblock headerLead %}</p>
-                {% if headerNotices is not empty %}<p>{{ headerNotices|raw }}</p>{% endif %}
-            </div>
-        {% endblock titleContainer %}
-
-
         <div class="container-fluid" id="contentContainer">
             {% block flashMessages %}
                 {% include '@BusybeeTemplate/Default/flash.html.twig' %}

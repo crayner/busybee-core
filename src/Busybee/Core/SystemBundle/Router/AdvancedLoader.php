@@ -39,7 +39,7 @@ class AdvancedLoader extends Loader
 
 		foreach ($this->bundles as $name => $bundle)
 		{
-			if ((isset($bundles['active']) && $bundle['active']) || ($bundle['type'] === 'core' && !empty($bundle['route'])))
+			if (($bundle['active'] && !empty($bundle['route'])) || ($bundle['type'] === 'core' && !empty($bundle['route'])))
 			{
 				$route          = $bundle['route'];
 				$importedRoutes = null;
@@ -69,9 +69,6 @@ class AdvancedLoader extends Loader
 	 * AdvancedLoader constructor.
 	 *
 	 * @param Kernel $kernel
-	 * @param array  $bundles
-	 *
-	 * @internal param $path
 	 */
 	public function __construct(Kernel $kernel)
 	{

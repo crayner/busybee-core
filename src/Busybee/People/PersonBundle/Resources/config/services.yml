@@ -159,7 +159,7 @@ services:
             - '@busybee_core_system.setting.setting_manager'
             - '@doctrine.orm.entity_manager'
             - '@validator'
-            - '@current.year.currentYear'
+            - '@busybee_core_calendar.model.get_current_year'
     person.image.validator:
         class: Busybee\People\PersonBundle\Validator\Constraints\PersonImageValidator
         tags:

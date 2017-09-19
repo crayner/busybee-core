@@ -19,7 +19,7 @@ class ErrorController extends BusybeeController
 
 		}
 
-		return $this->render('BusybeeHomeBundle:Error:index.html.twig', ['exception' => $exception]);
+		return $this->render('@BusybeeTemplate/Error/index.html.twig', ['exception' => $exception]);
 	}
 
 }

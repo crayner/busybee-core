@@ -36,7 +36,6 @@ class PersonPreferenceType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$locale     = $options['locale'];
 		$localeList = $options['localeList'];
 		$builder
 			->add('language', ChoiceType::class,
@@ -56,14 +55,15 @@ class PersonPreferenceType extends AbstractType
 	 */
 	public function configureOptions(OptionsResolver $resolver)
 	{
-		$resolver->setDefaults(array(
-			'data_class'         => PersonPreference::class,
-			'translation_domain' => 'BusybeePersonBundle',
-			'allow_extra_fields' => true,
-		));
+		$resolver->setDefaults(
+			[
+				'data_class'         => PersonPreference::class,
+				'translation_domain' => 'BusybeePersonBundle',
+				'allow_extra_fields' => true,
+			]
+		);
 		$resolver->setRequired(
 			[
-				'locale',
 				'localeList',
 			]
 		);

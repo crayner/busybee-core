@@ -14,7 +14,7 @@
             {% set h3Content = h3Content ~ '<span class="small" style="margin-top: 8px; float: right;">&nbsp;' ~ 'bundle.update.required'|trans(form.vars.manager.updateDetails) ~ '&nbsp;</span>' %}
         {% endif %}
         {% set h3Content = h3Content ~ '</div>' %}
-        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'system.bundle.name.header'|trans({'%name%': form.name.vars.value}), 'panelStyle': 'default', panelParagraph: form.description.vars.value, transDomain: 'SystemBundle'} %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'system.bundle.name.header', name: form.name.vars.value, panelStyle: 'default', panelParagraph: form.description.vars.value, transDomain: 'SystemBundle'} %}
         {{ form_row(form.name) }}
         {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {% endspaceless %}

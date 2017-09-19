@@ -1,6 +1,6 @@
 {% trans_default_domain "BusybeeTimeTableBundle" %}
 
-{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
 
 {% form_theme form 'BusybeeTemplateBundle:Template:bootstrap.html.twig'
 '@BusybeeTemplate/Template/jquery.collection.html.twig'
@@ -20,7 +20,7 @@
 {% block contentContainer %}
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {% block flashMessages %}
-        {% include 'BusybeeTemplateBundle:Default:flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
+        {% include '@BusybeeTemplate/Default/flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeeTimeTableBundle'} %}
     {% endblock flashMessages %}
     {{ form_start(form) }}
     {% set h3Content = returnButton({'windowOpen': {'route': path('timetable_manage')}}) %}

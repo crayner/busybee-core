@@ -234,7 +234,7 @@ class PersonController extends BusybeeController
 			$localeList[$q] = $w;
 		}
 
-		$form = $this->createForm(PersonPreferenceType::class, $preference, ['locale' => $pm->getLocale(), 'localeList' => $localeList]);
+		$form = $this->createForm(PersonPreferenceType::class, $preference, ['localeList' => $localeList]);
 
 		return $this->render('BusybeePersonBundle:Person:preference.html.twig',
 			array(

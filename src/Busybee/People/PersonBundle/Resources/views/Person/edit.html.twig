@@ -2,7 +2,7 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-{% extends "BusybeeTemplateBundle:Default:template.html.twig" %}
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
 
 {% form_theme form
 "BusybeeTemplateBundle:Template:bootstrap.html.twig"
@@ -12,7 +12,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include 'BusybeeHomeBundle:AutoComplete:style.html.twig' %}
+    {% include '@BusybeeTemplate/AutoComplete/style.html.twig' %}
     {% include 'BusybeeTemplateBundle:Toggle:style.html.twig' %}
 {% endblock stylesheets %}
 
