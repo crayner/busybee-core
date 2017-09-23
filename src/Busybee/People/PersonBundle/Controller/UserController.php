@@ -1,17 +1,10 @@
 <?php
-
 namespace Busybee\People\PersonBundle\Controller;
 
-use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 
 class UserController extends BusybeeController
 {
-
-
 	/**
 	 * @param $id
 	 *
@@ -21,7 +14,7 @@ class UserController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$person = $this->get('person.repository')->find($id);
+		$person = $this->get('busybee_people_person.repository.person_repository')->find($id);
 
 		$user = $this->get('busybee_core_security.repository.user_repository')->findOneByPerson($id);
 
@@ -36,9 +29,9 @@ class UserController extends BusybeeController
 		$em = $this->get('doctrine')->getManager();
 		if ($user instanceof User)
 		{
-			if ($this->get('person.manager')->canDeleteUser($person))
+			if ($this->get('busybee_people_person.model.person_manager')->canDeleteUser($person))
 			{
-				$this->get('person.manager')->deleteUser($person);
+				$this->get('busybee_people_person.model.person_manager')->deleteUser($person);
 
 				return new JsonResponse(
 					array(
@@ -61,7 +54,7 @@ class UserController extends BusybeeController
 		}
 		else
 		{
-			if ($this->get('person.manager')->canBeUser($person))
+			if ($this->get('busybee_people_person.model.person_manager')->canBeUser($person))
 			{
 				$user = new User();
 				$user->setPerson($person);

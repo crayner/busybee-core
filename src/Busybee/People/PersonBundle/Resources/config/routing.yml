@@ -4,51 +4,9 @@ person_manage:
 person_edit:
     path:     /{id}/edit/
     defaults: { _controller: BusybeePersonBundle:Person:edit, id: 'Add' }
-address_check:
-    path:     /address/
-    defaults: { _controller: BusybeePersonBundle:Address:check }
-locality_manage:
-    path:     /locality/{id}/manage/
-    defaults: { _controller: BusybeePersonBundle:Locality:index }
-locality_fetch:
-    path:     /locality/fetch/
-    defaults: { _controller: BusybeePersonBundle:Locality:fetch }
-locality_delete:
-    path:     /locality/{id}/delete/
-    defaults: { _controller: BusybeePersonBundle:Locality:delete }
-address_manage:
-    path:     /address/{id}/edit/
-    defaults: { _controller: BusybeePersonBundle:Address:index }
-address_delete:
-    path:     /address/{id}/delete/
-    defaults: { _controller: BusybeePersonBundle:Address:delete}
-address_fetch:
-    path:     /address/fetch/
-    defaults: { _controller: BusybeePersonBundle:Address:fetch }
-phone_fetch:
-    path:     /phone/fetch/
-    defaults: { _controller: BusybeePersonBundle:Phone:fetch }
-person_toggle_caregiver:
-    path:     /careGiver/{id}/toggle/
-    defaults: { _controller: BusybeeFamilyBundle:CareGiver:toggle }
-person_toggle_user:
-    path:     /user/{id}/toggle/
-    defaults: { _controller: BusybeePersonBundle:User:toggle }
 people_import:
     path:     /import/
     defaults: { _controller: BusybeePersonBundle:People:import }
-people_import_match:
-    path:     /import/match/
-    defaults: { _controller: BusybeePersonBundle:People:match }
-people_import_data:
-    path:     /import/data/
-    defaults: { _controller: BusybeePersonBundle:People:data }
-person_photo_remove:
-    path:     /photo/{id}/remove
-    defaults: { _controller: BusybeePersonBundle:Person:removePhoto }
-contact_manage:
-    path:     /contact/manage/
-    defaults: { _controller: BusybeePersonBundle:Person:contactList}
-person_preference:
-    path:     /preference/
-    defaults: { _controller: BusybeePersonBundle:Person:preference}
+person_toggle_user:
+    path:     /user/{id}/toggle/
+    defaults: { _controller: BusybeePersonBundle:User:toggle }

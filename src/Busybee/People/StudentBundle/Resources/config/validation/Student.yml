@@ -10,8 +10,6 @@ Busybee\People\StudentBundle\Entity\Student:
             - Date: ~
         citizenship1PassportScan:
             - \Busybee\People\StudentBundle\Validator\PassportImage: ~
-        person:
-            - NotBlank: ~
         house:
             - Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'house.list'

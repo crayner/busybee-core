@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\SystemBundle\Controller;
 
 use Busybee\Core\SystemBundle\Form\BundlesType;
@@ -16,7 +15,7 @@ class BundleController extends BusybeeController
 	 *
 	 * @param Request $request
 	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
 	public function listAction(Request $request)
 	{
@@ -30,7 +29,17 @@ class BundleController extends BusybeeController
 
 		$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($bundles->getMessages());
 
-		return $this->render('@System/Bundle/list.html.twig', ['form' => $form->createView()]);
+
+		if (!$bundles->getBundleChanged())
+			return $this->render('@System/Bundle/list.html.twig', ['form' => $form->createView()]);
+
+		$redirect = $this->redirectToRoute('bundle_list', []);
+		if ($bundles->getSQLCount() > 0)
+			$redirect = $this->redirectToRoute('bundle_database_update', []);
+
+		$bundles->clearCache();
+
+		return $redirect;
 	}
 
 	/**
@@ -53,7 +62,7 @@ class BundleController extends BusybeeController
 
 		$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($um->getMessages());
 
-		return new RedirectResponse($this->generateUrl('bundle_list'));
+		return $this->redirectToRoute('bundle_list');
 	}
 
 	/**
@@ -73,7 +82,7 @@ class BundleController extends BusybeeController
 
 		$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($um->getMessages());
 
-		return new RedirectResponse($this->generateUrl('bundle_list'));
+		return $this->redirectToRoute('bundle_list');
 	}
 
 	/**

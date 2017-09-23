@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -29,5 +30,10 @@ class SystemExtension extends Extension
 		$loader->load('services.yml');
 
 		$container = $this->buildMenu(__DIR__, $container);
+
+		$bundles = Yaml::parse(file_get_contents(__DIR__ . '/../../../../../app/config/bundles.yml'));
+
+		$container->getParameterBag()
+			->set('bundles', $bundles);
 	}
 }

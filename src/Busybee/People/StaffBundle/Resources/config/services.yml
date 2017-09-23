@@ -53,47 +53,47 @@ parameters:
         settings:
             resources: 'BusybeeStaffBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
-    staff.repository:
+    busybee_people_staff.repository.staff_repository:
         class: Busybee\People\StaffBundle\Repository\StaffRepository
         factory:
             - "@doctrine"
             - 'getRepository'
         arguments:
             - "BusybeeStaffBundle:Staff"
-    form.person.staff.type:
+    busybee_people_staff.form.staff_type:
         class: Busybee\People\StaffBundle\Form\StaffType
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
-    staff.pagination:
+    busybee_people_staff.model.staff_pagination:
         class: Busybee\People\StaffBundle\Model\StaffPagination
         arguments:
             - '%staffPagination%'
-            - '@staff.repository'
+            - '@busybee_people_staff.repository.staff_repository'
             - '@busybee_core_system.model.my_container'
-    staff.grade.voter:
+    busybee_people_staff.security.grade_voter:
         class: Busybee\People\StaffBundle\Security\GradeVoter
         arguments:
             - '@security.access.decision_manager'
-            - '@person.manager'
+            - '@busybee_people_person.model.person_manager'
         tags:
             - { name: security.voter, priority: 250 }
         public: false
-    staff.student.voter:
+    busybee_people_staff.security.student_voter:
         class: Busybee\People\StaffBundle\Security\StudentVoter
         arguments:
             - '@security.access.decision_manager'
-            - '@person.manager'
+            - '@busybee_people_person.model.person_manager'
         tags:
             - { name: security.voter, priority: 250 }
         public: false
-    staff.staff.voter:
+    busybee_people_staff.security.staff_voter:
         class: Busybee\People\StaffBundle\Security\StaffVoter
         arguments:
             - '@security.access.decision_manager'
-            - '@person.manager'
+            - '@busybee_people_person.model.person_manager'
         tags:
             - { name: security.voter, priority: 250 }
         public: false

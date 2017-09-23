@@ -163,7 +163,8 @@ class PaginationType extends AbstractType
 
 		$choices = [];
 		foreach ($options['data']->getChoices() as $choice)
-			$choices[$choice['prompt']] = $this->router->getGenerator()->generate($choice['route']);
+			if (isset($this->router->getRouteCollection()->all()[$choice['route']]))
+				$choices[$choice['prompt']] = $this->router->getGenerator()->generate($choice['route']);
 
 		$builder
 			->add('choice', ChoiceType::class,

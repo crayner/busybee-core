@@ -183,7 +183,7 @@ class PeriodController extends BusybeeController
 
         $act = $this->get('period.activity.repository')->find($activity);
 
-        $year = $this->get('current.year.currentYear');
+	    $year = $this->get('busybee_core_calendar.model.get_current_year');
 
         $act->setLocal(true);
 

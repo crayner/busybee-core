@@ -85,7 +85,7 @@ Busybee\People\StudentBundle\Entity\Student:
             targetEntity: Busybee\People\StudentBundle\Entity\StudentGrade
             mappedBy: student
             cascade: [ 'all' ]
-    manyToMany:
-        activities:
-            targetEntity: Busybee\ActivityBundle\Entity\Activity
-            mappedBy: students
+#    manyToMany:
+#        activities:
+#            targetEntity: Busybee\ActivityBundle\Entity\Activity
+#            mappedBy: students

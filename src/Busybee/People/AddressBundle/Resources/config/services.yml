@@ -1,0 +1,14 @@
+services:
+    busybee_people_address.model.address_manager:
+        class: Busybee\People\AddressBundle\Model\AddressManager
+        arguments:
+            - '@translator'
+            - '@busybee_core_system.setting.setting_manager'
+            - '@busybee_people_address.repository.address_repository'
+    busybee_people_address.repository.address_repository:
+        class: Busybee\People\AddressBundle\Repository\AddressRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeAddressBundle:Address"

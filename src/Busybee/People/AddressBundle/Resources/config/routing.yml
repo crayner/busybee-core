@@ -1,0 +1,3 @@
+busybee_address_homepage:
+    path:     /
+    defaults: { _controller: BusybeeAddressBundle:Default:index }

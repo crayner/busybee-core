@@ -8,6 +8,9 @@ use Busybee\Core\TemplateBundle\Model\FileUpLoad;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Tools\SchemaTool;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Kernel;
@@ -66,6 +69,16 @@ class BundleManager
 	private $upLoader;
 
 	/**
+	 * @var string
+	 */
+	private $cacheDir;
+
+	/**
+	 * @var boolean
+	 */
+	private $bundleChanged = false;
+
+	/**
 	 * BundleManager constructor.
 	 *
 	 * @param Kernel $kernel
@@ -102,6 +115,8 @@ class BundleManager
 		$this->messages = $kernel->getContainer()->get('busybee_core_system.model.message_manager');
 
 		$this->objectManager = $kernel->getContainer()->get('doctrine')->getManager();
+
+		$this->cacheDir = $kernel->getCacheDir();
 	}
 
 	/**
@@ -229,12 +244,14 @@ class BundleManager
 				$data[$q]['active']  = true;
 			}
 
-
 			// remove those bundles that did not change.
 			if (!$data[$q]['changed'])
 				unset($data[$q]);
 			else
+			{
 				$bundle->setActive($data[$q]['active']);
+				$this->bundleChanged = true;
+			}
 		}
 
 		$formData->setBundles($bundles);
@@ -378,8 +395,9 @@ class BundleManager
 
 		if (!$this->settingManager->hasParameter($bundle->getName() . 'Bundle'))
 		{
-			dump($this);
-			throw new \InvalidArgumentException('The bundle ' . $name . ' is not correctly formatted for use in Busybee');
+			$this->updateDetails = ['%available%' => 'Unknown', '%current%' => 'Unknown'];
+
+			return false;
 		}
 
 		$bundleParams = $this->settingManager->getParameter($name . 'Bundle');
@@ -666,5 +684,25 @@ class BundleManager
 		$this->messages->addMessage($level, $message, $options, 'SystemBundle');
 
 		return $this;
+	}
+
+	/**
+	 * Clear Cache
+	 */
+	public function clearCache()
+	{
+		if ($this->bundleChanged)
+		{
+			$fs = new Filesystem();
+			$fs->remove($this->cacheDir);
+		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getBundleChanged(): bool
+	{
+		return $this->bundleChanged;
 	}
 }

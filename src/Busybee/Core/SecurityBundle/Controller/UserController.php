@@ -235,7 +235,7 @@ class UserController extends BusyBeeController
 
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
-		$person = $this->get('person.repository')->find($personID);
+		$person = $this->get('busybee_people_person.repository.person_repository')->find($personID);
 		if (empty($person->getUser()))
 		{
 			$userManager = $this->get('busybee_core_security.doctrine.user_manager');

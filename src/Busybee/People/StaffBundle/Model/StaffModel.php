@@ -3,12 +3,10 @@
 namespace Busybee\People\StaffBundle\Model;
 
 use Busybee\InstituteBundle\Entity\DepartmentStaff;
-use Busybee\InstituteBundle\Form\DepartmentStaffType;
+use Busybee\People\PersonBundle\Model\PersonModel;
 
-abstract class StaffModel
+abstract class StaffModel extends PersonModel
 {
-	use \Busybee\People\PersonBundle\Model\FormatNameExtension;
-
 	public function __construct()
 	{
 		$this->setStaffType('Unknown');

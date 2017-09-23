@@ -1,0 +1,40 @@
+Busybee\People\PhoneBundle\Entity\Phone:
+    type: entity
+    table: phone
+    repositoryClass: Busybee\People\PhoneBundle\Repository\PhoneRepository
+    uniqueConstraints:
+        phoneNumber:
+            columns:
+                - phoneNumber
+                - countryCode
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        phoneType:
+            type: string
+            length: '25'
+        phoneNumber:
+            type: string
+            length: '20'
+        countryCode:
+            type: string
+            length: '6'
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id

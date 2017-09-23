@@ -2,6 +2,7 @@
 
 namespace Busybee\People\StudentBundle\Repository;
 
+use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\StudentBundle\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 
@@ -20,8 +21,12 @@ class StudentRepository extends EntityRepository
 	 */
 	public function findOneByPerson($personID)
 	{
-		$student = parent::findOneByPerson($personID);
+		$student = parent::find($personID);
 
-		return $student instanceof Student ? $student : new Student();
+		$student = $student instanceof Person ? $student : new Person();
+
+		$student->setPersonType('student');
+
+		return $student;
 	}
 }

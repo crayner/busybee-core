@@ -1,0 +1,3 @@
+busybee_locality_homepage:
+    path:     /
+    defaults: { _controller: BusybeeLocalityBundle:Default:index }

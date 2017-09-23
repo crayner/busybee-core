@@ -1,17 +1,14 @@
 <?php
-
 namespace Busybee\People\PersonBundle\Entity;
 
-use Busybee\People\PersonBundle\Model\PersonInterface;
 use Busybee\People\PersonBundle\Model\PersonModel;
 use Busybee\Core\SecurityBundle\Entity\User;
-use Busybee\People\StaffBundle\Entity\Staff;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Person
  */
-class Person extends PersonModel implements PersonInterface
+class Person extends PersonModel
 {
 	/**
 	 * @var integer
@@ -99,12 +96,12 @@ class Person extends PersonModel implements PersonInterface
 	private $modifiedBy;
 
 	/**
-	 * @var \Busybee\People\PersonBundle\Entity\Address
+	 * @var \Busybee\People\AddressBundle\Entity\Address
 	 */
 	private $address1;
 
 	/**
-	 * @var \Busybee\People\PersonBundle\Entity\Address
+	 * @var \Busybee\People\AddressBundle\Entity\Address
 	 */
 	private $address2;
 
@@ -118,35 +115,9 @@ class Person extends PersonModel implements PersonInterface
 	private $identifier;
 
 	/**
-	 * @var Staff
-	 */
-	private $staff;
-
-	/**
-	 * @var \Busybee\People\StudentBundle\Entity\Student
-	 */
-	private $student;
-
-	/**
-	 * @var \Doctrine\Common\Collections\Collection
-	 */
-	private $careGiver;
-
-	/**
 	 * @var string
 	 */
 	private $importIdentifier;
-
-	/**
-	 * @var \Busybee\People\PersonBundle\Entity\PersonExtra
-	 */
-	private $extra;
-
-	/**
-	 * @var PersonPreference
-	 */
-	private $preference;
-
 
 	/**
 	 * @var boolean
@@ -157,6 +128,11 @@ class Person extends PersonModel implements PersonInterface
 	 * @var boolean
 	 */
 	private $studentQuestion;
+
+	/**
+	 * @var string
+	 */
+	private $vehicleRegistration;
 
 	/**
 	 * Constructor
@@ -564,7 +540,7 @@ class Person extends PersonModel implements PersonInterface
 	/**
 	 * Get address1
 	 *
-	 * @return \Busybee\People\PersonBundle\Entity\Address
+	 * @return \Busybee\People\AddressBundle\Entity\Address
 	 */
 	public function getAddress1()
 	{
@@ -574,11 +550,11 @@ class Person extends PersonModel implements PersonInterface
 	/**
 	 * Set address1
 	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Address $address1
+	 * @param \Busybee\People\AddressBundle\Entity\Address $address1
 	 *
 	 * @return Person
 	 */
-	public function setAddress1(\Busybee\People\PersonBundle\Entity\Address $address1 = null)
+	public function setAddress1(\Busybee\People\AddressBundle\Entity\Address $address1 = null)
 	{
 		$this->address1 = $address1;
 
@@ -588,7 +564,7 @@ class Person extends PersonModel implements PersonInterface
 	/**
 	 * Get address2
 	 *
-	 * @return \Busybee\People\PersonBundle\Entity\Address
+	 * @return \Busybee\People\AddressBundle\Entity\Address
 	 */
 	public function getAddress2()
 	{
@@ -598,11 +574,11 @@ class Person extends PersonModel implements PersonInterface
 	/**
 	 * Set address2
 	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Address $address2
+	 * @param \Busybee\People\AddressBundle\Entity\Address $address2
 	 *
 	 * @return Person
 	 */
-	public function setAddress2(\Busybee\People\PersonBundle\Entity\Address $address2 = null)
+	public function setAddress2(\Busybee\People\AddressBundle\Entity\Address $address2 = null)
 	{
 		$this->address2 = $address2;
 
@@ -612,11 +588,11 @@ class Person extends PersonModel implements PersonInterface
 	/**
 	 * Add phone
 	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Phone $phone
+	 * @param \Busybee\People\PhoneBundle\Entity\Phone $phone
 	 *
 	 * @return Person
 	 */
-	public function addPhone(\Busybee\People\PersonBundle\Entity\Phone $phone)
+	public function addPhone(\Busybee\People\PhoneBundle\Entity\Phone $phone)
 	{
 		$this->phone[] = $phone;
 
@@ -626,9 +602,9 @@ class Person extends PersonModel implements PersonInterface
 	/**
 	 * Remove phone
 	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Phone $phone
+	 * @param \Busybee\People\PhoneBundle\Entity\Phone $phone
 	 */
-	public function removePhone(\Busybee\People\PersonBundle\Entity\Phone $phone)
+	public function removePhone(\Busybee\People\PhoneBundle\Entity\Phone $phone)
 	{
 		$this->phone->removeElement($phone);
 	}
@@ -668,33 +644,6 @@ class Person extends PersonModel implements PersonInterface
 	}
 
 	/**
-	 * Get staff
-	 *
-	 * @return Staff|null
-	 */
-	public function getStaff()
-	{
-		if (!$this->getStaffQuestion())
-			return null;
-
-		return $this->staff;
-	}
-
-	/**
-	 * Set staff
-	 *
-	 * @param Staff $staff
-	 *
-	 * @return Person
-	 */
-	public function setStaff(Staff $staff = null)
-	{
-		$this->staff = $staff;
-
-		return $this;
-	}
-
-	/**
 	 * Get staffQuestion
 	 *
 	 * @return boolean
@@ -714,33 +663,6 @@ class Person extends PersonModel implements PersonInterface
 	public function setStaffQuestion($staffQuestion)
 	{
 		$this->staffQuestion = $staffQuestion;
-
-		return $this;
-	}
-
-	/**
-	 * Get student
-	 *
-	 * @return \Busybee\People\StudentBundle\Entity\Student|null
-	 */
-	public function getStudent()
-	{
-		if (!$this->getStudentQuestion())
-			return null;
-
-		return $this->student;
-	}
-
-	/**
-	 * Set student
-	 *
-	 * @param \Busybee\People\StudentBundle\Entity\Student $student
-	 *
-	 * @return Person
-	 */
-	public function setStudent(\Busybee\People\StudentBundle\Entity\Student $student = null)
-	{
-		$this->student = $student;
 
 		return $this;
 	}
@@ -770,40 +692,6 @@ class Person extends PersonModel implements PersonInterface
 	}
 
 	/**
-	 * Add careGiver
-	 *
-	 * @param \Busybee\People\FamilyBundle\Entity\CareGiver $careGiver
-	 *
-	 * @return Person
-	 */
-	public function addCareGiver(\Busybee\People\FamilyBundle\Entity\CareGiver $careGiver)
-	{
-		$this->careGiver[] = $careGiver;
-
-		return $this;
-	}
-
-	/**
-	 * Remove careGiver
-	 *
-	 * @param \Busybee\People\FamilyBundle\Entity\CareGiver $careGiver
-	 */
-	public function removeCareGiver(\Busybee\People\FamilyBundle\Entity\CareGiver $careGiver)
-	{
-		$this->careGiver->removeElement($careGiver);
-	}
-
-	/**
-	 * Get careGiver
-	 *
-	 * @return \Doctrine\Common\Collections\Collection
-	 */
-	public function getCareGiver()
-	{
-		return $this->careGiver;
-	}
-
-	/**
 	 * Get importIdentifier
 	 *
 	 * @return string
@@ -828,62 +716,6 @@ class Person extends PersonModel implements PersonInterface
 	}
 
 	/**
-	 * Get extra
-	 *
-	 * @return \Busybee\People\PersonBundle\Entity\PersonExtra
-	 */
-	public function getExtra()
-	{
-		return $this->extra;
-	}
-
-	/**
-	 * Set extra
-	 *
-	 * @param \Busybee\People\PersonBundle\Entity\PersonExtra $extra
-	 *
-	 * @return Person
-	 */
-	public function setExtra(\Busybee\People\PersonBundle\Entity\PersonExtra $extra = null)
-	{
-
-		if ($extra instanceof PersonExtra)
-			$extra->setPerson($this);
-
-		$this->extra = $extra;
-
-		return $this;
-	}
-
-	/**
-	 * Get preference
-	 *
-	 * @return PersonPreference
-	 */
-	public function getPreference()
-	{
-		if (empty($this->preference))
-			$this->setPreference(new PersonPreference());
-
-		return $this->preference;
-	}
-
-	/**
-	 * Set preference
-	 *
-	 * @param PersonPreference $preference
-	 *
-	 * @return Person
-	 */
-	public function setPreference(PersonPreference $preference = null)
-	{
-		$preference->setPerson($this);
-		$this->preference = $preference;
-
-		return $this;
-	}
-
-	/**
 	 * @var string
 	 */
 	private $person_type;
@@ -902,6 +734,31 @@ class Person extends PersonModel implements PersonInterface
 	public function setPersonType($person_type)
 	{
 		$this->person_type = $person_type;
+
+		return $this;
 	}
 
+	/**
+	 * Get vehicleRegistration
+	 *
+	 * @return string
+	 */
+	public function getVehicleRegistration(): string
+	{
+		return $this->vehicleRegistration;
+	}
+
+	/**
+	 * Set vehicleRegistration
+	 *
+	 * @param string $vehicleRegistration
+	 *
+	 * @return Person
+	 */
+	public function setVehicleRegistration($vehicleRegistration): Person
+	{
+		$this->vehicleRegistration = $vehicleRegistration;
+
+		return $this;
+	}
 }

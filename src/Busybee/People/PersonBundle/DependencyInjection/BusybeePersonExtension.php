@@ -16,7 +16,6 @@ class BusybeePersonExtension extends Extension
 {
 
 	use \Busybee\Core\HomeBundle\DependencyInjection\MenuExtension;
-	use \Busybee\People\PersonBundle\DependencyInjection\PersonExtension;
 
 	/**
 	 * {@inheritdoc}
@@ -30,6 +29,5 @@ class BusybeePersonExtension extends Extension
 		$loader->load('services.yml');
 
 		$container = $this->buildMenu(__DIR__, $container);
-		$container = $this->personTabs(__DIR__, $container);
 	}
 }

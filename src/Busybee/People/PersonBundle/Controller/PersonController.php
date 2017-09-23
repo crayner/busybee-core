@@ -1,22 +1,11 @@
 <?php
-
 namespace Busybee\People\PersonBundle\Controller;
 
-use Busybee\People\PersonBundle\Entity\PersonPreference;
-use Busybee\People\PersonBundle\Form\PersonPreferenceType;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
-use Busybee\People\PersonBundle\Entity\Person;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Busybee\People\PersonBundle\Form\PersonType;
-use Symfony\Component\HttpFoundation\Response;
-
 
 class PersonController extends BusybeeController
 {
-
-
 	/**
 	 * @param Request $request
 	 *
@@ -26,7 +15,7 @@ class PersonController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$up = $this->get('person.pagination');
+		$up = $this->get('busybee_people_person.pagination.person_pagination');
 
 		$up->injectRequest($request);
 
@@ -35,10 +24,11 @@ class PersonController extends BusybeeController
 		return $this->render('BusybeePersonBundle:Person:index.html.twig',
 			array(
 				'pagination' => $up,
-				'manager'    => $this->get('person.manager'),
+				'manager'    => $this->get('busybee_people_person.model.person_manager'),
 			)
 		);
 	}
+
 
 	/**
 	 * @param Request $request
@@ -54,7 +44,7 @@ class PersonController extends BusybeeController
 
 		$em = $this->get('doctrine')->getManager();
 
-		$formDefinition = $this->get('service_container')->getParameter('person');
+		$formDefinition = $this->getParameter('person');
 
 		unset($formDefinition['person'], $formDefinition['contact'], $formDefinition['address1'], $formDefinition['address2']);
 
@@ -132,11 +122,11 @@ class PersonController extends BusybeeController
 		$editOptions['fullForm']      = $form;
 		$editOptions['address1']      = $this->formatAddress($person->getAddress1());
 		$editOptions['address2']      = $this->formatAddress($person->getAddress2());
-		$editOptions['addressLabel1'] = $this->get('address.manager')->getAddressListLabel($person->getAddress1());
-		$editOptions['addressLabel2'] = $this->get('address.manager')->getAddressListLabel($person->getAddress2());
+		$editOptions['addressLabel1'] = $this->get('busybee_people_person.model.address_manager')->getAddressListLabel($person->getAddress1());
+		$editOptions['addressLabel2'] = $this->get('busybee_people_person.model.address_manager')->getAddressListLabel($person->getAddress2());
 		$editOptions['identifier']    = $person->getIdentifier();
-		$editOptions['addresses']     = $this->get('person.manager')->getAddresses($person);
-		$editOptions['phones']        = $this->get('person.manager')->getPhones($person);
+		$editOptions['addresses']     = $this->get('busybee_people_person.model.person_manager')->getAddresses($person);
+		$editOptions['phones']        = $this->get('busybee_people_person.model.person_manager')->getPhones($person);
 		$editOptions['year']          = $year;
 
 		return $this->render('BusybeePersonBundle:Person:edit.html.twig',
@@ -144,103 +134,4 @@ class PersonController extends BusybeeController
 		);
 	}
 
-
-	private function getPerson($id)
-	{
-		$person = new Person();
-		if ($id !== 'Add')
-			$person = $this->get('person.repository')->findOneById($id);
-		$person->cancelURL   = $this->generateUrl('person_edit', ['id' => $id]);
-		$person->deletePhoto = $this->generateUrl('person_photo_remove', ['id' => $person->getId()]);
-
-		return $person;
-	}
-
-
-	private function formatAddress($address)
-	{
-		return $this->get('address.manager')->formatAddress($address);
-	}
-
-	public function removePhotoAction($id)
-	{
-		$this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-		$person = $this->getPerson($id);
-
-		$em = $this->get('doctrine')->getManager();
-
-		$photo = $person->getPhoto();
-
-		$person->setPhoto(null);
-
-		if (file_exists($photo))
-			unlink($photo);
-
-		$em->persist($person);
-		$em->flush();
-
-		return new Response("<script>window.close();</script>");
-	}
-
-	/**
-	 * @param Request $request
-	 *
-	 * @return Response
-	 */
-	public function contactListAction(Request $request)
-	{
-		$this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-		$up = $this->get('contact.pagination');
-
-		$up->injectRequest($request);
-
-		$up->getDataSet();
-
-		return $this->render('BusybeePersonBundle:Person:contactlist.html.twig',
-			array(
-				'pagination' => $up,
-			)
-		);
-	}
-
-	public function preferenceAction(Request $request)
-	{
-		$this->denyAccessUnlessGranted('ROLE_USER');
-
-		if (is_null($this->getUser()->getPerson()))
-		{
-			$this->get('session.flash_bag')->add('warning', 'person.entity.missing');
-
-			return new RedirectResponse($this->generateUrl('home_page'));
-		}
-
-		$pm = $this->get('preference.manager');
-
-		$pm->handleRequest($request);
-
-		$preference = $pm->getPerson()->getPreference();
-
-		$list       = $this->get('busybee_core_system.setting.setting_manager')->get('languages.translated');
-		$localeList = [];
-		foreach ($list as $q => $w)
-		{
-			$q = $this->get('translator')->trans($q, [], 'SystemBundle');
-			if ($w === $pm->getLocale())
-			{
-				$q .= $this->get('translator')->trans('language.system.default', [], 'SystemBundle');
-			}
-			$localeList[$q] = $w;
-		}
-
-		$form = $this->createForm(PersonPreferenceType::class, $preference, ['localeList' => $localeList]);
-
-		return $this->render('BusybeePersonBundle:Person:preference.html.twig',
-			array(
-				'form'    => $form->createView(),
-				'manager' => $pm,
-			)
-		);
-	}
 }

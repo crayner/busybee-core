@@ -9,8 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StudentController extends BusybeeController
 {
-
-
 	/**
 	 * @param $id
 	 *
@@ -20,7 +18,7 @@ class StudentController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
-		$person = $this->get('person.repository')->find($id);
+		$person = $this->get('busybee_people_person.repository.person_repository')->find($id);
 
 		if (!$person instanceof Person)
 			return new JsonResponse(
@@ -35,9 +33,9 @@ class StudentController extends BusybeeController
 
 		if (!$person->getStudentQuestion())
 		{
-			if ($this->get('person.manager')->canBeStudent($person))
+			if ($this->get('busybee_people_person.model.person_manager')->canBeStudent($person))
 			{
-				$this->get('person.manager')->createStudent($person);
+				$this->get('busybee_people_person.model.person_manager')->createStudent($person);
 
 				return new JsonResponse(
 					array(
@@ -60,9 +58,9 @@ class StudentController extends BusybeeController
 		}
 		elseif ($person->getStudentQuestion())
 		{
-			if ($this->get('person.manager')->canDeleteStudent($person, $this->getParameter('person')))
+			if ($this->get('busybee_people_person.model.person_manager')->canDeleteStudent($person, $this->getParameter('person')))
 			{
-				$this->get('person.manager')->deleteStudent($person, $this->getParameter('person'));
+				$this->get('busybee_people_person.model.person_manager')->deleteStudent($person, $this->getParameter('person'));
 
 				return new JsonResponse(
 					array(
@@ -95,7 +93,7 @@ class StudentController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$up = $this->get('student.pagination');
+		$up = $this->get('busybee_people_student.model.student_pagination');
 
 		$up->injectRequest($request);
 

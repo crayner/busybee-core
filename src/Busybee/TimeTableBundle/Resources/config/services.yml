@@ -119,7 +119,7 @@ services:
             - '%LinePagination%'
             - '@line.repository'
             - '@busybee_core_system.model.my_container'
-            - '@current.year.currentYear'
+            - '@busybee_core_calendar.model.get_current_year'
     line.manager:
         class: Busybee\TimeTableBundle\Model\LineManager
         arguments:
@@ -142,7 +142,7 @@ services:
     timetable.manager:
         class: Busybee\TimeTableBundle\Model\TimeTableManager
         arguments:
-            - '@current.year.currentYear'
+            - '@busybee_core_calendar.model.get_current_year'
             - '@doctrine.orm.default_entity_manager'
             - '@busybee_core_system.setting.setting_manager'
             - '@period.manager'
@@ -151,12 +151,12 @@ services:
     timetable.display.manager:
         class: Busybee\TimeTableBundle\Model\TimeTableDisplayManager
         arguments:
-            - '@current.year.currentYear'
+            - '@busybee_core_calendar.model.get_current_year'
             - '@doctrine.orm.default_entity_manager'
             - '@busybee_core_system.setting.setting_manager'
             - '@period.manager'
             - '@session'
-            - '@person.manager'
+            - '@busybee_people_person.model.person_manager'
             - '@translator'
     form.timetable.hidden.day.type:
         class: Busybee\TimeTableBundle\Form\DayHiddenType
@@ -204,7 +204,7 @@ services:
             - '@doctrine.orm.default_entity_manager'
             - '@translator'
             - '@session.flash_bag'
-            - '@current.year.currentYear'
+            - '@busybee_core_calendar.model.get_current_year'
             - '@session'
     period.pagination:
         class: Busybee\TimeTableBundle\Model\PeriodPagination
@@ -266,4 +266,4 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@session.flash_bag'
             - '@translator'
-            - '@current.year.currentYear'
+            - '@busybee_core_calendar.model.get_current_year'

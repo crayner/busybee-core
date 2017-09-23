@@ -31,12 +31,12 @@ class Family
 	private $createdOn;
 
 	/**
-	 * @var \Busybee\People\PersonBundle\Entity\Address
+	 * @var \Busybee\People\AddressBundle\Entity\Address
 	 */
 	private $address1;
 
 	/**
-	 * @var \Busybee\People\PersonBundle\Entity\Address
+	 * @var \Busybee\People\AddressBundle\Entity\Address
 	 */
 	private $address2;
 
@@ -173,7 +173,7 @@ class Family
 	/**
 	 * Get address1
 	 *
-	 * @return \Busybee\People\PersonBundle\Entity\Address
+	 * @return \Busybee\People\AddressBundle\Entity\Address
 	 */
 	public function getAddress1()
 	{
@@ -183,11 +183,11 @@ class Family
 	/**
 	 * Set address1
 	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Address $address1
+	 * @param \Busybee\People\AddressBundle\Entity\Address $address1
 	 *
 	 * @return Family
 	 */
-	public function setAddress1(\Busybee\People\PersonBundle\Entity\Address $address1 = null)
+	public function setAddress1(\Busybee\People\AddressBundle\Entity\Address $address1 = null)
 	{
 		$this->address1 = $address1;
 
@@ -197,7 +197,7 @@ class Family
 	/**
 	 * Get address2
 	 *
-	 * @return \Busybee\People\PersonBundle\Entity\Address
+	 * @return \Busybee\People\AddressBundle\Entity\Address
 	 */
 	public function getAddress2()
 	{
@@ -207,11 +207,11 @@ class Family
 	/**
 	 * Set address2
 	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Address $address2
+	 * @param \Busybee\People\AddressBundle\Entity\Address $address2
 	 *
 	 * @return Family
 	 */
-	public function setAddress2(\Busybee\People\PersonBundle\Entity\Address $address2 = null)
+	public function setAddress2(\Busybee\People\AddressBundle\Entity\Address $address2 = null)
 	{
 		$this->address2 = $address2;
 
@@ -269,11 +269,11 @@ class Family
 	/**
 	 * Add phone
 	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Phone $phone
+	 * @param \Busybee\People\PhoneBundle\Entity\Phone $phone
 	 *
 	 * @return Family
 	 */
-	public function addPhone(\Busybee\People\PersonBundle\Entity\Phone $phone)
+	public function addPhone(\Busybee\People\PhoneBundle\Entity\Phone $phone)
 	{
 		$this->phone[] = $phone;
 
@@ -283,9 +283,9 @@ class Family
 	/**
 	 * Remove phone
 	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Phone $phone
+	 * @param \Busybee\People\PhoneBundle\Entity\Phone $phone
 	 */
-	public function removePhone(\Busybee\People\PersonBundle\Entity\Phone $phone)
+	public function removePhone(\Busybee\People\PhoneBundle\Entity\Phone $phone)
 	{
 		$this->phone->removeElement($phone);
 	}

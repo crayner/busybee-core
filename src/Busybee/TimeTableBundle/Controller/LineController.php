@@ -46,7 +46,7 @@ class LineController extends BusybeeController
         if ($id > 0)
             $entity = $this->get('line.repository')->find($id);
 
-        $year = $this->get('current.year.currentYear');
+	    $year = $this->get('busybee_core_calendar.model.get_current_year');
 
         $entity->setYear($year);
 

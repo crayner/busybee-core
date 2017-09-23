@@ -13,7 +13,7 @@ class RouteController extends BusybeeController
     {
         $vd = $this->get('busybee_core_security.security.voter_details');
 
-        $vd->userIdentifier($this->get('person.manager'), $this->getUser())
+	    $vd->userIdentifier($this->get('busybee_people_person.model.person_manager'), $this->getUser())
             ->activityIdentifier($id);
 
         $this->denyAccessUnlessGranted('ROLE_PRINCIPAL', $vd, null);

@@ -7,7 +7,7 @@ use Busybee\People\FamilyBundle\Events\FamilySubscriber;
 use Busybee\People\FamilyBundle\Model\FamilyManager;
 use Busybee\Core\TemplateBundle\Type\AutoCompleteType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
-use Busybee\People\PersonBundle\Entity\Address;
+use Busybee\People\AddressBundle\Entity\Address;
 use Busybee\People\PersonBundle\Form\PhoneType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;

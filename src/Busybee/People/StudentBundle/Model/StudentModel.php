@@ -4,12 +4,9 @@ namespace Busybee\People\StudentBundle\Model;
 
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\People\PersonBundle\Model\PersonInterface;
 
-abstract class StudentModel extends Person implements PersonInterface
+abstract class StudentModel extends Person
 {
-	use \Busybee\People\PersonBundle\Model\FormatNameExtension;
-
 	/**
 	 * @var string
 	 */

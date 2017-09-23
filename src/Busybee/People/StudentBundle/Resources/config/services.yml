@@ -62,67 +62,67 @@ parameters:
             resources:
                 - 'BusybeeStudentBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
-    student.repository:
+    busybee_people_student.repository.student_repository:
         class: Busybee\People\StudentBundle\Repository\StudentRepository
         factory:
             - "@doctrine"
             - 'getRepository'
         arguments:
             - "BusybeeStudentBundle:Student"
-    form.person.student.type:
+    busybee_people_student.form.student_type:
         class: Busybee\People\StudentBundle\Form\StudentType
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
-    passport.image.validator:
+    busybee_people_student.validator.constraints.passport_image_validator:
         class: Busybee\People\StudentBundle\Validator\Constraints\PassportImageValidator
         tags:
             - { name: validator.constraint_validator, alias: passport_image_validator }
     student.extension:
         class: Busybee\People\StudentBundle\Model\StudentExtension
         arguments:
-            - '@student.repository'
+            - '@busybee_people_student.repository.student_repository'
             - '@translator'
         tags:
             - { name: twig.extension }
-    form.person.student.grade.type:
+    busybee_people_student.form.student_grade_type:
         class: Busybee\People\StudentBundle\Form\StudentGradeType
         arguments:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
-    student.grades.validator:
+    busybee_people_student.validator.constraints.grades_validator:
         class: Busybee\People\StudentBundle\Validator\Constraints\GradesValidator
         tags:
             - { name: validator.constraint_validator, alias: student_grades_validator }
-    student.pagination:
+    busybee_people_student.model.student_pagination:
         class: Busybee\People\StudentBundle\Model\StudentPagination
         arguments:
             - '%studentPagination%'
-            - '@student.repository'
+            - '@busybee_people_student.repository.student_repository'
             - '@busybee_core_system.model.my_container'
-    student.student.voter:
+    busybee_people_student.security.student_voter:
         class: Busybee\People\StudentBundle\Security\StudentVoter
         arguments:
             - '@security.access.decision_manager'
-            - '@person.manager'
+            - '@busybee_people_person.model.person_manager'
         tags:
             - { name: security.voter, priority: 250 }
         public: false
-    student.parent.voter:
+    busybee_people_student.security.parent_voter:
         class: Busybee\People\StudentBundle\Security\ParentVoter
         arguments:
             - '@security.access.decision_manager'
-            - '@person.manager'
+            - '@busybee_people_person.model.person_manager'
         tags:
             - { name: security.voter, priority: 250 }
         public: false
-    student.manager:
+    busybee_people_student.model.student_manager:
         class: Busybee\People\StudentBundle\Model\StudentManager
         arguments:
             - '@busybee_core_system.setting.setting_manager'
             - '@doctrine.orm.entity_manager'
             - '@validator'
-            - '@current.year.currentYear'
+            - '@busybee_core_calendar.model.get_current_year'

@@ -4,8 +4,6 @@ namespace Busybee\People\FamilyBundle\Model;
 
 class CareGiverModel
 {
-	use \Busybee\People\PersonBundle\Model\FormatNameExtension;
-
 	public function __construct()
 	{
 		$this->setPhoneContact(false);

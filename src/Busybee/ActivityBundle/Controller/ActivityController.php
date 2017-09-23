@@ -47,11 +47,11 @@ class ActivityController extends BusybeeController
 
         $entity = intval($id) > 0 ? $this->get('activity.repository')->find($id) : new Activity();
 
-        $entity->setYear($this->get('current.year.currentYear'));
+	    $entity->setYear($this->get('busybee_core_calendar.model.get_current_year'));
 
         $editOptions = array();
 
-        $form = $this->createForm(ActivityType::class, $entity, ['year_data' => $this->get('current.year.currentYear')]);
+	    $form = $this->createForm(ActivityType::class, $entity, ['year_data' => $this->get('busybee_core_calendar.model.get_current_year')]);
 
         $form->handleRequest($request);
 
@@ -69,10 +69,10 @@ class ActivityController extends BusybeeController
             }
         }
 
-        $editOptions['id'] = $id;
-        $editOptions['form'] = $form->createView();
+        $editOptions['id']       = $id;
+        $editOptions['form']     = $form->createView();
         $editOptions['fullForm'] = $form;
-        $editOptions['manager'] = $this->get('student.manager');
+	    $editOptions['manager']  = $this->get('busybee_people_student.model.student_manager');
 
         return $this->render('BusybeeActivityBundle:Activity:edit.html.twig',
             $editOptions

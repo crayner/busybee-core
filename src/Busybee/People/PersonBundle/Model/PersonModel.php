@@ -6,7 +6,7 @@ use Busybee\People\PersonBundle\Entity\Person;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
- * Address Model
+ * Person Model
  *
  * @version    31st October 2016
  * @since      31st October 2016
@@ -212,4 +212,14 @@ abstract class PersonModel
 	{
 		return $this;
 	}
+
+	/**
+	 * @return string
+	 * @throws CommonException
+	 */
+	public function getFullName($options = array())
+	{
+		return $this->formatName($options);
+	}
+
 }

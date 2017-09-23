@@ -34,7 +34,7 @@ class CurrentYear
 	 *
 	 * @return Year
 	 */
-	public function getCurrentYear()
+	public function getCurrentYear(): Year
 	{
 		return $this->currentYear;
 	}

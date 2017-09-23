@@ -1,0 +1,14 @@
+services:
+    busybee_people_phone.model.phone_manager:
+        class: Busybee\People\PhoneBundle\Model\PhoneManager
+        arguments:
+            - '@translator'
+            - '@busybee_core_system.setting.setting_manager'
+            - '@busybee_people_phone.repository.phone_repository'
+    busybee_people_phone.repository.phone_repository:
+        class: Busybee\People\PhoneBundle\Repository\PhoneRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeePhoneBundle:Phone"

@@ -6,7 +6,10 @@ use Symfony\Component\Yaml\Yaml;
 
 class AppKernel extends Kernel
 {
-    public function registerBundles()
+	/**
+	 * @return array
+	 */
+	public function registerBundles()
     {
 	    $bundles = [
 	        new Core23\DompdfBundle\Core23DompdfBundle(),
@@ -32,9 +35,10 @@ class AppKernel extends Kernel
 		    $parameters = Yaml::parse(file_get_contents($this->getConfigDir() . '/bundles.yml'));
 		    foreach ($parameters as $bundle)
 		    {
-			    // Core must be loaded manually above.
 			    if ($bundle['active'] || $bundle['type'] === 'core')
+			    {
 				    $bundles[] = new $bundle['namespace']();
+			    }
 		    }
 	    }
 	    else
@@ -45,7 +49,10 @@ class AppKernel extends Kernel
 		return $bundles;
     }
 
-    public function getCacheDir()
+	/**
+	 * @return string
+	 */
+	public function getCacheDir()
     {
 	    return $this->getProjectDir() . '/var/cache/' . $this->getEnvironment();
     }
@@ -61,11 +68,17 @@ class AppKernel extends Kernel
 		return $this->getProjectDir() . '/var/logs';
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getConfigDir()
 	{
 		return $this->getProjectDir() . '/app/config';
 	}
 
+	/**
+	 * @param LoaderInterface $loader
+	 */
 	public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');

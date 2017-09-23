@@ -1,0 +1,58 @@
+Busybee\People\AddressBundle\Entity\Address:
+    type: entity
+    table: address
+    repositoryClass: Busybee\People\AddressBundle\Repository\AddressRepository
+    uniqueConstraints:
+        address:
+            columns:
+                - buildingType
+                - buildingNumber
+                - streetNumber
+                - propertyName
+                - streetName
+                - locality
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        buildingType:
+            type: string 
+            length: '10'
+        buildingNumber:
+            type: string
+            length: '10'
+        streetNumber:
+            type: string
+            length: '15'
+        propertyName:
+            type: string
+            length: '50'
+        streetName:
+            type: string
+            length: '70'
+        lastModified:
+            type: datetime
+            column: last_modified
+        createdOn:
+            type: datetime
+            column: created_on
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id
+        locality:
+            targetEntity: Busybee\People\LocalityBundle\Entity\Locality
+            cascade: ['persist']
+            joinColumns:
+                locality:
+                    referencedColumnName: id

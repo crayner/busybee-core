@@ -38,7 +38,7 @@ services:
         class: Busybee\ActivityBundle\Security\StaffVoter
         arguments:
             - '@security.access.decision_manager'
-            - '@person.manager'
+            - '@busybee_people_person.model.person_manager'
         tags:
             - { name: security.voter, priority: 240 }
         public: false
@@ -48,7 +48,7 @@ services:
             - '%activityPagination%'
             - '@activity.repository'
             - '@busybee_core_system.model.my_container'
-            - '@current.year.currentYear'
+            - '@busybee_core_calendar.model.get_current_year'
             - '@timetable.activity.manager'
     activity.repository:
         class: Busybee\ActivityBundle\Repository\ActivityRepository
@@ -62,7 +62,7 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@request_stack'
-            - '@student.manager'
+            - '@busybee_people_student.model.student_manager'
         tags:
             - { name: form.type }
     activity.manager:

@@ -21,7 +21,7 @@ class StaffController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$person = $this->get('person.repository')->find($id);
+		$person = $this->get('busybee_people_person.repository.person_repository')->find($id);
 
 		if (!$person instanceof Person)
 			return new JsonResponse(
@@ -34,9 +34,9 @@ class StaffController extends BusybeeController
 		$em = $this->get('doctrine')->getManager();
 		if ($person->getStaffQuestion())
 		{
-			if ($this->get('person.manager')->canDeleteStaff($person))
+			if ($this->get('busybee_people_person.model.person_manager')->canDeleteStaff($person))
 			{
-				$this->get('person.manager')->deleteStaff($person);
+				$this->get('busybee_people_person.model.person_manager')->deleteStaff($person);
 
 				return new JsonResponse(
 					array(
@@ -59,9 +59,9 @@ class StaffController extends BusybeeController
 		}
 		else
 		{
-			if (!$person->getStaffQuestion() && $this->get('person.manager')->canBeStaff($person))
+			if (!$person->getStaffQuestion() && $this->get('busybee_people_person.model.person_manager')->canBeStaff($person))
 			{
-				$this->get('person.manager')->createStaff($person);
+				$this->get('busybee_people_person.model.person_manager')->createStaff($person);
 
 				return new JsonResponse(
 					array(
@@ -93,7 +93,7 @@ class StaffController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$up = $this->get('staff.pagination');
+		$up = $this->get('busybee_people_staff.model.staff_pagination');
 
 		$up->injectRequest($request);
 

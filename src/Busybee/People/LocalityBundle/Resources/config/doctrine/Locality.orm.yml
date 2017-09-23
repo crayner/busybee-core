@@ -1,0 +1,49 @@
+Busybee\People\LocalityBundle\Entity\Locality:
+    type: entity
+    table: locality
+    repositoryClass: Busybee\People\LocalityBundle\Repository\LocalityRepository
+    uniqueConstraints:
+        locality:
+            columns:
+                - name
+                - territory
+                - postCode
+                - country
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '50'
+        territory:
+            type: string
+            length: '50'
+            nullable: true
+        postCode:
+            type: string
+            length: '12'
+            nullable: true
+        country:
+            type: string
+            length: '6'
+        lastModified:
+            type: datetime
+            column: last_modified
+        createdOn:
+            type: datetime
+            column: created_on
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                created_by:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id

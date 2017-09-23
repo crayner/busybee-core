@@ -32,43 +32,43 @@
         </div>
         <div class="row row-header">
             <div class="col-md-1 hidden-sm hidden-xs">
-                {{ 'person.title.photo'|trans }}
+                {{ 'person.photo.title'|trans }}
             </div>
             <div class="col-sm-2 col-md-2" style="display: inline-block;">
                 {% if pagination.getSortByName == 'Family Name' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.familyName'|trans }}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.familyName.title'|trans }}
                 {% else %}
-                    {{ 'person.title.familyName'|trans }}
+                    {{ 'person.familyName.title'|trans }}
                 {% endif %}
             </div>
             <div class="col-sm-2 col-md-2" style="display: inline-block;">
                 {% if pagination.getSortByName == 'Given Name' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.givenName'|trans }}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.givenName.title'|trans }}
                 {% else %}
-                    {{ 'person.title.givenName'|trans }}
+                    {{ 'person.givenName.title'|trans }}
                 {% endif %}
             </div>
             <div class="col-md-2 hidden-sm hidden-xs" style="display: inline-block;">
                 {% if pagination.getSortByName == 'Details' %}
-                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.title.details'|trans }}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'person.details.title'|trans }}
                 {% else %}
-                    {{ 'person.title.details'|trans }}
+                    {{ 'person.details.title'|trans }}
                 {% endif %}
             </div>
             <div class="col-md-2 col-sm-2 text-center" style="display: inline-block;">
                 {{ 'person.actions'|trans }}
             </div>
             <div class="col-md-3 hidden-sm hidden-xs text-center">
-                {{ 'person.title.category'|trans }}
+                {{ 'person.category.title'|trans }}
                 <div class="row ">
                     <div class="col-sm-4 text-center">
-                        <span style="font-size: 9px;">{{ 'person.category.staff'|trans }}</span>
+                        <span style="font-size: 9px;">{{ 'person.staff.category'|trans }}</span>
                     </div>
                     <div class="col-sm-4 text-center">
-                        <span style="font-size: 9px;">{{ 'person.category.student'|trans }}</span>
+                        <span style="font-size: 9px;">{{ 'person.student.category'|trans }}</span>
                     </div>
                     <div class="col-sm-4 text-center">
-                        <span style="font-size: 9px;">{{ 'person.category.user'|trans }}</span>
+                        <span style="font-size: 9px;">{{ 'person.user.category'|trans }}</span>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             {% set toggle = 'data-toggle=toggle data-onstyle=success data-offstyle=danger data-height=25 data-size=small data-on="<span class=\'halflings halflings-thumbs-up\'></span>" data-off="<span class=\'halflings halflings-thumbs-down\'></span>"' %}
-                            {% if person.staff_id is not empty and canDeleteStaff(person.0) %}
+                            {% if person.personType == 'staff' and canDeleteStaff(person.0) %}
                                 <input type="checkbox" id="staffToggle{{ person.id }}"
                                        title="{{ 'person.staff.toggle'|trans }}" class="staffToggle"
                                        checked {{ toggle|raw }} />

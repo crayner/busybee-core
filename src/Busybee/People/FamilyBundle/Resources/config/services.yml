@@ -48,7 +48,7 @@ services:
         arguments:
             - '@busybee_core_system.setting.setting_manager'
             - '@doctrine.orm.entity_manager'
-            - '@person.manager'
+            - '@busybee_people_person.model.person_manager'
     caregiver.validator:
         class: Busybee\People\FamilyBundle\Validator\Constraints\CareGiverValidator
         arguments:

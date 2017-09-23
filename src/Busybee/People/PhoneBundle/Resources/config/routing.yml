@@ -1,0 +1,3 @@
+busybee_phone_homepage:
+    path:     /
+    defaults: { _controller: BusybeePhoneBundle:Default:index }

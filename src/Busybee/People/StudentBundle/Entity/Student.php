@@ -2,18 +2,12 @@
 namespace Busybee\People\StudentBundle\Entity;
 
 use Busybee\People\StudentBundle\Model\StudentModel;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Student
  */
 class Student extends StudentModel
 {
-	/**
-	 * @var integer
-	 */
-	private $id;
-
 	/**
 	 * @var \DateTime
 	 */
@@ -28,6 +22,11 @@ class Student extends StudentModel
 	 * @var \DateTime
 	 */
 	private $lastAtThisSchool;
+
+	/**
+	 * @var string
+	 */
+	private $locker;
 
 	/**
 	 * @var string
@@ -115,56 +114,10 @@ class Student extends StudentModel
 	private $house;
 
 	/**
-	 * @var \Busybee\People\PersonBundle\Entity\Person
-	 */
-	private $person;
-
-	/**
 	 * @var \Doctrine\Common\Collections\Collection
 	 */
 	private $grades;
 
-	/**
-	 * @var boolean
-	 */
-	private $gradesSorted = false;
-	/**
-	 * @var string
-	 */
-	private $locker;
-	/**
-	 * @var \Doctrine\Common\Collections\Collection
-	 */
-	private $activities;
-
-	/**
-	 * Student constructor.
-	 */
-	public function __construct()
-	{
-		$this->grades = new ArrayCollection();
-		parent::__construct();
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return integer
-	 */
-	public function getId()
-	{
-		return $this->id;
-	}
-
-	/**
-	 * Get startAtSchool
-	 *
-	 * @return \DateTime
-	 */
-	public function getStartAtSchool()
-	{
-		return $this->startAtSchool;
-	}
 
 	/**
 	 * Set startAtSchool
@@ -181,13 +134,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get startAtThisSchool
+	 * Get startAtSchool
 	 *
 	 * @return \DateTime
 	 */
-	public function getStartAtThisSchool()
+	public function getStartAtSchool()
 	{
-		return $this->startAtThisSchool;
+		return $this->startAtSchool;
 	}
 
 	/**
@@ -205,13 +158,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get lastAtThisSchool
+	 * Get startAtThisSchool
 	 *
 	 * @return \DateTime
 	 */
-	public function getLastAtThisSchool()
+	public function getStartAtThisSchool()
 	{
-		return $this->lastAtThisSchool;
+		return $this->startAtThisSchool;
 	}
 
 	/**
@@ -229,13 +182,37 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get firstLanguage
+	 * Get lastAtThisSchool
+	 *
+	 * @return \DateTime
+	 */
+	public function getLastAtThisSchool()
+	{
+		return $this->lastAtThisSchool;
+	}
+
+	/**
+	 * Set locker
+	 *
+	 * @param string $locker
+	 *
+	 * @return Student
+	 */
+	public function setLocker($locker)
+	{
+		$this->locker = $locker;
+
+		return $this;
+	}
+
+	/**
+	 * Get locker
 	 *
 	 * @return string
 	 */
-	public function getFirstLanguage()
+	public function getLocker()
 	{
-		return $this->firstLanguage;
+		return $this->locker;
 	}
 
 	/**
@@ -253,13 +230,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get secondLanguage
+	 * Get firstLanguage
 	 *
 	 * @return string
 	 */
-	public function getSecondLanguage()
+	public function getFirstLanguage()
 	{
-		return $this->secondLanguage;
+		return $this->firstLanguage;
 	}
 
 	/**
@@ -277,13 +254,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get thirdLanguage
+	 * Get secondLanguage
 	 *
 	 * @return string
 	 */
-	public function getThirdLanguage()
+	public function getSecondLanguage()
 	{
-		return $this->thirdLanguage;
+		return $this->secondLanguage;
 	}
 
 	/**
@@ -301,13 +278,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get countryOfBirth
+	 * Get thirdLanguage
 	 *
 	 * @return string
 	 */
-	public function getCountryOfBirth()
+	public function getThirdLanguage()
 	{
-		return $this->countryOfBirth;
+		return $this->thirdLanguage;
 	}
 
 	/**
@@ -325,13 +302,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get birthCertificateScan
+	 * Get countryOfBirth
 	 *
 	 * @return string
 	 */
-	public function getBirthCertificateScan()
+	public function getCountryOfBirth()
 	{
-		return $this->birthCertificateScan;
+		return $this->countryOfBirth;
 	}
 
 	/**
@@ -349,13 +326,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get ethnicity
+	 * Get birthCertificateScan
 	 *
 	 * @return string
 	 */
-	public function getEthnicity()
+	public function getBirthCertificateScan()
 	{
-		return $this->ethnicity;
+		return $this->birthCertificateScan;
 	}
 
 	/**
@@ -373,13 +350,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get citizenship1
+	 * Get ethnicity
 	 *
 	 * @return string
 	 */
-	public function getCitizenship1()
+	public function getEthnicity()
 	{
-		return $this->citizenship1;
+		return $this->ethnicity;
 	}
 
 	/**
@@ -397,13 +374,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get citizenship1Passport
+	 * Get citizenship1
 	 *
 	 * @return string
 	 */
-	public function getCitizenship1Passport()
+	public function getCitizenship1()
 	{
-		return $this->citizenship1Passport;
+		return $this->citizenship1;
 	}
 
 	/**
@@ -421,13 +398,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get citizenship1PassportScan
+	 * Get citizenship1Passport
 	 *
 	 * @return string
 	 */
-	public function getCitizenship1PassportScan()
+	public function getCitizenship1Passport()
 	{
-		return $this->citizenship1PassportScan;
+		return $this->citizenship1Passport;
 	}
 
 	/**
@@ -445,13 +422,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get citizenship2
+	 * Get citizenship1PassportScan
 	 *
 	 * @return string
 	 */
-	public function getCitizenship2()
+	public function getCitizenship1PassportScan()
 	{
-		return $this->citizenship2;
+		return $this->citizenship1PassportScan;
 	}
 
 	/**
@@ -469,13 +446,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get citizenship2Passport
+	 * Get citizenship2
 	 *
 	 * @return string
 	 */
-	public function getCitizenship2Passport()
+	public function getCitizenship2()
 	{
-		return $this->citizenship2Passport;
+		return $this->citizenship2;
 	}
 
 	/**
@@ -493,13 +470,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get religion
+	 * Get citizenship2Passport
 	 *
 	 * @return string
 	 */
-	public function getReligion()
+	public function getCitizenship2Passport()
 	{
-		return $this->religion;
+		return $this->citizenship2Passport;
 	}
 
 	/**
@@ -517,13 +494,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get nationalIDCardNumber
+	 * Get religion
 	 *
 	 * @return string
 	 */
-	public function getNationalIDCardNumber()
+	public function getReligion()
 	{
-		return $this->nationalIDCardNumber;
+		return $this->religion;
 	}
 
 	/**
@@ -541,13 +518,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get nationalIDCardScan
+	 * Get nationalIDCardNumber
 	 *
 	 * @return string
 	 */
-	public function getNationalIDCardScan()
+	public function getNationalIDCardNumber()
 	{
-		return $this->nationalIDCardScan;
+		return $this->nationalIDCardNumber;
 	}
 
 	/**
@@ -565,13 +542,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get residencyStatus
+	 * Get nationalIDCardScan
 	 *
 	 * @return string
 	 */
-	public function getResidencyStatus()
+	public function getNationalIDCardScan()
 	{
-		return $this->residencyStatus;
+		return $this->nationalIDCardScan;
 	}
 
 	/**
@@ -589,13 +566,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get visaExpiryDate
+	 * Get residencyStatus
 	 *
-	 * @return \DateTime
+	 * @return string
 	 */
-	public function getVisaExpiryDate()
+	public function getResidencyStatus()
 	{
-		return $this->visaExpiryDate;
+		return $this->residencyStatus;
 	}
 
 	/**
@@ -613,13 +590,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get house
+	 * Get visaExpiryDate
 	 *
-	 * @return string
+	 * @return \DateTime
 	 */
-	public function getHouse()
+	public function getVisaExpiryDate()
 	{
-		return $this->house;
+		return $this->visaExpiryDate;
 	}
 
 	/**
@@ -637,27 +614,13 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Get person
+	 * Get house
 	 *
-	 * @return \Busybee\People\PersonBundle\Entity\Person
+	 * @return string
 	 */
-	public function getPerson()
+	public function getHouse()
 	{
-		return $this->person;
-	}
-
-	/**
-	 * Set person
-	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Person $person
-	 *
-	 * @return Student
-	 */
-	public function setPerson(\Busybee\People\PersonBundle\Entity\Person $person = null)
-	{
-		$this->person = $person;
-
-		return $this;
+		return $this->house;
 	}
 
 	/**
@@ -669,14 +632,7 @@ class Student extends StudentModel
 	 */
 	public function addGrade(\Busybee\People\StudentBundle\Entity\StudentGrade $grade)
 	{
-		if ($this->grades->contains($grade))
-			return $this;
-
-		$grade->setStudent($this, false);
-
-		$this->grades->add($grade);
-
-		$this->gradesSorted = false;
+		$this->grades[] = $grade;
 
 		return $this;
 	}
@@ -698,76 +654,6 @@ class Student extends StudentModel
 	 */
 	public function getGrades()
 	{
-		if ($this->gradesSorted || $this->grades->count() == 0)
-			return $this->grades;
-		$iterator = $this->grades->getIterator();
-		$iterator->uasort(function ($a, $b) {
-			return ($a->getGrade()->getYear()->getFirstDay() < $b->getGrade()->getYear()->getFirstDay()) ? 1 : -1;
-		}
-		);
-
-		$this->grades = new ArrayCollection(iterator_to_array($iterator, false));
-
-		$this->gradesSorted = true;
-
 		return $this->grades;
-	}
-
-	/**
-	 * Get locker
-	 *
-	 * @return string
-	 */
-	public function getLocker()
-	{
-		return $this->locker;
-	}
-
-	/**
-	 * Set locker
-	 *
-	 * @param string $locker
-	 *
-	 * @return Student
-	 */
-	public function setLocker($locker)
-	{
-		$this->locker = $locker;
-
-		return $this;
-	}
-
-	/**
-	 * Add activity
-	 *
-	 * @param \Busybee\ActivityBundle\Entity\Activity $activity
-	 *
-	 * @return Student
-	 */
-	public function addActivity(\Busybee\ActivityBundle\Entity\Activity $activity)
-	{
-		$this->activities[] = $activity;
-
-		return $this;
-	}
-
-	/**
-	 * Remove activity
-	 *
-	 * @param \Busybee\ActivityBundle\Entity\Activity $activity
-	 */
-	public function removeActivity(\Busybee\ActivityBundle\Entity\Activity $activity)
-	{
-		$this->activities->removeElement($activity);
-	}
-
-	/**
-	 * Get activities
-	 *
-	 * @return \Doctrine\Common\Collections\Collection
-	 */
-	public function getActivities()
-	{
-		return $this->activities;
 	}
 }
