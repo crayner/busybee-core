@@ -1,3 +1,7 @@
-busybee_address_homepage:
-    path:     /
-    defaults: { _controller: BusybeeAddressBundle:Default:index }
+address_manage:
+    path:     /{id}/edit/
+    defaults: { _controller: BusybeeAddressBundle:Address:index }
+address_fetch:
+    path:     /address/fetch/
+    defaults: { _controller: BusybeeAddressBundle:Address:fetch }
+

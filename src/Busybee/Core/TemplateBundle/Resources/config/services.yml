@@ -255,5 +255,13 @@ services:
         public: false
         class: stdClass
         factory:
-            - '@service_container'
+            - '@busybee_core_system.model.my_container'
             - 'getParameterBag'
+    busybee_core_template.model.tab_manager:
+        class: Busybee\Core\TemplateBundle\Model\TabManager
+        arguments:
+            - '@busybee.parameters'
+    busybee_core_template.model.photo_uploader:
+        class: Busybee\Core\TemplateBundle\Model\PhotoUploader
+        arguments:
+            - "%upload_path%"

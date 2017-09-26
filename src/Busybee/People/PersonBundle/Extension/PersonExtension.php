@@ -63,11 +63,12 @@ class PersonExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('canBeCareGiver', array($this, 'canBeCareGiver')),
 			new \Twig_SimpleFunction('canDeleteCareGiver', array($this, 'canDeleteCareGiver')),
 			new \Twig_SimpleFunction('canBeStudent', array($this, 'canBeStudent')),
-			new \Twig_SimpleFunction('canDeleteStudent', array($this, 'canDeleteStudent')),
+			new \Twig_SimpleFunction('canDeleteStudent', array($this->pm, 'canDeleteStudent')),
 			new \Twig_SimpleFunction('canBeUser', array($this, 'canBeUser')),
-			new \Twig_SimpleFunction('canDeleteUser', array($this, 'canDeleteUser')),
+			new \Twig_SimpleFunction('canDeleteUser', array($this->pm, 'canDeleteUser')),
 			new \Twig_SimpleFunction('formatAddress', array($this, 'formatAddress')),
 			new \Twig_SimpleFunction('formatPhone', array($this, 'formatPhone')),
+			new \Twig_SimpleFunction('validPerson', array($this->pm, 'validPerson')),
 		);
 	}
 
@@ -76,7 +77,7 @@ class PersonExtension extends \Twig_Extension
 	 *
 	 * @return bool
 	 */
-	public function isCareGiver(PersonInterface $person)
+	public function isCareGiver(Person $person)
 	{
 		return $this->pm->isCareGiver();
 	}
@@ -86,7 +87,7 @@ class PersonExtension extends \Twig_Extension
 	 *
 	 * @return bool
 	 */
-	public function isStudent(PersonInterface $person)
+	public function isStudent(Person $person)
 	{
 		return $this->pm->isStudent($person->getPerson());
 	}
@@ -96,7 +97,7 @@ class PersonExtension extends \Twig_Extension
 	 *
 	 * @return bool
 	 */
-	public function isStaff(PersonInterface $person)
+	public function isStaff(Person $person)
 	{
 		return $this->pm->isStaff($person->getPerson());
 	}
@@ -106,7 +107,7 @@ class PersonExtension extends \Twig_Extension
 	 *
 	 * @return bool
 	 */
-	public function canBeStaff(PersonInterface $person)
+	public function canBeStaff(Person $person)
 	{
 		return $this->pm->canBeStaff($person->getPerson());
 	}
@@ -116,7 +117,7 @@ class PersonExtension extends \Twig_Extension
 	 *
 	 * @return bool
 	 */
-	public function canDeleteStaff(PersonInterface $person)
+	public function canDeleteStaff(Person $person)
 	{
 		return $this->pm->canDeleteStaff($person->getPerson());
 	}
@@ -136,7 +137,7 @@ class PersonExtension extends \Twig_Extension
 	 *
 	 * @return bool
 	 */
-	public function canDeleteCareGiver(PersonInterface $person)
+	public function canDeleteCareGiver(Person $person)
 	{
 		return $this->pm->canDeleteCareGiver($person->getPerson());
 	}
@@ -146,38 +147,17 @@ class PersonExtension extends \Twig_Extension
 	 *
 	 * @return bool
 	 */
-	public function canBeStudent(PersonInterface $person)
+	public function canBeStudent(Person $person)
 	{
 		return $this->pm->canBeStudent($person->getPerson());
 	}
 
 	/**
 	 * @param Person $person
-	 * @param        $parameters
 	 *
 	 * @return bool
 	 */
-	public function canDeleteStudent(PersonInterface $person, $parameters)
-	{
-		return $this->pm->canDeleteStudent($person->getPerson(), $parameters);
-	}
-
-	/**
-	 * @param Person $person
-	 *
-	 * @return bool
-	 */
-	public function canDeleteUser(PersonInterface $person)
-	{
-		return $this->pm->canDeleteUser($person->getPerson());
-	}
-
-	/**
-	 * @param Person $person
-	 *
-	 * @return bool
-	 */
-	public function canBeUser(PersonInterface $person)
+	public function canBeUser(Person $person)
 	{
 		return $this->pm->canBeUser($person->getPerson());
 	}
@@ -195,7 +175,7 @@ class PersonExtension extends \Twig_Extension
 	 *
 	 * @return mixed
 	 */
-	public function isUser(PersonInterface $person)
+	public function isUser(Person $person)
 	{
 		return $this->pm->isUser($person->getPerson());
 	}

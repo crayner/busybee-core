@@ -12,3 +12,10 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeePhoneBundle:Phone"
+    busybee_people_phone.form.phone_type:
+        class: Busybee\People\PhoneBundle\Form\PhoneType
+        arguments:
+            - '@busybee_core_system.setting.setting_manager'
+            - '@busybee_people_phone.repository.phone_repository'
+        tags:
+            - { name: form.type }

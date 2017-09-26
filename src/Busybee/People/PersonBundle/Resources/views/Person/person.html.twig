@@ -1,0 +1,87 @@
+{# src/Busybee/PersonBundle/Resources/views/Person/person.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+
+<div class="panel panel-primary busybee-panel">
+    {% include "BusybeePersonBundle:Person:panelHeader.html.twig" %}
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.surname) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.firstName) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.photo) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.preferredName) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.officialName) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.dob) }}
+                </div>
+            </div>
+            <div class="row">
+                {% set offset = 8 %}
+                {% if validPerson(form.vars.value) and (canDeleteStaff(form.vars.value) or canBeStaff(form.vars.value)) %}
+                    <div class="col-sm-2 well">
+                        {% set staffOn = false %}
+                        {% if isStaff(form.vars.value) %}
+                            {% set staffOn = true %}
+                        {% endif %}
+                        <div class="form-group">
+                            {{ onOffButton({value: staffOn, on: {class: 'btn btn-sm btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-sm btn-danger halflings halflings-thumbs-down'}})|raw }}
+                            <label class="control-label small text-left">{{ 'person.staff.question.label'|trans }}</label>
+                        </div>
+                        {% set offset = offset - 2 %}
+                    </div>
+                {% endif %}
+
+                {% if validPerson(form.vars.value) and (canDeleteStudent(form.vars.value) or canBeStudent(form.vars.value)) %}
+                    <div class="col-sm-2 well">
+
+                        {% set studentOn = false %}
+                        {% if isStudent(form.vars.value) %}
+                            {% set studentOn = true %}
+                        {% endif %}
+                        <div class="form-group">
+                            {{ onOffButton({value: studentOn, on: {class: 'btn btn-sm btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-sm btn-danger halflings halflings-thumbs-down'}})|raw }}
+                            <label class="control-label small text-left">{{ 'person.student.question.label'|trans }}</label>
+                        </div>
+
+                        {% set offset = offset - 2 %}
+                    </div>
+                {% endif %}
+                {% if validPerson(form.vars.value) and (canDeleteUser(form.vars.value) or canBeUser(form.vars.value)) %}
+                    <div class="col-sm-2 well">
+                        {% set userOn = false %}
+                        {% if isUser(form.vars.value) %}
+                            {% set userOn = true %}
+                        {% endif %}
+                        <div class="form-group">
+                            {{ onOffButton({value: userOn, on: {class: 'btn btn-sm btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-sm btn-danger halflings halflings-thumbs-down'}})|raw }}
+                            <label class="control-label small text-left">{{ 'person.user.question.label'|trans }}</label>
+                        </div>
+
+                        {% set offset = offset - 2 %}
+                    </div>
+                {% endif %}
+                <div class="col-sm-offset-{{ offset }} col-sm-2 well">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="col-sm-2 well">
+                    {{ form_row(form.gender) }}
+                    {{ form_row(form.identifier) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

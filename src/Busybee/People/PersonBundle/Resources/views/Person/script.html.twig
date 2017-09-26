@@ -1,10 +1,9 @@
 {# src/Busybee/PersonBundle/Resources/views/Person/script.html.twig #}
 
-{% trans_default_domain "BusybeeFamilyBundle" %}
+{% trans_default_domain "BusybeePersonBundle" %}
 
 <script type="text/javascript">
-    $(".addPersonAddress").click(function () {
-
+    $(".addPersonAddress").click(function (e) {
         window.open("{{ path('address_manage', {'id': 'Add'}) }}", "Address", "width=820,height=600");
     });
 
@@ -13,17 +12,17 @@
             url: "{{ path('address_fetch') }}",
             type: "POST",
             success: function (data) {
-                var id1 = $("#family_address1").val();
-                var id2 = $("#family_address2").val();
-                $(".beeAddressList").empty();
+                $("#person_address1_list").autocomplete('option', 'source', data.options);
+                $("#person_address2_list").autocomplete('option', 'source', data.options);
+
+                var id1 = $("#person_address1").val();
+                var id2 = $("#person_address2").val();
 
                 options = data.options; // Or whatever source information you're working with
                 var label1 = "";
                 var label2 = "";
                 for (index = 0; index < options.length; ++index) {
                     option = options[index];
-
-                    $(".beeAddressList").append('<option value=' + option.value + '>' + option.label + '</option>');
 
                     if (option.value == id1) {
                         label1 = option.label;
@@ -33,26 +32,26 @@
                     }
                 }
 
-                $("#family_address1_list").val(label1);
-                $("#family_address2_list").val(label2)
+                $("#person_address1_list").val(label1);
+                $("#person_address2_list").val(label2)
             }
         })
     });
 
-    $("#family_address1_list").on("autocompleteselect", function (event, ui) {
+    $("#person_address1_list").on("autocompleteselect", function (event, ui) {
         event.preventDefault();
         var id = ui.item.value;
         var label = ui.item.label;
-        $("#family_address1").val(id);
-        $("#family_address1_list").val(label);
+        $("#person_address1").val(id);
+        $("#person_address1_list").val(label);
     });
 
-    $("#family_address2_list").on("autocompleteselect", function (event, ui) {
+    $("#person_address2_list").on("autocompleteselect", function (event, ui) {
         event.preventDefault();
         var id = ui.item.value;
         var label = ui.item.label;
-        $("#family_address2").val(id);
-        $("#family_address2_list").val(label);
+        $("#person_address2").val(id);
+        $("#person_address2_list").val(label);
     });
 
     $(document).ready(function () {
@@ -66,8 +65,8 @@
                     delay: 250,
                     disabled: false
                 });
-                var id1 = $("#family_address1").val();
-                var id2 = $("#family_address2").val();
+                var id1 = $("#person_address1").val();
+                var id2 = $("#person_address2").val();
 
                 options = data.options; // Or whatever source information you're working with
                 var label1 = "";
@@ -83,29 +82,34 @@
                     }
                 }
 
-                $("#family_address1_list").val(label1);
-                $("#family_address2_list").val(label2)
+                $("#person_address1_list").val(label1);
+                $("#person_address2_list").val(label2)
             }
         });
 
+        if (window.location.hash) {
+            var hash = window.location.hash;
+            hash = 'a[href="' + hash.replace('#', '#') + '"]';
+            $(hash).tab('show');
+        }
     });
 
     $("#erasePersonAddress1").click(function () {
-        $("#family_address1").val("");
-        $("#family_address1_list").val("{{ 'person.address.placeholder'|trans({}, 'BusybeePersonBundle') }}");
+        $("#person_address1").val("");
+        $("#person_address1_list").val("{{ 'person.address.placeholder'|trans }}");
     });
 
     $("#erasePersonAddress2").click(function () {
-        $("#family_address2").val("");
-        $("#family_address2_list").val("{{ 'person.address.placeholder'|trans({}, 'BusybeePersonBundle') }}");
+        $("#person_address2").val("");
+        $("#person_address2_list").val("{{ 'person.address.placeholder'|trans }}");
     });
 
-    $("#family_address1_list").on("focus", function () {
-        $("#family_address1_list").val("");
+    $("#person_address1_list").on("focus", function () {
+        $("#person_address1_list").val("");
     });
 
-    $("#family_address2_list").on("focus", function () {
-        $("#family_address2_list").val("");
+    $("#person_address2_list").on("focus", function () {
+        $("#person_address2_list").val("");
     });
 
     $(".phoneNumberList").collection({
@@ -117,40 +121,31 @@
         add_at_the_end: true
     });
 
-    $(".careGiverList").collection({
-        name_prefix: '{{ form.careGiver.vars.full_name }}',
-        allow_up: true,
-        allow_down: true,
-        add: '<button title="{{ 'family.caregiver.add'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
-        remove: '<button title="{{ 'family.caregiver.remove'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
-        add_at_the_end: true,
-        max: 6
-    });
 
-    $(".studentList").collection({
-        name_prefix: '{{ form.students.vars.full_name }}',
+    {% if form.student.grades is defined %}
+    $(".gradeList").collection({
+        name_prefix: '{{ form.student.grades.vars.full_name }}',
         allow_up: false,
         allow_down: false,
-        add: '<button title="{{ 'family.student.add'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
-        remove: '<button title="{{ 'family.student.remove'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+        add: '<button title="{{ 'student.grade.add'|trans({}, 'BusybeeStudentBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+        remove: '<button title="{{ 'student.grade.remove'|trans({}, 'BusybeeStudentBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
         add_at_the_end: true
     });
+    {% endif %}
 
-    function resetFamily() {
+    function resetForm() {
         var fragment = $('.tab-content > .active').attr('id');
-
         var id = '{{ app.request.get('id') }}';
+
         if (id.length === 0) {
-            id = 'Add';
+            id = '0';
         }
 
-        var path = '{{ path('family_edit', { 'id': '__id__', '_fragment': '__fragment__'}) }}';
+        var path = '{{ path('person_edit', {'id': '__id__', '_fragment': '__fragment__'}) }}';
         path = path.replace('__id__', id);
         path = path.replace('__fragment__', fragment);
 
         location.assign(path);
         location.reload(true);
     }
-
-
 </script>

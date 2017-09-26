@@ -222,4 +222,44 @@ abstract class PersonModel
 		return $this->formatName($options);
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function isStaff(): bool
+	{
+		if ($this->getPersonType() === 'staff')
+			return true;
+
+		return false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isStudent(): bool
+	{
+		if ($this->getPersonType() === 'student')
+			return true;
+
+		return false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isUser(): bool
+	{
+		if ($this->getUser() === null)
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function canDelete()
+	{
+		return true;
+	}
 }

@@ -61,14 +61,14 @@
             <div class="col-md-3 hidden-sm hidden-xs text-center">
                 {{ 'person.category.title'|trans }}
                 <div class="row ">
-                    <div class="col-sm-4 text-center">
-                        <span style="font-size: 9px;">{{ 'person.staff.category'|trans }}</span>
+                    <div class="col-sm-4">
+                        <span style="font-size: 9px; margin-left: -20px;">{{ 'person.staff.category'|trans }}</span>
                     </div>
-                    <div class="col-sm-4 text-center">
-                        <span style="font-size: 9px;">{{ 'person.student.category'|trans }}</span>
+                    <div class="col-sm-4">
+                        <span style="font-size: 9px; margin-left: -20px;">{{ 'person.student.category'|trans }}</span>
                     </div>
-                    <div class="col-sm-4 text-center">
-                        <span style="font-size: 9px;">{{ 'person.user.category'|trans }}</span>
+                    <div class="col-sm-4">
+                        <span style="font-size: 9px; margin-left: -20px;">{{ 'person.user.category'|trans }}</span>
                     </div>
                 </div>
             </div>
@@ -108,60 +108,35 @@
                 <div class="col-md-3 hidden-sm hidden-xs">
                     <div class="row">
                         <div class="col-sm-4">
-                            {% set toggle = 'data-toggle=toggle data-onstyle=success data-offstyle=danger data-height=25 data-size=small data-on="<span class=\'halflings halflings-thumbs-up\'></span>" data-off="<span class=\'halflings halflings-thumbs-down\'></span>"' %}
-                            {% if person.personType == 'staff' and canDeleteStaff(person.0) %}
-                                <input type="checkbox" id="staffToggle{{ person.id }}"
-                                       title="{{ 'person.staff.toggle'|trans }}" class="staffToggle"
-                                       checked {{ toggle|raw }} />
-                            {% elseif person.staff_id is empty and canBeStaff(person.0) %}
-                                <input type="checkbox" id="staffToggle{{ person.id }}"
-                                       title="{{ 'person.staff.toggle'|trans }}" class="staffToggle" {{ toggle|raw }} />
-                            {% elseif person.staff_id is empty %}
-                                <input type="checkbox" id="staffToggle{{ person.id }}"
-                                       title="{{ 'person.staff.toggle'|trans }}" class="staffToggle" {{ toggle|raw }}
-                                       disabled/>
-                            {% else %}
-                                <input type="checkbox" id="staffToggle{{ person.id }}"
-                                       title="{{ 'person.staff.toggle'|trans }}" class="staffToggle"
-                                       checked {{ toggle|raw }} disabled/>
+                            {% set staffOn = false %}
+                            {% if isStaff(person.0) %}
+                                {% set staffOn = true %}
                             {% endif %}
+                            <div>
+                                {{ onOffButton({value: staffOn, on: {class: 'btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'staffToggle' ~ person.id}}, off: {class: 'btn btn-danger halflings halflings-thumbs-down', style: '', additional: {id: 'staffToggle' ~ person.id}}})|raw }}
+                            </div>
                         </div>
                         <div class="col-sm-4">
-                            {% if intVal(person.stu_id) > 0 and canDeleteStudent(person.0, get_parameter('person')) %}
-                                <input type="checkbox" id="studentToggle{{ person.id }}"
-                                       title="{{ 'person.student.toggle'|trans }}" checked
-                                       class="studentToggle" {{ toggle|raw }} />
-                            {% elseif person.stu_id is empty and canBeStudent(person.0) %}
-                                <input type="checkbox" id="studentToggle{{ person.id }}"
-                                       title="{{ 'person.student.toggle'|trans }}"
-                                       class="studentToggle" {{ toggle|raw }} />
-                            {% elseif person.stu_id is empty %}
-                                <input type="checkbox" id="studentToggle{{ person.id }}"
-                                       title="{{ 'person.student.toggle'|trans }}"
-                                       class="studentToggle" {{ toggle|raw }} disabled/>
-                            {% else %}
-                                <input type="checkbox" id="studentToggle{{ person.id }}"
-                                       title="{{ 'person.student.toggle'|trans }}" class="studentToggle"
-                                       checked {{ toggle|raw }} disabled/>
+                            {% set studentOn = false %}
+                            {% if isStudent(person.0) %}
+                                {% set studentOn = true %}
                             {% endif %}
+                            <div>
+                                {{ onOffButton({value: studentOn, on: {class: 'btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'studentToggle' ~ person.id}}, off: {class: 'btn btn-danger halflings halflings-thumbs-down', style: '', additional: {id: 'studentToggle' ~ person.id}}})|raw }}
+                            </div>
                         </div>
                         <div class="col-sm-4">
-                            {% if person.user_id is not empty and canDeleteUser(person.0) %}
-                                <input type="checkbox" id="userToggle{{ person.id }}"
-                                       title="{{ 'person.user.toggle'|trans }}" checked
-                                       class="userToggle" {{ toggle|raw }} />
-                            {% elseif person.user_id is empty and canBeUser(person.0) %}
-                                <input type="checkbox" id="userToggle{{ person.id }}"
-                                       title="{{ 'person.user.toggle'|trans }}" class="userToggle" {{ toggle|raw }} />
-                            {% elseif person.user_id is empty %}
-                                <input type="checkbox" id="userToggle{{ person.id }}"
-                                       title="{{ 'person.user.toggle'|trans }}" class="userToggle" {{ toggle|raw }}
-                                       disabled/>
-                            {% else %}
-                                <input type="checkbox" id="userToggle{{ person.id }}"
-                                       title="{{ 'person.user.toggle'|trans }}" checked
-                                       class="userToggle" {{ toggle|raw }} disabled/>
+                            {% set userOn = false %}
+                            {% if isUser(person.0) %}
+                                {% set userOn = true %}
                             {% endif %}
+                            {% set additional = {id: 'userToggle' ~ person.id} %}
+                            {% if not userOn and not canBeUser(person.0) %}
+                                {% set additional = additional|merge({disabled: 'disabled'}) %}
+                            {% endif %}
+                            <div>
+                                {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'userToggle' ~ person.id}}, off: {class: 'userToggle btn btn-danger halflings halflings-thumbs-down', style: '', additional: {id: 'userToggle' ~ person.id}}})|raw }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -216,9 +191,9 @@
                 }
             })
         });
-        $(".userToggle").change(function () {
+        $(".userToggle").click(function () {
             var id = $(this).prop('id');
-            id = id.substring(10);
+            id = id.replace('userToggle', '');
             var route = "{{ path('person_toggle_user', {'id': '__id__'}) }}";
             route = route.replace('__id__', id);
             $.ajax({
@@ -227,10 +202,10 @@
                 success: function (data) {
                     $("#peopleError").html(data.message);
                     if (data.status == "removed") {
-                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-remove btn btn-danger");
+                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-thumbs-down btn btn-danger");
                     }
                     if (data.status == "added") {
-                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-ok btn btn-default");
+                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-thumbs-up btn btn-success");
                         $("#userToggle" + id).prop('disabled', true);
                     }
                     $(".fadeAlert").fadeOut(5000);

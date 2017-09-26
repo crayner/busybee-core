@@ -91,6 +91,15 @@ class ButtonExtension extends \Twig_Extension
 				$defaults['class'] .= ' ' . $details['mergeClass'];
 		}
 
+		if (isset($details['additional']) && is_array($details['additional']))
+		{
+			$additional            = $details['additional'];
+			$details['additional'] = '';
+			foreach ($additional as $name => $value)
+				$details['additional'] = $name . '="' . $value . '" ';
+			$details['additional'] = trim($details['additional']);
+		}
+
 		if (!empty($details['windowOpen']))
 		{
 			$target                = empty($details['windowOpen']['target']) ? '_self' : $this->translator->trans($details['windowOpen']['target'], array(), empty($details['transDomain']) ? 'messages' : $details['transDomain']);

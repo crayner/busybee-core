@@ -2,6 +2,8 @@
 namespace Busybee\People\PersonBundle\Controller;
 
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
+use Busybee\People\PersonBundle\Entity\Person;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserController extends BusybeeController
 {
@@ -16,7 +18,21 @@ class UserController extends BusybeeController
 
 		$person = $this->get('busybee_people_person.repository.person_repository')->find($id);
 
-		$user = $this->get('busybee_core_security.repository.user_repository')->findOneByPerson($id);
+		if (empty($person->getEmail()))
+		{
+			return new JsonResponse(
+				array(
+					'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('user.toggle.notUser', array('%name%' => $person->formatName()), 'BusybeePersonBundle') . '</div>',
+					'status'  => 'failed',
+				),
+				200
+			);
+		}
+
+		$user = $this->get('busybee_core_security.repository.user_repository')->findOneByEmail($person->getEmail());
+
+		if (is_null($user) && !empty($person->getEmail2()))
+			$user = $this->get('busybee_core_security.repository.user_repository')->findOneByEmail($person->getEmail2());
 
 		if (!$person instanceof Person)
 			return new JsonResponse(
@@ -56,8 +72,8 @@ class UserController extends BusybeeController
 		{
 			if ($this->get('busybee_people_person.model.person_manager')->canBeUser($person))
 			{
-				$user = new User();
-				$user->setPerson($person);
+				if (is_null($user))
+					$user = new User();
 				$user->setEmail($person->getEmail());
 				$user->setEmailCanonical($person->getEmail());
 				$user->setUsername($person->getEmail());

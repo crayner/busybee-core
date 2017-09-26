@@ -4,8 +4,6 @@ namespace Busybee\People\StaffBundle\Form;
 
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\InstituteBundle\Entity\Space;
-use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\People\StaffBundle\Events\StaffSubscriber;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
@@ -13,7 +11,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -46,23 +43,17 @@ class StaffType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('person', HiddenType::class, array(
-					'attr' => array(
-						'class' => 'staffMember',
-					)
-				)
-			)
 			->add('staffType', SettingChoiceType::class, array(
-					'label'        => 'staff.label.stafftype',
+					'label'        => 'staff.stafftype.label',
 					'setting_name' => 'Staff.Categories',
-					'placeholder'  => 'staff.placeholder.stafftype',
+					'placeholder'  => 'staff.stafftype.placeholder',
 					'attr'         => array(
 						'class' => 'staffMember',
 					)
 				)
 			)
 			->add('jobTitle', null, array(
-					'label' => 'staff.label.jobTitle',
+					'label' => 'staff.jobTitle.label',
 					'attr'  => array(
 						'class' => 'staffMember',
 					)
@@ -79,8 +70,7 @@ class StaffType extends AbstractType
 					'translation_domain'        => 'BusybeeFamilyBundle',
 					'choice_translation_domain' => 'BusybeeFamilyBundle',
 				)
-			)
-			->add('homeroom', EntityType::class, array(
+			)/*			->add('homeroom', EntityType::class, array(
 					'label'         => 'staff.label.homeroom',
 					'class'         => Space::class,
 					'choice_label'  => 'name',
@@ -98,8 +88,9 @@ class StaffType extends AbstractType
 							->orderBy('h.name', 'ASC');
 					},
 				)
-			);
-		$builder->get('person')->addModelTransformer(new EntityToStringTransformer($this->manager, Person::class));
+			)
+*/
+		;
 		$builder->addEventSubscriber(new StaffSubscriber($this->manager));
 	}
 
@@ -112,11 +103,6 @@ class StaffType extends AbstractType
 			[
 				'data_class'         => Staff::class,
 				'translation_domain' => 'BusybeeStaffBundle',
-			]
-		);
-		$resolver->setRequired(
-			[
-				'person_id',
 			]
 		);
 	}

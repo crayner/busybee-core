@@ -10,3 +10,6 @@ people_import:
 person_toggle_user:
     path:     /user/{id}/toggle/
     defaults: { _controller: BusybeePersonBundle:User:toggle }
+person_photo_remove:
+    path:     /photo/{id}/remove
+    defaults: { _controller: BusybeePersonBundle:Person:removePhoto }

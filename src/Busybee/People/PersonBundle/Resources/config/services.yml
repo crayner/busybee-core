@@ -52,17 +52,17 @@ parameters:
                 - 'BusybeePersonBundle/Resources/config/Settings/Settings_0_0_01.yml'
     PersonTabs:
         person:
-            label: person.tab.person
+            label: person.person.tab
             include: 'BusybeePersonBundle:Person:person.html.twig'
             message: personMessage
-#        contact:
-#            label: person.tab.contact
-#            include: 'BusybeePersonBundle:Person:contact.html.twig'
-#        staff:
-#            label: person.tab.staff
-#            include: BusybeeStaffBundle:Person:staff.html.twig
-#            message: staffMessage
-#            translation: BusybeeStaffBundle
+        contact:
+            label: person.contact.tab
+            include: 'BusybeePersonBundle:Person:contact.html.twig'
+        staff:
+            label: person.staff.tab
+            include: BusybeeStaffBundle:Person:staff.html.twig
+            message: staffMessage
+            translation: BusybeeStaffBundle
 #        immigration:
 #            label: person.tab.immigration
 #            include: BusybeeStudentBundle:Person:immigration.html.twig
@@ -78,13 +78,16 @@ parameters:
 #            include: BusybeeStudentBundle:Person:gradeStart.html.twig
 #            message: gradeMessage
 #            translation: BusybeeStudentBundle
-#        user:
-#            label: person.tab.user
-#            include: BusybeePersonBundle:Person:user.html.twig
-#            message: userMessage
+        user:
+            label: person.user.tab
+            include: BusybeePersonBundle:Person:user.html.twig
+            message: userMessage
 services:
     busybee_people_person.model.person_manager:
         class: Busybee\People\PersonBundle\Model\PersonManager
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@busybee_core_system.setting.setting_manager'
     busybee_people_person.repository.person_repository:
         class: Busybee\People\PersonBundle\Repository\PersonRepository
         factory:
@@ -107,3 +110,17 @@ services:
             - '@busybee_people_phone.model.phone_manager'
         tags:
             - { name: twig.extension }
+    busybee_people_person.form.person_type:
+        class: Busybee\People\PersonBundle\Form\PersonType
+        arguments:
+            - '@busybee_people_person.model.person_manager'
+            - '@doctrine.orm.entity_manager'
+            - '@busybee_core_template.model.photo_uploader'
+            - '@busybee_core_template.model.tab_manager'
+        tags:
+            - { name: form.type }
+    busybee_people_person.listener.person_listener:
+        class: Busybee\People\PersonBundle\Listener\PersonListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }

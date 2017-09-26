@@ -1,6 +1,8 @@
 person:
     photo:
         title: Photo
+        label: Portrait Photo
+        help: Passport style photo, 350px to 400px width by 450px to 500 px height.
     familyName:
         title: Family Name
     givenName:
@@ -15,7 +17,69 @@ person:
         title: Category Status
     staff:
         category: Staff
+        question:
+            label: 'Staff Member ?'
+            help: ''
     student:
         category: Student
+        question:
+            label: 'Student ?'
+            help: ''
     user:
         category: User
+    surname:
+        label: Family Name
+    firstName:
+        label: Given Names
+    preferredName:
+        label: Preferred Name
+    officialName:
+        label: Official Name
+        help: This is the name recorded on official documents. e.g. birth certificates and passports. Helps school document linkage to identity.
+    dob:
+        label: Date of Birth
+    person:
+        tab: Person
+        title: Manage Personal Details
+        description: ''
+    contact:
+        tab: Contact
+        title: "Contact Details: %name%"
+    user:
+        tab: User
+    manage:
+        title: "Personal Details: %name%"
+    identifier:
+        label: 'Id: %identifier%'
+    age:
+        label: 'Age: %years%.%months%.%days%'
+    title:
+        label: Personal Title
+    gender:
+        label: Gender
+    phones:
+        label: Phone Details
+    reset:
+        button: Reset Form
+    return: Manage People
+    email:
+        label: Email
+        help: An email is required for this person to become a user.
+    email2:
+        label: Alternate Email
+    website:
+        label: Personal Web Site
+    address1:
+        label: 'Primary (Physical) Address'
+        help: The address can be left blank in which case the family address is used.  Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
+    address2:
+        label: 'Secondary (Postal) Address'
+        help: Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
+    address:
+        placeholder: Start typing any address.
+phone:
+    save: Changes in phone details are only recorded when the entire form is saved.
+address:
+    add: Add Address
+    refresh: Refresh Address Lists
+    erase: Erase Address

@@ -63,12 +63,6 @@ Busybee\People\PersonBundle\Entity\Person:
             type: string
             length: '150'
             nullable: true
-        staffQuestion:
-            type: boolean
-            name: staff_question
-        studentQuestion:
-            type: boolean
-            name: student_question
         lastModified:
             type: datetime
             nullable: true

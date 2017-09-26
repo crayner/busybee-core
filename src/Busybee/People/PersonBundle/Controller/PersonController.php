@@ -2,6 +2,8 @@
 namespace Busybee\People\PersonBundle\Controller;
 
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
+use Busybee\People\PersonBundle\Form\PersonType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 class PersonController extends BusybeeController
@@ -40,11 +42,15 @@ class PersonController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$person = $this->getPerson($id);
+		$pm = $this->get('busybee_people_person.model.person_manager');
+
+		$person = $pm->getPerson($id);
 
 		$em = $this->get('doctrine')->getManager();
 
-		$formDefinition = $this->getParameter('person');
+		$tm = $this->get('busybee_core_template.model.tab_manager');
+
+		$formDefinition = $tm->loadDefinition('PersonTabs');
 
 		unset($formDefinition['person'], $formDefinition['contact'], $formDefinition['address1'], $formDefinition['address2']);
 
@@ -52,7 +58,7 @@ class PersonController extends BusybeeController
 
 		$year = $person->yearData = $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser());
 
-		$form = $this->createForm(PersonType::class, $person);
+		$form               = $this->createForm(PersonType::class, $person, ['deletePhoto' => $this->generateUrl('person_photo_remove', ['id' => $id]), 'isSystemAdmin' => $this->isGranted('ROLE_SYSTEM_ADMIN')]);
 
 		foreach ($formDefinition as $extra)
 		{
@@ -111,27 +117,52 @@ class PersonController extends BusybeeController
 				$em->persist($person);
 				$em->flush();
 				if ($id === 'Add')
-				{
-					return new RedirectResponse($this->generateUrl('person_edit', array('id' => $person->getId())));
-				}
+					return $this->redirectToRoute('person_edit', array('id' => $person->getId()));
 			}
 		}
 
 		$editOptions['id']            = $id;
 		$editOptions['form']          = $form->createView();
 		$editOptions['fullForm']      = $form;
-		$editOptions['address1']      = $this->formatAddress($person->getAddress1());
-		$editOptions['address2']      = $this->formatAddress($person->getAddress2());
-		$editOptions['addressLabel1'] = $this->get('busybee_people_person.model.address_manager')->getAddressListLabel($person->getAddress1());
-		$editOptions['addressLabel2'] = $this->get('busybee_people_person.model.address_manager')->getAddressListLabel($person->getAddress2());
+		$editOptions['address1']      = $this->get('busybee_people_address.model.address_manager')->formatAddress($person->getAddress1());
+		$editOptions['address2']      = $this->get('busybee_people_address.model.address_manager')->formatAddress($person->getAddress2());
+		$editOptions['addressLabel1'] = $this->get('busybee_people_address.model.address_manager')->getAddressListLabel($person->getAddress1());
+		$editOptions['addressLabel2'] = $this->get('busybee_people_address.model.address_manager')->getAddressListLabel($person->getAddress2());
 		$editOptions['identifier']    = $person->getIdentifier();
 		$editOptions['addresses']     = $this->get('busybee_people_person.model.person_manager')->getAddresses($person);
 		$editOptions['phones']        = $this->get('busybee_people_person.model.person_manager')->getPhones($person);
 		$editOptions['year']          = $year;
+		$editOptions['tabs']          = $tm;
+		$editOptions['personManager'] = $pm;
 
 		return $this->render('BusybeePersonBundle:Person:edit.html.twig',
 			$editOptions
 		);
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return Response
+	 */
+	public function removePhotoAction($id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+		$person = $this->getPerson($id);
+
+		$em = $this->get('doctrine')->getManager();
+
+		$photo = $person->getPhoto();
+
+		$person->setPhoto(null);
+
+		if (file_exists($photo))
+			unlink($photo);
+
+		$em->persist($person);
+		$em->flush();
+
+		return new Response("<script>window.close();</script>");
+	}
 }
