@@ -53,14 +53,14 @@ parameters:
     PersonTabs:
         person:
             label: person.person.tab
-            include: 'BusybeePersonBundle:Person:person.html.twig'
+            include: '@@BusybeePerson/Person/person.html.twig'
             message: personMessage
         contact:
             label: person.contact.tab
-            include: 'BusybeePersonBundle:Person:contact.html.twig'
+            include: '@@BusybeePerson/Person/contact.html.twig'
         staff:
             label: person.staff.tab
-            include: BusybeeStaffBundle:Person:staff.html.twig
+            include: '@@BusybeeStaff/Person/staff.html.twig'
             message: staffMessage
             translation: BusybeeStaffBundle
 #        immigration:
@@ -80,7 +80,7 @@ parameters:
 #            translation: BusybeeStudentBundle
         user:
             label: person.user.tab
-            include: BusybeePersonBundle:Person:user.html.twig
+            include: '@@BusybeePerson/Person/user.html.twig'
             message: userMessage
 services:
     busybee_people_person.model.person_manager:
@@ -88,6 +88,7 @@ services:
         arguments:
             - '@doctrine.orm.default_entity_manager'
             - '@busybee_core_system.setting.setting_manager'
+            - '@busybee_core_security.security.user_provider'
     busybee_people_person.repository.person_repository:
         class: Busybee\People\PersonBundle\Repository\PersonRepository
         factory:
@@ -104,7 +105,6 @@ services:
     busybee_people_person.extension.person_extension:
         class: Busybee\People\PersonBundle\Extension\PersonExtension
         arguments:
-            - '@busybee_core_system.setting.setting_manager'
             - '@busybee_people_person.model.person_manager'
             - '@busybee_people_address.model.address_manager'
             - '@busybee_people_phone.model.phone_manager'

@@ -27,8 +27,6 @@ abstract class PersonModel
 	public function __construct()
 	{
 		$this->setGender('U');
-		$this->setStaffQuestion(false);
-		$this->setStudentQuestion(false);
 	}
 
 	/**

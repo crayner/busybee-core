@@ -156,7 +156,7 @@ class PersonSubscriber implements EventSubscriberInterface
 
 			if ($form->get('user')->getData() instanceof User && isset($data['user']))
 			{
-				$user = $this->personManager->doesThisUserExist($person);
+				$user = $person->getUser();
 				if ($user instanceof User)
 				{
 					$data['user']['usernameCanonical'] = $data['user']['username'] = $user->getUsername();

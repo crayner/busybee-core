@@ -25,8 +25,10 @@ Busybee\People\PhoneBundle\Entity\Phone:
             length: '6'
         lastModified:
             type: datetime
+            column: last_modified
         createdOn:
             type: datetime
+            column: created_on
     manyToOne:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User

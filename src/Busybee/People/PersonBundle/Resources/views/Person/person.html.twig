@@ -2,7 +2,6 @@
 
 {% trans_default_domain "BusybeePersonBundle" %}
 
-
 <div class="panel panel-primary busybee-panel">
     {% include "BusybeePersonBundle:Person:panelHeader.html.twig" %}
     <div class="panel-body">
@@ -38,7 +37,7 @@
                             {% set staffOn = true %}
                         {% endif %}
                         <div class="form-group">
-                            {{ onOffButton({value: staffOn, on: {class: 'btn btn-sm btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-sm btn-danger halflings halflings-thumbs-down'}})|raw }}
+                            {{ onOffButton({value: staffOn, on: {class: 'btn btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-primary halflings halflings-thumbs-down'}})|raw }}
                             <label class="control-label small text-left">{{ 'person.staff.question.label'|trans }}</label>
                         </div>
                         {% set offset = offset - 2 %}
@@ -53,7 +52,7 @@
                             {% set studentOn = true %}
                         {% endif %}
                         <div class="form-group">
-                            {{ onOffButton({value: studentOn, on: {class: 'btn btn-sm btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-sm btn-danger halflings halflings-thumbs-down'}})|raw }}
+                            {{ onOffButton({value: studentOn, on: {class: 'btn btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-primary halflings halflings-thumbs-down'}})|raw }}
                             <label class="control-label small text-left">{{ 'person.student.question.label'|trans }}</label>
                         </div>
 
@@ -66,8 +65,15 @@
                         {% if isUser(form.vars.value) %}
                             {% set userOn = true %}
                         {% endif %}
+                        {% set additional = {id: 'userToggle' ~ form.vars.value.id} %}
+                        {% if not userOn and not canBeUser() %}
+                            {% set additional = additional|merge({disabled: 'disabled'}) %}
+                        {% endif %}
+                        {% if userOn and not canDeleteUser() %}
+                            {% set additional = additional|merge({disabled: 'disabled'}) %}
+                        {% endif %}
                         <div class="form-group">
-                            {{ onOffButton({value: userOn, on: {class: 'btn btn-sm btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-sm btn-danger halflings halflings-thumbs-down'}})|raw }}
+                            {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'userToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}})|raw }}
                             <label class="control-label small text-left">{{ 'person.user.question.label'|trans }}</label>
                         </div>
 

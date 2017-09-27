@@ -2,6 +2,7 @@
 namespace Busybee\People\PersonBundle\Model;
 
 use Busybee\Core\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Security\UserProvider;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\FamilyBundle\Entity\Family;
@@ -24,14 +25,26 @@ class PersonManager
 	private $sm;
 
 	/**
+	 * @var null|Person
+	 */
+	private $person;
+
+	/**
+	 * @var UserProvider
+	 */
+	private $userProvider;
+
+	/**
 	 * PersonManager constructor.
 	 *
 	 * @param ObjectManager $om
 	 */
-	public function __construct(ObjectManager $om, SettingManager $sm)
+	public function __construct(ObjectManager $om, SettingManager $sm, UserProvider $userProvider)
 	{
-		$this->om = $om;
-		$this->sm = $sm;
+		$this->om           = $om;
+		$this->sm           = $sm;
+		$this->person       = null;
+		$this->userProvider = $userProvider;
 	}
 
 	/**
@@ -44,17 +57,44 @@ class PersonManager
 		return $person->canDelete();
 	}
 
-	public function getPerson($id)
+	/**
+	 * @param null|string|integer $id
+	 *
+	 * @return Person|null
+	 */
+	public function getPerson($id = null)
 	{
-		$person = new Person();
+		if (!is_null($id))
+			$this->person = $this->find($id);
+
+		return $this->person;
+	}
+
+	/**
+	 * @param Person $person
+	 *
+	 * @return PersonManager
+	 */
+	public function setPerson(Person $person): PersonManager
+	{
+		$this->person = $person;
+
+		return $this;
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return Person|null
+	 */
+	public function find($id)
+	{
+		$this->person = new Person();
 
 		if ($id !== 'Add')
-			$person = $this->om->getRepository(Person::class)->find($id);
+			$this->person = $this->om->getRepository(Person::class)->find($id);
 
-//		$person->cancelURL   = $this->generateUrl('person_edit', ['id' => $id]);
-//		$person->deletePhoto = $this->generateUrl('person_photo_remove', ['id' => $person->getId()]);
-
-		return $person;
+		return $this->person;
 	}
 
 	/**
@@ -142,17 +182,18 @@ class PersonManager
 	}
 
 	/**
-	 * @param   Person $person
+	 * @param Person|null $person
 	 *
-	 * @return  bool
+	 * @return bool
 	 */
-	public function isStudent(Person $person): bool
+	public function isStudent(Person $person = null): bool
 	{
-		$student = $this->om->getRepository(Student::class)->findOneByPerson($person->getId());
-		if ($student instanceof Student && $student->getId() > 0)
+		$person = $this->checkPerson($person);
+
+		if ($person->getPersonType() === 'student')
 			return true;
 
-		return boolval($person->getStudentQuestion());
+		return false;
 	}
 
 	/**
@@ -200,12 +241,13 @@ class PersonManager
 	}
 
 	/**
-	 * @param Person $person
+	 * @param null|Person $person
 	 *
 	 * @return bool
 	 */
-	public function canBeUser(Person $person)
+	public function canBeUser(Person $person = null)
 	{
+		$person = $this->checkPerson($person);
 		if (empty($person->getEmail()))
 			return false;
 
@@ -217,8 +259,9 @@ class PersonManager
 	 *
 	 * @return bool
 	 */
-	public function isUser(Person $person)
+	public function isUser(Person $person = null)
 	{
+		$person = $this->checkPerson($person);
 		if (is_null($person->getUser()))
 			return false;
 
@@ -279,17 +322,31 @@ class PersonManager
 	 *
 	 * @return bool
 	 */
-	public function canDeleteUser(Person $person): bool
+	public function canDeleteUser(Person $person = null): bool
 	{
-		if (is_null($person->getUser()))
-			return false;
+		$person = $this->checkPerson($person);
 
-		//Place rules here to stop delete .
-		$user = $this->om->getRepository(User::class)->find($person->getUser()->getId());
-		if (!$user instanceof User)
-			return false;
-
-		return $user->canDelete();
+		return $this->userProvider->getUserManager()->canDeleteUser($person->getUser());
 	}
 
+	/**
+	 * @param Person|null $person
+	 *
+	 * @return Person
+	 */
+	private function checkPerson(Person $person = null): Person
+	{
+		if ($person instanceof Person)
+		{
+			$this->person = $person;
+
+			return $this->person;
+		}
+		if ($this->person instanceof Person)
+			return $this->person;
+
+		$this->person = $this->getPerson('Add');
+
+		return $this->person;
+	}
 }

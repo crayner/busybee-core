@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\People\PersonBundle\Controller;
 
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Busybee\People\PersonBundle\Entity\Person;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,96 +17,75 @@ class UserController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$person = $this->get('busybee_people_person.repository.person_repository')->find($id);
+		$personManager = $this->get('busybee_people_person.model.person_manager');
 
-		if (empty($person->getEmail()))
+		$person = $personManager->find($id);
+
+		$user = $person->getUser();
+
+		$om = $this->get('doctrine')->getManager();
+
+		// Remove User from person
+
+		if ($user instanceof User && $personManager->canDeleteUser())
 		{
+			$person->setUser(null);
+			$om->persist($person);
+			$om->flush();
+
 			return new JsonResponse(
 				array(
-					'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('user.toggle.notUser', array('%name%' => $person->formatName()), 'BusybeePersonBundle') . '</div>',
-					'status'  => 'failed',
+					'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('user.toggle.removeSuccess', array('%name%' => $user->formatName()), 'BusybeePersonBundle') . '</div>',
+					'status'  => 'removed',
 				),
 				200
 			);
 		}
 
-		$user = $this->get('busybee_core_security.repository.user_repository')->findOneByEmail($person->getEmail());
-
-		if (is_null($user) && !empty($person->getEmail2()))
-			$user = $this->get('busybee_core_security.repository.user_repository')->findOneByEmail($person->getEmail2());
-
-		if (!$person instanceof Person)
-			return new JsonResponse(
-				array(
-					'message' => '<div class="alert alert-danger fadeAlert">' . $this->get('translator')->trans('user.toggle.personMissing', array(), 'BusybeePersonBundle') . '</div>',
-					'status'  => 'failed'
-				),
-				200
-			);
-		$em = $this->get('doctrine')->getManager();
-		if ($user instanceof User)
+		if (!empty($person->getEmail()) && $personManager->canBeUser())
 		{
-			if ($this->get('busybee_people_person.model.person_manager')->canDeleteUser($person))
-			{
-				$this->get('busybee_people_person.model.person_manager')->deleteUser($person);
+			$user = $om->getRepository(User::class)->findOneByEmail($person->getEmail());
 
-				return new JsonResponse(
-					array(
-						'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('user.toggle.removeSuccess', array('%name%' => $user->formatName()), 'BusybeePersonBundle') . '</div>',
-						'status'  => 'removed',
-					),
-					200
-				);
-			}
-			else
+			if (is_null($user) && !empty($person->getEmail2()))
+				$user = $om->getRepository(User::class)->findOneByEmail($person->getEmail2());
+
+			if (is_null($user))
 			{
-				return new JsonResponse(
-					array(
-						'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('user.toggle.removeRestricted', array('%name%' => $user->formatName()), 'BusybeePersonBundle') . '</div>',
-						'status'  => 'failed',
-					),
-					200
-				);
-			}
-		}
-		else
-		{
-			if ($this->get('busybee_people_person.model.person_manager')->canBeUser($person))
-			{
-				if (is_null($user))
-					$user = new User();
+				$user = new User();
 				$user->setEmail($person->getEmail());
 				$user->setEmailCanonical($person->getEmail());
 				$user->setUsername($person->getEmail());
 				$user->setUsernameCanonical($person->getEmail());
 				$user->setLocale($this->getParameter('locale'));
-				$user->setEnabled(true);
-				$user->setLocked(false);
-				$user->setExpired(false);
-				$user->setCredentialsExpired(true);
 				$user->setPassword(password_hash(uniqid(), PASSWORD_BCRYPT));
-				$person->setUser($user);
-				$em->persist($person);
-				$em->flush();
+				$user->setCredentialsExpired(true);
+			}
+			$user->setEnabled(true);
+			$user->setLocked(false);
+			$user->setExpired(false);
+			$user->setCredentialsExpireAt(null);
+			$user->setExpiresAt(null);
 
-				return new JsonResponse(
-					array(
-						'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('user.toggle.addSuccess', array('%name%' => $user->formatName()), 'BusybeePersonBundle') . '</div>',
-						'status'  => 'added',
-					),
-					200
-				);
-			}
-			else
-			{
-				return new JsonResponse(
-					array(
-						'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('user.toggle.addRestricted', array('%name%' => $person->formatName()), 'BusybeePersonBundle') . '</div>',
-						'status'  => 'failed',
-					),
-					200
-				);
-			}
+			$person->setUser($user);
+			$om->persist($person);
+			$om->flush();
+
+			return new JsonResponse(
+				array(
+					'message' => '<div class="alert alert-success fadeAlert">' . $this->get('translator')->trans('user.toggle.addSuccess', array('%name%' => $user->formatName()), 'BusybeePersonBundle') . '</div>',
+					'status'  => 'added',
+				),
+				200
+			);
+
 		}
+
+		return new JsonResponse(
+			array(
+				'message' => '<div class="alert alert-warning fadeAlert">' . $this->get('translator')->trans('user.toggle.notUser', array('%name%' => $person->formatName()), 'BusybeePersonBundle') . '</div>',
+				'status'  => 'failed',
+			),
+			200
+		);
 	}
 }

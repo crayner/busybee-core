@@ -1,9 +1,11 @@
 {% trans_default_domain "BusybeeSecurityBundle" %}
 
+{% if header is not defined or header %}
 {% set h3Content = '' %}
 {% set h3Content = h3Content ~ returnButton({windowOpen: {route: path('security_user_list')}})|raw %}
 {% set h3Content = h3Content ~ saveButton()|raw %}
 {% include '@BusybeeTemplate/Page/panelStart.html.twig'  with {'header': 'security.user.manage.title', transDomain: 'BusybeeSecurityBundle'} %}
+{% endif %}
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 well">
@@ -73,5 +75,6 @@
         </div>
     {% endif %}
 </div>
-
+{% if header is not defined or header %}
 {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+{% endif %}

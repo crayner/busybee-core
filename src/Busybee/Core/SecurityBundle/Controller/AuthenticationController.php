@@ -243,7 +243,7 @@ class AuthenticationController extends BusybeeController
 		if ($user->getChangePassword())
 		{
 
-			$this->session->getFlashBag()->add('warning', $this->get('translator')->trans('password.change.now', array(), 'BusybeeSecurityBundle'));
+			$this->get('session.flash_bag')->add('warning', $this->get('translator')->trans('password.change.now', array(), 'BusybeeSecurityBundle'));
 
 			$route = $this->get('router')->generate('security_user_edit');
 

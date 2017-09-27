@@ -75,6 +75,7 @@
         </div>
 
         {% for person in pagination.getResult %}
+            {% set xx = manager.getPerson(person.id) %}
             <div class="row row-striped">
                 <div class="col-md-1 hidden-sm hidden-xs">
                     {{ person.0.person.getPhoto75('left')|raw }}
@@ -113,7 +114,7 @@
                                 {% set staffOn = true %}
                             {% endif %}
                             <div>
-                                {{ onOffButton({value: staffOn, on: {class: 'btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'staffToggle' ~ person.id}}, off: {class: 'btn btn-danger halflings halflings-thumbs-down', style: '', additional: {id: 'staffToggle' ~ person.id}}})|raw }}
+                                {{ onOffButton({value: staffOn, on: {class: 'btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'staffToggle' ~ person.id}}, off: {class: 'btn btn-primary halflings halflings-thumbs-down', style: '', additional: {id: 'staffToggle' ~ person.id}}})|raw }}
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -122,7 +123,7 @@
                                 {% set studentOn = true %}
                             {% endif %}
                             <div>
-                                {{ onOffButton({value: studentOn, on: {class: 'btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'studentToggle' ~ person.id}}, off: {class: 'btn btn-danger halflings halflings-thumbs-down', style: '', additional: {id: 'studentToggle' ~ person.id}}})|raw }}
+                                {{ onOffButton({value: studentOn, on: {class: 'btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'studentToggle' ~ person.id}}, off: {class: 'btn btn-primary halflings halflings-thumbs-down', style: '', additional: {id: 'studentToggle' ~ person.id}}})|raw }}
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -131,11 +132,14 @@
                                 {% set userOn = true %}
                             {% endif %}
                             {% set additional = {id: 'userToggle' ~ person.id} %}
-                            {% if not userOn and not canBeUser(person.0) %}
+                            {% if not userOn and not canBeUser() %}
+                                {% set additional = additional|merge({disabled: 'disabled'}) %}
+                            {% endif %}
+                            {% if userOn and not canDeleteUser() %}
                                 {% set additional = additional|merge({disabled: 'disabled'}) %}
                             {% endif %}
                             <div>
-                                {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'userToggle' ~ person.id}}, off: {class: 'userToggle btn btn-danger halflings halflings-thumbs-down', style: '', additional: {id: 'userToggle' ~ person.id}}})|raw }}
+                                {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success halflings halflings-thumbs-up', style: '', additional: additional}, off: {class: 'userToggle btn btn-primary halflings halflings-thumbs-down', style: '', additional: additional}})|raw }}
                             </div>
                         </div>
                     </div>
@@ -148,71 +152,9 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
     {% include '@BusybeeTemplate/Toggle/script.html.twig' %}
-    <script type="text/javascript">
-        $(".studentToggle").change(function () {
-            var id = $(this).prop('id');
-            id = id.substring(13);
-            var route = "{{ path('person_toggle_student', {'id': '__id__'}) }}";
-            route = route.replace('__id__', id);
-            $.ajax({
-                url: route,
-                type: "POST",
-                success: function (data) {
-                    $("#peopleError").html(data.message);
-                    if (data.status == "removed") {
-                        $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-remove btn btn-danger");
-                    }
-                    if (data.status == "added") {
-                        $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-ok btn btn-success");
-                    }
-                    $(".fadeAlert").fadeOut(5000);
-                }
-            })
-        });
-        $(".staffToggle").change(function () {
-            var id = $(this).prop('id');
-            id = id.substring(11);
-            var route = "{{ path('person_toggle_staff', {'id': '__id__'}) }}";
-            route = route.replace('__id__', id);
-            $.ajax({
-                url: route,
-                type: "POST",
-                success: function (data) {
-                    $("#peopleError").html(data.message);
-                    if (data.status == "removed") {
-                        $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-remove btn btn-danger");
-                    }
-                    if (data.status == "added") {
-                        $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-ok btn btn-success");
-                    }
-                    $(".fadeAlert").fadeOut(5000);
-                }
-            })
-        });
-        $(".userToggle").click(function () {
-            var id = $(this).prop('id');
-            id = id.replace('userToggle', '');
-            var route = "{{ path('person_toggle_user', {'id': '__id__'}) }}";
-            route = route.replace('__id__', id);
-            $.ajax({
-                url: route,
-                type: "POST",
-                success: function (data) {
-                    $("#peopleError").html(data.message);
-                    if (data.status == "removed") {
-                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-thumbs-down btn btn-danger");
-                    }
-                    if (data.status == "added") {
-                        $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-thumbs-up btn btn-success");
-                        $("#userToggle" + id).prop('disabled', true);
-                    }
-                    $(".fadeAlert").fadeOut(5000);
-                }
-            })
-        });
-    </script>
+    {% include '@BusybeePerson/Person/toggleScript.html.twig' %}
     {% include '@Pagination/Paginator/script.html.twig' %}
 {% endblock javascripts %}
 

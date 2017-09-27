@@ -187,7 +187,7 @@ abstract class User implements UserInterface
 		if ($this->getId() == 1)
 			return false;
 
-		if (!$this->enabled || $this->locked)
+		if (!$this->enabled)
 			return true;
 
 		return false;

@@ -5,60 +5,8 @@
 <div class="panel panel-primary busybee-panel">
     {% include "BusybeePersonBundle:Person:panelHeader.html.twig"  with {'header': 'person.user.title'} %}
     <div class="panel-body">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-5 well">
-                    {{ form_row(form.user.username) }}
-                    {{ form_row(form.user.usernameCanonical) }}
-                    {{ form_widget(form.user.email) }}
-                    {{ form_row(form.user.emailCanonical) }}
-                    {{ form_widget(form.user.password) }}
-                </div>
-                <div class="col-sm-4 well">
-                    {{ form_row(form.user.locale) }}
-                </div>
-                <div class="col-sm-3 well">
-                    {{ form_row(form.user.year) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-5 well">
-                    {{ form_widget(form.user.directroles) }}
-                </div>
-                <div class="col-sm-5 well">
-                    {{ form_row(form.user.groups) }}
-                </div>
-                <div class="col-sm-2 well">
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 well">
-                            {% set route = path('home_page') ~ '?_switch_user=' ~ form.user.vars.value.getUsername %}
-                            {% set additional = '' %}
-                            {% if form.user.vars.value.getId == app.user.getId %}{% set additional = 'disabled' %}{% endif %}
-                            {{ miscButton({'transDomain': 'BusybeeSecurityBundle', 'title': 'security.impersonate.title', 'windowOpen': {'route': route }, 'class': 'btn btn-warning glyphicons glyphicons-theater', 'type': 'button', 'style': '', 'additional': additional})|raw }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 well">
-                            {{ editButton({'title': 'user.request.passwordReset', 'class': 'btn btn-warning glyphicons glyphicons-user-key', 'transDomain': 'BusybeeSecurityBundle', 'windowOpen': {'route': path('security_user_reset_request', {'id': form.user.vars.value.getId})}})|raw }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3 well">
-                    {{ form_row(form.user.enabled) }}
-                </div>
-                <div class="col-sm-3 well">
-                    {{ form_row(form.user.locked) }}
-                </div>
-                <div class="col-sm-3 well">
-                    {{ form_row(form.user.expired) }}
-                </div>
-                <div class="col-sm-3 well">
-                    {{ form_row(form.user.credentials_expired) }}
-                </div>
-            </div>
-        </div>
+        {% include '@BusybeeSecurity/User/userContent.html.twig' with {form: form.user, header: false} %}
     </div>
 </div>
 
+{% do form.user.setRendered() %}

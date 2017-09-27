@@ -14,8 +14,10 @@ Busybee\People\StudentBundle\Entity\StudentGrade:
             length: '32'
         lastModified:
             type: datetime
+            column: last_modified
         createdOn:
             type: datetime
+            column: created_on
     manyToOne:
         student:
             targetEntity: Busybee\People\StudentBundle\Entity\Student

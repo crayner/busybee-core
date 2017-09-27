@@ -65,12 +65,10 @@ Busybee\People\PersonBundle\Entity\Person:
             nullable: true
         lastModified:
             type: datetime
-            nullable: true
-            name: last_modified
+            column: last_modified
         createdOn:
             type: datetime
-            nullable: true
-            name: created_on
+            column: created_on
         vehicleRegistration:
             type: string
             length: '25'

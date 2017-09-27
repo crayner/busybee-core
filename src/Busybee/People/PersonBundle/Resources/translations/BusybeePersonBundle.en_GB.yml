@@ -27,6 +27,10 @@ person:
             help: ''
     user:
         category: User
+        question:
+            label: User ?
+        tab: User
+        title: 'User Details: %name%'
     surname:
         label: Family Name
     firstName:
@@ -83,3 +87,7 @@ address:
     add: Add Address
     refresh: Refresh Address Lists
     erase: Erase Address
+user:
+    toggle:
+        removeSuccess: The user detail was removed from this person.
+        addSuccess: User information was linked to this person.

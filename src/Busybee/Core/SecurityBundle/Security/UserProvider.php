@@ -2,6 +2,7 @@
 
 namespace Busybee\Core\SecurityBundle\Security;
 
+use Busybee\Core\SecurityBundle\Doctrine\UserManager;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -9,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Busybee\Core\SecurityBundle\Model\User;
 use Busybee\Core\SecurityBundle\Model\UserInterface;
 use Busybee\Core\SecurityBundle\Model\UserManagerInterface;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class UserProvider implements UserProviderInterface
 {
@@ -87,5 +89,25 @@ class UserProvider implements UserProviderInterface
 		$userClass = $this->userManager->getClass();
 
 		return $userClass === $class || is_subclass_of($class, $userClass);
+	}
+
+	public function find($id)
+	{
+		$user = $this->userManager->find($id);
+		if (!$user)
+		{
+			throw new NotFoundResourceException(sprintf('User "%s" does not exist.', $id));
+		}
+
+		return $user;
+	}
+
+	/**
+	 * Get User Manager
+	 * @return UserManager
+	 */
+	public function getUserManager(): UserManager
+	{
+		return $this->userManager;
 	}
 }

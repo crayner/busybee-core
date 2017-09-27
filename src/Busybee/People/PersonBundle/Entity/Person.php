@@ -1,9 +1,12 @@
 <?php
 namespace Busybee\People\PersonBundle\Entity;
 
+use Busybee\People\AddressBundle\Entity\Address;
 use Busybee\People\PersonBundle\Model\PersonModel;
 use Busybee\Core\SecurityBundle\Entity\User;
+use Busybee\People\PhoneBundle\Entity\Phone;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Person
@@ -106,7 +109,7 @@ class Person extends PersonModel
 	private $address2;
 
 	/**
-	 * @var \Doctrine\Common\Collections\Collection
+	 * @var Collection
 	 */
 	private $phone;
 	/**
@@ -118,16 +121,6 @@ class Person extends PersonModel
 	 * @var string
 	 */
 	private $importIdentifier;
-
-	/**
-	 * @var boolean
-	 */
-	private $staffQuestion;
-
-	/**
-	 * @var boolean
-	 */
-	private $studentQuestion;
 
 	/**
 	 * @var string
@@ -540,7 +533,7 @@ class Person extends PersonModel
 	/**
 	 * Get address1
 	 *
-	 * @return \Busybee\People\AddressBundle\Entity\Address
+	 * @return Address
 	 */
 	public function getAddress1()
 	{
@@ -550,11 +543,11 @@ class Person extends PersonModel
 	/**
 	 * Set address1
 	 *
-	 * @param \Busybee\People\AddressBundle\Entity\Address $address1
+	 * @param Address $address1
 	 *
 	 * @return Person
 	 */
-	public function setAddress1(\Busybee\People\AddressBundle\Entity\Address $address1 = null)
+	public function setAddress1(Address $address1 = null)
 	{
 		$this->address1 = $address1;
 
@@ -564,7 +557,7 @@ class Person extends PersonModel
 	/**
 	 * Get address2
 	 *
-	 * @return \Busybee\People\AddressBundle\Entity\Address
+	 * @return Address
 	 */
 	public function getAddress2()
 	{
@@ -574,11 +567,11 @@ class Person extends PersonModel
 	/**
 	 * Set address2
 	 *
-	 * @param \Busybee\People\AddressBundle\Entity\Address $address2
+	 * @param Address $address2
 	 *
 	 * @return Person
 	 */
-	public function setAddress2(\Busybee\People\AddressBundle\Entity\Address $address2 = null)
+	public function setAddress2(Address $address2 = null)
 	{
 		$this->address2 = $address2;
 
@@ -588,11 +581,11 @@ class Person extends PersonModel
 	/**
 	 * Add phone
 	 *
-	 * @param \Busybee\People\PhoneBundle\Entity\Phone $phone
+	 * @param Phone $phone
 	 *
 	 * @return Person
 	 */
-	public function addPhone(\Busybee\People\PhoneBundle\Entity\Phone $phone)
+	public function addPhone(Phone $phone)
 	{
 		$this->phone[] = $phone;
 
@@ -602,9 +595,9 @@ class Person extends PersonModel
 	/**
 	 * Remove phone
 	 *
-	 * @param \Busybee\People\PhoneBundle\Entity\Phone $phone
+	 * @param Phone $phone
 	 */
-	public function removePhone(\Busybee\People\PhoneBundle\Entity\Phone $phone)
+	public function removePhone(Phone $phone)
 	{
 		$this->phone->removeElement($phone);
 	}
@@ -612,7 +605,7 @@ class Person extends PersonModel
 	/**
 	 * Get phone
 	 *
-	 * @return \Doctrine\Common\Collections\Collection
+	 * @return Collection
 	 */
 	public function getPhone()
 	{
@@ -639,54 +632,6 @@ class Person extends PersonModel
 	public function setIdentifier($identifier)
 	{
 		$this->identifier = $identifier;
-
-		return $this;
-	}
-
-	/**
-	 * Get staffQuestion
-	 *
-	 * @return boolean
-	 */
-	public function getStaffQuestion()
-	{
-		return $this->staffQuestion;
-	}
-
-	/**
-	 * Set staffQuestion
-	 *
-	 * @param boolean $staffQuestion
-	 *
-	 * @return Person
-	 */
-	public function setStaffQuestion($staffQuestion)
-	{
-		$this->staffQuestion = $staffQuestion;
-
-		return $this;
-	}
-
-	/**
-	 * Get studentQuestion
-	 *
-	 * @return boolean
-	 */
-	public function getStudentQuestion()
-	{
-		return $this->studentQuestion;
-	}
-
-	/**
-	 * Set studentQuestion
-	 *
-	 * @param boolean $studentQuestion
-	 *
-	 * @return Person
-	 */
-	public function setStudentQuestion($studentQuestion)
-	{
-		$this->studentQuestion = $studentQuestion;
 
 		return $this;
 	}
@@ -729,7 +674,9 @@ class Person extends PersonModel
 	}
 
 	/**
-	 * @param string $person_type
+	 * @param $person_type
+	 *
+	 * @return Person
 	 */
 	public function setPersonType($person_type)
 	{

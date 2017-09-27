@@ -26,6 +26,7 @@
     {% set form_path = [] %}
     {% set form_path = form_path|merge({'id': id}) %}
     {{ form_start(form, {'action': path('person_edit', form_path)}) }}
+    <div id="peopleError"></div>
     <div id="formTabs">
         <ul class="nav nav-tabs" role="tablist">
             {% for name,tab in tabs.getTabs %}
@@ -36,7 +37,7 @@
                 {% if name == 'student' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
                 {% if name == 'immigration' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
                 {% if name == 'grades' and form.student.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
-                {% if name == 'user' and form.user.person is not defined %}{% set disabled = ' class=disabled' %}{% endif %}
+                {% if name == 'user' and not isUser() %}{% set disabled = ' class=disabled' %}{% endif %}
                 <li{{ disabled }} role="presentation"><a href="#{{ name }}" role="tab"
                                                          data-toggle="tab">{{ tab.label|trans({}, translation) }}</a>
                 </li>
@@ -63,7 +64,7 @@
                     <div class="tab-pane" id="{{ name }}">
                         {% include 'BusybeeTemplateBundle:Forms:emptyTab.html.twig' with {'name': 'person.student.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>
-                {% elseif name == 'user' and not isUser(form.vars.value) %}
+                {% elseif name == 'user' and not isUser() %}
                     <div class="tab-pane" id="{{ name }}">
                         {% include 'BusybeeTemplateBundle:Forms:emptyTab.html.twig' with {'name': 'person.user.title'|trans({'%name%': form.vars.value.formatName}) } %}
                     </div>

@@ -3,6 +3,7 @@
 namespace Busybee\Core\SecurityBundle\Model;
 
 use Busybee\Core\CalendarBundle\Entity\Year;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SecurityBundle\Util\CanonicaliserInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -268,4 +269,38 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
 
 		return $year;
 	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return mixed
+	 */
+	public function find($id)
+	{
+		return $this->objectManager->getRepository(User::class)->find($id);
+	}
+
+
+	/**
+	 * @param User $person
+	 *
+	 * @return bool
+	 */
+	public function canDeleteUser(User $user = null): bool
+	{
+
+		if (is_null($user))
+			return false;
+
+		//Place rules here to stop delete .
+		if (!$user instanceof User)
+			return false;
+
+		if (in_array('ROLE_SYSTEM_ADMIN', $user->getRoles()))
+			return false;
+
+
+		return $user->canDelete();
+	}
+
 }
