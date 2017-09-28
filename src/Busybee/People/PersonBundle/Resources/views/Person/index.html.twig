@@ -114,7 +114,7 @@
                                 {% set staffOn = true %}
                             {% endif %}
                             <div>
-                                {{ onOffButton({value: staffOn, on: {class: 'btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'staffToggle' ~ person.id}}, off: {class: 'btn btn-primary halflings halflings-thumbs-down', style: '', additional: {id: 'staffToggle' ~ person.id}}})|raw }}
+                                {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'staffToggle' ~ person.id}}, off: {class: 'staffToggle btn btn-primary halflings halflings-thumbs-down', style: '', additional: {id: 'staffToggle' ~ person.id}}})|raw }}
                             </div>
                         </div>
                         <div class="col-sm-4">

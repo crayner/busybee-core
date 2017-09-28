@@ -3,6 +3,7 @@
 namespace Busybee\People\PersonBundle\Model;
 
 use Busybee\People\PersonBundle\Entity\Person;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -225,6 +226,9 @@ abstract class PersonModel
 	 */
 	public function isStaff(): bool
 	{
+		if ($this instanceof Staff)
+			return true;
+
 		if ($this->getPersonType() === 'staff')
 			return true;
 

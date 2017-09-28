@@ -674,18 +674,6 @@ class Person extends PersonModel
 	}
 
 	/**
-	 * @param $person_type
-	 *
-	 * @return Person
-	 */
-	public function setPersonType($person_type)
-	{
-		$this->person_type = $person_type;
-
-		return $this;
-	}
-
-	/**
 	 * Get vehicleRegistration
 	 *
 	 * @return string
@@ -705,6 +693,28 @@ class Person extends PersonModel
 	public function setVehicleRegistration($vehicleRegistration): Person
 	{
 		$this->vehicleRegistration = $vehicleRegistration;
+
+		return $this;
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function setId(int $id)
+	{
+		$this->id = $id;
+	}
+
+	/**
+	 * Set Phone
+	 *
+	 * @param Collection $phone
+	 *
+	 * @return $this
+	 */
+	public function setPhone(Collection $phone)
+	{
+		$this->phone = $phone;
 
 		return $this;
 	}

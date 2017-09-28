@@ -14,18 +14,18 @@
             success: function (data) {
                 $("#peopleError").html(data.message);
                 if (data.status == "removed") {
-                    $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-remove btn btn-danger");
+                    $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-thumbs-down btn btn-primary");
                 }
                 if (data.status == "added") {
-                    $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-ok btn btn-success");
+                    $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-thumbs-up btn btn-success");
                 }
                 $(".fadeAlert").fadeOut(5000);
             }
         })
     });
-    $(".staffToggle").change(function () {
+    $(".staffToggle").click(function () {
         var id = $(this).prop('id');
-        id = id.substring(11);
+        id = id.replace('staffToggle', '');
         var route = "{{ path('person_toggle_staff', {'id': '__id__'}) }}";
         route = route.replace('__id__', id);
         $.ajax({
@@ -34,10 +34,10 @@
             success: function (data) {
                 $("#peopleError").html(data.message);
                 if (data.status == "removed") {
-                    $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-remove btn btn-danger");
+                    $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-thumbs-down btn btn-primary");
                 }
                 if (data.status == "added") {
-                    $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-ok btn btn-success");
+                    $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-thumbs-up btn btn-success");
                 }
                 $(".fadeAlert").fadeOut(5000);
             }

@@ -1,13 +1,6 @@
 Busybee\People\StaffBundle\Entity\Staff:
     type: entity
-    table: staff
     repositoryClass: Busybee\People\StaffBundle\Repository\StaffRepository
-    id:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
     fields:
         staffType:
             type: string

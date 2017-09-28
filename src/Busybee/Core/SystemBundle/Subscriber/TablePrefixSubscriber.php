@@ -35,13 +35,19 @@ class TablePrefixSubscriber implements \Doctrine\Common\EventSubscriber
 	 */
 	public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
 	{
+		if (empty($this->prefix)) return;
+
 		$classMetadata = $eventArgs->getClassMetadata();
 
 		if (!$classMetadata->isInheritanceTypeSingleTable() || $classMetadata->getName() === $classMetadata->rootEntityName)
-			$classMetadata->setTableName($this->prefix . $classMetadata->getTableName());
-
+		{
+			$tableName = $classMetadata->getTableName();
+			if (strpos($tableName, $this->prefix) !== 0)
+				$classMetadata->setPrimaryTable(['name' => $this->prefix . $tableName]);
+		}
 		foreach ($classMetadata->getAssociationMappings() as $fieldName => $mapping)
 			if ($mapping['type'] == \Doctrine\ORM\Mapping\ClassMetadataInfo::MANY_TO_MANY && $mapping['isOwningSide'])
-				$classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $this->prefix . $mapping['joinTable']['name'];
+				if (strpos($mapping['joinTable']['name'], $this->prefix) !== 0)
+					$classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $this->prefix . $mapping['joinTable']['name'];
 	}
 }

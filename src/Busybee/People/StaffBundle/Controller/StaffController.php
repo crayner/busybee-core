@@ -21,7 +21,9 @@ class StaffController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$person = $this->get('busybee_people_person.repository.person_repository')->find($id);
+		$personManager = $this->get('busybee_people_person.model.person_manager');
+
+		$person = $personManager->find($id);
 
 		if (!$person instanceof Person)
 			return new JsonResponse(
@@ -32,11 +34,12 @@ class StaffController extends BusybeeController
 				200
 			);
 		$em = $this->get('doctrine')->getManager();
-		if ($person->getStaffQuestion())
+
+		if ($personManager->isStaff())
 		{
-			if ($this->get('busybee_people_person.model.person_manager')->canDeleteStaff($person))
+			if ($personManager->canDeleteStaff())
 			{
-				$this->get('busybee_people_person.model.person_manager')->deleteStaff($person);
+				$personManager->deleteStaff();
 
 				return new JsonResponse(
 					array(
@@ -59,9 +62,9 @@ class StaffController extends BusybeeController
 		}
 		else
 		{
-			if (!$person->getStaffQuestion() && $this->get('busybee_people_person.model.person_manager')->canBeStaff($person))
+			if (!$personManager->isStaff() && $personManager->canBeStaff())
 			{
-				$this->get('busybee_people_person.model.person_manager')->createStaff($person);
+				$personManager->createStaff();
 
 				return new JsonResponse(
 					array(

@@ -3,21 +3,10 @@
 namespace Busybee\People\StaffBundle\Model;
 
 use Busybee\InstituteBundle\Entity\DepartmentStaff;
-use Busybee\People\PersonBundle\Model\PersonModel;
+use Busybee\People\PersonBundle\Entity\Person;
 
-abstract class StaffModel extends PersonModel
+abstract class StaffModel extends Person
 {
-	public function __construct()
-	{
-		$this->setStaffType('Unknown');
-		$this->setJobTitle('Not Specified');
-	}
-
-	public function canDelete()
-	{
-		return true;
-	}
-
 	/**
 	 * @param string $float
 	 *
@@ -28,6 +17,9 @@ abstract class StaffModel extends PersonModel
 		return $this->getPerson()->getPhoto75($float);
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getDepartments()
 	{
 		$depts  = $this->getDepartment();
@@ -39,5 +31,15 @@ abstract class StaffModel extends PersonModel
 		}
 
 		return trim($string, ', ');
+	}
+
+	/**
+	 * @todo Check if a Staff record can be deleted
+	 */
+	public function canDelete()
+	{
+		// Add Staff Delete checks here.
+
+		return parent::canDelete();
 	}
 }

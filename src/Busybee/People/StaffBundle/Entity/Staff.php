@@ -10,11 +10,6 @@ use Busybee\People\StaffBundle\Model\StaffModel;
 class Staff extends StaffModel
 {
 	/**
-	 * @var integer
-	 */
-	private $id;
-
-	/**
 	 * @var string
 	 */
 	private $staffType;
@@ -28,17 +23,6 @@ class Staff extends StaffModel
 	 * @var string
 	 */
 	private $house;
-
-
-	/**
-	 * Get id
-	 *
-	 * @return integer
-	 */
-	public function getId()
-	{
-		return $this->id;
-	}
 
 	/**
 	 * Set staffType
@@ -61,6 +45,9 @@ class Staff extends StaffModel
 	 */
 	public function getStaffType()
 	{
+		if (empty($this->staffType))
+			$this->setStaffType('Unknown');
+
 		return $this->staffType;
 	}
 
@@ -85,6 +72,8 @@ class Staff extends StaffModel
 	 */
 	public function getJobTitle()
 	{
+		if (empty($this->jobTitle))
+			$this->setJobTitle('Not Specified');
 		return $this->jobTitle;
 	}
 

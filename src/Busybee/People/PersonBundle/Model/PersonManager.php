@@ -7,10 +7,10 @@ use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\FamilyBundle\Entity\Family;
 use Busybee\People\PersonBundle\Entity\Person;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\People\StudentBundle\Entity\Student;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\Mapping\MappingException;
 
 class PersonManager
 {
@@ -52,9 +52,11 @@ class PersonManager
 	 *
 	 * @return bool
 	 */
-	public function canDeleteStaff(Person $person)
+	public function canDeleteStaff(Person $person = null)
 	{
-		return $person->canDelete();
+		$this->checkPerson($person);
+
+		return $this->person->canDelete();
 	}
 
 	/**
@@ -172,10 +174,11 @@ class PersonManager
 	 *
 	 * @return bool
 	 */
-	public function canBeStaff(Person $person): bool
+	public function canBeStaff(Person $person = null): bool
 	{
-		//plcae rules here to stop new student.
-		if ($this->isStudent($person))
+		$person = $this->checkPerson($person);
+		//place rules here to stop new student.
+		if ($this->isStudent())
 			return false;
 
 		return true;
@@ -190,10 +193,7 @@ class PersonManager
 	{
 		$person = $this->checkPerson($person);
 
-		if ($person->getPersonType() === 'student')
-			return true;
-
-		return false;
+		return $person->isStudent();
 	}
 
 	/**
@@ -201,13 +201,14 @@ class PersonManager
 	 *
 	 * @return bool
 	 */
-	public function canBeStudent(Person $person): bool
+	public function canBeStudent(Person $person = null): bool
 	{
+		$person = $this->checkPerson($person);
 		//place rules here to stop new student.
-		if ($this->isStaff($person) || $this->isCareGiver($person))
+		if ($this->isStaff() || $this->isCareGiver())
 			return false;
 
-		return !$this->isStudent($person);
+		return !$this->isStudent();
 	}
 
 	/**
@@ -215,10 +216,9 @@ class PersonManager
 	 *
 	 * @return bool
 	 */
-	public function isStaff(Person $person): bool
+	public function isStaff(Person $person = null): bool
 	{
-		if (!$person instanceof Person)
-			return false;
+		$person = $this->checkPerson($person);
 
 		return $person->isStaff();
 	}
@@ -228,8 +228,10 @@ class PersonManager
 	 *
 	 * @return bool
 	 */
-	public function isCareGiver(Person $person): bool
+	public function isCareGiver(Person $person = null): bool
 	{
+		$person = $this->checkPerson($person);
+
 		if (!$this->om->getMetadataFactory()->hasMetadataFor(CareGiver::class))
 			return false;
 
@@ -348,5 +350,43 @@ class PersonManager
 		$this->person = $this->getPerson('Add');
 
 		return $this->person;
+	}
+
+	/**
+	 * Create Staff
+	 *
+	 * @param Person|null $person
+	 */
+	public function createStaff(Person $person = null)
+	{
+		$this->checkPerson($person);
+
+		if ($this->canBeStaff())
+		{
+			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
+
+			$this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "staff" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+			$this->om->refresh($this->person);
+		}
+	}
+
+	/**
+	 * Create Staff
+	 *
+	 * @param Person|null $person
+	 */
+	public function deleteStaff(Person $person = null)
+	{
+		$this->checkPerson($person);
+
+		if ($this->canDeleteStaff())
+		{
+			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
+
+			$this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "person" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+			$this->om->refresh($this->person);
+		}
 	}
 }
