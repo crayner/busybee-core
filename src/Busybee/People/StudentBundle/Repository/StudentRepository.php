@@ -14,19 +14,4 @@ use Doctrine\ORM\EntityRepository;
  */
 class StudentRepository extends EntityRepository
 {
-	/**
-	 * @param   integer $personID
-	 *
-	 * @return  Student
-	 */
-	public function findOneByPerson($personID)
-	{
-		$student = parent::find($personID);
-
-		$student = $student instanceof Person ? $student : new Person();
-
-		$student->setPersonType('student');
-
-		return $student;
-	}
 }

@@ -1,6 +1,4 @@
 Busybee\People\StaffBundle\Entity\Staff:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: person
     properties:
         staffType:
             - \Busybee\Core\TemplateBundle\Validator\SettingChoice:

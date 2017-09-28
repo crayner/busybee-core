@@ -62,7 +62,7 @@ parameters:
             label: person.staff.tab
             include: '@@BusybeeStaff/Person/staff.html.twig'
             message: staffMessage
-            translation: BusybeeStaffBundle
+            translation: BusybeePersonBundle
 #        immigration:
 #            label: person.tab.immigration
 #            include: BusybeeStudentBundle:Person:immigration.html.twig

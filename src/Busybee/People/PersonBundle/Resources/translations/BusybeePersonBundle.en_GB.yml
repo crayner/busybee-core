@@ -20,6 +20,8 @@ person:
         question:
             label: 'Staff Member ?'
             help: ''
+        tab: Staff
+        title: 'Staff Details: %name%'
     student:
         category: Student
         question:
@@ -91,3 +93,13 @@ user:
     toggle:
         removeSuccess: The user detail was removed from this person.
         addSuccess: User information was linked to this person.
+staff:
+    stafftype:
+        label: Staff Category
+        placeholder: Select Staff Position Category
+    jobTitle:
+        label: Position Title
+    house:
+        label: House
+        placeholder: Select a House
+        help: Adding the family to a house will populate student records automaically.

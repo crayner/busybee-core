@@ -3,6 +3,8 @@
 namespace Busybee\People\PersonBundle\Events;
 
 use Busybee\Core\TemplateBundle\Model\TabManager;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\TextType;
 use Busybee\People\PersonBundle\Form\UserType;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\Core\SecurityBundle\Entity\User;
@@ -75,15 +77,13 @@ class PersonSubscriber implements EventSubscriberInterface
 		$person = $event->getData();
 		$form   = $event->getForm();
 
-		if (!$person->isStaff())
-			$form->remove('staff');
+		if ($person->isStaff())
+			$this->addStaffFields($form);
 
-		if (!$person->isStudent())
-			$form->remove('student');
+		if ($person->isStudent())
+			$form->add('student', StudentType::class);
 
-		if (!$person->isUser())
-			$form->remove('user');
-		else
+		if ($person->isUser())
 		{
 			$user = is_null($person->getUser()) ? new User() : $person->getUser();
 			$person->setUser($user);
@@ -224,5 +224,57 @@ class PersonSubscriber implements EventSubscriberInterface
 			$data['photo'] = null;
 
 		$event->setData($data);
+	}
+
+	private function addStaffFields($form)
+	{
+		$form
+			->add('staffType', SettingChoiceType::class, array(
+					'label'        => 'staff.stafftype.label',
+					'setting_name' => 'Staff.Categories',
+					'placeholder'  => 'staff.stafftype.placeholder',
+					'attr'         => array(
+						'class' => 'staffMember',
+					)
+				)
+			)
+			->add('jobTitle', TextType::class, array(
+					'label' => 'staff.jobTitle.label',
+					'attr'  => array(
+						'class' => 'staffMember',
+					)
+				)
+			)
+			->add('house', SettingChoiceType::class, array(
+					'label'        => 'staff.house.label',
+					'placeholder'  => 'staff.house.placeholder',
+					'required'     => false,
+					'attr'         => array(
+						'help' => 'staff.house.help',
+					),
+					'setting_name' => 'house.list',
+				)
+			)/*			->add('homeroom', EntityType::class, array(
+					'label'         => 'staff.label.homeroom',
+					'class'         => Space::class,
+					'choice_label'  => 'name',
+					'placeholder'   => 'staff.placeholder.homeroom',
+					'required'      => false,
+					'attr'          => array(
+						'help' => 'staff.help.homeroom',
+					),
+					'query_builder' => function (EntityRepository $er) use ($options) {
+						return $er->createQueryBuilder('h')
+							->leftJoin('h.staff', 's')
+							->where('s.person = :person_id')
+							->orWhere('h.staff IS NULL')
+							->setParameter('person_id', $options['person_id'])
+							->orderBy('h.name', 'ASC');
+					},
+				)
+			)
+*/
+		;
+
 	}
 }

@@ -240,6 +240,9 @@ abstract class PersonModel
 	 */
 	public function isStudent(): bool
 	{
+		if ($this instanceof Student)
+			return true;
+
 		if ($this->getPersonType() === 'student')
 			return true;
 

@@ -10,7 +10,10 @@ use Busybee\Core\TemplateBundle\Type\ImageType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\TemplateBundle\Type\ToggleType;
 use Busybee\People\AddressBundle\Entity\Address;
+use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Events\PersonSubscriber;
+use Busybee\People\PersonBundle\Form\Transformer\PersonViewTransformer;
+use Busybee\People\PersonBundle\Model\PersonInterface;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\People\PhoneBundle\Form\PhoneType;
 use Busybee\People\StaffBundle\Form\StaffType;
@@ -73,7 +76,10 @@ class PersonType extends AbstractType
 					'required'     => false,
 				)
 			)
-			->add('identifier', HiddenType::class)
+			->add('identifier', HiddenType::class,
+				[
+				]
+			)
 			->add('surname', null, array(
 					'label' => 'person.surname.label',
 					'attr'  => array(
@@ -152,7 +158,7 @@ class PersonType extends AbstractType
 			->add('address1', AutoCompleteType::class,
 				array(
 					'class'        => Address::class,
-					'data'         => $options['data']->getAddress1(),
+//					'data'         => $options['data']->getAddress1(),
 					'choice_label' => 'singleLineAddress',
 					'empty_data'   => null,
 					'required'     => false,
@@ -167,7 +173,7 @@ class PersonType extends AbstractType
 				array(
 					'class'        => Address::class,
 					'choice_label' => 'singleLineAddress',
-					'data'         => $options['data']->getAddress2(),
+//					'data'         => $options['data']->getAddress2(),
 					'empty_data'   => null,
 					'required'     => false,
 					'label'        => 'person.address2.label',
@@ -189,16 +195,7 @@ class PersonType extends AbstractType
 					'translation_domain' => 'BusybeePersonBundle',
 					'required'           => false,
 				)
-			)
-			->add('staff', StaffType::class)
-			->add('student', StudentType::class)
-			->add('user', UserType::class,
-				[
-					'isSystemAdmin' => $options['isSystemAdmin'],
-					'data'          => is_null($options['data']->getUser()) ? new User() : $options['data']->getUser(),
-				]
 			);
-
 		$builder->addEventSubscriber(new PersonSubscriber($this->personManager, $this->manager, $this->tm, $options['isSystemAdmin']));
 	}
 
@@ -209,7 +206,7 @@ class PersonType extends AbstractType
 	{
 		$resolver->setDefaults(
 			array(
-				'data_class'         => 'Busybee\People\PersonBundle\Entity\Person',
+				'data_class'         => Person::class,
 				'translation_domain' => 'BusybeePersonBundle',
 				'allow_extra_fields' => true,
 			)
@@ -218,6 +215,7 @@ class PersonType extends AbstractType
 			[
 				'deletePhoto',
 				'isSystemAdmin',
+				'systemYear',
 			]
 		);
 	}

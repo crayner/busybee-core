@@ -56,7 +56,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 			throw new \InvalidArgumentException('Setting ' . $options['setting_name'] . ' not found.' . $names);
 		}
 		$choices = $this->settingManager->get($options['setting_name']);
-
+		dump($choices);
 		if ($options['use_label_as_value'])
 		{
 			$x = [];
@@ -74,6 +74,8 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$newOptions['required']                  = isset($options['required']) ? $options['required'] : false;
 		$newOptions['multiple']                  = isset($options['multiple']) ? $options['multiple'] : false;
 		$newOptions['expanded']                  = isset($options['expanded']) ? $options['expanded'] : false;
+		$newOptions['mapped']                    = isset($options['mapped']) ? $options['mapped'] : true;
+		$newOptions['data']                      = isset($options['data']) ? $options['data'] : null;
 		$newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : $newOptions['translation_domain'];
 
 		//  Now replace the existing setting form element with a straight Choice

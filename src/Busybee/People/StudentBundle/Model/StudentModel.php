@@ -28,6 +28,7 @@ abstract class StudentModel extends Person
 	}
 
 	/**
+	 * @todo Add Student Delete checks.
 	 * @return bool
 	 */
 	public function canDelete()

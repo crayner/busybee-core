@@ -127,20 +127,22 @@ class PersonManager
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getFamilies(Person $person): ArrayCollection
+	public function getFamilies(Person $person = null): ArrayCollection
 	{
+		$this->checkPerson($person);
+
 		$families = new ArrayCollection();
 
 		if ($this->om->getMetadataFactory()->hasMetadataFor(Family::class))
 		{
 
-			$careGivers = $this->om->getRepository(Family::class)->findByCareGiverPerson($person);
+			$careGivers = $this->om->getRepository(Family::class)->findByCareGiverPerson($this->person);
 			if (!empty($careGivers))
 				foreach ($careGivers as $family)
 					if (!$families->contains($family))
 						$families->add($family);
 
-			$students = $this->om->getRepository(Family::class)->findByStudentsPerson($person);
+			$students = $this->om->getRepository(Family::class)->findByStudentsPerson($this->person);
 			if (!empty($students))
 				foreach ($students as $family)
 					if (!$families->contains($family))
@@ -203,7 +205,7 @@ class PersonManager
 	 */
 	public function canBeStudent(Person $person = null): bool
 	{
-		$person = $this->checkPerson($person);
+		$this->checkPerson($person);
 		//place rules here to stop new student.
 		if ($this->isStaff() || $this->isCareGiver())
 			return false;
@@ -279,7 +281,7 @@ class PersonManager
 		if (intval($person->getId()) > 0)
 			return true;
 
-		return true;
+		return false;
 	}
 
 	/**
@@ -288,19 +290,20 @@ class PersonManager
 	 *
 	 * @return  bool
 	 */
-	public function canDeleteStudent(Person $person, $parameters = []): bool
+	public function canDeleteStudent(Person $person = null, $parameters = []): bool
 	{
-		//Place rules here to stop delete .
-		$student = $this->om->getRepository(Student::class)->findOneByPerson($person->getId());
-		if (!$student instanceof Student)
-			return true;
+		$student = $this->checkPerson($person);
 
-		$families = $this->om->getRepository(Family::class)->findByStudentsPerson($person);
+		//Place rules here to stop delete .
+		if (!$student instanceof Student)
+			return false;
+
+		$families = $this->getFamilies($student);
 
 		if (is_array($families) && count($families) > 0)
 			return false;
 
-		$grades = $this->om->getRepository(StudentGrade::class)->findAll(['status' => 'Current', 'student' => $person->getStudent()->getId()]);
+		$grades = $this->om->getRepository(StudentGrade::class)->findAll(['status' => 'Current', 'student' => $student->getId()]);
 
 		if (is_array($grades) && count($grades) > 0)
 			return false;

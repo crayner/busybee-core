@@ -56,9 +56,9 @@ class PersonController extends BusybeeController
 
 		$editOptions = array();
 
-		$year = $person->yearData = $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser());
+		$year = $this->get('busybee_core_security.doctrine.user_manager')->getSystemYear($this->getUser());
 
-		$form               = $this->createForm(PersonType::class, $person, ['deletePhoto' => $this->generateUrl('person_photo_remove', ['id' => $id]), 'isSystemAdmin' => $this->isGranted('ROLE_SYSTEM_ADMIN')]);
+		$form = $this->createForm(PersonType::class, $person, ['deletePhoto' => $this->generateUrl('person_photo_remove', ['id' => $id]), 'isSystemAdmin' => $this->isGranted('ROLE_SYSTEM_ADMIN'), 'systemYear' => $year, 'data' => $person, 'data_class' => get_class($person)]);
 
 		foreach ($formDefinition as $extra)
 		{
