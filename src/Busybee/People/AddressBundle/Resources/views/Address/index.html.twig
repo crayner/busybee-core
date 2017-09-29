@@ -1,0 +1,40 @@
+{# src/Busybee/PersonBundle/Resources/views/Address/index.html.twig #}
+
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% form_theme form "@BusybeeTemplate/Template/bootstrap.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@BusybeeTemplate/AutoComplete/style.html.twig' %}
+{% endblock stylesheets %}
+
+{% block title %}{{ parent() }}{{ 'address.title'|trans }}{% endblock title %}
+
+{% block menuContainer %}{% endblock %}
+{% block titleContainer %}{% endblock %}
+
+
+{% block contentContainer %}
+    {% block flashMessages %}
+        {% include '@BusybeeTemplate/Default/flash.html.twig' with {flashClass: 'fadeAlert', transDomain: 'BusybeePersonBundle'} %}
+    {% endblock flashMessages %}
+    {{ form_start(form) }}
+    <div class="container-fluid">
+        <div class="row" id="addressMessage" style="display: none;">
+        </div>
+    </div>
+    <div id="addressContent">
+        {% include '@BusybeeAddress/Address/edit.html.twig' %}
+    </div>
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeAddress/Address/script.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/monitorForm.html.twig' with {route: 'address_manage'} %}
+{% endblock javascripts %}

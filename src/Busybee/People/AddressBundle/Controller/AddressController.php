@@ -1,9 +1,8 @@
 <?php
-
 namespace Busybee\People\AddressBundle\Controller;
 
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
-use Busybee\People\AddressBundle\Entity\Address;
+use Busybee\People\AddressBundle\Form\AddressType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,14 +18,10 @@ class AddressController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$address = new Address();
-		$repo    = $this->get('busybee_people_address.repository.address_repository');
-		if ($id !== 'Add')
-			$address = $repo->find($id);
+		$am      = $this->get('busybee_people_address.model.address_manager');
+		$address = $am->find($id);
 
-		$address->injectRepository($this->get('busybee_people_address.repository.address_repository'));
-
-		$form = $this->createForm(AddressType::class, $address);
+		$form = $this->createForm(AddressType::class, $address, ['manager' => $am]);
 
 		$form->handleRequest($request);
 
@@ -51,8 +46,12 @@ class AddressController extends BusybeeController
 			$sess->getFlashBag()->add('danger', 'address.save.failure');
 		}
 
-		return $this->render('BusybeePersonBundle:Address:index.html.twig',
-			array('id' => $id, 'form' => $form->createView())
+		return $this->render('@BusybeeAddress/Address/index.html.twig',
+			[
+				'id'      => $id,
+				'form'    => $form->createView(),
+				'manager' => $am,
+			]
 		);
 	}
 

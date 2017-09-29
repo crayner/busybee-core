@@ -1,3 +1,6 @@
-busybee_locality_homepage:
-    path:     /
-    defaults: { _controller: BusybeeLocalityBundle:Default:index }
+locality_fetch:
+    path:     /fetch/
+    defaults: { _controller: BusybeeLocalityBundle:Locality:fetch }
+locality_manage:
+    path:     /{id}/manage/
+    defaults: { _controller: BusybeeLocalityBundle:Locality:index }

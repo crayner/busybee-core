@@ -1,9 +1,8 @@
 <?php
-
 namespace Busybee\People\AddressBundle\Model;
 
-use Busybee\People\PersonBundle\Entity\Locality;
-use Busybee\People\PersonBundle\Repository\AddressRepository;
+use Busybee\People\LocalityBundle\Entity\Locality;
+use Busybee\People\AddressBundle\Repository\AddressRepository;
 
 /**
  * Address Model
@@ -14,11 +13,6 @@ use Busybee\People\PersonBundle\Repository\AddressRepository;
  */
 abstract class AddressModel
 {
-	/**
-	 * @var    \Busybee\People\PersonBundle\Repository\AddressRepository
-	 */
-	protected $repo;
-
 	/**
 	 * @var    array
 	 */
@@ -44,30 +38,6 @@ abstract class AddressModel
 		$this->setLocality(new Locality());
 
 		return $this;
-	}
-
-	/**
-	 * inject Repo
-	 *
-	 * @param AddressRepository
-	 *
-	 * @return AddressModel
-	 */
-	public function injectRepository(AddressRepository $repo)
-	{
-		$this->repo = $repo;
-
-		return $this;
-	}
-
-	/**
-	 * get Repo
-	 *
-	 * @return AddressRepository
-	 */
-	public function getRepository()
-	{
-		return $this->repo;
 	}
 
 	/**
@@ -102,28 +72,6 @@ abstract class AddressModel
 	public function getSingleLineAddress()
 	{
 		return trim($this->getStreetNumber() . ' ' . $this->getStreetName() . ' ' . $this->getLocality()->getName());
-	}
-
-	/**
-	 * can Delete
-	 *
-	 * @return boolean
-	 */
-	public function canDelete()
-	{
-		$x = $this->repo->createQueryBuilder('e')
-			->from('\Busybee\People\PersonBundle\Entity\Person', 'p')
-			->select('COUNT(p.id)')
-			->where('p.address1 = :address1')
-			->orWhere('p.address2 = :address2')
-			->setParameter('address1', $this->getId())
-			->setParameter('address2', $this->getId())
-			->getQuery()
-			->getSingleScalarResult();
-		if (empty($x))
-			return true;
-
-		return false;
 	}
 
 	/**

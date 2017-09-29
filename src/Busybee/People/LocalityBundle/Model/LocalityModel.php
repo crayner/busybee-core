@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\People\LocalityBundle\Model;
 
 use Symfony\Component\Intl\Intl;
@@ -17,11 +16,6 @@ abstract class LocalityModel
 	 * @var    string
 	 */
 	protected $classSuffix = '';
-
-	/**
-	 * @var    \Busybee\People\PersonBundle\Repository\LocalityRepository
-	 */
-	protected $repo;
 
 	/**
 	 * get classSuffix
@@ -47,30 +41,6 @@ abstract class LocalityModel
 		$this->classSuffix = $classSuffix;
 
 		return $this;
-	}
-
-	/**
-	 * inject Repo
-	 *
-	 * @param \Busybee\People\PersonBundle\Repository\LocalityRepository $repo
-	 *
-	 * @return LocalityModel
-	 */
-	public function injectRepository(\Busybee\People\PersonBundle\Repository\LocalityRepository $repo)
-	{
-		$this->repo = $repo;
-
-		return $this;
-	}
-
-	/**
-	 * get Repo
-	 *
-	 * @return \Busybee\People\PersonBundle\Repository\LocalityRepository
-	 */
-	public function getRepository()
-	{
-		return $this->repo;
 	}
 
 	/**

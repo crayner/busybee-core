@@ -2,6 +2,8 @@
 
 namespace Busybee\People\AddressBundle\Model;
 
+use Busybee\Core\SystemBundle\Model\FlashBagManager;
+use Busybee\People\PersonBundle\Entity\Person;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\People\AddressBundle\Repository\AddressRepository;
@@ -32,6 +34,11 @@ class AddressManager
 	private $ar;
 
 	/**
+	 * @var Address|null
+	 */
+	private $address = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @version    8th November 2016
@@ -39,11 +46,11 @@ class AddressManager
 	 *
 	 * @param    Translator
 	 */
-	public function __construct(Translator $trans, SettingManager $sm, AddressRepository $ar)
+	public function __construct(FlashBagManager $fbm, SettingManager $sm, AddressRepository $ar)
 	{
-		$this->trans = $trans;
-		$this->sm    = $sm;
-		$this->ar    = $ar;
+		$this->fbm = $fbm;
+		$this->sm  = $sm;
+		$this->ar  = $ar;
 	}
 
 	/**
@@ -136,11 +143,67 @@ class AddressManager
 	{
 		if ($address instanceof Address)
 			$data = array('propertyName'   => $address->getPropertyName(), 'streetName' => $address->getStreetName(), 'buildingType' => $address->getBuildingType(),
-			              'buildingNumber' => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber(), 'locality' => $address->getLocality()->getName());
+			              'buildingNumber'                                              => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber(), 'locality' => $address->getLocality()->getName());
 		else
 			$data = array('propertyName'   => null, 'streetName' => null, 'buildingType' => null,
 			              'buildingNumber' => null, 'streetNumber' => null, 'locality' => null);
 
 		return trim($this->sm->get('Address.ListLabel', null, $data));
+	}
+
+
+	/**
+	 * can Delete
+	 *
+	 * @return boolean
+	 */
+	public function canDelete(Address $address = null): bool
+	{
+		$this->checkAddress($address);
+
+		$x = $this->ar->createQueryBuilder('e')
+			->from(Person::class, 'p')
+			->select('COUNT(p.id)')
+			->where('p.address1 = :address1')
+			->orWhere('p.address2 = :address2')
+			->setParameter('address1', $this->address->getId())
+			->setParameter('address2', $this->address->getId())
+			->getQuery()
+			->getSingleScalarResult();
+		if (empty($x))
+			return true;
+
+		return false;
+	}
+
+	/**
+	 * @param Address|null $address
+	 *
+	 * @return Address|null
+	 */
+	private function checkAddress(Address $address = null): Address
+	{
+		if ($address instanceof Address)
+		{
+			$this->address = $address;
+
+			return $this->address;
+		}
+		if ($this->address instanceof Address)
+			return $this->address;
+
+		$this->address = new Address();
+
+		return $this->address;
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return Address
+	 */
+	public function find($id)
+	{
+		return $this->checkAddress($this->ar->find($id));
 	}
 }

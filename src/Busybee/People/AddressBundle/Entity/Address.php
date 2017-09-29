@@ -56,7 +56,7 @@ class Address extends AddressModel
 	 */
 	private $streetNumber;
 	/**
-	 * @var \Busybee\People\PersonBundle\Entity\Locality
+	 * @var \Busybee\People\LocalityBundle\Entity\Locality
 	 */
 	private $locality;
 
@@ -293,7 +293,7 @@ class Address extends AddressModel
 	/**
 	 * Get locality
 	 *
-	 * @return \Busybee\People\PersonBundle\Entity\Locality
+	 * @return \Busybee\People\LocalityBundle\Entity\Locality
 	 */
 	public function getLocality()
 	{
@@ -303,11 +303,11 @@ class Address extends AddressModel
 	/**
 	 * Set locality
 	 *
-	 * @param \Busybee\People\PersonBundle\Entity\Locality $locality
+	 * @param \Busybee\People\LocalityBundle\Entity\Locality $locality
 	 *
 	 * @return Address
 	 */
-	public function setLocality(\Busybee\People\PersonBundle\Entity\Locality $locality = null)
+	public function setLocality(\Busybee\People\LocalityBundle\Entity\Locality $locality = null)
 	{
 		$this->locality = $locality;
 
