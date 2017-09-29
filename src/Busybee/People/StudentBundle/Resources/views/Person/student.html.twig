@@ -1,51 +1,50 @@
 {# src/Busybee/StudentBundle/Resources/views/Person/student.html.twig #}
 
-{% trans_default_domain "BusybeeStudentBundle" %}
+{% trans_default_domain "BusybeePersonBundle" %}
 
 <div class="panel panel-primary busybee-panel">
-    {% include '@BusybeePerson/Person/panelHeader.html.twig' with {'header': 'person.student.title', 'transDomain': 'BusybeePersonBundle'} %}
+    {% include '@BusybeePerson/Person/panelHeader.html.twig' with {header: 'person.student.title', transDomain: 'BusybeePersonBundle'} %}
     <div class="panel-body">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 well">
-                    {{ form_widget(form.student.person) }}
-                    {{ form_row(form.student.startAtSchool) }}
+                    {{ form_row(form.startAtSchool) }}
                 </div>
                 <div class="col-sm-3 well">
-                    {{ form_row(form.student.startAtThisSchool) }}
+                    {{ form_row(form.startAtThisSchool) }}
                 </div>
                 <div class="col-sm-3 well">
-                    {{ form_row(form.student.lastAtThisSchool) }}
+                    {{ form_row(form.lastAtThisSchool) }}
                 </div>
                 <div class="col-sm-3 well">
-                    {{ form_row(form.student.house) }}
+                    {{ form_row(form.house) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4 well">
-                    {{ form_row(form.student.countryOfBirth) }}
+                    {{ form_row(form.countryOfBirth) }}
                 </div>
                 <div class="col-sm-4 well">
-                    {{ form_row(form.student.ethnicity) }}
+                    {{ form_row(form.ethnicity) }}
                 </div>
                 <div class="col-sm-4 well">
-                    {{ form_row(form.student.religion) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4 well">
-                    {{ form_row(form.student.firstLanguage) }}
-                </div>
-                <div class="col-sm-4 well">
-                    {{ form_row(form.student.secondLanguage) }}
-                </div>
-                <div class="col-sm-4 well">
-                    {{ form_row(form.student.thirdLanguage) }}
+                    {{ form_row(form.religion) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4 well">
-                    {{ form_row(form.student.locker) }}
+                    {{ form_row(form.firstLanguage) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.secondLanguage) }}
+                </div>
+                <div class="col-sm-4 well">
+                    {{ form_row(form.thirdLanguage) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.locker) }}
                 </div>
             </div>
         </div>

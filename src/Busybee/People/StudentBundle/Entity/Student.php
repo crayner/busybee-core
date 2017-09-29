@@ -140,6 +140,10 @@ class Student extends StudentModel
 	 */
 	public function getStartAtSchool()
 	{
+		if (empty($this->startAtSchool))
+			$this->setStartAtSchool(new \DateTime());
+
+
 		return $this->startAtSchool;
 	}
 
@@ -164,6 +168,9 @@ class Student extends StudentModel
 	 */
 	public function getStartAtThisSchool()
 	{
+		if (empty($this->startAtThisSchool))
+			$this->setStartAtThisSchool(new \DateTime());
+
 		return $this->startAtThisSchool;
 	}
 

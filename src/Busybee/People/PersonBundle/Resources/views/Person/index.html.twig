@@ -123,7 +123,7 @@
                                 {% set studentOn = true %}
                             {% endif %}
                             <div>
-                                {{ onOffButton({value: studentOn, on: {class: 'btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'studentToggle' ~ person.id}}, off: {class: 'btn btn-primary halflings halflings-thumbs-down', style: '', additional: {id: 'studentToggle' ~ person.id}}})|raw }}
+                                {{ onOffButton({value: studentOn, on: {class: 'studentToggle btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'studentToggle' ~ person.id}}, off: {class: 'studentToggle btn btn-primary halflings halflings-thumbs-down', style: '', additional: {id: 'studentToggle' ~ person.id}}})|raw }}
                             </div>
                         </div>
                         <div class="col-sm-4">

@@ -37,7 +37,8 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		// Tells the dispatcher that you want to listen on the form.pre_set_data
 		// event and that the preSetData method should be called.
 		return array(
-			FormEvents::PRE_SET_DATA => 'preSetData',
+			FormEvents::PRE_SET_DATA  => 'preSetData',
+			FormEvents::POST_SET_DATA => 'postSetData',
 		);
 	}
 
@@ -56,7 +57,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 			throw new \InvalidArgumentException('Setting ' . $options['setting_name'] . ' not found.' . $names);
 		}
 		$choices = $this->settingManager->get($options['setting_name']);
-		dump($choices);
+
 		if ($options['use_label_as_value'])
 		{
 			$x = [];
@@ -75,10 +76,22 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		$newOptions['multiple']                  = isset($options['multiple']) ? $options['multiple'] : false;
 		$newOptions['expanded']                  = isset($options['expanded']) ? $options['expanded'] : false;
 		$newOptions['mapped']                    = isset($options['mapped']) ? $options['mapped'] : true;
-		$newOptions['data']                      = isset($options['data']) ? $options['data'] : null;
 		$newOptions['choice_translation_domain'] = isset($options['choice_translation_domain']) ? $options['choice_translation_domain'] : $newOptions['translation_domain'];
 
 		//  Now replace the existing setting form element with a straight Choice
 		$form->getParent()->add($name, ChoiceType::class, $newOptions);
+
+	}
+
+
+	/**
+	 * @param FormEvent $event
+	 */
+	public function postSetData(FormEvent $event)
+	{
+		$form = $event->getForm();
+
+		dump($form->getName());
+		dump($form->getData());
 	}
 }

@@ -9,6 +9,7 @@ use Busybee\People\FamilyBundle\Entity\Family;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\People\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Entity\StudentGrade;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -55,6 +56,9 @@ class PersonManager
 	public function canDeleteStaff(Person $person = null)
 	{
 		$this->checkPerson($person);
+
+		if (!$this->person instanceof Staff)
+			return false;
 
 		return $this->person->canDelete();
 	}
@@ -179,7 +183,7 @@ class PersonManager
 	public function canBeStaff(Person $person = null): bool
 	{
 		$person = $this->checkPerson($person);
-		//place rules here to stop new student.
+		//place rules here to stop new staff.
 		if ($this->isStudent())
 			return false;
 
@@ -194,6 +198,9 @@ class PersonManager
 	public function isStudent(Person $person = null): bool
 	{
 		$person = $this->checkPerson($person);
+
+		if ($this->isStaff())
+			return false;
 
 		return $person->isStudent();
 	}
@@ -276,9 +283,16 @@ class PersonManager
 		return false;
 	}
 
-	public function validPerson(Person $person)
+	/**
+	 * @param Person|null $person
+	 *
+	 * @return bool
+	 */
+	public function validPerson(Person $person = null)
 	{
-		if (intval($person->getId()) > 0)
+		$person = $this->checkPerson($person);
+
+		if ($person instanceof Person && intval($person->getId()) > 0)
 			return true;
 
 		return false;
@@ -384,6 +398,44 @@ class PersonManager
 		$this->checkPerson($person);
 
 		if ($this->canDeleteStaff())
+		{
+			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
+
+			$this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "person" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+			$this->om->refresh($this->person);
+		}
+	}
+
+	/**
+	 * Create Student
+	 *
+	 * @param Person|null $person
+	 */
+	public function createStudent(Person $person = null)
+	{
+		$this->checkPerson($person);
+
+		if ($this->canBeStudent())
+		{
+			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
+
+			$this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "student" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+			$this->om->refresh($this->person);
+		}
+	}
+
+	/**
+	 * Create Staff
+	 *
+	 * @param Person|null $person
+	 */
+	public function deleteStudent(Person $person = null)
+	{
+		$this->checkPerson($person);
+
+		if ($this->canDeleteStudent())
 		{
 			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
 

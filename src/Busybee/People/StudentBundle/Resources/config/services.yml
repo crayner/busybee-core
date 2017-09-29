@@ -69,13 +69,6 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeeStudentBundle:Student"
-    busybee_people_student.form.student_type:
-        class: Busybee\People\StudentBundle\Form\StudentType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@busybee_core_system.setting.setting_manager'
-        tags:
-            - { name: form.type }
     busybee_people_student.validator.constraints.passport_image_validator:
         class: Busybee\People\StudentBundle\Validator\Constraints\PassportImageValidator
         tags:

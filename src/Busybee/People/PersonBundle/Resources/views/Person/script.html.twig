@@ -122,9 +122,9 @@
     });
 
 
-    {% if form.student.grades is defined %}
+    {% if form.grades is defined %}
     $(".gradeList").collection({
-        name_prefix: '{{ form.student.grades.vars.full_name }}',
+        name_prefix: '{{ form.grades.vars.full_name }}',
         allow_up: false,
         allow_down: false,
         add: '<button title="{{ 'student.grade.add'|trans({}, 'BusybeeStudentBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',

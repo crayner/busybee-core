@@ -4,6 +4,7 @@ namespace Busybee\People\PersonBundle\Model;
 
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\StaffBundle\Entity\Staff;
+use Busybee\People\StudentBundle\Entity\Student;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**

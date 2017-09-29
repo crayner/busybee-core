@@ -5,44 +5,6 @@ student:
         removeSuccess: "The %name% was removed as a Student."
         removeRestricted: '%name% is set as a student, and the status is locked by the system.'
         addRestricted: "%name% is status locked and was not set as a Student."
-    placeholder:
-        person: Select a Person
-        language: Select a Language
-        countryOfBirth: Select Country of Birth
-        ethnicity: Select Ethnicity
-        citizenship: Select country of Citizenship
-        residencyStatus: Select Residency Status
-        religion: Select Religion
-    label:
-        person: Personal Details
-        startAtSchool: 'First attended school on:'
-        startAtThisSchool: 'First day at this school:'
-        lastAtThisSchool: 'Last day at this school:'
-        language:
-            first: First language spoken.
-            second: Second language spoken.
-            third: Third language spoken.
-        countryOfBirth: Country of Birth
-        ethnicity: Ethnicity
-        citizenship:
-            1: Primary Citizenship
-            2: Secondary Citizenship
-            passport: Passport Number
-        passportScan:  Passport Scan
-        visaExpiryDate: Visa Expiry Date
-        nationalIDCardNumber: National ID Card Details
-        nationalIDCardScan: Scan of National ID Card.
-        residencyStatus: Residency Status
-        religion: Religion
-        locker: Locker Details
-    help:
-        passportScan: Provide a landscape scan of the passport, 2:1 or less ratio. Maximum size, 1.5MB.
-        visaExpiryDate: This date is only required if the student must have a visa to attend the school.
-        nationalIDCardScan: ''
-        startAtSchool: The date the student first started formal schooling at any school.
-        startAtThisSchool: The date the student first attended formal schooling at this school.
-        lastAtThisSchool: The last date of formal schooling at this school.
-        residencyStatus: Residency status in the country the school is located.
     activities:
         title: Manage Activities
         description: ''

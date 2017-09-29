@@ -2,7 +2,6 @@
 
 namespace Busybee\People\StudentBundle\Repository;
 
-use Busybee\People\StudentBundle\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 
 /**

@@ -30,10 +30,10 @@
             </div>
             <div class="row">
                 {% set offset = 8 %}
-                {% if validPerson(form.vars.value) and (canDeleteStaff(form.vars.value) or canBeStaff(form.vars.value)) %}
+                {% if validPerson() and (canDeleteStaff() or canBeStaff()) %}
                     <div class="col-sm-2 well">
                         {% set staffOn = false %}
-                        {% if isStaff(form.vars.value) %}
+                        {% if isStaff() %}
                             {% set staffOn = true %}
                         {% endif %}
                         {% set additional = {id: 'staffToggle' ~ form.vars.value.id} %}
@@ -44,11 +44,11 @@
                             {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'staffToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}})|raw }}
                             <label class="control-label small text-left">{{ 'person.staff.question.label'|trans }}</label>
                         </div>
-                        {% set offset = offset - 2 %}
                     </div>
+                    {% set offset = offset - 2 %}
                 {% endif %}
 
-                {% if validPerson(form.vars.value) and (canDeleteStudent(form.vars.value) or canBeStudent(form.vars.value)) %}
+                {% if validPerson() and (canDeleteStudent() or canBeStudent()) %}
                     <div class="col-sm-2 well">
 
                         {% set studentOn = false %}
@@ -59,9 +59,8 @@
                             {{ onOffButton({value: studentOn, on: {class: 'btn btn-success halflings halflings-thumbs-up'}, off: {class: 'btn btn-primary halflings halflings-thumbs-down'}})|raw }}
                             <label class="control-label small text-left">{{ 'person.student.question.label'|trans }}</label>
                         </div>
-
-                        {% set offset = offset - 2 %}
                     </div>
+                    {% set offset = offset - 2 %}
                 {% endif %}
                 {% if validPerson(form.vars.value) and (canDeleteUser(form.vars.value) or canBeUser(form.vars.value)) %}
                     <div class="col-sm-2 well">
@@ -80,12 +79,11 @@
                             {{ onOffButton({value: userOn, on: {class: 'userToggle btn btn-success halflings halflings-thumbs-up', additional: additional}, off: {class: 'userToggle btn btn-primary halflings halflings-thumbs-down', additional: additional}})|raw }}
                             <label class="control-label small text-left">{{ 'person.user.question.label'|trans }}</label>
                         </div>
-
-                        {% set offset = offset - 2 %}
                     </div>
+                    {% set offset = offset - 2 %}
                 {% endif %}
                 <div class="col-sm-offset-{{ offset }} col-sm-2 well">
-                    {{ form_row(form.title) }}
+                    {{ form_row(form.honorific) }}
                 </div>
                 <div class="col-sm-2 well">
                     {{ form_row(form.gender) }}

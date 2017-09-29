@@ -27,6 +27,13 @@ person:
         question:
             label: 'Student ?'
             help: ''
+        tab: Student
+        title: 'Student Details: %name%'
+    immigration:
+        tab: Citizenship
+        title: 'Citizenship Details: %name%'
+    grades:
+        tab: 'Year / Grades'
     user:
         category: User
         question:
@@ -59,7 +66,7 @@ person:
         label: 'Id: %identifier%'
     age:
         label: 'Age: %years%.%months%.%days%'
-    title:
+    honorific:
         label: Personal Title
     gender:
         label: Gender
@@ -83,6 +90,10 @@ person:
         help: Selecting an address does not save the information to the personal record until the personal record is itself saved. Pressing the refresh button will return the field to the currently selected address display.
     address:
         placeholder: Start typing any address.
+    grade:
+        title: 'Grade Details: %name%'
+    add:
+        title: Add Person
 phone:
     save: Changes in phone details are only recorded when the entire form is saved.
 address:
@@ -103,3 +114,66 @@ staff:
         label: House
         placeholder: Select a House
         help: Adding the family to a house will populate student records automaically.
+    toggle:
+        addRestricted: 'Adding %name% as a staff member is status locked.'
+student:
+    startAtSchool:
+        label: 'First attended school on:'
+        help: The date the student first started formal schooling at any school.
+    startAtThisSchool:
+        label: 'First day at this school:'
+        help: The date the student first attended formal schooling at this school.
+    lastAtThisSchool:
+        label: 'Last day at this school:'
+        help: The last date of formal schooling at this school.
+    house:
+        label: 'House'
+        placeholder: Select a house
+        help: 'If the student is linked to a family the house will populate directly from the family house details.'
+    language:
+        first:
+            label: First language spoken.
+        second:
+            label: Second language spoken.
+        third:
+            label: Third language spoken.
+        placeholder: Select a Language
+    countryOfBirth:
+        label: Country of Birth
+        placeholder: Select Country of Birth
+    ethnicity:
+        label: Ethnicity
+        placeholder: Select Ethnicity
+    citizenship:
+        1:
+            label: Primary Citizenship
+        2:
+            label: Secondary Citizenship
+        passport:
+            1:
+                label: Primary Passport Number
+            2:
+                label: Secondary Passport Number
+        placeholder: Select country of Citizenship
+    passportScan:
+        label: Passport Scan
+        help: Provide a landscape scan of the passport, 2:1 or less ratio. Maximum size, 1.5MB.
+    visaExpiryDate:
+        label: Visa Expiry Date
+        help: This date is only required if the student must have a visa to attend the school.
+    nationalIDCardNumber:
+        label: National ID Card Details
+    nationalIDCardScan:
+        label: Scan of National ID Card.
+        help: 'Provide a landscape scan, 2:1 or less ratio. Maximum size, 1.5MB.'
+    residencyStatus:
+        label: Residency Status
+        placeholder: Select Residency Status
+        help: Residency status in the country the school is located.
+    religion:
+        label: Religion
+        placeholder: Select Religion
+    locker:
+        label: Locker Details
+people:
+    title: Manage People

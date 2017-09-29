@@ -2,10 +2,8 @@
 
 {% trans_default_domain "BusybeeStaffBundle" %}
 
-{% form_theme form "BusybeeTemplateBundle:Template:bootstrap.html.twig" %}
-
 <div class="panel panel-primary busybee-panel">
-    {% include "BusybeePersonBundle:Person:panelHeader.html.twig"  with {'header': 'person.staff.title'} %}
+    {% include "@BusybeePerson/Person/panelHeader.html.twig"  with {header: 'person.staff.title'} %}
     <div class="panel-body">
         <div class="container-fluid">
             <div class="row">

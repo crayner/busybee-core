@@ -1,7 +1,7 @@
 <div class="panel panel-primary busybee-panel">
-    {% include "BusybeePersonBundle:Person:panelHeader.html.twig"  with {'header': 'person.student.gradeTitle'} %}
+    {% include "BusybeePersonBundle:Person:panelHeader.html.twig"  with {header: 'person.grade.title'} %}
     <div class="panel-body">
 
-        {% include '@BusybeeStudent/Person/grade.html.twig' with {'form': form.student} %}
+        {% include '@BusybeeStudent/Person/grade.html.twig' %}
 
 {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}

@@ -58,8 +58,6 @@ class UserSubscriber implements EventSubscriberInterface
 			dump($data['credentialsExpireAt']);
 		}
 
-		dump($data);
-
 		$event->setData($data);
 	}
 

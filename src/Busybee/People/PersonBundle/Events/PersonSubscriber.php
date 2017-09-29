@@ -2,18 +2,21 @@
 
 namespace Busybee\People\PersonBundle\Events;
 
+use Busybee\Core\CalendarBundle\Validator\Grade;
 use Busybee\Core\TemplateBundle\Model\TabManager;
+use Busybee\Core\TemplateBundle\Type\ImageType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\TemplateBundle\Type\TextType;
 use Busybee\People\PersonBundle\Form\UserType;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\Core\SecurityBundle\Entity\User;
-use Busybee\People\StaffBundle\Entity\Staff;
-use Busybee\People\StaffBundle\Form\StaffType;
-use Busybee\People\StudentBundle\Entity\Student;
-use Busybee\People\StudentBundle\Form\StudentType;
+use Busybee\People\StudentBundle\Form\StudentGradeType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -81,7 +84,7 @@ class PersonSubscriber implements EventSubscriberInterface
 			$this->addStaffFields($form);
 
 		if ($person->isStudent())
-			$form->add('student', StudentType::class);
+			$this->addStudentFields($form);
 
 		if ($person->isUser())
 		{
@@ -226,6 +229,11 @@ class PersonSubscriber implements EventSubscriberInterface
 		$event->setData($data);
 	}
 
+	/**
+	 * Add Staff Fields
+	 *
+	 * @param $form
+	 */
 	private function addStaffFields($form)
 	{
 		$form
@@ -276,5 +284,192 @@ class PersonSubscriber implements EventSubscriberInterface
 */
 		;
 
+	}
+
+	/**
+	 * Add Staff Fields
+	 *
+	 * @param $form
+	 */
+	private function addStudentFields($form)
+	{
+		$form
+			->add('startAtSchool', DateType::class,
+				[
+					'years' => range(date('Y', strtotime('-25 years')), date('Y', strtotime('+1 year'))),
+					'label' => 'student.startAtSchool.label',
+					'attr'  => array(
+						'help'  => 'student.startAtSchool.help',
+						'class' => 'student',
+					),
+				]
+			)
+			->add('startAtThisSchool', DateType::class, array(
+					'years' => range(date('Y', strtotime('-25 years')), date('Y', strtotime('+1 year'))),
+					'label' => 'student.startAtThisSchool.label',
+					'attr'  => array(
+						'help'  => 'student.startAtThisSchool.help',
+						'class' => 'student',
+					),
+				)
+			)
+			->add('lastAtThisSchool', DateType::class, array(
+					'years'    => range(date('Y', strtotime('-5 years')), date('Y', strtotime('+18 months'))),
+					'label'    => 'student.lastAtThisSchool.label',
+					'attr'     => array(
+						'help'  => 'student.lastAtThisSchool.help',
+						'class' => 'student',
+					),
+					'required' => false,
+				)
+			)
+			->add('firstLanguage', LanguageType::class, array(
+					'label'       => 'student.language.first.label',
+					'placeholder' => 'student.language.placeholder',
+					'required'    => false,
+				)
+			)
+			->add('secondLanguage', LanguageType::class, array(
+					'label'       => 'student.language.second.label',
+					'placeholder' => 'student.language.placeholder',
+					'required'    => false,
+				)
+			)
+			->add('thirdLanguage', LanguageType::class, array(
+					'label'       => 'student.language.third.label',
+					'placeholder' => 'student.language.placeholder',
+					'required'    => false,
+				)
+			)
+			->add('countryOfBirth', CountryType::class, array(
+					'label'       => 'student.countryOfBirth.label',
+					'placeholder' => 'student.countryOfBirth.placeholder',
+					'required'    => false,
+				)
+			)
+			->add('ethnicity', SettingChoiceType::class,
+				array(
+					'label'        => 'student.ethnicity.label',
+					'placeholder'  => 'student.ethnicity.placeholder',
+					'required'     => false,
+					'setting_name' => 'Ethnicity.List',
+				)
+			)
+			->add('religion', SettingChoiceType::class,
+				array(
+					'label'        => 'student.religion.label',
+					'placeholder'  => 'student.religion.placeholder',
+					'required'     => false,
+					'setting_name' => 'Religion.List',
+				)
+			)
+			->add('citizenship1', CountryType::class,
+				array(
+					'label'       => 'student.citizenship.1.label',
+					'placeholder' => 'student.citizenship.placeholder',
+					'required'    => false,
+				)
+			)
+			->add('citizenship2', CountryType::class,
+				array(
+					'label'       => 'student.citizenship.2.label',
+					'placeholder' => 'student.citizenship.placeholder',
+					'required'    => false,
+				)
+			)
+			->add('citizenship1Passport', TextType::class,
+				array(
+					'label'    => 'student.citizenship.passport.1.label',
+					'required' => false,
+				)
+			)
+			->add('citizenship2Passport', TextType::class,
+				array(
+					'label'    => 'student.citizenship.passport.2.label',
+					'required' => false,
+				)
+			)
+			->add('locker', TextType::class,
+				array(
+					'label'    => 'student.locker.label',
+					'required' => false,
+				)
+			)
+			->add('citizenship1PassportScan', ImageType::class, array(
+					'attr'     => array(
+						'help'       => 'student.passportScan.help',
+						'imageClass' => 'headShot75',
+					),
+					'label'    => 'student.passportScan.label',
+					'required' => false,
+				)
+			)
+			->add('nationalIDCardNumber', TextType::class,
+				[
+					'label'    => 'student.nationalIDCardNumber.label',
+					'required' => false,
+				]
+			)
+			->add('nationalIDCardScan', ImageType::class, array(
+					'attr'     => array(
+						'help'       => 'student.nationalIDCardScan.help',
+						'imageClass' => 'headShot75',
+					),
+					'label'    => 'student.nationalIDCardScan.label',
+					'required' => false,
+				)
+			)
+			->add('residencyStatus', SettingChoiceType::class,
+				array(
+					'label'        => 'student.residencyStatus.label',
+					'placeholder'  => 'student.residencyStatus.placeholder',
+					'required'     => false,
+					'setting_name' => 'Residency.List',
+					'attr'         => array(
+						'help' => 'student.residencyStatus.help',
+					),
+				)
+			)
+			->add('visaExpiryDate', DateType::class, array(
+					'years'    => range(date('Y', strtotime('-1 years')), date('Y', strtotime('+10 year'))),
+					'label'    => 'student.visaExpiryDate.label',
+					'attr'     => array(
+						'help'  => 'student.visaExpiryDate.help',
+						'class' => 'student',
+					),
+					'required' => false,
+				)
+			)
+			->add('house', SettingChoiceType::class,
+				[
+					'label'                     => 'student.house.label',
+					'placeholder'               => 'student.house.placeholder',
+					'required'                  => false,
+					'attr'                      => array(
+						'help' => 'student.house.help',
+					),
+					'setting_name'              => 'house.list',
+					'choice_translation_domain' => 'SystemBundle',
+				]
+			)
+			->add('grades', CollectionType::class,
+				[
+					'label'         => 'student.grades.label',
+					'allow_add'     => true,
+					'allow_delete'  => true,
+					'entry_type'    => StudentGradeType::class,
+					'attr'          => [
+						'class' => 'gradeList',
+						'help'  => 'student.grades.help',
+					],
+					'entry_options' => [
+						'systemYear' => $form->getConfig()->getOption('systemYear'),
+					],
+					'constraints'   => [
+						new Grade($form->getConfig()->getOption('systemYear')),
+					],
+
+				]
+			);
 	}
 }

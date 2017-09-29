@@ -21,7 +21,7 @@ class Person extends PersonModel
 	/**
 	 * @var string
 	 */
-	private $title;
+	private $honorific;
 
 	/**
 	 * @var string
@@ -151,9 +151,9 @@ class Person extends PersonModel
 	 *
 	 * @return string
 	 */
-	public function getTitle()
+	public function getHonorific()
 	{
-		return $this->title;
+		return $this->honorific;
 	}
 
 	/**
@@ -163,9 +163,9 @@ class Person extends PersonModel
 	 *
 	 * @return Person
 	 */
-	public function setTitle($title)
+	public function setHonorific($honorific)
 	{
-		$this->title = $title;
+		$this->honorific = $honorific;
 
 		return $this;
 	}

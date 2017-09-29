@@ -1,6 +1,5 @@
 Busybee\People\StudentBundle\Entity\Student:
     type: entity
-    table: student
     repositoryClass: Busybee\People\StudentBundle\Repository\StudentRepository
     fields:
         startAtSchool:

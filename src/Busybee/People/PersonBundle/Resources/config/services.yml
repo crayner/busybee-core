@@ -21,7 +21,7 @@ parameters:
             - p.email
         select:
             - p.id
-            - p.title as details
+            - p.honorific as details
             - p.surname
             - p.firstName
             - u.id as user_id
@@ -63,21 +63,21 @@ parameters:
             include: '@@BusybeeStaff/Person/staff.html.twig'
             message: staffMessage
             translation: BusybeePersonBundle
-#        immigration:
-#            label: person.tab.immigration
-#            include: BusybeeStudentBundle:Person:immigration.html.twig
-#            message: immigrationMessage
-#            translation: BusybeeStudentBundle
-#        student:
-#            label: person.tab.student
-#            include: BusybeeStudentBundle:Person:student.html.twig
-#            message: studentMessage
-#            translation: BusybeeStudentBundle
-#        grades:
-#            label: person.tab.grades
-#            include: BusybeeStudentBundle:Person:gradeStart.html.twig
-#            message: gradeMessage
-#            translation: BusybeeStudentBundle
+        immigration:
+            label: person.immigration.tab
+            include: BusybeeStudentBundle:Person:immigration.html.twig
+            message: immigrationMessage
+            translation: BusybeePersonBundle
+        student:
+            label: person.student.tab
+            include: BusybeeStudentBundle:Person:student.html.twig
+            message: studentMessage
+            translation: BusybeePersonBundle
+        grades:
+            label: person.grades.tab
+            include: BusybeeStudentBundle:Person:gradeStart.html.twig
+            message: gradeMessage
+            translation: BusybeePersonBundle
         user:
             label: person.user.tab
             include: '@@BusybeePerson/Person/user.html.twig'

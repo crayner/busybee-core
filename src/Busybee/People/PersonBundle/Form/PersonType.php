@@ -67,11 +67,11 @@ class PersonType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('title', SettingChoiceType::class, array(
-					'label'        => 'person.title.label',
+			->add('honorific', SettingChoiceType::class, array(
+					'label'        => 'person.honorific.label',
 					'setting_name' => 'Person.TitleList',
 					'attr'         => array(
-						'class' => 'beeTitle',
+						'class' => 'beeHonorific',
 					),
 					'required'     => false,
 				)

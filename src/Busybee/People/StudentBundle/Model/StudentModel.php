@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\People\StudentBundle\Model;
 
 use Busybee\Core\CalendarBundle\Entity\Year;
@@ -8,24 +7,9 @@ use Busybee\People\PersonBundle\Entity\Person;
 abstract class StudentModel extends Person
 {
 	/**
-	 * @var string
-	 */
-	public $activityList;
-
-	/**
 	 * @var Year
 	 */
 	private $year;
-
-	/**
-	 * StudentModel constructor.
-	 */
-	public function __construct()
-	{
-		$this->setStartAtSchool(new \DateTime());
-		$this->setStartAtThisSchool(new \DateTime());
-		$this->activityList = '';
-	}
 
 	/**
 	 * @todo Add Student Delete checks.
@@ -33,7 +17,7 @@ abstract class StudentModel extends Person
 	 */
 	public function canDelete()
 	{
-		return true;
+		return parent::canDelete();
 	}
 
 	/**

@@ -1,6 +1,4 @@
 Busybee\People\StudentBundle\Entity\Student:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: person
     properties:
         startAtSchool:
             - Date: ~
@@ -9,6 +7,8 @@ Busybee\People\StudentBundle\Entity\Student:
         lastAtThisSchool:
             - Date: ~
         citizenship1PassportScan:
+            - \Busybee\People\StudentBundle\Validator\PassportImage: ~
+        nationalIDCardScan:
             - \Busybee\People\StudentBundle\Validator\PassportImage: ~
         house:
             - Busybee\Core\TemplateBundle\Validator\SettingChoice:

@@ -18,7 +18,9 @@ class StudentController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
-		$person = $this->get('busybee_people_person.repository.person_repository')->find($id);
+		$pm = $this->get('busybee_people_person.model.person_manager');
+
+		$person = $pm->find($id);
 
 		if (!$person instanceof Person)
 			return new JsonResponse(
@@ -31,11 +33,11 @@ class StudentController extends BusybeeController
 
 		$em = $this->get('doctrine')->getManager();
 
-		if (!$person->getStudentQuestion())
+		if (!$pm->isStudent())
 		{
-			if ($this->get('busybee_people_person.model.person_manager')->canBeStudent($person))
+			if ($pm->canBeStudent())
 			{
-				$this->get('busybee_people_person.model.person_manager')->createStudent($person);
+				$pm->createStudent($person);
 
 				return new JsonResponse(
 					array(
@@ -56,11 +58,11 @@ class StudentController extends BusybeeController
 				);
 			}
 		}
-		elseif ($person->getStudentQuestion())
+		elseif ($pm->isStudent())
 		{
-			if ($this->get('busybee_people_person.model.person_manager')->canDeleteStudent($person, $this->getParameter('person')))
+			if ($pm->canDeleteStudent(null, $this->getParameter('PersonTabs')))
 			{
-				$this->get('busybee_people_person.model.person_manager')->deleteStudent($person, $this->getParameter('person'));
+				$pm->deleteStudent(null, $this->getParameter('PersonTabs'));
 
 				return new JsonResponse(
 					array(

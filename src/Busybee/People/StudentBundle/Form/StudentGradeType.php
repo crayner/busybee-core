@@ -81,7 +81,7 @@ class StudentGradeType extends AbstractType
 				[
 					'data_class'         => StudentGrade::class,
 					'translation_domain' => 'BusybeeStudentBundle',
-					'year_data'          => null,
+					'systemYear'         => null,
 					'error_bubbling'     => true,
 				]
 			);
