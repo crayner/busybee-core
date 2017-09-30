@@ -1,6 +1,6 @@
 {# src/Busybee/PersonBundle/Resources/views/Person/addresses.html.twig #}
 
-{% trans_default_domain "BusybeePersonBundle" %}
+{% trans_default_domain "BusybeeAddressBundle" %}
 
 {% if addresses is defined %}
     <p class="alert alert-info">
@@ -14,14 +14,9 @@
     <div class="col-sm-12 well">
         {{ form_row(form.address1) }}
         <span>
-			<button title="{{ 'address.erase'|trans }}" id="erasePersonAddress1" type="button"
-                    class="btn btn-warning halflings halflings-erase" style="float: right; "></button>
-			<button title="{{ 'address.refresh'|trans }}" id="refreshPersonAddress1" type="button"
-                    class="refreshPersonAddress btn btn-info halflings halflings-refresh"
-                    style="float: right; "></button>
-			<button title="{{ 'address.add'|trans }}" id="addPersonAddress1" type="button"
-                    class="addPersonAddress  btn btn-primary halflings halflings-plus-sign"
-                    style="float: right; "></button>
+            {{ deleteButton({additional: {id: "erasePersonAddress1"}, title: 'address.button.erase', transDomain: 'BusybeeAddressBundle', colour: 'warning'})|raw }}
+            {{ resetButton({title: 'address.button.refresh', transDomain: 'BusybeeAddressBundle', additional: {id: 'refreshPersonAddress1'}, colour: 'info', mergeClass: 'refreshPersonAddress'})|raw }}
+            {{ addButton({colour: 'primary', mergeClass: 'addPersonAddress', additional: {id: 'addPersonAddress1'}, transDomain: 'BusybeeAddressBundle', title: 'address.button.add'})|raw }}
 		</span><br/>
         {% include '@BusybeeTemplate/Default/flash.html.twig' with {flashClass: 'fadeAlert', transDomain: 'BusybeePersonBundle'} %}
     </div>
@@ -30,14 +25,9 @@
     <div class="col-sm-12 well">
         {{ form_row(form.address2) }}
         <span>
-			<button title="{{ 'address.erase'|trans }}" id="erasePersonAddress2" type="button"
-                    class="btn btn-warning halflings halflings-erase" style="float: right; "></button>
-			<button title="{{ 'address.refresh'|trans }}" id="refreshPersonAddress2" type="button"
-                    class="refreshPersonAddress btn btn-info halflings halflings-refresh"
-                    style="float: right; "></button>
-			<button title="{{ 'address.add'|trans }}" id="addPersonAddress2" type="button"
-                    class="addPersonAddress  btn btn-primary halflings halflings-plus-sign"
-                    style="float: right; "></button>
+            {{ deleteButton({additional: {id: "erasePersonAddress2"}, title: 'address.button.erase', transDomain: 'BusybeeAddressBundle', colour: 'warning'})|raw }}
+            {{ resetButton({title: 'address.button.refresh', transDomain: 'BusybeeAddressBundle', additional: {id: 'refreshPersonAddress2'}, colour: 'info', mergeClass: 'refreshPersonAddress'})|raw }}
+            {{ addButton({colour: 'primary', mergeClass: 'addPersonAddress', additional: {id: 'addPersonAddress2'}, transDomain: 'BusybeeAddressBundle', title: 'address.button.add'})|raw }}
 		</span><br/>
         {% include '@BusybeeTemplate/Default/flash.html.twig' with {flashClass: 'fadeAlert', transDomain: 'BusybeePersonBundle'} %}
     </div>

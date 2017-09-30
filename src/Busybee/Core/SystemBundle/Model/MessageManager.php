@@ -64,4 +64,14 @@ class MessageManager
 	{
 		return $this->messages;
 	}
+
+	/**
+	 * @return MessageManager
+	 */
+	public function clearMessages(): MessageManager
+	{
+		$this->messages = [];
+
+		return $this;
+	}
 }

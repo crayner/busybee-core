@@ -2,9 +2,8 @@ services:
     busybee_people_address.model.address_manager:
         class: Busybee\People\AddressBundle\Model\AddressManager
         arguments:
-            - '@busybee_core_system.model.flash_bag_manager'
             - '@busybee_core_system.setting.setting_manager'
-            - '@busybee_people_address.repository.address_repository'
+            - '@doctrine.orm.default_entity_manager'
     busybee_people_address.repository.address_repository:
         class: Busybee\People\AddressBundle\Repository\AddressRepository
         factory:

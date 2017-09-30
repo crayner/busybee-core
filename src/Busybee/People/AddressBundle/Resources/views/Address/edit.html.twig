@@ -8,20 +8,12 @@
     <div class="panel-heading">
         <h3 class="panel-title">{{ 'address.title'|trans }}
             {% if manager.canDelete() and id != 'Add' %}
-                <button type="button" title="{{ 'address.action.delete'|trans }}"
-                        onclick="window.open('{{ path('address_delete', {'id': id}) }}','_self')"
-                        class="btn btn-danger halflings halflings-erase" style="float: right"></button>
+                {{ deleteButton({title: 'address.action.delete', transDomain: 'BusybeeAddressBundle', windowOpen: {route: path('address_delete', {'id': id})}})|raw }}
             {% endif %}
-            <button type="reset" title="{{ 'address.action.reset'|trans }}" style="float: right;"
-                    class="btn btn-info halflings-refresh halflings"></button>
-            <button type="button" title="{{ 'address.action.add'|trans }}"
-                    onclick="window.open('{{ path('address_manage', {'id': 'Add'}) }}','_self')" style="float: right;"
-                    class="formChanged btn btn-primary halflings-plus-sign halflings"></button>
-            <button type="button" title="{{ 'address.action.close'|trans }}" onclick="window.close()"
-                    style="float: right;" class="formChanged btn btn-warning halflings-folder-close halflings"></button>
-            <button type="submit" title="{{ 'address.action.save'|trans }}" style="float: right;"
-                    class="btn btn-success halflings-save halflings"></button>
-
+            {{ resetButton({title: 'address.action.reset', transDomain: 'BusybeeAddressBundle', colour: 'info'})|raw }}
+            {{ addButton({title: 'address.action.add', transDomain: 'BusybeeAddressBundle', colour: 'primary', mergeClass: 'formChanged', windowOpen: {route: path('address_manage', {'id': 'Add'})}})|raw }}
+            {{ closeButton({class: 'formChanged btn btn-warning halflings-folder-close halflings', title: 'address.action.close', transDomain: 'BusybeeAddressBundle'})|raw }}
+            {{ saveButton({title: 'address.action.save', transDomain: 'BusybeeAddressBundle'})|raw }}
         </h3>
     </div>
     <div class="panel-body">
@@ -29,15 +21,6 @@
             <div class='row'>
                 <div class="col-sm-6 well well-success">
                     {{ form_row(form.addressList) }}
-                </div>
-                <div class='col-sm-6 well' style="display:none">
-                    <div class='form-group text-right'>
-                        {% if manager.canDelete() and id != 'Add' %}
-                            <button type="button"
-                                    onclick="window.open('{{ path('address_delete', {'id': id}) }}','_self')"
-                                    class="btn btn-danger glyphicons glyphicons-delete">{{ 'form.delete'|trans({}, 'BusybeeHomeBundle') }}</button>
-                        {% endif %}
-                    </div>
                 </div>
                 <div class='col-sm-6 well'>
                     {{ form_row(form.propertyName) }}
@@ -64,16 +47,14 @@
                     </div>
                 </div>
                 <div class='col-sm-6 well'>
-                    {{ form_row(form.locality, {'value': form.locality.vars.data}) }}
+                    {% set locValue = form.locality.vars.value %}
+                    {% if locValue is empty %}{% set locValue = form.locality.vars.data %}{% endif %}
+                    {{ form_row(form.locality, {'value': locValue}) }}
                     <span>
-						<button title="{{ 'locality.button.refresh'|trans({}, 'BusybeeLocalityBundle') }}"
-                                id="refreshAddressLocality" type="button"
-                                class="btn btn-info halflings halflings-refresh" style="float: right; "></button>
-						<button title="{{ 'locality.button.add'|trans({}, 'BusybeeLocalityBundle') }}"
-                                id="addAddressLocality" type="button"
-                                class="btn btn-primary halflings halflings-plus-sign" style="float: right; "></button>
+                        {{ resetButton({title: 'locality.button.refresh', transDomain: 'BusybeeLocalityBundle', additional: {id: 'refreshAddressLocality'}, colour: 'info', type: 'button'})|raw }}
+                        {{ addButton({additional: {id: 'addAddressLocality'}, colour: 'primary', transDomain: 'BusybeeLocalityBundle', title: 'locality.button.add'})|raw }}
 					</span><br/>
-                    {% include '@BusybeeTemplate/Default/flash.html.twig' with {'flashClass': 'fadeAlert', 'transDomain': 'BusybeePersonBundle'} %}
+                    {% include '@BusybeeTemplate/Default/flash.html.twig' with {flashClass: 'fadeAlert', transDomain: 'BusybeeAddressBundle'} %}
                 </div>
             </div>
         </div>

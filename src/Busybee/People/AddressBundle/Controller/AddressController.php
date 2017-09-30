@@ -31,20 +31,21 @@ class AddressController extends BusybeeController
 			$em->persist($address);
 			$em->flush();
 
-			$sess = $request->getSession();
-			$sess->getFlashBag()->add('success', 'address.save.success');
+			$am->addMessage('success', 'address.save.success', ['%name%' => $address->getSingleLineAddress()]);
 			if ($id === 'Add')
 			{
 				$id = $address->getId();
+				$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($am->getMessageManager());
 
 				return $this->redirectToRoute('address_manage', array('id' => $id));
 			}
 		}
 		elseif ($form->isSubmitted())
 		{
-			$sess = $request->getSession();
-			$sess->getFlashBag()->add('danger', 'address.save.failure');
+			$am->addMessage('danger', 'address.save.failure');
 		}
+
+		$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($am->getMessageManager());
 
 		return $this->render('@BusybeeAddress/Address/index.html.twig',
 			[

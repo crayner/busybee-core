@@ -1,6 +1,6 @@
 locality:
     button:
-        add: Add Locaity
+        add: Add Locality
         refresh: Refresh Locality List
     localityList:
         placeholder: Select Locality or Clear Data
@@ -26,7 +26,6 @@ locality:
         label: Country
     save:
         success: 'Locality %name% Saved'
-
     delete:
         success: 'Locality %name% Deleted'
         locked: 'Locality %name% is locked by the system.'

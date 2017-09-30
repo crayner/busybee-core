@@ -40,5 +40,6 @@ class FlashBagManager
 				continue;
 			$this->flashBag->add($message->getLevel(), $this->translator->trans($message->getMessage(), $message->getOptions(), $message->getDomain()));
 		}
+		$messages->clearMessages();
 	}
 }

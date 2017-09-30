@@ -1,7 +1,10 @@
 address_manage:
-    path:     /{id}/edit/
+    path:     /manage/{id}/
     defaults: { _controller: BusybeeAddressBundle:Address:index }
 address_fetch:
-    path:     /address/fetch/
+    path:     /fetch/
     defaults: { _controller: BusybeeAddressBundle:Address:fetch }
+address_delete:
+    path:     /delete/{id}/
+    defaults: { _controller: BusybeePersonBundle:Address:delete}
 

@@ -1,9 +1,10 @@
 <?php
-
 namespace Busybee\People\AddressBundle\Model;
 
-use Busybee\Core\SystemBundle\Model\FlashBagManager;
+use Busybee\Core\SystemBundle\Model\MessageManager;
+use Busybee\People\FamilyBundle\Entity\Family;
 use Busybee\People\PersonBundle\Entity\Person;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\People\AddressBundle\Repository\AddressRepository;
@@ -19,9 +20,9 @@ use Busybee\People\AddressBundle\Entity\Address;
 class AddressManager
 {
 	/**
-	 * @var FlashBagManager
+	 * @var MessageManager
 	 */
-	private $fbm;
+	private $messageManager;
 
 	/**
 	 * @var SettingManager
@@ -29,9 +30,9 @@ class AddressManager
 	private $sm;
 
 	/**
-	 * @var    AddressRepository
+	 * @var ObjectManager
 	 */
-	private $ar;
+	private $om;
 
 	/**
 	 * @var Address|null
@@ -46,11 +47,12 @@ class AddressManager
 	 *
 	 * @param    Translator
 	 */
-	public function __construct(FlashBagManager $fbm, SettingManager $sm, AddressRepository $ar)
+	public function __construct(SettingManager $sm, ObjectManager $om)
 	{
-		$this->fbm = $fbm;
-		$this->sm  = $sm;
-		$this->ar  = $ar;
+		$this->messageManager = new MessageManager();
+		$this->messageManager->setDomain('BusybeeAddressBundle');
+		$this->sm = $sm;
+		$this->om = $om;
 	}
 
 	/**
@@ -65,16 +67,8 @@ class AddressManager
 	 */
 	public function testAddress($address)
 	{
-		$result            = array();
-		$result['message'] = '';
-		$result['status']  = 'success';
 		if (empty($address['streetName']))
-		{
-			$result['message'] = $this->trans->trans('address.test.empty', array(), 'BusybeePersonBundle');
-			$result['status']  = 'warning';
-		}
-
-		return $result;
+			$this->addMessage('warning', 'address.test.empty');
 	}
 
 	/**
@@ -115,7 +109,7 @@ class AddressManager
 	 */
 	public function getAddressList($locality_id)
 	{
-		$address     = $this->ar->findBy(array('locality' => $locality_id), array('propertyName' => 'ASC', 'streetName' => 'ASC', 'streetNumber' => 'ASC'));
+		$address     = $this->om->getRepository(Address::class)->findBy(array('locality' => $locality_id), array('propertyName' => 'ASC', 'streetName' => 'ASC', 'streetNumber' => 'ASC'));
 		$addressList = array();
 		if (is_array($address))
 			foreach ($address as $xx)
@@ -142,11 +136,12 @@ class AddressManager
 	public function getAddressListLabel($address)
 	{
 		if ($address instanceof Address)
-			$data = array('propertyName'   => $address->getPropertyName(), 'streetName' => $address->getStreetName(), 'buildingType' => $address->getBuildingType(),
-			              'buildingNumber'                                              => $address->getBuildingNumber(), 'streetNumber' => $address->getStreetNumber(), 'locality' => $address->getLocality()->getName());
+			$data = ['propertyName' => $address->getPropertyName(), 'streetName' => $address->getStreetName(),
+			         'buildingType' => $address->getBuildingType(), 'buildingNumber' => $address->getBuildingNumber(),
+			         'streetNumber' => $address->getStreetNumber(), 'locality' => $address->getLocality()->getName()];
 		else
-			$data = array('propertyName'   => null, 'streetName' => null, 'buildingType' => null,
-			              'buildingNumber' => null, 'streetNumber' => null, 'locality' => null);
+			$data = ['propertyName'   => null, 'streetName' => null, 'buildingType' => null,
+			         'buildingNumber' => null, 'streetNumber' => null, 'locality' => null];
 
 		return trim($this->sm->get('Address.ListLabel', null, $data));
 	}
@@ -161,8 +156,7 @@ class AddressManager
 	{
 		$this->checkAddress($address);
 
-		$x = $this->ar->createQueryBuilder('e')
-			->from(Person::class, 'p')
+		$x = $this->om->getRepository(Person::class)->createQueryBuilder('p')
 			->select('COUNT(p.id)')
 			->where('p.address1 = :address1')
 			->orWhere('p.address2 = :address2')
@@ -170,10 +164,24 @@ class AddressManager
 			->setParameter('address2', $this->address->getId())
 			->getQuery()
 			->getSingleScalarResult();
-		if (empty($x))
-			return true;
+		if (!empty($x))
+			return false;
 
-		return false;
+		if ($this->om->getMetadataFactory()->hasMetadataFor(Family::class))
+		{
+			$x = $this->om->getRepository(Family::class)->createQueryBuilder('p')
+				->select('COUNT(p.id)')
+				->where('p.address1 = :address1')
+				->orWhere('p.address2 = :address2')
+				->setParameter('address1', $this->address->getId())
+				->setParameter('address2', $this->address->getId())
+				->getQuery()
+				->getSingleScalarResult();
+			if (!empty($x))
+				return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -204,6 +212,28 @@ class AddressManager
 	 */
 	public function find($id)
 	{
-		return $this->checkAddress($this->ar->find($id));
+		return $this->checkAddress($this->om->getRepository(Address::class)->find($id));
+	}
+
+	/**
+	 * Add Message
+	 *
+	 * @inheritdoc
+	 *
+	 * @return $this
+	 */
+	public function addMessage($level, $message, $options = [], $domain = null): AddressManager
+	{
+		$this->messageManager->addMessage($level, $message, $options, $domain);
+
+		return $this;
+	}
+
+	/**
+	 * @return MessageManager
+	 */
+	public function getMessageManager(): MessageManager
+	{
+		return $this->messageManager;
 	}
 }

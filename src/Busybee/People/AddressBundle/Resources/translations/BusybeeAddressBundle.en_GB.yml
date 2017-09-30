@@ -29,3 +29,8 @@ address:
         close: Close Address Form
         add: Add Address
         reset: Refresh Address
+        delete: Delete Address
+    button:
+        erase: Remove Address
+        refresh: Refresh Address List
+        add: Create Address
