@@ -342,6 +342,10 @@ button.btn.btn-header {
     border-color: #b2dba1;
     color: #3c763d;
 }
+
+.well-success span.field-help {
+    color: inherit;
+}
 .row-hover:hover {
     background-color: rgba(180, 200, 220, 0.5);
 }

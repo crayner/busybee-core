@@ -2,3 +2,31 @@ locality:
     button:
         add: Add Locaity
         refresh: Refresh Locality List
+    localityList:
+        placeholder: Select Locality or Clear Data
+        label: Choose Existing Locality
+        help: Select a locality or add a new locality below.
+    header:
+        title: Locality
+        description: Can be a Suburb, Town or City.  The locality in which people live.
+    action:
+        reset: Reset Locality Form
+        save: Save Locality
+        delete: Delete Locality
+        close: Close Page
+    name:
+        label: Town, Suburb or City
+        help: The locality details must be unique.
+    territory:
+        placeholder: Select a Territory
+        label: State, Province or Territory
+    postcode:
+        label: Post Code
+    country:
+        label: Country
+    save:
+        success: 'Locality %name% Saved'
+
+    delete:
+        success: 'Locality %name% Deleted'
+        locked: 'Locality %name% is locked by the system.'

@@ -17,14 +17,14 @@ class MessageManager
 	/**
 	 * Add Message
 	 *
-	 * @param       $level
-	 * @param       $message
-	 * @param array $options
-	 * @param null  $domain
+	 * @param string      $level
+	 * @param string      $message
+	 * @param array       $options
+	 * @param string|null $domain
 	 *
 	 * @return $this
 	 */
-	public function addMessage($level, $message, $options = [], $domain = null)
+	public function addMessage(string $level, string $message, array $options = [], string $domain = null)
 	{
 		$mess = new Message();
 

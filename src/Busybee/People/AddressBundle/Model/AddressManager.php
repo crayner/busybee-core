@@ -19,9 +19,9 @@ use Busybee\People\AddressBundle\Entity\Address;
 class AddressManager
 {
 	/**
-	 * @var    Translator
+	 * @var FlashBagManager
 	 */
-	private $trans;
+	private $fbm;
 
 	/**
 	 * @var SettingManager

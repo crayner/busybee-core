@@ -44,26 +44,6 @@ abstract class LocalityModel
 	}
 
 	/**
-	 * can Delete
-	 *
-	 * @return boolean
-	 */
-	public function canDelete()
-	{
-		$x = $this->repo->createQueryBuilder('e')
-			->from('\Busybee\People\AddressBundle\Entity\Address', 'a')
-			->select('COUNT(a.id)')
-			->where('a.locality = :localityID')
-			->setParameter('localityID', $this->getId())
-			->getQuery()
-			->getSingleScalarResult();
-		if (empty($x))
-			return true;
-
-		return false;
-	}
-
-	/**
 	 * to String
 	 *
 	 * @return string

@@ -2,20 +2,20 @@
 
 namespace Busybee\People\LocalityBundle\Controller;
 
-use Busybee\People\PersonBundle\Form\LocalityType;
+use Busybee\People\LocalityBundle\Entity\Locality;
+use Busybee\People\LocalityBundle\Form\LocalityType;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Busybee\People\LocalityBundle\Entity\Locality;
 
 class LocalityController extends BusybeeController
 {
 
 
 	/**
-	 * @param         $id
-	 * @param Request $request
+	 * @param integer|string $id
+	 * @param Request        $request
 	 *
 	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
@@ -23,12 +23,9 @@ class LocalityController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$locality = new Locality();
-		$lr       = $this->get('busybee_people_person.repository.locality_repository');
-		if ($id !== 'Add')
-			$locality = $lr->find($id);
+		$lm = $this->get('busybee_people_locality.model.locality_manager');
 
-		$locality->injectRepository($lr);
+		$locality = $lm->find($id);
 
 		$form = $this->createForm(LocalityType::class, $locality);
 
@@ -40,14 +37,20 @@ class LocalityController extends BusybeeController
 			$em->persist($locality);
 			$em->flush();
 
-			$sess = $request->getSession();
-			$sess->getFlashBag()->add('success', 'locality.save.success');
+			$lm->addMessage('success', 'locality.save.success', ['%name%' => $locality->getFullLocality()]);
 
-			return new RedirectResponse($this->get('router')->generate('locality_manage', array('id' => $locality->getId())));
+			$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($lm->getMessageManager());
+
+			if ($id === 'Add')
+				return $this->redirectToRoute('locality_manage', array('id' => $locality->getId()));
 		}
 
-		return $this->render('BusybeePersonBundle:Locality:index.html.twig',
-			array('id' => $id, 'form' => $form->createView())
+		return $this->render('@BusybeeLocality/Locality/index.html.twig',
+			[
+				'id'      => $id,
+				'form'    => $form->createView(),
+				'manager' => $lm,
+			]
 		);
 	}
 
@@ -60,29 +63,34 @@ class LocalityController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		if ($id > 0 && $entity = $this->get('busybee_people_person.repository.locality_repository')->find($id))
+		$lm     = $this->get('busybee_people_locality.model.locality_manager');
+		$entity = $lm->find($id);
+
+		if ($id > 0 && $entity instanceof Locality)
 		{
-			$entity->injectRepository($this->get('busybee_people_person.repository.locality_repository'));
-			$sess = $request->getSession();
-			if ($entity->canDelete())
+			$name = $entity->getFullLocality();
+			if ($lm->canDelete())
 			{
 				$em = $this->get('doctrine')->getManager();
 				$em->remove($entity);
 				$em->flush();
 
-				$sess->getFlashBag()->add('success', 'locality.delete.success');
+				$lm->addMessage('success', 'locality.delete.success', ['%name%' => $name]);
 			}
 			else
 			{
-				$sess->getFlashBag()->add('warning', 'locality.delete.notAllowed');
+				$lm->addmessage('warning', 'locality.delete.notAllowed', ['%name%' => $name]);
 			}
 		}
 
-		return new RedirectResponse($this->get('router')->generate('locality_manage', array('id' => 'Add')));
+		$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($lm->getMessageManager());
+
+		return $this->redirectToRoute('locality_manage', array('id' => 'Add'));
 	}
 
 	/**
-	 * @param int     $id
+	 * Fetch Action
+	 *
 	 * @param Request $request
 	 *
 	 * @return JsonResponse
@@ -91,7 +99,7 @@ class LocalityController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$localities = $this->get('busybee_people_person.repository.locality_repository')->findBy(array(), array('name' => 'ASC', 'postCode' => 'ASC'));
+		$localities = $this->get('busybee_people_locality.repository.locality_repository')->findBy(array(), array('name' => 'ASC', 'postCode' => 'ASC'));
 		$localities = is_array($localities) ? $localities : array();
 
 		$options   = array();

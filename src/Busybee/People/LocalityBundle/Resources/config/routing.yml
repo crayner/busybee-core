@@ -2,5 +2,8 @@ locality_fetch:
     path:     /fetch/
     defaults: { _controller: BusybeeLocalityBundle:Locality:fetch }
 locality_manage:
-    path:     /{id}/manage/
+    path:     /manage/{id}/
     defaults: { _controller: BusybeeLocalityBundle:Locality:index }
+locality_delete:
+    path:     /delete/{id}/
+    defaults: { _controller: BusybeeLocalityBundle:Locality:delete }
