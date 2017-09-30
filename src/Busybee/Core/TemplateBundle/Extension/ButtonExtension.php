@@ -62,6 +62,7 @@ class ButtonExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('onOffButton', array($this, 'onOffButton')),
 			new \Twig_SimpleFunction('upDownButton', array($this, 'upDownButton')),
 			new \Twig_SimpleFunction('toggleButton', array($this, 'toggleButton')),
+			new \Twig_SimpleFunction('duplicateButton', array($this, 'duplicateButton')),
 		);
 	}
 
@@ -372,5 +373,15 @@ class ButtonExtension extends \Twig_Extension
 			return $this->generateButton($this->buttons['on'], isset($details['on']) ? $details['on'] : []);
 		else
 			return $this->generateButton($this->buttons['off'], isset($details['off']) ? $details['off'] : []);
+	}
+
+	/**
+	 * @param array $details
+	 *
+	 * @return string
+	 */
+	public function duplicateButton($details = array())
+	{
+		return $this->generateButton($this->buttons['duplicate'], $details);
 	}
 }

@@ -16,9 +16,8 @@
 
 {% block url_label -%}
     {{- form_label(form) -}}
-    &nbsp;
     <button title='{{ label|trans({}, translation_domain ) }}' type="button"
-            class="x075 halflings halflings-link btn btn-default"
+            class="halflings halflings-link alert-default"
             onClick="window.open('{{ value }}','_blank')"></button>
 {%- endblock url_label %}
 
@@ -38,10 +37,12 @@
         {%- for error in errors -%}
             <li><span class="glyphicons glyphicons-exclamation-sign"></span> {{ (translation_domain is same as(false) ? error.message : error.message|trans({}, translation_domain)) }}</li>
         {%- endfor -%}
-    </ul>
+        </ul>
         {% if form.parent %}</span>{% else %}</div>{% endif %}
+        <br/>
+    {% else %}
+        {% if setting_name is not defined %}<br/>{% endif %}
     {%- endif %}
-    <br/>
     {% for attrname,attrvalue in attr %}
         {% if attrname == 'help' %}
             {% if attrvalue is iterable %}
@@ -104,6 +105,13 @@
         {%- endif -%}
     {%- endfor -%}
 {%- endblock widget_attributes -%}
+
+{% block choice_setting_label %}
+    <span class="halflings halflings-question-sign alert-info"
+          title="{{ 'setting.choice.name'|trans({'%name%': setting_name}, 'BusybeeTemplateBundle') }}"
+          style="float: left; margin: 2px 4px; 0 0;"></span>
+    {{- form_label(form) -}}
+{% endblock choice_setting_label %}
 
 {% block choice_row -%}
     {% if expanded %}

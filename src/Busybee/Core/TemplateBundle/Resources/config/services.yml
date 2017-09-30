@@ -82,6 +82,13 @@ parameters:
             style: 'float: right;'
             additional: 'onclick="window.close();"'
             prompt: ''
+        duplicate:
+            class: "halflings halflings-duplicate btn btn-primary"
+            type: button
+            title: 'form.duplicate'
+            style: 'float: right;'
+            additional: ''
+            prompt: ''
         up:
             class: "collection-up collection-action halflings halflings-arrow-up btn btn-default"
             type: button
@@ -178,6 +185,7 @@ services:
         class: Busybee\Core\TemplateBundle\Type\SettingChoiceType
         arguments:
             - '@busybee_core_system.setting.setting_manager'
+            - '@translator'
         tags:
             - { name: form.type }
     busybee_core_template.validator.constraints.unique_or_blank_validator:

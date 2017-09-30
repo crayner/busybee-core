@@ -52,10 +52,10 @@ class GradeValidator extends ConstraintValidatorBase
 		foreach ($value as $grade)
 			$test[$grade->getGrade()] = isset($test[$grade->getGrade()]) ? $test[$grade->getGrade()] + 1 : 1;
 
-		foreach ($test as $w)
+		foreach ($test as $y => $w)
 			if ($w > 1)
 			{
-				$this->context->buildViolation($constraint->message)
+				$this->context->buildViolation($constraint->message, ['%grade%' => $y])
 					->addViolation();
 
 				return;

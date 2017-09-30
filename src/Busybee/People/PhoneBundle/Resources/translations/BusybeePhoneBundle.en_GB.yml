@@ -1,0 +1,8 @@
+phone:
+    type:
+        label: Type of Phone
+    number:
+        label: Phone Number
+        help: Any character but a number is ignored. The display can be altered in the settings.
+    country:
+        label: Country Code

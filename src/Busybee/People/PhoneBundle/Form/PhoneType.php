@@ -3,6 +3,7 @@
 namespace Busybee\People\PhoneBundle\Form;
 
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Type\TextType;
 use Busybee\People\PhoneBundle\Entity\Phone;
 use Busybee\People\PhoneBundle\Events\PhoneSubscriber;
 use Busybee\People\PhoneBundle\Repository\PhoneRepository;
@@ -42,23 +43,23 @@ class PhoneType extends AbstractType
 		$builder
 			->add('phoneType', SettingChoiceType::class,
 				array(
-					'label'        => 'person.label.phone.type',
-					'setting_name' => 'Phone.TypeList',
+					'label'        => 'phone.type.label',
+					'setting_name' => 'phone.typelist',
 				)
 			)
-			->add('phoneNumber', null,
+			->add('phoneNumber', TextType::class,
 				array(
-					'label' => 'person.label.phone.number',
+					'label' => 'phone.number.label',
 					'attr'  => array(
-						'help' => 'person.help.phone.number',
+						'help' => 'phone.number.help',
 					),
 				)
 			)
 			->add('countryCode', SettingChoiceType::class,
 				array(
-					'label'        => 'person.label.phone.country',
+					'label'        => 'phone.country.label',
 					'required'     => false,
-					'setting_name' => 'Phone.CountryList',
+					'setting_name' => 'phone.countrylist',
 				)
 			);
 		$builder->get('phoneNumber')
@@ -74,7 +75,7 @@ class PhoneType extends AbstractType
 		$resolver->setDefaults(
 			array(
 				'data_class'         => Phone::class,
-				'translation_domain' => 'BusybeePersonBundle',
+				'translation_domain' => 'BusybeePhoneBundle',
 			)
 		);
 	}

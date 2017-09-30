@@ -14,3 +14,6 @@ version:
     upgrade: ' This software is required at version %required%.'
     over: ' The system version is greater than required. Some functions on the site may work unexpectedly.  The version required is %required%.'
     equal: ' This software meets current requirements. %required%'
+setting:
+    choice:
+        name: 'Use Setting "%name%" to configure this choice list.'

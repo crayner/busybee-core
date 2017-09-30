@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class SettingChoiceType extends AbstractType
 {
@@ -19,13 +20,19 @@ class SettingChoiceType extends AbstractType
 	private $settingManager;
 
 	/**
+	 * @var TranslatorInterface
+	 */
+	private $translator;
+
+	/**
 	 * SettingType constructor.
 	 *
 	 * @param SettingManager $settingManager
 	 */
-	public function __construct(SettingManager $settingManager)
+	public function __construct(SettingManager $settingManager, TranslatorInterface $translator)
 	{
 		$this->settingManager = $settingManager;
+		$this->translator     = $translator;
 	}
 
 	/**
@@ -63,7 +70,7 @@ class SettingChoiceType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder->addEventSubscriber(new SettingChoiceSubscriber($this->settingManager));
+		$builder->addEventSubscriber(new SettingChoiceSubscriber($this->settingManager, $this->translator));
 	}
 
 	/**
