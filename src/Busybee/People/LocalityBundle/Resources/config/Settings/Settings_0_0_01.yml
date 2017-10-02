@@ -1,0 +1,16 @@
+locality.version:
+    value: 0.0.01
+    type: system
+    displayName: 'Version: Locality Bundle'
+    description: System Setting ONLY
+    role: ROLE_SYSTEM_ADMIN
+locality.validation:
+    type: array
+    displayName: Locality Validation
+    description: Set of rules for validation of a Locality
+    role: ROLE_REGISTRAR
+    value:
+        name: ~
+        territory: ~
+        postCode: ~
+        country: ~

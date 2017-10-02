@@ -1,0 +1,15 @@
+Busybee\People\LocalityBundle\Entity\Locality:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - name
+                - territory
+                - postCode
+                - country
+            errorPath: name
+            message: 'locality.unique'
+        - Busybee\People\LocalityBundle\Validator\Locality: ~
+    properties:
+        territory:
+            - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
+                name: 'address.territorylist'

@@ -1,0 +1,45 @@
+Busybee\People\PersonBundle\Entity\Person:
+    constraints:
+        - Busybee\People\PersonBundle\Validator\PersonName: ~
+    properties:
+        email:
+            - Email:
+                  checkMX: true
+            - Busybee\People\PersonBundle\Validator\PersonEmail:
+                errorPath: email
+        email2:
+            - Email:
+                  checkMX: true
+            - Busybee\People\PersonBundle\Validator\PersonEmail:
+                errorPath: email2
+        surname:
+            - NotBlank: ~
+        firstName:
+            - NotBlank: ~
+        officialName:
+            - NotBlank: ~
+        preferredName:
+            - NotBlank: ~
+        website:
+            - Url: ~
+        dob:
+            - Date: ~
+        gender:
+            - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
+                name: 'person.genderlist'
+            - NotBlank: ~
+        honorific:
+            - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
+                name: 'person.titlelist'
+        photo:
+            - \Busybee\People\PersonBundle\Validator\PersonImage: ~
+        phone:
+            - Valid: ~
+        address1:
+            - Valid: ~
+        address2:
+            - Valid: ~
+        user:
+            - Valid: ~
+        importIdentifier:
+            - \Busybee\Core\TemplateBundle\Validator\UniqueOrBlank: ~

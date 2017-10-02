@@ -94,6 +94,10 @@ person:
         title: 'Grade Details: %name%'
     add:
         title: Add Person
+    edit:
+        title: Edit Person
+    import:
+        title: Import People
 phone:
     save: Changes in phone details are only recorded when the entire form is saved.
 address:

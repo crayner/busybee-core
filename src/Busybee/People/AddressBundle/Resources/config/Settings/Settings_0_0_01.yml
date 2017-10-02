@@ -1,6 +1,6 @@
-person.version:
-    type: system
+address.version:
     value: 0.0.01
-    displayName: 'Version: Person Bundle'
+    type: system
+    displayName: 'Version: Address Bundle'
     description: System Setting ONLY
     role: ROLE_SYSTEM_ADMIN

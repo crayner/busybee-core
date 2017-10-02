@@ -20,7 +20,7 @@
     {% set transDomain = 'BusybeePersonBundle' %}
     {% set h3Content = addButton({'windowOpen': {'route': path('person_edit', {'id': 'Add'})}})|raw %}
 
-    {% set h3Content = h3Content ~ uploadButton({'type': 'button', 'transDomain': transDomain, 'title': 'person.title.import', 'windowOpen': {'route': path('people_import')}})|raw %}
+    {% set h3Content = h3Content ~ uploadButton({'type': 'button', transDomain: transDomain, 'title': 'person.import.title', 'windowOpen': {'route': path('people_import')}})|raw %}
 
     {% if header is not defined %}{% set header = 'people.title' %}{% endif %}
     {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': header} %}
@@ -97,7 +97,7 @@
                     {% if pagination.getChoice is not empty %}
                         {% set route = path('person_edit', {'id': person.id, 'returnRoute': pagination.getChoice }) %}
                     {% endif %}
-                    {{ editButton({'title': 'person.title.edit', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': route}, 'style': '', 'colour': 'warning'})|raw }}
+                    {{ editButton({'title': 'person.edit.title', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': route}, 'style': '', 'colour': 'warning'})|raw }}
                     {% if person.user_id is not empty %}
                         {% set route = path('home_page') ~ '?_switch_user=' ~ person.0.person.user.username %}
                         {% set additional = '' %}

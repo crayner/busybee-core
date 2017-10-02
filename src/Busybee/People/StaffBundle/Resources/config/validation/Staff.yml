@@ -7,5 +7,5 @@ Busybee\People\StaffBundle\Entity\Staff:
         jobTitle:
             - NotBlank: ~
         house:
-            - Busybee\Core\TemplateBundle\Validator\SettingChoice:
+            - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'house.list'

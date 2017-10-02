@@ -204,3 +204,4 @@ google:
         state: Google returned an invalid state.
         user: 'Failed to retrieve a valid Google User: %message%'
     notAvailable: 'The user %name% (%email%) was not registered on the local system.'
+PasswordRequest: Password Request

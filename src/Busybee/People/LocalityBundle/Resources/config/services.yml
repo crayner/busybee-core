@@ -10,4 +10,10 @@ services:
         class: Busybee\People\LocalityBundle\Model\LocalityManager
         arguments:
             - '@doctrine.orm.default_entity_manager'
+    busybee_people_locality.validator.constraints.locality_validator:
+        class: Busybee\People\LocalityBundle\Validator\Constraints\LocalityValidator
+        arguments:
+            - "@busybee_core_system.setting.setting_manager"
+        tags:
+            - { name: validator.constraint_validator, alias: locality_validator }
 

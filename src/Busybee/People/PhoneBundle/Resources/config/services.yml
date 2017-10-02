@@ -19,3 +19,9 @@ services:
             - '@busybee_people_phone.repository.phone_repository'
         tags:
             - { name: form.type }
+    busybee_people_phone.validator.constraints.phone_validator:
+        class: Busybee\People\PhoneBundle\Validator\Constraints\PhoneValidator
+        arguments:
+            - '@busybee_core_system.setting.setting_manager'
+        tags:
+            - { name: validator.constraint_validator, alias: phone_validator }

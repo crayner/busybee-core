@@ -124,3 +124,19 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
+    busybee_people_person.validator.constraints.person_name_validator:
+        class: Busybee\People\PersonBundle\Validator\Constraints\PersonNameValidator
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        tags:
+            - { name: validator.constraint_validator, alias: person_name_validator }
+    busybee_people_person.validator.constraints.person_email_validator:
+        class: Busybee\People\PersonBundle\Validator\Constraints\PersonEmailValidator
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: validator.constraint_validator, alias: person_email_validator }
+    busybee_people_person.validator.constraints.person_image_validator:
+        class: Busybee\People\PersonBundle\Validator\Constraints\PersonImageValidator
+        tags:
+            - { name: validator.constraint_validator, alias: person_image_validator }
