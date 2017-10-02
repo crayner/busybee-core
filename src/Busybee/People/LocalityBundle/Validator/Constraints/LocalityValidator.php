@@ -38,17 +38,39 @@ class LocalityValidator extends ConstraintValidator
 		if (is_null($pattern))
 			return;
 
-		foreach ($pattern as $name => $field)
+		$validator = $this->context->getValidator();
+
+		foreach ($pattern as $name => $constraints)
 		{
-			dump([$name, $field]);
+			if (!empty($constraints))
+			{
+				$validators = [];
+				$getName    = 'get' . ucfirst($name);
+				foreach ($constraints as $constraint => $options)
+				{
+					if (empty($options))
+						$options = [];
+
+					$cName        = "Symfony\\Component\\Validator\\Constraints\\" . $constraint;
+					$validators[] = new $cName($options);
+
+				}
+				$errors = $validator->startContext()->atPath($name)->validate(
+					$entity->$getName(),
+					$validators,
+					['Default']
+				)
+					->getViolations();
+
+				foreach ($errors as $error)
+					$this->context->buildViolation($error->getMessage())
+						->atPath($name)
+						->addViolation();
+
+			}
+
 		}
 
 		return;
-
-		if (preg_match($pattern, $value) !== 1)
-		{
-			$this->context->buildViolation($constraint->message)
-				->addViolation();
-		}
 	}
 }

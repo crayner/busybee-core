@@ -1,3 +1,9 @@
+parameters:
+    LocalityBundle:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeLocalityBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     busybee_people_locality.repository.locality_repository:
         class: Busybee\People\LocalityBundle\Repository\LocalityRepository

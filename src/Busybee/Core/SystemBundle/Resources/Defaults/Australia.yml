@@ -129,3 +129,12 @@ settings:
         'Year 2': Y2
         'Year 1': Y1
         'Kinder': Y0
+    locality.validation:
+        name: ~
+        territory:
+            NotBlank: ~
+            NotEqualTo:
+                value: '@@'
+                message: territory.not.specified
+        postCode: ~
+        country: ~

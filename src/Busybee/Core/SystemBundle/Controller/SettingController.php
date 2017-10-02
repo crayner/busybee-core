@@ -317,10 +317,21 @@ class SettingController extends BusybeeController
 			$em->flush();
 			$session                       = $this->get('session');
 			$settings                      = $session->get('settings', []);
-			$settings[$setting->getName()] = $setting->getValue();
+
+			switch ($setting->getType())
+			{
+				case 'array':
+					$settings[$setting->getName()] = Yaml::parse($setting->getValue());
+					break;
+				default:
+					$settings[$setting->getName()] = $setting->getValue();
+
+			}
+
 			$session->set('settings', $settings);
+
 			if ($setting->getType() == 'image')
-				return new RedirectResponse($this->generateUrl('setting_edit', array('id' => $id)));
+				return $this->redirectToRoute('setting_edit', array('id' => $id));
 		}
 
 		return $this->render('SystemBundle:Setting:edit.html.twig', array(

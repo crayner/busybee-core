@@ -1,4 +1,4 @@
-locality.version:
+Locality.version:
     value: 0.0.01
     type: system
     displayName: 'Version: Locality Bundle'

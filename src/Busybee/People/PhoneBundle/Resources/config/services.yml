@@ -1,3 +1,10 @@
+parameters:
+    PhoneBundle:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeePhoneBundle/Resources/config/Settings/Settings_0_0_01.yml'
+
 services:
     busybee_people_phone.model.phone_manager:
         class: Busybee\People\PhoneBundle\Model\PhoneManager

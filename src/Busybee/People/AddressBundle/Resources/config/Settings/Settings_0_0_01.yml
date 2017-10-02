@@ -1,4 +1,4 @@
-address.version:
+Address.version:
     value: 0.0.01
     type: system
     displayName: 'Version: Address Bundle'

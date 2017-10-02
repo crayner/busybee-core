@@ -1,3 +1,9 @@
+parameters:
+    AddressBundle:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeAddressBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
     busybee_people_address.model.address_manager:
         class: Busybee\People\AddressBundle\Model\AddressManager
@@ -18,3 +24,4 @@ services:
             - '@doctrine.orm.default_entity_manager'
         tags:
             - { name: form.type }
+
