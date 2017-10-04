@@ -1,0 +1,25 @@
+{% trans_default_domain "BusybeePersonBundle" %}
+
+
+{% block field_match_error %}{% endblock field_match_error %}
+{% block field_match_label %}{% endblock field_match_label %}
+
+{% block field_match_widget %}
+    {% set header = 'people.matchimport.header' %}
+    {% set transDomain = 'BusybeePersonBundle' %}
+    {% set h3Content = '<div class="collection-actions collection-panel">' %}
+    {% set h3Content = h3Content ~ deleteButton({title: 'people.matchimport.button.remove', transDomain: 'BusybeePersonBundle', mergeClass: 'collection-remove collection-action', colour: 'warning'}) %}
+    {% set h3Content = h3Content ~ '</div>' %}
+
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' %}
+    <div class="row">
+        <div class="col-sm-6 well">
+            {{ form_row(form.source) }}
+        </div>
+        <div class="col-sm-6 well">
+            {{ form_row(form.destination) }}
+            <div id="{{ form.vars.id }}_options" style="display: none"></div>
+        </div>
+    </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+{% endblock field_match_widget %}

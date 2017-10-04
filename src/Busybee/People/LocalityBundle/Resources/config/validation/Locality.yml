@@ -13,3 +13,7 @@ Busybee\People\LocalityBundle\Entity\Locality:
         territory:
             - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'address.territorylist'
+        name:
+            - NotBlank: ~
+        country:
+            - NotBlank: ~

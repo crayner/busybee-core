@@ -51,6 +51,8 @@ person:
         help: This is the name recorded on official documents. e.g. birth certificates and passports. Helps school document linkage to identity.
     dob:
         label: Date of Birth
+        format:
+            label: Format of Date Imported
     person:
         tab: Person
         title: Manage Personal Details
@@ -181,3 +183,19 @@ student:
         label: Locker Details
 people:
     title: Manage People
+    import:
+        importFile:
+            label: Import File
+        title: Import People
+        description: ''
+    matchimport:
+        title: Match Import Fields
+        help: Match the source to a destination. Any source without a selected destination is ignored.
+        description: ''
+        destination:
+            placeholder: Select a destination field
+            label: Busybee Destination Field
+        source:
+            placeholder: Select a source field
+            label: Import Source Field
+        header: Match Import Source to Busybee Destination

@@ -91,7 +91,7 @@
     {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
     {% include 'BusybeeTemplateBundle:Toggle:script.html.twig' %}
     {% include "BusybeeTemplateBundle:Scripts:jquery.collection.js.html.twig" %}
-    {% include 'BusybeePersonBundle:Person:script.html.twig' %}
+    {% include '@BusybeePerson/Person/script.html.twig' %}
     {% include 'BusybeeTemplateBundle:Scripts:monitorForm.html.twig' with {'route': 'person_manage'} %}
     {% include '@BusybeeTemplate/Scripts/formTabSubmitScript.html.twig' with {'route': 'person_edit'} %}
 {% endblock javascripts %}

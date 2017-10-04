@@ -21,15 +21,19 @@ Busybee\People\AddressBundle\Entity\Address:
         buildingType:
             type: string 
             length: '10'
+            nullable: true
         buildingNumber:
             type: string
             length: '10'
+            nullable: true
         streetNumber:
             type: string
             length: '15'
+            nullable: true
         propertyName:
             type: string
             length: '50'
+            nullable: true
         streetName:
             type: string
             length: '70'

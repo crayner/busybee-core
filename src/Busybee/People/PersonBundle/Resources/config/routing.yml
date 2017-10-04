@@ -13,3 +13,9 @@ person_toggle_user:
 person_photo_remove:
     path:     /photo/{id}/remove
     defaults: { _controller: BusybeePersonBundle:Person:removePhoto }
+people_import_match:
+    path:     /import/match/
+    defaults: { _controller: BusybeePersonBundle:People:match }
+people_import_data:
+    path:     /import/data/
+    defaults: { _controller: BusybeePersonBundle:People:data }

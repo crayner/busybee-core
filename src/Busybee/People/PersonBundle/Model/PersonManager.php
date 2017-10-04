@@ -38,7 +38,9 @@ class PersonManager
 	/**
 	 * PersonManager constructor.
 	 *
-	 * @param ObjectManager $om
+	 * @param ObjectManager  $om
+	 * @param SettingManager $sm
+	 * @param UserProvider   $userProvider
 	 */
 	public function __construct(ObjectManager $om, SettingManager $sm, UserProvider $userProvider)
 	{
@@ -444,4 +446,21 @@ class PersonManager
 			$this->om->refresh($this->person);
 		}
 	}
+
+	/**
+	 * @return ObjectManager
+	 */
+	public function getOm(): ObjectManager
+	{
+		return $this->om;
+	}
+
+	/**
+	 * @return SettingManager
+	 */
+	public function getSm(): SettingManager
+	{
+		return $this->sm;
+	}
+
 }

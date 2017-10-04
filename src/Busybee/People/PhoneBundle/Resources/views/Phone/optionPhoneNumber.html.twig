@@ -1,0 +1,13 @@
+{% trans_default_domain "BusybeePhoneBundle" %}
+{% spaceless %}
+    <div class="form-group">
+        <select id="__id__" name="__name__" class="form-control">
+            <option value="Imported"></option>
+            {% set types = get_setting('phone.typelist') %}
+            {% for value,label in types %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        <label for="__id__">{{ 'phone.type.label'|trans }}</label>
+    </div>
+{% endspaceless %}

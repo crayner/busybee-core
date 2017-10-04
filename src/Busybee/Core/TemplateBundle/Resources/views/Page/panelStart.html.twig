@@ -6,6 +6,10 @@
 
 {% trans_default_domain transDomain %}
 
+{% if title is defined %}
+    {% set header = title %}
+{% endif %}
+
 {% if header is not defined %}
     {% set header = 'panel.header.empty' %}
 {% endif %}

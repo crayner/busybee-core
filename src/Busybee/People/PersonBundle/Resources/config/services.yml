@@ -140,3 +140,10 @@ services:
         class: Busybee\People\PersonBundle\Validator\Constraints\PersonImageValidator
         tags:
             - { name: validator.constraint_validator, alias: person_image_validator }
+    busybee_people_person.model.import_manager:
+        class: Busybee\People\PersonBundle\Model\ImportManager
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@busybee_core_system.setting.setting_manager'
+            - '@busybee_core_security.security.user_provider'
+            - '@validator.builder'
