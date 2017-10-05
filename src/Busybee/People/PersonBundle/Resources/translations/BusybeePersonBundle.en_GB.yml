@@ -188,6 +188,22 @@ people:
             label: Import File
         title: Import People
         description: ''
+        warning:
+            invalid: 'The data is not valid. %data%'
+            locality: 'Locality not correctly formatted: %data%'
+        missing:
+            locality: 'The address %name% was missing the locality.'
+        limit:
+            numbers: 200 records loaded.
+            reload: ' Load next batch of records.'
+            message: 'The file had too many records for the system to handle all at once.  Please load the next group (200 maximum) records now.  %data% records have already been loaded.'
+        complete:
+            message: 'Import has been completed. %data% records have been loaded.'
+        success:
+            phone: 'Phone Number added: %data%'
+            locality: 'Locality added %data%'
+            address: 'Address added %data%'
+            person: 'Person imported: %data%'
     matchimport:
         title: Match Import Fields
         help: Match the source to a destination. Any source without a selected destination is ignored.
@@ -199,3 +215,6 @@ people:
             placeholder: Select a source field
             label: Import Source Field
         header: Match Import Source to Busybee Destination
+    importresults:
+        title: Import Results
+        description: ''

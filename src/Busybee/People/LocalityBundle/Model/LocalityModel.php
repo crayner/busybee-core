@@ -72,4 +72,16 @@ abstract class LocalityModel
 	{
 		return Intl::getRegionBundle()->getCountryName(strtoupper($this->getCountry()));
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function isEmpty(): bool
+	{
+		if (empty(trim($this->__toString())))
+			return true;
+
+		return false;
+	}
+
 }

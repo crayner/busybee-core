@@ -1,8 +1,8 @@
 <?php
-
 namespace Busybee\People\PersonBundle\Model;
 
 use Busybee\Core\SecurityBundle\Security\UserProvider;
+use Busybee\Core\SystemBundle\Model\MessageManager;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\People\AddressBundle\Entity\Address;
 use Busybee\People\LocalityBundle\Entity\Locality;
@@ -37,6 +37,26 @@ class ImportManager extends PersonManager
 	private $validator;
 
 	/**
+	 * @var array
+	 */
+	private $tables;
+
+	/**
+	 * @var MessageManager
+	 */
+	private $results;
+
+	/**
+	 * @var Address|null
+	 */
+	private $address;
+
+	/**
+	 * @var Locality|null
+	 */
+	private $locality;
+
+	/**
 	 * ImportManager constructor.
 	 *
 	 * @param ObjectManager  $om
@@ -49,6 +69,7 @@ class ImportManager extends PersonManager
 		$this->fields    = new ArrayCollection();
 		$this->offset    = 0;
 		$this->validator = $validator->getValidator();
+		$this->results   = new MessageManager('BusybeePersonBundle');
 	}
 
 	/**
@@ -76,14 +97,14 @@ class ImportManager extends PersonManager
 	/**
 	 * @param $import
 	 *
-	 * @return array
+	 * @return void
 	 */
 	public function importPeople($import)
 	{
 		$file          = $import['file'];
-		$this->results = array();
 		$fields        = $import['fields'];
-		$this->fields  = array();
+
+		$this->fields = [];
 		foreach ($fields as $q => $w)
 			if ($w['destination'] !== "")
 				$this->fields[] = $w;
@@ -103,15 +124,15 @@ class ImportManager extends PersonManager
 					if ($line >= $offset)
 					{
 						ini_set('max_execution_time', '10');
-						$result = $this->importPerson($data, $this->fields, $destinationFields, ++$line);
-						if (!empty($result)) $this->results[] = $result;
+						$this->importPerson($data, $this->fields, $destinationFields, ++$line);
 
 						if ($line >= $offset + 200)
 						{
 
-							$this->results[] = ['limit' => ['people.import.limit.message', $line]];  // Return the offset to the form.
+							$this->results->addMessage('limit', 'people.import.limit.message', ['%data%' => $line]); // Return the offset to the form.
+							$this->offset = $line;
 
-							return $this->results;
+							return;
 						}
 					}
 					else
@@ -124,11 +145,10 @@ class ImportManager extends PersonManager
 				else
 				{
 					$headers      = true;
-					$this->tables = array();
+					$this->tables = [];
 					foreach ($this->fields as $q => $w)
 					{
-						$field = $destinationFields[$w['destination']];
-						$table = explode('.', $field);
+						$table = explode('.', $w['destination']);
 						if (!in_array($table[0], $this->tables))
 							$this->tables[] = $table[0];
 					}
@@ -136,10 +156,11 @@ class ImportManager extends PersonManager
 			}
 			fclose($handle);
 		}
-		$this->results[] = ['info' => ['people.import.complete.message', --$line]];  // All done message.
+		$this->results->addMessage('info', 'people.import.complete.message', ['%data%' => $line]);
+
 		unlink($import['file']);
 
-		return $this->results;
+		return;
 	}
 
 	/**
@@ -188,10 +209,8 @@ class ImportManager extends PersonManager
 		{
 			$p = null;
 			$s = null;
-			dump($field);
 			foreach ($result as $q => $w)
 			{
-				dump($w);
 				if ($w->table == 'student' && $w->field == $field)
 					$s = $q;
 				if ($w->table == 'person' && $w->field == $field)
@@ -240,7 +259,7 @@ class ImportManager extends PersonManager
 	 */
 	public function addFieldNames($table, $fields)
 	{
-		$result = array();
+		$result = [];
 		foreach ($fields as $field)
 			if (!in_array($field, array('id', 'lastModified', 'createdOn')))
 			{
@@ -259,21 +278,22 @@ class ImportManager extends PersonManager
 	 * @param $destinationFields
 	 * @param $line
 	 *
-	 * @return array
+	 * @return void
 	 */
 	private function importPerson($data, $fields, $destinationFields, $line)
 	{
-		$result         = array();
 		$this->address  = null;
 		$this->locality = null;
 
 		if (!in_array('person', $this->tables))
 		{
-			$result['warning'] = ['people.import.warning.nodata', $line];
+			$this->results->addMessage('warning', 'people.import.warning.nodata', ['%data%' => $line]);
 
-			return $result;
+			return;
 		}
-		$idKey = array_search('person.identifier', $destinationFields);
+
+		$identifier = null;
+		$idKey      = isset($destinationFields['person.importIdentifier']) ? 'person.importIdentifier' : false;
 		if ($idKey !== false)
 		{
 			foreach ($fields as $q => $w)
@@ -284,19 +304,22 @@ class ImportManager extends PersonManager
 				}
 
 		}
+
 		if (empty($identifier))
 			$person = new Person();
 		else
 		{
-			$person = $this->getOm()->getRepository(Person::class)->findOneByIdentifier($identifier);
+			$person = $this->getOm()->getRepository(Person::class)->findOneByImportIdentifier($identifier);
 			$person = empty($person) ? new Person() : $person;
 		}
 
 		foreach ($fields as $q => $w)
 		{
-			if (mb_strpos($destinationFields[$w['destination']], 'person.') === 0)
+			$table = explode('.', $w['destination']);
+			$field = $table[1];
+			$table = $table[0];
+			if (in_array($table, ['person', 'student', 'staff']))
 			{
-				$field  = str_replace('person.', '', $destinationFields[$w['destination']]);
 				$method = 'set' . ucfirst($field);
 				if (!empty($data[$w['source']]))
 					$person->$method(strtoupper($data[$w['source']]) == 'NULL' ? null : trim($data[$w['source']]));
@@ -304,9 +327,11 @@ class ImportManager extends PersonManager
 				{
 					$dd = new \DateTime();
 
-					$dt = $dd->createFromFormat($w['option'] . ' H:i:s', $data[$w['source']] . ' 00:00:00');
+					$format = $w['option'] . ' H:i:s';
+					$time   = $data[$w['source']] . ' 00:00:00';
+					$dt     = $dd->createFromFormat($format, $time);
 
-					if ($dt->format($w['option']) == $data[$w['source']])
+					if ($dt !== false && $dt->format($w['option']) == $data[$w['source']])
 						$person->$method($dt);
 				}
 			}
@@ -320,7 +345,7 @@ class ImportManager extends PersonManager
 			foreach ($errors as $error)
 				$xx .= '%newline%' . $error->getPropertyPath() . ': ' . $error->getMessage();
 			$data[]            = $xx;
-			$result['warning'] = ['people.import.warning.invalid', $line . ' ' . implode(', ', $data)];
+			$this->results->addMessage('warning', 'people.import.warning.invalid', ['%data%' => $line . ' ' . implode(', ', $data)]);
 		}
 		else
 		{
@@ -341,19 +366,19 @@ class ImportManager extends PersonManager
 					$xx .= '%newline%' . $error->getPropertyPath() . ': ' . $error->getMessage();
 				}
 				$data[]            = $xx;
-				$result['warning'] = ['people.import.warning.invalid', $line . ' ' . implode(', ', $data)];
+				$this->results->addMessage('warning', 'people.import.warning.invalid', ['%data%' => $line . ' ' . implode(', ', $data)]);
 			}
 			if ($this->importOk)
 			{
 				$this->getOm()->persist($person);
 				$this->getOm()->flush();
-				$result['success'] = ['people.import.success.person', $line . ' ' . implode(', ', $data)];
+				$this->results->addMessage('success', 'people.import.success.person', ['%data%' => $person->formatName()]);
 			}
 			else
-				$result['warning'] = ['people.import.warning.person', $line . ' ' . implode(', ', $data)];
+				$this->results->addMessage('warning', 'people.import.warning.person', ['%data%' => $line . ' ' . implode(', ', $data)]);
 		}
 
-		return $result;
+		return;
 	}
 
 	/**
@@ -368,7 +393,6 @@ class ImportManager extends PersonManager
 	{
 		$this->address   = null;
 		$this->locality  = null;
-		$result          = array();
 		$this->addresses = array();
 
 		if (!in_array('address', $this->tables)) return $person;
@@ -385,21 +409,22 @@ class ImportManager extends PersonManager
 			}
 		}
 
+		if ($address->isEmpty())
+			return $person;
 
-		if (empty($this->address = $this->getOm()->getRepository(Address::class)->createQueryBuilder('l')
-			->where('l.streetName = :streetName')
+		if (empty($this->address = $this->getOm()->getRepository(Address::class)->createQueryBuilder('a')
+			->where('a.streetName = :streetName')
 			->setParameter('streetName', $address->getStreetName())
 			->getQuery()
 			->getFirstResult()
 		))
 		{
-			$this->results[] = $this->importLocality($data, $fields, $destinationFields);
+			$this->importLocality($data, $fields, $destinationFields);
 
 			if (is_null($this->locality))
 			{
 				$this->address     = null;
-				$result['warning'] = ['people.import.missing.locality', $address->__toString()];
-				$this->results[]   = $result;
+				$this->results->addMessage('warning', 'people.import.missing.locality', ['%name%' => $address->__toString()]);
 
 				return $person;
 			}
@@ -443,18 +468,16 @@ class ImportManager extends PersonManager
 			if (empty($this->address))
 			{
 				$this->address     = $address;
-				$result['success'] = ['people.import.success.address', $address->__toString()];
+				$this->results->addMessage('success', 'people.import.success.address', ['%data%' => $address->__toString()]);
 			}
 			else
 			{
 				$address           = $this->address;
-				$result['success'] = ['people.import.duplicate.address', $address->__toString()];
+				$this->results->addMessage('success', 'people.import.duplicate.address', ['%data%' => $address->__toString()]);
 			}
 		}
 
 		$person->setAddress1($address);
-
-		$this->results[] = $result;
 
 		return $person;
 	}
@@ -464,13 +487,11 @@ class ImportManager extends PersonManager
 	 * @param $fields
 	 * @param $destinationFields
 	 *
-	 * @return array
+	 * @return void
 	 */
 	private function importLocality($data, $fields, $destinationFields)
 	{
 		$this->locality = null;
-
-		$result = array();
 
 		$locality = new Locality();
 		foreach ($fields as $q => $w)
@@ -482,18 +503,22 @@ class ImportManager extends PersonManager
 				$locality->$method($data[$w['source']]);
 			}
 		}
+
+		if ($locality->isEmpty())
+			return;
+
 		if (empty($locality->getPostCode() || empty($locality->getTerritory()) || empty($locality->getName())))
 		{
-			$result['warning'] = ['people.import.warning.locality', $locality->__toString()];
+			$this->results->addMessage('warning', 'people.import.warning.locality', ['%data%' => $locality->__toString()]);
 
-			return $result;
+			return;
 		}
 
 		if (!in_array($locality->getTerritory(), $this->getSm()->get('Address.TerritoryList')))
 		{
-			$result['warning'] = ['people.import.warning.locality', $locality->__toString()];
+			$this->results->addMessage('warning', 'people.import.warning.locality', ['%data%' => $locality->__toString()]);
 
-			return $result;
+			return;
 		}
 
 		if (empty($locality->getCountry()))
@@ -517,15 +542,15 @@ class ImportManager extends PersonManager
 		if (empty($this->locality))
 		{
 			$this->locality    = $locality;
-			$result['success'] = ['people.import.success.locality', $locality->__toString()];
+			$this->results->addMessage('success', 'people.import.success.locality', ['%data%' => $locality->__toString()]);
 		}
 		else
 		{
 			$locality          = $this->locality;
-			$result['success'] = ['people.import.duplicate.locality', $locality->__toString()];
+			$this->results->addMessage('success', 'people.import.duplicate.locality', ['%data%' => $locality->__toString()]);
 		}
 
-		return $result;
+		return;
 	}
 
 	/**
@@ -538,7 +563,6 @@ class ImportManager extends PersonManager
 	 */
 	private function importPhone($data, $fields, $destinationFields, Person $person)
 	{
-		$result       = array();
 		$this->phones = array();
 
 		foreach ($fields as $q => $w)
@@ -560,15 +584,13 @@ class ImportManager extends PersonManager
 			if (empty($existing = $this->getOm()->getRepository(Phone::class)->findOneByPhoneNumber($phone->getPhoneNumber())))
 			{
 				$phone->setCountryCode($this->countryCode);
-				$result['success'] = ['people.import.success.phone', $phone->getPhoneNumber()];
+				$this->results->addMessage('success', 'people.import.success.phone', ['%data%' => $phone->getPhoneNumber()]);
 				$this->phones[$q]  = $phone;
 			}
 			else
 			{
 				$this->phones[$q] = $existing;
 			}
-
-		$this->results[] = $result;
 
 		foreach ($this->phones as $phone)
 		{
@@ -659,5 +681,10 @@ class ImportManager extends PersonManager
 		$this->offset = $offset;
 
 		return $this;
+	}
+
+	public function getMessages(): array
+	{
+		return $this->results->getMessages();
 	}
 }

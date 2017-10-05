@@ -74,4 +74,15 @@ class MessageManager
 
 		return $this;
 	}
+
+	/**
+	 * MessageManager constructor.
+	 *
+	 * @param string|null $domain
+	 */
+	public function __construct(string $domain = null)
+	{
+		if (!is_null($domain))
+			$this->setDomain($domain);
+	}
 }

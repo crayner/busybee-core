@@ -79,9 +79,19 @@ abstract class AddressModel
 	 *
 	 * @return mixed
 	 */
-	public function __toString()
+	public function __toString(): string
 	{
-		return $this->getStreetName() . ' ' . $this->getLocality()->__toString();
+		return $this->getSingleLineAddress();
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function isEmpty(): bool
+	{
+		if (empty(trim($this->__toString())))
+			return true;
+
+		return false;
+	}
 }

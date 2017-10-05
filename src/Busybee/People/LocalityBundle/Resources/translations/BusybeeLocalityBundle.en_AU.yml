@@ -1,0 +1,4 @@
+locality:
+    territory:
+        placeholder: Select a STate
+        label: State

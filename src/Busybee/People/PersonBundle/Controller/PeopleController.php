@@ -70,11 +70,15 @@ class PeopleController extends BusybeeController
 
 		$import = $request->get('match_import');
 
-		$results = $this->get('busybee_people_person.model.import_manager')->importPeople($import, $request->getSession());
+		$importManager = $this->get('busybee_people_person.model.import_manager');
+
+		$importManager->setFile($import['file']);
+
+		$importManager->importPeople($import, $request->getSession());
 
 		return $this->render('BusybeePersonBundle:People:importResults.html.twig',
 			array(
-				'results' => $results,
+				'manager' => $importManager,
 				'import'  => $import,
 			)
 		);

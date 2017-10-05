@@ -1,0 +1,49 @@
+{% trans_default_domain "BusybeePersonBundle" %}
+
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'people.importresults.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'people.importresults.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'people.importresults.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'people.importresults.title', 'transDomain': 'BusybeePersonBundle' } %}
+    <div class="container-fluid">
+        {% for stuff in manager.getMessages() %}
+            {% if stuff.level == 'success' %}
+                <div class="row alert alert-success fadeAlert">{{ stuff.message|trans(stuff.options, stuff.domain) }}</div>
+            {% elseif stuff.level == 'limit' %}
+                <form role="form" method="post">
+                    <input type="hidden" name="match_import[file]" value="{{ manager.file }}"/>
+                    <input type="hidden" name="match_import[_token]" value="{{ import._token }}"/>
+                    <input type="hidden" name="match_import[offset]" value="{{ manager.offset }}"/>
+                    {% for index,field in import.fields %}
+                        {% for name,value in field %}
+                            <input type="hidden" name="match_import[fields][{{ index }}][{{ name }}]"
+                                   value="{{ value }}"/>
+                        {% endfor %}
+                    {% endfor %}
+                    <div class="alert alert-info row">
+                        <div class="col-sm-9">
+                            {{ stuff.message|trans(stuff.options, stuff.domain) }}
+                        </div>
+                        <div class="col-sm-3">
+                            <div>
+                                {{ saveButton({title: 'people.import.limit.numbers', transDomain: 'BusybeePersonBundle', prompt: 'people.import.limit.reload'})|raw }}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            {% else %}
+                <div class="row alert alert-{{ stuff.level }}">{{ stuff.message|trans(stuff.options, stuff.domain)|replace({'%newline%': '<br />'})|raw }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
+{% endblock javascripts %}
+
