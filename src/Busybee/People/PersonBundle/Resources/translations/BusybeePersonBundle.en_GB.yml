@@ -204,6 +204,19 @@ people:
             locality: 'Locality added %data%'
             address: 'Address added %data%'
             person: 'Person imported: %data%'
+            staff: 'Staff imported: %data%'
+            student: 'Student imported: %data%'
+        change:
+            error:
+                staff: 'Staff cannot change to Student: %data%'
+                student: 'Student cannot change to Staff: %data%'
+            staff: 'Staff changed from Person: %data%'
+            student: 'Student changed from Person: %data%'
+        data:
+            error: 'The data supplied does not match the header fields. %newline%%data%'
+        error:
+            staff: 'Not able to save to staff: %newline%%data%'
+            student: 'Not able to save to student: %newline%%data%'
     matchimport:
         title: Match Import Fields
         help: Match the source to a destination. Any source without a selected destination is ignored.

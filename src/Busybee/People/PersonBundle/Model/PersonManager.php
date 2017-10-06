@@ -363,6 +363,7 @@ class PersonManager
 
 			return $this->person;
 		}
+
 		if ($this->person instanceof Person)
 			return $this->person;
 
@@ -375,8 +376,11 @@ class PersonManager
 	 * Create Staff
 	 *
 	 * @param Person|null $person
+	 * @param bool        $persist
+	 *
+	 * @return bool
 	 */
-	public function createStaff(Person $person = null)
+	public function createStaff(Person $person = null, $persist = false)
 	{
 		$this->checkPerson($person);
 
@@ -386,8 +390,18 @@ class PersonManager
 
 			$this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "staff" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
 
+			if ($persist)
+			{
+				$this->om->persist($this->person);
+				$this->om->flush();
+			}
+
 			$this->om->refresh($this->person);
+
+			return true;
 		}
+
+		return false;
 	}
 
 	/**
@@ -413,19 +427,32 @@ class PersonManager
 	 * Create Student
 	 *
 	 * @param Person|null $person
+	 * @param bool        $persist
+	 *
+	 * @return bool
 	 */
-	public function createStudent(Person $person = null)
+	public function createStudent(Person $person = null, $persist = false)
 	{
 		$this->checkPerson($person);
-
+		dump($this);
 		if ($this->canBeStudent())
 		{
 			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
 
-			$this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "student" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+			$x = $this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "student" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+			dump($x);
+			if ($persist)
+			{
+				$this->om->persist($this->person);
+				$this->om->flush();
+			}
 
 			$this->om->refresh($this->person);
+
+			return true;
 		}
+
+		return false;
 	}
 
 	/**

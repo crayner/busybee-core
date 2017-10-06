@@ -141,9 +141,20 @@ class Person extends PersonModel
 	 *
 	 * @return integer
 	 */
-	public function getId()
+	public function getId(): int
 	{
 		return is_null($this->id) ? 0 : $this->id;
+	}
+
+
+	/**
+	 * @param int $id
+	 */
+	public function setId(int $id)
+	{
+		$this->id = $id;
+
+		return $this;
 	}
 
 	/**
@@ -676,9 +687,9 @@ class Person extends PersonModel
 	/**
 	 * Get vehicleRegistration
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	public function getVehicleRegistration(): string
+	public function getVehicleRegistration()
 	{
 		return $this->vehicleRegistration;
 	}
@@ -695,14 +706,6 @@ class Person extends PersonModel
 		$this->vehicleRegistration = $vehicleRegistration;
 
 		return $this;
-	}
-
-	/**
-	 * @param int $id
-	 */
-	public function setId(int $id)
-	{
-		$this->id = $id;
 	}
 
 	/**

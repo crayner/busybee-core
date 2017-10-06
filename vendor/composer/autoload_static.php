@@ -893,6 +893,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Busybee\\People\\PersonBundle\\Form\\UserType' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Form/UserType.php',
         'Busybee\\People\\PersonBundle\\Listener\\PersonListener' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Listener/PersonListener.php',
         'Busybee\\People\\PersonBundle\\Model\\ImportManager' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Model/ImportManager.php',
+        'Busybee\\People\\PersonBundle\\Model\\PersonHandler' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Model/PersonHandler.php',
         'Busybee\\People\\PersonBundle\\Model\\PersonManager' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Model/PersonManager.php',
         'Busybee\\People\\PersonBundle\\Model\\PersonModel' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Model/PersonModel.php',
         'Busybee\\People\\PersonBundle\\Pagination\\PersonPagination' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Pagination/PersonPagination.php',

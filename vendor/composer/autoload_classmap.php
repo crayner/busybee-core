@@ -527,6 +527,7 @@ return array(
     'Busybee\\People\\PersonBundle\\Form\\UserType' => $baseDir . '/src/Busybee/People/PersonBundle/Form/UserType.php',
     'Busybee\\People\\PersonBundle\\Listener\\PersonListener' => $baseDir . '/src/Busybee/People/PersonBundle/Listener/PersonListener.php',
     'Busybee\\People\\PersonBundle\\Model\\ImportManager' => $baseDir . '/src/Busybee/People/PersonBundle/Model/ImportManager.php',
+    'Busybee\\People\\PersonBundle\\Model\\PersonHandler' => $baseDir . '/src/Busybee/People/PersonBundle/Model/PersonHandler.php',
     'Busybee\\People\\PersonBundle\\Model\\PersonManager' => $baseDir . '/src/Busybee/People/PersonBundle/Model/PersonManager.php',
     'Busybee\\People\\PersonBundle\\Model\\PersonModel' => $baseDir . '/src/Busybee/People/PersonBundle/Model/PersonModel.php',
     'Busybee\\People\\PersonBundle\\Pagination\\PersonPagination' => $baseDir . '/src/Busybee/People/PersonBundle/Pagination/PersonPagination.php',

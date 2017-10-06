@@ -57,6 +57,11 @@ class ImportManager extends PersonManager
 	private $locality;
 
 	/**
+	 * @var int
+	 */
+	private $fieldCount;
+
+	/**
 	 * ImportManager constructor.
 	 *
 	 * @param ObjectManager  $om
@@ -91,6 +96,8 @@ class ImportManager extends PersonManager
 			fclose($handle);
 		}
 
+		$this->fieldCount = $headerNames->count();
+
 		return $headerNames;
 	}
 
@@ -108,6 +115,7 @@ class ImportManager extends PersonManager
 		foreach ($fields as $q => $w)
 			if ($w['destination'] !== "")
 				$this->fields[] = $w;
+		$this->getHeaderNames();
 
 		$destinationFields = $this->getFieldNames();
 
@@ -124,7 +132,10 @@ class ImportManager extends PersonManager
 					if ($line >= $offset)
 					{
 						ini_set('max_execution_time', '10');
-						$this->importPerson($data, $this->fields, $destinationFields, ++$line);
+						if (count($data) !== $this->fieldCount)
+							$this->results->addMessage('danger', 'people.import.data.error', ['%data%' => $line]); // Return the offset to the form.
+						else
+							$this->importPerson($data, $this->fields, $destinationFields, ++$line);
 
 						if ($line >= $offset + 200)
 						{
@@ -156,7 +167,7 @@ class ImportManager extends PersonManager
 			}
 			fclose($handle);
 		}
-		$this->results->addMessage('info', 'people.import.complete.message', ['%data%' => $line]);
+		$this->results->addMessage('info', 'people.import.complete.message', ['%data%' => $line - 1]);
 
 		unlink($import['file']);
 
@@ -305,13 +316,10 @@ class ImportManager extends PersonManager
 
 		}
 
-		if (empty($identifier))
-			$person = new Person();
-		else
-		{
-			$person = $this->getOm()->getRepository(Person::class)->findOneByImportIdentifier($identifier);
-			$person = empty($person) ? new Person() : $person;
-		}
+		$person = new PersonProvider(null, $this->getOm());
+
+		$person->createPersonbyImportIdentifier($identifier);
+
 
 		foreach ($fields as $q => $w)
 		{
@@ -320,9 +328,9 @@ class ImportManager extends PersonManager
 			$table = $table[0];
 			if (in_array($table, ['person', 'student', 'staff']))
 			{
-				$method = 'set' . ucfirst($field);
-				if (!empty($data[$w['source']]))
-					$person->$method(strtoupper($data[$w['source']]) == 'NULL' ? null : trim($data[$w['source']]));
+				$person->setProperty($field, $data[$w['source']]);
+
+
 				if ($field == 'dob' && !empty($data[$w['source']]) && strtoupper($data[$w['source']]) != 'NULL')
 				{
 					$dd = new \DateTime();
@@ -332,7 +340,7 @@ class ImportManager extends PersonManager
 					$dt     = $dd->createFromFormat($format, $time);
 
 					if ($dt !== false && $dt->format($w['option']) == $data[$w['source']])
-						$person->$method($dt);
+						$person->setProperty('dob', $dt);
 				}
 			}
 		}
@@ -370,9 +378,7 @@ class ImportManager extends PersonManager
 			}
 			if ($this->importOk)
 			{
-				$this->getOm()->persist($person);
-				$this->getOm()->flush();
-				$this->results->addMessage('success', 'people.import.success.person', ['%data%' => $person->formatName()]);
+				$this->savePerson($person);
 			}
 			else
 				$this->results->addMessage('warning', 'people.import.warning.person', ['%data%' => $line . ' ' . implode(', ', $data)]);
@@ -389,7 +395,7 @@ class ImportManager extends PersonManager
 	 *
 	 * @return Person
 	 */
-	private function importAddress($data, $fields, $destinationFields, Person $person)
+	private function importAddress($data, $fields, $destinationFields, PersonProvider $person)
 	{
 		$this->address   = null;
 		$this->locality  = null;
@@ -477,7 +483,7 @@ class ImportManager extends PersonManager
 			}
 		}
 
-		$person->setAddress1($address);
+		$person->set('address1', $address);
 
 		return $person;
 	}
@@ -554,16 +560,16 @@ class ImportManager extends PersonManager
 	}
 
 	/**
-	 * @param        $data
-	 * @param        $fields
-	 * @param        $destinationFields
-	 * @param Person $person
+	 * @param                $data
+	 * @param                $fields
+	 * @param                $destinationFields
+	 * @param PersonProvider $person
 	 *
-	 * @return Person
+	 * @return PersonProvider
 	 */
-	private function importPhone($data, $fields, $destinationFields, Person $person)
+	private function importPhone($data, $fields, $destinationFields, PersonProvider $person)
 	{
-		$this->phones = array();
+		$this->phones = [];
 
 		foreach ($fields as $q => $w)
 		{
@@ -686,5 +692,96 @@ class ImportManager extends PersonManager
 	public function getMessages(): array
 	{
 		return $this->results->getMessages();
+	}
+
+	public function savePerson(PersonProvider $person)
+	{
+		$person->getEntity();
+		dump($person);
+
+		if (!$person->wasStaff() && !$person->wasPerson() && !$person->wasStudent())
+		{
+			$this->getOm()->persist($person->getEntity());
+			$this->getOm()->flush();
+			if ($person->getEntity() instanceof Student)
+			{
+				$this->results->addMessage('success', 'people.import.success.student', ['%data%' => $person->formatName()]);
+
+				return;
+			}
+
+			if ($person->getEntity() instanceof Staff)
+			{
+				$this->results->addMessage('success', 'people.import.success.staff', ['%data%' => $person->formatName()]);
+
+				return;
+			}
+			$this->results->addMessage('success', 'people.import.success.person', ['%data%' => $person->formatName()]);
+
+			return;
+		}
+		if ($person->nowStudent() && $person->wasStudent())
+		{
+			$this->getOm()->persist($person->getEntity());
+			$this->getOm()->flush();
+			$this->results->addMessage('success', 'people.import.success.student', ['%data%' => $person->formatName()]);
+
+			return;
+		}
+
+		if ($person->nowStaff() && $person->wasStaff())
+		{
+			$this->getOm()->persist($person->getEntity());
+			$this->getOm()->flush();
+			$this->results->addMessage('success', 'people.import.success.staff', ['%data%' => $person->formatName()]);
+
+			return;
+		}
+
+		if ($person->nowStudent() && $person->wasPerson())
+		{
+			if ($this->createStudent($person->getEntity(), true))
+				$this->results->addMessage('success', 'people.import.change.student', ['%data%' => $person->formatName()]);
+			else
+				$this->results->addMessage('danger', 'people.import.error.student', ['%data%' => $person->formatName()]);
+
+			return;
+		}
+
+		if ($person->nowStaff() && $person->wasPerson())
+		{
+			if ($this->createStaff($person->getEntity(), true))
+				$this->results->addMessage('success', 'people.import.change.staff', ['%data%' => $person->formatName()]);
+			else
+				$this->results->addMessage('danger', 'people.import.error.staff', ['%data%' => $person->formatName()]);
+
+			return;
+		}
+
+		if ($person->wasPerson())
+		{
+			$this->getOm()->persist($person->getEntity());
+			$this->getOm()->flush();
+			$this->results->addMessage('success', 'people.import.success.person', ['%data%' => $person->formatName()]);
+
+			return;
+		}
+
+		if ($person->nowStaff() && $person->wasStudent())
+		{
+			$this->results->addMessage('warning', 'people.import.change.error.staff', ['%data%' => $person->formatName()]);
+
+			return;
+		}
+
+		if ($person->nowStudent() && $person->wasStaff())
+		{
+			dump('8');
+			$this->results->addMessage('warning', 'people.import.change.error.student', ['%data%' => $person->formatName()]);
+
+			return;
+		}
+
+
 	}
 }
