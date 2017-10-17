@@ -3,6 +3,7 @@
 namespace Busybee\People\PersonBundle\Model;
 
 use Busybee\Core\HomeBundle\Exception\Exception;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SystemBundle\Model\MessageManager;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\StaffBundle\Entity\Staff;
@@ -44,7 +45,7 @@ class PersonProvider
 	/**
 	 * @var string
 	 */
-	private $personType;
+	private $personType = 'person';
 
 	/**
 	 * @var null|Person|Staff|Student
@@ -67,6 +68,11 @@ class PersonProvider
 	private $wasStudent = false;
 
 	/**
+	 * @var User
+	 */
+	private $user;
+
+	/**
 	 * @param $field
 	 * @param $value
 	 */
@@ -82,27 +88,29 @@ class PersonProvider
 		if ($field === 'importIdentifier')
 			$value = ltrim($value, '0');
 
-		if (method_exists($this->person, $method))
+		if ($this->person instanceof Student && method_exists($this->student, $method))
 		{
 			$this->person->$method($value);
-			$this->student->$method($value);
-			$this->staff->$method($value);
-
-			return;
-		}
-		elseif (method_exists($this->student, $method))
-		{
 			$this->student->$method($value);
 			if (!empty($value))
 				$this->nowStudent = true;
 
 			return;
 		}
-		elseif (method_exists($this->staff, $method))
+		elseif ($this->person instanceof Staff && method_exists($this->staff, $method))
 		{
+			$this->person->$method($value);
 			$this->staff->$method($value);
 			if (!empty($value))
 				$this->nowStaff = true;
+
+			return;
+		}
+		elseif ($this->person instanceof Person && method_exists($this->person, $method))
+		{
+			$this->person->$method($value);
+			$this->student->$method($value);
+			$this->staff->$method($value);
 
 			return;
 		}
@@ -130,14 +138,6 @@ class PersonProvider
 		$this->person->removePhone($phone);
 
 		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getPersonType()
-	{
-		return $this->personType;
 	}
 
 	/**
@@ -217,23 +217,22 @@ class PersonProvider
 
 		$identifier = ltrim($identifier, '0');
 
-		$this->person = $this->om->getRepository(Person::class)->findOneByImportIdentifier($identifier);
-
-		if ($this->person instanceof Person)
-		{
-			return $this->createFromPerson();
-		}
-
 		$this->student = $this->om->getRepository(Student::class)->findOneByImportIdentifier($identifier);
 
 		if ($this->student instanceof Student)
-			$this->createFromStudent();
+			return $this->createFromStudent();
 
 
 		$this->staff = $this->om->getRepository(Staff::class)->findOneByImportIdentifier($identifier);
 
 		if ($this->staff instanceof Staff)
-			$this->createFromStaff();
+			return $this->createFromStaff();
+
+		$this->person = $this->om->getRepository(Person::class)->findOneByImportIdentifier($identifier);
+
+		if ($this->person instanceof Person)
+			return $this->createFromPerson();
+
 	}
 
 	/**
@@ -241,10 +240,12 @@ class PersonProvider
 	 *
 	 * @param Person        $person
 	 * @param ObjectManager $om
+	 * @param User          $user
 	 */
-	public function __construct(Person $person = null, ObjectManager $om)
+	public function __construct(Person $person = null, ObjectManager $om, User $user)
 	{
-		$this->om = $om;
+		$this->om   = $om;
+		$this->user = $user;
 
 		if (is_null($person))
 			return;
@@ -359,4 +360,92 @@ class PersonProvider
 	{
 		return $this->nowStudent;
 	}
+
+	/**
+	 * @param MessageManager $mm
+	 */
+	public function switchToStudent(MessageManager $mm)
+	{
+		$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
+
+		$id = strval(intval($this->person->getId()));
+
+		$entity  = $this->om->getClassMetadata(Student::class);
+		$fields  = $entity->getFieldNames();
+		$columns = $entity->getColumnNames();
+
+		$data = [];
+
+		foreach ($fields as $field)
+		{
+			$get = 'get' . ucfirst($field);
+
+			if (!empty($this->student->$get()) && $field !== 'id')
+				$data[$entity->getColumnName($field)] = $this->student->$get();
+		}
+
+		$data['last_modified'] = new \DateTime();
+		$data['modified_by']   = $this->user->getId();
+		$data['person_type']   = 'student';
+		$query                 = 'UPDATE `' . $tableName . '` SET ';
+		foreach ($data as $col => $value)
+		{
+			if ($value instanceof \DateTime)
+				$query .= '`' . $tableName . '`.`' . $col . '` = "' . $value->format('Y-m-d H:i:s') . '", ';
+			else
+				$query .= '`' . $tableName . '`.`' . $col . '` = "' . $value . '", ';
+		}
+		$query = rtrim($query, ', ');
+		$query .= ' WHERE `' . $tableName . '`.`id` = ' . $id;
+
+		$this->om->getConnection()->exec($query);
+
+		if ($this->wasStudent())
+			$mm->addMessage('success', 'people.import.success.student', ['%data%' => $this->student->formatName()]);
+		else
+			$mm->addMessage('success', 'people.import.change.student', ['%data%' => $this->student->formatName()]);
+
+		dump($this);
+	}
+
+	/**
+	 * @param MessageManager $mm
+	 */
+	public function switchToStaff(MessageManager $mm)
+	{
+		$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
+
+		$this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "staff" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+		$entity = $this->om->getClassMetadata(Staff::class);
+		$fields = $entity->getFieldNames();
+
+		$this->person = $this->om->getRepository(Staff::class)->find($this->person->getId());
+
+		foreach ($fields as $field)
+		{
+			$set = 'set' . ucfirst($field);
+			$get = 'get' . ucfirst($field);
+			$this->person->$set($this->staff->$get());
+			$this->person->$set($this->staff->$get());
+		}
+
+		$this->om->persist($this->person);
+		$this->om->flush();
+
+		$mm->addMessage('success', 'people.import.change.staff', ['%data%' => $person->formatName()]);
+
+		$this->staff  = $this->om->getRepository(Staff::class)->find($this->staff->getId());
+		$this->person = new Person();
+		$this->copyFields($this->staff, $this->person, $this->student);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPersonType(): string
+	{
+		return $this->personType;
+	}
+
 }

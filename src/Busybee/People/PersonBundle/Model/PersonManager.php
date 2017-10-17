@@ -490,4 +490,11 @@ class PersonManager
 		return $this->sm;
 	}
 
+	/**
+	 * @return UserProvider
+	 */
+	public function getUserProvider(): UserProvider
+	{
+		return $this->userProvider;
+	}
 }

@@ -1,6 +1,7 @@
 <?php
 namespace Busybee\People\PersonBundle\Model;
 
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SecurityBundle\Security\UserProvider;
 use Busybee\Core\SystemBundle\Model\MessageManager;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
@@ -62,6 +63,11 @@ class ImportManager extends PersonManager
 	private $fieldCount;
 
 	/**
+	 * @var User
+	 */
+	private $user;
+
+	/**
 	 * ImportManager constructor.
 	 *
 	 * @param ObjectManager  $om
@@ -108,8 +114,8 @@ class ImportManager extends PersonManager
 	 */
 	public function importPeople($import)
 	{
-		$file          = $import['file'];
-		$fields        = $import['fields'];
+		$file   = $import['file'];
+		$fields = $import['fields'];
 
 		$this->fields = [];
 		foreach ($fields as $q => $w)
@@ -316,7 +322,7 @@ class ImportManager extends PersonManager
 
 		}
 
-		$person = new PersonProvider(null, $this->getOm());
+		$person = new PersonProvider(null, $this->getOm(), $this->getUserProvider()->getCurrentUser());
 
 		$person->createPersonbyImportIdentifier($identifier);
 
@@ -352,7 +358,7 @@ class ImportManager extends PersonManager
 			$xx = '';
 			foreach ($errors as $error)
 				$xx .= '%newline%' . $error->getPropertyPath() . ': ' . $error->getMessage();
-			$data[]            = $xx;
+			$data[] = $xx;
 			$this->results->addMessage('warning', 'people.import.warning.invalid', ['%data%' => $line . ' ' . implode(', ', $data)]);
 		}
 		else
@@ -373,7 +379,7 @@ class ImportManager extends PersonManager
 				{
 					$xx .= '%newline%' . $error->getPropertyPath() . ': ' . $error->getMessage();
 				}
-				$data[]            = $xx;
+				$data[] = $xx;
 				$this->results->addMessage('warning', 'people.import.warning.invalid', ['%data%' => $line . ' ' . implode(', ', $data)]);
 			}
 			if ($this->importOk)
@@ -429,7 +435,7 @@ class ImportManager extends PersonManager
 
 			if (is_null($this->locality))
 			{
-				$this->address     = null;
+				$this->address = null;
 				$this->results->addMessage('warning', 'people.import.missing.locality', ['%name%' => $address->__toString()]);
 
 				return $person;
@@ -473,12 +479,12 @@ class ImportManager extends PersonManager
 
 			if (empty($this->address))
 			{
-				$this->address     = $address;
+				$this->address = $address;
 				$this->results->addMessage('success', 'people.import.success.address', ['%data%' => $address->__toString()]);
 			}
 			else
 			{
-				$address           = $this->address;
+				$address = $this->address;
 				$this->results->addMessage('success', 'people.import.duplicate.address', ['%data%' => $address->__toString()]);
 			}
 		}
@@ -547,12 +553,12 @@ class ImportManager extends PersonManager
 
 		if (empty($this->locality))
 		{
-			$this->locality    = $locality;
+			$this->locality = $locality;
 			$this->results->addMessage('success', 'people.import.success.locality', ['%data%' => $locality->__toString()]);
 		}
 		else
 		{
-			$locality          = $this->locality;
+			$locality = $this->locality;
 			$this->results->addMessage('success', 'people.import.duplicate.locality', ['%data%' => $locality->__toString()]);
 		}
 
@@ -591,7 +597,7 @@ class ImportManager extends PersonManager
 			{
 				$phone->setCountryCode($this->countryCode);
 				$this->results->addMessage('success', 'people.import.success.phone', ['%data%' => $phone->getPhoneNumber()]);
-				$this->phones[$q]  = $phone;
+				$this->phones[$q] = $phone;
 			}
 			else
 			{
@@ -697,7 +703,6 @@ class ImportManager extends PersonManager
 	public function savePerson(PersonProvider $person)
 	{
 		$person->getEntity();
-		dump($person);
 
 		if (!$person->wasStaff() && !$person->wasPerson() && !$person->wasStudent())
 		{
@@ -740,20 +745,14 @@ class ImportManager extends PersonManager
 
 		if ($person->nowStudent() && $person->wasPerson())
 		{
-			if ($this->createStudent($person->getEntity(), true))
-				$this->results->addMessage('success', 'people.import.change.student', ['%data%' => $person->formatName()]);
-			else
-				$this->results->addMessage('danger', 'people.import.error.student', ['%data%' => $person->formatName()]);
+			$person->switchToStudent($this->results);
 
 			return;
 		}
 
 		if ($person->nowStaff() && $person->wasPerson())
 		{
-			if ($this->createStaff($person->getEntity(), true))
-				$this->results->addMessage('success', 'people.import.change.staff', ['%data%' => $person->formatName()]);
-			else
-				$this->results->addMessage('danger', 'people.import.error.staff', ['%data%' => $person->formatName()]);
+			$person->switchToStaff($this->results);
 
 			return;
 		}

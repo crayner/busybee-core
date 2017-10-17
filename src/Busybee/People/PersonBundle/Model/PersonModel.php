@@ -230,9 +230,6 @@ abstract class PersonModel
 		if ($this instanceof Staff)
 			return true;
 
-		if ($this->getPersonType() === 'staff')
-			return true;
-
 		return false;
 	}
 
@@ -242,9 +239,6 @@ abstract class PersonModel
 	public function isStudent(): bool
 	{
 		if ($this instanceof Student)
-			return true;
-
-		if ($this->getPersonType() === 'student')
 			return true;
 
 		return false;

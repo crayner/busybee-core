@@ -110,4 +110,9 @@ class UserProvider implements UserProviderInterface
 	{
 		return $this->userManager;
 	}
+
+	public function getCurrentUser()
+	{
+		return $this->getUserManager()->getCurrentUser();
+	}
 }

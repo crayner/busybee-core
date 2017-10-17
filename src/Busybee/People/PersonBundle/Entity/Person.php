@@ -672,19 +672,6 @@ class Person extends PersonModel
 	}
 
 	/**
-	 * @var string
-	 */
-	private $person_type;
-
-	/**
-	 * @return string
-	 */
-	public function getPersonType()
-	{
-		return $this->person_type;
-	}
-
-	/**
 	 * Get vehicleRegistration
 	 *
 	 * @return string|null

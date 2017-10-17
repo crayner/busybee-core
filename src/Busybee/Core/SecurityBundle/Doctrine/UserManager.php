@@ -2,6 +2,7 @@
 
 namespace Busybee\Core\SecurityBundle\Doctrine;
 
+use Busybee\Core\SecurityBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Busybee\Core\SecurityBundle\Model\UserInterface;
 use Busybee\Core\SecurityBundle\Model\UserManager as BaseUserManager;
@@ -146,5 +147,15 @@ class UserManager extends BaseUserManager
 	public function getSession(): Session
 	{
 		return $this->session;
+	}
+
+	/**
+	 * @return User
+	 */
+	public function getCurrentUser()
+	{
+		$security = unserialize($this->getSession()->get('_security_default'));
+
+		return $security->getUser();
 	}
 }
