@@ -105,6 +105,7 @@ class StaffController extends BusybeeController
 		return $this->render('BusybeeStaffBundle:Staff:index.html.twig',
 			array(
 				'pagination' => $up,
+				'manager'    => $this->get('busybee_people_person.model.person_manager'),
 			)
 		);
 	}

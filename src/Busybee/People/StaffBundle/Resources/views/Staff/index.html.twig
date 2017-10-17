@@ -4,10 +4,10 @@
 
 {% extends "BusybeePersonBundle:Person:index.html.twig" %}
 
-{% block headerTitle %}{{ 'staff.people.title'|trans }}{% endblock headerTitle %}
-{% block headerLead %}{{ 'staff.people.description'|trans }}{% endblock headerLead %}
+{% block headerTitle %}{{ 'person.people.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'person.people.description'|trans }}{% endblock headerLead %}
 
-{% set header = 'staff.people.header' %}
+{% set header = 'person.people.title' %}
 {% block paginationContent %}
     {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('staff_manage') } } %}
 {% endblock paginationContent %}

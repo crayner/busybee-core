@@ -58,14 +58,15 @@ class VersionManager
 		$versions = [];
 
 
-		$versions['Twig']                      = \Twig_Environment::VERSION;
-		$versions['Symfony']                   = Kernel::VERSION;
-		$versions['Doctrine']['ORM']           = Version::VERSION;
-		$versions['Doctrine']['Common']        = \Doctrine\Common\Version::VERSION;
-		$versions['Database']['Server']        = $this->connection->getWrappedConnection()->getServerVersion();
-		$versions['Database']['Driver']        = $this->connection->getParams()['driver'];
-		$versions['Database']['Character Set'] = $this->connection->getParams()['charset'];
-		$versions['Doctrine']['DBal']          = \Doctrine\DBAL\Version::VERSION;
+		$versions['Twig']                                 = \Twig_Environment::VERSION;
+		$versions['Symfony']                              = Kernel::VERSION;
+		$versions['Doctrine']['ORM']                      = Version::VERSION;
+		$versions['Doctrine']['Common']                   = \Doctrine\Common\Version::VERSION;
+		$versions['Doctrine']['Cache']                    = \Doctrine\Common\Cache\Version::VERSION;
+		$versions['Database']['Server']                   = $this->connection->getWrappedConnection()->getServerVersion();
+		$versions['Database']['Driver']                   = $this->connection->getParams()['driver'];
+		$versions['Database']['Character Set']            = $this->connection->getParams()['charset'];
+		$versions['Doctrine']['DBal']                     = \Doctrine\DBAL\Version::VERSION;
 
 		foreach (get_loaded_extensions() as $name)
 			$versions['PHP'][$name] = phpversion($name);
@@ -123,8 +124,8 @@ class VersionManager
 
 		$phpVersions                   = [];
 		$phpVersions['Core']['low']    = '7.1.0';
-		$phpVersions['Core']['high']   = '7.1.9';
-		$phpVersions['Core']['string'] = '7.1.0 - 7.1.9';
+		$phpVersions['Core']['high']   = '7.1.99';
+		$phpVersions['Core']['string'] = '7.1.x';
 		$phpVersions['apcu']           = '5.1.8';
 		$phpVersions['intl']           = '1.1.0';
 		$phpVersions['json']           = '1.5.0';
@@ -178,7 +179,7 @@ class VersionManager
 		$version             = [];
 		$version['string']   = '3.3.x';
 		$version['low']      = '3.3';
-		$version['high']     = '3.3.9';
+		$version['high']     = '3.3.99';
 		$versions['Symfony'] = $this->fullCompare($versions['Symfony'], $version);
 
 		$version['string'] = '2.4.0 - 2.4.9';
@@ -190,6 +191,11 @@ class VersionManager
 		$version['low']                        = '2.8.0';
 		$version['high']                       = '2.8.99';
 		$versions['Doctrine']['Common']        = $this->fullCompare($versions['Doctrine']['Common'], $version);
+
+		$version['string']             = '1.7+';
+		$version['low']                = '1.7.0';
+		$version['high']               = '1.7.99';
+		$versions['Doctrine']['Cache'] = $this->fullCompare($versions['Doctrine']['Cache'], $version);
 
 		$version['string']            = '2.6+';
 		$version['low']               = '2.6.0';

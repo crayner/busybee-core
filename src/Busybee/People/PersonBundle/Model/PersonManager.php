@@ -199,12 +199,12 @@ class PersonManager
 	 */
 	public function isStudent(Person $person = null): bool
 	{
-		$person = $this->checkPerson($person);
+		$this->checkPerson($person);
 
-		if ($this->isStaff())
-			return false;
+		if ($this->person instanceof Student)
+			return true;
 
-		return $person->isStudent();
+		return false;
 	}
 
 	/**
@@ -216,10 +216,11 @@ class PersonManager
 	{
 		$this->checkPerson($person);
 		//place rules here to stop new student.
+
 		if ($this->isStaff() || $this->isCareGiver())
 			return false;
 
-		return !$this->isStudent();
+		return true;
 	}
 
 	/**
@@ -229,9 +230,12 @@ class PersonManager
 	 */
 	public function isStaff(Person $person = null): bool
 	{
-		$person = $this->checkPerson($person);
+		$this->checkPerson($person);
 
-		return $person->isStaff();
+		if ($this->person instanceof Staff)
+			return true;
+
+		return false;
 	}
 
 	/**

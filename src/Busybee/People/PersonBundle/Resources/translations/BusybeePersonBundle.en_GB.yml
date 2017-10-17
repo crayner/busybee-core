@@ -2,7 +2,7 @@ person:
     photo:
         title: Photo
         label: Portrait Photo
-        help: Passport style photo, 350px to 400px width by 450px to 500 px height.
+        help: Passport style photo, 350px to 400px width by 450px to 500 px height, with maximum size of 300kB.
     familyName:
         title: Family Name
     givenName:

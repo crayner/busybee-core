@@ -97,7 +97,7 @@ class ButtonExtension extends \Twig_Extension
 			$additional            = $details['additional'];
 			$details['additional'] = '';
 			foreach ($additional as $name => $value)
-				$details['additional'] = $name . '="' . $value . '" ';
+				$details['additional'] .= $name . '="' . $value . '" ';
 			$details['additional'] = trim($details['additional']);
 		}
 

@@ -32,9 +32,6 @@ class StudentPagination extends PaginationManager
 				->setOrderBy()
 				->setSearchWhere();
 
-		$this->getQuery()->andWhere('p.studentQuestion = :stu_q')
-			->setParameter('stu_q', true);
-
 		return $this->getQuery();
 	}
 }

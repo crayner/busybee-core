@@ -212,7 +212,7 @@ class PersonSubscriber implements EventSubscriberInterface
 
 
 		//photo management
-		if (is_null($data['photo']))
+		if (empty($data['photo']))
 		{
 			$data['photo'] = $form->get('photo')->getNormData();
 		}

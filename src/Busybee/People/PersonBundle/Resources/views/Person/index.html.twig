@@ -113,8 +113,12 @@
                             {% if isStaff(person.0) %}
                                 {% set staffOn = true %}
                             {% endif %}
+                            {% set additional = {id: 'staffToggle' ~ person.id} %}
+                            {% if not manager.canBeStaff(person.0) %}
+                                {% set additional = additional|merge({disabled: 'disabled'}) %}
+                            {% endif %}
                             <div>
-                                {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'staffToggle' ~ person.id}}, off: {class: 'staffToggle btn btn-primary halflings halflings-thumbs-down', style: '', additional: {id: 'staffToggle' ~ person.id}}})|raw }}
+                                {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-success halflings halflings-thumbs-up', style: '', additional: additional}, off: {class: 'staffToggle btn btn-primary halflings halflings-thumbs-down', style: '', additional: additional}})|raw }}
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -122,8 +126,12 @@
                             {% if isStudent(person.0) %}
                                 {% set studentOn = true %}
                             {% endif %}
+                            {% set additional = {id: 'studentToggle' ~ person.id} %}
+                            {% if not manager.canBeStudent(person.0) %}
+                                {% set additional = additional|merge({disabled: 'disabled'}) %}
+                            {% endif %}
                             <div>
-                                {{ onOffButton({value: studentOn, on: {class: 'studentToggle btn btn-success halflings halflings-thumbs-up', style: '', additional: {id: 'studentToggle' ~ person.id}}, off: {class: 'studentToggle btn btn-primary halflings halflings-thumbs-down', style: '', additional: {id: 'studentToggle' ~ person.id}}})|raw }}
+                                {{ onOffButton({value: studentOn, on: {class: 'studentToggle btn btn-success halflings halflings-thumbs-up', style: '', additional: additional}, off: {class: 'studentToggle btn btn-primary halflings halflings-thumbs-down', style: '', additional: additional}})|raw }}
                             </div>
                         </div>
                         <div class="col-sm-4">

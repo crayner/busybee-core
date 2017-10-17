@@ -3,37 +3,32 @@ parameters:
         alias: s
         sortBy:
             Family Name:
-                p.surname: ASC
-                p.firstName: ASC
+                s.surname: ASC
+                s.firstName: ASC
             Given Name:
-                p.firstName: ASC
-                p.surname: ASC
+                s.firstName: ASC
+                s.surname: ASC
             Email:
-                p.email: ASC
-                p.surname: ASC
-                p.firstName: ASC
+                s.email: ASC
+                s.surname: ASC
+                s.firstName: ASC
         limit: '25'
         searchList:
-            - p.surname
-            - p.firstName
-            - p.email
+            - s.surname
+            - s.firstName
+            - s.email
         join:
-            s.person:
+            s.phone:
                 type: leftJoin
                 alias: p
-            p.user:
+            s.user:
                 type: leftJoin
                 alias: u
-            p.student:
-                type: leftJoin
-                alias: stu
         select:
-            - p.id
-            - p.surname
-            - p.firstName
-            - p.title as details
-            - s.id as staff_id
-            - stu.id as stu_id
+            - s.id
+            - s.surname
+            - s.firstName
+            - s.honorific as details
             - u.id as user_id
         choices:
             all:
