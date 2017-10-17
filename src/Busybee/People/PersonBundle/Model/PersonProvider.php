@@ -372,7 +372,6 @@ class PersonProvider
 
 		$entity  = $this->om->getClassMetadata(Student::class);
 		$fields  = $entity->getFieldNames();
-		$columns = $entity->getColumnNames();
 
 		$data = [];
 
@@ -405,7 +404,8 @@ class PersonProvider
 		else
 			$mm->addMessage('success', 'people.import.change.student', ['%data%' => $this->student->formatName()]);
 
-		dump($this);
+		$this->personType = 'student';
+		$this->nowStudent = true;
 	}
 
 	/**
@@ -415,29 +415,44 @@ class PersonProvider
 	{
 		$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
 
-		$this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "staff" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+		$id = strval(intval($this->person->getId()));
 
 		$entity = $this->om->getClassMetadata(Staff::class);
 		$fields = $entity->getFieldNames();
 
-		$this->person = $this->om->getRepository(Staff::class)->find($this->person->getId());
+		$data = [];
 
 		foreach ($fields as $field)
 		{
-			$set = 'set' . ucfirst($field);
 			$get = 'get' . ucfirst($field);
-			$this->person->$set($this->staff->$get());
-			$this->person->$set($this->staff->$get());
+
+			if (!empty($this->staff->$get()) && $field !== 'id')
+				$data[$entity->getColumnName($field)] = $this->staff->$get();
 		}
 
-		$this->om->persist($this->person);
-		$this->om->flush();
+		$data['last_modified'] = new \DateTime();
+		$data['modified_by']   = $this->user->getId();
+		$data['person_type']   = 'staff';
+		$query                 = 'UPDATE `' . $tableName . '` SET ';
+		foreach ($data as $col => $value)
+		{
+			if ($value instanceof \DateTime)
+				$query .= '`' . $tableName . '`.`' . $col . '` = "' . $value->format('Y-m-d H:i:s') . '", ';
+			else
+				$query .= '`' . $tableName . '`.`' . $col . '` = "' . $value . '", ';
+		}
+		$query = rtrim($query, ', ');
+		$query .= ' WHERE `' . $tableName . '`.`id` = ' . $id;
 
-		$mm->addMessage('success', 'people.import.change.staff', ['%data%' => $person->formatName()]);
+		$this->om->getConnection()->exec($query);
 
-		$this->staff  = $this->om->getRepository(Staff::class)->find($this->staff->getId());
-		$this->person = new Person();
-		$this->copyFields($this->staff, $this->person, $this->student);
+		if ($this->wasStaff())
+			$mm->addMessage('success', 'people.import.success.staff', ['%data%' => $this->staff->formatName()]);
+		else
+			$mm->addMessage('success', 'people.import.change.staff', ['%data%' => $this->staff->formatName()]);
+
+		$this->personType = 'staff';
+		$this->nowStaff   = true;
 	}
 
 	/**
