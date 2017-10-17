@@ -35,6 +35,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
             'Symfony\\Polyfill\\Php70\\' => 23,
             'Symfony\\Polyfill\\Php56\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Apcu\\' => 22,
             'Symfony\\Component\\' => 18,
             'Symfony\\Bundle\\SwiftmailerBundle\\' => 33,
             'Symfony\\Bundle\\MonologBundle\\' => 29,
@@ -131,6 +132,10 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Apcu\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-apcu',
         ),
         'Symfony\\Component\\' => 
         array (
@@ -893,9 +898,9 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Busybee\\People\\PersonBundle\\Form\\UserType' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Form/UserType.php',
         'Busybee\\People\\PersonBundle\\Listener\\PersonListener' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Listener/PersonListener.php',
         'Busybee\\People\\PersonBundle\\Model\\ImportManager' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Model/ImportManager.php',
-        'Busybee\\People\\PersonBundle\\Model\\PersonHandler' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Model/PersonHandler.php',
         'Busybee\\People\\PersonBundle\\Model\\PersonManager' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Model/PersonManager.php',
         'Busybee\\People\\PersonBundle\\Model\\PersonModel' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Model/PersonModel.php',
+        'Busybee\\People\\PersonBundle\\Model\\PersonProvider' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Model/PersonProvider.php',
         'Busybee\\People\\PersonBundle\\Pagination\\PersonPagination' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Pagination/PersonPagination.php',
         'Busybee\\People\\PersonBundle\\Repository\\PersonRepository' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Repository/PersonRepository.php',
         'Busybee\\People\\PersonBundle\\Validator\\Constraints\\PersonEmailValidator' => __DIR__ . '/../..' . '/src/Busybee/People/PersonBundle/Validator/Constraints/PersonEmailValidator.php',
@@ -2415,6 +2420,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Sensio\\Bundle\\GeneratorBundle\\Model\\Bundle' => __DIR__ . '/..' . '/sensio/generator-bundle/Model/Bundle.php',
         'Sensio\\Bundle\\GeneratorBundle\\Model\\EntityGeneratorResult' => __DIR__ . '/..' . '/sensio/generator-bundle/Model/EntityGeneratorResult.php',
         'Sensio\\Bundle\\GeneratorBundle\\SensioGeneratorBundle' => __DIR__ . '/..' . '/sensio/generator-bundle/SensioGeneratorBundle.php',
+        'SessionUpdateTimestampHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/SessionUpdateTimestampHandlerInterface.php',
         'SqlFormatter' => __DIR__ . '/..' . '/jdorn/sql-formatter/lib/SqlFormatter.php',
         'Svg\\DefaultStyle' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/DefaultStyle.php',
         'Svg\\Document' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Document.php',
@@ -4426,6 +4432,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Symfony\\Component\\Workflow\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Workflow/Exception/ExceptionInterface.php',
         'Symfony\\Component\\Workflow\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Workflow/Exception/InvalidArgumentException.php',
         'Symfony\\Component\\Workflow\\Exception\\InvalidDefinitionException' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Workflow/Exception/InvalidDefinitionException.php',
+        'Symfony\\Component\\Workflow\\Exception\\InvalidTokenConfigurationException' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Workflow/Exception/InvalidTokenConfigurationException.php',
         'Symfony\\Component\\Workflow\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Workflow/Exception/LogicException.php',
         'Symfony\\Component\\Workflow\\Marking' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Workflow/Marking.php',
         'Symfony\\Component\\Workflow\\MarkingStore\\MarkingStoreInterface' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Workflow/MarkingStore/MarkingStoreInterface.php',
@@ -4452,6 +4459,7 @@ class ComposerStaticInit423d329ea0d3772d4b7813e1aa4239be
         'Symfony\\Component\\Yaml\\Tag\\TaggedValue' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Yaml/Tag/TaggedValue.php',
         'Symfony\\Component\\Yaml\\Unescaper' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Yaml/Unescaper.php',
         'Symfony\\Component\\Yaml\\Yaml' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Yaml/Yaml.php',
+        'Symfony\\Polyfill\\Apcu\\Apcu' => __DIR__ . '/..' . '/symfony/polyfill-apcu/Apcu.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'Symfony\\Polyfill\\Php56\\Php56' => __DIR__ . '/..' . '/symfony/polyfill-php56/Php56.php',
         'Symfony\\Polyfill\\Php70\\Php70' => __DIR__ . '/..' . '/symfony/polyfill-php70/Php70.php',
