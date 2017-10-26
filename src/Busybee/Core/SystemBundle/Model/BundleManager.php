@@ -665,6 +665,14 @@ class BundleManager
 		$fileName = $this->settingManager->get('settings.default.overwrite', '');
 		if (empty($fileName))
 			return '';
+
+		if (!file_exists($fileName))
+		{
+			$this->settingManager->clear('settings.default.overwrite');
+
+			return '';
+		}
+
 		$content = Yaml::parse(file_get_contents($fileName));
 
 		return $content['name'];

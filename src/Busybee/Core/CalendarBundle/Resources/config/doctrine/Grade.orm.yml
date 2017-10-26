@@ -1,7 +1,12 @@
 Busybee\Core\CalendarBundle\Entity\Grade:
     type: entity
-    table: grade
+    table: grade_by_calendar
     repositoryClass: Busybee\Core\CalendarBundle\Repository\GradeRepository
+    uniqueConstraints:
+        calendar_grade:
+            columns:
+                - grade
+                - year_id
     id:
         id:
             type: integer
@@ -28,9 +33,6 @@ Busybee\Core\CalendarBundle\Entity\Grade:
         year:
             targetEntity: Busybee\Core\CalendarBundle\Entity\Year
             inversedBy: grades
-            joinColumn:
-                name: year_id
-                referencedColumnName: id
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:

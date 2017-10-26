@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\People\StudentBundle\Validator\Constraints;
+namespace Busybee\Management\GradeBundle\Validator\Constraints;
 
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Symfony\Component\Validator\Constraint;

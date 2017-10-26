@@ -63,19 +63,13 @@ services:
         class: Busybee\People\StudentBundle\Validator\Constraints\PassportImageValidator
         tags:
             - { name: validator.constraint_validator, alias: passport_image_validator }
-    student.extension:
+    busybee_people_student.model.student_extension:
         class: Busybee\People\StudentBundle\Model\StudentExtension
         arguments:
             - '@busybee_people_student.repository.student_repository'
             - '@translator'
         tags:
             - { name: twig.extension }
-    busybee_people_student.form.student_grade_type:
-        class: Busybee\People\StudentBundle\Form\StudentGradeType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags:
-            - { name: form.type }
     busybee_people_student.validator.constraints.grades_validator:
         class: Busybee\People\StudentBundle\Validator\Constraints\GradesValidator
         tags:

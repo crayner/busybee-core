@@ -79,12 +79,3 @@ Busybee\People\StudentBundle\Entity\Student:
             type: string
             length: 32
             nullable: true
-    oneToMany:
-        grades:
-            targetEntity: Busybee\People\StudentBundle\Entity\StudentGrade
-            mappedBy: student
-            cascade: [ 'all' ]
-#    manyToMany:
-#        activities:
-#            targetEntity: Busybee\ActivityBundle\Entity\Activity
-#            mappedBy: students

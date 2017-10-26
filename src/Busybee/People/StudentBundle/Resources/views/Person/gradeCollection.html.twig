@@ -1,9 +1,9 @@
 {% trans_default_domain "BusybeeStudentBundle" %}
 
-{% block studentGrade_label %}{% endblock %}
-{% block studentGrade_errors %}{% endblock %}
+{% block grade_by_student_label %}{% endblock %}
+{% block grade_by_student_errors %}{% endblock %}
 
-{% block studentGrade_widget %}
+{% block grade_by_student_widget %}
     {% set panelStyle = 'info' %}
     {% set transDomain = 'BusybeeStudentBundle' %}
     {% set header = 'student.grade.title' %}
@@ -21,9 +21,9 @@
             </div>
             <div class="col-sm-6 well">
                 {{ form_row(form.status) }}
-                {{ form_row(form.student) }}
+                {{ form_row(form.student, {value: app.request.get('id')}) }}
             </div>
         </div>
     </div>
     {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
-{% endblock studentGrade_widget %}
+{% endblock grade_by_student_widget %}

@@ -794,5 +794,13 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 		return $this->container->hasParameter($name);
 	}
 
+	/**
+	 * @param $name
+	 */
+	public function clear($name)
+	{
+		$this->clearSessionSetting($name);
+		$this->set($name, null);
+	}
 
 }

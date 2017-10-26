@@ -1,8 +1,11 @@
 <?php
 
-namespace Busybee\People\StudentBundle\Entity;
+namespace Busybee\Management\GradeBundle\Entity;
 
-use Busybee\People\StudentBundle\Model\StudentGradeModel;
+use Busybee\Core\CalendarBundle\Entity\Grade;
+use Busybee\Core\SecurityBundle\Entity\User;
+use Busybee\Management\GradeBundle\Model\StudentGradeModel;
+use Busybee\People\StudentBundle\Entity\Student;
 
 /**
  * StudentGrade
@@ -30,22 +33,22 @@ class StudentGrade extends StudentGradeModel
 	private $createdOn;
 
 	/**
-	 * @var \Busybee\People\StudentBundle\Entity\Student
+	 * @var Student
 	 */
 	private $student;
 
 	/**
-	 * @var \Busybee\Core\CalendarBundle\Entity\Grade
+	 * @var Grade
 	 */
 	private $grade;
 
 	/**
-	 * @var \Busybee\Core\SecurityBundle\Entity\User
+	 * @var User
 	 */
 	private $createdBy;
 
 	/**
-	 * @var \Busybee\Core\SecurityBundle\Entity\User
+	 * @var User
 	 */
 	private $modifiedBy;
 
@@ -77,7 +80,7 @@ class StudentGrade extends StudentGradeModel
 	 *
 	 * @return StudentGrade
 	 */
-	public function setStatus($status)
+	public function setStatus($status): StudentGrade
 	{
 		$this->status = $status;
 
@@ -101,7 +104,7 @@ class StudentGrade extends StudentGradeModel
 	 *
 	 * @return StudentGrade
 	 */
-	public function setLastModified($lastModified)
+	public function setLastModified($lastModified): StudentGrade
 	{
 		$this->lastModified = $lastModified;
 
@@ -125,7 +128,7 @@ class StudentGrade extends StudentGradeModel
 	 *
 	 * @return StudentGrade
 	 */
-	public function setCreatedOn($createdOn)
+	public function setCreatedOn($createdOn): StudentGrade
 	{
 		$this->createdOn = $createdOn;
 
@@ -133,36 +136,9 @@ class StudentGrade extends StudentGradeModel
 	}
 
 	/**
-	 * Get student
-	 *
-	 * @return \Busybee\People\StudentBundle\Entity\Student
-	 */
-	public function getStudent()
-	{
-		return $this->student;
-	}
-
-	/**
-	 * Set student
-	 *
-	 * @param \Busybee\People\StudentBundle\Entity\Student $student
-	 *
-	 * @return StudentGrade
-	 */
-	public function setStudent(\Busybee\People\StudentBundle\Entity\Student $student = null, $add = true)
-	{
-		if ($add)
-			$student->addGrade($this);
-
-		$this->student = $student;
-
-		return $this;
-	}
-
-	/**
 	 * Get grade
 	 *
-	 * @return \Busybee\Core\CalendarBundle\Entity\Grade
+	 * @return Grade
 	 */
 	public function getGrade()
 	{
@@ -172,15 +148,12 @@ class StudentGrade extends StudentGradeModel
 	/**
 	 * Set grade
 	 *
-	 * @param \Busybee\Core\CalendarBundle\Entity\Grade $grade
+	 * @param Grade $grade
 	 *
 	 * @return StudentGrade
 	 */
-	public function setGrade(\Busybee\Core\CalendarBundle\Entity\Grade $grade = null, $add = true)
+	public function setGrade(Grade $grade = null, $add = true): StudentGrade
 	{
-		if ($add)
-			$grade->addStudent($this);
-
 		$this->grade = $grade;
 
 		return $this;
@@ -189,7 +162,7 @@ class StudentGrade extends StudentGradeModel
 	/**
 	 * Get createdBy
 	 *
-	 * @return \Busybee\Core\SecurityBundle\Entity\User
+	 * @return User
 	 */
 	public function getCreatedBy()
 	{
@@ -199,11 +172,11 @@ class StudentGrade extends StudentGradeModel
 	/**
 	 * Set createdBy
 	 *
-	 * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
+	 * @param User $createdBy
 	 *
 	 * @return StudentGrade
 	 */
-	public function setCreatedBy(\Busybee\Core\SecurityBundle\Entity\User $createdBy = null)
+	public function setCreatedBy(User $createdBy = null): StudentGrade
 	{
 		$this->createdBy = $createdBy;
 
@@ -213,7 +186,7 @@ class StudentGrade extends StudentGradeModel
 	/**
 	 * Get modifiedBy
 	 *
-	 * @return \Busybee\Core\SecurityBundle\Entity\User
+	 * @return User
 	 */
 	public function getModifiedBy()
 	{
@@ -223,13 +196,35 @@ class StudentGrade extends StudentGradeModel
 	/**
 	 * Set modifiedBy
 	 *
-	 * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
+	 * @param User $modifiedBy
 	 *
 	 * @return StudentGrade
 	 */
-	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
+	public function setModifiedBy(User $modifiedBy = null): StudentGrade
 	{
 		$this->modifiedBy = $modifiedBy;
+
+		return $this;
+	}
+
+	/**
+	 * Get Student
+	 *
+	 * @return Student|null
+	 */
+	public function getStudent()
+	{
+		return $this->student;
+	}
+
+	/**
+	 * Set Student
+	 *
+	 * @param Student $student
+	 */
+	public function setStudent(Student $student): StudentGrade
+	{
+		$this->student = $student;
 
 		return $this;
 	}

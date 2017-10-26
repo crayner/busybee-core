@@ -20,7 +20,7 @@ student:
             year: Select School Year
             grade: Select School Grade
         add: Add Grade / Year
-        remove: Remove Grade /Year
+        remove: Remove Grade / Year
 person:
     tab:
         student: Student

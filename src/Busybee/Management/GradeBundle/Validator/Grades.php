@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\People\StudentBundle\Validator;
+namespace Busybee\Management\GradeBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 

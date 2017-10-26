@@ -4,12 +4,12 @@ namespace Busybee\People\PersonBundle\Model;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SecurityBundle\Security\UserProvider;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
+use Busybee\Management\GradeBundle\Entity\StudentGrade;
 use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\FamilyBundle\Entity\Family;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\People\StudentBundle\Entity\Student;
-use Busybee\People\StudentBundle\Entity\StudentGrade;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -322,12 +322,13 @@ class PersonManager
 
 		if (is_array($families) && count($families) > 0)
 			return false;
+		if ($this->gradesInstalled())
+		{
+			$grades = $this->om->getRepository(StudentGrade::class)->findAll(['status' => 'Current', 'student' => $student->getId()]);
 
-		$grades = $this->om->getRepository(StudentGrade::class)->findAll(['status' => 'Current', 'student' => $student->getId()]);
-
-		if (is_array($grades) && count($grades) > 0)
-			return false;
-
+			if (is_array($grades) && count($grades) > 0)
+				return false;
+		}
 
 		if (is_array($parameters))
 			foreach ($parameters as $data)
@@ -500,5 +501,22 @@ class PersonManager
 	public function getUserProvider(): UserProvider
 	{
 		return $this->userProvider;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function gradesInstalled(): bool
+	{
+		if (class_exists('Busybee\Management\GradeBundle\Model\GradeManager'))
+		{
+			$metaData = $this->getOm()->getClassMetadata('Busybee\Management\GradeBundle\Entity\StudentGrade');
+			$schema   = $this->getOm()->getConnection()->getSchemaManager();
+
+			return $schema->tablesExist([$metaData->table['name']]);
+
+		}
+
+		return false;
 	}
 }

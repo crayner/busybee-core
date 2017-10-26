@@ -2,6 +2,7 @@
 namespace Busybee\People\StudentBundle\Entity;
 
 use Busybee\People\StudentBundle\Model\StudentModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Student
@@ -113,11 +114,18 @@ class Student extends StudentModel
 	 */
 	private $house;
 
-	/**
-	 * @var \Doctrine\Common\Collections\Collection
+	/*
+	 * @var
 	 */
 	private $grades;
 
+	/**
+	 * Student constructor.
+	 */
+	public function __construct()
+	{
+		$this->grades = new ArrayCollection();
+	}
 
 	/**
 	 * Set startAtSchool
@@ -631,36 +639,20 @@ class Student extends StudentModel
 	}
 
 	/**
-	 * Add grade
-	 *
-	 * @param \Busybee\People\StudentBundle\Entity\StudentGrade $grade
-	 *
-	 * @return Student
-	 */
-	public function addGrade(\Busybee\People\StudentBundle\Entity\StudentGrade $grade)
-	{
-		$this->grades[] = $grade;
-
-		return $this;
-	}
-
-	/**
-	 * Remove grade
-	 *
-	 * @param \Busybee\People\StudentBundle\Entity\StudentGrade $grade
-	 */
-	public function removeGrade(\Busybee\People\StudentBundle\Entity\StudentGrade $grade)
-	{
-		$this->grades->removeElement($grade);
-	}
-
-	/**
-	 * Get grades
-	 *
-	 * @return \Doctrine\Common\Collections\Collection
+	 * @return mixed
 	 */
 	public function getGrades()
 	{
 		return $this->grades;
+	}
+
+	/**
+	 * @param mixed $grades
+	 */
+	public function setGrades($grades): Student
+	{
+		$this->grades = $grades;
+
+		return $this;
 	}
 }

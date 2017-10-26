@@ -60,8 +60,6 @@ person:
     contact:
         tab: Contact
         title: "Contact Details: %name%"
-    user:
-        tab: User
     manage:
         title: "Personal Details: %name%"
     identifier:

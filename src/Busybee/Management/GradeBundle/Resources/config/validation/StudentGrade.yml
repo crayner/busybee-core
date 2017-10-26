@@ -1,0 +1,9 @@
+Busybee\Management\GradeBundle\Entity\StudentGrade:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [student_id, grade_id]
+            errorPath: grade
+            message: 'student.grade.notunique'
+    properties:
+        status:
+            - NotBlank: ~

@@ -1,0 +1,3 @@
+busybee_grade_homepage:
+    path:     /
+    defaults: { _controller: BusybeeGradeBundle:Default:index }

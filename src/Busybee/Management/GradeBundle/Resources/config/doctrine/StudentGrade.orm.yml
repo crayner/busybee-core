@@ -1,7 +1,12 @@
-Busybee\People\StudentBundle\Entity\StudentGrade:
+Busybee\Management\GradeBundle\Entity\StudentGrade:
     type: entity
-    table: student_grade
-    repositoryClass: Busybee\People\StudentBundle\Repository\StudentGradeRepository
+    table: grade_by_student
+    repositoryClass: Busybee\Management\GradeBundle\Repository\StudentGradeRepository
+    uniqueConstraints:
+         student_grade:
+             columns:
+                 - student_id
+                 - grade_id
     id:
         id:
             type: integer
@@ -19,17 +24,16 @@ Busybee\People\StudentBundle\Entity\StudentGrade:
             type: datetime
             column: created_on
     manyToOne:
+        grade:
+            targetEntity: Busybee\Core\CalendarBundle\Entity\Grade
+            joinColumns:
+                grade_id:
+                    referencedColumnName: id
         student:
             targetEntity: Busybee\People\StudentBundle\Entity\Student
             inversedBy: grades
             joinColumns:
                 student_id:
-                    referencedColumnName: id
-        grade:
-            targetEntity: Busybee\Core\CalendarBundle\Entity\Grade
-            inversedBy: students
-            joinColumns:
-                grade_id:
                     referencedColumnName: id
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User

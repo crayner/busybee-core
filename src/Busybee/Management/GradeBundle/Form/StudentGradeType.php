@@ -1,13 +1,12 @@
 <?php
 
-namespace Busybee\People\StudentBundle\Form;
+namespace Busybee\Management\GradeBundle\Form;
 
-use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
+use Busybee\Management\GradeBundle\Entity\StudentGrade;
 use Busybee\People\StudentBundle\Entity\Student;
-use Busybee\People\StudentBundle\Entity\StudentGrade;
-use Busybee\People\StudentBundle\Events\StudentGradesSubscriber;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -92,7 +91,7 @@ class StudentGradeType extends AbstractType
 	 */
 	public function getBlockPrefix()
 	{
-		return 'studentGrade';
+		return 'grade_by_student';
 	}
 
 

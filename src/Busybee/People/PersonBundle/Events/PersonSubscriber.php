@@ -1,16 +1,15 @@
 <?php
-
 namespace Busybee\People\PersonBundle\Events;
 
-use Busybee\Core\CalendarBundle\Validator\Grade;
 use Busybee\Core\TemplateBundle\Model\TabManager;
 use Busybee\Core\TemplateBundle\Type\ImageType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\TemplateBundle\Type\TextType;
+use Busybee\Management\GradeBundle\Entity\StudentGrade;
+use Busybee\Management\GradeBundle\Form\StudentGradeType;
 use Busybee\People\PersonBundle\Form\UserType;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\Core\SecurityBundle\Entity\User;
-use Busybee\People\StudentBundle\Form\StudentGradeType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -107,7 +106,6 @@ class PersonSubscriber implements EventSubscriberInterface
 		$form   = $event->getForm();
 		$person = $form->getData();
 		$flush  = false;
-
 
 		if ($form->has('user'))
 		{
@@ -451,8 +449,10 @@ class PersonSubscriber implements EventSubscriberInterface
 					'setting_name'              => 'house.list',
 					'choice_translation_domain' => 'SystemBundle',
 				]
-			)
-			->add('grades', CollectionType::class,
+			);
+		if ($this->personManager->gradesInstalled())
+		{
+			$form->add('grades', CollectionType::class,
 				[
 					'label'         => 'student.grades.label',
 					'allow_add'     => true,
@@ -465,11 +465,8 @@ class PersonSubscriber implements EventSubscriberInterface
 					'entry_options' => [
 						'systemYear' => $form->getConfig()->getOption('systemYear'),
 					],
-					'constraints'   => [
-						new Grade($form->getConfig()->getOption('systemYear')),
-					],
-
 				]
 			);
+		}
 	}
 }
