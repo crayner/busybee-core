@@ -129,8 +129,54 @@
         allow_down: false,
         add: '<button title="{{ 'student.grade.add'|trans({}, 'BusybeeStudentBundle') }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
         remove: '<button title="{{ 'student.grade.remove'|trans({}, 'BusybeeStudentBundle') }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
-        add_at_the_end: true
+        add_at_the_end: true,
+        before_remove: function (collection, element) {
+            var source = $(element[0]).find('.removeGrade');
+            var id = source.attr('id');
+            id = id.replace('removeGrade', '');
+            if (id === '') {
+                return true;
+            }
+            return removeGrade(id);
+        }
+
     });
+
+    function removeGrade(id) {
+        var xx = true;
+
+        if (id > 0) {
+
+            var path = '{{ path('delete_student_grade', {'id': '__id__'}) }}';
+            path = path.replace('__id__', id);
+
+            $.ajax({
+                url: path,
+                type: 'POST',
+                async: false,
+                success: function (data) {
+
+                    var message = '<div class="alert alert-__status__">__message__</div>';
+
+                    message = message.replace('__message__', data['message']);
+                    message = message.replace('__status__', data['status']);
+                    if (data['status'] === 'success') {
+                        $('.gradeMessage').html(message);
+                    } else if (data['status'] === 'error') {
+                        $('.gradeMessage').html(message);
+                        xx = false;
+                    } else if (data['status'] === 'warning') {
+                        $('.gradeMessage').html(message);
+                        xx = false;
+                    }
+                }
+            });
+        }
+
+        return xx;
+    }
+
+
     {% endif %}
 
     function resetForm() {

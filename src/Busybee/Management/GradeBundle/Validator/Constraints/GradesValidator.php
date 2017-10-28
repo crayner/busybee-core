@@ -17,25 +17,47 @@ class GradesValidator extends ConstraintValidator
 		$current = 0;
 		$year    = [];
 
-
-		foreach ($value->toArray() as $grade)
+		foreach ($value->toArray() as $q => $grade)
 		{
 			if (empty($grade->getStudent()) || empty($grade->getGrade()))
 			{
 
-				$this->context->buildViolation('student.grades.empty')
+				$this->context->buildViolation('student.grades.error.empty')
+					->setTranslationDomain('BusybeePersonBundle')
+					->atPath('[' . strval($q) . ']')
+					->atPath('grade')
 					->addViolation();
+			}
 
-				return $value;
+			if ($grade->getStatus() === 'Current')
+			{
+				$current++;
+
+				if ($current > 1)
+				{
+					$this->context->buildViolation('student.grades.error.current')
+						->atPath('[' . strval($q) . ']')
+						->atPath('status')
+						->setTranslationDomain('BusybeePersonBundle')
+						->addViolation();
+				}
+			}
+
+			$gy = $grade->getYear()->getName();
+
+			if (!is_null($gy))
+			{
+				$year[$gy] = !isset($year[$gy]) ? 1 : $year[$gy] + 1;
+
+				if ($year[$gy] > 1)
+				{
+					$this->context->buildViolation('student.grades.error.year')
+						->atPath('[' . strval($q) . ']')
+						->atPath('grade')
+						->setTranslationDomain('BusybeePersonBundle')
+						->addViolation();
+				}
 			}
 		}
-		/*
-				foreach ($year as $q => $w)
-					if ($w > 1) {
-						$constraint->message = 'student.enr lments.year';
-						$this->context->buildViolation($constraint->message, ['%year%' => $q])
-							->addViolation();
-					}
-				*/
 	}
 }

@@ -7,6 +7,7 @@ use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\TemplateBundle\Type\TextType;
 use Busybee\Management\GradeBundle\Entity\StudentGrade;
 use Busybee\Management\GradeBundle\Form\StudentGradeType;
+use Busybee\Management\GradeBundle\Validator\Grades;
 use Busybee\People\PersonBundle\Form\UserType;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\Core\SecurityBundle\Entity\User;
@@ -464,6 +465,9 @@ class PersonSubscriber implements EventSubscriberInterface
 					],
 					'entry_options' => [
 						'systemYear' => $form->getConfig()->getOption('systemYear'),
+					],
+					'constraints'   => [
+						new Grades(),
 					],
 				]
 			);

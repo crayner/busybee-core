@@ -179,6 +179,17 @@ student:
         placeholder: Select Religion
     locker:
         label: Locker Details
+    grades:
+        error:
+            current: The current status must be unique for the student.
+            empty: The grade must be set.
+            year: The year must not be duplicated for the student.
+    grade:
+        remove:
+            success: The grade details where removed.
+            blocked: The grade record is locked. Removal is restricted.
+            fail: The database failed to remove the grade information.
+        notfound: The greade information is not available.
 people:
     title: Manage People
     import:

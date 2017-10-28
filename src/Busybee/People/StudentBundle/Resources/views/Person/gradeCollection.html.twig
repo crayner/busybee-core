@@ -8,11 +8,15 @@
     {% set transDomain = 'BusybeeStudentBundle' %}
     {% set header = 'student.grade.title' %}
     {% set h3Content = '<div class="collection-actions collection-panel">' %}
-    {% set h3Content = h3Content ~ deleteButton({'title': 'student.grade.remove', 'transDomain': 'BusybeeStudentBundle', 'class': 'halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;'}) %}
+    {% set id = '' %}
+    {% set yearName = '(New)' %}
+    {% if data is not null %}
+        {% set yearName = data.getGradeYear %}
+        {% set id = data.getId() %}
+    {% endif %}
+    {% set h3Content = h3Content ~ deleteButton({'title': 'student.grade.remove', 'transDomain': 'BusybeeStudentBundle', 'class': 'removeGrade halflings halflings-erase btn btn-warning collection-remove collection-action', 'style': 'float: right;', additional: {id: 'removeGrade' ~ id}}) %}
     {% set h3Content = h3Content ~ saveButton() %}
     {% set h3Content = h3Content ~ '</div>' %}
-    {% set yearName = '(New)' %}
-    {% if data is not null %}{% set yearName = data.getGradeYear %}{% endif %}
     {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {name: yearName} %}
     <div class="container-fluid">
         <div class="row">

@@ -94,9 +94,6 @@
                 </div>
                 <div class="col-md-2 col-sm-2 text-center form-inline">
                     {% set route = path('person_edit', {'id': person.id, }) %}
-                    {% if pagination.getChoice is not empty %}
-                        {% set route = path('person_edit', {'id': person.id, 'returnRoute': pagination.getChoice }) %}
-                    {% endif %}
                     {{ editButton({'title': 'person.edit.title', 'transDomain': 'BusybeePersonBundle', 'windowOpen': {'route': route}, 'style': '', 'colour': 'warning'})|raw }}
                     {% if person.user_id is not empty %}
                         {% set route = path('home_page') ~ '?_switch_user=' ~ person.0.person.user.username %}

@@ -87,8 +87,6 @@ class PageManager
 
 		if (empty($this->page->getId()))
 		{
-			dump($routeName);
-			dump($this->router->getRouteCollection()->get($routeName));
 			if (!is_null($this->router->getRouteCollection()->get($routeName)))
 			{
 				$this->page->setPath($this->router->getRouteCollection()->get($routeName)->getPath());
