@@ -15,14 +15,16 @@
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
 
+# Vendor Files
+/vendor/
+!vendor/composer/*.php
+!vendor/composer/*.json
+!vendor/composer/LICENSE
+
 # Parameters
 /app/config/parameters.yml
 /app/config/parameters.ini
 /app/config/bundles.yml
-
-# Vendor Files
-/vendor/
-!/vendor/composer/*.*
 
 # Managed by Composer
 /app/bootstrap.php.cache
