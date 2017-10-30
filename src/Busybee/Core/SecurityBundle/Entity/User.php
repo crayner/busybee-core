@@ -3,6 +3,7 @@
 namespace Busybee\Core\SecurityBundle\Entity;
 
 use Busybee\Core\SecurityBundle\Model\User as UserModel;
+use Busybee\People\PersonBundle\Entity\Person;
 use DateTime;
 
 /**

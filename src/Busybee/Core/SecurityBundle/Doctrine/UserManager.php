@@ -3,6 +3,7 @@
 namespace Busybee\Core\SecurityBundle\Doctrine;
 
 use Busybee\Core\SecurityBundle\Entity\User;
+use Busybee\People\PersonBundle\Entity\Person;
 use Doctrine\Common\Persistence\ObjectManager;
 use Busybee\Core\SecurityBundle\Model\UserInterface;
 use Busybee\Core\SecurityBundle\Model\UserManager as BaseUserManager;
@@ -157,5 +158,31 @@ class UserManager extends BaseUserManager
 		$security = unserialize($this->getSession()->get('_security_default'));
 
 		return $security->getUser();
+	}
+
+	/**
+	 * Person Exists
+	 *
+	 * @param $entity
+	 *
+	 * @return bool
+	 */
+	public function personExists($entity)
+	{
+		if (class_exists('Busybee\People\PersonBundle\Model\PersonManager'))
+		{
+			$metaData = $this->objectManager->getClassMetadata('Busybee\People\PersonBundle\Entity\Person');
+			$schema   = $this->objectManager->getConnection()->getSchemaManager();
+
+			if ($schema->tablesExist($metaData->getTableName()))
+			{
+				$person = $this->objectManager->getRepository(Person::class)->findOneByUser($entity);
+
+				if ($person instanceof Person)
+					return $person->getId();
+			}
+		}
+
+		return false;
 	}
 }

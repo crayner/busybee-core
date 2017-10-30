@@ -108,82 +108,6 @@ class PersonSubscriber implements EventSubscriberInterface
 		$person = $form->getData();
 		$flush  = false;
 
-		if ($form->has('user'))
-		{
-			if (isset($data['userQuestion']) && $data['userQuestion'] === '1' && !$person->getUser() instanceof User && $this->personManager->canBeUser($person))
-			{
-				$user                                = $this->personManager->doesThisUserExist($person);
-				$data['user']                        = array();
-				$data['user']['person']              = $form->getData()->getId();
-				$data['user']['email']               = $data['user']['emailCanonical'] = $data['email'];
-				$data['user']['username']            = $data['user']['usernameCanonical'] = $data['email'];
-				$data['user']['locale']              = $this->personManager->getParameter('locale');
-				$data['user']['enabled']             = true;
-				$data['user']['locked']              = false;
-				$data['user']['expired']             = false;
-				$data['user']['credentials_expired'] = true;
-				$data['user']['password']            = password_hash(uniqid(), PASSWORD_BCRYPT);
-				if ($user instanceof User)
-				{
-					$user->getRoles();
-					$data['user']                        = array();
-					$data['user']['person']              = $form->getData()->getId();
-					$data['user']['email']               = $data['user']['emailCanonical'] = $user->getEmail();
-					$data['user']['username']            = $data['user']['usernameCanonical'] = $user->getEmail();
-					$data['user']['locale']              = $user->getLocale();
-					$data['user']['enabled']             = $user->getEnabled();
-					$data['user']['locked']              = $user->getLocked();
-					$data['user']['expired']             = $user->getExpired();
-					$data['user']['credentials_expired'] = $user->getCredentialsExpired();
-					$data['user']['password']            = $user->getPassword();
-					$data['user']['directroles']         = array();
-					if (is_array($roles = $user->getRoles()))
-						foreach ($roles as $role)
-						{
-							$data['user']['directroles'][] = $role;
-						}
-					$data['user']['groups'] = array();
-					if (is_array($groups = $user->getGroups()))
-						foreach ($groups as $group)
-						{
-							$data['user']['groups'][] = $group;
-						}
-					$person->setUser($user);
-				}
-
-				$form->remove('user');
-				$form->add('user', UserType::class);
-
-			}
-
-			if ($form->get('user')->getData() instanceof User && isset($data['user']))
-			{
-				$user = $person->getUser();
-				if ($user instanceof User)
-				{
-					$data['user']['usernameCanonical'] = $data['user']['username'] = $user->getUsername();
-					$data['user']['email']             = $data['user']['emailCanonical'] = $data['email'] = $data['email'];
-				}
-				else
-				{
-					$data['user']['usernameCanonical'] = $data['user']['username'];
-					$data['user']['email']             = $data['user']['emailCanonical'] = $data['email'];
-				}
-			}
-
-			if ($form->get('user')->getData() instanceof User && !isset($data['user']) && $this->personManager->canDeleteUser($person))
-			{
-				$data['user'] = "";
-				$form->remove('user');
-				$form->add('user', HiddenType::class);
-				if ($form->get('user')->getData()->getId() !== 1)
-				{
-					$this->om->remove($form->get('user')->getData());
-					$flush = true;
-				}
-			}
-		}
-
 		// Address Management
 		unset($data['address1_list'], $data['address2_list']);
 		if (!empty($data['address1']) || !empty($data['address2']))
@@ -208,6 +132,19 @@ class PersonSubscriber implements EventSubscriberInterface
 				$data['email2'] = "";
 			}
 		}
+
+		if ($person->isUser() && isset($data['user']['email']))
+		{
+			if (!in_array($data['user']['email'], [$data['email'], $data['email2']]))
+			{
+				$data['user']['email'] = $data['email'];
+			}
+		}
+		dump($person);
+
+		dump($data);
+		dump($form);
+
 
 
 		//photo management

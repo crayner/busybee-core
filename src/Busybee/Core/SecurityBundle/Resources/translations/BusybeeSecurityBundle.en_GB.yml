@@ -81,7 +81,7 @@ user:
     request:
         passwordReset: Send a Password Reset Email
     email:
-        help: Each user must have an email address, as the system uses the email address to manage passwords.
+        help: Each user must have an email address, as the system uses the email address to manage passwords. When the user is linked to a person, then the person record will overwrite the user record. See the Contact Tab.
         label: User Email
 security:
     login:

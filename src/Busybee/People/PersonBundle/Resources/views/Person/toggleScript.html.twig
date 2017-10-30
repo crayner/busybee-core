@@ -15,6 +15,9 @@
                 $("#peopleError").html(data.message);
                 if (data.status == "removed") {
                     $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-thumbs-down btn btn-primary");
+                    $('a[href="#student"]').parent().addClass('disabled');
+                    $('a[href="#grade"]').parent().addClass('disabled');
+                    $('a[href="#immigration"]').parent().addClass('disabled');
                 }
                 if (data.status == "added") {
                     $("#studentToggle" + id).removeClass().addClass("studentToggle halflings halflings-thumbs-up btn btn-success");
@@ -35,6 +38,8 @@
                 $("#peopleError").html(data.message);
                 if (data.status == "removed") {
                     $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-thumbs-down btn btn-primary");
+                    $('a[href="#staff"]').parent().addClass('disabled');
+
                 }
                 if (data.status == "added") {
                     $("#staffToggle" + id).removeClass().addClass("staffToggle halflings halflings-thumbs-up btn btn-success");
@@ -51,10 +56,12 @@
         $.ajax({
             url: route,
             type: "POST",
+            async: false,
             success: function (data) {
                 $("#peopleError").html(data.message);
                 if (data.status == "removed") {
                     $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-thumbs-down btn btn-primary");
+                    $('a[href="#user"]').parent().addClass('disabled');
                 }
                 if (data.status == "added") {
                     $("#userToggle" + id).removeClass().addClass("userToggle halflings halflings-thumbs-up btn btn-success");

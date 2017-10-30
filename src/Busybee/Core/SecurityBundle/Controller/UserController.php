@@ -329,6 +329,11 @@ class UserController extends BusyBeeController
 		else
 			$entity = $em->getRepository(User::class)->find($id);
 
+		$person_id = $this->get('busybee_core_security.doctrine.user_manager')->personExists($entity);
+		{
+			return $this->redirectToRoute('person_edit', ['id' => $person_id, '_fragment' => 'user']);
+		}
+
 		$form = $this->createForm(UserType::class, $entity, ['isSystemAdmin' => $this->isGranted('ROLE_SYSTEM_ADMIN')]);
 
 		$form->handleRequest($request);

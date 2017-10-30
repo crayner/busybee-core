@@ -29,6 +29,7 @@ class UserController extends BusybeeController
 
 		if ($user instanceof User && $personManager->canDeleteUser())
 		{
+			$om->remove($user);
 			$person->setUser(null);
 			$om->persist($person);
 			$om->flush();
@@ -67,6 +68,8 @@ class UserController extends BusybeeController
 			$user->setExpiresAt(null);
 
 			$person->setUser($user);
+
+			$om->persist($user);
 			$om->persist($person);
 			$om->flush();
 

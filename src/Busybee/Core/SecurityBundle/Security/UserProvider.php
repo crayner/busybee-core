@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\SecurityBundle\Security;
 
 use Busybee\Core\SecurityBundle\Doctrine\UserManager;
@@ -10,7 +9,6 @@ use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Busybee\Core\SecurityBundle\Model\User;
 use Busybee\Core\SecurityBundle\Model\UserInterface;
 use Busybee\Core\SecurityBundle\Model\UserManagerInterface;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class UserProvider implements UserProviderInterface
 {
@@ -65,7 +63,7 @@ class UserProvider implements UserProviderInterface
 	{
 		if (!$user instanceof User && !$user instanceof PropelUser)
 		{
-			throw new UnsupportedUserException(sprintf('Expected an instance of Busybee\Core\SecurityBundle\Model\User, but got "%s".', get_class($user)));
+			throw new UnsupportedUserException(sprintf('Expected an instance of Busybee\Core\SecurityBundle\Entity\User, but got "%s".', get_class($user)));
 		}
 
 		if (!$this->supportsClass(get_class($user)))
@@ -91,12 +89,19 @@ class UserProvider implements UserProviderInterface
 		return $userClass === $class || is_subclass_of($class, $userClass);
 	}
 
+	/**
+	 * Find
+	 *
+	 * @param $id
+	 *
+	 * @return mixed
+	 */
 	public function find($id)
 	{
 		$user = $this->userManager->find($id);
 		if (!$user)
 		{
-			throw new NotFoundResourceException(sprintf('User "%s" does not exist.', $id));
+			throw new UsernameNotFoundException(sprintf('User with ID "%d" was not found.', $id));
 		}
 
 		return $user;
@@ -104,6 +109,7 @@ class UserProvider implements UserProviderInterface
 
 	/**
 	 * Get User Manager
+	 *
 	 * @return UserManager
 	 */
 	public function getUserManager(): UserManager
@@ -111,6 +117,11 @@ class UserProvider implements UserProviderInterface
 		return $this->userManager;
 	}
 
+	/**
+	 * Get Current User
+	 *
+	 * @return \Busybee\Core\SecurityBundle\Entity\User
+	 */
 	public function getCurrentUser()
 	{
 		return $this->getUserManager()->getCurrentUser();

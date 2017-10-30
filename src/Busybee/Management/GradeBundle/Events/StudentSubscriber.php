@@ -20,7 +20,8 @@ class StudentSubscriber implements EventSubscriber
 		];
 	}
 
-	/**     * @param LoadClassMetadataEventArgs $eventArgs
+	/**
+	 * @param LoadClassMetadataEventArgs $eventArgs
 	 */
 	public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
 	{
