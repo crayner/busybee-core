@@ -58,10 +58,10 @@
                 <div class="col-sm-3">
                     {% set route = path('home_page') ~ '?_switch_user=' ~ user.username %}
                     {% set additional = '' %}
-                    {% if user.id == app.user.getId %}{% set additional = 'disabled' %}{% endif %}
+                    {{ miscButton({style: '', transDomain: 'BusybeeSecurityBundle', title: 'security.user.manage.title', class: 'btn-halflings glyphicons glyphicons-edit btn btn-warning', windowOpen: {route: path('security_user_edit', {'id': user.id})}})|raw }}
+                    {% if user.id == app.user.getId or user.expired %}{% set additional = 'disabled' %}{% endif %}
                     {{ miscButton({style: '', transDomain: 'BusybeeSecurityBundle', title: 'security.impersonate.title', windowOpen: {'route': route }, 'class': 'btn-halflings btn btn-warning glyphicons glyphicons-theater', 'type': 'button', 'additional': additional})|raw }}
 
-                    {{ miscButton({style: '', transDomain: 'BusybeeSecurityBundle', title: 'security.user.manage.title', class: 'btn-halflings glyphicons glyphicons-edit btn btn-warning', windowOpen: {route: path('security_user_edit', {'id': user.id})}})|raw }}
                     {{ deleteButton({style: '', windowOpen: {route: path('security_user_delete', {id: user.id})}})|raw }}
                 </div>
             </div>

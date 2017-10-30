@@ -229,8 +229,8 @@ services:
             - '%roles%'
         tags:
             - { name: form.type }
-    busybee_core_security.model.user_manager_extension:
-        class: Busybee\Core\SecurityBundle\Model\UserManagerExtension
+    busybee_core_security.extension.user_manager_extension:
+        class: Busybee\Core\SecurityBundle\Extension\UserManagerExtension
         arguments:
             - '@busybee_core_security.doctrine.user_manager'
         tags:

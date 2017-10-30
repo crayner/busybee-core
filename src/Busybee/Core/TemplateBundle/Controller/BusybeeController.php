@@ -2,6 +2,7 @@
 
 namespace Busybee\Core\TemplateBundle\Controller;
 
+use Busybee\Core\SystemBundle\Model\MessageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 abstract class BusybeeController extends Controller
@@ -26,10 +27,19 @@ abstract class BusybeeController extends Controller
 		$dev = $this->get('kernel')->getEnvironment();
 
 		if ($dev === 'dev' && !is_string($this->get('busybee_core_security.model.get_current_user')))
-			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.dev', ['%page%' => implode(', ', $page->getRoles()), '%user%' => $this->get('busybee_core_security.model.get_current_user')->rolesToString()], 'BusybeeSecurityBundle') : $message;
+			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.dev', ['%name%' => $routeName, '%page%' => implode(', ', $page->getRoles()), '%user%' => $this->get('busybee_core_security.model.get_current_user')->rolesToString()], 'BusybeeSecurityBundle') : $message;
 		else
-			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.prod', [], 'BusybeeSecurityBundle') : $message;
+			$message = is_null($message) ? $this->get('translator')->trans('security.access.denied.prod', ['%name%' => $routeName], 'BusybeeSecurityBundle') : $message;
 
+
+		/*		if (! $this->isGranted($page->getRoles(), $object))
+				{
+					$mm = new MessageManager('SystemBundle');
+					$mm->addMessage('danger', $message);
+
+					$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($mm);
+
+				} */
 		parent::denyAccessUnlessGranted($page->getRoles(), $object, $message);
 	}
 }

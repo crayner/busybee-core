@@ -23,6 +23,7 @@ services:
         arguments:
             - '@doctrine.orm.default_entity_manager'
             - '@router'
+            - '@busybee_core_system.model.flash_bag_manager'
             - '%kernel.cache_dir%'
         tags:
             - { name: kernel.event_listener, event: kernel.exception }

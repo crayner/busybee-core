@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\InstallBundle\Extension;
 
 use Symfony\Component\Form\FormInterface;
@@ -14,6 +13,7 @@ class UserManagerExtension extends \Twig_Extension
 		return array(
 			new \Twig_SimpleFunction('get_userManager', array($this, 'getUserManager')),
 			new \Twig_SimpleFunction('get_SystemYear', array($this, 'getSystemYear')),
+			new \Twig_SimpleFunction('formatUserName', [$this, 'formatUserName']),
 		);
 	}
 
@@ -41,8 +41,21 @@ class UserManagerExtension extends \Twig_Extension
 		return 'user_manager_extension';
 	}
 
+	/**
+	 * @param null $user
+	 *
+	 * @return \DateTime
+	 */
 	public function getSystemYear($user = null)
 	{
 		return new \DateTime('now');
+	}
+
+	/**
+	 * @return string
+	 */
+	public function formatUserName($user = null)
+	{
+		return '';
 	}
 }

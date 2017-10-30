@@ -276,7 +276,12 @@ abstract class User implements UserInterface
 		return $this;
 	}
 
-	public function formatName(){
+	/**
+	 * Format Name
+	 * @return string
+	 */
+	public function formatName()
+	{
 		return $this->getUsername();
 	}
 }

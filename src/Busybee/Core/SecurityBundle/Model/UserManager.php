@@ -303,4 +303,18 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
 		return $user->canDelete();
 	}
 
+	/**
+	 * Format User Name
+	 *
+	 * @param User $user
+	 *
+	 * @return string
+	 */
+	public function formatUserName(User $user)
+	{
+		if ($this->personExists($user))
+			return $this->getPerson()->formatName();
+
+		return $user->formatName();
+	}
 }

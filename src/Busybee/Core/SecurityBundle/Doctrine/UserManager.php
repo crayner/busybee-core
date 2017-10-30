@@ -19,6 +19,11 @@ class UserManager extends BaseUserManager
 	protected $session;
 
 	/**
+	 * @var Person
+	 */
+	private $person;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param EncoderFactoryInterface $encoderFactory
@@ -174,15 +179,27 @@ class UserManager extends BaseUserManager
 			$metaData = $this->objectManager->getClassMetadata('Busybee\People\PersonBundle\Entity\Person');
 			$schema   = $this->objectManager->getConnection()->getSchemaManager();
 
-			if ($schema->tablesExist($metaData->getTableName()))
+			if ($schema->tablesExist([$metaData->getTableName()]))
 			{
-				$person = $this->objectManager->getRepository(Person::class)->findOneByUser($entity);
+				$this->person = $this->objectManager->getRepository(Person::class)->findOneByUser($entity);
 
-				if ($person instanceof Person)
-					return $person->getId();
+				if ($this->person instanceof Person)
+					return $this->person->getId();
 			}
 		}
 
+		$this->person = null;
+
 		return false;
+	}
+
+	/**
+	 * Get Person
+	 *
+	 * @return Person
+	 */
+	public function getPerson()
+	{
+		return $this->person;
 	}
 }

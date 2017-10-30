@@ -35,7 +35,7 @@
                 <div>
                     {% set route = path('home_page') ~ '?_switch_user=' ~ form.vars.value.getUsername %}
                     {% set additional = '' %}
-                    {% if form.vars.value.getId == app.user.getId %}{% set additional = 'disabled' %}{% endif %}
+                    {% if form.vars.value.getId == app.user.getId or form.vars.value.expired or form.vars.value.credentialsExpired %}{% set additional = 'disabled' %}{% endif %}
                     {{ miscButton({style: '', transDomain: 'BusybeeSecurityBundle', title: 'security.impersonate.title', windowOpen: {'route': route }, 'class': 'btn btn-warning glyphicons glyphicons-theater', 'type': 'button', 'additional': additional})|raw }}
                 </div>
             {% endif %}
