@@ -3,6 +3,7 @@
 namespace Busybee\Core\CalendarBundle\Entity;
 
 use Busybee\Core\CalendarBundle\Model\GradeModel;
+use Busybee\Management\GradeBundle\Entity\StudentGrade;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -54,6 +55,11 @@ class Grade extends GradeModel
 	 * @var \DateTime
 	 */
 	private $createdOn;
+
+	/**
+	 * @var ArrayCollection
+	 */
+	private $students;
 
 	/**
 	 * Constructor
@@ -264,6 +270,62 @@ class Grade extends GradeModel
 	public function setName($name)
 	{
 		$this->name = $name;
+
+		return $this;
+	}
+
+	/**
+	 * Get Students
+	 *
+	 * @return ArrayCollection
+	 */
+	public function getStudents(): ArrayCollection
+	{
+		return $this->students;
+	}
+
+	/**
+	 * Set Students
+	 *
+	 * @param ArrayCollection $students
+	 *
+	 * @return Grade
+	 */
+	public function setStudents(ArrayCollection $students): Grade
+	{
+		$this->students = $students;
+
+		return $this;
+	}
+
+	/**
+	 * Add Student
+	 *
+	 * @param StudentGrade|null $student
+	 *
+	 * @return Grade
+	 */
+	public function addStudent(StudentGrade $student = null): Grade
+	{
+		if (!$student instanceof StudentGrade)
+			return $this;
+
+		if (!$this->students->contains($student))
+			$this->students->add($student);
+
+		return $this;
+	}
+
+	/**
+	 * Remove Student
+	 *
+	 * @param StudentGrade $student
+	 *
+	 * @return Grade
+	 */
+	public function removeStudent(StudentGrade $student): Grade
+	{
+		$this->students->removeElement($student);
 
 		return $this;
 	}

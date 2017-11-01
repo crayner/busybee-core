@@ -19,7 +19,7 @@ class FamilyController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$up = $this->get('family.pagination');
+		$up = $this->get('busybee_people_family.model.family_pagination');
 
 		$up->injectRequest($request);
 
@@ -42,7 +42,7 @@ class FamilyController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
 
-		$family = $this->get('family.repository')->find($id);
+		$family = $this->get('busybee_people_family.repository.family_repository')->find($id);
 
 		$form = $this->createForm(FamilyType::class, $family);
 

@@ -2,7 +2,11 @@
 
 namespace Busybee\People\FamilyBundle\Events;
 
+use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\FamilyBundle\Model\FamilyManager;
+use Busybee\People\PersonBundle\Entity\Person;
+use Busybee\People\StaffBundle\Entity\Staff;
+use Busybee\People\StudentBundle\Entity\Student;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -13,16 +17,16 @@ class FamilySubscriber implements EventSubscriberInterface
 	/**
 	 * @var FamilyManager
 	 */
-	private $fm;
+	private $familyManager;
 
 	/**
 	 * FamilySubscriber constructor.
 	 *
 	 * @param FamilyManager $pm
 	 */
-	public function __construct(FamilyManager $fm)
+	public function __construct(FamilyManager $familyManager)
 	{
-		$this->fm = $fm;
+		$this->familyManager = $familyManager;
 	}
 
 	/**
@@ -34,6 +38,7 @@ class FamilySubscriber implements EventSubscriberInterface
 		// event and that the preSubmit method should be called.
 		return array(
 			FormEvents::PRE_SUBMIT => 'preSubmit',
+
 		);
 	}
 
@@ -50,7 +55,7 @@ class FamilySubscriber implements EventSubscriberInterface
 
 
 		if (empty($data['name']))
-			$data['name'] = $this->fm->generateFamilyName($data);
+			$data['name'] = $this->familyManager->generateFamilyName($data);
 
 		$students = array();
 		if (isset($data['students']) && is_array($data['students']))
@@ -77,58 +82,60 @@ class FamilySubscriber implements EventSubscriberInterface
 			}
 		}
 
-		$family     = $form->getData();
-		$careGivers = new ArrayCollection();
+		$family = $form->getData();
 
-		$careGiver = array();
-		if (!empty($data['careGiver']) && is_array($data['careGiver']))
+		$careGivers = [];
+		if (!empty($data['careGivers']) && is_array($data['careGivers']))
 		{
-			foreach ($data['careGiver'] as $q => $w)
+			foreach ($data['careGivers'] as $q => $w)
 				if (!empty($w) && !empty($w['person']))
 				{
 					$w['contactPriority'] = $q + 1;
-					$careGiver[]          = $w;
+					$careGivers[]         = $w;
 				}
 		}
-		$data['careGiver'] = $careGiver;
+		$data['careGivers'] = $careGivers;
 
-		if (empty($data['careGiver']) || empty($data['careGiver'][0]['person']))
-			unset($data['careGiver']);
-		if (is_array($data['careGiver']))
+		if (empty($data['careGivers']) || empty($data['careGivers'][0]['person']))
+			unset($data['careGivers']);
+		$careGivers = new ArrayCollection();
+
+		if (is_array($data['careGivers']))
 		{
-			foreach ($data['careGiver'] as $q => $w)
+			foreach ($data['careGivers'] as $q => $w)
 			{
-				$data['careGiver'][$q]['contactPriority'] = $q + 1;
+				$data['careGivers'][$q]['contactPriority'] = $q + 1;
 			}
 
 			if ($family->getId() > 0)
 			{
-				foreach ($data['careGiver'] as $q => $w)
+				foreach ($data['careGivers'] as $q => $w)
 				{
-					$cg                              = $this->fm->findOneCareGiverByPerson(array('person' => $w['person'], 'family' => $family->getId()));
-					$data['careGiver'][$q]['cg']     = $cg;
-					$data['careGiver'][$q]['family'] = $family->getId();
+					$cg                               = $this->familyManager->findOneCareGiverByPerson(array('person' => $w['person'], 'family' => $family->getId()));
+					$data['careGivers'][$q]['cg']     = $cg;
+					$data['careGivers'][$q]['family'] = $family->getId();
 				}
 
-				usort($data['careGiver'], function ($item1, $item2) {
+				usort($data['careGivers'], function ($item1, $item2) {
 					return $item1['currentOrder'] <=> $item2['currentOrder'];
 				});
 			}
 
-			foreach ($data['careGiver'] as $q => $w)
+			foreach ($data['careGivers'] as $q => $w)
 			{
-				if (!empty($data['careGiver'][$q]['cg']))
-					$careGivers->add($data['careGiver'][$q]['cg']);
-				unset($data['careGiver'][$q]['cg'], $data['careGiver'][$q]['currentOrder']);
+				if (!empty($data['careGivers'][$q]['cg']))
+					$careGivers->add($data['careGivers'][$q]['cg']);
+				unset($data['careGivers'][$q]['cg'], $data['careGivers'][$q]['currentOrder']);
 			}
 		}
 
-		$a  = $family->getCareGiver()->toArray();
+		$a  = $family->getCareGivers()->toArray();
 		$b  = $careGivers->toArray();
 		$xx = array_diff($a, $b);
+
 		foreach ($xx as $cg)
-			$this->fm->removeEntity($cg);
-		$family->setCareGiver($careGivers);
+			$this->familyManager->removeEntity($cg);
+		$family->setCareGivers($careGivers);
 
 		$students = new ArrayCollection();
 		if (!empty($data['students']) && is_array($data['students']))
@@ -136,7 +143,7 @@ class FamilySubscriber implements EventSubscriberInterface
 			foreach ($data['students'] as $q => $w)
 				if (!empty($w) && !empty($w['person']))
 				{
-					$student = $this->fm->getStudentFromPerson($w['person']);
+					$student = $this->familyManager->getStudentFromPerson($w['person']);
 					if (empty($student->getHouse()))
 						$student->setHouse($data['house']);
 					if (empty($student->getFirstLanguage()))
@@ -154,5 +161,4 @@ class FamilySubscriber implements EventSubscriberInterface
 
 		$event->setData($data);
 	}
-
 }

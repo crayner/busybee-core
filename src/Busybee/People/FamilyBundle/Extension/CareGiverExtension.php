@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\People\FamilyBundle\Model;
+namespace Busybee\People\FamilyBundle\Extension;
 
 
 use Busybee\People\FamilyBundle\Entity\CareGiver;

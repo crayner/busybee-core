@@ -70,10 +70,6 @@ services:
             - '@translator'
         tags:
             - { name: twig.extension }
-    busybee_people_student.validator.constraints.grades_validator:
-        class: Busybee\People\StudentBundle\Validator\Constraints\GradesValidator
-        tags:
-            - { name: validator.constraint_validator, alias: student_grades_validator }
     busybee_people_student.model.student_pagination:
         class: Busybee\People\StudentBundle\Model\StudentPagination
         arguments:

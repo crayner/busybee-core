@@ -62,7 +62,7 @@ class Family
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
 	 */
-	private $careGiver;
+	private $careGivers;
 
 	/**
 	 * @var string
@@ -83,9 +83,9 @@ class Family
 	 */
 	public function __construct()
 	{
-		$this->phone     = new ArrayCollection();
-		$this->students  = new ArrayCollection();
-		$this->careGiver = new ArrayCollection();
+		$this->phone      = new ArrayCollection();
+		$this->students   = new ArrayCollection();
+		$this->careGivers = new ArrayCollection();
 	}
 
 	/**
@@ -360,7 +360,7 @@ class Family
 		if (empty($careGiver->getFamily()))
 			$careGiver->setFamily($this);
 
-		$this->careGiver[] = $careGiver;
+		$this->careGivers->add($careGiver);
 
 		return $this;
 	}
@@ -372,7 +372,7 @@ class Family
 	 */
 	public function removeCareGiver(CareGiver $careGiver)
 	{
-		$this->careGiver->removeElement($careGiver);
+		$this->careGivers->removeElement($careGiver);
 	}
 
 	/**
@@ -380,9 +380,9 @@ class Family
 	 *
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getCareGiver()
+	public function getCareGivers()
 	{
-		return $this->careGiver;
+		return $this->careGivers;
 	}
 
 	/**
@@ -392,9 +392,9 @@ class Family
 	 *
 	 * @return Family
 	 */
-	public function setCareGiver(ArrayCollection $caregivers)
+	public function setCareGivers(ArrayCollection $caregivers)
 	{
-		$this->careGiver = $caregivers;
+		$this->careGivers = $caregivers;
 
 		return $this;
 	}

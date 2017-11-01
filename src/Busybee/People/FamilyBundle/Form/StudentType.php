@@ -2,7 +2,6 @@
 
 namespace Busybee\People\FamilyBundle\Form;
 
-use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\StudentBundle\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,16 +19,15 @@ class StudentType extends AbstractType
 	{
 		$builder
 			->add('person', EntityType::class, array(
-					'label'         => 'students.label.person',
-					'class'         => Person::class,
+					'label'         => 'students.person.label',
+					'class'         => Student::class,
 					'choice_label'  => 'formatName',
 					'query_builder' => function (EntityRepository $er) {
-						return $er->createQueryBuilder('p')
-							->where('p.studentQuestion = 1')
-							->addOrderBy('p.surname', 'ASC')
-							->addOrderBy('p.firstName', 'ASC');
+						return $er->createQueryBuilder('s')
+							->addOrderBy('s.surname', 'ASC')
+							->addOrderBy('s.firstName', 'ASC');
 					},
-					'placeholder'   => 'students.placeholder.person',
+					'placeholder'   => 'students.person.placeholder',
 				)
 			);
 	}

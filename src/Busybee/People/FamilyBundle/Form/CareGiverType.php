@@ -45,7 +45,8 @@ class CareGiverType extends AbstractType
 					'choice_label'  => 'formatName',
 					'query_builder' => function (EntityRepository $er) {
 						return $er->createQueryBuilder('p')
-							->where('p.studentQuestion = 0')
+							->where('p NOT INSTANCE OF :personType')
+							->setParameter('personType', 'Busybee\People\StudentBundle\Entity\Student')
 							->addOrderBy('p.surname', 'ASC')
 							->addOrderBy('p.firstName', 'ASC');
 					},

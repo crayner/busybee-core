@@ -2,6 +2,7 @@
 namespace Busybee\People\PersonBundle\Entity;
 
 use Busybee\People\AddressBundle\Entity\Address;
+use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\PersonBundle\Model\PersonModel;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\People\PhoneBundle\Entity\Phone;
@@ -128,11 +129,17 @@ class Person extends PersonModel
 	private $vehicleRegistration;
 
 	/**
+	 * @var ArrayCollection
+	 */
+	private $careGivers;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
 	{
-		$this->phone = new ArrayCollection();
+		$this->phone      = new ArrayCollection();
+		$this->careGivers = new ArrayCollection();
 		parent::__construct();
 	}
 
@@ -705,6 +712,62 @@ class Person extends PersonModel
 	public function setPhone(Collection $phone)
 	{
 		$this->phone = $phone;
+
+		return $this;
+	}
+
+	/**
+	 * Get Care Givers
+	 *
+	 * @return ArrayCollection
+	 */
+	public function getCareGivers(): ArrayCollection
+	{
+		return $this->careGivers;
+	}
+
+	/**
+	 * Set Care Givers
+	 *
+	 * @param ArrayCollection $careGivers
+	 *
+	 * @return Person
+	 */
+	public function setCareGivers(ArrayCollection $careGivers): Person
+	{
+		$this->careGivers = $careGivers;
+
+		return $this;
+	}
+
+	/**
+	 * Add Care Giver
+	 *
+	 * @param CareGiver|null $careGiver
+	 *
+	 * @return Person
+	 */
+	public function addCareGiver(CareGiver $careGiver = null): Person
+	{
+		if (!$careGiver instanceof CareGiver)
+			return $this;
+
+		if (!$this->careGivers->contains($careGiver))
+			$this->careGivers->add($careGiver);
+
+		return $this;
+	}
+
+	/**
+	 * Remove Care Giver
+	 *
+	 * @param CareGiver $careGiver
+	 *
+	 * @return Person
+	 */
+	public function removeCareGiver(CareGiver $careGiver): Person
+	{
+		$this->careGivers->removeElement($careGiver);
 
 		return $this;
 	}

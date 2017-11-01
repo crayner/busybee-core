@@ -1,7 +1,7 @@
 <?php
-
 namespace Busybee\Management\GradeBundle\Events;
 
+use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\Management\GradeBundle\Entity\StudentGrade;
 use Busybee\People\StudentBundle\Entity\Student;
 use Doctrine\Common\EventSubscriber;
@@ -28,16 +28,28 @@ class StudentSubscriber implements EventSubscriber
 		// the $metadata is the whole mapping info for this class
 		$metadata = $eventArgs->getClassMetadata();
 
-		if ($metadata->getName() != Student::class)
-			return;
+		if ($metadata->getName() == Student::class)
+		{
+			$metadata->mapOneToMany(
+				[
+					'targetEntity' => StudentGrade::class,
+					'fieldName'    => 'grades',
+					'cascade'      => ['persist'],
+					'mappedBy'     => 'student',
+				]
+			);
+		}
 
-		$metadata->mapOneToMany(
-			[
-				'targetEntity' => StudentGrade::class,
-				'fieldName'    => 'grades',
-				'cascade'      => ['persist'],
-				'mappedBy'     => 'student',
-			]
-		);
+		if ($metadata->getName() == Grade::class)
+		{
+			$metadata->mapOneToMany(
+				[
+					'targetEntity' => StudentGrade::class,
+					'fieldName'    => 'students',
+					'cascade'      => ['persist'],
+					'mappedBy'     => 'grade',
+				]
+			);
+		}
 	}
 }

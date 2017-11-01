@@ -29,7 +29,7 @@
                 {{ form_row(form.person) }}
                 {{ form_row(form.family) }}
                 {{ form_row(form.contactPriority) }}
-                <input name="family[careGiver][{{ form.vars.name }}][currentOrder]"
+                <input name="family[careGivers][{{ form.vars.name }}][currentOrder]"
                        value="{{ form.contactPriority.vars.value }}" type="hidden"/>
             </div>
             <div class="col-sm-6 well">

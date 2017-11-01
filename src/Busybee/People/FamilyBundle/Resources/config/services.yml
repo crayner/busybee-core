@@ -17,51 +17,42 @@ parameters:
             resources:
                 - 'BusybeeFamilyBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
-    family.repository:
+    busybee_people_family.repository.family_repository:
         class: Busybee\People\FamilyBundle\Repository\FamilyRepository
         factory:
             - "@doctrine"
             - 'getRepository'
         arguments:
             - "BusybeeFamilyBundle:Family"
-    caregiver.repository:
-        class: Busybee\People\FamilyBundle\Repository\CareGiverRepository
-        factory:
-            - "@doctrine"
-            - 'getRepository'
-        arguments:
-            - "BusybeeFamilyBundle:CareGiver"
-    family.pagination:
+    busybee_people_family.model.family_pagination:
         class: Busybee\People\FamilyBundle\Model\FamilyPagination
         arguments:
             - '%familyPagination%'
-            - '@family.repository'
+            - '@busybee_people_family.repository.family_repository'
             - '@busybee_core_system.model.my_container'
-    form.family.type:
+    busybee_people_family.form.family_type:
         class: Busybee\People\FamilyBundle\Form\FamilyType
         arguments:
-            - '@family.manager'
+            - '@busybee_people_family.model.family_manager'
         tags:
             - { name: form.type }
-    family.manager:
+    busybee_people_family.model.family_manager:
         class: Busybee\People\FamilyBundle\Model\FamilyManager
         arguments:
             - '@busybee_core_system.setting.setting_manager'
             - '@doctrine.orm.entity_manager'
             - '@busybee_people_person.model.person_manager'
-    caregiver.validator:
-        class: Busybee\People\FamilyBundle\Validator\Constraints\CareGiverValidator
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags:
-            - { name: validator.constraint_validator, alias: caregiver_validator }
-    form.caregiver.type:
+    busybee_people_family.form.caregiver_type:
         class: Busybee\People\FamilyBundle\Form\CareGiverType
         arguments:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
-    caregiver.extension:
-        class: Busybee\People\FamilyBundle\Model\CareGiverExtension
+    busybee_people_family.extension.caregiver_extension:
+        class: Busybee\People\FamilyBundle\Extension\CareGiverExtension
         tags:
             - { name: twig.extension }
+    busybee_people_family.events.caregiver_subscriber:
+        class: Busybee\People\FamilyBundle\Events\CareGiverSubscriber
+        tags:
+            - { name: doctrine.event_subscriber }

@@ -8,35 +8,35 @@ use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\People\StudentBundle\Entity\Student;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class FamilyManager
 {
 	/**
 	 * @var SettingManager
 	 */
-	private $sm;
+	private $settingManager;
 
 	/**
-	 * @var EntityManager
+	 * @var ObjectManager
 	 */
-	private $em;
+	private $objectManager;
 
 	/**
 	 * @var PersonManager
 	 */
-	private $pm;
+	private $personManager;
 
 	/**
 	 * PersonManager constructor.
 	 *
-	 * @param SettingManager $sm
+	 * @param SettingManager $settingManager
 	 */
-	public function __construct(SettingManager $sm, EntityManager $em, PersonManager $pm)
+	public function __construct(SettingManager $settingManager, ObjectManager $objectManager, PersonManager $personManager)
 	{
-		$this->sm = $sm;
-		$this->em = $em;
-		$this->pm = $pm;
+		$this->settingManager = $settingManager;
+		$this->objectManager  = $objectManager;
+		$this->personManager  = $personManager;
 	}
 
 	/**
@@ -46,15 +46,15 @@ class FamilyManager
 	 */
 	public function generateFamilyName($data)
 	{
-		if (empty($data['careGiver']) || empty($data['careGiver'][0]['person']))
+		if (empty($data['careGivers']) || empty($data['careGivers'][0]['person']))
 			return '';
 
-		$cgr = $this->em->getRepository(Person::class);
+		$cgr = $this->objectManager->getRepository(Person::class);
 
-		$cg1 = $cgr->find($data['careGiver'][0]['person']);
+		$cg1 = $cgr->find($data['careGivers'][0]['person']);
 		$cg2 = null;
-		if (!empty($data['careGiver'][1]))
-			$cg2 = $cgr->find($data['careGiver'][1]['person']);
+		if (!empty($data['careGivers'][1]))
+			$cg2 = $cgr->find($data['careGivers'][1]['person']);
 
 		$name = $cg1->formatName(['preferredOnly' => true]);
 
@@ -78,7 +78,7 @@ class FamilyManager
 	public function retrieveCareGiver($id)
 	{
 		if ($id > 0)
-			return $this->em->getRepository(CareGiver::class)->find($id);
+			return $this->objectManager->getRepository(CareGiver::class)->find($id);
 
 		return null;
 	}
@@ -90,25 +90,24 @@ class FamilyManager
 	 */
 	public function findOneCareGiverByPerson($details)
 	{
-		$cg = $this->em->getRepository(CareGiver::class)->findOneBy($details);
+		$cg = $this->objectManager->getRepository(CareGiver::class)->findOneBy($details);
 		if (!$cg instanceof CareGiver)
 		{
 			$cg = new CareGiver();
 			if (!empty($details['person']))
-				$cg->setPerson($this->em->getRepository(Person::class)->find($details['person']));
+				$cg->setPerson($this->objectManager->getRepository(Person::class)->find($details['person']));
 			if (!empty($details['family']))
-				$cg->setFamily($this->em->getRepository(Family::class)->find($details['family']));
+				$cg->setFamily($this->objectManager->getRepository(Family::class)->find($details['family']));
 		}
 
 		return $cg;
 	}
 
-	public function getStudentFromPerson($person)
+	public function getStudentFromPerson(int $person): Student
 	{
-		$student = $this->getStudentRepository()->findOneByPerson($person);
+		$student = $this->getStudentRepository()->find($person);
 		if (!$student instanceof Student)
 			$student = new Student();
-		$student->setPerson($this->em->getRepository(Person::class)->find($person));
 
 		return $student;
 	}
@@ -118,11 +117,11 @@ class FamilyManager
 	 */
 	public function getStudentRepository()
 	{
-		return $this->em->getRepository(Student::class);
+		return $this->objectManager->getRepository(Student::class);
 	}
 
-	public function removeEntity($entity)
+	public function robjectManageroveEntity($entity)
 	{
-		$this->em->remove($entity);
+		$this->objectManager->robjectManagerove($entity);
 	}
 }

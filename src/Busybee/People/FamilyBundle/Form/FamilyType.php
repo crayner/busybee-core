@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\People\FamilyBundle\Form;
 
 use Busybee\People\FamilyBundle\Entity\Family;
@@ -8,7 +7,7 @@ use Busybee\People\FamilyBundle\Model\FamilyManager;
 use Busybee\Core\TemplateBundle\Type\AutoCompleteType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\People\AddressBundle\Entity\Address;
-use Busybee\People\PersonBundle\Form\PhoneType;
+use Busybee\People\PhoneBundle\Form\PhoneType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
@@ -20,11 +19,11 @@ class FamilyType extends AbstractType
 	/**
 	 * @var FamilyManager
 	 */
-	private $fm;
+	private $familyManager;
 
-	public function __construct(FamilyManager $fm)
+	public function __construct(FamilyManager $familyManager)
 	{
-		$this->fm = $fm;
+		$this->familyManager = $familyManager;
 	}
 
 	/**
@@ -48,9 +47,9 @@ class FamilyType extends AbstractType
 					'choice_label'       => 'singleLineAddress',
 					'empty_data'         => null,
 					'required'           => false,
-					'label'              => 'person.label.address1',
+					'label'              => 'person.address1.label',
 					'attr'               => array(
-						'help'  => 'person.help.address1',
+						'help'  => 'person.address1.help',
 						'class' => 'beeAddressList formChanged',
 					),
 					'translation_domain' => 'BusybeePersonBundle',
@@ -63,16 +62,16 @@ class FamilyType extends AbstractType
 					'data'               => $options['data']->getAddress2(),
 					'empty_data'         => null,
 					'required'           => false,
-					'label'              => 'person.label.address2',
+					'label'              => 'person.address2.label',
 					'attr'               => array(
-						'help'  => 'person.help.address2',
+						'help'  => 'person.address2.help',
 						'class' => 'beeAddressList formChanged',
 					),
 					'translation_domain' => 'BusybeePersonBundle',
 				)
 			)
 			->add('phone', CollectionType::class, array(
-					'label'              => 'person.label.phones',
+					'label'              => 'person.phones.label',
 					'entry_type'         => PhoneType::class,
 					'allow_add'          => true,
 					'by_reference'       => false,
@@ -84,15 +83,15 @@ class FamilyType extends AbstractType
 					'required'           => false,
 				)
 			)
-			->add('careGiver', CollectionType::class, array(
-					'label'        => 'family.label.caregiver',
+			->add('careGivers', CollectionType::class, array(
+					'label'        => 'family.caregivers.label',
 					'entry_type'   => CareGiverType::class,
 					'allow_add'    => true,
 					'by_reference' => false,
 					'allow_delete' => true,
 					'attr'         => array(
 						'class' => 'careGiverList',
-						'help'  => 'family.help.caregiver',
+						'help'  => 'family.caregivers.help',
 					),
 					'required'     => false,
 				)
@@ -132,7 +131,7 @@ class FamilyType extends AbstractType
 					'setting_name' => 'house.list',
 				)
 			);
-		$builder->addEventSubscriber(new FamilySubscriber($this->fm));
+		$builder->addEventSubscriber(new FamilySubscriber($this->familyManager));
 
 	}
 

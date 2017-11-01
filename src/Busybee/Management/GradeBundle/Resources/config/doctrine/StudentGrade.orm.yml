@@ -26,6 +26,7 @@ Busybee\Management\GradeBundle\Entity\StudentGrade:
     manyToOne:
         grade:
             targetEntity: Busybee\Core\CalendarBundle\Entity\Grade
+            inversedBy: students
             joinColumns:
                 grade_id:
                     referencedColumnName: id

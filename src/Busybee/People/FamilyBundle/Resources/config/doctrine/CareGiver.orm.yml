@@ -5,8 +5,8 @@ Busybee\People\FamilyBundle\Entity\CareGiver:
     uniqueConstraints:
         familyPerson:
             columns:
-                - family
-                - person
+                - family_id
+                - person_id
     id:
         id:
             type: integer
@@ -48,16 +48,18 @@ Busybee\People\FamilyBundle\Entity\CareGiver:
     manyToOne:
         person:
             targetEntity: Busybee\People\PersonBundle\Entity\Person
-            inversedBy: careGiver
+            inversedBy: careGivers
             joinColumn:
-                name: person
+                name: person_id
                 referencedColumnName: id
+                nullable: false
         family:
             targetEntity: Busybee\People\FamilyBundle\Entity\Family
-            inversedBy: careGiver
+            inversedBy: careGivers
             joinColumn:
-                name: family
+                name: family_id
                 referencedColumnName: id
+                nullable: false
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:

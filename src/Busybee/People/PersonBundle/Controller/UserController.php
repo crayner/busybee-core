@@ -64,7 +64,7 @@ class UserController extends BusybeeController
 			$user->setEnabled(true);
 			$user->setLocked(false);
 			$user->setExpired(false);
-			$user->setCredentialsExpireAt(null);
+			$user->setCredentialsExpireAt(new \DateTime());
 			$user->setExpiresAt(null);
 
 			$person->setUser($user);

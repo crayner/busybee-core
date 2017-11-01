@@ -29,14 +29,15 @@ Busybee\People\FamilyBundle\Entity\Family:
         createdOn:
             type: datetime
     oneToMany:
-        careGiver:
+        careGivers:
             targetEntity: Busybee\People\FamilyBundle\Entity\CareGiver
-            orderBy: { 'contactPriority': 'ASC' }
+            orderBy:
+                'contactPriority': 'ASC'
             mappedBy: family
-            cascade: [ 'all' ]
-            joinColumn:
-                name: caregiver
-                referencedColumnName: id
+            cascade:
+                - 'remove'
+                - 'persist'
+            orphanRemoval: true
     manyToMany:
         phone:
             targetEntity: Busybee\People\PhoneBundle\Entity\Phone
