@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 class BundleController extends BusybeeController
 {
 
-
 	/**
 	 * List Bundles
 	 *
@@ -29,11 +28,11 @@ class BundleController extends BusybeeController
 
 		$this->get('busybee_core_system.model.flash_bag_manager')->addMessages($bundles->getMessages());
 
-
 		if (!$bundles->getBundleChanged())
 			return $this->render('@System/Bundle/list.html.twig', ['form' => $form->createView()]);
 
 		$redirect = $this->redirectToRoute('bundle_list', []);
+
 		if ($bundles->getSQLCount() > 0)
 			$redirect = $this->redirectToRoute('bundle_database_update', []);
 

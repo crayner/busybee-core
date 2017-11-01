@@ -144,6 +144,9 @@ class BundleManager
 			$x['exclusions']   = $bundle->getExclusions();
 			$x['requirements'] = $bundle->getRequirements();
 			$data[$name]       = $x;
+
+			if (!$bundle->isActive() && $this->settingManager->settingExists($bundle->getName() . '.version'))
+				$this->settingManager->deleteSetting($bundle->getName() . '.version');
 		}
 
 		try
@@ -193,6 +196,14 @@ class BundleManager
 		$this->bundles = $bundles;
 	}
 
+	/**
+	 * Handle Request
+	 *
+	 * @param FormInterface $form
+	 * @param Request       $request
+	 *
+	 * @return array
+	 */
 	public function handleRequest(FormInterface $form, Request $request)
 	{
 		$data = $request->request->get('bundles_manage');
@@ -215,7 +226,7 @@ class BundleManager
 
 		foreach ($data as $q => $w)
 		{
-			$bundle = $bundles->get($data[$q]['name']);
+			$bundle = $bundles->get($w['name']);
 			if (empty($w['active']) || $w['active'] !== 'on')
 			{
 				$data[$q]['active']  = false;

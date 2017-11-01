@@ -571,21 +571,22 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 	 *
 	 * @return    SettingManager
 	 */
-	public function deleteSetting($setting)
+	public function deleteSetting($setting): SettingManager
 	{
 		if (!$setting instanceof Setting)
 		{
-			$this->get($setting); // if setting is a string then it is a name of a setting to remove.
+			$this->setting = $this->settingRepo->findOneByName($setting);
 			if ($this->setting instanceof Setting)
 				$setting = $this->setting;
 			else
 				return $this;
 		}
-		$em = $this->container->get('doctrine')->getManager();
-		$em->remove($setting);
-		$em->flush();
+		$om = $this->container->get('doctrine')->getManager();
+		$om->remove($setting);
+		$om->flush();
 
 		$this->clearSessionSetting($setting->getName());
+		$this->setting = null;
 
 		return $this;
 	}

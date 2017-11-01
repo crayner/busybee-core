@@ -64,6 +64,13 @@ system:
             help: Set by the programmer of this bundle.
         active:
             label: Active
+        database:
+            title: Database Updates are Required
+            onechange: 'A database check shows that the database schema is not up to date, requiring %count% change. Use the button to the right to update the database.'
+            multichange: 'A database check shows that the database schema is not up to date, requiring %count% changes. Use the button to the right to update the database.'
+        update:
+            title: Bundle Updates are Required
+            description: One or more bundles require full integration into Busybee.  This can result in some areas of the site not working as expected. You can update the bundles one at a time, or use the button to the right to update all bundles.
         defaults:
             title: Organisation Default Settings.
             description: 'You can create your own set of default settings in a YAML style file and ensure that they are applied to your system after each upgrade.  (Some upgrades may write over settings, although for backwards compatibility, we endeavour to ensure that overwriting does not happen.  You can use files from the resources website to start you setting file.'

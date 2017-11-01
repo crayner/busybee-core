@@ -17,9 +17,9 @@
 
 # Vendor Files
 /vendor/
-!vendor/composer/*.php
-!vendor/composer/*.json
-!vendor/composer/LICENSE
+!/vendor/composer/*.php
+!/vendor/composer/*.json
+!/vendor/composer/LICENSE
 
 # Parameters
 /app/config/parameters.yml
