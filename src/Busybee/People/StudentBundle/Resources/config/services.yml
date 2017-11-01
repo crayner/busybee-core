@@ -8,10 +8,6 @@ parameters:
             Given Name:
                 s.firstName: ASC
                 s.surname: ASC
-            Details:
-#                g.sequence: ASC
-                s.surname: ASC
-                s.firstName: ASC
         limit: '25'
         join:
             s.user:
@@ -24,13 +20,9 @@ parameters:
             - s.surname
             - s.firstName
             - s.email
-#            - g.grade
-#            - g.name
         select:
             - s.surname
             - s.firstName
-#            - g.name as details
-            - p.phoneNumber as details
             - s.id
             - u.id as user_id
         choices:
@@ -76,6 +68,7 @@ services:
             - '%studentPagination%'
             - '@busybee_people_student.repository.student_repository'
             - '@busybee_core_system.model.my_container'
+            - '@busybee_people_person.model.person_manager'
     busybee_people_student.security.student_voter:
         class: Busybee\People\StudentBundle\Security\StudentVoter
         arguments:

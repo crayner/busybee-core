@@ -23,8 +23,7 @@ class FamilyRepository extends \Doctrine\ORM\EntityRepository
 	{
 		$result = $this->createQueryBuilder('f')
 			->leftJoin('f.students', 's')
-			->leftJoin('s.person', 'p')
-			->where('p.id = :student')
+			->where('s.id = :student')
 			->setParameter('student', $person->getId())
 			->getQuery()
 			->getResult();
@@ -35,7 +34,7 @@ class FamilyRepository extends \Doctrine\ORM\EntityRepository
 	public function findByCareGiverPerson($person)
 	{
 		$result = $this->createQueryBuilder('f')
-			->leftJoin('f.careGiver', 'c')
+			->leftJoin('f.careGivers', 'c')
 			->leftJoin('c.person', 'p')
 			->where('p.id = :person_id')
 			->setParameter('person_id', $person->getId())

@@ -1,8 +1,12 @@
 phone:
     type:
-        label: Type of Phone
+        label: 'Type of Phone'
     number:
-        label: Phone Number
-        help: Any character but a number is ignored. The display can be altered in the settings.
+        label: 'Phone Number'
+        help: 'Any character but a number is ignored. The display can be altered in the settings.'
     country:
-        label: Country Code
+        label: 'Country Code'
+    warning: 'Changes in phone details are only linked to the person when the entire form is saved.'
+family:
+    phone:
+        linked: Linked Family Phone Numbers

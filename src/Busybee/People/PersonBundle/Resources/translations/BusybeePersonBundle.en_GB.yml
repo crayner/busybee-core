@@ -98,8 +98,6 @@ person:
         title: Edit Person
     import:
         title: Import People
-phone:
-    save: Changes in phone details are only recorded when the entire form is saved.
 address:
     add: Add Address
     refresh: Refresh Address Lists
@@ -240,3 +238,9 @@ people:
     importresults:
         title: Import Results
         description: ''
+contact:
+    phone:
+        add: Add Phone
+        remove: Remove Phone
+photo:
+    delete: Delete Photo

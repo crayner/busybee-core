@@ -9,11 +9,6 @@ parameters:
             Given Name:
                 p.firstName: ASC
                 p.surname: ASC
-            Details:
-                p.email: ASC
-                h.phoneNumber: ASC
-                p.surname: ASC
-                p.firstName: ASC
         limit: '25'
         searchList:
             - p.surname
@@ -26,9 +21,6 @@ parameters:
             - p.firstName
             - u.id as user_id
         join:
-            p.phone:
-                type: leftJoin
-                alias: h
             p.user:
                 type: leftJoin
                 alias: u

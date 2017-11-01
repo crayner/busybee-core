@@ -34,3 +34,7 @@ address:
         erase: Remove Address
         refresh: Refresh Address List
         add: Create Address
+    warning: 'Changes in address details are only linked to the person when the entire form is saved.'
+family:
+    address:
+        linked: Linked Family Addresses

@@ -87,10 +87,7 @@
                     {{ person.firstName }}
                 </div>
                 <div class="col-md-2 hidden-sm hidden-xs small" style="display: inline-block;">
-                    {{ person.details }} {{ person.0.person.email }}
-                    {% for phone in person.0.person.phone %}
-                        {{ get_setting('phone.display', null, {'phone': phone.phoneNumber()}) }}<br/>
-                    {% endfor %}
+                    {{ manager.getDetails(person.0)|raw }}
                 </div>
                 <div class="col-md-2 col-sm-2 text-center form-inline">
                     {% set route = path('person_edit', {'id': person.id, }) %}

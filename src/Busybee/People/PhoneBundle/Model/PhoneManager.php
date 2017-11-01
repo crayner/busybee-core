@@ -24,12 +24,12 @@ class PhoneManager
 	/**
 	 * @var SettingManager
 	 */
-	private $sm;
+	private $settingManager;
 
 	/**
 	 * @var    PhoneRepository
 	 */
-	private $pr;
+	private $phoneRepository;
 
 	/**
 	 * Constructor
@@ -39,11 +39,11 @@ class PhoneManager
 	 *
 	 * @param    Translator
 	 */
-	public function __construct(Translator $trans, SettingManager $sm, PhoneRepository $pr)
+	public function __construct(Translator $trans, SettingManager $settingManager, PhoneRepository $phoneRepository)
 	{
-		$this->trans = $trans;
-		$this->sm    = $sm;
-		$this->pr    = $pr;
+		$this->trans           = $trans;
+		$this->settingManager  = $settingManager;
+		$this->phoneRepository = $phoneRepository;
 	}
 
 	/**
@@ -69,6 +69,6 @@ class PhoneManager
 				'phoneNumber' => null,
 				'countryCode' => null);
 
-		return $this->sm->get('Phone.Format', null, $data);
+		return $this->settingManager->get('phone.format', null, $data);
 	}
 }

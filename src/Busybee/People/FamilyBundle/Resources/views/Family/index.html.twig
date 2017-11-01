@@ -9,37 +9,32 @@
 {% block headerLead %}{{ 'family.description'|trans }}{% endblock headerLead %}
 
 {% block contentContainer %}
-    {% include 'PaginationBundle:Default:index.html.twig' with {'form_array': {'action': path('family_manage') } } %}
-    <div class="panel panel-primary busybee-panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{ 'family.title.manage'|trans }}</h3>
-        </div>
-        <div class="panel-body">
-            <div class="container-fluid well">
-                <div class="row row-header">
-                    <div class="col-sm-9 col-md-9" style="display: inline-block;">
-                        {% if pagination.getSortByName == 'Family Name' %}
-                            <span class="halflings halflings-sort-by-alphabet"></span> {{ 'family.title.name'|trans }}
-                        {% else %}
-                            {{ 'family.title.name'|trans }}
-                        {% endif %}
-                    </div>
-                    <div class="col-sm-3 col-md-3 withAdd">
-                        {{ addButton({'title': 'family.title.add', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': 'Add'})}, 'style': 'float: left;'})|raw }}
-                        &nbsp;{{ 'family.actions'|trans }}
-                    </div>
-                </div>
-                {% for family in pagination.getResult %}
-                    <div class="row row-striped">
-                        <div class="col-sm-9 col-md-9 form-inline">
-                            {{ family.name }}
-                        </div>
-                        <div class="col-sm-3 col-md-3 form-inline">
-                            {{ editButton({'title': 'family.title.edit', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': family.id})}, 'style': 'float: left;'})|raw }}
-                        </div>
-                    </div>
-                {% endfor %}
+    {% include 'PaginationBundle:Default:index.html.twig' with {form_array: {action: path('family_manage') } } %}
+    {% set h3Content = addButton({title: 'family.title.add', transDomain: 'BusybeeFamilyBundle', windowOpen: {route: path('family_edit', {id: 'Add'})}})|raw %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'family.title.manage', transDomain: 'BusybeeFamilyBundle'} %}
+    <div class="container-fluid well">
+        <div class="row row-header">
+            <div class="col-sm-9 col-md-9" style="display: inline-block;">
+                {% if pagination.getSortByName == 'Family Name' %}
+                    <span class="halflings halflings-sort-by-alphabet"></span> {{ 'family.title.name'|trans }}
+                {% else %}
+                    {{ 'family.title.name'|trans }}
+                {% endif %}
+            </div>
+            <div class="col-sm-3 col-md-3 withAdd">
+                &nbsp;{{ 'family.actions'|trans }}
             </div>
         </div>
-    </div>
+        {% for family in pagination.getResult %}
+            <div class="row row-striped">
+                <div class="col-sm-9 col-md-9 form-inline">
+                    {{ family.name }}
+                </div>
+                <div class="col-sm-3 col-md-3 form-inline">
+                    {{ editButton({title: 'family.title.edit', transDomain: 'BusybeeFamilyBundle', windowOpen: {route: path('family_edit', {id: family.id})}, style: 'float: left;', colour: 'warning'})|raw }}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {% endblock contentContainer %}

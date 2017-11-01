@@ -138,10 +138,8 @@ class PersonManager
 		$this->checkPerson($person);
 
 		$families = new ArrayCollection();
-
-		if ($this->om->getMetadataFactory()->hasMetadataFor(Family::class))
+		if ($this->familyInstalled())
 		{
-
 			$careGivers = $this->om->getRepository(Family::class)->findByCareGiverPerson($this->person);
 			if (!empty($careGivers))
 				foreach ($careGivers as $family)
@@ -161,9 +159,11 @@ class PersonManager
 	/**
 	 * @param Person $person
 	 *
+	 * @param bool   $all
+	 *
 	 * @return ArrayCollection
 	 */
-	public function getPhones(Person $person): ArrayCollection
+	public function getPhones(Person $person, $all = false): ArrayCollection
 	{
 		$families = $this->getFamilies($person);
 		$phones   = new ArrayCollection();
@@ -173,6 +173,10 @@ class PersonManager
 			foreach ($family->getPhone() as $phone)
 				if (!$phones->contains($phone)) $phones->add($phone);
 		}
+
+		if ($all)
+			foreach ($person->getPhone() as $phone)
+				if (!$phones->contains($phone)) $phones->add($phone);
 
 		return $phones;
 	}
@@ -439,7 +443,7 @@ class PersonManager
 	public function createStudent(Person $person = null, $persist = false)
 	{
 		$this->checkPerson($person);
-		dump($this);
+
 		if ($this->canBeStudent())
 		{
 			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
@@ -518,5 +522,73 @@ class PersonManager
 		}
 
 		return false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function familyInstalled(): bool
+	{
+		if (class_exists('Busybee\People\FamilyBundle\Model\FamilyManager'))
+		{
+			$metaData = $this->getOm()->getClassMetadata('Busybee\People\FamilyBundle\Entity\Family');
+			$schema   = $this->getOm()->getConnection()->getSchemaManager();
+
+			return $schema->tablesExist([$metaData->table['name']]);
+
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get Details
+	 *
+	 * @param Person $person
+	 *
+	 * @return string
+	 */
+	public function getDetails(Person $person)
+	{
+		$result = '';
+
+		if ($person instanceof Staff && !empty($person->getHonorific()))
+			$result .= $person->getHonorific() . '<br/>';
+
+		if ($person instanceof Student && !empty($this->getCurrentGrade($person)))
+			$result .= $this->getCurrentGrade($person) . '<br/>';
+
+		if (!empty($person->getEmail()))
+			$result .= $person->getEmail() . '<br/>';
+		if (!empty($person->getEmail2()))
+			$result .= $person->getEmail2() . '<br/>';
+
+		foreach ($this->getPhones($person, true) as $phone)
+		{
+			$x = $this->getSm()->get('phone.display', null, ['phone' => $phone->getPhoneNumber()]);
+			if (!empty($x))
+				$result .= str_replace("\n", "<br/>", $x);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get Current Grade
+	 *
+	 * @param $person
+	 *
+	 * @return string
+	 */
+	public function getCurrentGrade($person)
+	{
+		if (!$person instanceof Student || !$this->gradesInstalled())
+			return null;
+
+		foreach ($person->getGrades()->toArray() as $grade)
+			if ($grade->getStatus() == 'Current')
+				return $grade->getGradeYear();
+
+		return null;
 	}
 }

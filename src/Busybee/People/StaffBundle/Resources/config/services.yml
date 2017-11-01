@@ -8,10 +8,6 @@ parameters:
             Given Name:
                 s.firstName: ASC
                 s.surname: ASC
-            Email:
-                s.email: ASC
-                s.surname: ASC
-                s.firstName: ASC
         limit: '25'
         searchList:
             - s.surname
@@ -28,7 +24,6 @@ parameters:
             - s.id
             - s.surname
             - s.firstName
-            - s.honorific as details
             - u.id as user_id
         choices:
             all:

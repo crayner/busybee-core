@@ -2,9 +2,12 @@
 
 {% trans_default_domain "BusybeeAddressBundle" %}
 
+<p class="alert alert-warning">{{ 'address.warning'|trans }}</p>
+
 {% if addresses is defined %}
+
     <p class="alert alert-info">
-        <strong>{{ 'Linked Family Addresses'|trans }}</strong>
+        <strong>{{ 'family.address.linked'|trans }}</strong>
         {% for address in addresses %}
             {{ formatAddress(address)|raw }}
         {% endfor %}</p>

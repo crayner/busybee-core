@@ -2,7 +2,6 @@
 
 namespace Busybee\Core\PaginationBundle\Model;
 
-use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\PaginationBundle\Form\PaginationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;
@@ -1176,5 +1175,22 @@ abstract class PaginationManager implements PaginationInterface
 		$this->alias = $alias;
 
 		return $this;
+	}
+
+	/**
+	 * Add Join
+	 *
+	 * @param $name
+	 * @param $type
+	 * @param $alias
+	 */
+	public function addJoin($name, $type, $alias)
+	{
+		$this->join[$name] = ['type' => $type, 'alias' => $alias];
+	}
+
+	public function addSearchList($name)
+	{
+		$this->searchList[] = $name;
 	}
 }
