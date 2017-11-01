@@ -3,12 +3,16 @@ parameters:
     personPagination:
         alias: p
         sortBy:
-            Family Name:
+            person.surname.label:
                 p.surname: ASC
                 p.firstName: ASC
-            Given Name:
+            person.firstName.label:
                 p.firstName: ASC
                 p.surname: ASC
+            person.email.label:
+                p.email: ASC
+                p.surname: ASC
+                p.firstName: ASC
         limit: '25'
         searchList:
             - p.surname
@@ -27,16 +31,17 @@ parameters:
         choices:
             all:
                 route: person_manage
-                prompt: pagination.person.all
+                prompt: person.pagination.all
             student:
                 route: student_manage
-                prompt: pagination.person.student
+                prompt: person.pagination.student
             staff:
                 route: staff_manage
-                prompt: pagination.person.staff
+                prompt: person.pagination.staff
             contact:
                 route: contact_manage
-                prompt: pagination.person.contact
+                prompt: person.pagination.contact
+        transDomain: BusybeePersonBundle
     PersonBundle:
         version: 0.0.01
         settings:

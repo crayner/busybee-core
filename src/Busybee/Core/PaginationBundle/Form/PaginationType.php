@@ -38,6 +38,7 @@ class PaginationType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+		dump($options);
 		$this->addLimit($builder, $options);
 		$this->addHidden($builder, $options);
 		$this->addSort($builder, $options);
@@ -119,16 +120,18 @@ class PaginationType extends AbstractType
 	{
 		return $builder
 			->add('currentSort', ChoiceType::class, array(
-					'label'    => 'pagination.sort.label',
-					'choices'  => $options['data']->getSortList(),
-					'required' => true,
-					'attr'     => array(
+					'label'                     => 'pagination.sort.label',
+					'choices'                   => $options['data']->getSortList(),
+					'required'                  => true,
+					'attr'                      => array(
 //						'disabled'				=> 'disabled',
 						'class'    => 'form-inline',
 						'onChange' => '$(this.form).submit()',
 					),
-					'data'     => $options['data']->getSortByName(),
-					'mapped'   => false,
+					'data'                      => $options['data']->getSortByName(),
+					'mapped'                    => false,
+					'translation_domain'        => 'BusybeePaginationBundle',
+					'choice_translation_domain' => $options['data']->getTransDomain(),
 				)
 			);
 	}
@@ -169,13 +172,15 @@ class PaginationType extends AbstractType
 		$builder
 			->add('choice', ChoiceType::class,
 				[
-					'required' => true,
-					'mapped'   => false,
-					'attr'     => [
+					'required'                  => true,
+					'mapped'                    => false,
+					'attr'                      => [
 						'class' => 'paginatorChoice'
 					],
-					'choices'  => $choices,
-					'label'    => 'pagination.choice.label'
+					'choices'                   => $choices,
+					'label'                     => 'pagination.choice.label',
+					'translation_domain'        => 'BusybeePaginationBundle',
+					'choice_translation_domain' => $options['data']->getTransDomain(),
 				]
 			)
 			->add('lastChoice', HiddenType::class,

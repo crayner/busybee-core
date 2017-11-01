@@ -98,6 +98,12 @@ person:
         title: Edit Person
     import:
         title: Import People
+    pagination:
+        all: All People
+        student: Students Only
+        staff: Staff Only
+        contact: All except Staff and Students
+
 address:
     add: Add Address
     refresh: Refresh Address Lists

@@ -16,11 +16,6 @@ pagination:
     choice:
         default: ''
         label: 'Limit Choice'
-    person:
-        all: All People
-        student: Students Only
-        staff: Staff Only
-        contact: All except Staff and Students
     records:
         only: 'Matching Records: %total%'
 Family Name: Family Name

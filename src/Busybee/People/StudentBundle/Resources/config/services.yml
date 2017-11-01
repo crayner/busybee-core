@@ -2,12 +2,16 @@ parameters:
     studentPagination:
         alias: s
         sortBy:
-            Family Name:
+            person.surname.label:
                 s.surname: ASC
                 s.firstName: ASC
-            Given Name:
+            person.firstname.label:
                 s.firstName: ASC
                 s.surname: ASC
+            person.email.label:
+                s.email: ASC
+                s.surname: ASC
+                s.firstName: ASC
         limit: '25'
         join:
             s.user:
@@ -28,16 +32,17 @@ parameters:
         choices:
             all:
                 route: person_manage
-                prompt: pagination.person.all
+                prompt: person.pagination.all
             student:
                 route: student_manage
-                prompt: pagination.person.student
+                prompt: person.pagination.student
             staff:
                 route: staff_manage
-                prompt: pagination.person.staff
+                prompt: person.pagination.staff
             contact:
                 route: contact_manage
-                prompt: pagination.person.contact
+                prompt: person.pagination.contact
+        transDomain: 'BusybeePersonBundle'
     StudentBundle:
         version: 0.0.01
         settings:

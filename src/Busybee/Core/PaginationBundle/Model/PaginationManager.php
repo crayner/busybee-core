@@ -179,6 +179,11 @@ abstract class PaginationManager implements PaginationInterface
 	private $injectedSearch;
 
 	/**
+	 * @var String
+	 */
+	private $transDomain;
+
+	/**
 	 * Constructor
 	 *
 	 * @version    25th October 2016
@@ -1189,8 +1194,32 @@ abstract class PaginationManager implements PaginationInterface
 		$this->join[$name] = ['type' => $type, 'alias' => $alias];
 	}
 
+	/**
+	 * Add Search List
+	 *
+	 * @param $name
+	 */
 	public function addSearchList($name)
 	{
 		$this->searchList[] = $name;
+	}
+
+	/**
+	 * Set TransDomain
+	 *
+	 * @param $domain
+	 *
+	 * @return $this
+	 */
+	private function setTransDomain($domain)
+	{
+		$this->transDomain = $domain;
+
+		return $this;
+	}
+
+	public function getTransDomain()
+	{
+		return empty($this->transDomain) ? 'BusybeePaginationBundle' : $this->transDomain;
 	}
 }
