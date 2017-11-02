@@ -2,7 +2,7 @@
 
 namespace Busybee\People\StaffBundle\Events;
 
-use Busybee\InstituteBundle\Entity\Space;
+use Busybee\Facility\InstituteBundle\Entity\Space;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

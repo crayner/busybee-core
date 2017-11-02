@@ -56,7 +56,7 @@ Busybee\ActivityBundle\Entity\Activity:
                         referencedColumnName: id
     manyToOne:
         space:
-            targetEntity: Busybee\InstituteBundle\Entity\Space
+            targetEntity: Busybee\Facility\InstituteBundle\Entity\Space
             joinColumns:
                 space:
                     referencedColumnName: id

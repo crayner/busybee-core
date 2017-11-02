@@ -1,0 +1,17 @@
+# Program
+parameters:
+    nodes:
+        5:
+            name: Learn
+            label: menu.learn.tab
+            order: 5
+            menu: 5
+            role: ROLE_TEACHER
+    items:
+        52:
+            label: menu.learn.course
+            name: Manage Courses
+            node: 5
+            order: 52
+            role: ROLE_TEACHER
+            route: course_manage

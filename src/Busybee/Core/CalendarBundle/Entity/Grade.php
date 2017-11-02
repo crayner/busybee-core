@@ -3,7 +3,7 @@
 namespace Busybee\Core\CalendarBundle\Entity;
 
 use Busybee\Core\CalendarBundle\Model\GradeModel;
-use Busybee\Management\GradeBundle\Entity\StudentGrade;
+use Busybee\Program\GradeBundle\Entity\StudentGrade;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

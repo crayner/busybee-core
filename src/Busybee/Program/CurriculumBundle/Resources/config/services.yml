@@ -1,0 +1,53 @@
+parameters:
+    CoursePagination:
+        alias: c
+        sortBy:
+            Name:
+                c.name: ASC
+                c.code: ASC
+                c.targetYear: ASC
+            Course Code:
+                c.code: ASC
+                c.name: ASC
+                c.targetYear: ASC
+            Course Target:
+                c.targetYear: ASC
+                c.name: ASC
+                c.code: ASC
+        limit: '25'
+        searchList:
+            - c.name
+            - c.targetYear
+            - c.code
+        select:
+            - c.name
+            - c.id
+            - c.version
+            - c.targetYear
+            - c.code
+    CurriculumBundle:
+        version: 0.0.01
+        settings:
+            resources:
+                - 'BusybeeCurriculumBundle/Resources/config/Settings/Settings_0_0_01.yml'
+services:
+    course.repository:
+        class: Busybee\Program\CurriculumBundle\Repository\CourseRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeCurriculumBundle:Course"
+    course.pagination:
+        class: Busybee\Program\CurriculumBundle\Model\CoursePagination
+        arguments:
+            - '%CoursePagination%'
+            - '@course.repository'
+            - '@busybee_core_system.model.my_container'
+    course.form.type:
+        class: Busybee\Program\CurriculumBundle\Form\CourseType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@busybee_core_system.setting.setting_manager'
+        tags:
+            - { name: form.type }

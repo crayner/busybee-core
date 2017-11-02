@@ -9,7 +9,7 @@ class Course
 {
 	public function __construct()
 	{
-		$this->setCourse(new \Busybee\CurriculumBundle\Entity\Course());
+		$this->setCourse(new \Busybee\Program\CurriculumBundle\Entity\Course());
 	}
 
 	public function getNameVersion()

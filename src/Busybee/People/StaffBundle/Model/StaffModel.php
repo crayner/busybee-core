@@ -2,7 +2,7 @@
 
 namespace Busybee\People\StaffBundle\Model;
 
-use Busybee\InstituteBundle\Entity\DepartmentStaff;
+use Busybee\Facility\InstituteBundle\Entity\DepartmentStaff;
 use Busybee\People\PersonBundle\Entity\Person;
 
 abstract class StaffModel extends Person

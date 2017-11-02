@@ -81,7 +81,7 @@ class Activity extends ActivityModel
     private $grades;
 
     /**
-     * @var \Busybee\InstituteBundle\Entity\Space
+     * @var \Busybee\Facility\InstituteBundle\Entity\Space
      */
     private $space;
 
@@ -448,7 +448,7 @@ class Activity extends ActivityModel
     /**
      * Get space
      *
-     * @return \Busybee\InstituteBundle\Entity\Space
+     * @return \Busybee\Facility\InstituteBundle\Entity\Space
      */
     public function getSpace()
     {
@@ -458,11 +458,11 @@ class Activity extends ActivityModel
     /**
      * Set space
      *
-     * @param \Busybee\InstituteBundle\Entity\Space $space
+     * @param \Busybee\Facility\InstituteBundle\Entity\Space $space
      *
      * @return Activity
      */
-    public function setSpace(\Busybee\InstituteBundle\Entity\Space $space = null)
+	public function setSpace(\Busybee\Facility\InstituteBundle\Entity\Space $space = null)
     {
         $this->space = $space;
 

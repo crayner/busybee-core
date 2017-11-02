@@ -47,7 +47,7 @@ Busybee\AVETMISS\AVETMISSBundle\Entity\Course:
             nullable: true 
     oneToOne:
         course:
-            targetEntity: Busybee\CurriculumBundle\Entity\Course
+            targetEntity: Busybee\Program\CurriculumBundle\Entity\Course
             cascade: [persist]
     manyToOne:
         createdBy:

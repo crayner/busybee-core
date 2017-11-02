@@ -4,7 +4,7 @@ namespace Busybee\AVETMISS\AVETMISSBundle\Controller;
 
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Busybee\AVETMISS\AVETMISSBundle\Entity\Subject;
-use Busybee\CurriculumBundle\Entity\Subject as SubjectCore;
+use Busybee\Program\CurriculumBundle\Entity\Subject as SubjectCore;
 use Busybee\AVETMISS\AVETMISSBundle\Form\SubjectType;
 use Symfony\Component\HttpFoundation\Request;
 

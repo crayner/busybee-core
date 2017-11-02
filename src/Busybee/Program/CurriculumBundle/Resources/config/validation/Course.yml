@@ -1,0 +1,19 @@
+Busybee\Program\CurriculumBundle\Entity\Course:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, version]
+            errorPath: name
+            message: course.unique.name
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [code, version]
+            errorPath: code
+            message: course.unique.code
+    properties:
+        name:
+            - NotBlank: ~
+        version:
+            - NotBlank: ~
+        code:
+            - NotBlank: ~
+            - Length:
+                max: 3

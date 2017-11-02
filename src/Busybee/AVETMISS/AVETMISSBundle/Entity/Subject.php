@@ -59,7 +59,7 @@ class Subject extends Base
 	 */
 	private $modifiedBy;
 	/**
-	 * @var \Busybee\CurriculumBundle\Entity\Subject
+	 * @var \Busybee\Program\CurriculumBundle\Entity\Subject
 	 */
 	private $subject;
 
@@ -292,7 +292,7 @@ class Subject extends Base
 	/**
 	 * Get subject
 	 *
-	 * @return \Busybee\CurriculumBundle\Entity\Subject
+	 * @return \Busybee\Program\CurriculumBundle\Entity\Subject
 	 */
 	public function getSubject()
 	{
@@ -302,11 +302,11 @@ class Subject extends Base
 	/**
 	 * Set subject
 	 *
-	 * @param \Busybee\CurriculumBundle\Entity\Subject $subject
+	 * @param \Busybee\Program\CurriculumBundle\Entity\Subject $subject
 	 *
 	 * @return Subject
 	 */
-	public function setSubject(\Busybee\CurriculumBundle\Entity\Subject $subject = null)
+	public function setSubject(\Busybee\Program\CurriculumBundle\Entity\Subject $subject = null)
 	{
 		$this->subject = $subject;
 

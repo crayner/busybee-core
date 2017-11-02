@@ -2,7 +2,7 @@
 
 namespace Busybee\AVETMISS\AVETMISSBundle\Model;
 
-use Busybee\CurriculumBundle\Entity\Subject as SubjectCore;
+use Busybee\Program\CurriculumBundle\Entity\Subject as SubjectCore;
 
 /**
  * Subject

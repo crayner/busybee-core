@@ -34,7 +34,7 @@ Busybee\AVETMISS\AVETMISSBundle\Entity\Subject:
             type: datetime
     manyToOne:
         subject:
-            targetEntity: Busybee\CurriculumBundle\Entity\Subject 
+            targetEntity: Busybee\Program\CurriculumBundle\Entity\Subject
             cascade: [persist]
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User

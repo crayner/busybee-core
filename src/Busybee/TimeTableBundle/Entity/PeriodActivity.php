@@ -24,7 +24,7 @@ class PeriodActivity extends PeriodActivityModel
     private $createdOn;
 
     /**
-     * @var \Busybee\InstituteBundle\Entity\Space
+     * @var \Busybee\Facility\InstituteBundle\Entity\Space
      */
     private $space;
 
@@ -124,7 +124,7 @@ class PeriodActivity extends PeriodActivityModel
     /**
      * Get space
      *
-     * @return \Busybee\InstituteBundle\Entity\Space
+     * @return \Busybee\Facility\InstituteBundle\Entity\Space
      */
     public function getSpace()
     {
@@ -142,11 +142,11 @@ class PeriodActivity extends PeriodActivityModel
     /**
      * Set space
      *
-     * @param \Busybee\InstituteBundle\Entity\Space $space
+     * @param \Busybee\Facility\InstituteBundle\Entity\Space $space
      *
      * @return PeriodActivity
      */
-    public function setSpace(\Busybee\InstituteBundle\Entity\Space $space = null)
+	public function setSpace(\Busybee\Facility\InstituteBundle\Entity\Space $space = null)
     {
         $this->space = $space;
 

@@ -1,0 +1,53 @@
+Busybee\Facility\InstituteBundle\Entity\Department:
+    type: entity
+    table: department
+    repositoryClass: Busybee\Facility\InstituteBundle\Repository\DepartmentRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '30'
+            unique: true
+        type:
+            type: string
+            length: '20'
+        nameShort:
+            type: string
+            length: '4'
+            unique: true
+        lastModified:
+            type: datetime
+        createdOn:
+            type: datetime
+    oneToMany:
+        staff:
+            targetEntity: Busybee\Facility\InstituteBundle\Entity\DepartmentStaff
+            mappedBy: department
+            cascade: [ all ]
+    manyToMany:
+        courses:
+            targetEntity: Busybee\Program\CurriculumBundle\Entity\Course
+            joinTable:
+                name: department_course
+                joinColumns:
+                    dept_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    course_id:
+                        referencedColumnName: id
+                        unique: true
+    manyToOne:
+        createdBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                createdBy:
+                    referencedColumnName: id
+        modifiedBy:
+            targetEntity: Busybee\Core\SecurityBundle\Entity\User
+            joinColumns:
+                modifiedBy:
+                    referencedColumnName: id

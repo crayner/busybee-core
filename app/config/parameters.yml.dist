@@ -107,17 +107,18 @@ parameters:
             description: Used to manage student details.
         Curriculum:
             type: plugin
-            namespace: Busybee\CurriculumBundle\BusybeeCurriculumBundle
+            namespace: Busybee\Program\CurriculumBundle\BusybeeCurriculumBundle
             route:
                 resource: "BusybeeCurriculumBundle/Resources/config/routing.yml"
                 prefix:   curriculum
                 type: yaml
         Institute:
             type: plugin
-            namespace: Busybee\InstituteBundle\BusybeeInstituteBundle
+            namespace: Busybee\Facility\InstituteBundle\BusybeeInstituteBundle
             route:
                 prefix:   institute
                 resource: "BusybeeInstituteBundle/Resources/config/routing.yml"
+            requirements: []
         TimeTable:
             type: plugin
             namespace: Busybee\TimeTableBundle\BusybeeTimeTableBundle
@@ -151,3 +152,12 @@ parameters:
             description: bundle.description.avetmiss
             requirements:
                 - Student
+        Grade:
+            type: plugin
+            namespace: Busybee\Program\GradeBundle\BusybeeGradeBundle
+            route:
+                resource: BusybeeGradeBundle/Resources/config/routing.yml
+                prefix: grade
+            requirements:
+                - Student
+            description: bundle.description.grade

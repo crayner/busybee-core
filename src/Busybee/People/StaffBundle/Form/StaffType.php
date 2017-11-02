@@ -3,7 +3,7 @@
 namespace Busybee\People\StaffBundle\Form;
 
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
-use Busybee\InstituteBundle\Entity\Space;
+use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\People\StaffBundle\Events\StaffSubscriber;
 use Busybee\Core\SystemBundle\Setting\SettingManager;

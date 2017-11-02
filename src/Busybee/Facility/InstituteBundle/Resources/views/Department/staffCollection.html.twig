@@ -1,0 +1,36 @@
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% block departmentStaff_label %}{% endblock %}
+
+{% block departmentStaff_widget %}
+    {% spaceless %}
+        {% set panelStyle = 'default' %}
+        {% set transDomain = 'BusybeeInstituteBundle' %}
+        {% set header = 'department.staff.member.name' %}
+        {% set staffName = 'department.staff.member.placeholder'|trans %}
+        {% if data is not empty %}
+            {% set staffName = data.staff.formatName %}
+        {% endif %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ deleteButton({'title': 'department.staff.remove', 'transDomain': 'BusybeeInstituteBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
+        {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
+        {% set h3Content = h3Content ~ '</div>' %}
+
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {panelStyle: 'default', name: staffName} %}
+        <div class="container-fluid departmentStaff">
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form_row(form.staff) }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form_row(form.staffType) }}
+                    {% set dept_id = '' %}
+                    {% if app.request.get('id') != 'Add' %}{% set dept_id = app.request.get('id') %}{% endif %}
+                    {{ form_row(form.department, {'id': dept_id}) }}
+                </div>
+            </div>
+        </div>
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock departmentStaff_widget %}

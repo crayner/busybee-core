@@ -35,7 +35,7 @@ class Line extends LineModel
     private $createdOn;
 
     /**
-     * @var \Busybee\CurriculumBundle\Entity\Course
+     * @var \Busybee\Program\CurriculumBundle\Entity\Course
      */
     private $course;
 
@@ -183,7 +183,7 @@ class Line extends LineModel
     /**
      * Get course
      *
-     * @return \Busybee\CurriculumBundle\Entity\Course
+     * @return \Busybee\Program\CurriculumBundle\Entity\Course
      */
     public function getCourse()
     {
@@ -193,11 +193,11 @@ class Line extends LineModel
     /**
      * Set course
      *
-     * @param \Busybee\CurriculumBundle\Entity\Course $course
+     * @param \Busybee\Program\CurriculumBundle\Entity\Course $course
      *
      * @return LearningGroups
      */
-    public function setCourse(\Busybee\CurriculumBundle\Entity\Course $course = null)
+	public function setCourse(\Busybee\Program\CurriculumBundle\Entity\Course $course = null)
     {
         $this->course = $course;
 

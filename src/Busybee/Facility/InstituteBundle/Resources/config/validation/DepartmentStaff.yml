@@ -1,0 +1,6 @@
+Busybee\Facility\InstituteBundle\Entity\DepartmentStaff:
+    properties:
+        staffType:
+            - NotBlank: ~
+            - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
+                name: department.staff.type.list

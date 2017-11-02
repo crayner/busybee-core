@@ -3,7 +3,7 @@
 namespace Busybee\ActivityBundle\Form;
 
 use Busybee\Core\CalendarBundle\Entity\Grade;
-use Busybee\InstituteBundle\Entity\Space;
+use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\People\StaffBundle\Entity\Staff;

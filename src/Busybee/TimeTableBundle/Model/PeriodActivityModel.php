@@ -2,7 +2,7 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
-use Busybee\InstituteBundle\Entity\Space;
+use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\TimeTableBundle\Entity\Period;
 use Doctrine\Common\Collections\ArrayCollection;

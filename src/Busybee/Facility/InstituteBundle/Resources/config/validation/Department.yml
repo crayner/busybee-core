@@ -1,0 +1,19 @@
+Busybee\Facility\InstituteBundle\Entity\Department:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - name
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:
+                - nameShort
+    properties:
+        name:
+            - NotBlank: ~
+        nameShort:
+            - NotBlank: ~
+            - Length:
+                max: 4
+        staff:
+            - Valid: ~
+        type:
+            - NotBlank: ~

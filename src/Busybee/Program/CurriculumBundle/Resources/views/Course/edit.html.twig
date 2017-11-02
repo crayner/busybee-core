@@ -1,0 +1,61 @@
+{# src/Busybee/CurriculumBundle/Resources/views/Course/edit.html.twig #}
+
+{% trans_default_domain "BusybeeCurriculumBundle" %}
+
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'course.edit.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'course.edit.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'course.edit.description'|trans }}{% endblock headerLead %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% include 'BusybeeTemplateBundle:Toggle:style.html.twig' %}
+{% endblock %}
+
+{% block contentContainer %}
+    {{ form_start(form, {'attr': {'id': 'course'}}) }}
+    {% set h3Content = returnButton({'windowOpen': {'route': path('course_manage')}}) %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('course_edit')}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton({'type': 'button', 'windowOpen': {'route': path('course_edit', {'id': app.request.get('id')})}}) %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set h3Content = h3Content ~ form_widget(form.changeRecord, {'value': app.request.attributes.get('id')}) %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'course.edit.title', 'transDomain': 'BusybeeCurriculumBundle', 'panelParagraph': 'course.edit.description'} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4 well">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col-sm-2 well">
+                {{ form_row(form.code) }}
+            </div>
+            <div class="col-sm-2 well">
+                {{ form_row(form.version) }}
+            </div>
+            <div class="col-sm-4 well">
+                {{ form_row(form.targetYear) }}
+            </div>
+        </div>
+    </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('.monitorChange').change(function ($e) {
+            $('.formChanged').prop('disabled', true);
+        });
+        $('.changeRecord').change(function ($e) {
+            var path = '{{ path('course_edit', {'id': '__id__'}) }}';
+            var id = $(this).val();
+            if (!id) id = 'Add';
+            window.open(path.replace('__id__', id), '_self');
+        });
+        $('button[type="reset"]').click(function () {
+            $("#course").trigger('reset');
+            $('.formChanged').prop('disabled', false);
+        });
+    </script>
+{% endblock javascripts %}

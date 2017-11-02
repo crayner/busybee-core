@@ -51,7 +51,7 @@ Busybee\TimeTableBundle\Entity\Line:
                 year:
                     referencedColumnName: id
         course:
-            targetEntity: Busybee\CurriculumBundle\Entity\Course
+            targetEntity: Busybee\Program\CurriculumBundle\Entity\Course
             nullable: true
             orderBy: { 'name': 'ASC' }
             joinColumns:

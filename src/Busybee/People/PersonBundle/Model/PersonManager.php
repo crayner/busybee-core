@@ -4,7 +4,7 @@ namespace Busybee\People\PersonBundle\Model;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SecurityBundle\Security\UserProvider;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
-use Busybee\Management\GradeBundle\Entity\StudentGrade;
+use Busybee\Program\GradeBundle\Entity\StudentGrade;
 use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\FamilyBundle\Entity\Family;
 use Busybee\People\PersonBundle\Entity\Person;
@@ -512,9 +512,9 @@ class PersonManager
 	 */
 	public function gradesInstalled(): bool
 	{
-		if (class_exists('Busybee\Management\GradeBundle\Model\GradeManager'))
+		if (class_exists('Busybee\Program\GradeBundle\Model\GradeManager'))
 		{
-			$metaData = $this->getOm()->getClassMetadata('Busybee\Management\GradeBundle\Entity\StudentGrade');
+			$metaData = $this->getOm()->getClassMetadata('Busybee\Program\GradeBundle\Entity\StudentGrade');
 			$schema   = $this->getOm()->getConnection()->getSchemaManager();
 
 			return $schema->tablesExist([$metaData->table['name']]);

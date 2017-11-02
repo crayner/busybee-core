@@ -1,0 +1,57 @@
+{# src/Busybee/InstituteBundle/Resources/views/Campus/index.html.twig #}
+
+{% trans_default_domain "BusybeeInstituteBundle" %}
+
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% block title %}{{ 'campus.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'campus.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'campus.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
+    {{ form_start(form) }}
+    {% set h3Content = '' %}
+    {% if app.request.attributes.get('id') != 'Add' %}{% set h3Content = h3Content ~ addButton({'windowOpen': {'route': path('campus_manage', {'id': 'Add'})}}) %}{% endif %}
+    {% set h3Content = h3Content ~ resetButton() %}
+    {% set h3Content = h3Content ~ saveButton() %}
+    {% set locationValue = 'Add' %}
+    {% if app.request.attributes.get('id') is not empty %}{% set locationValue = 'Add' %}{% endif %}
+    {% set h3Content = h3Content ~ form_widget(form.locationList, {'value': app.request.attributes.get('id')}) %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'campus.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': ''} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.identifier) }}
+            </div>
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.name) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.locality) }}
+            </div>
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.territory) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.postcode) }}
+            </div>
+            <div class="col-sm-6 col-md-6 well">
+                {{ form_row(form.country) }}
+            </div>
+        </div>
+    </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% set route = 'campus_manage' %}
+    {% include '@BusybeeTemplate/Scripts/monitorForm.html.twig' %}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
+{% endblock javascripts %}

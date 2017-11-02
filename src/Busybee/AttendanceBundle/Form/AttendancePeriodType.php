@@ -4,8 +4,8 @@ namespace Busybee\AttendanceBundle\Form;
 
 use Busybee\AttendanceBundle\Entity\AttendancePeriod;
 use Busybee\AttendanceBundle\Model\AttendanceManager;
-use Busybee\CurriculumBundle\Entity\Course;
-use Busybee\CurriculumBundle\Events\CourseSubscriber;
+use Busybee\Program\CurriculumBundle\Entity\Course;
+use Busybee\Program\CurriculumBundle\Events\CourseSubscriber;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\TemplateBundle\Type\TextType;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;

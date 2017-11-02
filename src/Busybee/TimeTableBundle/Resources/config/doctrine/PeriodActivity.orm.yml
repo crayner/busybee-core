@@ -20,7 +20,7 @@ Busybee\TimeTableBundle\Entity\PeriodActivity:
             type: datetime
     manyToOne:
         space:
-            targetEntity: Busybee\InstituteBundle\Entity\Space
+            targetEntity: Busybee\Facility\InstituteBundle\Entity\Space
             joinColumns:
                 space_id:
                     referencedColumnName: id

@@ -60,7 +60,7 @@ class Course extends Base
 	private $createdOn;
 
 	/**
-	 * @var \Busybee\CurriculumBundle\Entity\Course
+	 * @var \Busybee\Program\CurriculumBundle\Entity\Course
 	 */
 	private $course;
 
@@ -304,7 +304,7 @@ class Course extends Base
 	/**
 	 * Get course
 	 *
-	 * @return \Busybee\CurriculumBundle\Entity\Course
+	 * @return \Busybee\Program\CurriculumBundle\Entity\Course
 	 */
 	public function getCourse()
 	{
@@ -314,11 +314,11 @@ class Course extends Base
 	/**
 	 * Set course
 	 *
-	 * @param \Busybee\CurriculumBundle\Entity\Course $course
+	 * @param \Busybee\Program\CurriculumBundle\Entity\Course $course
 	 *
 	 * @return Course
 	 */
-	public function setCourse(\Busybee\CurriculumBundle\Entity\Course $course = null)
+	public function setCourse(\Busybee\Program\CurriculumBundle\Entity\Course $course = null)
 	{
 		$this->course = $course;
 

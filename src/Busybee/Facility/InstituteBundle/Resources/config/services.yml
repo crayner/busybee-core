@@ -1,0 +1,78 @@
+# InstituteBundle
+parameters:
+    spacePagination:
+        alias: s
+        sortBy:
+            Space Name:
+                s.name: ASC
+        searchList:
+            - s.name
+            - s.comment
+        limit: '25'
+    InstituteBundle:
+        version: 0.0.01
+        settings:
+            resources: 'BusybeeInstituteBundle/Resources/config/Settings/Settings_0_0_01.yml'
+services:
+    campus.repository:
+        class: Busybee\Facility\InstituteBundle\Repository\CampusRepository
+        factory: 
+            - "@doctrine"
+            - getRepository 
+        arguments: 
+            - "BusybeeInstituteBundle:Campus"
+    campus.form.campusType:
+        class: Busybee\Facility\InstituteBundle\Form\CampusType
+        arguments:
+            - '@busybee_core_system.setting.setting_manager'
+        tags: 
+            - { name: form.type }    
+    institute.name.validator:
+        class: Busybee\Facility\InstituteBundle\Validator\Constraints\InstituteNameValidator
+        tags:
+            - { name: validator.constraint_validator, alias: institute_name_validator }
+
+    space.pagination:
+        class: Busybee\Facility\InstituteBundle\Model\SpacePagination
+        arguments:
+            - '%spacePagination%'
+            - '@space.repository'
+            - '@busybee_core_system.model.my_container'
+    space.repository:
+        class: Busybee\Facility\InstituteBundle\Repository\SpaceRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeInstituteBundle:Space"
+    form.space.type:
+        class: Busybee\Facility\InstituteBundle\Form\SpaceType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@busybee_core_system.setting.setting_manager'
+        tags:
+            - { name: form.type }
+    campus.subscriber:
+        class: Busybee\Facility\InstituteBundle\Events\CampusSubscriber
+        arguments:
+            - '%country%'
+    department.repository:
+        class: Busybee\Facility\InstituteBundle\Repository\DepartmentRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeInstituteBundle:Department"
+    form.department.staff.type:
+        class: Busybee\Facility\InstituteBundle\Form\DepartmentStaffType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@busybee_core_system.setting.setting_manager'
+        tags:
+            - { name: form.type }
+    form.department.type:
+        class: Busybee\Facility\InstituteBundle\Form\DepartmentType
+        arguments:
+            - '@busybee_core_system.setting.setting_manager'
+        tags:
+            - { name: form.type }

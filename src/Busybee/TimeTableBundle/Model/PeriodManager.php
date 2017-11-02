@@ -3,7 +3,7 @@
 namespace Busybee\TimeTableBundle\Model;
 
 use Busybee\Core\CalendarBundle\Entity\Grade;
-use Busybee\InstituteBundle\Entity\Space;
+use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
