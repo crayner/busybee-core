@@ -36,27 +36,30 @@
                         {{ form_row(form.type) }}
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12 well">
-                        {% set h3Content = '' %}
-                        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'department.course.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': form.courses.vars.attr.help, 'panelStyle': 'info'} %}
-                        {% for error in form.courses.parent.vars.errors %}
-                            {% set printMe = error.messageTemplate|replace({'department.course.unique': 'print_me'}) %}
-                            {% if printMe == 'print_me' %}
-                                <p class="alert alert-danger"><span
-                                            class="glyphicons glyphicons-exclamation-sign"></span>{{ error.message }}
-                                </p>
-                            {% endif %}
-                        {% endfor %}
-                        {{ form_widget(form.courses) }}
-                        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+                {% if form.courses is defined %}
+                    <div class="row">
+                        <div class="col-sm-12 well">
+                            {% set h3Content = '' %}
+                            {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'department.course.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': form.courses.vars.attr.help, 'panelStyle': 'info'} %}
+                            {% for error in form.courses.parent.vars.errors %}
+                                {% set printMe = error.messageTemplate|replace({'department.course.unique': 'print_me'}) %}
+                                {% if printMe == 'print_me' %}
+                                    <p class="alert alert-danger"><span
+                                                class="glyphicons glyphicons-exclamation-sign"></span>{{ error.message }}
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                            {{ form_widget(form.courses) }}
+                            {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
             {% if form.staff is defined %}
                 <div class="col-sm-6 well">
                     {% set h3Content = '' %}
                     {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'department.staff.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': form.staff.vars.attr.help, 'panelStyle': 'info'} %}
+                    <div class="staffMessage"></div>
                     {% for error in form.staff.parent.vars.errors %}
                         {% set printMe = error.messageTemplate|replace({'department.staff.uniquestaff': 'print_me'}) %}
                         {% if printMe == 'print_me' %}
@@ -81,5 +84,7 @@
     {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
     {% include '@BusybeeTemplate/Scripts/jquery.collection.js.html.twig' %}
     {% include '@BusybeeInstitute/Department/staffCollection.js.html.twig' %}
-    {% include '@BusybeeInstitute/Department/courseCollection.js.html.twig' %}
+    {% if form.courses is defined %}
+        {% include '@BusybeeInstitute/Department/courseCollection.js.html.twig' %}
+    {% endif %}
 {% endblock javascripts %}

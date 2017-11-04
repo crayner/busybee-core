@@ -13,3 +13,6 @@ department_edit:
 campus_space_duplicate:
     path:     /campus/space/duplicate/
     defaults: { _controller: BusybeeInstituteBundle:Campus:duplicateSpace }
+department_staff_remove:
+    path:     /department/staff/{id}/remove/
+    defaults: { _controller: BusybeeInstituteBundle:Department:removeStaff }

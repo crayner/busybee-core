@@ -73,6 +73,10 @@ Busybee\People\PersonBundle\Entity\Person:
             type: string
             length: '25'
             nullable: true
+        nameInCharacters:
+            type: string
+            length: 32
+            nullable: true
     manyToOne:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User

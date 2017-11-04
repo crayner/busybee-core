@@ -3,76 +3,90 @@ parameters:
     spacePagination:
         alias: s
         sortBy:
-            Space Name:
+            institute.space.sort:
+                s.name: ASC
+                c.name: ASC
+            institute.campus.sort:
+                c.name: ASC
                 s.name: ASC
         searchList:
             - s.name
             - s.comment
+            - c.name
         limit: '25'
+        join:
+            s.campus:
+                type: leftJoin
+                alias: c
+        transDomain: BusybeeInstituteBundle
     InstituteBundle:
         version: 0.0.01
         settings:
             resources: 'BusybeeInstituteBundle/Resources/config/Settings/Settings_0_0_01.yml'
 services:
-    campus.repository:
+    busybee_facility_institute.repository.campus_repository:
         class: Busybee\Facility\InstituteBundle\Repository\CampusRepository
         factory: 
             - "@doctrine"
             - getRepository 
         arguments: 
             - "BusybeeInstituteBundle:Campus"
-    campus.form.campusType:
+    busybee_facility_institute.form.campus_type:
         class: Busybee\Facility\InstituteBundle\Form\CampusType
         arguments:
             - '@busybee_core_system.setting.setting_manager'
         tags: 
             - { name: form.type }    
-    institute.name.validator:
+    busybee_facility_institute.form.department_type:
+        class: Busybee\Facility\InstituteBundle\Form\DepartmentType
+        arguments:
+            - '@busybee_core_system.setting.setting_manager'
+            - '@doctrine.orm.default_entity_manager'
+        tags:
+            - { name: form.type }
+    busybee_facility_institute.form.department_staff_type:
+        class: Busybee\Facility\InstituteBundle\Form\DepartmentStaffType
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@busybee_core_system.setting.setting_manager'
+        tags:
+            - { name: form.type }
+    busybee_facility_institute.validator.constraints.institute_name_validator:
         class: Busybee\Facility\InstituteBundle\Validator\Constraints\InstituteNameValidator
         tags:
             - { name: validator.constraint_validator, alias: institute_name_validator }
-
-    space.pagination:
+    busybee_facility_institute.model.space_pagination:
         class: Busybee\Facility\InstituteBundle\Model\SpacePagination
         arguments:
             - '%spacePagination%'
-            - '@space.repository'
+            - '@busybee_facility_institute.repository.space_repository'
             - '@busybee_core_system.model.my_container'
-    space.repository:
+    busybee_facility_institute.repository.space_repository:
         class: Busybee\Facility\InstituteBundle\Repository\SpaceRepository
         factory:
             - "@doctrine"
             - 'getRepository'
         arguments:
             - "BusybeeInstituteBundle:Space"
-    form.space.type:
-        class: Busybee\Facility\InstituteBundle\Form\SpaceType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@busybee_core_system.setting.setting_manager'
-        tags:
-            - { name: form.type }
-    campus.subscriber:
-        class: Busybee\Facility\InstituteBundle\Events\CampusSubscriber
-        arguments:
-            - '%country%'
-    department.repository:
+    busybee_facility_institute.repository.department_repository:
         class: Busybee\Facility\InstituteBundle\Repository\DepartmentRepository
         factory:
             - "@doctrine"
             - 'getRepository'
         arguments:
             - "BusybeeInstituteBundle:Department"
-    form.department.staff.type:
-        class: Busybee\Facility\InstituteBundle\Form\DepartmentStaffType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@busybee_core_system.setting.setting_manager'
+    busybee_facility_institute.events.department_staff_subscriber:
+        class: Busybee\Facility\InstituteBundle\Events\DepartmentStaffSubscriber
         tags:
-            - { name: form.type }
-    form.department.type:
-        class: Busybee\Facility\InstituteBundle\Form\DepartmentType
+            - { name: doctrine.event_subscriber }
+    busybee_facility_institute.model.department_manager:
+        class: Busybee\Facility\InstituteBundle\Model\DepartmentManager
         arguments:
+            - '@doctrine.orm.default_entity_manager'
+    busybee_facility_institute.form.space_type:
+        class: Busybee\Facility\InstituteBundle\Form\SpaceType
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
             - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }

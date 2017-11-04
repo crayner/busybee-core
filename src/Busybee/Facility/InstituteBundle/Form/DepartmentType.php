@@ -7,6 +7,7 @@ use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Facility\InstituteBundle\Entity\Department;
 use Busybee\Facility\InstituteBundle\Events\DepartmentSubscriber;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,13 +23,19 @@ class DepartmentType extends AbstractType
 	private $sm;
 
 	/**
+	 * @var ObjectManager
+	 */
+	private $om;
+
+	/**
 	 * DepartmentType constructor.
 	 *
 	 * @param SettingManager $om
 	 */
-	public function __construct(SettingManager $sm)
+	public function __construct(SettingManager $sm, ObjectManager $om)
 	{
 		$this->sm = $sm;
+		$this->om = $om;
 	}
 
 	/**
@@ -54,28 +61,6 @@ class DepartmentType extends AbstractType
 					'label' => 'department.nameShort.label'
 				]
 			)
-			->add('courses', CollectionType::class,
-				[
-					'entry_type'    => EntityType::class,
-					'attr'          =>
-						[
-							'class' => 'courseList',
-							'help'  => 'department.course.help',
-						],
-					'allow_add'     => true,
-					'allow_delete'  => true,
-					'entry_options' => [
-						'label'         => 'department.course.name.label',
-						'class'         => Course::class,
-						'choice_label'  => 'name',
-						'query_builder' => function (EntityRepository $er) {
-							return $er->createQueryBuilder('c')
-								->orderBy('c.name', 'ASC');
-						},
-						'placeholder'   => 'department.course.name.placeholder',
-					],
-				]
-			)
 			->add('departmentList', EntityType::class, array(
 					'class'         => Department::class,
 					'attr'          => array(
@@ -94,7 +79,7 @@ class DepartmentType extends AbstractType
 				)
 			);
 
-		$builder->addEventSubscriber(new DepartmentSubscriber($this->sm));
+		$builder->addEventSubscriber(new DepartmentSubscriber($this->sm, $this->om));
 	}
 
 	/**

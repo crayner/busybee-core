@@ -775,7 +775,6 @@ class ImportManager extends PersonManager
 
 		if ($person->nowStudent() && $person->wasStaff())
 		{
-			dump('8');
 			$this->results->addMessage('warning', 'people.import.change.error.student', ['%data%' => $person->formatName()]);
 
 			return;

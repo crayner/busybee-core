@@ -11,8 +11,12 @@ Busybee\People\StaffBundle\Entity\Staff:
             length: '100'
         house:
             type: string
-            length: 32
+            length: '32'
             nullable: true
+        status:
+            nullable: true
+            type: string
+            length: '24'
 #    oneToOne:
 #        homeroom:
 #            targetEntity: Busybee\Facility\InstituteBundle\Entity\Space

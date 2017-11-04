@@ -120,6 +120,10 @@ class Student extends StudentModel
 	private $grades;
 
 	/**
+	 * @var string
+	 */
+	private $status;
+	/**
 	 * Student constructor.
 	 */
 	public function __construct()
@@ -652,6 +656,24 @@ class Student extends StudentModel
 	public function setGrades($grades): Student
 	{
 		$this->grades = $grades;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getStatus(): string
+	{
+		return $this->status;
+	}
+
+	/**
+	 * @param string $status
+	 */
+	public function setStatus(string $status): Student
+	{
+		$this->status = $status;
 
 		return $this;
 	}

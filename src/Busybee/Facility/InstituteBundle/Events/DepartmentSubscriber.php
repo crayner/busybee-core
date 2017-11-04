@@ -4,6 +4,7 @@ namespace Busybee\Facility\InstituteBundle\Events;
 
 use Busybee\Facility\InstituteBundle\Form\DepartmentStaffType;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -17,13 +18,19 @@ class DepartmentSubscriber implements EventSubscriberInterface
 	private $sm;
 
 	/**
+	 * @varObjectManager
+	 */
+	private $om;
+
+	/**
 	 * DepartmentType constructor.
 	 *
 	 * @param SettingManager $om
 	 */
-	public function __construct(SettingManager $sm)
+	public function __construct(SettingManager $sm, ObjectManager $om)
 	{
 		$this->sm = $sm;
+		$this->om = $om;
 	}
 
 	/**
@@ -45,6 +52,7 @@ class DepartmentSubscriber implements EventSubscriberInterface
 	public function preSubmit(FormEvent $event)
 	{
 		$data = $event->getData();
+		$dept = $event->getForm()->getData();
 
 
 		if (isset($data['courses']) && is_array($data['courses']))
@@ -55,15 +63,7 @@ class DepartmentSubscriber implements EventSubscriberInterface
 					$items[$q] = $w;
 			$data['courses'] = $items;
 		}
-		if (isset($data['staff']) && is_array($data['staff']))
-		{
-			$items = [];
-			foreach ($data['staff'] as $q => $w)
-				if (!in_array($w['staff'], $items))
-					$items[$q] = $w['staff'];
-				else
-					unset($data['staff'][$q]);
-		}
+
 		$event->setData($data);
 	}
 

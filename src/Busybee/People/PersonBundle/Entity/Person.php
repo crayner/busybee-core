@@ -134,6 +134,11 @@ class Person extends PersonModel
 	private $careGivers;
 
 	/**
+	 * @var string
+	 */
+	private $nameInCharacters;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
@@ -768,6 +773,24 @@ class Person extends PersonModel
 	public function removeCareGiver(CareGiver $careGiver): Person
 	{
 		$this->careGivers->removeElement($careGiver);
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getNameInCharacters(): string
+	{
+		return $this->nameInCharacters;
+	}
+
+	/**
+	 * @param string $nameInCharacters
+	 */
+	public function setNameInCharacters(string $nameInCharacters): Person
+	{
+		$this->nameInCharacters = $nameInCharacters;
 
 		return $this;
 	}

@@ -2,7 +2,11 @@
 
 namespace Busybee\People\StaffBundle\Entity;
 
+use Busybee\Facility\InstituteBundle\Entity\Department;
+use Busybee\Facility\InstituteBundle\Entity\DepartmentStaff;
+use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\People\StaffBundle\Model\StaffModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Staff
@@ -23,6 +27,30 @@ class Staff extends StaffModel
 	 * @var string
 	 */
 	private $house;
+
+	/**
+	 * @var ArrayCollection
+	 */
+	private $departments;
+
+	/**
+	 * @var ArrayCollection
+	 */
+	private $spaces;
+
+	/**
+	 * @var string
+	 */
+	private $status;
+
+	/**
+	 * Staff constructor.
+	 */
+	public function __construct()
+	{
+		$this->departments = new ArrayCollection();
+		$this->spaces      = new ArrayCollection();
+	}
 
 	/**
 	 * Set staffType
@@ -74,6 +102,7 @@ class Staff extends StaffModel
 	{
 		if (empty($this->jobTitle))
 			$this->setJobTitle('Not Specified');
+
 		return $this->jobTitle;
 	}
 
@@ -99,5 +128,88 @@ class Staff extends StaffModel
 	public function getHouse()
 	{
 		return $this->house;
+	}
+
+	/**
+	 * @return ArrayCollection
+	 */
+	public function getDepartments(): ArrayCollection
+	{
+		return $this->departments;
+	}
+
+	/**
+	 * @param ArrayCollection $departments
+	 */
+	public function setDepartments(DepartmentStaff $departments): Staff
+	{
+		$this->departments = $departments;
+
+		return $this;
+	}
+
+	/**
+	 * @return ArrayCollection
+	 */
+	public function getSpaces(): ArrayCollection
+	{
+		return $this->spaces;
+	}
+
+	/**
+	 * @param ArrayCollection $spaces
+	 */
+	public function setSpaces(ArrayCollection $spaces): Staff
+	{
+		$this->spaces = $spaces;
+
+		return $this;
+	}
+
+	/**
+	 * Add Space
+	 *
+	 * @param Department $department
+	 *
+	 * @return Staff
+	 */
+	public function addSpace(Space $space): Staff
+	{
+		if (!$this->spaces->contains($space))
+			$this->spaces->add($space);
+
+		return $this;
+	}
+
+	/**
+	 * Remove Space
+	 *
+	 * @param Department $department
+	 *
+	 * @return Staff
+	 */
+	public function removeSpace(Space $space): Staff
+	{
+		$this->spaces->removeElement($space);
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getStatus(): string
+	{
+		return $this->status;
+	}
+
+	/**
+	 * @param string $status
+	 */
+	public function setStatus(string $status): Staff
+	{
+		$this->status = $status;
+
+		return $this;
 	}
 }

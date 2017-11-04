@@ -140,12 +140,6 @@ class PersonSubscriber implements EventSubscriberInterface
 				$data['user']['email'] = $data['email'];
 			}
 		}
-		dump($person);
-
-		dump($data);
-		dump($form);
-
-
 
 		//photo management
 		if (empty($data['photo']))

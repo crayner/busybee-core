@@ -12,3 +12,9 @@ _errors:
 
 _main:
     resource: routing.yml
+
+gibbon:
+    resource: "@GibbonBundle/Resources/config/routing.yml"
+    prefix:   /gibbon/
+
+

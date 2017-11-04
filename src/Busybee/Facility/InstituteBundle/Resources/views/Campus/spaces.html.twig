@@ -31,11 +31,10 @@
         {% for resource in pagination.getResult %}
             <div class="row row-striped">
                 <div class="col-sm-3 col-md-3 form-inline">
-                    {{ resource.name }}
+                    {{ resource.campus.name ~ ' - ' ~ resource.name }}
                 </div>
-                <div class="col-sm-3 col-md-3 form-inline">
-                </div>
-                <div class="col-sm-3 col-md-3 form-inline">
+                <div class="col-sm-6 col-md-6 form-inline">
+                    {{ resource.comment }}
                 </div>
                 <div class="col-sm-3 col-md-3 form-inline">
                     <button title='{{ 'campus.space.edit.title'|trans }}' type="button"

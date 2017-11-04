@@ -548,7 +548,7 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 						case 'phone.validator':
 							array_push($options['constraints'], new Phone(array('groups' => 'Default')));
 							break;
-						case 'institute.name.validator':
+						case 'busybee_facility_institute.validator.constraints.institute_name_validator':
 							array_push($options['constraints'], new InstituteName(array('groups' => 'Default')));
 							break;
 						default:

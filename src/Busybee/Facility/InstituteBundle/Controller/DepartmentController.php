@@ -1,17 +1,15 @@
 <?php
-
 namespace Busybee\Facility\InstituteBundle\Controller;
 
 use Busybee\Facility\InstituteBundle\Entity\Department;
+use Busybee\Facility\InstituteBundle\Entity\DepartmentStaff;
 use Busybee\Facility\InstituteBundle\Form\DepartmentType;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class DepartmentController extends BusybeeController
 {
-
-
 	/**
 	 * @param Request $request
 	 *
@@ -24,7 +22,7 @@ class DepartmentController extends BusybeeController
 		$entity = new Department();
 		$id     = $request->get('id');
 		if (intval($id) > 0)
-			$entity = $this->get('department.repository')->find($id);
+			$entity = $this->get('busybee_facility_institute.repository.department_repository')->find($id);
 
 		$form = $this->createForm(DepartmentType::class, $entity);
 
@@ -44,17 +42,7 @@ class DepartmentController extends BusybeeController
 					$em->flush();
 				}
 
-				return new RedirectResponse($this->generateUrl('department_edit', ['id' => $entity->getId()]));
-			}
-
-			foreach ($entity->getStaff()->toArray() as $deptStaff)
-			{
-				if (empty($deptStaff->getDepartment()))
-				{
-					$deptStaff->setDepartment($entity);
-					$em->persist($deptStaff);
-					$em->flush();
-				}
+				return $this->redirectToRoute('department_edit', ['id' => $entity->getId()]);
 			}
 
 		}
@@ -64,5 +52,41 @@ class DepartmentController extends BusybeeController
 				'fullForm' => $form,
 			)
 		);
+	}
+
+	public function removeStaffAction($id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
+
+		$om = $this->getDoctrine()->getManager();
+
+		$ds = $om->getRepository(DepartmentStaff::class)->find($id);
+
+		if ($ds instanceof DepartmentStaff)
+		{
+
+			$data            = [];
+			$data['status']  = 'success';
+			$data['message'] = $this->get('translator')->trans('department.staff.remove.success', [], 'BusybeeInstituteBundle');
+			try
+			{
+				$om->remove($ds);
+				$om->flush();
+			}
+			catch (\Exception $e)
+			{
+				$data['status']  = 'error';
+				$data['message'] = $this->get('translator')->trans('department.staff.remove.failure', [], 'BusybeeInstituteBundle');
+			}
+
+			return new JsonResponse($data, 200);
+		}
+
+		$data            = [];
+		$data['message'] = $this->get('translator')->trans('department.staff.remove.missing', [], 'BusybeeInstituteBundle');
+		$data['status']  = 'warning';
+
+		return new JsonResponse($data, 200);
+
 	}
 }

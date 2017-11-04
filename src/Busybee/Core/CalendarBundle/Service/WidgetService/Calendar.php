@@ -144,7 +144,7 @@ class Calendar
 			$dateIterator->add($oneDayInterval);
 		}
 		$this->initNames();
-dump($this);
+
 		return $this;
 	}
 

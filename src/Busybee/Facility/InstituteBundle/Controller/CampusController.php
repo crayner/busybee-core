@@ -26,7 +26,7 @@ class CampusController extends BusybeeController
 		$campus = new Campus();
 		$id     = $request->get('id');
 		if (intval($id) > 0)
-			$campus = $this->get('campus.repository')->find($id);
+			$campus = $this->get('busybee_facility_institute.repository.campus_repository')->find($id);
 
 
 		$form = $this->createForm(CampusType::class, $campus);
@@ -59,7 +59,7 @@ class CampusController extends BusybeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN', null, null);
 
-		$up = $this->get('space.pagination');
+		$up = $this->get('busybee_facility_institute.model.space_pagination');
 
 		$up->injectRequest($request);
 
@@ -86,7 +86,7 @@ class CampusController extends BusybeeController
 
 		$id = $request->get('id');
 		if (intval($id) > 0)
-			$space = $this->get('space.repository')->find($id);
+			$space = $this->get('busybee_facility_institute.repository.space_repository')->find($id);
 
 		$space->cancelURL = $this->get('router')->generate('campus_space_manage');
 
@@ -124,7 +124,7 @@ class CampusController extends BusybeeController
 		if ($id === "Add")
 			$space = new Space();
 		else
-			$space = $this->get('space.repository')->find($id);
+			$space = $this->get('busybee_facility_institute.repository.space_repository')->find($id);
 
 		$space->cancelURL = $this->generateUrl('campus_space_manage');
 

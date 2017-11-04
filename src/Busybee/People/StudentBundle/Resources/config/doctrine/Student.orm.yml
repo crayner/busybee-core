@@ -79,3 +79,7 @@ Busybee\People\StudentBundle\Entity\Student:
             type: string
             length: 32
             nullable: true
+        status:
+            nullable: true
+            type: string
+            length: 24

@@ -12,7 +12,11 @@
             {% set staffName = data.staff.formatName %}
         {% endif %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
-        {% set h3Content = h3Content ~ deleteButton({'title': 'department.staff.remove', 'transDomain': 'BusybeeInstituteBundle', 'class': 'collection-remove collection-action halflings halflings-erase btn btn-warning'})|raw %}
+        {% set staff_id = 'staffRemove0' %}
+        {% if form.vars.value is not null %}
+            {% set staff_id = 'staffRemove' ~ form.vars.value.id %}
+        {% endif %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'department.staff.remove.button', transDomain: 'BusybeeInstituteBundle', class: 'staffRemove collection-remove collection-action halflings halflings-erase btn btn-warning', additional: {id: staff_id}})|raw %}
         {% set h3Content = h3Content ~ saveButton()|raw %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ '</div>' %}

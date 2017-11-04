@@ -38,7 +38,6 @@ class PaginationType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		dump($options);
 		$this->addLimit($builder, $options);
 		$this->addHidden($builder, $options);
 		$this->addSort($builder, $options);

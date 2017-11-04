@@ -28,18 +28,18 @@ Busybee\Facility\InstituteBundle\Entity\Department:
             targetEntity: Busybee\Facility\InstituteBundle\Entity\DepartmentStaff
             mappedBy: department
             cascade: [ all ]
-    manyToMany:
-        courses:
-            targetEntity: Busybee\Program\CurriculumBundle\Entity\Course
-            joinTable:
-                name: department_course
-                joinColumns:
-                    dept_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    course_id:
-                        referencedColumnName: id
-                        unique: true
+#    manyToMany:
+#        courses:
+#            targetEntity: Busybee\Program\CurriculumBundle\Entity\Course
+#            joinTable:
+#                name: department_course
+#                joinColumns:
+#                    dept_id:
+#                        referencedColumnName: id
+#                inverseJoinColumns:
+#                    course_id:
+#                        referencedColumnName: id
+#                        unique: true
     manyToOne:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User

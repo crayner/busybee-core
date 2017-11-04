@@ -4,7 +4,7 @@ Busybee\Facility\InstituteBundle\Entity\DepartmentStaff:
     repositoryClass: Busybee\Facility\InstituteBundle\Repository\DepartmentStaffRepository
     uniqueConstraints:
         dept_staff:
-            columns: [ dept_id, staff ]
+            columns: [ dept_id, staff_id ]
     id:
         id:
             type: integer
@@ -28,9 +28,8 @@ Busybee\Facility\InstituteBundle\Entity\DepartmentStaff:
                 referencedColumnName: id
         staff:
             targetEntity: Busybee\People\StaffBundle\Entity\Staff
-            inversedBy: department
             joinColumn:
-                name: staff
+                name: staff_id
                 referencedColumnName: id
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User

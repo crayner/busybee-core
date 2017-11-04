@@ -424,11 +424,7 @@ class PersonManager
 
 		if ($this->canDeleteStaff())
 		{
-			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
-
-			$this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "person" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
-
-			$this->om->refresh($this->person);
+			$this->switchToPerson();
 		}
 	}
 
@@ -446,17 +442,7 @@ class PersonManager
 
 		if ($this->canBeStudent())
 		{
-			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
-
-			$x = $this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "student" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
-			dump($x);
-			if ($persist)
-			{
-				$this->om->persist($this->person);
-				$this->om->flush();
-			}
-
-			$this->om->refresh($this->person);
+			$this->switchToStudent();
 
 			return true;
 		}
@@ -475,11 +461,7 @@ class PersonManager
 
 		if ($this->canDeleteStudent())
 		{
-			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
-
-			$this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "person" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
-
-			$this->om->refresh($this->person);
+			$this->switchToPerson();
 		}
 	}
 
@@ -590,5 +572,115 @@ class PersonManager
 				return $grade->getGradeYear();
 
 		return null;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function departmentInstalled(): bool
+	{
+		if (class_exists('Busybee\Facility\InstituteBundle\Model\DepartmentManager'))
+		{
+			$metaData = $this->getOm()->getClassMetadata('Busybee\Facility\InstituteBundle\Entity\DepartmentStaff');
+			$schema   = $this->getOm()->getConnection()->getSchemaManager();
+
+			return $schema->tablesExist([$metaData->table['name']]);
+
+		}
+
+		return false;
+	}
+
+	/**
+	 * Switch to Student
+	 *
+	 * @param Person|null $person
+	 * @param bool        $persist
+	 *
+	 * @return Person|null
+	 */
+	public function switchToStudent(Person $person = null, $persist = false)
+	{
+		$this->checkPerson($person);
+
+		if ($this->person instanceof Person && !is_subclass_of($this->person, Person::class))
+		{
+			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
+
+			$x = $this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "student" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+			if ($persist)
+			{
+				$this->om->persist($this->person);
+				$this->om->flush();
+			}
+
+			$this->om->refresh($this->person);
+
+		}
+
+		return $this->person;
+	}
+
+	/**
+	 * Switch to Staff
+	 *
+	 * @param Person|null $person
+	 * @param bool        $persist
+	 *
+	 * @return Person|null
+	 */
+	public function switchToStaff(Person $person = null, $persist = false)
+	{
+		$this->checkPerson($person);
+
+		if ($this->person instanceof Person && !is_subclass_of($this->person, Person::class))
+		{
+			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
+
+			$x = $this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "staff" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+			if ($persist)
+			{
+				$this->om->persist($this->person);
+				$this->om->flush();
+			}
+
+			$this->om->refresh($this->person);
+
+		}
+
+		return $this->person;
+	}
+
+	/**
+	 * Switch to Staff
+	 *
+	 * @param Person|null $person
+	 * @param bool        $persist
+	 *
+	 * @return Person|null
+	 */
+	public function switchToPerson(Person $person = null, $persist = false)
+	{
+		$this->checkPerson($person);
+
+		if ($this->person instanceof Staff || $this->person instanceof Student)
+		{
+			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
+
+			$x = $this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "person" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+			if ($persist)
+			{
+				$this->om->persist($this->person);
+				$this->om->flush();
+			}
+
+			$this->om->refresh($this->person);
+
+		}
+
+		return $this->person;
 	}
 }

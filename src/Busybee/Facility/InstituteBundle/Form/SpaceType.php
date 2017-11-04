@@ -172,11 +172,10 @@ class SpaceType extends AbstractType
 					'required'      => false,
 					'query_builder' => function (EntityRepository $er) use ($person_id) {
 						return $er->createQueryBuilder('s')
-							->leftJoin('s.homeroom', 'h')
-							->leftJoin('s.person', 'p')
-							->orderBy('p.surname', 'ASC')
-							->addOrderBy('p.firstName', 'ASC')
-							->where('s.person = :person_id')
+							->leftJoin('s.spaces', 'h')
+							->orderBy('s.surname', 'ASC')
+							->addOrderBy('s.firstName', 'ASC')
+							->where('s.id = :person_id')
 							->setParameter('person_id', $person_id)
 							->orWhere('h.staff IS NULL');
 					},

@@ -41,7 +41,11 @@
                 {{ form_row(form.postcode) }}
             </div>
             <div class="col-sm-6 col-md-6 well">
-                {{ form_row(form.country) }}
+                {% if app.request.get('id') == 'Add' %}
+                    {{ form_row(form.country, {value: get_parameter('country')}) }}
+                {% else %}
+                    {{ form_row(form.country) }}
+                {% endif %}
             </div>
         </div>
     </div>

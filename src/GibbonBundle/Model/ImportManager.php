@@ -2,6 +2,7 @@
 
 namespace GibbonBundle\Model;
 
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\People\StaffBundle\Entity\Staff;
@@ -31,8 +32,7 @@ class ImportManager
 
 	public function buildAddress($person, $gibbonPerson, $address = '1')
 	{
-		dump([$person, $gibbonPerson, $address]);
-		die();
+		throw new Exception('todo Here');
 	}
 
 	public function getDefaultManager(): ObjectManager

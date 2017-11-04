@@ -2,6 +2,9 @@
 
 namespace Busybee\Facility\InstituteBundle\Entity;
 
+use Busybee\People\StaffBundle\Entity\Staff;
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * DepartmentStaff
  */
@@ -28,12 +31,12 @@ class DepartmentStaff
 	private $createdOn;
 
 	/**
-	 * @var \Busybee\Facility\InstituteBundle\Entity\Department
+	 * @var ArrayCollection
 	 */
 	private $department;
 
 	/**
-	 * @var \Busybee\People\StaffBundle\Entity\Staff
+	 * @var ArrayCollection
 	 */
 	private $staff;
 
@@ -46,7 +49,6 @@ class DepartmentStaff
 	 * @var \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	private $modifiedBy;
-
 
 	/**
 	 * Get id
@@ -180,13 +182,16 @@ class DepartmentStaff
 
 	public function __toString()
 	{
+		if (is_null($this->getDepartment()))
+			return $this->getStaff()->formatName();
+
 		return $this->getStaff()->formatName() . ' in department ' . $this->getDepartment()->getName();
 	}
 
 	/**
 	 * Get staff
 	 *
-	 * @return \Busybee\People\StaffBundle\Entity\Staff
+	 * @return \Busybee\People\StaffBundle\Entity\Staff|null
 	 */
 	public function getStaff()
 	{
@@ -196,11 +201,11 @@ class DepartmentStaff
 	/**
 	 * Set staff
 	 *
-	 * @param \Busybee\People\StaffBundle\Entity\Staff $staff
+	 * @param Staff $staff
 	 *
 	 * @return DepartmentStaff
 	 */
-	public function setStaff(\Busybee\People\StaffBundle\Entity\Staff $staff = null)
+	public function setStaff(Staff $staff)
 	{
 		$this->staff = $staff;
 
@@ -210,9 +215,9 @@ class DepartmentStaff
 	/**
 	 * Get department
 	 *
-	 * @return \Busybee\Facility\InstituteBundle\Entity\Department
+	 * @return ArrayCollection
 	 */
-	public function getDepartment()
+	public function getDepartments()
 	{
 		return $this->department;
 	}
@@ -220,11 +225,11 @@ class DepartmentStaff
 	/**
 	 * Set department
 	 *
-	 * @param \Busybee\Facility\InstituteBundle\Entity\Department $department
+	 * @param ArrayCollection $department
 	 *
 	 * @return DepartmentStaff
 	 */
-	public function setDepartment(\Busybee\Facility\InstituteBundle\Entity\Department $department = null)
+	public function setDepartments(Department $department = null)
 	{
 		$this->department = $department;
 

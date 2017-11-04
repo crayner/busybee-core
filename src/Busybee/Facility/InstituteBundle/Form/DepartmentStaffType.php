@@ -49,9 +49,8 @@ class DepartmentStaffType extends AbstractType
 					'choice_label'  => 'formatName',
 					'query_builder' => function (EntityRepository $er) {
 						return $er->createQueryBuilder('s')
-							->leftJoin('s.person', 'p')
-							->orderBy('p.surname', 'ASC')
-							->addOrderBy('p.firstName', 'ASC');
+							->orderBy('s.surname', 'ASC')
+							->addOrderBy('s.firstName', 'ASC');
 					},
 					'placeholder'   => 'department.staff.member.placeholder',
 					'attr'          => [
