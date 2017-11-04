@@ -1,6 +1,0 @@
-Curriculum.version:
-    type: system
-    value: 0.0.01
-    displayName: 'Version: Curriculum Bundle'
-    description: System Setting ONLY
-    role: ROLE_SYSTEM_ADMIN
