@@ -1,0 +1,3 @@
+gibbon_homepage:
+    path:     /
+    defaults: { _controller: GibbonBundle:Default:index }
