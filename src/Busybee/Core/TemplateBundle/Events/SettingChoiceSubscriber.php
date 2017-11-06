@@ -65,6 +65,24 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 		}
 		$choices = $this->settingManager->get($options['setting_name']);
 
+		if (!is_null($options['setting_data_value']))
+		{
+			$newChoices = [];
+			foreach ($choices as $label => $data)
+			{
+				if (!is_array($data) || empty($data[$options['setting_data_value']]))
+					throw new \Exception('Setting Data is not in the expected format.');
+
+
+				if (!is_null($options['setting_data_name']) && !empty($data[$options['setting_data_name']]))
+					$newChoices[$data[$options['setting_data_name']]] = $data[$options['setting_data_value']];
+				else
+					$newChoices[$data[$options['setting_data_value']]] = $data[$options['setting_data_value']];
+
+			}
+			$choices = $newChoices;
+		}
+
 		if ($options['use_label_as_value'])
 		{
 			$x = [];

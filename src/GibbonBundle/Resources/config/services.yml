@@ -1,6 +1,12 @@
 services:
-    gibbon.model.import_manager:
-        class: GibbonBundle\Model\ImportManager
+    gibbon.model.import_people:
+        class: GibbonBundle\Model\ImportPeople
+        arguments:
+            - '@doctrine.orm.gibbon_entity_manager'
+            - '@doctrine.orm.default_entity_manager'
+            - '@busybee_people_person.model.person_manager'
+    gibbon.model.import_houses:
+        class: GibbonBundle\Model\ImportHouses
         arguments:
             - '@doctrine.orm.gibbon_entity_manager'
             - '@doctrine.orm.default_entity_manager'

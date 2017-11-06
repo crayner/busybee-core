@@ -44,6 +44,16 @@ class Staff extends StaffModel
 	private $status;
 
 	/**
+	 * @var string
+	 */
+	private $profession;
+
+	/**
+	 * @var string
+	 */
+	private $employer;
+
+	/**
 	 * Staff constructor.
 	 */
 	public function __construct()
@@ -209,6 +219,42 @@ class Staff extends StaffModel
 	public function setStatus(string $status): Staff
 	{
 		$this->status = $status;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getProfession(): string
+	{
+		return $this->profession;
+	}
+
+	/**
+	 * @param string $profession
+	 */
+	public function setProfession(string $profession): Staff
+	{
+		$this->profession = $profession;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getEmployer(): string
+	{
+		return $this->employer;
+	}
+
+	/**
+	 * @param string $employer
+	 */
+	public function setEmployer(string $employer): Staff
+	{
+		$this->employer = $employer;
 
 		return $this;
 	}

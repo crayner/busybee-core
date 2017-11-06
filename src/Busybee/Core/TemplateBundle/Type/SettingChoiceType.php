@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\TemplateBundle\Type;
 
 use Busybee\Core\TemplateBundle\Events\SettingChoiceSubscriber;
@@ -60,6 +59,8 @@ class SettingChoiceType extends AbstractType
 				'placeholder'        => null,
 				'year_data'          => null,
 				'use_label_as_value' => false,
+				'setting_data_name'  => null,
+				'setting_data_value' => null,
 			)
 		);
 	}

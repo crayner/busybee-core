@@ -1,1 +1,11 @@
-Hello World!
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% block contentContainer %}
+    <div>
+        {% if people.offset > 0 %}
+            {{ 'Imported ' ~ people.offset ~ ' of ' ~ people.peopleCount ~ ' People' }}{{ miscButton({class: 'btn btn-success glyphicons glyphicons-playing-dices', windowOpen: {route: path('gibbon_import', {offset: people.offset})}})|raw }}
+        {% else %}
+            {{ 'All Done Here' }}
+        {% endif %}
+    </div>
+{% endblock contentContainer %}

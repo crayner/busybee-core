@@ -379,6 +379,8 @@ class PersonSubscriber implements EventSubscriberInterface
 						'help' => 'student.house.help',
 					),
 					'setting_name'              => 'house.list',
+					'setting_data_name'         => 'name',
+					'setting_data_value'        => 'name',
 					'choice_translation_domain' => 'SystemBundle',
 				]
 			);

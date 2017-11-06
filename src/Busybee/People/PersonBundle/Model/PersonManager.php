@@ -4,6 +4,7 @@ namespace Busybee\People\PersonBundle\Model;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SecurityBundle\Security\UserProvider;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
+use Busybee\People\ContactBundle\Entity\Contact;
 use Busybee\Program\GradeBundle\Entity\StudentGrade;
 use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\FamilyBundle\Entity\Family;
@@ -665,11 +666,42 @@ class PersonManager
 	{
 		$this->checkPerson($person);
 
-		if ($this->person instanceof Staff || $this->person instanceof Student)
+		if (is_subclass_of($this->person, Person::class))
 		{
 			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
 
 			$x = $this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "person" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
+
+			if ($persist)
+			{
+				$this->om->persist($this->person);
+				$this->om->flush();
+			}
+
+			$this->om->refresh($this->person);
+
+		}
+
+		return $this->person;
+	}
+
+	/**
+	 * Switch to Staff
+	 *
+	 * @param Person|null $person
+	 * @param bool        $persist
+	 *
+	 * @return Person|null
+	 */
+	public function switchToContact(Person $person = null, $persist = false)
+	{
+		$this->checkPerson($person);
+
+		if ($this->person instanceof Person && !is_subclass_of($this->person, Person::class))
+		{
+			$tableName = $this->om->getClassMetadata(Person::class)->getTableName();
+
+			$x = $this->om->getConnection()->exec('UPDATE `' . $tableName . '` SET `person_type` = "contact" WHERE `' . $tableName . '`.`id` = ' . strval(intval($this->person->getId())));
 
 			if ($persist)
 			{

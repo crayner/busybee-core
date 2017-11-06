@@ -96,6 +96,15 @@ parameters:
             requirements:
                 - Person
             description: Used to manage staff details.
+        Contact:
+            name: Contact
+            type: plugin
+            namespace: Busybee\People\ContactBundle\BusybeeContactBundle
+            route: { resource: BusybeeContactBundle/Resources/config/routing.yml, type: yaml, prefix: contact }
+            description: bundle.description.missing
+            exclusions: {  }
+            requirements:
+                - Person
         Student:
             type: plugin
             namespace: Busybee\People\StudentBundle\BusybeeStudentBundle

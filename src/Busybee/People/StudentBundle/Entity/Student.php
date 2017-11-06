@@ -123,6 +123,37 @@ class Student extends StudentModel
 	 * @var string
 	 */
 	private $status;
+
+	/**
+	 * @var string
+	 */
+	private $lastSchool;
+
+	/**
+	 * @var string
+	 */
+	private $nextSchool;
+
+	/**
+	 * @var string
+	 */
+	private $departureReason;
+
+	/**
+	 * @var string
+	 */
+	private $transport;
+
+	/**
+	 * @var string
+	 */
+	private $transportNotes;
+
+	/**
+	 * @var string
+	 */
+	private $dayType;
+
 	/**
 	 * Student constructor.
 	 */
@@ -674,6 +705,116 @@ class Student extends StudentModel
 	public function setStatus(string $status): Student
 	{
 		$this->status = $status;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLastSchool(): string
+	{
+		return $this->lastSchool;
+	}
+
+	/**
+	 * @param string $lastSchool
+	 */
+	public function setLastSchool(string $lastSchool): Student
+	{
+		$this->lastSchool = $lastSchool;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getNextSchool(): string
+	{
+		return $this->nextSchool;
+	}
+
+	/**
+	 * @param string $nextSchool
+	 */
+	public function setNextSchool(string $nextSchool): Student
+	{
+		$this->nextSchool = $nextSchool;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDepartureReason(): string
+	{
+		return $this->departureReason;
+	}
+
+	/**
+	 * @param string $departureReason
+	 */
+	public function setDepartureReason(string $departureReason): Student
+	{
+		$this->departureReason = $departureReason;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTransport(): string
+	{
+		return $this->transport;
+	}
+
+	/**
+	 * @param string $transport
+	 */
+	public function setTransport(string $transport): Student
+	{
+		$this->transport = $transport;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTransportNotes(): string
+	{
+		return $this->transportNotes;
+	}
+
+	/**
+	 * @param string $transportNotes
+	 */
+	public function setTransportNotes(string $transportNotes): Student
+	{
+		$this->transportNotes = $transportNotes;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDayType(): string
+	{
+		return $this->dayType;
+	}
+
+	/**
+	 * @param string $dayType
+	 *
+	 * @return Student
+	 */
+	public function setDayType(string $dayType): Student
+	{
+		$this->dayType = $dayType;
 
 		return $this;
 	}

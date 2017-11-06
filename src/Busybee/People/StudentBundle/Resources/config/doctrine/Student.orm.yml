@@ -83,3 +83,26 @@ Busybee\People\StudentBundle\Entity\Student:
             nullable: true
             type: string
             length: 24
+        lastSchool:
+            nullable: true
+            type: string
+            length: 100
+        nextSchool:
+            nullable: true
+            type: string
+            length: 100
+        departureReason:
+            nullable: true
+            type: string
+            length: 50
+        transport:
+            nullable: true
+            type: string
+            length: 255
+        dayType:
+            nullable: true
+            type: string
+            length: 32
+        transportNotes:
+            nullable: true
+            type: text
