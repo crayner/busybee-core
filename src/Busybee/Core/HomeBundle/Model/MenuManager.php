@@ -295,4 +295,23 @@ class MenuManager implements MenuManagerInterface
 
 		return false;
 	}
+
+	/**
+	 * @return array
+	 */
+	public function getSection()
+	{
+		$routes = $this->container->getParameter('sectionRoutes');
+
+		$route = isset($routes[$this->container->get('request_stack')->getCurrentRequest()->get('_route')]) ? $routes[$this->container->get('request_stack')->getCurrentRequest()->get('_route')] : [];
+
+		dump($routes);
+		dump($this->container->get('request_stack')->getCurrentRequest()->get('_route'));
+
+		if (empty($route))
+			return [];
+		$sections = $this->container->getParameter('sections');
+
+		return $sections[$route['section']];
+	}
 }

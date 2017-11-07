@@ -1,0 +1,16 @@
+{% trans_default_domain "BusybeeHomeBundle" %}
+
+{% set sections = get_section() %}
+{% set header = '' %}
+{% for name,link in sections %}
+    {% if header != name %}
+        {% set header = name %}
+        {% set prompt = 'section.header.' ~ header %}
+        <h4 class="sectionHeader">{{ prompt|trans }}</h4>
+        {% set keys = link|keys %}
+    {% endif %}
+    {% for key in keys %}
+        {% set data = link[key] %}
+        <div class="sectionLink">{{ miscButton({class: 'btn btn-link btn-sm', prompt: data['label']|trans, style: 'float: left;', windowOpen: {route: path(data['route'], data['params'])}})|raw }}</div>
+    {% endfor %}
+{% endfor %}

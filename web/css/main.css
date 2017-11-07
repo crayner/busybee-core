@@ -504,3 +504,20 @@ button.btn.btn-header {
     width: 40px;
     height: 28px;
 }
+
+div#contentContainer {
+    border-right: 1px solid #dddddd;
+}
+
+.sectionLink > button {
+    margin: 0;
+    padding: 0 4px;
+}
+
+.sectionHeader {
+    font-size: smaller;
+    padding: 0;
+    margin: 5px 0;
+    text-decoration: underline;
+    font-variant: petite-caps;
+}

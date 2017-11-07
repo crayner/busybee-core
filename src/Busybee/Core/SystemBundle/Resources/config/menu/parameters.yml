@@ -3,11 +3,18 @@ parameters:
     nodes:
         1:
             name: System
-            label: menu.system
+            label: menu.admin.node
             role: ROLE_USER
             order: 1
             menu: 1
     items:
+        10:
+            label: menu.admin.school
+            name: School Admin
+            role: ROLE_REGISTRAR
+            node: 1
+            order: 10
+            route: calendar_years
         12:
             name: Manage System Settings
             label: menu.site.setting.manage
@@ -30,3 +37,53 @@ parameters:
             node: 12
             route: bundle_list
             order: 124
+    sections:
+        School Admin:
+            groupings:
+                setting_edit_houses:
+                    label: menu.setting.houses
+                    role: ROLE_REGISTRAR
+                    route: setting_edit_name
+                    params:
+                        name: house.list
+            years_days_times:
+                calendar_years:
+                    label: menu.year.manage
+                    role: ROLE_REGISTRAR
+                    route: calendar_years
+                    params: {}
+                setting_edit_schoolweek:
+                    route: setting_edit_name
+                    role: ROLE_REGISTRAR
+                    label: menu.setting.schoolweek
+                    params:
+                        name: schoolweek
+                setting_edit_schoolday_open:
+                    route: setting_edit_name
+                    role: ROLE_REGISTRAR
+                    label: menu.setting.schoolday.open
+                    params:
+                        name: schoolday.begin
+                setting_edit_schoolday_begin:
+                    route: setting_edit_name
+                    role: ROLE_REGISTRAR
+                    label: menu.setting.schoolday.begin
+                    params:
+                        name: schoolday.open
+                setting_edit_schoolday_finish:
+                    route: setting_edit_name
+                    role: ROLE_REGISTRAR
+                    label: menu.setting.schoolday.finish
+                    params:
+                        name: schoolday.finish
+                setting_edit_schoolday_close:
+                    route: setting_edit_name
+                    role: ROLE_REGISTRAR
+                    label: menu.setting.schoolday.close
+                    params:
+                        name: schoolday.close
+                year_calendar:
+                    route: year_calendar
+                    role: ROLE_REGISTRAR
+                    label: menu.year.calendar.display
+                    params: {}

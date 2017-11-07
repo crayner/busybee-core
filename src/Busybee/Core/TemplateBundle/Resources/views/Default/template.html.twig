@@ -4,7 +4,6 @@
 
 {% extends '@BusybeeTemplate/Default/headerNotice.html.twig' %}
 
-
 {% block htmlContent %}
     <!DOCTYPE html >
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,7 +20,7 @@
     <body>
 
     {% block menuContainer %}
-        {{ include('@BusybeeTemplate/Menu/main-menu.html.twig') }}
+        {% include '@BusybeeTemplate/Menu/main-menu.html.twig' %}
     {% endblock menuContainer %}
 
     <div class="container theme-showcase" role="main">
@@ -35,44 +34,57 @@
             </div>
         {% endblock titleContainer %}
 
+        <div class="row-fluid row">
+            {% if fullPage is defined %}
+            <div class="col-sm-12" id="contentContainer">
+                {% else %}
+                <div class="col-sm-9" id="contentContainer">
+                    {% endif %}
+                    {% block flashMessages %}
+                        {% include '@BusybeeTemplate/Default/flash.html.twig' %}
+                    {% endblock flashMessages %}
+                    {% block contentContainer %}
 
-        <div class="container-fluid" id="contentContainer">
-            {% block flashMessages %}
-                {% include '@BusybeeTemplate/Default/flash.html.twig' %}
-            {% endblock flashMessages %}
-            {% block contentContainer %}
+                        {{ include('@BusybeeTemplate/Default/buttons.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/buttons.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/tables.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/tables.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/thumbnails.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/thumbnails.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/labels.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/labels.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/badges.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/badges.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/dropdowns.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/dropdowns.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/navs.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/navs.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/navBars.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/navBars.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/alerts.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/alerts.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/progressBars.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/progressBars.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/listGroups.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/listGroups.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/panels.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/panels.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/wells.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/wells.html.twig') }}
+                        {{ include('@BusybeeTemplate/Default/carousel.html.twig') }}
 
-                {{ include('@BusybeeTemplate/Default/carousel.html.twig') }}
-
-            {% endblock contentContainer %}
+                    {% endblock contentContainer %}
+                </div>
+                {% if fullPage is not defined %}
+                    <div class="col-sm-3" id="sectionMenuContainer">
+                        {% block sectionMenu %}
+                            {% include '@BusybeeTemplate/Menu/section-menu.html.twig' %}
+                        {% endblock sectionMenu %}
+                    </div>
+                {% endif %}
         </div>
-    </div> <!-- /container -->
+
+        </div> <!-- /container -->
 
     <div class="container theme-showcase" id="footerContainer">
         {% block footerContainer %}

@@ -44,6 +44,35 @@ trait MenuExtension
 			$container->getParameterBag()
 				->set('items', $this->arrayMerge($menu, $newContainer->getParameterBag()->has('items') ? $newContainer->getParameterBag()->get('items') : array()));
 
+			if ($container->getParameterBag()->has('sections'))
+			{
+				$sections = $container->getParameterBag()->get('sections', []);
+				$container->getParameterBag()->remove('sections');
+			}
+			else
+				$sections = [];
+
+			$container->getParameterBag()
+				->set('sections', $this->arrayMerge($sections, $newContainer->getParameterBag()->has('sections') ? $newContainer->getParameterBag()->get('sections') : array()));
+
+			$sections = $container->getParameterBag()
+				->get('sections', []);
+
+			$routes = [];
+			foreach ($sections as $name => $header)
+			{
+				foreach ($header as $headName => $data)
+					foreach ($data as $x)
+					{
+						$key                     = $x['route'];
+						$routes[$key]['section'] = $name;
+						$routes[$key]['header']  = $headName;
+					}
+			}
+
+			$container->getParameterBag()
+				->set('sectionRoutes', $routes);
+
 		}
 
 		return $container;

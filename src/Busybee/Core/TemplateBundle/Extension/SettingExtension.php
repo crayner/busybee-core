@@ -37,6 +37,7 @@ class SettingExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('test_menuItem', array($this, 'testMenuItem')),
 			new \Twig_SimpleFunction('menu_required', array($this, 'menuRequired')),
 			new \Twig_SimpleFunction('array_flip', array($this, 'arrayFlip')),
+			new \Twig_SimpleFunction('get_section', array($this->menuManager, 'getSection')),
 		);
 	}
 

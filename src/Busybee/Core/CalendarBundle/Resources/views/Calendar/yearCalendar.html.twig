@@ -2,6 +2,7 @@
 
 {% trans_default_domain "BusybeeCalendarBundle" %}
 
+{% set fullPage = true %}
 {% extends "@BusybeeTemplate/Default/template.html.twig" %}
 
 {% block title %}{{ parent() }}{{ 'calendar.generate.title'|trans }}{% endblock title %}
