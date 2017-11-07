@@ -110,3 +110,26 @@ services:
             - '@kernel'
     busybee_core_system.model.message_manager:
         class: Busybee\Core\SystemBundle\Model\MessageManager
+    busybee_core_system.model.house_manager:
+        class: Busybee\Core\SystemBundle\Model\HouseManager
+        arguments:
+            - '@busybee_core_system.setting.setting_manager'
+            - "@doctrine.orm.default_entity_manager"
+    busybee_core_system.validator.constraints.houses_validator:
+        class: Busybee\Core\SystemBundle\Validator\Constraints\HousesValidator
+        arguments:
+            - "@busybee_core_system.model.house_manager"
+        tags:
+            - { name: validator.constraint_validator, alias: houses_validator }
+    busybee_core_system.form.houses_type:
+        class: Busybee\Core\SystemBundle\Form\HousesType
+        arguments:
+            - '@busybee_core_system.setting.setting_manager'
+        tags:
+            - { name: form.type }
+    busybee_core_system.form.house_type:
+        class: Busybee\Core\SystemBundle\Form\HouseType
+        arguments:
+            - '@busybee_core_system.model.house_manager'
+        tags:
+            - { name: form.type }

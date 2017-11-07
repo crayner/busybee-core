@@ -148,6 +148,7 @@ menu:
     year:
         calendar:
             display: Display School Calendar
+        manage: Manage School Years
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

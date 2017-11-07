@@ -1,0 +1,20 @@
+{% trans_default_domain "SystemBundle" %}
+
+{% block house_label %}{% endblock %}
+{% block house_errors %}{% endblock %}
+
+{% block house_widget %}
+    {% spaceless %}
+        {% set h3Content = '<div class="collection-actions collection-panel">' %}
+        {% set h3Content = h3Content ~ saveButton()|raw %}
+        {% set h3Content = h3Content ~ '</div>' %}
+        {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'school.admin.house.name.title', name: form.name.vars.value, panelStyle: 'default', transDomain: 'SystemBundle'} %}
+        <div class="row">
+            <div class="col-sm-4 well">{{ form_row(form.name) }}</div>
+            <div class="col-sm-3 well">{{ form_row(form.shortName) }}</div>
+            <div class="col-sm-5 well">{{ form_row(form.logo) }}</div>
+        </div>
+        {{ form_row(form.name) }}
+        {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {% endspaceless %}
+{% endblock house_widget %}

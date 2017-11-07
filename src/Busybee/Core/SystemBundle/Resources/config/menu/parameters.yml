@@ -43,9 +43,8 @@ parameters:
                 setting_edit_houses:
                     label: menu.setting.houses
                     role: ROLE_REGISTRAR
-                    route: setting_edit_name
-                    params:
-                        name: house.list
+                    route: houses_edit
+                    params: {}
             years_days_times:
                 calendar_years:
                     label: menu.year.manage

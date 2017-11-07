@@ -28,3 +28,6 @@ install_build_complete:
 bundle_default_remove:
     path: /bundles/default/remove/
     defaults: { _controller: SystemBundle:Bundle:removeFile }
+houses_edit:
+    path:  /houses/
+    defaults: { _controller: SystemBundle:House:edit }

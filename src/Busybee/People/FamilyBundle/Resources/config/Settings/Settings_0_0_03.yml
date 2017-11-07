@@ -1,11 +1,5 @@
 System.version:
     value: 0.0.03
-house.list:
-    type: 'array'
-    displayName: 'House List'
-    description: "House list used in your school."
-    role: 'ROLE_REGISTRAR'
-    value: ''
 student.groups:
     type: array
     displayName: Student Groups

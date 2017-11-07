@@ -305,13 +305,25 @@ class MenuManager implements MenuManagerInterface
 
 		$route = isset($routes[$this->container->get('request_stack')->getCurrentRequest()->get('_route')]) ? $routes[$this->container->get('request_stack')->getCurrentRequest()->get('_route')] : [];
 
-		dump($routes);
-		dump($this->container->get('request_stack')->getCurrentRequest()->get('_route'));
-
 		if (empty($route))
 			return [];
 		$sections = $this->container->getParameter('sections');
 
-		return $sections[$route['section']];
+		$sections = $sections[$route['section']];
+
+		foreach ($sections as $q => $w)
+		{
+			foreach ($w as $e => $r)
+			{
+				if (false === $this->checker->isGranted($r['role']))
+				{
+					unset($sections[$q][$e]);
+				}
+			}
+			if (empty($sections[$q]))
+				unset($sections[$q]);
+		}
+
+		return $sections;
 	}
 }

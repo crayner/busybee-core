@@ -5,7 +5,7 @@ house.list:
     displayName: 'House List'
     description: "House list used in your school."
     role: 'ROLE_REGISTRAR'
-    value: ''
+    value: []
 student.groups:
     type: array
     displayName: Student Groups

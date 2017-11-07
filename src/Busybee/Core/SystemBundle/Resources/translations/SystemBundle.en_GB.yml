@@ -162,3 +162,17 @@ bundles:
     settings:
         default:
             saved: 'The file "%name%" was set as default for your organisation.'
+school:
+    admin:
+        houses:
+            title: Manage Houses
+            description: ''
+        house:
+            name:
+                label: House Name
+                title: House Details
+            shortname:
+                label: Name Abbreviation
+            logo:
+                label: House Logo
+                help: 'Max file size of 750k and ratio of 0.75 <= x <= 1.25'

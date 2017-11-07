@@ -11,6 +11,6 @@
     {% endif %}
     {% for key in keys %}
         {% set data = link[key] %}
-        <div class="sectionLink">{{ miscButton({class: 'btn btn-link btn-sm', prompt: data['label']|trans, style: 'float: left;', windowOpen: {route: path(data['route'], data['params'])}})|raw }}</div>
+        <div class="sectionLink">{{ miscButton({class: 'btn btn-link btn-sm', title: data['label']|trans, prompt: data['label']|trans, style: 'float: left;', windowOpen: {route: path(data['route'], data['params'])}})|raw }}</div>
     {% endfor %}
 {% endfor %}

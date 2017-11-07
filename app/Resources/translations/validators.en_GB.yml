@@ -107,3 +107,8 @@ line:
         unique: The name is not unique!
     nameshortyear:
         unique: The code is not unique!
+school:
+    admin:
+        houses:
+            remove:
+                locked: 'The House %name% is locked due to use within system data.'
