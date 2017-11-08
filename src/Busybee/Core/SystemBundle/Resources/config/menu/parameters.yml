@@ -45,42 +45,23 @@ parameters:
                     role: ROLE_REGISTRAR
                     route: houses_edit
                     params: {}
+            other:
+                setting_manage:
+                    label: menu.setting.manage
+                    role: ROLE_REGISTRAR
+                    route: setting_manage
+                    params: {}
             years_days_times:
                 calendar_years:
                     label: menu.year.manage
                     role: ROLE_REGISTRAR
                     route: calendar_years
                     params: {}
-                setting_edit_schoolweek:
-                    route: setting_edit_name
+                school_days_times:
+                    route: school_days_times
                     role: ROLE_REGISTRAR
-                    label: menu.setting.schoolweek
-                    params:
-                        name: schoolweek
-                setting_edit_schoolday_open:
-                    route: setting_edit_name
-                    role: ROLE_REGISTRAR
-                    label: menu.setting.schoolday.open
-                    params:
-                        name: schoolday.begin
-                setting_edit_schoolday_begin:
-                    route: setting_edit_name
-                    role: ROLE_REGISTRAR
-                    label: menu.setting.schoolday.begin
-                    params:
-                        name: schoolday.open
-                setting_edit_schoolday_finish:
-                    route: setting_edit_name
-                    role: ROLE_REGISTRAR
-                    label: menu.setting.schoolday.finish
-                    params:
-                        name: schoolday.finish
-                setting_edit_schoolday_close:
-                    route: setting_edit_name
-                    role: ROLE_REGISTRAR
-                    label: menu.setting.schoolday.close
-                    params:
-                        name: schoolday.close
+                    label: menu.setting.school.daysandtimes
+                    params: {}
                 year_calendar:
                     route: year_calendar
                     role: ROLE_REGISTRAR

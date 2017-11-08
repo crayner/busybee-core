@@ -112,3 +112,10 @@ school:
         houses:
             remove:
                 locked: 'The House %name% is locked due to use within system data.'
+        day_time:
+            open:
+                error: The open time must be before the start time.
+            begin:
+                error: The start time must be before the finish time.
+            finish:
+                error: The finish time must be before the close time.

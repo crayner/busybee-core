@@ -89,6 +89,9 @@ menu:
             finish: Teaching Finish Time
             close: School Close Time
         houses: Manage Houses
+        school:
+            daysandtimes: Manage School Days and Times
+        manage: Manage Settings
     family:
         manage: Manage Family       
     people:
@@ -210,3 +213,4 @@ section:
     header:
         years_days_times: 'Years, Days & Times'
         groupings: Groupings
+        other: Other

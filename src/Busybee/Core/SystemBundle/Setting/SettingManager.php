@@ -257,7 +257,7 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 	/**
 	 * set Setting
 	 *
-	 * @version    30th November 2016
+	 * @version    9th November 2017
 	 * @since      21st October 2016
 	 *
 	 * @param    string $name
@@ -285,6 +285,9 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 				$test = preg_match($value, 'qwlrfhfri$wegtiwebnf934htr 5965tb'); //Just rubbish to test that the regex is a valid format.
 				break;
 			case 'time':
+				if (!empty($value) && $value instanceof \DateTime)
+					$value = $value->format('H:i');
+				break;
 			case 'image':
 			case 'file':
 			case 'text':

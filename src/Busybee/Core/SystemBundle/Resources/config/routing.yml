@@ -31,3 +31,6 @@ bundle_default_remove:
 houses_edit:
     path:  /houses/
     defaults: { _controller: SystemBundle:House:edit }
+school_days_times:
+    path:  /daysandtimes/
+    defaults: { _controller: SystemBundle:School:daysAndTimes }

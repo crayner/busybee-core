@@ -133,3 +133,26 @@ services:
             - '@busybee_core_system.model.house_manager'
         tags:
             - { name: form.type }
+    busybee_core_system.model.days_times_manager:
+        class: Busybee\Core\SystemBundle\Model\DaysTimesManager
+        arguments:
+            - '@busybee_core_system.setting.setting_manager'
+            - "@doctrine.orm.default_entity_manager"
+    busybee_core_system.form.day_type:
+        class: Busybee\Core\SystemBundle\Form\DayType
+        arguments:
+            - '@busybee_core_system.model.days_times_manager'
+        tags:
+            - { name: form.type }
+    busybee_core_system.form.time_type:
+        class: Busybee\Core\SystemBundle\Form\TimeType
+        arguments:
+            - '@busybee_core_system.model.days_times_manager'
+        tags:
+            - { name: form.type }
+    busybee_core_system.validator.constraints.times_validator:
+        class: Busybee\Core\SystemBundle\Validator\Constraints\TimesValidator
+        arguments:
+            - "@busybee_core_system.model.days_times_manager"
+        tags:
+            - { name: validator.constraint_validator, alias: times_validator }

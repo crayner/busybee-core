@@ -1,0 +1,40 @@
+{% trans_default_domain "SystemBundle" %}
+
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% form_theme form
+"@BusybeeTemplate/Template/bootstrap.html.twig"
+"@BusybeeTemplate/Template/jquery.collection.html.twig"
+"@System/School/day.html.twig"
+"@System/School/time.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@BusybeeTemplate/AutoComplete/style.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Toggle:style.html.twig' %}
+{% endblock stylesheets %}
+
+
+{% block title %}{{ parent() }}{{ 'school.admin.daystimes.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'school.admin.daystimes.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'school.admin.daystimes.description'|trans }}{% endblock headerLead %}
+
+{% block contentContainer %}
+    {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
+    {% set form_path = [] %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'school.admin.daystimes.title', transDomain: 'SystemBundle'} %}
+    {{ form_start(form) }}
+    {{ form_row(form.day) }}
+    {{ form_row(form.time) }}
+    {{ form_end(form) }}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'BusybeeTemplateBundle:Scripts:fadeAlert.html.twig' %}
+    {% include 'BusybeeTemplateBundle:Toggle:script.html.twig' %}
+    {% include "BusybeeTemplateBundle:Scripts:jquery.collection.js.html.twig" %}
+    {% include 'BusybeeTemplateBundle:Scripts:monitorForm.html.twig' with {'route': 'houses_edit'} %}
+    {% include 'SystemBundle:House:script.html.twig' %}
+{% endblock javascripts %}
