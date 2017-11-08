@@ -15,6 +15,13 @@ parameters:
             node: 1
             order: 10
             route: calendar_years
+        11:
+            label: menu.admin.system
+            name: System Admin
+            role: ROLE_REGISTRAR
+            node: 1
+            order: 11
+            route: setting_manage
         12:
             name: Manage System Settings
             label: menu.site.setting.manage
@@ -23,13 +30,6 @@ parameters:
             route: setting_manage
             order: 12
             menu: 12
-        120:
-            name: Manage Individual Setting
-            label: menu.site.setting.individual
-            role: ROLE_REGISTRAR
-            node: 12
-            route: setting_manage
-            order: 120
         124:
             name: Bundle List
             label: menu.site.bundle.list
@@ -44,12 +44,6 @@ parameters:
                     label: menu.setting.houses
                     role: ROLE_REGISTRAR
                     route: houses_edit
-                    params: {}
-            other:
-                setting_manage:
-                    label: menu.setting.manage
-                    role: ROLE_REGISTRAR
-                    route: setting_manage
                     params: {}
             years_days_times:
                 calendar_years:
@@ -67,3 +61,13 @@ parameters:
                     role: ROLE_REGISTRAR
                     label: menu.year.calendar.display
                     params: {}
+        System Admin:
+            settings:
+                setting_manage:
+                    label: menu.setting.manage
+                    role: ROLE_REGISTRAR
+                    route: setting_manage
+                    params: {}
+            hidden:
+                - setting_edit
+                - setting_edit_name

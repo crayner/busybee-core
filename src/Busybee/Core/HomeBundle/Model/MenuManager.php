@@ -313,15 +313,22 @@ class MenuManager implements MenuManagerInterface
 
 		foreach ($sections as $q => $w)
 		{
-			foreach ($w as $e => $r)
+			if ($q !== 'hidden')
 			{
-				if (false === $this->checker->isGranted($r['role']))
+				foreach ($w as $e => $r)
 				{
-					unset($sections[$q][$e]);
+					if (false === $this->checker->isGranted($r['role']))
+					{
+						unset($sections[$q][$e]);
+					}
 				}
+				if (empty($sections[$q]))
+					unset($sections[$q]);
 			}
-			if (empty($sections[$q]))
+			else
+			{
 				unset($sections[$q]);
+			}
 		}
 
 		return $sections;

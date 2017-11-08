@@ -62,11 +62,22 @@ trait MenuExtension
 			foreach ($sections as $name => $header)
 			{
 				foreach ($header as $headName => $data)
-					foreach ($data as $x)
+					if ($headName !== 'hidden')
 					{
-						$key                     = $x['route'];
-						$routes[$key]['section'] = $name;
-						$routes[$key]['header']  = $headName;
+						foreach ($data as $x)
+						{
+							$key                     = $x['route'];
+							$routes[$key]['section'] = $name;
+							$routes[$key]['header']  = $headName;
+						}
+					}
+					else
+					{
+						foreach ($data as $key)
+						{
+							$routes[$key]['section'] = $name;
+							$routes[$key]['header']  = $headName;
+						}
 					}
 			}
 

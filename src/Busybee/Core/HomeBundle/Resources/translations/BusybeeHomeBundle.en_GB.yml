@@ -116,6 +116,7 @@ menu:
     admin:
         school: School Admin
         node: ADMIN
+        system: System Admin
     reports:
         title: Reports
     campus:
