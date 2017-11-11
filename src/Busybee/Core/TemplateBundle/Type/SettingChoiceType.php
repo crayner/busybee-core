@@ -83,6 +83,8 @@ class SettingChoiceType extends AbstractType
 	{
 		$view->vars['setting_name']       = $options['setting_name'];
 		$view->vars['use_label_as_value'] = $options['use_label_as_value'];
+		$view->vars['setting_data_name']  = $options['setting_data_name'];
+		$view->vars['setting_data_value'] = $options['setting_data_value'];
 	}
 
 	/**

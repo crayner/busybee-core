@@ -122,13 +122,15 @@ class FamilyType extends AbstractType
 				)
 			)
 			->add('house', SettingChoiceType::class, array(
-					'label'        => 'family.label.house',
-					'placeholder'  => 'family.placeholder.house',
-					'required'     => false,
-					'attr'         => array(
+					'label'              => 'family.label.house',
+					'placeholder'        => 'family.placeholder.house',
+					'required'           => false,
+					'attr'               => array(
 						'help' => 'family.help.house',
 					),
-					'setting_name' => 'house.list',
+					'setting_name'       => 'house.list',
+					'setting_data_name'  => 'name',
+					'setting_data_value' => 'name',
 				)
 			);
 		$builder->addEventSubscriber(new FamilySubscriber($this->familyManager));

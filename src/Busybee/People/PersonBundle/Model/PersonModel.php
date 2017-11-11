@@ -121,6 +121,7 @@ abstract class PersonModel
 
 			return $this->getSurname() . ': ' . $this->getFirstName() . ' (' . $this->getPreferredName() . ')';
 		}
+
 		if ($options['preferredOnly'])
 			return $this->getPreferredName() . ' ' . $this->getSurname();
 

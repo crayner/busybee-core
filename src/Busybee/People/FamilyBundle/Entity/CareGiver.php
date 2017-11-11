@@ -27,11 +27,6 @@ class CareGiver extends CareGiverModel
 	private $createdOn;
 
 	/**
-	 * @var \Doctrine\Common\Collections\Collection
-	 */
-	private $careGiverFamily;
-
-	/**
 	 * @var \Busybee\Core\SecurityBundle\Entity\User
 	 */
 	private $createdBy;
@@ -50,65 +45,65 @@ class CareGiver extends CareGiverModel
 	 * @var Family
 	 */
 	private $family;
+
 	/**
 	 * @var string
 	 */
 	private $comment;
+
 	/**
 	 * @var boolean
 	 */
-	private $phoneContact;
+	private $phoneContact = true;
+
 	/**
 	 * @var boolean
 	 */
-	private $smsContact;
+	private $smsContact = true;
+
 	/**
 	 * @var boolean
 	 */
-	private $emailContact;
+	private $emailContact = true;
+
 	/**
 	 * @var boolean
 	 */
-	private $mailContact;
+	private $mailContact = false;
+
 	/**
 	 * @var integer
 	 */
 	private $contactPriority;
-	/**
-	 * @var string
-	 */
-	private $vehicleRegistration;
-	/**
-	 * @var string
-	 */
-	private $relationship;
-	/**
-	 * @var boolean
-	 */
-	private $newsletter;
-	/**
-	 * @var boolean
-	 */
-	private $finance;
-	/**
-	 * @var boolean
-	 */
-	private $pickUpAllowed;
-	/**
-	 * @var boolean
-	 */
-	private $emergencyOnly;
-	/**
-	 * @var boolean
-	 */
-	private $reporting;
 
 	/**
-	 * Constructor
+	 * @var string
 	 */
-	public function __construct()
-	{
-	}
+	private $relationship = 'Unknown';
+	/**
+	 * @var boolean
+	 */
+	private $newsletter = true;
+
+	/**
+	 * @var boolean
+	 */
+	private $finance = true;
+
+	/**
+	 * @var boolean
+	 */
+	private $pickUpAllowed = true;
+
+	/**
+	 * @var boolean
+	 */
+	private $emergencyOnly = false;
+
+	/**
+	 * @var boolean
+	 */
+	private $reporting = true;
 
 	/**
 	 * Get id
@@ -404,30 +399,6 @@ class CareGiver extends CareGiverModel
 	public function setContactPriority($contactPriority)
 	{
 		$this->contactPriority = $contactPriority;
-
-		return $this;
-	}
-
-	/**
-	 * Get vehicleRegistration
-	 *
-	 * @return string
-	 */
-	public function getVehicleRegistration()
-	{
-		return $this->vehicleRegistration;
-	}
-
-	/**
-	 * Set vehicleRegistration
-	 *
-	 * @param string $vehicleRegistration
-	 *
-	 * @return CareGiver
-	 */
-	public function setVehicleRegistration($vehicleRegistration)
-	{
-		$this->vehicleRegistration = $vehicleRegistration;
 
 		return $this;
 	}

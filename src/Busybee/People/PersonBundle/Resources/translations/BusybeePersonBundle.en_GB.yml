@@ -103,7 +103,7 @@ person:
         student: Students Only
         staff: Staff Only
         contact: All except Staff and Students
-
+        user: Users Only
 address:
     add: Add Address
     refresh: Refresh Address Lists

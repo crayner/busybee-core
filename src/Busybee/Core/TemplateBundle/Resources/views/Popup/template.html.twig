@@ -12,7 +12,7 @@
         <title>{{ get_setting('org.name.long', 'Busybee') }} - {% block title %}{% endblock title %} on Busybee</title>
 
         {% block stylesheets %}
-            {% include 'BusybeeHomeBundle:Popup:style.html.twig' %}
+            {% include 'BusybeeTemplateBundle:Popup:style.html.twig' %}
         {% endblock stylesheets %}
 
     </head>
@@ -20,7 +20,7 @@
     <body>
 
     {% block menuContainer %}
-        {% include '@@BusybeeTemplate/Menu/empty-menu.html.twig' %}
+        {% include '@BusybeeTemplate/Menu/empty-menu.html.twig' %}
     {% endblock menuContainer %}
 
     <div class="container theme-showcase" role="main">

@@ -5,14 +5,13 @@
 {% if header is not defined %}
     {% set header = 'family.title.details' %}
 {% endif %}
-
-<div class="panel-heading">
-    <h3 class="panel-title">{{ header|trans({'%name%': form.name.vars.value}) }}
-        {{ returnButton({'title': 'family.return', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_manage') }})|raw }}
-        {% if id != 'Add' %}
-            {{ addButton({'title': 'family.title.add', 'transDomain': 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': 'Add'}) }})|raw }}
-        {% endif %}
-        {{ resetButton({'type': 'button', 'javascript': {'function': 'resetFamily', 'options': []} })|raw }}
-        {{ saveButton()|raw }}
-    </h3>
-</div>
+{% set transDomain = 'BusybeeFamilyBundle' %}
+{% set h3Content = '' %}
+{% set h3Content = h3Content ~ returnButton({title: 'family.return', transDomain: 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_manage') }})|raw %}
+{% if id != 'Add' %}
+    {% set h3Content = h3Content ~ addButton({title: 'family.title.add', transDomain: 'BusybeeFamilyBundle', 'windowOpen': {'route': path('family_edit', {'id': 'Add'}) }})|raw %}
+{% endif %}
+{% set h3Content = h3Content ~ resetButton({type: 'button', javascript: {function: 'resetFamily', options: []} })|raw %}
+{% set h3Content = h3Content ~ saveButton()|raw %}
+{% set panelParagraph = name %}
+{% include '@BusybeeTemplate/Page/panelStart.html.twig' %}

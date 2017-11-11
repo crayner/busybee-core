@@ -2,13 +2,11 @@
 
 namespace Busybee\People\PersonBundle\Form;
 
-use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\TemplateBundle\Model\PhotoUploader;
 use Busybee\Core\TemplateBundle\Model\TabManager;
 use Busybee\Core\TemplateBundle\Type\AutoCompleteType;
 use Busybee\Core\TemplateBundle\Type\ImageType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
-use Busybee\Core\TemplateBundle\Type\ToggleType;
 use Busybee\People\AddressBundle\Entity\Address;
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\People\PersonBundle\Events\PersonSubscriber;
@@ -16,7 +14,6 @@ use Busybee\People\PersonBundle\Form\Transformer\PersonViewTransformer;
 use Busybee\People\PersonBundle\Model\PersonInterface;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\People\PhoneBundle\Form\PhoneType;
-use Busybee\People\StaffBundle\Form\StaffType;
 use Busybee\People\StudentBundle\Form\StudentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;

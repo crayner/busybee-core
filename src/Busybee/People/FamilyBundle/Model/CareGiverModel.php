@@ -2,6 +2,8 @@
 
 namespace Busybee\People\FamilyBundle\Model;
 
+use Busybee\People\PersonBundle\Entity\Person;
+
 class CareGiverModel
 {
 	public function __construct()
@@ -17,5 +19,15 @@ class CareGiverModel
 	public function __toString()
 	{
 		return strval($this->getId());
+	}
+
+	public function formatName($options = []): string
+	{
+		if ($this->getPerson() instanceof Person)
+		{
+			return $this->getPerson()->formatName($options);
+		}
+
+		return '';
 	}
 }

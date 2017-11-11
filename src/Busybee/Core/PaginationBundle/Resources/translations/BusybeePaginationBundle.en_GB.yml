@@ -10,7 +10,7 @@ pagination:
     limit:
         label: Limit Results
     startSearch: ''
-    figures: "{0,1}Records %first% to %last% of %total%.|]1,Inf]Records %first% to %last% of %total%. %pages% Pages"
+    figures: "{0,1}Records %first% to %last% of %total%.|]1,Inf]Records %first% to %last% of %total%.<br/>%pages% Pages"
     next: ''
     prev: ''
     choice:

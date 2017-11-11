@@ -58,6 +58,7 @@ class SettingChoiceSubscriber implements EventSubscriberInterface
 
 		$options = $form->getConfig()->getOptions();
 		$name    = $form->getName();
+
 		if (!$this->settingManager->settingExists($options['setting_name']))
 		{
 			$names = $this->settingManager->getLikeSettingNames($options['setting_name']);

@@ -22,7 +22,7 @@
     {% set h3Content = h3Content ~ upDownButton()|raw %}
     {% set h3Content = h3Content ~ '</div>' %}
 
-    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'name': displayCareGiverField(form.vars['value'], 'formatName')} %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {name: displayCareGiverField(form.vars['value'], 'formatName')} %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6 well">

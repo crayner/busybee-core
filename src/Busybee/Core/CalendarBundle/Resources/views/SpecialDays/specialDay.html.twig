@@ -15,7 +15,7 @@
     {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': panelTitle, 'panelStyle': 'info', 'transDomain': 'BusybeeCalendarBundle'} %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 well">
+            <div class="col-sm-4 well">
                 {{ form_row(form.day) }}
             </div>
             <div class="col-sm-2 well">
@@ -24,7 +24,7 @@
             <div class="col-sm-2 well">
                 {{ form_row(form.name) }}
             </div>
-            <div class="col-sm-5 well">
+            <div class="col-sm-4 well">
                 {{ form_row(form.year, {'value': app.request.get('id')}) }}
                 {{ form_row(form.description) }}
             </div>

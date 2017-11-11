@@ -3,7 +3,7 @@ footer:
 form:
     required: Required
 acknowledgement:
-    title: 'System Acknowledgement'
+    title: 'System Check'
     description: ''
     help:
         fixnow: The indicated software is incorrect or not correctly configured.

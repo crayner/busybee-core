@@ -13,3 +13,4 @@ Busybee\People\StudentBundle\Entity\Student:
         house:
             - Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'house.list'
+                valueIn: 'name'

@@ -81,6 +81,7 @@ menu:
             list: Manage Bundles
         user:
             management: Manage Users
+        acknowledgement: System Check
     setting:
         schoolweek: Define School Week
         schoolday:
@@ -91,7 +92,9 @@ menu:
         houses: Manage Houses
         school:
             daysandtimes: Manage School Days and Times
-        manage: Manage Settings
+        manage: System Settings
+        page:
+            security: Page Security Settings
     family:
         manage: Manage Family       
     people:
@@ -103,6 +106,8 @@ menu:
             manage: Manage Students
         family:
             manage: Manage Families
+        manage: People Admin
+        title: PEOPLE
     Site: System
     Misc: Miscellaneous
     templateDesign: Template Design
@@ -111,12 +116,13 @@ menu:
     learn:
         tab: Learn
         course: Courses
-    Person: People
     system: Organise
     admin:
         school: School Admin
         node: ADMIN
         system: System Admin
+        user: User Admin
+        timetable: Timetable Admin
     reports:
         title: Reports
     campus:
@@ -125,7 +131,7 @@ menu:
         manage: Facilities
     curriculum: Curriculum
     calendar:
-        manage: Calendar
+        manage: Manage Calendars
         years: Years
         view: Display Calendar
     groups:
@@ -215,3 +221,8 @@ section:
         years_days_times: 'Years, Days & Times'
         groupings: Groupings
         other: Other
+        settings: Settings
+        extend_update: 'Modules & Updates'
+        user_management: User Management
+        people_manage: People Management
+        timetable: Timetable

@@ -67,6 +67,8 @@ class StaffType extends AbstractType
 						'help' => 'family.help.house',
 					),
 					'setting_name'              => 'house.list',
+					'setting_data_value'        => 'name',
+					'setting_data_name'         => 'name',
 					'translation_domain'        => 'BusybeeFamilyBundle',
 					'choice_translation_domain' => 'BusybeeFamilyBundle',
 				)
@@ -89,7 +91,7 @@ class StaffType extends AbstractType
 					},
 				)
 			)
-*/
+			*/
 		;
 		$builder->addEventSubscriber(new StaffSubscriber($this->manager));
 	}

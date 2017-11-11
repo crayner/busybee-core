@@ -41,6 +41,9 @@ parameters:
             contact:
                 route: contact_manage
                 prompt: person.pagination.contact
+            user:
+                route: user_manage
+                prompt: person.pagination.user
         transDomain: BusybeePersonBundle
     PersonBundle:
         version: 0.0.01

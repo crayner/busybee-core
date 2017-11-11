@@ -1,14 +1,14 @@
 <?php
-
 namespace Busybee\People\FamilyBundle\Entity;
 
+use Busybee\People\FamilyBundle\Model\FamilyExtension;
 use Busybee\People\StudentBundle\Entity\Student;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Family
  */
-class Family
+class Family extends FamilyExtension
 {
 	/**
 	 * @var integer
@@ -79,6 +79,16 @@ class Family
 	private $house;
 
 	/**
+	 * @var string
+	 */
+	private $importIdentifier;
+
+	/**
+	 * @var string
+	 */
+	private $status;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
@@ -103,7 +113,7 @@ class Family
 	 *
 	 * @return string
 	 */
-	public function getName()
+	public function getName(): ?string
 	{
 		return $this->name;
 	}
@@ -115,7 +125,7 @@ class Family
 	 *
 	 * @return Family
 	 */
-	public function setName($name)
+	public function setName($name): Family
 	{
 		$this->name = $name;
 
@@ -467,6 +477,46 @@ class Family
 	public function setHouse($house)
 	{
 		$this->house = $house;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getImportIdentifier(): ?string
+	{
+		return $this->importIdentifier;
+	}
+
+	/**
+	 * @param string $importIdentifier
+	 *
+	 * @return Family
+	 */
+	public function setImportIdentifier(string $importIdentifier): Family
+	{
+		$this->importIdentifier = $importIdentifier;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getStatus(): ?string
+	{
+		return $this->status;
+	}
+
+	/**
+	 * @param string $status
+	 *
+	 * @return Family
+	 */
+	public function setStatus(string $status): Family
+	{
+		$this->status = $status;
 
 		return $this;
 	}

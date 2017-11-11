@@ -303,10 +303,14 @@ class MenuManager implements MenuManagerInterface
 	{
 		$routes = $this->container->getParameter('sectionRoutes');
 
-		$route = isset($routes[$this->container->get('request_stack')->getCurrentRequest()->get('_route')]) ? $routes[$this->container->get('request_stack')->getCurrentRequest()->get('_route')] : [];
+		$currentRoute = $this->container->get('request_stack')->getCurrentRequest()->get('_route');
+
+		$route = isset($routes[$currentRoute]) ? $routes[$currentRoute] : [];
 
 		if (empty($route))
 			return [];
+
+
 		$sections = $this->container->getParameter('sections');
 
 		$sections = $sections[$route['section']];
@@ -317,7 +321,10 @@ class MenuManager implements MenuManagerInterface
 			{
 				foreach ($w as $e => $r)
 				{
-					if (false === $this->checker->isGranted($r['role']))
+					$sections[$q][$e]['linkClass'] = 'sectionLink';
+					if ($r['route'] === $currentRoute)
+						$sections[$q][$e]['linkClass'] .= ' currentLink';
+					if (!empty($r['role']) && false === $this->checker->isGranted($r['role']))
 					{
 						unset($sections[$q][$e]);
 					}

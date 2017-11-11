@@ -9,3 +9,4 @@ Busybee\People\StaffBundle\Entity\Staff:
         house:
             - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: 'house.list'
+                valueIn: 'name'

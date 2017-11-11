@@ -2,9 +2,7 @@
 
 {% trans_default_domain "BusybeeFamilyBundle" %}
 
-<div class="panel panel-primary busybee-panel">
     {% include "BusybeeFamilyBundle:Family:panelHeader.html.twig" with {'header': 'family.title.students'} %}
-    <div class="panel-body">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
@@ -12,5 +10,4 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+{% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}

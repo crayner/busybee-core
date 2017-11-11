@@ -37,10 +37,10 @@ class CareGiverExtension extends \Twig_Extension
 	{
 		if (!$cg instanceof CareGiver)
 			return '';
-		$name = 'get' . ucfirst($fieldName);
-		if (!method_exists($cg, $name))
+
+		if (!method_exists($cg, $fieldName))
 			return '';
 
-		return $cg->$name($options);
+		return $cg->$fieldName($options);
 	}
 }

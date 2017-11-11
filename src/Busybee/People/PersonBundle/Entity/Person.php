@@ -139,6 +139,11 @@ class Person extends PersonModel
 	private $nameInCharacters;
 
 	/**
+	 * @var string
+	 */
+	private $comment;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
@@ -664,7 +669,7 @@ class Person extends PersonModel
 	 *
 	 * @return string
 	 */
-	public function getImportIdentifier()
+	public function getImportIdentifier(): ?string
 	{
 		return $this->importIdentifier;
 	}
@@ -676,7 +681,7 @@ class Person extends PersonModel
 	 *
 	 * @return Person
 	 */
-	public function setImportIdentifier($importIdentifier)
+	public function setImportIdentifier($importIdentifier): Person
 	{
 		$this->importIdentifier = $importIdentifier;
 
@@ -688,7 +693,7 @@ class Person extends PersonModel
 	 *
 	 * @return string|null
 	 */
-	public function getVehicleRegistration()
+	public function getVehicleRegistration(): ?string
 	{
 		return $this->vehicleRegistration;
 	}
@@ -714,7 +719,7 @@ class Person extends PersonModel
 	 *
 	 * @return $this
 	 */
-	public function setPhone(Collection $phone)
+	public function setPhone(Collection $phone): Person
 	{
 		$this->phone = $phone;
 
@@ -780,7 +785,7 @@ class Person extends PersonModel
 	/**
 	 * @return string
 	 */
-	public function getNameInCharacters(): string
+	public function getNameInCharacters(): ?string
 	{
 		return $this->nameInCharacters;
 	}
@@ -791,6 +796,26 @@ class Person extends PersonModel
 	public function setNameInCharacters(string $nameInCharacters): Person
 	{
 		$this->nameInCharacters = $nameInCharacters;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getComment(): ?string
+	{
+		return $this->comment;
+	}
+
+	/**
+	 * @param string $comment
+	 *
+	 * @return Person
+	 */
+	public function setComment(string $comment): Person
+	{
+		$this->comment = $comment;
 
 		return $this;
 	}

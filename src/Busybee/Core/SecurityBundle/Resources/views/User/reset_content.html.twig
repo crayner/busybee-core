@@ -7,7 +7,7 @@
 {% set h3Content = h3Content ~ saveButton()|raw %}
 
 {{ form_start(form) }}
-{% include 'BusybeeHomeBundle:Page:panelStart.html.twig' %}
+{% include '@BusybeeTemplate/Page/panelStart.html.twig' %}
 <div id="form_body" class="container-fluid">
     <div class="row">
         <div class="col-sm-6 well">
@@ -26,7 +26,7 @@
         </div>
     </div>
 </div>
-{% include 'BusybeeHomeBundle:Page:panelEnd.html.twig' %}
+{% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 {{ form_end(form) }}
 
 

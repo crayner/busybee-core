@@ -28,7 +28,7 @@ trait MenuExtension
 				$container->getParameterBag()->remove('nodes');
 			}
 			else
-				$menu = array();
+				$menu = [];
 
 			$container->getParameterBag()
 				->set('nodes', $this->arrayMerge($menu, $newContainer->getParameterBag()->has('nodes') ? $newContainer->getParameterBag()->get('nodes') : array()));
@@ -39,7 +39,7 @@ trait MenuExtension
 				$container->getParameterBag()->remove('items');
 			}
 			else
-				$menu = array();
+				$menu = [];
 
 			$container->getParameterBag()
 				->set('items', $this->arrayMerge($menu, $newContainer->getParameterBag()->has('items') ? $newContainer->getParameterBag()->get('items') : array()));
@@ -53,12 +53,13 @@ trait MenuExtension
 				$sections = [];
 
 			$container->getParameterBag()
-				->set('sections', $this->arrayMerge($sections, $newContainer->getParameterBag()->has('sections') ? $newContainer->getParameterBag()->get('sections') : array()));
+				->set('sections', $this->sectionMerge($sections, $newContainer->getParameterBag()->has('sections') ? $newContainer->getParameterBag()->get('sections') : []));
 
 			$sections = $container->getParameterBag()
 				->get('sections', []);
 
 			$routes = [];
+
 			foreach ($sections as $name => $header)
 			{
 				foreach ($header as $headName => $data)
@@ -90,12 +91,12 @@ trait MenuExtension
 	}
 
 	/**
-	 * @param $a1
-	 * @param $a2
+	 * @param array $a1
+	 * @param array $a2
 	 *
-	 * @return mixed
+	 * @return array
 	 */
-	protected function arrayMerge($a1, $a2)
+	protected function arrayMerge(array $a1, array $a2): array
 	{
 		foreach ($a2 as $q => $w)
 			if (!array_key_exists($q, $a1))
@@ -103,4 +104,24 @@ trait MenuExtension
 
 		return $a1;
 	}
+
+	/**
+	 * @param array $a1
+	 * @param array $a2
+	 *
+	 * @return array
+	 */
+	protected function sectionMerge(array $a1, array $a2): array
+	{
+		foreach ($a2 as $q => $w)
+		{
+			if (!array_key_exists($q, $a1))
+				$a1[$q] = $w;
+			else
+				$a1[$q] = $this->sectionMerge($a1[$q], $w);
+		}
+
+		return $a1;
+	}
+
 }

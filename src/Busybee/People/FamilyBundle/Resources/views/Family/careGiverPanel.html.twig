@@ -2,15 +2,12 @@
 
 {% trans_default_domain "BusybeeFamilyBundle" %}
 
-<div class="panel panel-primary busybee-panel">
-    {% include "BusybeeFamilyBundle:Family:panelHeader.html.twig" with {'header': 'family.title.careGivers'} %}
-    <div class="panel-body">
-        <div class="container-fluid">
+    {% include "@BusybeeFamily/Family/panelHeader.html.twig" with {header: 'family.title.careGivers'} %}
+<div class="container-fluid" style="clear:all">
             <div class="row">
                 <div class="col-sm-12">
                     {% include 'BusybeeFamilyBundle:Family:caregiver.html.twig' %}
                 </div>
             </div>
         </div>
-    </div>
-</div>
+{% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}

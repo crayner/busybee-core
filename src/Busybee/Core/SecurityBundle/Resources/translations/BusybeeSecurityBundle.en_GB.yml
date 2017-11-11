@@ -104,6 +104,8 @@ security:
         forcePassword: "You must reset your password."
         label:
             comment: Add a comment to the email.
+        password:
+            already: Password Request Already Active
     generatePassword: Generate Password
     copyPassword: "Copy this password if required from the field below:"
     resetting:
@@ -119,7 +121,7 @@ security:
 
                 Regards,
                 the Busybee Team.
-        password_already_requested: An email for password request has already been sent to this user in the last 24 hours.
+        password_already_requested: An email for password request has already been sent to this user (%{name}) in the last 24 hours.
         check_email: An email has been sent to %email%. It contains a link you must click to reset your password.
     authorisation:
         request: You are required to authenticate to continue to the selected page!

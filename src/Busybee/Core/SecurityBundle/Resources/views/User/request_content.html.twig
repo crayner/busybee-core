@@ -8,7 +8,7 @@
 {% set h3Content = saveButton({'class': 'btn btn-success halflings halflings-send', title: 'email.send', transDomain: 'BusybeeHomeBundle'}) %}
 
 <form action="{{ path("busybee_security_user_reset_send_email") }}" method="post" class="security_user_reset_request">
-    {% include 'BusybeeHomeBundle:Page:panelStart.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' %}
     <div id="form_body" class="container-fluid">
         <div class="row">
             <div class="col-sm-5 well">
@@ -32,6 +32,6 @@
             </div>
         </div>
     </div>
-    {% include 'BusybeeHomeBundle:Page:panelEnd.html.twig' %}
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
 </form>
 

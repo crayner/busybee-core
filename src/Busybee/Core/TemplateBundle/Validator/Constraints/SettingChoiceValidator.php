@@ -37,8 +37,10 @@ class SettingChoiceValidator extends ChoiceValidator
 
 		foreach ($this->sm->get($constraint->name) as $q => $w)
 		{
-			if (is_array($w))
+			if (is_array($w) && empty($constraint->valueIn))
 				$s = array_merge($s, $w);
+			elseif (is_array($w) && !empty($constraint->valueIn))
+				$s[$q] = $w[$constraint->valueIn];
 			else
 				$s[$q] = $w;
 		}

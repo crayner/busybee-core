@@ -141,7 +141,7 @@ class UserController extends BusyBeeController
 
 		if ($user->getConfirmationToken() && $user->isPasswordRequestNonExpired($this->container->getParameter('busybee_security.resetting.token_ttl')))
 		{
-			return $this->render('BusybeeSecurityBundle:User:passwordAlreadyRequested.html.twig');
+			return $this->render('@BusybeeSecurity/User/passwordAlreadyRequested.html.twig', ['user' => $user]);
 		}
 
 		$config         = new \stdClass();
@@ -184,7 +184,7 @@ class UserController extends BusyBeeController
 
 		if ($user->isPasswordRequestNonExpired($this->container->getParameter('busybee_security.resetting.token_ttl')))
 		{
-			return $this->render('BusybeeSecurityBundle:User:passwordAlreadyRequested.html.twig');
+			return $this->render('BusybeeSecurityBundle:User:passwordAlreadyRequested.html.twig', ['user' => $user]);
 		}
 
 		if (null === $user->getConfirmationToken())
@@ -232,7 +232,6 @@ class UserController extends BusyBeeController
 	 */
 	public function createAction($personID)
 	{
-
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
 		$person = $this->get('busybee_people_person.repository.person_repository')->find($personID);
@@ -359,6 +358,22 @@ class UserController extends BusyBeeController
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR');
 
+		if ($this->get('busybee_core_security.doctrine.user_manager')->personExists(null))
+		{
+			$pagin = $this->get('session')->get('pagination');
+
+			$person           = [];
+			$person['limit']  = 10;
+			$person['search'] = '';
+			$person['offSet'] = 0;
+			$person['choice'] = $this->generateUrl('user_manage');
+			$person['sortBy'] = "person.surname.label";
+			$pagin['Person']  = $person;
+
+			$this->get('session')->set('pagination', $pagin);
+
+			return $this->redirectToRoute('user_manage');
+		}
 		$up = $this->get('busybee_core_security.model.user_pagination');
 
 		$up->injectRequest($request);

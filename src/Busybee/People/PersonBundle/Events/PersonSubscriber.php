@@ -184,13 +184,15 @@ class PersonSubscriber implements EventSubscriberInterface
 				)
 			)
 			->add('house', SettingChoiceType::class, array(
-					'label'        => 'staff.house.label',
-					'placeholder'  => 'staff.house.placeholder',
-					'required'     => false,
-					'attr'         => array(
+					'label'              => 'staff.house.label',
+					'placeholder'        => 'staff.house.placeholder',
+					'required'           => false,
+					'attr'               => array(
 						'help' => 'staff.house.help',
 					),
-					'setting_name' => 'house.list',
+					'setting_name'       => 'house.list',
+					'setting_data_name'  => 'name',
+					'setting_data_value' => 'name',
 				)
 			)/*			->add('homeroom', EntityType::class, array(
 					'label'         => 'staff.label.homeroom',

@@ -5,16 +5,16 @@
 {% include '@BusybeeCalendar/Calendar/calendarMenu.html.twig' with {'header': 'calendar.year.title'} %}
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 well">
+        <div class="col-sm-2 well">
             {{ form_row(form.name) }}
         </div>
-        <div class="col-sm-3 well">
+        <div class="col-sm-4 well">
             {{ form_row(form.firstDay) }}
         </div>
-        <div class="col-sm-3 well">
+        <div class="col-sm-4 well">
             {{ form_row(form.lastDay) }}
         </div>
-        <div class="col-sm-3 well">
+        <div class="col-sm-2 well">
             {{ form_row(form.status) }}
         </div>
     </div>

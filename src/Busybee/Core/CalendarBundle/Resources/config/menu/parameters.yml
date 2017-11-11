@@ -1,34 +1,4 @@
 # Calendar
 parameters:
     nodes: []
-    items:
-        14:
-            name: Manage School Settings
-            label: menu.site.institute.manage
-            role: ROLE_USER
-            node: 1
-            order: 14
-            menu: 14
-        141:
-            label: menu.calendar.manage
-            name: Calendar Management
-            node: 14
-            order: 141
-            role: ROLE_USER
-            menu: 141
-        1410:
-            label: menu.calendar.years
-            name: Years
-            role: ROLE_REGISTRAR
-            node: 141
-            order: 1410
-            route: calendar_years
-        1411:
-            label: menu.calendar.view
-            name: Years
-            role: ROLE_USER
-            node: 141
-            order: 1411
-            route: year_calendar
-            parameters:
-                id: current
+    items: []

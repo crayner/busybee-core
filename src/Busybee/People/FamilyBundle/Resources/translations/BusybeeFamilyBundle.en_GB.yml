@@ -5,11 +5,11 @@ family:
         name: Family Name
         add: New Family
         edit: Modify Family
-        details: "Family Details: %name%"
-        contacts: "Family Contact Details: %name%"
+        details: "Family Details"
+        contacts: "Family Contacts"
         people: "Members of Family: %name%"
-        students: 'Family Student Details: %name%'
-        careGivers: 'Family Care Giver Details: %name%'
+        students: 'Family Students'
+        careGivers: 'Family Care Givers'
     description: Search and select families.
     actions: Actions
     tab:
@@ -57,7 +57,7 @@ caregiver:
         newsletter: Receive Newsletter
         reporting: Receive Reporting
         finance: Receive Finance
-        pickUpAllowed: Allowed to collect children
+        pickUpAllowed: Can Collect Children
         emergencyOnly: Emergency Contact Only
         person: Care Giver
         emailcontact: Contact by EMail

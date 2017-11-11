@@ -3,16 +3,34 @@ parameters:
     nodes:
         2:
             name: People
-            label: menu.Person
+            label: menu.people.title
             role: ROLE_USER
             order: 2
             menu: 2
     items:
-        21:
-            label: menu.people.person.manage
-            name: Manage People
-            route: person_manage
+        20:
+            label: menu.people.manage
+            name: People Admin
             role: ROLE_ADMIN
-            parameters: []
             node: 2
-            order: 21
+            order: 20
+            route: person_manage
+    sections:
+        Person Admin:
+            people_manage:
+                family_manage:
+                    route: family_manage
+                    label: menu.people.family.manage
+                    role: ROLE_ADMIN
+                    params: { }
+                person_manage:
+                    route: person_manage
+                    label: menu.people.manage
+                    role: ROLE_ADMIN
+                    params: { }
+            hidden:
+                - person_edit
+                - user_manage
+                - student_manage
+                - staff_manage
+                - family_edit

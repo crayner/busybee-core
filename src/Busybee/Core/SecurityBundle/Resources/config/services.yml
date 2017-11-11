@@ -10,7 +10,7 @@ parameters:
         '%mailer_sender_address%': '%mailer_sender_name%' 
     busybee_security.resetting.email.from_email: 
         '%mailer_sender_address%': '%mailer_sender_name%'
-    userPagination:
+    securityPagination:
         alias: u
         sortBy:
             User Name: 
@@ -201,7 +201,7 @@ services:
     busybee_core_security.model.user_pagination:
         class: Busybee\Core\SecurityBundle\Model\UserPagination
         arguments: 
-            - '%userPagination%'
+            - '%securityPagination%'
             - '@busybee_core_security.repository.user_repository'
             - '@busybee_core_system.model.my_container'
     busybee_core_security.model.page_pagination:

@@ -24,10 +24,20 @@ Busybee\People\FamilyBundle\Entity\Family:
              type: string
              length: 32
              nullable: true
+        status:
+             type: string
+             length: 16
+             nullable: true
+        importIdentifier:
+             type: string
+             length: 16
+             nullable: true
         lastModified:
             type: datetime
+            column: last_modified
         createdOn:
             type: datetime
+            column: created_on
     oneToMany:
         careGivers:
             targetEntity: Busybee\People\FamilyBundle\Entity\CareGiver

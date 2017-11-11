@@ -168,16 +168,19 @@ class UserManager extends BaseUserManager
 	/**
 	 * Person Exists
 	 *
-	 * @param $entity
+	 * @param User|null $entity
 	 *
-	 * @return bool
+	 * @return bool|int
 	 */
-	public function personExists($entity)
+	public function personExists(User $entity = null)
 	{
 		if (class_exists('Busybee\People\PersonBundle\Model\PersonManager'))
 		{
 			$metaData = $this->objectManager->getClassMetadata('Busybee\People\PersonBundle\Entity\Person');
 			$schema   = $this->objectManager->getConnection()->getSchemaManager();
+
+			if (is_null($entity))
+				$entity = $this->getCurrentUser();
 
 			if ($schema->tablesExist([$metaData->getTableName()]))
 			{

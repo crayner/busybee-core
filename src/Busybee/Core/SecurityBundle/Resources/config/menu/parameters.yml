@@ -1,18 +1,4 @@
 # Security
 parameters:
     nodes: []
-    items:
-        123:
-            name: Page Roles
-            label: menu.site.page.roles
-            role: ROLE_SYSTEM_ADMIN
-            node: 12
-            route: page_list
-            order: 123
-        16:
-            label: menu.user.list
-            name: Self Management
-            node: 1
-            order: 16
-            role: ROLE_REGISTRAR
-            route: security_user_list
+    items: []

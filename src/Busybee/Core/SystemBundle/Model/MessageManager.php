@@ -85,4 +85,12 @@ class MessageManager
 		if (!is_null($domain))
 			$this->setDomain($domain);
 	}
+
+	/**
+	 * @return int
+	 */
+	public function count(): int
+	{
+		return count($this->messages);
+	}
 }

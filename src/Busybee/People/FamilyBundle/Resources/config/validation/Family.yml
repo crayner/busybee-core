@@ -1,1 +1,6 @@
 Busybee\People\FamilyBundle\Entity\Family:
+    properties:
+        house:
+            - Busybee\Core\TemplateBundle\Validator\SettingChoice:
+                name: 'house.list'
+                valueIn: 'name'
