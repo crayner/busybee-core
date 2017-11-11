@@ -105,6 +105,15 @@ parameters:
             exclusions: {  }
             requirements:
                 - Person
+        User:
+            name: User
+            type: plugin
+            namespace: Busybee\People\UserBundle\BusybeeUserBundle
+            route: { resource: BusybeeUserBundle/Resources/config/routing.yml, type: yaml, prefix: user }
+            description: bundle.description.missing
+            exclusions: {  }
+            requirements:
+                - Person
         Student:
             type: plugin
             namespace: Busybee\People\StudentBundle\BusybeeStudentBundle

@@ -1,0 +1,65 @@
+#UserBundle
+parameters:
+    userPagination:
+        alias: p
+        sortBy:
+            person.surname.label:
+                p.surname: ASC
+                p.firstName: ASC
+            person.firstName.label:
+                p.firstName: ASC
+                p.surname: ASC
+            person.email.label:
+                p.email: ASC
+                p.surname: ASC
+                p.firstName: ASC
+        limit: '25'
+        searchList:
+            - p.surname
+            - p.firstName
+            - p.email
+        select:
+            - p.id
+            - p.honorific as details
+            - p.surname
+            - p.firstName
+            - u.id as user_id
+        join:
+            p.user:
+                type: leftJoin
+                alias: u
+        choices:
+            all:
+                route: person_manage
+                prompt: person.pagination.all
+            student:
+                route: student_manage
+                prompt: person.pagination.student
+            staff:
+                route: staff_manage
+                prompt: person.pagination.staff
+            contact:
+                route: contact_manage
+                prompt: person.pagination.contact
+            user:
+                route: user_manage
+                prompt: person.pagination.user
+        transDomain: BusybeePersonBundle
+
+services:
+    busybee_people_user.model.user_manager:
+        class: Busybee\People\UserBundle\Model\UserManager
+        arguments:
+            - '@security.encoder_factory'
+            - '@busybee_core_security.util.canonicaliser'
+            - '@session'
+            - '@doctrine.orm.entity_manager'
+            - '%busybee_security.user.entity%'
+    busybee_people_user.pagination.user_pagination:
+        class: Busybee\People\UserBundle\Pagination\UserPagination
+        arguments:
+            - '%userPagination%'
+            - '@busybee_people_person.repository.person_repository'
+            - '@busybee_core_system.model.my_container'
+
+

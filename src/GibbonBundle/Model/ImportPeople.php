@@ -316,11 +316,10 @@ class ImportPeople extends ImportManager
 							$person->setDayType($value);
 						break;
 					default:
-						dump([$name, $value]);
+						//dump([$name, $value]);
 				}
 			}
-			dump($person);
-			die();
+
 			$this->getDefaultManager()->persist($person);
 			$this->getDefaultManager()->flush();
 			ini_set('max_execution_time', '10');

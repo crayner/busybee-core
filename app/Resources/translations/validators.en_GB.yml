@@ -119,3 +119,6 @@ school:
                 error: The start time must be before the finish time.
             finish:
                 error: The finish time must be before the close time.
+setting:
+    choice:
+        invalid: The choice is not valid.

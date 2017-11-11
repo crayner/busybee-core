@@ -1,6 +1,6 @@
 gibbon_import:
-    path:     /{offset}/import/
+    path:     /{offset}/{function}/import/
     defaults: { _controller: GibbonBundle:Default:index }
 gibbon_start:
     path:     /
-    defaults: { _controller: GibbonBundle:Default:index, offset: '0' }
+    defaults: { _controller: GibbonBundle:Default:index }

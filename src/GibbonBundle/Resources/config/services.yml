@@ -11,3 +11,9 @@ services:
             - '@doctrine.orm.gibbon_entity_manager'
             - '@doctrine.orm.default_entity_manager'
             - '@busybee_people_person.model.person_manager'
+    gibbon.model.import_family:
+        class: GibbonBundle\Model\ImportFamily
+        arguments:
+            - '@doctrine.orm.gibbon_entity_manager'
+            - '@doctrine.orm.default_entity_manager'
+            - '@busybee_people_person.model.person_manager'

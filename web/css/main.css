@@ -521,3 +521,13 @@ div#contentContainer {
     text-decoration: underline;
     font-variant: petite-caps;
 }
+
+.dateSmall > .form-control {
+    width: 50px;
+    height: 30px;
+    padding-left: 0;
+}
+
+.currentLink > .btn-link {
+    font-weight: bold;
+}

@@ -11,17 +11,25 @@ class DefaultController extends BusybeeController
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function indexAction($offset = 0)
+	public function indexAction($offset = 0, $function = 'importPeople')
 	{
 		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN', null, null);
 
 		if ($offset == 0)
 			$this->get('gibbon.model.import_houses');
 
+		$people = [];
+		if ($function === 'importPeople')
+		{
+			$people = $this->get('gibbon.model.import_people')->$function($offset);
 
-		$people = $this->get('gibbon.model.import_people')->importPeople($offset);
+			return $this->render('@Gibbon/Default/index.html.twig', ['people' => $people]);
+		}
+		elseif ($function === 'importFamily')
+		{
+			$people = $this->get('gibbon.model.import_family')->$function($offset);
 
-
-		return $this->render('GibbonBundle:Default:index.html.twig', ['people' => $people]);
+			return $this->render('@Gibbon/Default/family.html.twig', ['families' => $people]);
+		}
 	}
 }

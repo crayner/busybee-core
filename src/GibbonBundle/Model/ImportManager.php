@@ -1,6 +1,7 @@
 <?php
 namespace GibbonBundle\Model;
 
+use Busybee\Core\SystemBundle\Model\MessageManager;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -20,6 +21,11 @@ abstract class ImportManager
 	private $personManager;
 
 	/**
+	 * @var MessageManager
+	 */
+	private $messages;
+
+	/**
 	 * @var int
 	 */
 	private $limit = 200;
@@ -36,6 +42,7 @@ abstract class ImportManager
 		$this->gibbonManager = $gibbonManager;
 		$this->manager       = $manager;
 		$this->personManager = $personManager;
+		$this->messages      = new MessageManager('GibbonBundle');
 	}
 
 	/**
@@ -68,5 +75,25 @@ abstract class ImportManager
 	public function getLimit(): int
 	{
 		return $this->limit;
+	}
+
+	/**
+	 * @return MessageManager
+	 */
+	public function getMessages(): MessageManager
+	{
+		return $this->messages;
+	}
+
+	/**
+	 * @param int $limit
+	 *
+	 * @return ImportManager
+	 */
+	public function setLimit(int $limit): ImportManager
+	{
+		$this->limit = $limit;
+
+		return $this;
 	}
 }

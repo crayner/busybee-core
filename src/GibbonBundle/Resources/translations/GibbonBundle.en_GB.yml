@@ -1,0 +1,3 @@
+family:
+    import:
+        failed: 'Family failed to import. Gibbon Family ID = %{id}'

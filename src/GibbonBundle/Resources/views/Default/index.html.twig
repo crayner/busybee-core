@@ -3,9 +3,9 @@
 {% block contentContainer %}
     <div>
         {% if people.offset > 0 %}
-            {{ 'Imported ' ~ people.offset ~ ' of ' ~ people.peopleCount ~ ' People' }}{{ miscButton({class: 'btn btn-success glyphicons glyphicons-playing-dices', windowOpen: {route: path('gibbon_import', {offset: people.offset})}})|raw }}
+            {{ 'Imported ' ~ people.offset ~ ' of ' ~ people.peopleCount ~ ' People' }}{{ miscButton({class: 'btn btn-success glyphicons glyphicons-playing-dices', windowOpen: {route: path('gibbon_import', {offset: people.offset, function: 'importPeople'})}})|raw }}
         {% else %}
-            {{ 'All Done Here' }}
+            {{ 'All Done Here' }}{{ miscButton({class: 'btn btn-success glyphicons glyphicons-playing-dices', windowOpen: {route: path('gibbon_import', {offset: 0, function: 'importFamily'})}})|raw }}
         {% endif %}
     </div>
 {% endblock contentContainer %}
