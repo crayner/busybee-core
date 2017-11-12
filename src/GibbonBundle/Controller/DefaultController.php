@@ -27,9 +27,15 @@ class DefaultController extends BusybeeController
 		}
 		elseif ($function === 'importFamily')
 		{
-			$people = $this->get('gibbon.model.import_family')->$function($offset);
+			$manager = $this->get('gibbon.model.import_family')->$function($offset);
 
-			return $this->render('@Gibbon/Default/family.html.twig', ['families' => $people]);
+			return $this->render('@Gibbon/Default/family.html.twig', ['families' => $manager]);
+		}
+		elseif ($function === 'importDepartments')
+		{
+			$manager = $this->get('gibbon.model.import_departments')->$function($offset);
+
+			return $this->render('@Gibbon/Default/departments.html.twig', ['manager' => $manager]);
 		}
 	}
 }

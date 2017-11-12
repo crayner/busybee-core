@@ -20,9 +20,9 @@ class DepartmentController extends BusybeeController
 		$this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
 		$entity = new Department();
-		$id     = $request->get('id');
+
 		if (intval($id) > 0)
-			$entity = $this->get('busybee_facility_institute.repository.department_repository')->find($id);
+			$entity = $this->getDoctrine()->getRepository(Department::class)->find($id);
 
 		$form = $this->createForm(DepartmentType::class, $entity);
 

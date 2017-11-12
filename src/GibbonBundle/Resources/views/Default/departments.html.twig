@@ -1,0 +1,14 @@
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% block contentContainer %}
+    <div>
+        {% if manager.offset > 0 %}
+            {{ 'Imported ' ~ manager.offset ~ ' of ' ~ manager.count ~ ' Families. ' ~ manager.messages.messages|length ~ ' failures.' }}{{ miscButton({class: 'btn btn-success glyphicons glyphicons-playing-dices', windowOpen: {route: path('gibbon_import', {offset: manager.offset, function: 'importDepartments'})}})|raw }}
+        {% else %}
+            {{ 'All Done Here' }}{{ miscButton({class: 'btn btn-success glyphicons glyphicons-playing-dices', windowOpen: {route: path('gibbon_import', {offset: 0, function: 'importSomething'})}})|raw }}
+        {% endif %}
+        {% for message in manager.messages.messages %}
+            <p class="alert alert-{{ message.level }}">{{ message.message|trans(message.options, message.domain) }}</p>
+        {% endfor %}
+    </div>
+{% endblock contentContainer %}

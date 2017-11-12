@@ -2,6 +2,7 @@
 
 namespace Busybee\Core\TemplateBundle\Validator\Constraints;
 
+use Busybee\Facility\InstituteBundle\Entity\Department;
 use Busybee\People\PersonBundle\Entity\Person;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Constraint;
@@ -39,8 +40,12 @@ class UniqueOrBlankValidator extends ConstraintValidator
 
 		$entity = $this->context->getObject();
 
-		$result = $this->om->getRepository(Person::class)->createQueryBuilder('p')
-			->where('p.importIdentifier = :identifier')
+		dump($entity);
+		dump($constraint);
+		$where = 'p.' . $constraint->field . ' = :identifier';
+
+		$result = $this->om->getRepository($constraint->data_class)->createQueryBuilder('p')
+			->where($where)
 			->andWhere('p.id != :id')
 			->setParameter('identifier', $value)
 			->setParameter('id', $entity->getId())

@@ -34,3 +34,6 @@ houses_edit:
 school_days_times:
     path:  /daysandtimes/
     defaults: { _controller: SystemBundle:School:daysAndTimes }
+house_logo_delete:
+    path:  /houses/{houseName}/logo/delete/
+    defaults: { _controller: SystemBundle:House:deleteLogo }

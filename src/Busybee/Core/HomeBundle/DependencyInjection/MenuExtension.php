@@ -62,6 +62,13 @@ trait MenuExtension
 
 			foreach ($sections as $name => $header)
 			{
+				if (!is_array($header))
+				{
+					var_dump($sections);
+					var_dump($name);
+					var_dump($header);
+					die();
+				}
 				foreach ($header as $headName => $data)
 					if ($headName !== 'hidden')
 					{

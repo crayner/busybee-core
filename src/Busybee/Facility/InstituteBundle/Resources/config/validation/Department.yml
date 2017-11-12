@@ -3,9 +3,11 @@ Busybee\Facility\InstituteBundle\Entity\Department:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - name
+            message: 'department.name.unique'
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - nameShort
+            message: 'department.nameShort.unique'
     properties:
         name:
             - NotBlank: ~
@@ -17,3 +19,9 @@ Busybee\Facility\InstituteBundle\Entity\Department:
             - Valid: ~
         type:
             - NotBlank: ~
+        importIdentifier:
+            - Busybee\Core\TemplateBundle\Validator\UniqueOrBlank:
+                message: department.importIdentifer.unique
+                data_class: 'Busybee\Facility\InstituteBundle\Entity\Department'
+        logo:
+            - Busybee\Core\TemplateBundle\Validator\Logo: ~

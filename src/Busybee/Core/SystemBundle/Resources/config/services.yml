@@ -12,7 +12,7 @@ parameters:
             Description: 
                 s.description: ASC
                 s.displayName: ASC
-        limit: '10'
+        limit: 50
         searchList:
             - s.displayName
             - s.description

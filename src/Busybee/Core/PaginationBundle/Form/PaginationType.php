@@ -58,6 +58,7 @@ class PaginationType extends AbstractType
 		$choices         = array();
 		$choices[10]     = '10';
 		$choices[25]     = '25';
+		$choices[50]     = '50';
 		$choices[100]    = '100';
 		$limit           = $options['data']->getLimit() < 25 ? 25 : $options['data']->getLimit();
 		$choices[$limit] = $limit;
@@ -75,17 +76,17 @@ class PaginationType extends AbstractType
 						'data'     => $limit,
 					)
 				)
-				->add('lastLimit', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+				->add('lastLimit', HiddenType::class, array(
 						'data' => $limit,
 					)
 				);
 		else
 			return $builder
-				->add('limit', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+				->add('limit', HiddenType::class, array(
 						'data' => $limit,
 					)
 				)
-				->add('lastLimit', 'Symfony\Component\Form\Extension\Core\Type\HiddenType', array(
+				->add('lastLimit', HiddenType::class, array(
 						'data' => $limit,
 					)
 				);

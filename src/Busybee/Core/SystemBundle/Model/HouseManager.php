@@ -27,6 +27,11 @@ class HouseManager
 	private $objectManager;
 
 	/**
+	 * @var ObjectManager
+	 */
+	private $messages;
+
+	/**
 	 * HouseManager constructor.
 	 */
 	public function __construct(SettingManager $settingManager, ObjectManager $objectManager)
@@ -34,6 +39,7 @@ class HouseManager
 		$this->houses         = new ArrayCollection();
 		$this->settingManager = $settingManager;
 		$this->objectManager  = $objectManager;
+		$this->messages       = new MessageManager();
 		$this->loadHouses();
 	}
 
@@ -123,9 +129,12 @@ class HouseManager
 	 *
 	 * @return mixed
 	 */
-	public function saveHouses(Form $form)
+	public function saveHouses(Form $form = null)
 	{
-		$data = $form->get('houses')->getData();
+		if (is_null($form))
+			$data = $this->houses;
+		else
+			$data = $form->get('houses')->getData();
 
 		$houses = [];
 
@@ -145,6 +154,8 @@ class HouseManager
 			$houses[$w['name']] = $w;
 		}
 
+		$this->houses = $data;
+
 		return $this->getSettingManager()->set('house.list', $houses);
 	}
 
@@ -154,5 +165,49 @@ class HouseManager
 	public function getSettingManager(): SettingManager
 	{
 		return $this->settingManager;
+	}
+
+	/**
+	 * @param string $houseName
+	 */
+	public function deleteLogo(string $houseName)
+	{
+		$house = $this->findHouse($houseName);
+
+		$file = $house->getLogo();
+
+		if (file_exists($file))
+		{
+			$this->removeHouse($house);
+			if (unlink($file))
+				$house->getLogo(null);
+			$this->addHouse($house);
+
+			$this->saveHouses();
+		}
+	}
+
+	/**
+	 * @param $houseName
+	 *
+	 * @return mixed
+	 */
+	public function findHouse($houseName)
+	{
+		foreach ($this->houses->toArray() as $q => $w)
+		{
+			if ($houseName == $w->getName())
+			{
+				return $w;
+			}
+		}
+	}
+
+	/**
+	 * @return MessageManager
+	 */
+	public function getMessages(): MessageManager
+	{
+		return $this->messages;
 	}
 }

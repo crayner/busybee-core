@@ -22,6 +22,7 @@
     {{ all_form_errors(fullForm, "div", "alert alert-danger fadeAlert") }}
     {% set form_path = [] %}
     {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'school.admin.houses.title', transDomain: 'SystemBundle'} %}
+    <div class="houseMessage"></div>
     {{ form_start(form) }}
     {{ form_widget(form.houses) }}
     {{ form_end(form) }}

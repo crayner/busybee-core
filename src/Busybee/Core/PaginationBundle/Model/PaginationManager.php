@@ -3,6 +3,7 @@
 namespace Busybee\Core\PaginationBundle\Model;
 
 use Busybee\Core\PaginationBundle\Form\PaginationType;
+use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\Request;
@@ -196,6 +197,7 @@ abstract class PaginationManager implements PaginationInterface
 	public function __construct($pagination, EntityRepository $repository, Container $container)
 	{
 		$this->setPagination($pagination);
+
 		$this->manager    = $container->get('doctrine')->getManager();
 		$this->repository = $repository;
 		$this->session    = $container->get('session');
@@ -207,6 +209,7 @@ abstract class PaginationManager implements PaginationInterface
 		$this->setChoice(null);
 		$this->setReDirect(false);
 		$this->setName($this->paginationName);
+
 
 		$this->form           = $container->get('form.factory')->createNamedBuilder(strtolower($this->getName()) . '_paginator', PaginationType::class, $this, $params)->getForm();
 		$this->injectedSearch = [];
@@ -227,13 +230,16 @@ abstract class PaginationManager implements PaginationInterface
 		$this->initialiseSettings();
 		$this->initialSettings = $pagination;
 
-		if (!is_array($pagination)) return;
+		if (!is_array($pagination))
+			return;
+
 		foreach ($pagination as $name => $value)
 		{
 			$setName              = 'set' . ucwords($name);
 			$this->setting->$name = $value;
 			$this->$setName($value);
 		}
+
 	}
 
 	private function initialiseSettings()
@@ -243,11 +249,11 @@ abstract class PaginationManager implements PaginationInterface
 		$pagination               = [];
 		$pagination['alias']      = 'default';
 		$pagination['sortBy']     = [];
-		$pagination['limit']      = 25;
 		$pagination['searchList'] = [];
 		$pagination['choices']    = [];
 		$pagination['join']       = [];
 		$pagination['select']     = [];
+		$pagination['limit']      = 50;
 
 		foreach ($pagination as $name => $value)
 		{
@@ -255,6 +261,7 @@ abstract class PaginationManager implements PaginationInterface
 			$this->setting->$name = $value;
 			$this->$setName($value);
 		}
+
 		$this->total = 0;
 	}
 

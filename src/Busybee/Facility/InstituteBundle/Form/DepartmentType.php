@@ -2,16 +2,17 @@
 
 namespace Busybee\Facility\InstituteBundle\Form;
 
-use Busybee\Program\CurriculumBundle\Entity\Course;
+use Busybee\Core\TemplateBundle\Type\ImageType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Facility\InstituteBundle\Entity\Department;
 use Busybee\Facility\InstituteBundle\Events\DepartmentSubscriber;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -77,7 +78,24 @@ class DepartmentType extends AbstractType
 					'required'      => false,
 					'data'          => $options['data']->getId(),
 				)
-			);
+			)
+			->add('logo', ImageType::class,
+				[
+					'label'    => 'department.logo.label',
+					'required' => false,
+				]
+			)
+			->add('blurb', CKEditorType::class,
+				[
+					'label'    => 'department.blurb.label',
+					'attr'     => [
+						'rows' => 4,
+					],
+					'required' => false,
+
+				]
+			)
+			->add('importIdentifier', HiddenType::class);
 
 		$builder->addEventSubscriber(new DepartmentSubscriber($this->sm, $this->om));
 	}
@@ -87,10 +105,12 @@ class DepartmentType extends AbstractType
 	 */
 	public function configureOptions(OptionsResolver $resolver)
 	{
-		$resolver->setDefaults(array(
-			'data_class'         => Department::class,
-			'translation_domain' => 'BusybeeInstituteBundle',
-		));
+		$resolver->setDefaults(
+			[
+				'data_class'         => Department::class,
+				'translation_domain' => 'BusybeeInstituteBundle',
+			]
+		);
 	}
 
 	/**

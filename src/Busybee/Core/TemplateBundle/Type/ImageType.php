@@ -1,7 +1,7 @@
 <?php
-
 namespace Busybee\Core\TemplateBundle\Type;
 
+use Busybee\Core\TemplateBundle\Events\ImageSubscriber;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,12 +34,21 @@ class ImageType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(
-			array(
-				'compound'    => false,
-				'multiple'    => false,
-				'type'        => 'file',
-				'deletePhoto' => null,
-			)
+			[
+				'compound'     => false,
+				'multiple'     => false,
+				'type'         => 'file',
+				'deleteTarget' => '_self',
+				'deleteParams' => null,
+			]
+		);
+
+		$resolver->setRequired(
+			[
+				'deletePhoto',
+				'deleteTarget',
+				'deleteParams',
+			]
 		);
 	}
 
@@ -66,6 +75,7 @@ class ImageType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder->addModelTransformer(new ImageToStringTransformer($this->uploader));
+		$builder->addEventSubscriber(new ImageSubscriber());
 	}
 
 	/**
@@ -75,6 +85,8 @@ class ImageType extends AbstractType
 	 */
 	public function buildView(FormView $view, FormInterface $form, array $options)
 	{
-		$view->vars['deletePhoto'] = $options['deletePhoto'];
+		$view->vars['deletePhoto']  = $options['deletePhoto'];
+		$view->vars['deleteTarget'] = $options['deleteTarget'];
+		$view->vars['deleteParams'] = $options['deleteParams'];
 	}
 }

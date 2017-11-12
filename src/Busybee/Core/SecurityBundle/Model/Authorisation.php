@@ -4,6 +4,7 @@ namespace Busybee\Core\SecurityBundle\Model;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
@@ -25,14 +26,14 @@ class Authorisation extends AuthorizationChecker implements ContainerAwareInterf
 	private $key = '_security.secured_area.target_path';
 
 
-	public function __construct(TokenStorageInterface $tokenStorage, AuthenticationManagerInterface $authenticationManager, AccessDecisionManagerInterface $accessDecisionManager, ContainerInterface $container)
+	public function __construct(TokenStorageInterface $tokenStorage, AuthenticationManagerInterface $authenticationManager, AccessDecisionManagerInterface $accessDecisionManager, ContainerInterface $container, RequestContext $requestContext)
 	{
 		parent::__construct($tokenStorage, $authenticationManager, $accessDecisionManager);
 		$this->session    = $container->get('session');
 		$this->translator = $container->get('translator');
 		$this->setContainer($container);
 
-		$request     = $container->get('router.request_context');
+		$request     = $requestContext;
 		$pathInfo    = $request->getPathInfo();
 		$routeParams = $this->container->get('router')->match($pathInfo);
 

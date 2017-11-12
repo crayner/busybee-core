@@ -115,6 +115,9 @@ setting:
 language:
     system:
         default: ' (System Default)'
+    house:
+        add: Add House
+        remove: Remove House
 English (Australia): English (Australia)
 English (Great Britian): English (Great Britian)
 English (United States): English (United States)
@@ -215,4 +218,5 @@ school:
             close:
                 label: Institute Closed
                 help: Gates closed at this time.
-
+photo:
+    delete: Delete Photo

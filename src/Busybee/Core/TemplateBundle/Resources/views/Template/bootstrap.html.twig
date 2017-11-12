@@ -5,9 +5,7 @@
         <img src="{{ asset( data.pathname ) }}" class="{{ attr.imageClass }}"/>
         {{- form_label(form) -}}
         {% if deletePhoto is not null %}
-            <button class="btn btn-warning halflings halflings-erase"
-                    title="{{ 'photo.delete'|trans({}, translation_domain) }}"
-                    onclick="window.open('{{ deletePhoto }}','DeletePhoto','width=50,height=50')"></button>
+            {{ deleteButton({title: 'photo.delete', transDomain: translation_domain, windowOpen: {route: deletePhoto|replace({'__imageDelete__': form.parent.vars.value.name}), target: deleteTarget, params: deleteParams}, colour: 'warning'})|raw }}
         {% endif %}
     {% else %}
         {{- form_label(form) -}}

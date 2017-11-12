@@ -11,6 +11,10 @@
     {% endif %}
     {% for key in keys %}
         {% set data = link[key] %}
-        <div class="{{ data['linkClass'] }}">{{ miscButton({class: 'btn btn-link btn-sm', title: data['label']|trans, prompt: data['label']|trans, style: 'float: left;', windowOpen: {route: path(data['route'], data['params'])}})|raw }}</div>
+        {% if routeExists(data['route']) %}
+            <div class="{{ data['linkClass'] }}">{{ miscButton({class: 'btn btn-link btn-sm', title: data['label']|trans, prompt: data['label']|trans, style: 'float: left;', windowOpen: {route: path(data['route'], data['params'])}})|raw }}</div>
+        {% else %}
+            <div class="{{ data['linkClass'] }}">{{ 'system.route.missing'|trans({'%{route}': data['route']}) }}</div>
+        {% endif %}
     {% endfor %}
 {% endfor %}

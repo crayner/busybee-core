@@ -531,3 +531,7 @@ div#contentContainer {
 .currentLink > .btn-link {
     font-weight: bold;
 }
+
+.smallLogo {
+    width: 200px;
+}

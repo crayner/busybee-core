@@ -31,7 +31,7 @@ class DepartmentStaff
 	private $createdOn;
 
 	/**
-	 * @var ArrayCollection
+	 * @var int
 	 */
 	private $department;
 
@@ -213,23 +213,19 @@ class DepartmentStaff
 	}
 
 	/**
-	 * Get department
-	 *
-	 * @return ArrayCollection
+	 * @return int
 	 */
-	public function getDepartments()
+	public function getDepartment(): ?int
 	{
 		return $this->department;
 	}
 
 	/**
-	 * Set department
-	 *
 	 * @param ArrayCollection $department
 	 *
 	 * @return DepartmentStaff
 	 */
-	public function setDepartments(Department $department = null)
+	public function setDepartment(int $department = null): DepartmentStaff
 	{
 		$this->department = $department;
 

@@ -17,8 +17,10 @@ Busybee\Facility\InstituteBundle\Entity\DepartmentStaff:
             name: staff_type
         lastModified:
             type: datetime
+            column: last_modified
         createdOn:
             type: datetime
+            column: created_on
     manyToOne:
         department:
             targetEntity: Busybee\Facility\InstituteBundle\Entity\Department
@@ -34,10 +36,10 @@ Busybee\Facility\InstituteBundle\Entity\DepartmentStaff:
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
-                createdBy:
+                created_by:
                     referencedColumnName: id
         modifiedBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:
-                modifiedBy:
+                modified_by:
                     referencedColumnName: id

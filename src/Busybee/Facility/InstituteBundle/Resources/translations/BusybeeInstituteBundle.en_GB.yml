@@ -154,6 +154,10 @@ department:
             success: The staff member was removed.
             failure: The staff member was not remomoved from the database.
             missing: The staff member was not found to remove.
+    blurb:
+        label: Department Blurb
+    logo:
+        label: Department Logo
 institute:
     space:
         sort: Space / Campus Sort

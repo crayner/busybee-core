@@ -72,6 +72,15 @@
                 </div>
             {% endif %}
         </div>
+        <div class="row">
+            <div class="col-sm-4 well">
+                {{ form_row(form.logo) }}
+            </div>
+            <div class="col-sm-8 well">
+                {{ form_row(form.blurb) }}
+                {{ form_row(form.importIdentifier) }}
+            </div>
+        </div>
     </div>
     {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {{ form_end(form) }}

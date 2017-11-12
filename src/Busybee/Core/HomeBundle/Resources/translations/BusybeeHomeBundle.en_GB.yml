@@ -129,6 +129,8 @@ menu:
         manage: Campus Manage
     facility:
         manage: Facilities
+        department:
+            edit: Manage Departments
     curriculum: Curriculum
     calendar:
         manage: Manage Calendars

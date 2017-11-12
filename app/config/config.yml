@@ -85,3 +85,16 @@ core23_dompdf:
     defaults:
         dpi: 150
         defaultPaperSize: A4
+ivory_ck_editor:
+    default_config: busybee
+    configs:
+        busybee:
+            toolbar: [
+                         ['Styles','Format','Font','FontSize'],
+                         '/',
+                         ['Bold','Italic','Underline','StrikeThrough','-','Undo','Redo','-','Cut','Copy','Paste','PasteText','Find','Replace','-','Outdent','Indent','-','Print','-','Maximize'],
+                         '/',
+                         ['NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                         ['Image','Table','-','Link','Flash','Smiley','TextColor','BGColor','Source']
+                      ]
+            uiColor: "ddcccc"

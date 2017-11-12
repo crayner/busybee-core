@@ -1,6 +1,11 @@
 Busybee\Facility\InstituteBundle\Entity\DepartmentStaff:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [staff, department]
+            errorPath: staff.name
     properties:
         staffType:
             - NotBlank: ~
             - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: department.staff.type.list
+                message: department.staff.type.list.error

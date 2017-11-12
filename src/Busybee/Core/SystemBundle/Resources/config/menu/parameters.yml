@@ -39,6 +39,12 @@ parameters:
     sections:
         School Admin:
             groupings:
+                department_edit:
+                    label: menu.facility.department.edit
+                    role: ROLE_REGISTRAR
+                    route: department_edit
+                    params:
+                        id: 'Add'
                 setting_edit_houses:
                     label: menu.setting.houses
                     role: ROLE_REGISTRAR
@@ -60,6 +66,8 @@ parameters:
                     role: ROLE_REGISTRAR
                     label: menu.year.calendar.display
                     params: {}
+            hidden:
+                - year_edit
         System Admin:
             extend_update:
                 manage_bundles:
@@ -87,15 +95,7 @@ parameters:
                 - setting_edit
                 - setting_edit_name
                 - page_edit
-        Timetable Admin:
-            timetable:
-                calendar_years:
-                    label: menu.calendar.manage
-                    role: ROLE_REGISTRAR
-                    route: calendar_years
-                    params: {}
-            hidden:
-                - year_edit
+        Timetable Admin: []
         User Admin:
             user_management:
                 security_user_list:

@@ -5,7 +5,7 @@
         {% if families.offset > 0 %}
             {{ 'Imported ' ~ families.offset ~ ' of ' ~ families.familyCount ~ ' Families. ' ~ families.messages.messages|length ~ ' failures.' }}{{ miscButton({class: 'btn btn-success glyphicons glyphicons-playing-dices', windowOpen: {route: path('gibbon_import', {offset: families.offset, function: 'importFamily'})}})|raw }}
         {% else %}
-            {{ 'All Done Here' }}{{ miscButton({class: 'btn btn-success glyphicons glyphicons-playing-dices', windowOpen: {route: path('gibbon_import', {offset: 0, function: 'importSomething'})}})|raw }}
+            {{ 'All Done Here' }}{{ miscButton({class: 'btn btn-success glyphicons glyphicons-playing-dices', windowOpen: {route: path('gibbon_import', {offset: 0, function: 'importDepartments'})}})|raw }}
         {% endif %}
         {% for message in families.messages.messages %}
             <p class="alert alert-{{ message.level }}">{{ message.message|trans(message.options, message.domain) }}</p>

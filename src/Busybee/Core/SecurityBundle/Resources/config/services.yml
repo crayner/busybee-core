@@ -163,7 +163,7 @@ services:
             - '@security.authentication.manager'
             - '@security.access.decision_manager'
             - '@service_container'
-            - '%security.access.always_authenticate_before_granting%'
+            - '@router.request_context'
     busybee_core_security.event.session_idle_handler:
         class: Busybee\Core\SecurityBundle\Event\SessionIdleHandler
         arguments: 

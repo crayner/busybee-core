@@ -61,6 +61,21 @@ class Department extends DepartmentModel
 	private $courses;
 
 	/**
+	 * @var string
+	 */
+	private $importIdentifier;
+
+	/**
+	 * @var string
+	 */
+	private $blurb;
+
+	/**
+	 * @var string
+	 */
+	private $logo;
+
+	/**
 	 * Department constructor.
 	 */
 	public function __construct()
@@ -122,6 +137,8 @@ class Department extends DepartmentModel
 	 */
 	public function setType($type)
 	{
+
+
 		$this->type = $type;
 
 		return $this;
@@ -294,7 +311,7 @@ class Department extends DepartmentModel
 	 *
 	 * @return Department
 	 */
-	public function setStaff(ArrayCollection $staff)
+	public function setStaff(ArrayCollection $staff): Department
 	{
 		$this->staff = $staff;
 
@@ -349,6 +366,66 @@ class Department extends DepartmentModel
 	public function setCourses(ArrayCollection $courses)
 	{
 		$this->courses = $courses;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getImportIdentifier(): ?string
+	{
+		return $this->importIdentifier;
+	}
+
+	/**
+	 * @param string $importIdentifier
+	 *
+	 * @return Department
+	 */
+	public function setImportIdentifier(string $importIdentifier): Department
+	{
+		$this->importIdentifier = $importIdentifier;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBlurb(): ?string
+	{
+		return $this->blurb;
+	}
+
+	/**
+	 * @param string $blurb
+	 *
+	 * @return Department
+	 */
+	public function setBlurb(string $blurb = null): Department
+	{
+		$this->blurb = $blurb;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLogo(): ?string
+	{
+		return $this->logo;
+	}
+
+	/**
+	 * @param string $logo
+	 *
+	 * @return Department
+	 */
+	public function setLogo(string $logo = null): Department
+	{
+		$this->logo = $logo;
 
 		return $this;
 	}

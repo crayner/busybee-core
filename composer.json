@@ -37,7 +37,8 @@
       "twig/extensions": "~1.4",
       "core23/dompdf-bundle": "~1.0",
       "league/oauth2-google": "~1.0",
-      "egulias/email-validator": "~2.1"
+      "egulias/email-validator": "~2.1",
+      "egeloen/ckeditor-bundle": "^6.0"
     },
     "require-dev": {
       "sensio/generator-bundle": "~3.0",
@@ -48,6 +49,7 @@
         "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
         "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
         "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+        "Ivory\\CKEditorBundle\\Composer\\CKEditorScriptHandler::install",
         "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
         "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
         "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"

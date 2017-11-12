@@ -9,6 +9,8 @@ use Busybee\Core\TemplateBundle\Type\ImageType;
 use Busybee\Core\TemplateBundle\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -63,6 +65,7 @@ class HouseType extends AbstractType
 						new Image(['maxRatio' => 1.25, 'minRatio' => 0.75, 'maxSize' => '750k']),
 					],
 					'required'    => false,
+					'deletePhoto' => $options['deletePhoto'],
 				]
 			);
 		$builder->addEventSubscriber(new HouseSubscriber($this->houseManager));
@@ -79,6 +82,11 @@ class HouseType extends AbstractType
 				'data_class'         => House::class,
 			]
 		);
+		$resolver->setRequired(
+			[
+				'deletePhoto',
+			]
+		);
 	}
 
 	/**
@@ -88,9 +96,14 @@ class HouseType extends AbstractType
 	{
 		return 'house';
 	}
-	/*
-		public function buildView(FormView $view, FormInterface $form, array $options)
-		{
-			$view->vars['manager'] = $options['manager'];
-		} */
+
+	/**
+	 * @param FormView      $view
+	 * @param FormInterface $form
+	 * @param array         $options
+	 */
+	public function buildView(FormView $view, FormInterface $form, array $options)
+	{
+		$view->vars['deletePhoto'] = $options['deletePhoto'];
+	}
 }
