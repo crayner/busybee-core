@@ -4,6 +4,7 @@ namespace Busybee\Facility\InstituteBundle\Form;
 
 use Busybee\Core\TemplateBundle\Type\ImageType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
+use Busybee\Core\TemplateBundle\Validator\Constraints\LogoValidator;
 use Busybee\Facility\InstituteBundle\Entity\Department;
 use Busybee\Facility\InstituteBundle\Events\DepartmentSubscriber;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
@@ -81,8 +82,12 @@ class DepartmentType extends AbstractType
 			)
 			->add('logo', ImageType::class,
 				[
-					'label'    => 'department.logo.label',
-					'required' => false,
+					'label'       => 'department.logo.label',
+					'required'    => false,
+					'attr'        => [
+						'imageClass' => 'smallLogo'
+					],
+					'deletePhoto' => $options['deletePhoto'],
 				]
 			)
 			->add('blurb', CKEditorType::class,
@@ -109,6 +114,7 @@ class DepartmentType extends AbstractType
 			[
 				'data_class'         => Department::class,
 				'translation_domain' => 'BusybeeInstituteBundle',
+				'deletePhoto'        => null,
 			]
 		);
 	}

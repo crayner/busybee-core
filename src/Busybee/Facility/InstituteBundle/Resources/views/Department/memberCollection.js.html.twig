@@ -1,17 +1,17 @@
 {% trans_default_domain "BusybeeInstituteBundle" %}
-{% if form.staff is defined %}
+{% if form.members is defined %}
     <script type="text/javascript">
-        $(".staffList").collection({
-            name_prefix: '{{ form.staff.vars.full_name }}',
+        $(".memberList").collection({
+            name_prefix: '{{ form.members.vars.full_name }}',
             allow_up: false,
             allow_down: false,
-            add: '<button title="{{ 'department.staff.add'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
-            remove: '<button title="{{ 'department.staff.remove'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
+            add: '<button title="{{ 'department.member.add'|trans }}" type="button" class="halflings halflings-plus-sign btn btn-primary" style="float: right;"></button>',
+            remove: '<button title="{{ 'department.member.remove'|trans }}" type="button" class="halflings halflings-erase btn btn-warning" style="float: right;"></button>',
             add_at_the_end: true,
             before_remove: function (collection, element) {
-                var source = $(element[0]).find('.staffRemove');
+                var source = $(element[0]).find('.memberRemove');
                 var id = source.attr('id');
-                id = id.replace('staffRemove', '');
+                id = id.replace('memberRemove', '');
                 if (id == '0') {
                     return true;
                 }
@@ -19,12 +19,12 @@
             }
         });
 
-        function staffRemove(id) {
+        function memberRemove(id) {
             var xx = true;
 
             if (id > 0) {
 
-                var path = '{{ path('department_staff_remove', {'id': '__id__'}) }}';
+                var path = '{{ path('department_member_remove', {'id': '__id__'}) }}';
                 path = path.replace('__id__', id);
 
                 $.ajax({
@@ -38,12 +38,12 @@
                         message = message.replace('__message__', data['message']);
                         message = message.replace('__status__', data['status']);
                         if (data['status'] === 'success') {
-                            $('.staffMessage').html(message).fadeIn(3).fadeOut(5000);
+                            $('.memberMessage').html(message).fadeIn(3).fadeOut(5000);
                         } else if (data['status'] === 'error') {
-                            $('.staffMessage').html(message).fadeIn(3);
+                            $('.memberMessage').html(message).fadeIn(3);
                             xx = false;
                         } else if (data['status'] === 'warning') {
-                            $('.staffMessage').html(message).fadeIn(3);
+                            $('.memberMessage').html(message).fadeIn(3);
                             xx = false;
                         }
                     }

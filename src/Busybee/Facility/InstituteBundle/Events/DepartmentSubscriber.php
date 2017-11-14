@@ -2,7 +2,7 @@
 
 namespace Busybee\Facility\InstituteBundle\Events;
 
-use Busybee\Facility\InstituteBundle\Form\DepartmentStaffType;
+use Busybee\Facility\InstituteBundle\Form\DepartmentMemberType;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -78,13 +78,13 @@ class DepartmentSubscriber implements EventSubscriberInterface
 		if (!is_null($data->getType()))
 		{
 
-			$form->add('staff', CollectionType::class,
+			$form->add('members', CollectionType::class,
 				[
-					'entry_type'    => DepartmentStaffType::class,
+					'entry_type'    => DepartmentMemberType::class,
 					'attr'          =>
 						[
-							'class' => 'staffList',
-							'help'  => 'department.staff.help',
+							'class' => 'memberList',
+							'help'  => 'department.members.help',
 						],
 					'allow_add'     => true,
 					'allow_delete'  => true,

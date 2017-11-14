@@ -582,7 +582,7 @@ class PersonManager
 	{
 		if (class_exists('Busybee\Facility\InstituteBundle\Model\DepartmentManager'))
 		{
-			$metaData = $this->getOm()->getClassMetadata('Busybee\Facility\InstituteBundle\Entity\DepartmentStaff');
+			$metaData = $this->getOm()->getClassMetadata('Busybee\Facility\InstituteBundle\Entity\DepartmentMember');
 			$schema   = $this->getOm()->getConnection()->getSchemaManager();
 
 			return $schema->tablesExist([$metaData->table['name']]);

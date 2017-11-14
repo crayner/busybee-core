@@ -44,8 +44,8 @@ services:
             - '@doctrine.orm.default_entity_manager'
         tags:
             - { name: form.type }
-    busybee_facility_institute.form.department_staff_type:
-        class: Busybee\Facility\InstituteBundle\Form\DepartmentStaffType
+    busybee_facility_institute.form.department_member_type:
+        class: Busybee\Facility\InstituteBundle\Form\DepartmentMemberType
         arguments:
             - '@doctrine.orm.default_entity_manager'
             - '@busybee_core_system.setting.setting_manager'
@@ -75,8 +75,8 @@ services:
             - 'getRepository'
         arguments:
             - "BusybeeInstituteBundle:Department"
-    busybee_facility_institute.events.department_staff_subscriber:
-        class: Busybee\Facility\InstituteBundle\Events\DepartmentStaffSubscriber
+    busybee_facility_institute.events.department_member_subscriber:
+        class: Busybee\Facility\InstituteBundle\Events\DepartmentMemberSubscriber
         tags:
             - { name: doctrine.event_subscriber }
     busybee_facility_institute.model.department_manager:

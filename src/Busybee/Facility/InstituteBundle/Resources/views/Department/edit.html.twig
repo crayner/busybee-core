@@ -5,7 +5,7 @@
 {% form_theme form
 "@BusybeeTemplate/Template/bootstrap.html.twig"
 "@BusybeeTemplate/Template/jquery.collection.html.twig"
-'@BusybeeInstitute/Department/staffCollection.html.twig'
+'@BusybeeInstitute/Department/memberCollection.html.twig'
 '@BusybeeInstitute/Department/courseCollection.html.twig' %}
 
 {% block title %}{{ 'department.edit.title'|trans }}{% endblock title %}
@@ -55,19 +55,19 @@
                     </div>
                 {% endif %}
             </div>
-            {% if form.staff is defined %}
+            {% if form.members is defined %}
                 <div class="col-sm-6 well">
                     {% set h3Content = '' %}
-                    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': 'department.staff.title', 'transDomain': 'BusybeeInstituteBundle', 'panelParagraph': form.staff.vars.attr.help, 'panelStyle': 'info'} %}
-                    <div class="staffMessage"></div>
-                    {% for error in form.staff.parent.vars.errors %}
-                        {% set printMe = error.messageTemplate|replace({'department.staff.uniquestaff': 'print_me'}) %}
+                    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: 'department.members.title', transDomain: 'BusybeeInstituteBundle', panelParagraph: form.members.vars.attr.help, panelStyle: 'info'} %}
+                    <div class="memberMessage"></div>
+                    {% for error in form.members.parent.vars.errors %}
+                        {% set printMe = error.messageTemplate|replace({'department.member.uniquestaff': 'print_me'}) %}
                         {% if printMe == 'print_me' %}
                             <p class="alert alert-danger"><span
                                         class="glyphicons glyphicons-exclamation-sign"></span>{{ error.message }}</p>
                         {% endif %}
                     {% endfor %}
-                    {{ form_widget(form.staff) }}
+                    {{ form_widget(form.members) }}
                     {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
                 </div>
             {% endif %}
@@ -92,7 +92,7 @@
     {% include '@BusybeeTemplate/Scripts/monitorForm.html.twig' %}
     {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
     {% include '@BusybeeTemplate/Scripts/jquery.collection.js.html.twig' %}
-    {% include '@BusybeeInstitute/Department/staffCollection.js.html.twig' %}
+    {% include '@BusybeeInstitute/Department/memberCollection.js.html.twig' %}
     {% if form.courses is defined %}
         {% include '@BusybeeInstitute/Department/courseCollection.js.html.twig' %}
     {% endif %}

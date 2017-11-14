@@ -2,7 +2,7 @@
 namespace Busybee\Facility\InstituteBundle\Controller;
 
 use Busybee\Facility\InstituteBundle\Entity\Department;
-use Busybee\Facility\InstituteBundle\Entity\DepartmentStaff;
+use Busybee\Facility\InstituteBundle\Entity\DepartmentMember;
 use Busybee\Facility\InstituteBundle\Form\DepartmentType;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +24,7 @@ class DepartmentController extends BusybeeController
 		if (intval($id) > 0)
 			$entity = $this->getDoctrine()->getRepository(Department::class)->find($id);
 
-		$form = $this->createForm(DepartmentType::class, $entity);
+		$form = $this->createForm(DepartmentType::class, $entity, ['deletePhoto' => $this->generateUrl('department_logo_delete', ['id' => $id])]);
 
 		$form->handleRequest($request);
 
@@ -45,6 +45,8 @@ class DepartmentController extends BusybeeController
 				return $this->redirectToRoute('department_edit', ['id' => $entity->getId()]);
 			}
 
+			$form = $this->createForm(DepartmentType::class, $entity, ['deletePhoto' => $this->generateUrl('department_logo_delete', ['id' => $id])]);
+
 		}
 
 		return $this->render('BusybeeInstituteBundle:Department:edit.html.twig', array(
@@ -54,20 +56,25 @@ class DepartmentController extends BusybeeController
 		);
 	}
 
-	public function removeStaffAction($id)
+	/**
+	 * @param $id
+	 *
+	 * @return JsonResponse
+	 */
+	public function removeMemberAction($id)
 	{
 		$this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
 
 		$om = $this->getDoctrine()->getManager();
 
-		$ds = $om->getRepository(DepartmentStaff::class)->find($id);
+		$ds = $om->getRepository(DepartmentMember::class)->find($id);
 
-		if ($ds instanceof DepartmentStaff)
+		if ($ds instanceof DepartmentMember)
 		{
 
 			$data            = [];
 			$data['status']  = 'success';
-			$data['message'] = $this->get('translator')->trans('department.staff.remove.success', [], 'BusybeeInstituteBundle');
+			$data['message'] = $this->get('translator')->trans('department.member.remove.success', [], 'BusybeeInstituteBundle');
 			try
 			{
 				$om->remove($ds);
@@ -76,17 +83,44 @@ class DepartmentController extends BusybeeController
 			catch (\Exception $e)
 			{
 				$data['status']  = 'error';
-				$data['message'] = $this->get('translator')->trans('department.staff.remove.failure', [], 'BusybeeInstituteBundle');
+				$data['message'] = $this->get('translator')->trans('department.member.remove.failure', [], 'BusybeeInstituteBundle');
 			}
 
 			return new JsonResponse($data, 200);
 		}
 
 		$data            = [];
-		$data['message'] = $this->get('translator')->trans('department.staff.remove.missing', [], 'BusybeeInstituteBundle');
+		$data['message'] = $this->get('translator')->trans('department.member.remove.missing', [], 'BusybeeInstituteBundle');
 		$data['status']  = 'warning';
 
 		return new JsonResponse($data, 200);
 
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function deleteLogoAction($id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_PRINCIPAL', null, null);
+
+
+		$om     = $this->getDoctrine()->getManager();
+		$entity = $om->getRepository(Department::class)->find($id);
+
+		if ($entity instanceof Department)
+		{
+			$file = $entity->getLogo();
+			if (file_exists($file))
+				unlink($file);
+
+			$entity->setLogo(null);
+			$om->persist($entity);
+			$om->flush();
+		}
+
+		return $this->redirectToRoute('department_edit', ['id' => $id]);
 	}
 }

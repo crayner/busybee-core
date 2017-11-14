@@ -25,13 +25,3 @@ Busybee\People\StaffBundle\Entity\Staff:
             type: string
             length: '32'
             nullable: true
-#    oneToOne:
-#        homeroom:
-#            targetEntity: Busybee\Facility\InstituteBundle\Entity\Space
-#            mappedBy: staff
-#            cascade: [ all ]
-#    oneToMany:
-#        department:
-#            targetEntity: Busybee\Facility\InstituteBundle\Entity\DepartmentStaff
-#            mappedBy: staff
-#            cascade: [ all ]

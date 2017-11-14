@@ -40,8 +40,6 @@ class UniqueOrBlankValidator extends ConstraintValidator
 
 		$entity = $this->context->getObject();
 
-		dump($entity);
-		dump($constraint);
 		$where = 'p.' . $constraint->field . ' = :identifier';
 
 		$result = $this->om->getRepository($constraint->data_class)->createQueryBuilder('p')

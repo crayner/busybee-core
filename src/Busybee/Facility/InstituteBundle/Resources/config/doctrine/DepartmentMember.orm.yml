@@ -1,7 +1,7 @@
-Busybee\Facility\InstituteBundle\Entity\DepartmentStaff:
+Busybee\Facility\InstituteBundle\Entity\DepartmentMember:
     type: entity
-    table: department_staff
-    repositoryClass: Busybee\Facility\InstituteBundle\Repository\DepartmentStaffRepository
+    table: department_member
+    repositoryClass: Busybee\Facility\InstituteBundle\Repository\DepartmentMemberRepository
     uniqueConstraints:
         dept_staff:
             columns: [ dept_id, staff_id ]
@@ -24,15 +24,17 @@ Busybee\Facility\InstituteBundle\Entity\DepartmentStaff:
     manyToOne:
         department:
             targetEntity: Busybee\Facility\InstituteBundle\Entity\Department
-            inversedBy: staff
+            inversedBy: members
             joinColumn:
                 name: dept_id
                 referencedColumnName: id
         staff:
             targetEntity: Busybee\People\StaffBundle\Entity\Staff
+            inversedBy: members
             joinColumn:
                 name: staff_id
                 referencedColumnName: id
+                nullable: false
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:

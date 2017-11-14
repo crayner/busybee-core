@@ -1,10 +1,9 @@
 <?php
-
 namespace Busybee\Facility\InstituteBundle\Form;
 
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Facility\InstituteBundle\Entity\Department;
-use Busybee\Facility\InstituteBundle\Entity\DepartmentStaff;
+use Busybee\Facility\InstituteBundle\Entity\DepartmentMember;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
@@ -16,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DepartmentStaffType extends AbstractType
+class DepartmentMemberType extends AbstractType
 {
 	/**
 	 * @var ObjectManager
@@ -24,9 +23,10 @@ class DepartmentStaffType extends AbstractType
 	private $om;
 
 	/**
-	 * DepartmentStaffType constructor.
+	 * DepartmentMemberType constructor.
 	 *
-	 * @param ObjectManager $om
+	 * @param ObjectManager  $om
+	 * @param SettingManager $sm
 	 */
 	public function __construct(ObjectManager $om, SettingManager $sm)
 	{
@@ -44,7 +44,7 @@ class DepartmentStaffType extends AbstractType
 		$builder
 			->add('staff', EntityType::class,
 				[
-					'label'         => 'department.staff.member.label',
+					'label'         => 'department.members.member.label',
 					'class'         => Staff::class,
 					'choice_label'  => 'formatName',
 					'query_builder' => function (EntityRepository $er) {
@@ -52,17 +52,17 @@ class DepartmentStaffType extends AbstractType
 							->orderBy('s.surname', 'ASC')
 							->addOrderBy('s.firstName', 'ASC');
 					},
-					'placeholder'   => 'department.staff.member.placeholder',
+					'placeholder'   => 'department.members.member.placeholder',
 					'attr'          => [
-						'help' => 'department.staff.member.help',
+						'help' => 'department.members.member.help',
 					]
 				]
 			)
 			->add('staffType', SettingChoiceType::class,
 				[
-					'label'        => 'department.staff.type.label',
-					'setting_name' => 'department.staff.type.list.' . $options['staff_type'],
-					'placeholder'  => 'department.staff.type.placeholder',
+					'label'        => 'department.members.type.label',
+					'setting_name' => 'department.staff.type.list.' . strtolower($options['staff_type']),
+					'placeholder'  => 'department.members.type.placeholder',
 				]
 			)
 			->add('department', HiddenType::class);
@@ -76,7 +76,7 @@ class DepartmentStaffType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
-			'data_class'         => DepartmentStaff::class,
+			'data_class'         => DepartmentMember::class,
 			'translation_domain' => 'BusybeeInstituteBundle',
 		));
 		$resolver->setRequired(
@@ -91,6 +91,6 @@ class DepartmentStaffType extends AbstractType
 	 */
 	public function getBlockPrefix()
 	{
-		return 'departmentStaff';
+		return 'department_member';
 	}
 }

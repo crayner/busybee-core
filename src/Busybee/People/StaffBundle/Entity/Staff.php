@@ -2,11 +2,11 @@
 
 namespace Busybee\People\StaffBundle\Entity;
 
-use Busybee\Facility\InstituteBundle\Entity\Department;
-use Busybee\Facility\InstituteBundle\Entity\DepartmentStaff;
+use Busybee\Facility\InstituteBundle\Entity\DepartmentMember;
 use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\People\StaffBundle\Model\StaffModel;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Staff
@@ -29,14 +29,14 @@ class Staff extends StaffModel
 	private $house;
 
 	/**
-	 * @var ArrayCollection
+	 * @var Collection
 	 */
 	private $departments;
 
 	/**
-	 * @var ArrayCollection
+	 * @var Space
 	 */
-	private $spaces;
+	private $homeroom;
 
 	/**
 	 * @var string
@@ -59,7 +59,6 @@ class Staff extends StaffModel
 	public function __construct()
 	{
 		$this->departments = new ArrayCollection();
-		$this->spaces      = new ArrayCollection();
 	}
 
 	/**
@@ -141,71 +140,6 @@ class Staff extends StaffModel
 	}
 
 	/**
-	 * @return ArrayCollection
-	 */
-	public function getDepartments(): ArrayCollection
-	{
-		return $this->departments;
-	}
-
-	/**
-	 * @param ArrayCollection $departments
-	 */
-	public function setDepartments(DepartmentStaff $departments): Staff
-	{
-		$this->departments = $departments;
-
-		return $this;
-	}
-
-	/**
-	 * @return ArrayCollection
-	 */
-	public function getSpaces(): ArrayCollection
-	{
-		return $this->spaces;
-	}
-
-	/**
-	 * @param ArrayCollection $spaces
-	 */
-	public function setSpaces(ArrayCollection $spaces): Staff
-	{
-		$this->spaces = $spaces;
-
-		return $this;
-	}
-
-	/**
-	 * Add Space
-	 *
-	 * @param Department $department
-	 *
-	 * @return Staff
-	 */
-	public function addSpace(Space $space): Staff
-	{
-		if (!$this->spaces->contains($space))
-			$this->spaces->add($space);
-
-		return $this;
-	}
-
-	/**
-	 * Remove Space
-	 *
-	 * @param Department $department
-	 *
-	 * @return Staff
-	 */
-	public function removeSpace(Space $space): Staff
-	{
-		$this->spaces->removeElement($space);
-
-		return $this;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getStatus(): string
@@ -255,6 +189,72 @@ class Staff extends StaffModel
 	public function setEmployer(string $employer): Staff
 	{
 		$this->employer = $employer;
+
+		return $this;
+	}
+
+	/**
+	 * @return Space
+	 */
+	public function getHomeroom(): ?Space
+	{
+		return $this->homeroom;
+	}
+
+	/**
+	 * @param Space $homeroom
+	 *
+	 * @return Staff
+	 */
+	public function setHomeroom(Space $homeroom = null): Staff
+	{
+		$this->homeroom = $homeroom;
+
+		return $this;
+	}
+
+	/**
+	 * @return Collection
+	 */
+	public function getDepartments(): Collection
+	{
+		return $this->departments;
+	}
+
+	/**
+	 * @param DepartmentMember $dept
+	 *
+	 * @return Staff
+	 */
+	public function removeDepartment(DepartmentMember $dept): Staff
+	{
+		if ($this->departments->contains($dept))
+			$this->departments->removeElement($dept);
+
+		return $this;
+	}
+
+	/**
+	 * @param DepartmentMember $department
+	 *
+	 * @return Staff
+	 */
+	public function addDepartment(DepartmentMember $department): Staff
+	{
+		if (!$this->departments->contains($department))
+			$this->departments->add($department);
+
+		return $this;
+	}
+
+	/**
+	 * @param Collection $departments
+	 *
+	 * @return Staff
+	 */
+	public function setDepartments(Collection $departments): Staff
+	{
+		$this->departments = $departments;
 
 		return $this;
 	}

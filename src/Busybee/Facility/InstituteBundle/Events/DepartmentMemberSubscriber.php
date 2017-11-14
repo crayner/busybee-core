@@ -1,15 +1,14 @@
 <?php
-
 namespace Busybee\Facility\InstituteBundle\Events;
 
-use Busybee\Facility\InstituteBundle\Entity\DepartmentStaff;
+use Busybee\Facility\InstituteBundle\Entity\DepartmentMember;
 use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 
-class DepartmentStaffSubscriber implements EventSubscriber
+class DepartmentMemberSubscriber implements EventSubscriber
 {
 	/**
 	 * @return array
@@ -34,16 +33,29 @@ class DepartmentStaffSubscriber implements EventSubscriber
 
 		if ($metadata->getName() == Staff::class)
 		{
-			$metadata->mapOneToMany(
+			$metadata->mapOneToOne(
 				[
-					'targetEntity'  => Space::class,
-					'fieldName'     => 'spaces',
-					'cascade'       => ['persist', 'remove'],
-					'mappedBy'      => 'staff',
-					'orphanRemoval' => true,
-					'orderBy'       => ['name' => 'ASC'],
+					'targetEntity' => Space::class,
+					'fieldName'    => 'homeroom',
+					'cascade'      => ['persist'],
+					'mappedBy'     => 'staff',
+					'orderBy'      => ['name' => 'ASC'],
+					'joinColumn'   => [
+						'name'                 => 'space_id',
+						'referencedColumnName' => 'id',
+					],
 				]
 			);
+			$metadata->mapOneToMany(
+				[
+					'targetEntity'  => DepartmentMember::class,
+					'fieldName'     => 'departments',
+					'cascade'       => ['all'],
+					'mappedBy'      => 'member',
+					'orphanRemoval' => true,
+				]
+			);
+
 		}
 	}
 

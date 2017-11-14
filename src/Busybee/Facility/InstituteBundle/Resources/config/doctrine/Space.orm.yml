@@ -58,7 +58,7 @@ Busybee\Facility\InstituteBundle\Entity\Space:
         staff:
             targetEntity: Busybee\People\StaffBundle\Entity\Staff
             inversedBy: homeroom
-            cascade: [ all ]
+            cascade: [ 'persist' ]
     manyToOne:
         campus:
             targetEntity: Busybee\Facility\InstituteBundle\Entity\Campus

@@ -1,4 +1,4 @@
-Busybee\Facility\InstituteBundle\Entity\DepartmentStaff:
+Busybee\Facility\InstituteBundle\Entity\DepartmentMember:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [staff, department]

@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Facility\InstituteBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,7 +8,7 @@ abstract class DepartmentModel
     /**
      * @var bool
      */
-    protected $staffSorted = false;
+	protected $membersSorted = false;
 
     /**
      * @var bool
@@ -17,26 +16,26 @@ abstract class DepartmentModel
     protected $coursesSorted = false;
 
     /**
-     * Sort Staff
+     * Sort Members
      *
      * @return ArrayCollection
      */
-    protected function sortStaff()
+	protected function sortMembers()
     {
-        if (count($this->getStaff(false)) == 0 || $this->staffSorted)
-            return $this->getStaff(false);
+	    if (count($this->getMembers(false)) == 0 || $this->membersSorted)
+		    return $this->getMembers(false);
 
-        $iterator = $this->getStaff(false)->getIterator();
+	    $iterator = $this->getMembers(false)->getIterator();
         $iterator->uasort(function ($a, $b) {
             return ($a->getStaff()->getFullName() < $b->getStaff()->getFullName()) ? -1 : 1;
         });
 
-        $staff = new ArrayCollection(iterator_to_array($iterator, false));
+	    $members = new ArrayCollection(iterator_to_array($iterator, false));
 
-        $this->staffSorted = true;
-        $this->setStaff($staff);
+	    $this->membersSorted = true;
+	    $this->setMembers($members);
 
-        return $this->getStaff(false);
+	    return $this->getMembers(false);
     }
 
     /**

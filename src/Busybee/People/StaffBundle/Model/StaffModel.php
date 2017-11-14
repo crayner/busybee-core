@@ -2,7 +2,7 @@
 
 namespace Busybee\People\StaffBundle\Model;
 
-use Busybee\Facility\InstituteBundle\Entity\DepartmentStaff;
+use Busybee\Facility\InstituteBundle\Entity\DepartmentMember;
 use Busybee\People\PersonBundle\Entity\Person;
 
 abstract class StaffModel extends Person
@@ -26,7 +26,7 @@ abstract class StaffModel extends Person
 		$string = '';
 		foreach ($depts as $dept)
 		{
-			if ($dept instanceof DepartmentStaff)
+			if ($dept instanceof DepartmentMember)
 				$string .= $dept->getDepartment()->getName() . ', ';
 		}
 

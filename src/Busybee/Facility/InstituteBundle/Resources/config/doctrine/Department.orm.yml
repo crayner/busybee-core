@@ -37,8 +37,8 @@ Busybee\Facility\InstituteBundle\Entity\Department:
             type: datetime
             column: created_on
     oneToMany:
-        staff:
-            targetEntity: Busybee\Facility\InstituteBundle\Entity\DepartmentStaff
+        members:
+            targetEntity: Busybee\Facility\InstituteBundle\Entity\DepartmentMember
             mappedBy: department
             cascade: [ all ]
 #    manyToMany:

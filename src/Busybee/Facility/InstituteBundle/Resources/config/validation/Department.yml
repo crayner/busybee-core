@@ -15,7 +15,7 @@ Busybee\Facility\InstituteBundle\Entity\Department:
             - NotBlank: ~
             - Length:
                 max: 4
-        staff:
+        members:
             - Valid: ~
         type:
             - NotBlank: ~

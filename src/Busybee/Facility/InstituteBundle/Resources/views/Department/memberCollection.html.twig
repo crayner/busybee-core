@@ -1,28 +1,29 @@
 {% trans_default_domain "BusybeeInstituteBundle" %}
 
-{% block departmentStaff_label %}{% endblock %}
+{% block department_member_label %}{% endblock %}
+{% block department_member_error %}{% endblock %}
 
-{% block departmentStaff_widget %}
+{% block department_member_widget %}
     {% spaceless %}
         {% set panelStyle = 'default' %}
         {% set transDomain = 'BusybeeInstituteBundle' %}
-        {% set header = 'department.staff.member.name' %}
-        {% set staffName = 'department.staff.member.placeholder'|trans %}
+        {% set header = 'department.members.member.name' %}
+        {% set staffName = 'department.members.member.placeholder'|trans %}
         {% if data is not empty %}
             {% set staffName = data.staff.formatName %}
         {% endif %}
         {% set h3Content = '<div class="collection-actions collection-panel">' %}
-        {% set staff_id = 'staffRemove0' %}
+        {% set staff_id = 'memberRemove0' %}
         {% if form.vars.value is not null %}
-            {% set staff_id = 'staffRemove' ~ form.vars.value.id %}
+            {% set staff_id = 'memberRemove' ~ form.vars.value.id %}
         {% endif %}
-        {% set h3Content = h3Content ~ deleteButton({title: 'department.staff.remove.button', transDomain: 'BusybeeInstituteBundle', class: 'staffRemove collection-remove collection-action halflings halflings-erase btn btn-warning', additional: {id: staff_id}})|raw %}
+        {% set h3Content = h3Content ~ deleteButton({title: 'department.member.remove.button', transDomain: 'BusybeeInstituteBundle', class: 'memberRemove collection-remove collection-action halflings halflings-erase btn btn-warning', additional: {id: staff_id}})|raw %}
         {% set h3Content = h3Content ~ saveButton()|raw %}
         {% set h3Content = h3Content ~ '<span style="float: right;">&nbsp;</span>' %}
         {% set h3Content = h3Content ~ '</div>' %}
 
         {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {panelStyle: 'default', name: staffName} %}
-        <div class="container-fluid departmentStaff">
+        <div class="container-fluid departmentMember">
             <div class="row">
                 <div class="col-sm-6">
                     {{ form_row(form.staff) }}
@@ -37,4 +38,4 @@
         </div>
         {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
     {% endspaceless %}
-{% endblock departmentStaff_widget %}
+{% endblock department_member_widget %}

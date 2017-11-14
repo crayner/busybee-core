@@ -95,5 +95,13 @@ class KernelListener
 			$response = new RedirectResponse($url);
 			$event->setResponse($response);
 		}
+
+
+		if ($exception instanceof \Twig_Error_Runtime)
+		{
+			dump($this);
+			dump($exception);
+			die();
+		}
 	}
 }

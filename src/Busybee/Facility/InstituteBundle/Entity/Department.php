@@ -1,7 +1,7 @@
 <?php
-
 namespace Busybee\Facility\InstituteBundle\Entity;
 
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Facility\InstituteBundle\Model\DepartmentModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -41,19 +41,19 @@ class Department extends DepartmentModel
 	private $createdOn;
 
 	/**
-	 * @var \Busybee\Core\SecurityBundle\Entity\User
+	 * @var User
 	 */
 	private $createdBy;
 
 	/**
-	 * @var \Busybee\Core\SecurityBundle\Entity\User
+	 * @var User
 	 */
 	private $modifiedBy;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
 	 */
-	private $staff;
+	private $members;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
@@ -80,7 +80,7 @@ class Department extends DepartmentModel
 	 */
 	public function __construct()
 	{
-		$this->staff   = new ArrayCollection();
+		$this->members = new ArrayCollection();
 		$this->courses = new ArrayCollection();
 	}
 
@@ -137,8 +137,6 @@ class Department extends DepartmentModel
 	 */
 	public function setType($type)
 	{
-
-
 		$this->type = $type;
 
 		return $this;
@@ -219,7 +217,7 @@ class Department extends DepartmentModel
 	/**
 	 * Get createdBy
 	 *
-	 * @return \Busybee\Core\SecurityBundle\Entity\User
+	 * @return User
 	 */
 	public function getCreatedBy()
 	{
@@ -229,11 +227,11 @@ class Department extends DepartmentModel
 	/**
 	 * Set createdBy
 	 *
-	 * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
+	 * @param User $createdBy
 	 *
 	 * @return Department
 	 */
-	public function setCreatedBy(\Busybee\Core\SecurityBundle\Entity\User $createdBy = null)
+	public function setCreatedBy(User $createdBy = null)
 	{
 		$this->createdBy = $createdBy;
 
@@ -243,7 +241,7 @@ class Department extends DepartmentModel
 	/**
 	 * Get modifiedBy
 	 *
-	 * @return \Busybee\Core\SecurityBundle\Entity\User
+	 * @return User
 	 */
 	public function getModifiedBy()
 	{
@@ -253,11 +251,11 @@ class Department extends DepartmentModel
 	/**
 	 * Set modifiedBy
 	 *
-	 * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
+	 * @param User $modifiedBy
 	 *
 	 * @return Department
 	 */
-	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
+	public function setModifiedBy(User $modifiedBy = null)
 	{
 		$this->modifiedBy = $modifiedBy;
 
@@ -265,55 +263,57 @@ class Department extends DepartmentModel
 	}
 
 	/**
-	 * Add staff
+	 * Add member
 	 *
-	 * @param \Busybee\Facility\InstituteBundle\Entity\DepartmentStaff $staff
+	 * @param DepartmentMember $member
 	 *
 	 * @return Department
 	 */
-	public function addStaff(\Busybee\Facility\InstituteBundle\Entity\DepartmentStaff $staff)
+	public function addMember(DepartmentMember $member): Department
 	{
-		if ($this->staff->contains($staff))
+		if ($this->members->contains($member))
 			return $this;
 
-		$staff->setDepartment($this);
+		$member->setDepartment($this);
 
-		$this->staff->add($staff);
+		$this->members->add($member);
 
 		return $this;
 	}
 
 	/**
-	 * Remove staff
+	 * Remove member
 	 *
-	 * @param \Busybee\Facility\InstituteBundle\Entity\DepartmentStaff $staff
+	 * @param DepartmentMember $member
 	 */
-	public function removeStaff(\Busybee\Facility\InstituteBundle\Entity\DepartmentStaff $staff)
+	public function removeMember(DepartmentMember $member): Department
 	{
-		$this->staff->removeElement($staff);
+		$this->members->removeElement($member);
+
+		return $this;
 	}
 
 	/**
-	 * Get staff
+	 * Get member
 	 *
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getStaff($sorted = true)
+	public function getMembers($sorted = true)
 	{
 		if ($sorted)
-			return $this->sortStaff();
+			return $this->sortMembers();
 
-		return $this->staff;
+		return $this->members;
 	}
 
 	/**
-	 * Set staff
+	 * Set member
 	 *
 	 * @return Department
 	 */
-	public function setStaff(ArrayCollection $staff): Department
+	public function setMembers(ArrayCollection $members): Department
 	{
-		$this->staff = $staff;
+		$this->members = $members;
 
 		return $this;
 	}

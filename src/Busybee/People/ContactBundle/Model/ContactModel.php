@@ -1,8 +1,6 @@
 <?php
-
 namespace Busybee\People\ContactBundle\Model;
 
-use Busybee\Facility\InstituteBundle\Entity\DepartmentStaff;
 use Busybee\People\PersonBundle\Entity\Person;
 
 abstract class ContactModel extends Person

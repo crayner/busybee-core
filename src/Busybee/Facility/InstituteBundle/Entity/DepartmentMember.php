@@ -1,14 +1,13 @@
 <?php
-
 namespace Busybee\Facility\InstituteBundle\Entity;
 
 use Busybee\People\StaffBundle\Entity\Staff;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * DepartmentStaff
+ * DepartmentMember
  */
-class DepartmentStaff
+class DepartmentMember
 {
 	/**
 	 * @var integer
@@ -75,7 +74,7 @@ class DepartmentStaff
 	 *
 	 * @param string $staffType
 	 *
-	 * @return DepartmentStaff
+	 * @return DepartmentMember
 	 */
 	public function setStaffType($staffType)
 	{
@@ -99,7 +98,7 @@ class DepartmentStaff
 	 *
 	 * @param \DateTime $lastModified
 	 *
-	 * @return DepartmentStaff
+	 * @return DepartmentMember
 	 */
 	public function setLastModified($lastModified)
 	{
@@ -123,7 +122,7 @@ class DepartmentStaff
 	 *
 	 * @param \DateTime $createdOn
 	 *
-	 * @return DepartmentStaff
+	 * @return DepartmentMember
 	 */
 	public function setCreatedOn($createdOn)
 	{
@@ -147,7 +146,7 @@ class DepartmentStaff
 	 *
 	 * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
 	 *
-	 * @return DepartmentStaff
+	 * @return DepartmentMember
 	 */
 	public function setCreatedBy(\Busybee\Core\SecurityBundle\Entity\User $createdBy = null)
 	{
@@ -171,7 +170,7 @@ class DepartmentStaff
 	 *
 	 * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
 	 *
-	 * @return DepartmentStaff
+	 * @return DepartmentMember
 	 */
 	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
 	{
@@ -203,7 +202,7 @@ class DepartmentStaff
 	 *
 	 * @param Staff $staff
 	 *
-	 * @return DepartmentStaff
+	 * @return DepartmentMember
 	 */
 	public function setStaff(Staff $staff)
 	{
@@ -223,9 +222,9 @@ class DepartmentStaff
 	/**
 	 * @param ArrayCollection $department
 	 *
-	 * @return DepartmentStaff
+	 * @return DepartmentMember
 	 */
-	public function setDepartment(int $department = null): DepartmentStaff
+	public function setDepartment(int $department = null): DepartmentMember
 	{
 		$this->department = $department;
 
