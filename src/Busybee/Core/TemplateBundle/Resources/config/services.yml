@@ -130,13 +130,9 @@ services:
     busybee_core_template.type.image_type:
         class: Busybee\Core\TemplateBundle\Type\ImageType
         arguments:
-            - '@busybee_core_template.model.image_uploader'
+            - '%upload_path%'
         tags: 
             - { name: form.type }    
-    busybee_core_template.model.image_uploader:
-        class: Busybee\Core\TemplateBundle\Model\ImageUploader
-        arguments:
-            - "%upload_path%"
     busybee_core_template.validator.logo:
         class: Busybee\Core\TemplateBundle\Validator\Logo
     busybee_core_template.validator.constraints.logo_validator:

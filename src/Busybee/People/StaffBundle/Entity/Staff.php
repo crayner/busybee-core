@@ -235,26 +235,28 @@ class Staff extends StaffModel
 	}
 
 	/**
-	 * @param DepartmentMember $department
+	 * @param DepartmentMember $dept
 	 *
 	 * @return Staff
 	 */
-	public function addDepartment(DepartmentMember $department): Staff
+	public function addDepartment(DepartmentMember $dept): Staff
 	{
-		if (!$this->departments->contains($department))
-			$this->departments->add($department);
+		$dept->setStaff($this);
+
+		if (!$this->departments->contains($dept))
+			$this->departments->add($dept);
 
 		return $this;
 	}
 
 	/**
-	 * @param Collection $departments
+	 * @param Collection $depts
 	 *
 	 * @return Staff
 	 */
-	public function setDepartments(Collection $departments): Staff
+	public function setDepartments(Collection $depts): Staff
 	{
-		$this->departments = $departments;
+		$this->departments = $depts;
 
 		return $this;
 	}

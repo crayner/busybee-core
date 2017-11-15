@@ -5,6 +5,8 @@ use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Facility\InstituteBundle\Entity\Department;
 use Busybee\Facility\InstituteBundle\Entity\DepartmentMember;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Facility\InstituteBundle\Events\DepartmentMemberSubscriber;
+use Busybee\Facility\InstituteBundle\Events\MemberSubscriber;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;

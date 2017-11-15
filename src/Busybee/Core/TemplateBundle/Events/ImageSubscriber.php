@@ -8,10 +8,27 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class ImageSubscriber implements EventSubscriberInterface
 {
+	/**
+	 * @var string
+	 */
+	private $targetDir;
+
+	/**
+	 * ImageSubscriber constructor.
+	 *
+	 * @param string $targetDir
+	 */
+	public function __construct(string $targetDir)
+	{
+		$this->targetDir = $targetDir;
+	}
+
 	/**
 	 * @return array
 	 */
@@ -31,6 +48,24 @@ class ImageSubscriber implements EventSubscriberInterface
 	{
 		$form = $event->getForm();
 		$data = $event->getData();
+
+		if ($data instanceof UploadedFile)
+		{
+
+			dump($this);
+			dump($data);
+			dump($form->getConfig()->getOption('fileName'));
+			$fName = $form->getConfig()->getOption('fileName') . '_' . mb_substr(md5(uniqid()), mb_strlen($form->getConfig()->getOption('fileName')) + 1) . '.' . $data->guessExtension();
+			dump($fName);
+			$path = $this->targetDir;
+			$data->move($path, $fName);
+
+			$file = new File($path . DIRECTORY_SEPARATOR . $fName, true);
+
+			$data = $file->getPathName();
+			dump($data);
+
+		}
 
 		if (!empty($form->getData()) && empty($data))
 			$data = $form->getData();

@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\TemplateBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;

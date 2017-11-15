@@ -11,21 +11,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class ImageToStringTransformer implements DataTransformerInterface
 {
 	/**
-	 * @var ImageUploader
-	 */
-	private $uploader;
-
-	/**
-	 * ImageToStringTransformer constructor.
-	 *
-	 * @param ImageUploader $uploader
-	 */
-	public function __construct(ImageUploader $uploader)
-	{
-		$this->uploader = $uploader;
-	}
-
-	/**
 	 * Transforms an string to File
 	 *
 	 * @param  File|null $data
@@ -50,27 +35,6 @@ class ImageToStringTransformer implements DataTransformerInterface
 	 */
 	public function reverseTransform($data)
 	{
-		/*
-		if ($data instanceof File)
-		{
-			$data = $this->uploadFile($data);
-		}
-		*/
 		return $data;
-	}
-
-	/**
-	 * @param File $data
-	 *
-	 * @return string
-	 */
-	private function uploadFile(File $data): string
-	{
-		if ($data instanceof UploadedFile)
-			$fileName = $this->uploader->upload($data);
-		else
-			$fileName = $data->getPathname();
-
-		return $fileName;
 	}
 }

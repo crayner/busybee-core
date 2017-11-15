@@ -88,6 +88,7 @@ class DepartmentType extends AbstractType
 						'imageClass' => 'smallLogo'
 					],
 					'deletePhoto' => $options['deletePhoto'],
+					'fileName'    => 'departmentLogo'
 				]
 			)
 			->add('blurb', CKEditorType::class,

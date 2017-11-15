@@ -7,6 +7,8 @@ use Busybee\People\StaffBundle\Entity\Staff;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class DepartmentMemberSubscriber implements EventSubscriber
 {
@@ -17,10 +19,9 @@ class DepartmentMemberSubscriber implements EventSubscriber
 	{
 		// Tells the dispatcher that you want to listen on the form.pre_submit
 		// event and that the preSubmit method should be called.
-		return array(
+		return [
 			Events::loadClassMetadata,
-
-		);
+		];
 	}
 
 	/**
@@ -58,5 +59,4 @@ class DepartmentMemberSubscriber implements EventSubscriber
 
 		}
 	}
-
 }

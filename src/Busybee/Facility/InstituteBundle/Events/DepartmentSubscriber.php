@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Facility\InstituteBundle\Events;
 
 use Busybee\Facility\InstituteBundle\Form\DepartmentMemberType;
@@ -54,6 +53,13 @@ class DepartmentSubscriber implements EventSubscriberInterface
 		$data = $event->getData();
 		$dept = $event->getForm()->getData();
 
+		if (!empty($data['members']))
+		{
+			foreach ($data['members'] as $q => $w)
+			{
+				$data['members'][$q]['department'] = strval($dept->getId());
+			}
+		}
 
 		if (isset($data['courses']) && is_array($data['courses']))
 		{

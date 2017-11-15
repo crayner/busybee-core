@@ -271,10 +271,10 @@ class Department extends DepartmentModel
 	 */
 	public function addMember(DepartmentMember $member): Department
 	{
+		$member->setDepartment($this);
+
 		if ($this->members->contains($member))
 			return $this;
-
-		$member->setDepartment($this);
 
 		$this->members->add($member);
 

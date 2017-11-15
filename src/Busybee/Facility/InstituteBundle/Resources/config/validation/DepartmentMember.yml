@@ -9,3 +9,8 @@ Busybee\Facility\InstituteBundle\Entity\DepartmentMember:
             - \Busybee\Core\TemplateBundle\Validator\SettingChoice:
                 name: department.staff.type.list
                 message: department.staff.type.list.error
+        department:
+            - NotBlank: ~
+            - Valid: ~
+        staff:
+            - NotBlank: ~

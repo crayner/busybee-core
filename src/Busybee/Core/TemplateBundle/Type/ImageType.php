@@ -8,24 +8,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Busybee\Core\TemplateBundle\Form\DataTransformer\ImageToStringTransformer;
-use Busybee\Core\TemplateBundle\Model\ImageUploader;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ImageType extends AbstractType
 {
 	/**
-	 * @var ImageUploader
+	 * @var string
 	 */
-	private $uploader;
+	private $targetDir;
 
 	/**
-	 * ImageType constructor.
+	 * ImageSubscriber constructor.
 	 *
-	 * @param ImageUploader $uploader
+	 * @param string $targetDir
 	 */
-	public function __construct(ImageUploader $uploader)
+	public function __construct(string $targetDir)
 	{
-		$this->uploader = $uploader;
+		$this->targetDir = $targetDir;
 	}
 
 	/**
@@ -48,6 +47,7 @@ class ImageType extends AbstractType
 				'deletePhoto',
 				'deleteTarget',
 				'deleteParams',
+				'fileName',
 			]
 		);
 	}
@@ -74,8 +74,8 @@ class ImageType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder->addModelTransformer(new ImageToStringTransformer($this->uploader));
-		$builder->addEventSubscriber(new ImageSubscriber());
+		$builder->addModelTransformer(new ImageToStringTransformer());
+		$builder->addEventSubscriber(new ImageSubscriber($this->targetDir));
 	}
 
 	/**

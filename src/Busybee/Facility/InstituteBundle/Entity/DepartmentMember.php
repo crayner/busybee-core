@@ -30,7 +30,7 @@ class DepartmentMember
 	private $createdOn;
 
 	/**
-	 * @var int
+	 * @var Department
 	 */
 	private $department;
 
@@ -212,19 +212,19 @@ class DepartmentMember
 	}
 
 	/**
-	 * @return int
+	 * @return Department
 	 */
-	public function getDepartment(): ?int
+	public function getDepartment(): ?Department
 	{
 		return $this->department;
 	}
 
 	/**
-	 * @param ArrayCollection $department
+	 * @param Department $department
 	 *
 	 * @return DepartmentMember
 	 */
-	public function setDepartment(int $department = null): DepartmentMember
+	public function setDepartment(Department $department = null): DepartmentMember
 	{
 		$this->department = $department;
 
