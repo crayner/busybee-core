@@ -36,35 +36,15 @@ class PersonEmailValidator extends ConstraintValidator
 
 		$object = $this->context->getObject();
 
-		if ($constraint->errorPath == 'email')
+		if ($constraint->errorPath == 'email' || $constraint->errorPath == 'email2')
 		{
 
 			$result = $this->em->getRepository(Person::class)->createQueryBuilder('p')
 				->select('p.id')
-				->where('p.email = :email')
-				->orWhere('p.email2 = :email')
+				->where('(p.email = :email1 OR p.email2 = :email2)')
 				->andWhere('p.id <> :id')
-				->setParameter('email', $value)
-				->setParameter('id', $object->getId())
-				->getQuery()
-				->getResult();
-			if (!empty($result))
-			{
-				$this->context->buildViolation($constraint->message)
-					->setParameter('%string%', $value)
-					->addViolation();
-			}
-		}
-		if ($constraint->errorPath == 'email2')
-		{
-
-
-			$result = $this->em->getRepository(Person::class)->createQueryBuilder('p')
-				->select('p.id')
-				->where('p.email = :email')
-				->orWhere('p.email2 = :email')
-				->andWhere('p.id <> :id')
-				->setParameter('email', $value)
+				->setParameter('email1', $value)
+				->setParameter('email2', $value)
 				->setParameter('id', $object->getId())
 				->getQuery()
 				->getResult();

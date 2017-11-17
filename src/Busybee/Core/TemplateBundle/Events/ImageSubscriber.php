@@ -37,10 +37,26 @@ class ImageSubscriber implements EventSubscriberInterface
 		// Tells the dispatcher that you want to listen on the form.pre_set_data
 		// event and that the preSetData method should be called.
 		return array(
-			FormEvents::PRE_SUBMIT => 'preSubmit',
+			FormEvents::PRE_SET_DATA => 'preSetData',
+			FormEvents::PRE_SUBMIT   => 'preSubmit',
 		);
 	}
 
+
+	/**
+	 * @param FormEvent $event
+	 */
+	public function preSetData(FormEvent $event)
+	{
+		$data = $event->getData();
+
+		if (!empty($data) && !file_exists($data))
+		{
+			$data = null;
+			$event->setData($data);
+		}
+
+	}
 	/**
 	 * @param FormEvent $event
 	 */
@@ -52,19 +68,17 @@ class ImageSubscriber implements EventSubscriberInterface
 		if ($data instanceof UploadedFile)
 		{
 
-			dump($this);
-			dump($data);
-			dump($form->getConfig()->getOption('fileName'));
 			$fName = $form->getConfig()->getOption('fileName') . '_' . mb_substr(md5(uniqid()), mb_strlen($form->getConfig()->getOption('fileName')) + 1) . '.' . $data->guessExtension();
-			dump($fName);
+
 			$path = $this->targetDir;
 			$data->move($path, $fName);
 
 			$file = new File($path . DIRECTORY_SEPARATOR . $fName, true);
 
 			$data = $file->getPathName();
-			dump($data);
 
+			if (!empty($form->getData()) && file_exists($form->getData()))
+				unlink($form->getData());
 		}
 
 		if (!empty($form->getData()) && empty($data))

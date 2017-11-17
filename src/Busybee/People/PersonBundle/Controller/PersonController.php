@@ -5,6 +5,7 @@ use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Busybee\People\PersonBundle\Form\PersonType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PersonController extends BusybeeController
 {
@@ -145,11 +146,13 @@ class PersonController extends BusybeeController
 	 *
 	 * @return Response
 	 */
-	public function removePhotoAction($id)
+	public function removePhotoAction(Request $request, $id)
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-		$person = $this->getPerson($id);
+		$pm = $this->get('busybee_people_person.model.person_manager');
+
+		$person = $pm->getPerson($id);
 
 		$em = $this->get('doctrine')->getManager();
 
@@ -163,6 +166,6 @@ class PersonController extends BusybeeController
 		$em->persist($person);
 		$em->flush();
 
-		return new Response("<script>window.close();</script>");
+		return $this->editAction($request, $id);
 	}
 }

@@ -194,6 +194,9 @@ student:
             blocked: The grade record is locked. Removal is restricted.
             fail: The database failed to remove the grade information.
         notfound: The greade information is not available.
+    validator:
+        email:
+            unique: 'The email %string% already exists in the database.'
 people:
     title: Manage People
     import:

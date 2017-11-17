@@ -76,6 +76,7 @@ class ImageType extends AbstractType
 	{
 		$builder->addModelTransformer(new ImageToStringTransformer());
 		$builder->addEventSubscriber(new ImageSubscriber($this->targetDir));
+
 	}
 
 	/**

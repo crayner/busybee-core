@@ -1,11 +1,15 @@
 {% extends 'bootstrap_3_layout.html.twig' %}
 
 {% block image_label -%}
-    {% if data.pathname is defined and data.pathname is not empty %}
-        <img src="{{ asset( data.pathname ) }}" class="{{ attr.imageClass }}"/>
+    {% if imageExists(data) %}
+        <img src="{{ asset( imagePath(data) ) }}" class="{{ attr.imageClass }} form_image"/>
         {{- form_label(form) -}}
         {% if deletePhoto is not null %}
-            {{ deleteButton({title: 'photo.delete', transDomain: translation_domain, windowOpen: {route: deletePhoto|replace({'__imageDelete__': form.parent.vars.value.name}), target: deleteTarget, params: deleteParams}, colour: 'warning'})|raw }}
+            {% set imageDelete = 0 %}
+            {% if form.parent.vars.value.name is defined %}
+                {% set imageDelete = form.parent.vars.value.name %}
+            {% endif %}
+            {{ deleteButton({title: 'photo.delete', transDomain: translation_domain, windowOpen: {route: deletePhoto|replace({'__imageDelete__': imageDelete}), target: deleteTarget, params: deleteParams}, colour: 'warning'})|raw }}
         {% endif %}
     {% else %}
         {{- form_label(form) -}}

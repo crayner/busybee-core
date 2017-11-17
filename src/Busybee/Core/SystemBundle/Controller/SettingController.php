@@ -165,13 +165,15 @@ class SettingController extends BusybeeController
 				break;
 			case 'image':
 				$form->add('value', ImageType::class, array_merge($options, array(
-							'data' => $sm->get($setting->getName()),
-							'attr' => array_merge($attr,
+							'data'        => $sm->get($setting->getName()),
+							'attr'        => array_merge($attr,
 								array(
 									'help'       => 'system.setting.help.image',
-									'imageClass' => 'imageWidth200',
+									'imageClass' => 'mediumLogo',
 								)
 							),
+							'fileName'    => 'setting',
+							'deletePhoto' => 'ignore',
 						)
 					)
 				);

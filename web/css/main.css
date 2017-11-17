@@ -533,5 +533,22 @@ div#contentContainer {
 }
 
 .smallLogo {
+    width: 100px;
+}
+
+.mediumLogo {
     width: 200px;
+}
+
+.largeLogo {
+    width: 400px;
+}
+
+.form_image {
+    margin-right: 3px;
+    margin-top: 3px;
+    padding: 4px;
+    background-color: white;
+    border: 1px solid #555555;
+    border-radius: 4px;
 }

@@ -269,3 +269,7 @@ services:
         class: Busybee\Core\TemplateBundle\Model\PhotoUploader
         arguments:
             - "%upload_path%"
+    busybee_core_template.extension.image_extension:
+        class: Busybee\Core\TemplateBundle\Extension\ImageExtension
+        tags:
+            - { name: twig.extension }

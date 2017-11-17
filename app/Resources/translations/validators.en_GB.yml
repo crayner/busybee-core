@@ -7,6 +7,9 @@ twig:
 person:
     error:
         phone: Not a valid phone number.
+    validator:
+        email:
+            unique: 'The email %string% already exists in the database.'
 campus:
     error:
         institute:

@@ -145,6 +145,7 @@ class PersonType extends AbstractType
 					'label'       => 'person.photo.label',
 					'required'    => false,
 					'deletePhoto' => $options['deletePhoto'],
+					'fileName'    => 'person_' . $options['data']->getId(),
 				)
 			)
 			->add('website', UrlType::class, array(

@@ -66,6 +66,7 @@ class HouseType extends AbstractType
 					],
 					'required'    => false,
 					'deletePhoto' => $options['deletePhoto'],
+					'fileName'    => 'house',
 				]
 			);
 		$builder->addEventSubscriber(new HouseSubscriber($this->houseManager));
