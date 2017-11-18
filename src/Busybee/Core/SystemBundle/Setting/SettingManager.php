@@ -242,9 +242,9 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 				break;
 			case 'array':
 				if ($flip)
-					return $this->writeSettingToSession($name . '_flip', array_flip(Yaml::parse($this->setting->getValue())));
+					return $this->writeSettingToSession($name . '_flip', array_flip($this->setting->getValue()));
 				else
-					return $this->writeSettingToSession($name, Yaml::parse($this->setting->getValue()));
+					return $this->writeSettingToSession($name, $this->setting->getValue());
 				break;
 			case 'integer':
 				return $this->writeSettingToSession($name, intval($this->setting->getValue()));
@@ -312,7 +312,6 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 				$value = (bool) $value;
 				break;
 			case 'array':
-				$value = Yaml::dump($value);
 				break;
 			default:
 				throw new Exception('The Setting Type (' . $this->setting->getType() . ') has not been defined.');
@@ -487,7 +486,7 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 		{
 			$this->settingExists = true;
 
-			return $this->settings[$name];
+			return empty($this->settings[$name]) ? $default : $this->settings[$name];
 		}
 		$value = $this->getSetting($name, $default, $options);
 		if ($this->settingExists && empty($options))

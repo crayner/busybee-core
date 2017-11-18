@@ -96,12 +96,12 @@ class KernelListener
 			$event->setResponse($response);
 		}
 
-
-		if ($exception instanceof \Twig_Error_Runtime)
-		{
-			dump($this);
-			dump($exception);
-			die();
-		}
+		/*
+				if ($exception instanceof \Twig_Error_Runtime)
+				{
+					dump($this);
+					dump($exception);
+					die();
+				} */
 	}
 }

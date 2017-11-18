@@ -12,6 +12,7 @@ use Busybee\Core\SystemBundle\Form\CreateType;
 use Busybee\Core\SystemBundle\Form\SettingType;
 use Busybee\Core\SystemBundle\Form\UploadType;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -173,7 +174,8 @@ class SettingController extends BusybeeController
 								)
 							),
 							'fileName'    => 'setting',
-							'deletePhoto' => 'ignore',
+							'deletePhoto' => $this->generateUrl('setting_delete_image', ['id' => $id]),
+							'required'    => false,
 						)
 					)
 				);
@@ -191,7 +193,7 @@ class SettingController extends BusybeeController
 				);
 				break;
 			case 'array':
-				$form->add('value', TextareaType::class, array_merge($options, array(
+				$form->add('value', TextareaType::class, array_merge($options, [
 							'attr'        => array_merge($attr,
 								array(
 									'help' => 'system.setting.help.array',
@@ -204,7 +206,8 @@ class SettingController extends BusybeeController
 									new \Busybee\Core\HomeBundle\Validator\Yaml(),
 								)
 							),
-						)
+							'data'        => Yaml::dump($sm->get($setting->getName())),
+						]
 					)
 				);
 				break;
@@ -287,7 +290,7 @@ class SettingController extends BusybeeController
 				break;
 			case 'time':
 				$form->add('value', TimeType::class, array_merge($options, array(
-							'data'        => new \DateTime($sm->get($setting->getName())),
+							'data'        => $sm->get($setting->getName()),
 							'constraints' => $constraints,
 							'attr'        => $attr,
 						)
@@ -307,28 +310,13 @@ class SettingController extends BusybeeController
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			switch ($setting->getType())
-			{
-				case 'time':
-					if ($setting->getValue() instanceof \DateTime)
-						$setting->setValue($setting->getValue()->format('H:i:s'));
-					break;
-			}
 			$em = $this->get('doctrine')->getManager();
 			$em->persist($setting);
 			$em->flush();
 			$session                       = $this->get('session');
 			$settings                      = $session->get('settings', []);
 
-			switch ($setting->getType())
-			{
-				case 'array':
-					$settings[$setting->getName()] = Yaml::parse($setting->getValue());
-					break;
-				default:
-					$settings[$setting->getName()] = $setting->getValue();
-
-			}
+			$settings[$setting->getName()] = $setting->getValue();
 
 			$session->set('settings', $settings);
 
@@ -386,5 +374,41 @@ class SettingController extends BusybeeController
 				'fullForm' => $form,
 			]
 		);
+	}
+
+
+	/**
+	 * @param         $id
+	 * @param Request $request
+	 *
+	 * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+	 */
+	public function deleteImageAction($id, Request $request)
+	{
+		$this->denyAccessUnlessGranted('ROLE_SYSTEM_ADMIN');
+
+		$setting = $this->get('busybee_core_system.repository.setting_repository')->findOneById($id);
+
+		if ($setting instanceof Setting)
+		{
+			$file = $setting->getValue();
+			if (file_exists($file))
+				unlink($file);
+
+			$setting->setValue(null);
+			$em = $this->get('doctrine')->getManager();
+			$em->persist($setting);
+			$em->flush();
+			$session                       = $this->get('session');
+			$settings                      = $session->get('settings', []);
+			$settings[$setting->getName()] = null;
+
+			$session->set('settings', $settings);
+
+			$fs = new Filesystem();
+			$fs->remove($this->get('kernel')->getCacheDir());
+		}
+
+		return $this->redirectToRoute('setting_edit', ['id' => $id]);
 	}
 }

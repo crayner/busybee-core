@@ -2,7 +2,11 @@
 
 namespace Busybee\Core\SystemBundle\Entity;
 
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\SystemBundle\Model\SettingModel;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Setting
@@ -134,11 +138,13 @@ class Setting extends SettingModel
 	/**
 	 * Get value
 	 *
-	 * @return \blog
+	 * @return mixed
 	 */
 	public function getValue()
 	{
-		return $this->value;
+		$type = 'get' . ucfirst($this->getType());
+
+		return $this->$type();
 	}
 
 	/**
@@ -150,9 +156,9 @@ class Setting extends SettingModel
 	 */
 	public function setValue($value)
 	{
-		$this->value = $value;
+		$type = 'set' . ucfirst($this->getType());
 
-		return $this;
+		return $this->$type($value);
 	}
 
 	/**
@@ -391,6 +397,208 @@ class Setting extends SettingModel
 	public function setValidator($validator)
 	{
 		$this->validator = $validator;
+
+		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	private function getArray(): array
+	{
+		return Yaml::parse($this->value);
+	}
+
+	/**
+	 * @param $value
+	 *
+	 * @return Setting
+	 */
+	private function setArray($value): Setting
+	{
+		if (is_array($value))
+			$value = Yaml::dump($value);
+
+		$this->value = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function getImage(): string
+	{
+		if (file_exists($this->value))
+			return $this->value;
+
+		return '';
+	}
+
+	/**
+	 * @param $value
+	 *
+	 * @throws Exception
+	 * @return Setting
+	 */
+	private function setImage($value): Setting
+	{
+		if ($value instanceof UploadedFile)
+			throw new Exception('The image must first be converted from an uploaded file.');
+		if ($value instanceof File)
+			$value = $value->getPathname();
+
+		$this->value = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	private function getSystem()
+	{
+		return $this->value;
+	}
+
+	/**
+	 * @return int
+	 */
+	private function getInteger(): int
+	{
+		return intval($this->value);
+	}
+
+	/**
+	 * @return int
+	 */
+	private function setInteger($value): Setting
+	{
+		$this->value = intval($value);
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function getTwig(): string
+	{
+		return is_string($this->value) ? $this->value : '{{ empty }}';
+	}
+
+	/**
+	 * @param $value
+	 *
+	 * @return Setting
+	 */
+	private function setTwig($value): Setting
+	{
+		$this->value = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function getString(): string
+	{
+		return is_string($this->value) ? $this->value : '';
+	}
+
+	/**
+	 * @param $value
+	 *
+	 * @return Setting
+	 */
+	private function setString($value): Setting
+	{
+		$this->value = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function getText(): string
+	{
+		return is_string($this->value) ? $this->value : '';
+	}
+
+	/**
+	 * @param $value
+	 *
+	 * @return Setting
+	 */
+	private function setText($value): Setting
+	{
+		$this->value = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @return null|\DateTime
+	 */
+	private function getTime(): ?\DateTime
+	{
+		if (is_string($this->value) && preg_match("/^(2[0-3]|[01][0-9]):([0-5][0-9])$/", $this->value) == 1)
+			$value = new \DateTime('1970-01-01 ' . $this->value . ':00');
+		elseif (is_string($this->value))
+			$value = unserialize($this->value);
+		else
+			$value = null;
+
+
+		if (!$value instanceof \DateTime)
+		{
+			$value       = null;
+			$this->value = null;
+		}
+		else
+			$this->value = serialize($value);
+
+		return $value;
+	}
+
+	/**
+	 * @param $value
+	 *
+	 * @return Setting
+	 */
+	private function setTime($value): Setting
+	{
+		if ($value instanceof \DateTime)
+			$this->value = serialize($value);
+		else
+			$this->value = empty($value) ? null : $value;
+
+		$this->getTime();
+
+		return $this;
+	}
+
+	/**
+	 * @return null|string
+	 */
+	private function getRegex(): ?string
+	{
+		return empty($this->value) ? null : $this->value;
+	}
+
+	/**
+	 * @param $value
+	 *
+	 * @return Setting
+	 */
+	private function setRegex($value): Setting
+	{
+		if (false === @preg_match($value, 'jsfoieqwht9rhewtgs euohgt')) // if this valid regex
+			$value = null;
+
+		$this->value = $value;
 
 		return $this;
 	}

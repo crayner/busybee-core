@@ -60,9 +60,12 @@ class SettingType extends AbstractType
 			);
 	}
 
+	/**
+	 * @return array
+	 */
 	private function getSettingNameChoices()
 	{
-		$names    = array();
+		$names    = [];
 		$settings = $this->repo->findBy(array(), array('name' => 'ASC'));
 		foreach ($settings as $setting)
 			$names[$setting->getName()] = $setting->getId();

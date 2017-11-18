@@ -37,3 +37,6 @@ school_days_times:
 house_logo_delete:
     path:  /houses/{houseName}/logo/delete/
     defaults: { _controller: SystemBundle:House:deleteLogo }
+setting_delete_image:
+    path:     /setting/{id}/image/delete/
+    defaults: { _controller: SystemBundle:Setting:deleteImage }
