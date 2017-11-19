@@ -18,8 +18,8 @@ class Week
 		$this->parameters = [];
 		$this->calendar   = $calendar;
 		$this->days       = [];
-		$this->setWeekNumber($weekNumber);
-		$this->addDay($day);
+		$this->setWeekNumber($weekNumber)
+			->addDay($day);
 	}
 
 	/**
@@ -42,10 +42,12 @@ class Week
 		return $this->weekNumber;
 	}
 
-	public function addDay($day)
+	public function addDay($day): Week
 	{
 		$day->setWeekNumber($this->getWeekNumber());
 		$this->days[] = $day;
+
+		return $this;
 	}
 
 	public function getDays()

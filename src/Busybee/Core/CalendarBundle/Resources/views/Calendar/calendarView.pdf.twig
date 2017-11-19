@@ -1,12 +1,14 @@
 {# src/Busybee/InstituteBundle/Resources/views/Calendar/calendarView.pdf.twig #}
 {% trans_default_domain "BusybeeCalendarBundle" %}
-<style>
+{% spaceless %}
+    <style type="text/css">
+        <!--
     .days > td {
         border: 1px solid #333;
     }
 
     .termBreak {
-        background-image: url({{ asset('img/termBreak.png') }});
+        background-image: url({{ absolute_url(asset('img/termBreak.png')) }});
         background-repeat: repeat;
         background-color: #B5B879;
         text-align: center;
@@ -14,7 +16,7 @@
 
     .isClosed {
         background-color: lightsalmon;
-        background-image: url({{ asset('img/isClosed.png') }});
+        background-image: url({{ absolute_url(asset('img/isClosed.png')) }});
         background-repeat: repeat;
         font-weight: bold;
         text-align: center;
@@ -22,7 +24,7 @@
 
     .isSpecial {
         background-color: cyan;
-        background-image: url({{ asset('img/isSpecial.png') }});
+        background-image: url({{ absolute_url(asset('img/isSpecial.png')) }});
         background-repeat: repeat;
         font-weight: bold;
         text-align: center;
@@ -50,9 +52,10 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: 400px;
-        background-image: url({{ asset(get_setting('Org.Logo.Transparent', 'img/bee-transparent.png')) }});
+        background-image: url({{ absolute_url(asset(get_setting('org.logo.transparent', 'img/bee-transparent.png'))) }});
         border: none;
         margin: 0 auto;
+        width: auto;
     }
 
     .calendarWeek > td {
@@ -78,6 +81,12 @@
         font-size: 12px;
     }
 
+        .dayBorder {
+            border: 1px solid black;
+            min-width: 21px;
+            width: 21px;
+            border-radius: 2px;
+        }
     th {
         max-height: 25px;
         height: 25px;
@@ -90,98 +99,106 @@
     #page {
         text-align: center;
     }
+
+        -->
 </style>
-<div id="page">
-    {% set row = 1 %}
-    <h3 style="text-align: center; ">{{ get_setting('Org.Name.long') }} {{ year.name }}</h3>
-    <table class="calendarBody">
-        <tbody>
-        {% for month in calendar.months %}
-            {% if row == 1 %}<tr>
-            {% endif %}
-            <td class="calendarMonth">
-                <table class="monthView">
-                    <thead>
-                    <tr>
-                        <th colspan="8">
-                            {{ month.fullName|trans }}
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody class="days">
-                    <tr class="calendarWeek">
-                        <td><strong>{{ 'Wk'|trans }}</strong></td>
-                        {% for week_name in calendar.weeknameShorts %}
-                            <td class="dayBold">
-                                {{ week_name|trans }}
-                            </td>
-                        {% endfor %}
-                    </tr>
-                    {% for week in month.weeks %}
-                        <tr class="calendarWeek">
-                            <td class="dayBold">
-                                {{ week.number }}
-                            </td>
-                            {% for day in week.days %}
-                                {% if day.inMonth(month) %}
-                                    <td{{ get_dayClass(day)|raw }}{% if day.prompt is not empty %} title="{{ day.prompt }}"{% endif %}>
-                                        {{ day.date | date('j') }}
+    <page style="font-size: 10px">
+        <div id="page">
+            {% set row = 1 %}
+            <h3 style="text-align: center; ">{{ get_setting('org.name.long') }} {{ year.name }}</h3>
+            <table class="calendarBody">
+                <tbody>
+                {% for month in calendar.months %}
+                    {% if row == 1 %}
+                        <tr>
+                    {% endif %}
+                    <td class="calendarMonth">
+                        <table class="monthView">
+                            <thead>
+                            <tr>
+                                <th colspan="8">
+                                    {{ month.fullName|trans }}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="days">
+                            <tr class="calendarWeek">
+                                <td><strong>{{ 'Wk'|trans }}</strong></td>
+                                {% for week_name in calendar.weeknameShorts %}
+                                    <td class="dayBold">
+                                        {{ week_name|trans }}
                                     </td>
-                                {% else %}
-                                    <td class="noBorder">
-                                        &nbsp;
+                                {% endfor %}
+                            </tr>
+                            {% for week in month.weeks %}
+                                <tr class="calendarWeek">
+                                    <td class="dayBold dayBorder">
+                                        {{ week.number }}
                                     </td>
-                                {% endif %}
+                                    {% for day in week.days %}
+                                        {% if day.inMonth(month) %}
+                                            <td{{ get_dayClass(day)|raw }}>
+                                                {{ day.date | date('j') }}
+                                            </td>
+                                        {% else %}
+                                            <td class="noBorder">
+                                                &nbsp;
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
                             {% endfor %}
+                            {% if month.weeks|length < 6 %}
+                                <tr>
+                                    <td class="noBorder" colspan="8"></td>
+                                </tr>
+                            {% endif %}
+                            {% if month.weeks|length < 5 %}
+                                <tr>
+                                    <td class="noBorder" colspan="8"></td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </td>
+                    {% if row == 4 %}
                         </tr>
-                    {% endfor %}
-                    {% if month.weeks|length < 6 %}
-                        <tr></tr>{% endif %}
-                    {% if month.weeks|length < 5 %}
-                        <tr></tr>{% endif %}
-                    </tbody>
-                </table>
-            </td>
-            {% if row == 4 %}
+                        {% set row = 0 %}
+                    {% endif %}
+                    {% set row = row + 1 %}
+                {% endfor %}
+
+
+                {% set row = 1 %}
+                {% for day in year.specialDays %}
+                    {% if row == 1 %}<tr>{% endif %}
+                    <td class="dayDescription">
+                        {{ day.day|date('D j/M') }}: {{ day.name }}
+                    </td>
+                    {% if row == 4 %}
+                        </tr>
+                        {% set row = 0 %}
+                    {% endif %}
+                    {% set row = row + 1 %}
+                {% endfor %}
+                {% if row > 1 %}</tr>{% endif %}
+                <tr>
+                    <td class="termBreak dayDescription">
+                        Term Break
+                    </td>
+                    <td class="isClosed dayDescription">
+                        Closed
+                    </td>
+                    <td class="isSpecial dayDescription">
+                        Special
+                    </td>
+                    <td class="text-right dayDescription">
+                        {{ 'Generated by Busybee'|trans({}, 'BusybeeHomeBundle') }}
+                    </td>
                 </tr>
-                {% set row = 0 %}
-            {% endif %}
-            {% set row = row + 1 %}
-        {% endfor %}
-        {% set row = 1 %}
-        {% for day in year.specialDays %}
-            {% if row == 1 %}<tr>{% endif %}
-            <td class="dayDescription">
-                {{ day.day|date('D j/M') }}: {{ day.name }}
-            </td>
-            {% if row == 4 %}
-                </tr>
-                {% set row = 0 %}
-            {% endif %}
-            {% set row = row + 1 %}
-        {% endfor %}
-        {% if row > 1 %}</tr>{% endif %}
-        <tr>
-            <td class="termBreak dayDescription">
-                Term Break
-            </td>
-            <td class="isClosed dayDescription">
-                Closed
-            </td>
-            <td class="isSpecial dayDescription">
-                Special
-            </td>
-            <td class="text-right dayDescription">
-                {{ 'Generated by Busybee'|trans({}, 'BusybeeHomeBundle') }}
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-{#{% include '@BusybeeTemplate/Default/scripts.html.twig' %}
-<script type="text/javascript">
-	$(document).ready(function(){
-		window.print();
-		window.close();
-	});
-</script>	#}
+                </tbody>
+            </table>
+        </div>
+    </page>
+{% endspaceless %}
+

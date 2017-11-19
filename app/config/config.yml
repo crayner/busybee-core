@@ -30,7 +30,7 @@ framework:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  session.handler.native_file
         name: '%session_name%'
-        cookie_lifetime: 0 
+        cookie_lifetime: 0
         save_path: '%kernel.root_dir%/var/sessions' 
     fragments:       ~
     http_method_override: true
@@ -39,7 +39,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes:
-        - bootstrap_3_layout.html.twig
+        - 'bootstrap_3_layout.html.twig'
         - 'BusybeeTemplateBundle:Template:bootstrap.html.twig'
 #        - bootstrap_3_horizontal_layout.html.twig 
     date:
@@ -81,10 +81,13 @@ monolog:
             channels: ['doctrine']
             level: debug
             max_files: '7'
-core23_dompdf:
-    defaults:
-        dpi: 150
-        defaultPaperSize: A4
+        main:
+            type:  rotating_file
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: debug
+            max_files: '7'
+
+
 ivory_ck_editor:
     default_config: busybee
     configs:

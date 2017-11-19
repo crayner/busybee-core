@@ -68,10 +68,10 @@ class Calendar
 	public function generate($year)
 	{
 		$this->year       = $year;
-		$this->months     = array();
-		$this->weeks      = array();
-		$this->days       = array();
-		$this->parameters = array();
+		$this->months     = [];
+		$this->weeks      = [];
+		$this->days       = [];
+		$this->parameters = [];
 		$oneDayInterval   = new \DateInterval('P1D');
 
 		//Calculate first and last days of year
@@ -121,8 +121,8 @@ class Calendar
 					if ($currentDate == $lastYearDate)
 					{
 						$currentMonth->addWeek($currentWeek);
-						$this->addWeek($currentWeek);
-						$this->addMonth($currentMonth);
+						$this->addWeek($currentWeek)
+							->addMonth($currentMonth);
 						if (count($currentWeek->getDays()) == 7) $currentWeek = null;
 					}
 				}
@@ -133,7 +133,6 @@ class Calendar
 					$this->addMonth($currentMonth);
 					$currentMonth = new $this->monthModel($this, $day);
 				}
-
 				if ($currentWeek instanceof Week && count($currentWeek->getDays()) == 7)
 				{
 					$this->addWeek($currentWeek);
@@ -148,29 +147,35 @@ class Calendar
 		return $this;
 	}
 
-	public function getFirstDayofWeek()
+	public function getFirstDayofWeek(): int
 	{
 		return $this->sm->get('firstDayofWeek', 'Monday') == 'Sunday' ? 7 : 1;
 	}
 
-	public function getLastDayofWeek()
+	public function getLastDayofWeek(): int
 	{
 		return $this->sm->get('firstDayofWeek', 'Monday') == 'Sunday' ? 6 : 7;
 	}
 
-	public function addDay($day)
+	public function addDay(\Busybee\Core\CalendarBundle\Service\WidgetService\Day $day)
 	{
 		$this->days[] = $day;
+
+		return $this;
 	}
 
-	public function addWeek($week)
+	public function addWeek(Week $week)
 	{
 		$this->weeks[] = $week;
+
+		return $this;
 	}
 
-	public function addMonth($month)
+	public function addMonth(Month $month)
 	{
 		$this->months[] = $month;
+
+		return $this;
 	}
 
 	private function initNames()
@@ -198,8 +203,6 @@ class Calendar
 				'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
 			);
 		}
-
-
 	}
 
 	public function getMonths()

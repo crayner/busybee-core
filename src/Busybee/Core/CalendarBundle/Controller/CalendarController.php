@@ -4,7 +4,10 @@ namespace Busybee\Core\CalendarBundle\Controller;
 
 use Busybee\Core\CalendarBundle\Model\Day;
 use Busybee\Core\CalendarBundle\Model\Month;
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Symfony\Component\HttpFoundation\Request;
 use Busybee\Core\CalendarBundle\Form\YearType;
 use Busybee\Core\CalendarBundle\Entity\Year;
@@ -12,6 +15,7 @@ use Busybee\Core\CalendarBundle\Entity\SpecialDay;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use DateTime;
+use Spipu\Html2Pdf\Html2Pdf;
 
 class CalendarController extends BusybeeController
 {
@@ -117,7 +121,6 @@ class CalendarController extends BusybeeController
 
 		//Defining a custom classes for rendering of months and days
 		$dayModelClass   = Day::class;
-		$monthModelClass = Month::class;
 
 		/**
 		 * Set model classes for calendar. Arguments:
@@ -127,7 +130,7 @@ class CalendarController extends BusybeeController
 		 * 4. Day. Default: '\TFox\CalendarBundle\Service\WidgetService\Day'
 		 * To set default classes null should be passed as argument
 		 */
-		$service->setModels($monthModelClass, null, $dayModelClass);
+		$service->setModels(null, null, $dayModelClass);
 
 		$year->initialiseTerms();
 
@@ -175,7 +178,6 @@ class CalendarController extends BusybeeController
 
 		//Defining a custom classes for rendering of months and days
 		$dayModelClass   = '\Busybee\Core\CalendarBundle\Model\Day';
-		$monthModelClass = '\Busybee\Core\CalendarBundle\Model\Month';
 		/*
 		 * Set model classes for calendar. Arguments:
 		 * 1. For the whole calendar (watch $calendar variable). Default: \TFox\CalendarBundle\Service\WidgetService\Calendar
@@ -184,7 +186,7 @@ class CalendarController extends BusybeeController
 		 * 4. Day. Default: '\TFox\CalendarBundle\Service\WidgetService\Day'
 		 * To set default classes null should be passed as argument
 		 */
-		$service->setModels(null, $monthModelClass, null, $dayModelClass);
+		$service->setModels(null, null, $dayModelClass);
 		$calendar = $service->generate($year); //Generate a calendar for specified year
 
 		$cm = $this->get('busybee_core_calendar.model.calendar_manager');
@@ -201,18 +203,24 @@ class CalendarController extends BusybeeController
 			)
 		);
 
-		$dompdf = $this->get('dompdf')->createDompdf();
-		$dompdf->setPaper('a4', 'landscape');
-		$dompdf->loadHtml($content);
-		/**
-		 * @todo Remove this constaint on render when PHP 7.1 compatible.
-		 */
-		@$dompdf->render();
-		$headers = array(
-			'Content-type' => 'application/pdf'
-		);
+		try
+		{
+			$dompdf = new Html2Pdf('L', 'A4', substr(empty($this->getUser()->getLocale()) ? $this->getParameter('locale') : $this->getUser()->getLocale(), 0, 2));
+			ini_set('max_execution_time', 90);
+			$dompdf->writeHtml($content);
+			$headers = array(
+				'Content-type'        => 'application/pdf',
+				'Content-Disposition' => 'attachment; filename=' . basename('Calendar_' . preg_replace('/\s+/', '_', $year->getName()) . '.pdf'),
+			);
 
-		return new Response($dompdf->output(), 200, $headers);
+			return new Response($dompdf->output('ignore_me.pdf', 'S'), 200, $headers);
+
+		}
+		catch (Html2PdfException $e)
+		{
+			$formatter = new ExceptionFormatter($e);
+			throw new Exception($formatter->getHtmlMessage());
+		}
 	}
 
 	/**

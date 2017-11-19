@@ -156,7 +156,7 @@ class CalendarManager
 	public function getDayClass(Day $day, $class = null)
 	{
 
-		$class    = '';
+		$class    = empty($class) ? '' : $class;
 		$weekDays = $this->sm->get('schoolWeek');
 		$weekEnd  = true;
 

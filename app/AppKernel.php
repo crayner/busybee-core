@@ -12,7 +12,6 @@ class AppKernel extends Kernel
 	public function registerBundles()
     {
 	    $bundles = [
-	        new Core23\DompdfBundle\Core23DompdfBundle(),
 	        new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 	        new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 	        new Symfony\Bundle\AsseticBundle\AsseticBundle(),

@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\CalendarBundle\Service\WidgetService;
 
 use Busybee\Core\CalendarBundle\Service\WidgetService\Calendar;
@@ -15,15 +14,17 @@ class Month
 
 	public function __construct(Calendar $calendar, Day $day)
 	{
-		$this->parameters = array();
+		$this->parameters = [];
 		$this->calendar   = $calendar;
-		$this->days       = array();
+		$this->days       = [];
 		$this->addDay($day);
 	}
 
-	public function addDay($day)
+	public function addDay(Day $day)
 	{
 		$this->days[] = $day;
+
+		return $this;
 	}
 
 	public function getDays()
@@ -31,12 +32,14 @@ class Month
 		return $this->days;
 	}
 
-	public function addWeek($week)
+	public function addWeek(Week $week): Month
 	{
 		$this->weeks[] = $week;
+
+		return $this;
 	}
 
-	public function getWeeks()
+	public function getWeeks(): array
 	{
 		return $this->weeks;
 	}

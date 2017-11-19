@@ -43,7 +43,7 @@ class CalendarExtension extends \Twig_Extension
 	}
 
 
-	public function getDayClass(Day $day, $class = null)
+	public function getDayClass(Day $day, $class = 'dayBorder')
 	{
 		return $this->cm->getDayClass($day, $class);
 	}
