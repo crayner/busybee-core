@@ -1,16 +1,11 @@
 <?php
-
 namespace Busybee\Core\TemplateBundle\Events;
 
-use Busybee\Core\SystemBundle\Setting\SettingManager;
-use Busybee\Core\TemplateBundle\Type\ChoiceSettingType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class ImageSubscriber implements EventSubscriberInterface
 {

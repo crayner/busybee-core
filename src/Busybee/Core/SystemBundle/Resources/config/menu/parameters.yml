@@ -66,6 +66,9 @@ parameters:
                     role: ROLE_REGISTRAR
                     label: menu.year.calendar.display
                     params: {}
+                    target:
+                        name: Calendar
+                        options: 'width=1200,height=900'
             hidden:
                 - year_edit
         System Admin:

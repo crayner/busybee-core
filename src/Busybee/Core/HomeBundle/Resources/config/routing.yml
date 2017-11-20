@@ -10,3 +10,6 @@ home_template:
 acknowledgement:
     path:     /acknowledgement
     defaults: { _controller: BusybeeHomeBundle:Default:acknowledgement }
+download_file:
+    path:     /download/{file}/{role}/
+    defaults: { _controller: BusybeeHomeBundle:Default:downloadFile, role: 'ROLE_SYSTEM_ADMIN' }

@@ -16,12 +16,36 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script>
+    <script type="text/javascript">
         $('#year').change(function ($e) {
             var id = $(this).val();
-            var route = "{{ path('year_calendar_change') }}";
-            var route = route.concat('?id=', id);
+            var route = "{{ path('year_calendar', {id: '__id__'}) }}";
+            route = route.replace('__id__', id);
             window.open(route, '_self');
         });
+
+        function printCalendar(id) {
+            var route = '{{ path('calendar_print', {id: '__id__'}) }}';
+            route = route.replace('__id__', id);
+
+
+            $.ajax({
+                url: route,
+                type: "POST",
+                success: function (data) {
+                    var url = '{{ path('download_file', {role: 'ROLE_USER', file: '__FILE__'}) }}';
+                    url = url.replace('__FILE__', data['file']);
+                    window.open(url, '_self');
+                },
+                beforeSend: function () {
+                    $("body").addClass('loading');
+                    $('.showLoader').html("<p>{{ 'calendar.generate.title'|trans }}</p>");
+                },
+                complete: function () {
+                    $('.showLoader').html("<!-- Used -->");
+                    $("body").removeClass('loading');
+                }
+            });
+        }
     </script>
 {% endblock javascripts %}

@@ -20,7 +20,7 @@ specialday_delete:
     path:     /special_day/{id}/{year}/delete/
     defaults: { _controller: BusybeeCalendarBundle:SpecialDay:delete }
 year_calendar_change:
-    path:     /year/change/
+    path:     /year/{id}/change/
     defaults: { _controller: BusybeeCalendarBundle:Calendar:calendarChange }
 specialday_copy:
     path:     /special_day/{day}/{id}/copy/

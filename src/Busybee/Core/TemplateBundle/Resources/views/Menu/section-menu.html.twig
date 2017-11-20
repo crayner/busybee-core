@@ -12,7 +12,13 @@
     {% for key in keys %}
         {% set data = link[key] %}
         {% if routeExists(data['route']) %}
-            <div class="{{ data['linkClass'] }}">{{ miscButton({class: 'btn btn-link btn-sm', title: data['label']|trans, prompt: data['label']|trans, style: 'float: left;', windowOpen: {route: path(data['route'], data['params'])}})|raw }}</div>
+            {% set target = '_self' %}
+            {% set options = '' %}
+            {% if data['target'] is defined %}
+                {% set target = data['target']['name'] %}
+                {% set options = data['target']['options'] %}
+            {% endif %}
+            <div class="{{ data['linkClass'] }}">{{ miscButton({class: 'btn btn-link btn-sm', title: data['label']|trans, prompt: data['label']|trans, style: 'float: left;', windowOpen: {route: path(data['route'], data['params']), target: target, params: options}})|raw }}</div>
         {% else %}
             <div class="{{ data['linkClass'] }}">{{ 'system.route.missing'|trans({'%{route}': data['route']}) }}</div>
         {% endif %}

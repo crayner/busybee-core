@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\TemplateBundle\Extension;
 
 use Busybee\Core\TemplateBundle\Source\MenuManagerInterface;

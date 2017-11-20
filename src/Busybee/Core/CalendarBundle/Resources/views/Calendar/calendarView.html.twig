@@ -19,10 +19,8 @@
         {% else %}
             {{ returnButton({'title': 'calendar.year.return', 'transDomain': 'BusybeeCalendarBundle', 'windowOpen': {'route': path('calendar_years')}})|raw }}
         {% endif %}
-        <button title='{{ 'calendar.generate.print'|trans }}' type="button"
-                class="halflings halflings-print btn btn-info"
-                onClick="window.open('{{ path('calendar_print', {'id': year.id}) }}','_blank')"
-                style="float: right"></button>
+        {{ miscButton({transDomain: 'BusybeeCalendarBundle', title: 'calendar.generate.print', class: 'halflings halflings-print btn btn-info', javascript: {function: 'printCalendar', options: {id: year.id}}})|raw }}
+
     </h3>
     {% for month in calendar.months %}
         {% if row == 1 %}<div class="row">{% endif %}

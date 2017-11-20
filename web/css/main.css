@@ -552,3 +552,37 @@ div#contentContainer {
     border: 1px solid #555555;
     border-radius: 4px;
 }
+
+.showLoader {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(128, 128, 128, .8) url('../img/ajax-loader.gif') 50% 50% no-repeat;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.showLoader > p {
+    position: fixed;
+    display: inherit;
+    top: 20%;
+    left: 20%;
+    color: white;
+    font-weight: bold;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .showLoader {
+    display: block;
+}

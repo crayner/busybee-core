@@ -87,6 +87,9 @@ class YearSubscriber implements EventSubscriberInterface
 		if (!empty($specDays))
 			$data['specialDays'] = $specDays;
 
+		if (!empty($entity->getDownloadCache()) && file_exists($entity->getDownloadCache()))
+			unlink($entity->getDownloadCache());
+
 		$event->setData($data);
 		$form->setData($entity);
 	}

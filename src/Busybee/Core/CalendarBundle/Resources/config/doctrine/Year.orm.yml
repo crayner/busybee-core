@@ -19,6 +19,11 @@ Busybee\Core\CalendarBundle\Entity\Year:
         status:
             type: string
             length: '20'
+        downloadCache:
+            column: download_cache
+            nullable: true
+            length: 150
+            type: string
         lastModified:
             type: datetime
             column: last_modified

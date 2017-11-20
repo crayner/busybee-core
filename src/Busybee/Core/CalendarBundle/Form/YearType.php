@@ -7,6 +7,7 @@ use Busybee\Core\CalendarBundle\Events\YearSubscriber;
 use Busybee\Core\CalendarBundle\Model\YearManager;
 use Busybee\Core\CalendarBundle\Validator\Grade;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -129,7 +130,8 @@ class YearType extends AbstractType
 					),
 					'by_reference'  => false,
 				)
-			);
+			)
+			->add('downloadCache', HiddenType::class);
 
 		$builder->addEventSubscriber(new YearSubscriber($this->manager));
 	}

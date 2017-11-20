@@ -8,6 +8,9 @@ use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Busybee\Core\CalendarBundle\Form\YearType;
 use Busybee\Core\CalendarBundle\Entity\Year;
@@ -140,13 +143,6 @@ class CalendarController extends BusybeeController
 
 		$cm->setCalendarDays($year, $calendar);
 
-		$this->render('BusybeeCalendarBundle:Calendar:calendarView.pdf.twig',
-			array(
-				'calendar' => $calendar,
-				'year'     => $year,
-			)
-		);
-
 		/*
          * Pass calendar to Twig
          */
@@ -173,6 +169,14 @@ class CalendarController extends BusybeeController
 		$repo = $this->get('busybee_core_calendar.repository.year_repository');
 
 		$year = $repo->find($id);
+
+		if (!empty($year->getDownloadCache()) && file_exists($year->getDownloadCache()))
+			return new JsonResponse(
+				[
+					'file' => base64_encode($year->getDownloadCache()),
+				],
+				200
+			);
 
 		$service = $this->get('busybee_core_calendar.service.widget_service.calendar'); //calling a calendar service
 
@@ -205,16 +209,31 @@ class CalendarController extends BusybeeController
 
 		try
 		{
-			$dompdf = new Html2Pdf('L', 'A4', substr(empty($this->getUser()->getLocale()) ? $this->getParameter('locale') : $this->getUser()->getLocale(), 0, 2));
+			$pdf = new Html2Pdf('L', 'A4', substr(empty($this->getUser()->getLocale()) ? $this->getParameter('locale') : $this->getUser()->getLocale(), 0, 2));
 			ini_set('max_execution_time', 90);
-			$dompdf->writeHtml($content);
-			$headers = array(
-				'Content-type'        => 'application/pdf',
-				'Content-Disposition' => 'attachment; filename=' . basename('Calendar_' . preg_replace('/\s+/', '_', $year->getName()) . '.pdf'),
+			$pdf->writeHtml($content);
+
+			$pdf_content = $pdf->output('ignore_me.pdf', 'S');
+
+			$cName = 'calendar_' . $year->getName();
+			$fName = $cName . '_' . mb_substr(md5(uniqid()), mb_strlen($cName) + 1) . '.pdf';
+
+			$path = $this->getParameter('upload_path');
+
+			file_put_contents($path . DIRECTORY_SEPARATOR . $fName, $pdf_content);
+
+			$year->setDownloadCache($path . DIRECTORY_SEPARATOR . $fName);
+
+			$om = $this->get('doctrine')->getManager();
+			$om->persist($year);
+			$om->flush();
+
+			return new JsonResponse(
+				[
+					'file' => base64_encode($year->getDownloadCache()),
+				],
+				200
 			);
-
-			return new Response($dompdf->output('ignore_me.pdf', 'S'), 200, $headers);
-
 		}
 		catch (Html2PdfException $e)
 		{
@@ -224,15 +243,13 @@ class CalendarController extends BusybeeController
 	}
 
 	/**
-	 * @param Request $request
+	 * @param $id
 	 *
 	 * @return RedirectResponse
 	 */
-	public function calendarChangeAction(Request $request)
+	public function calendarChangeAction($id)
 	{
 		$this->denyAccessUnlessGranted('ROLE_USER', null, null);
-
-		$id = $request->get('id');
 
 		if (empty($id))
 		{

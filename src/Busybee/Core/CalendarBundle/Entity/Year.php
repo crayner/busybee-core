@@ -85,6 +85,11 @@ class Year extends YearModel
 	private $gradesSorted = false;
 
 	/**
+	 * @var string
+	 */
+	private $downloadCache;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
@@ -467,6 +472,27 @@ class Year extends YearModel
 	public function setFirstDay($firstDay)
 	{
 		$this->firstDay = $firstDay;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDownloadCache(): ?string
+	{
+		return $this->downloadCache;
+	}
+
+	/**
+	 * @param string $downloadCache
+	 *
+	 * @return Year
+	 */
+	public function setDownloadCache(string $downloadCache = null): Year
+	{
+
+		$this->downloadCache = empty($downloadCache) ? null : $downloadCache;
 
 		return $this;
 	}
