@@ -2,7 +2,7 @@
 
 namespace Busybee\Program\GradeBundle\Model;
 
-class StudentGradeModel
+abstract class StudentGradeModel
 {
 	/**
 	 * @return string

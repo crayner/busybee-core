@@ -11,3 +11,6 @@ Busybee\Core\CalendarBundle\Entity\Grade:
                 - year
             message: grade.sequence.unique
             errorPath: grade
+    properties:
+        website:
+            - Url: ~

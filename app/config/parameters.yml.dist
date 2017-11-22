@@ -178,4 +178,5 @@ parameters:
                 prefix: grade
             requirements:
                 - Student
+                - Calendar
             description: bundle.description.grade

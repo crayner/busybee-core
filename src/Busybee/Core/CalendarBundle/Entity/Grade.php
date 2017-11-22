@@ -3,6 +3,8 @@
 namespace Busybee\Core\CalendarBundle\Entity;
 
 use Busybee\Core\CalendarBundle\Model\GradeModel;
+use Busybee\Facility\InstituteBundle\Entity\Space;
+use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\Program\GradeBundle\Entity\StudentGrade;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -60,6 +62,31 @@ class Grade extends GradeModel
 	 * @var ArrayCollection
 	 */
 	private $students;
+
+	/**
+	 * @var Staff
+	 */
+	private $tutor1;
+
+	/**
+	 * @var Staff
+	 */
+	private $tutor2;
+
+	/**
+	 * @var Staff
+	 */
+	private $tutor3;
+
+	/**
+	 * @var Space
+	 */
+	private $space;
+
+	/**
+	 * @var string
+	 */
+	private $website;
 
 	/**
 	 * Constructor
@@ -329,4 +356,105 @@ class Grade extends GradeModel
 
 		return $this;
 	}
+
+	/**
+	 * @return Staff|null
+	 */
+	public function getTutor1(): ?Staff
+	{
+		return $this->tutor1;
+	}
+
+	/**
+	 * @param Staff $tutor1
+	 *
+	 * @return StudentGrade
+	 */
+	public function setTutor1(Staff $tutor1 = null): Grade
+	{
+		$this->tutor1 = $tutor1;
+
+		return $this;
+	}
+
+	/**
+	 * @return Staff|null
+	 */
+	public function getTutor2(): ?Staff
+	{
+		return $this->tutor2;
+	}
+
+	/**
+	 * @param Staff $tutor2
+	 *
+	 * @return StudentGrade
+	 */
+	public function setTutor2(Staff $tutor2 = null): Grade
+	{
+		$this->tutor2 = $tutor2;
+
+		return $this;
+	}
+
+	/**
+	 * @return Staff|null
+	 */
+	public function getTutor3(): ?Staff
+	{
+		return $this->tutor3;
+	}
+
+	/**
+	 * @param Staff|null $tutor3
+	 *
+	 * @return Grade
+	 */
+	public function setTutor3(Staff $tutor3 = null): Grade
+	{
+		$this->tutor3 = $tutor3;
+
+		return $this;
+	}
+
+	/**
+	 * @return Space|null
+	 */
+	public function getSpace(): ?Space
+	{
+		return $this->space;
+	}
+
+	/**
+	 * @param Space $space
+	 *
+	 * @return Grade
+	 */
+	public function setSpace(Space $space = null): Grade
+	{
+		$this->space = $space;
+
+		return $this;
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getWebsite(): ?string
+	{
+		return $this->website;
+	}
+
+	/**
+	 * @param string $website
+	 *
+	 * @return Grade
+	 */
+	public function setWebsite(string $website): Grade
+	{
+		$this->website = $website;
+
+		return $this;
+	}
+
 }

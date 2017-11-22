@@ -50,6 +50,18 @@ parameters:
                     role: ROLE_REGISTRAR
                     route: houses_edit
                     params: {}
+                manage_student_groups:
+                    label: menu.program.grades.manage
+                    role: ROLE_REGISTRAR
+                    route: manage_grades
+                    params: {}
+                manage_year_groups:
+                    label: menu.year.groups
+                    role: ROLE_REGISTRAR
+                    route: year_edit
+                    params:
+                        id: 'current'
+                        _fragment: 'grades'
             years_days_times:
                 calendar_years:
                     label: menu.year.manage
@@ -69,8 +81,23 @@ parameters:
                     target:
                         name: Calendar
                         options: 'width=1200,height=900'
+                manage_year_special_days:
+                    label: menu.year.specialdays
+                    role: ROLE_REGISTRAR
+                    route: year_edit
+                    params:
+                        id: 'current'
+                        _fragment: 'specialDays'
+                manage_year_terms:
+                    label: menu.year.terms
+                    role: ROLE_REGISTRAR
+                    route: year_edit
+                    params:
+                        id: 'current'
+                        _fragment: 'terms'
             hidden:
                 - year_edit
+                - edit_grade
         System Admin:
             extend_update:
                 manage_bundles:

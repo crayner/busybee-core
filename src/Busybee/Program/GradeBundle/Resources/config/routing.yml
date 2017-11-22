@@ -1,3 +1,1 @@
-delete_student_grade:
-    path:     /{id}/delete/
-    defaults: { _controller: BusybeeGradeBundle:Grade:deleteStudentGrade, id: null }
+

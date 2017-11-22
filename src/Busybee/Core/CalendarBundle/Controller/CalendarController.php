@@ -8,8 +8,6 @@ use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Busybee\Core\CalendarBundle\Form\YearType;
@@ -45,6 +43,13 @@ class CalendarController extends BusybeeController
 	public function editYearAction($id, Request $request)
 	{
 		$this->denyAccessUnlessGranted('ROLE_REGISTRAR', null, null);
+
+		if ($id === 'current')
+		{
+			$year = $this->get('busybee_core_calendar.repository.year_repository')->findOneByStatus('Current');
+
+			return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
+		}
 
 		$year = $id === 'Add' ? new Year() : $this->get('busybee_core_calendar.repository.year_repository')->find($id);
 

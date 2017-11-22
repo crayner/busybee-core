@@ -18,7 +18,11 @@ Busybee\Core\CalendarBundle\Entity\Grade:
             length: '8'
         name:
             type: string
-            length: '24'
+            length: 24
+            nullable: true
+        website:
+            type: string
+            length: 200
             nullable: true
         sequence:
             type: integer

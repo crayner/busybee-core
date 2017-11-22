@@ -1,0 +1,80 @@
+{# src/Busybee/PersonBundle/Resources/views/Person/index.html.twig #}
+
+{% trans_default_domain "BusybeeCalendarBundle" %}
+
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% block title %}{{ parent() }}{{ 'grade.manage.title'|trans }}{% endblock title %}
+{% block headerTitle %}{{ 'grade.manage.title'|trans }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'grade.manage.description'|trans }}{% endblock headerLead %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@BusybeeTemplate/Toggle/style.html.twig' %}
+{% endblock stylesheets %}
+
+{% block contentContainer %}
+    {% block paginationContent %}
+        {% include '@Pagination/Default/index.html.twig' with {'form_array': {'action': path('manage_grades') } } %}
+    {% endblock paginationContent %}
+    {% set transDomain = 'BusybeeCalendarBundle' %}
+    {% set h3Content = addButton({'windowOpen': {'route': path('edit_grade', {'id': 'Add'})}})|raw %}
+
+    {% set header = 'grade.manage.title' %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {'header': header, panelParagraph: 'grade.manage.description'} %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-sm-12" id="gradeError">
+            </div>
+        </div>
+        <div class="row row-header">
+            <div class="col-sm-2 well text-center">
+                {{ 'grade.name.label'|trans }}<br/>
+                <span class="small">({{ 'grade.grade.label'|trans }})</span>
+            </div>
+            <div class="col-sm-3 well text-center">
+                {{ 'grade.tutor.list.label'|trans }}
+            </div>
+            <div class="col-sm-2 well text-center">
+                {{ 'grade.space.label'|trans }}
+            </div>
+            <div class="col-sm-2 well text-center">
+                {{ 'grade.website.label'|trans }}
+            </div>
+            <div class="col-sm-3 well text-center">
+                {{ 'grade.actions.label'|trans }}
+            </div>
+        </div>
+        {% for result in pagination.result %}
+            <div class="row">
+                <div class="col-sm-2 well text-center">
+                    {{ result.name }}<br/>
+                    <span class="small">({{ result.grade }})</span>
+                </div>
+                <div class="col-sm-3 well ">
+                    <span class="small">{{ manager.tutorNames(result.0) }}</span>
+                </div>
+                <div class="col-sm-2 well ">
+                    {{ manager.spaceName(result.0) }}
+                </div>
+                <div class="col-sm-2 well ">
+                    {{ result.0.website }}
+                </div>
+                <div class="col-sm-3 well ">
+                    <div>
+                        {{ deleteButton({colour: 'warning', windowOpen: {route: path('edit_grade', {id: result.0.id})}})|raw }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+{% endblock contentContainer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '@BusybeeTemplate/Scripts/fadeAlert.html.twig' %}
+    {% include '@BusybeeTemplate/Toggle/script.html.twig' %}
+    {% include '@Pagination/Paginator/script.html.twig' %}
+{% endblock javascripts %}
+

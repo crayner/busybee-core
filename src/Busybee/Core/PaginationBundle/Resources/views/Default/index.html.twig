@@ -33,7 +33,7 @@
         <div class="col-sm-3 text-right">
             {% if pagination.displaySort and form.currentSort.vars.choices is not empty %}
                 <label class="control-label">{{ form.currentSort.vars.label|trans }}</label>
-                {{ form_widget(form.currentSort) }}
+                {{ form_widget(form.currentSort, {value: pagination.currentSortBy}) }}
             {% endif %}
             {% do form.currentSort.setRendered %}
         </div>

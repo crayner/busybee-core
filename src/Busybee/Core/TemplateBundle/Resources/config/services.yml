@@ -273,3 +273,9 @@ services:
         class: Busybee\Core\TemplateBundle\Extension\ImageExtension
         tags:
             - { name: twig.extension }
+    busybee_core_template.type.entity_type:
+        class: Busybee\Core\TemplateBundle\Type\EntityType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }

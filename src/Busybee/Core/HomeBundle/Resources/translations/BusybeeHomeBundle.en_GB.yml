@@ -161,6 +161,12 @@ menu:
         calendar:
             display: Display School Calendar
         manage: Manage School Years
+        groups: Manage Year Groups
+        terms: Manage Terms
+        specialdays: Manage Special Days
+    program:
+        grades:
+            manage: Manage Grades Groups
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security

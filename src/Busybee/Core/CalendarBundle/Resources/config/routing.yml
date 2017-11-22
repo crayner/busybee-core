@@ -25,6 +25,12 @@ year_calendar_change:
 specialday_copy:
     path:     /special_day/{day}/{id}/copy/
     defaults: { _controller: BusybeeCalendarBundle:Calendar:copySpecialDay }
-grade_edit:
-    path:     /grade/edit/
-    defaults: { _controller: BusybeeInstituteBundle:Grade:edit }
+manage_grades:
+    path:     /grades/manage/
+    defaults: { _controller: BusybeeCalendarBundle:Grade:list }
+delete_student_grade:
+    path:     /grade/{id}/delete/
+    defaults: { _controller: BusybeeCalendarBundle:Grade:deleteStudentGrade, id: null }
+edit_grade:
+    path:     /grade/{id}/edit/
+    defaults: { _controller: BusybeeCalendarBundle:Grade:edit }

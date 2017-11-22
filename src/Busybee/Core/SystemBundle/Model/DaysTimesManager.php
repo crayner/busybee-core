@@ -48,13 +48,13 @@ class DaysTimesManager
 	 */
 	private function loadDaysTimes(): DaysTimesManager
 	{
-		$this->time->setOpen(new \DateTime('1970-01-01 ' . $this->settingManager->get('schoolday.open')));
+		$this->time->setOpen($this->settingManager->get('schoolday.open'));
 
-		$this->time->setBegin(new \DateTime('1970-01-01 ' . $this->settingManager->get('schoolday.begin')));
+		$this->time->setBegin($this->settingManager->get('schoolday.begin'));
 
-		$this->time->setFinish(new \DateTime('1970-01-01 ' . $this->settingManager->get('schoolday.finish')));
+		$this->time->setFinish($this->settingManager->get('schoolday.finish'));
 
-		$this->time->setClose(new \DateTime('1970-01-01 ' . $this->settingManager->get('schoolday.close')));
+		$this->time->setClose($this->settingManager->get('schoolday.close'));
 
 
 		foreach ($this->settingManager->get('schoolweek') as $name => $shortName)

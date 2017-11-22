@@ -2,6 +2,7 @@
 
 namespace Busybee\Core\CalendarBundle\Form;
 
+use Busybee\Core\CalendarBundle\Model\GradeManager;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\Core\CalendarBundle\Entity\Year;
@@ -11,6 +12,7 @@ use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -21,23 +23,29 @@ class GradeType extends AbstractType
 	/**
 	 * @var ObjectManager
 	 */
-	private $om;
+	private $objectManager;
 
 	/**
 	 * @var SettingManager
 	 */
-	private $sm;
+	private $settingManager;
+
+	/**
+	 * @var GradeManager
+	 */
+	private $gradeManager;
 
 	/**
 	 * DepartmentType constructor.
 	 *
-	 * @param ObjectManager  $om
-	 * @param SettingManager $sm
+	 * @param                ObjectManager  objectManager
+	 * @param SettingManager $settingManager
 	 */
-	public function __construct(ObjectManager $om, SettingManager $sm)
+	public function __construct(ObjectManager $objectManager, SettingManager $settingManager, GradeManager $gradeManager)
 	{
-		$this->om = $om;
-		$this->sm = $sm;
+		$this->objectManager  = $objectManager;
+		$this->settingManager = $settingManager;
+		$this->gradeManager   = $gradeManager;
 	}
 
 	/**
@@ -48,7 +56,7 @@ class GradeType extends AbstractType
 		$builder
 			->add('grade', SettingChoiceType::class,
 				[
-					'label'        => 'grade.label.grade',
+					'label'        => 'grade.name.select',
 					'setting_name' => 'student.groups',
 					'required'     => true,
 					'placeholder'  => 'grade.placeholder.grade',
@@ -56,10 +64,16 @@ class GradeType extends AbstractType
 			)
 			->add('name', HiddenType::class)
 			->add('year', HiddenType::class)
-			->add('sequence', HiddenType::class);
+			->add('sequence', HiddenType::class)
+			->add('website', UrlType::class,
+				[
+					'label'    => 'grade.website.label',
+					'required' => false,
+				]
+			);
 
-		$builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
-		$builder->addEventSubscriber(new GradeSubscriber($this->sm));
+		$builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->objectManager, Year::class));
+		$builder->addEventSubscriber(new GradeSubscriber($this->settingManager, $this->gradeManager));
 	}
 
 	/**

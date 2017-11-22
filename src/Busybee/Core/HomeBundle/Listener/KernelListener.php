@@ -95,13 +95,15 @@ class KernelListener
 			$response = new RedirectResponse($url);
 			$event->setResponse($response);
 		}
-
 		/*
 				if ($exception instanceof \Twig_Error_Runtime)
 				{
-					dump($this);
-					dump($exception);
-					die();
+					if (false !== strpos($exception->getMessage(), 'An exception has been thrown during the rendering of a template') && $exception->getLine() === 5);
+					{
+						$url = $this->router->generate('home_page');
+						$response = new RedirectResponse($url);
+						$event->setResponse($response);
+					}
 				} */
 	}
 }

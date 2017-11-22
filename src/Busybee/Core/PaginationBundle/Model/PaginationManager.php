@@ -460,14 +460,19 @@ abstract class PaginationManager implements PaginationInterface
 	 *
 	 * @version    25th October 2016
 	 * @since      25th October 2016
-	 * @return    array
+	 * @return    string
 	 */
-	public function getSortBy()
+	public function getSortBy(): array
 	{
 		if (!empty($this->setting->sortBy[$this->sortBy]))
 			return $this->setting->sortBy[$this->sortBy];
 
 		return [];
+	}
+
+	public function getCurrentSortBy(): string
+	{
+		return $this->sortBy;
 	}
 
 	/**
@@ -1139,7 +1144,6 @@ abstract class PaginationManager implements PaginationInterface
 				$concat .= ' as ' . $k;
 				$concat = str_replace(',', ',\' \',', $concat);
 				$this->query->addSelect($concat);
-
 			}
 
 		}

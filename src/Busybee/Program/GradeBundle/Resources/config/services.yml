@@ -23,3 +23,10 @@ services:
         class: Busybee\Program\GradeBundle\Model\GradeManager
         arguments:
             - '@doctrine.orm.default_entity_manager'
+    busybee_program_grade.repository.student_grade_repository:
+        class: Busybee\Program\GradeBundle\Repository\StudentGradeRepository
+        factory:
+            - "@doctrine"
+            - 'getRepository'
+        arguments:
+            - "BusybeeGradeBundle:StudentGrade"

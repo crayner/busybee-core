@@ -14,6 +14,8 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class BusybeeGradeExtension extends Extension
 {
+	use \Busybee\Core\HomeBundle\DependencyInjection\MenuExtension;
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -24,5 +26,7 @@ class BusybeeGradeExtension extends Extension
 
 		$loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 		$loader->load('services.yml');
+
+		$container = $this->buildMenu(__DIR__, $container);
 	}
 }
