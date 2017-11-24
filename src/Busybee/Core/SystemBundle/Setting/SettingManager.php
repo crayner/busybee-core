@@ -169,7 +169,7 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 
 		try
 		{
-			$this->setting = $this->settingRepo->findOneByName($name);
+			$this->setting = $this->getSettingEntity($name);
 		}
 		catch (\Exception $e)
 		{
@@ -325,8 +325,6 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 		{
 			case 'twig':
 				break;
-			case 'array':
-				$value = Yaml::parse($value);
 			default:
 				$this->writeSettingToSession($name, $value);
 		}
@@ -497,6 +495,26 @@ class SettingManager implements ContainerAwareInterface, SettingManagerInterface
 
 		return $value;
 	}
+
+
+	/**
+	 * get Setting Entity
+	 *
+	 * @version    24th November 2017
+	 * @since      24th November 2017
+	 *
+	 * @param    string $name
+	 *
+	 * @return    Setting|null
+	 */
+	public function getSettingEntity($name): ?Setting
+	{
+		$name          = strtolower($name);
+		$this->setting = $this->settingRepo->findOneByName($name);
+
+		return $this->setting;
+	}
+
 
 	/**
 	 * Build Form

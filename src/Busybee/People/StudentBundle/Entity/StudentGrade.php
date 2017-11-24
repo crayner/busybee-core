@@ -1,11 +1,10 @@
 <?php
 
-namespace Busybee\Program\GradeBundle\Entity;
+namespace Busybee\People\StudentBundle\Entity;
 
 use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\Core\SecurityBundle\Entity\User;
-use Busybee\People\StaffBundle\Entity\Staff;
-use Busybee\Program\GradeBundle\Model\StudentGradeModel;
+use Busybee\People\StudentBundle\Model\StudentGradeModel;
 use Busybee\People\StudentBundle\Entity\Student;
 
 /**

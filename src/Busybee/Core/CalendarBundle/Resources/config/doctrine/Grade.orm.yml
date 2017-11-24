@@ -20,10 +20,6 @@ Busybee\Core\CalendarBundle\Entity\Grade:
             type: string
             length: 24
             nullable: true
-        website:
-            type: string
-            length: 200
-            nullable: true
         sequence:
             type: integer
             length: 2

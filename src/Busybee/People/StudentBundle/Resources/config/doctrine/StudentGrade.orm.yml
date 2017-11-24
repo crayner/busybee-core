@@ -1,7 +1,7 @@
-Busybee\Program\GradeBundle\Entity\StudentGrade:
+Busybee\People\StudentBundle\Entity\StudentGrade:
     type: entity
     table: grade_by_student
-    repositoryClass: Busybee\Program\GradeBundle\Repository\StudentGradeRepository
+    repositoryClass: Busybee\People\StudentBundle\Repository\StudentGradeRepository
     uniqueConstraints:
          student_grade:
              columns:

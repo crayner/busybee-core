@@ -106,3 +106,8 @@ Busybee\People\StudentBundle\Entity\Student:
         transportNotes:
             nullable: true
             type: text
+    oneToMany:
+        grades:
+            targetEntity: Busybee\People\StudentBundle\Entity\StudentGrade
+            mappedBy: student
+            cascade: ['persist']

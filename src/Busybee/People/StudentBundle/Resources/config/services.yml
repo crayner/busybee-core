@@ -100,3 +100,7 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@validator'
             - '@busybee_core_calendar.model.get_current_year'
+    busybee_management_grade.events.student_grade_subscriber:
+        class: Busybee\People\StudentBundle\Events\StudentGradeSubscriber
+        tags:
+            - { name: doctrine.event_subscriber }

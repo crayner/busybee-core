@@ -156,7 +156,12 @@ class Setting extends SettingModel
 	 */
 	public function setValue($value)
 	{
+
+		if (empty($this->getType()))
+			throw new Exception('The setting ' . $this->getName() . ' has not set the type correctly.');
+
 		$type = 'set' . ucfirst($this->getType());
+
 
 		return $this->$type($value);
 	}
@@ -454,14 +459,6 @@ class Setting extends SettingModel
 	}
 
 	/**
-	 * @return mixed
-	 */
-	private function getSystem()
-	{
-		return $this->value;
-	}
-
-	/**
 	 * @return int
 	 */
 	private function getInteger(): int
@@ -598,6 +595,28 @@ class Setting extends SettingModel
 		if (false === @preg_match($value, 'jsfoieqwht9rhewtgs euohgt')) // if this valid regex
 			$value = null;
 
+		$this->value = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @return blob
+	 */
+	public function getSystem()
+	{
+		// It really is up to the programmer to check this....
+		return $this->value;
+	}
+
+	/**
+	 * @param $value
+	 *
+	 * @return Setting
+	 */
+	public function setSystem($value): Setting
+	{
+		// It really is up to the programmer to check this....
 		$this->value = $value;
 
 		return $this;

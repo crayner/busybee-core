@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Program\GradeBundle\Model;
+namespace Busybee\People\StudentBundle\Model;
 
 abstract class StudentGradeModel
 {

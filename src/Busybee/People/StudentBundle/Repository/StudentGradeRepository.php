@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Program\GradeBundle\Repository;
+namespace Busybee\People\StudentBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

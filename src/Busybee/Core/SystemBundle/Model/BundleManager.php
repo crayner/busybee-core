@@ -2,6 +2,7 @@
 
 namespace Busybee\Core\SystemBundle\Model;
 
+use Busybee\Core\HomeBundle\Exception\Exception;
 use Busybee\Core\SystemBundle\Entity\Setting;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Busybee\Core\TemplateBundle\Model\FileUpLoad;
@@ -124,7 +125,7 @@ class BundleManager
 	 */
 	public function saveBundles()
 	{
-		$data                          = [];
+		$data = [];
 
 		foreach ($this->bundles->toArray() as $name => $bundle)
 		{
@@ -499,7 +500,14 @@ class BundleManager
 			return;
 		foreach ($data as $name => $datum)
 		{
-			$entity = new Setting();
+			$entity = $this->settingManager->getSettingEntity($name);
+			if (!$entity instanceof Setting)
+			{
+				$entity = new Setting();
+				if (empty($datum['type']))
+					throw new Exception('When creating a setting the type must be defined. ' . $name);
+				$entity->setType($datum['type']);
+			}
 			$entity->setName($name);
 			foreach ($datum as $field => $value)
 			{
@@ -521,8 +529,8 @@ class BundleManager
 	{
 		$res = explode('/', str_replace('@', '', $resource));
 
-		$w   = $this->settingManager->getParameter('kernel.bundles')[$res[0]];
-		$w   = explode('\\', $w);
+		$w = $this->settingManager->getParameter('kernel.bundles')[$res[0]];
+		$w = explode('\\', $w);
 		array_pop($w);
 		$w = implode('/', $w);
 

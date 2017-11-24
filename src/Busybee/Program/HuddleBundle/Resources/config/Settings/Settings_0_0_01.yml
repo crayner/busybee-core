@@ -1,6 +1,6 @@
-Grade.version:
+Huddle.version:
     type: system
     value: 0.0.01
-    displayName: 'Version: Grade Bundle'
+    displayName: 'Version: Huddle Bundle'
     description: System Setting ONLY
     role: ROLE_SYSTEM_ADMIN

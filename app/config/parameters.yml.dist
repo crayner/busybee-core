@@ -130,6 +130,17 @@ parameters:
                 resource: "BusybeeCurriculumBundle/Resources/config/routing.yml"
                 prefix:   curriculum
                 type: yaml
+        Huddle:
+            type: plugin
+            namespace: Busybee\Program\HuddleBundle\BusybeeHuddleBundle
+            route:
+                resource: "BusybeeHuddleBundle/Resources/config/routing.yml"
+                prefix:   huddle
+                type: yaml
+            requirements:
+            	- Student
+            	- Staff
+            description: Groups of students, in a location with staff oversight.
         Institute:
             type: plugin
             namespace: Busybee\Facility\InstituteBundle\BusybeeInstituteBundle
@@ -170,13 +181,3 @@ parameters:
             description: bundle.description.avetmiss
             requirements:
                 - Student
-        Grade:
-            type: plugin
-            namespace: Busybee\Program\GradeBundle\BusybeeGradeBundle
-            route:
-                resource: BusybeeGradeBundle/Resources/config/routing.yml
-                prefix: grade
-            requirements:
-                - Student
-                - Calendar
-            description: bundle.description.grade

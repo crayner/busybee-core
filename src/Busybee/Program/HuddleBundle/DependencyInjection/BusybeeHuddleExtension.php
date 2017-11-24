@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Program\GradeBundle\DependencyInjection;
+namespace Busybee\Program\HuddleBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class BusybeeGradeExtension extends Extension
+class BusybeeHuddleExtension extends Extension
 {
 	use \Busybee\Core\HomeBundle\DependencyInjection\MenuExtension;
 

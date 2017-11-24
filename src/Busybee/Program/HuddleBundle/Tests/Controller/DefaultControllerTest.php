@@ -1,6 +1,6 @@
 <?php
 
-namespace Busybee\Program\GradeBundle\Tests\Controller;
+namespace Busybee\Program\HuddleBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
