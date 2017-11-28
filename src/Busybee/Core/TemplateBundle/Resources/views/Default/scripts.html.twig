@@ -35,6 +35,17 @@
             }
         });
         $('[data-submenu]').submenupicker();
+
+        function menuSectionSlide() {
+            var scroll_top = $(window).scrollTop();
+            if (scroll_top >= 247) { // the detection!
+                $('#sectionMenuContainer').addClass('is-sticky');
+            } else {
+                $('#sectionMenuContainer').removeClass('is-sticky');
+            }
+        }
+
+        $(window).scroll(menuSectionSlide);
     </script>
 {% endif %}
 <script src={{ asset('js/ie10-viewport-bug-workaround.js') }}></script>

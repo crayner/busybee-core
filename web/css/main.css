@@ -509,6 +509,10 @@ div#contentContainer {
     border-right: 1px solid #dddddd;
 }
 
+.sectionLink {
+    display: flex;
+}
+
 .sectionLink > button {
     margin: 0;
     padding: 0 4px;
@@ -585,4 +589,9 @@ body.loading {
    modal element will be visible */
 body.loading .showLoader {
     display: block;
+}
+
+.is-sticky {
+    position: fixed;
+    top: 48px;
 }

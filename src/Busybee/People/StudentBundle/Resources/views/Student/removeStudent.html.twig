@@ -1,5 +1,10 @@
 {% spaceless %}
+    {% set anchor = '' %}
     {% for student in manager.students %}
+        {% if student.surname|slice(0,1) != anchor %}
+            {% set anchor = student.surname|slice(0,1)|upper %}
+            <a name="{{ anchor }}"></a>
+        {% endif %}
         <div class="col-sm-9 well well-info" id="student_{{ student.id }}" draggable="true"
              ondragstart="drag(event)">{{ student.formatName }}</div>
     {% endfor %}

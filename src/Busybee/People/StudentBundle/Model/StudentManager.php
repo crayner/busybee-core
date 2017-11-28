@@ -322,4 +322,21 @@ class StudentManager extends PersonManager
 
 		$this->addMessage('warning', 'grade.student.remove.success', ['%name%' => $sg->getStudent()->formatName()]);
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getLinks()
+	{
+		$links  = '<p>';
+		$anchor = '';
+		foreach ($this->getPossibleStudents() as $student)
+			if (substr($student->getSurname(), 0, 1) !== $anchor)
+			{
+				$anchor = substr($student->getSurname(), 0, 1);
+				$links  .= '<a class="btn btn-primary" style="width: 45px;" href="#' . $anchor . '">[' . $anchor . ']</a>';
+			}
+
+		return $links . '</p>';
+	}
 }

@@ -76,10 +76,12 @@
                     {% endblock contentContainer %}
                 </div>
                 {% if fullPage is not defined %}
-                    <div class="col-sm-3" id="sectionMenuContainer">
+                    <div class="col-sm-3">
+                        <div id="sectionMenuContainer">
                         {% block sectionMenu %}
                             {% include '@BusybeeTemplate/Menu/section-menu.html.twig' %}
                         {% endblock sectionMenu %}
+                        </div>
                     </div>
                 {% endif %}
         </div>

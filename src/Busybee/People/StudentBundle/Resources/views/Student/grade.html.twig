@@ -8,6 +8,8 @@
 {% block headerTitle %}{{ 'student.grade.students.title'|trans({'%name%': manager.grade.fullName}) }}{% endblock headerTitle %}
 {% block headerLead %}{{ 'student.grade.students.description'|trans }}{% endblock headerLead %}
 
+{% set links = '' %}
+
 
 {% block contentContainer %}
     {% set title = 'student.grade.students.title' %}
@@ -18,7 +20,10 @@
     {% include '@BusybeeTemplate/Page/panelStart.html.twig' %}
     <div id="gradeMessage"><!-- Messages go here --></div>
     <div class="row">
-        <div class="col-sm-offset-6 col-sm-6 well">
+        <div class="col-sm-6 well" id="links">
+            <!-- -->
+        </div>
+        <div class="col-sm-6 well">
             {{ form_row(form.defaultStatus) }}
         </div>
     </div>
@@ -99,5 +104,7 @@
                 }
             })
         }
+
+        $('#links').html('{{ manager.links|raw }}');
     </script>
 {% endblock %}
