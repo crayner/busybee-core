@@ -3,6 +3,7 @@
 namespace Busybee\Core\SecurityBundle\Controller;
 
 use Busybee\Core\SecurityBundle\Entity\User;
+use Busybee\Core\SecurityBundle\Form\ResetType;
 use Busybee\Core\SecurityBundle\Form\UserType;
 use Busybee\Core\SystemBundle\Model\MessageManager;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
@@ -64,7 +65,7 @@ class UserController extends BusyBeeController
 			return $event->getResponse();
 		}
 
-		$form = $this->createForm('Busybee\Core\SecurityBundle\Form\ResetType', $user);
+		$form = $this->createForm(ResetType::class, $user);
 		$form->setData($user);
 
 		$form->handleRequest($request);
@@ -329,11 +330,9 @@ class UserController extends BusyBeeController
 			$entity = $em->getRepository(User::class)->find($id);
 
 		$person_id = $this->get('busybee_core_security.doctrine.user_manager')->personExists($entity);
-		{
 			return $this->redirectToRoute('person_edit', ['id' => $person_id, '_fragment' => 'user']);
-		}
 
-		$form = $this->createForm(UserType::class, $entity, ['isSystemAdmin' => $this->isGranted('ROLE_SYSTEM_ADMIN')]);
+		$form = $this->createForm(UserType::class, $entity, ['isSystemAdmin' => $this->isGranted('ROLE_SYSTEM_ADMIN'), 'session' => $this->get('session')]);
 
 		$form->handleRequest($request);
 

@@ -3,6 +3,7 @@
 namespace Busybee\Core\CalendarBundle\Form;
 
 use Busybee\Core\CalendarBundle\Model\GradeManager;
+use Busybee\Core\TemplateBundle\Type\HiddenEntityType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\Core\CalendarBundle\Entity\Year;
@@ -63,7 +64,11 @@ class GradeType extends AbstractType
 				]
 			)
 			->add('name', HiddenType::class)
-			->add('year', HiddenType::class)
+			->add('year', HiddenEntityType::class,
+				[
+					'class' => Year::class,
+				]
+			)
 			->add('sequence', HiddenType::class)
 			->add('website', UrlType::class,
 				[
@@ -72,7 +77,6 @@ class GradeType extends AbstractType
 				]
 			);
 
-		$builder->get('year')->addModelTransformer(new EntityToStringTransformer($this->objectManager, Year::class));
 		$builder->addEventSubscriber(new GradeSubscriber($this->settingManager, $this->gradeManager));
 	}
 
@@ -87,6 +91,11 @@ class GradeType extends AbstractType
 				'translation_domain' => 'BusybeeCalendarBundle',
 				'year_data'          => null,
 				'error_bubbling'     => true,
+			]
+		);
+		$resolver->setRequired(
+			[
+				'manager',
 			]
 		);
 	}
@@ -107,5 +116,6 @@ class GradeType extends AbstractType
 	public function buildView(FormView $view, FormInterface $form, array $options)
 	{
 		$view->vars['year_data'] = $options['year_data'];
+		$view->vars['manager']   = $options['manager'];
 	}
 }

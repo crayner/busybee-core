@@ -194,7 +194,7 @@ class PersonType extends AbstractType
 					'required'           => false,
 				)
 			);
-		$builder->addEventSubscriber(new PersonSubscriber($this->personManager, $this->manager, $this->tm, $options['isSystemAdmin']));
+		$builder->addEventSubscriber(new PersonSubscriber($this->personManager, $this->manager, $this->tm, $options['isSystemAdmin'], $options['session']));
 	}
 
 	/**
@@ -214,6 +214,9 @@ class PersonType extends AbstractType
 				'deletePhoto',
 				'isSystemAdmin',
 				'systemYear',
+				'deletePassportScan',
+				'deleteIDScan',
+				'session',
 			]
 		);
 	}

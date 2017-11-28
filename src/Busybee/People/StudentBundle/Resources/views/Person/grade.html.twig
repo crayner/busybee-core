@@ -1,7 +1,0 @@
-{% trans_default_domain "BusybeeStudentBundle" %}
-
-{% if personManager.gradesInstalled() %}
-    <div class="gradeMessage"></div>
-    {{ form_widget(form.grades) }}
-    {% do form.grades.setRendered %}
-{% endif %}

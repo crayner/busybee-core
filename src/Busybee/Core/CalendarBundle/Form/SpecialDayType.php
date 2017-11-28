@@ -5,6 +5,7 @@ namespace Busybee\Core\CalendarBundle\Form;
 use Busybee\Core\CalendarBundle\Entity\SpecialDay;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\TemplateBundle\Type\HiddenEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -122,10 +123,11 @@ class SpecialDayType extends AbstractType
 					'placeholder' => array('hour' => 'specialDay.hour', 'minute' => 'specialDay.minute'),
 				)
 			)
-			->add('year', HiddenType::class);
-
-		$builder->get('year')
-			->addModelTransformer(new EntityToStringTransformer($this->manager, Year::class));
+			->add('year', HiddenEntityType::class,
+				[
+					'class' => Year::class,
+				]
+			);
 	}
 
 	/**

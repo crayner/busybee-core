@@ -166,7 +166,7 @@ class UserType extends AbstractType
 				]
 			);
 
-		$builder->addEventSubscriber(new UserSubscriber($options['isSystemAdmin']));
+		$builder->addEventSubscriber(new UserSubscriber($options['session'], $options['isSystemAdmin']));
 	}
 
 	/**
@@ -182,6 +182,7 @@ class UserType extends AbstractType
 		$resolver->setRequired(
 			[
 				'isSystemAdmin',
+				'session',
 			]
 		);
 	}

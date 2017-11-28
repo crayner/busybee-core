@@ -154,6 +154,9 @@ class StudentGrade extends StudentGradeModel
 	 */
 	public function setGrade(Grade $grade = null, $add = true): StudentGrade
 	{
+		if ($add)
+			$grade->addStudent($this, false);
+
 		$this->grade = $grade;
 
 		return $this;

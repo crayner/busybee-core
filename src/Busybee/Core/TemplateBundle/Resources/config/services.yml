@@ -279,3 +279,9 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
+    busybee_core_template.type.hidden_entity_type:
+        class: Busybee\Core\TemplateBundle\Type\HiddenEntityType
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }

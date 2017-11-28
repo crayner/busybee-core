@@ -2,6 +2,8 @@
 
 namespace Busybee\Core\SecurityBundle\Form\DataTransformer;
 
+use Busybee\Core\HomeBundle\Exception\Exception;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -17,12 +19,18 @@ class EntityToStringTransformer implements DataTransformerInterface
 	private $entityRepository;
 
 	/**
+	 * @var bool
+	 */
+	private $multiple;
+
+	/**
 	 * @param ObjectManager $om
 	 */
-	public function __construct(ObjectManager $om, $entityClass)
+	public function __construct(ObjectManager $om, array $options)
 	{
 		$this->om = $om;
-		$this->setEntityClass($entityClass);
+		$this->setEntityClass($options['class']);
+		$this->setMultiple($options['multiple']);
 	}
 
 	public function setEntityClass($entityClass)
@@ -39,16 +47,28 @@ class EntityToStringTransformer implements DataTransformerInterface
 	/**
 	 * @param mixed $entity
 	 *
-	 * @return string
+	 * @return string|array
 	 */
 	public function transform($entity)
 	{
-		if (is_null($entity) || !$entity instanceof $this->entityClass)
+		if (!$this->isMultiple())
 		{
-			return '';
+			if (is_null($entity) || !$entity instanceof $this->entityClass)
+			{
+				return '';
+			}
+
+			return strval($entity->getId());
 		}
 
-		return strval($entity->getId());
+		if (is_iterable($entity))
+			if ($entity->count() == 0)
+				return [];
+			else
+			{
+				return $entity->toArray();
+			}
+		throw new Exception('What to do with: ' . json_encode($entity));
 	}
 
 	/**
@@ -65,23 +85,49 @@ class EntityToStringTransformer implements DataTransformerInterface
 			return null;
 		}
 
-		$entity = $this->entityRepository->find($id);
-		if (null === $entity)
+		if (!is_array($id))
 		{
-			throw new TransformationFailedException(
-				sprintf(
-					'A %s with id "%s" does not exist!',
-					$this->entityType,
-					$id
-				)
-			);
+
+			$entity = $this->entityRepository->find($id);
+			if (null === $entity)
+			{
+				throw new TransformationFailedException(
+					sprintf(
+						'A %s with id "%s" does not exist!',
+						$this->entityType,
+						$id
+					)
+				);
+			}
+
+			return $entity;
 		}
 
-		return $entity;
+		return $id;
 	}
 
 	public function setEntityType($entityType)
 	{
 		$this->entityType = $entityType;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isMultiple(): bool
+	{
+		return $this->multiple;
+	}
+
+	/**
+	 * @param bool $multiple
+	 *
+	 * @return EntityToStringTransformer
+	 */
+	public function setMultiple(bool $multiple): EntityToStringTransformer
+	{
+		$this->multiple = $multiple;
+
+		return $this;
 	}
 }

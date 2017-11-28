@@ -98,6 +98,7 @@ parameters:
             hidden:
                 - year_edit
                 - edit_grade
+                - student_add_to_grade
         System Admin:
             extend_update:
                 manage_bundles:

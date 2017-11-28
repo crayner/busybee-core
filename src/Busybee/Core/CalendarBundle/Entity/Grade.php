@@ -5,8 +5,9 @@ namespace Busybee\Core\CalendarBundle\Entity;
 use Busybee\Core\CalendarBundle\Model\GradeModel;
 use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\People\StaffBundle\Entity\Staff;
-use Busybee\Program\GradeBundle\Entity\StudentGrade;
+use Busybee\People\StudentBundle\Entity\StudentGrade;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Grade
@@ -304,9 +305,9 @@ class Grade extends GradeModel
 	/**
 	 * Get Students
 	 *
-	 * @return ArrayCollection
+	 * @return PersistentCollection
 	 */
-	public function getStudents(): ArrayCollection
+	public function getStudents(): PersistentCollection
 	{
 		return $this->students;
 	}
@@ -332,10 +333,13 @@ class Grade extends GradeModel
 	 *
 	 * @return Grade
 	 */
-	public function addStudent(StudentGrade $student = null): Grade
+	public function addStudent(StudentGrade $student = null, $add = true): Grade
 	{
 		if (!$student instanceof StudentGrade)
 			return $this;
+
+		if ($add)
+			$student->setGrade($this, false);
 
 		if (!$this->students->contains($student))
 			$this->students->add($student);

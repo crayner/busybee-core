@@ -7,28 +7,25 @@
     <div class="panel-body">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-3 well">
+                <div class="col-sm-4 well">
                     {{ form_row(form.startAtSchool) }}
                 </div>
-                <div class="col-sm-3 well">
+                <div class="col-sm-4 well">
                     {{ form_row(form.startAtThisSchool) }}
                 </div>
-                <div class="col-sm-3 well">
+                <div class="col-sm-4 well">
                     {{ form_row(form.lastAtThisSchool) }}
-                </div>
-                <div class="col-sm-3 well">
-                    {{ form_row(form.house) }}
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.house) }}
+                </div>
                 <div class="col-sm-4 well">
                     {{ form_row(form.countryOfBirth) }}
                 </div>
                 <div class="col-sm-4 well">
                     {{ form_row(form.ethnicity) }}
-                </div>
-                <div class="col-sm-4 well">
-                    {{ form_row(form.religion) }}
                 </div>
             </div>
             <div class="row">
@@ -43,6 +40,9 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-4 well">
+                    {{ form_row(form.religion) }}
+                </div>
                 <div class="col-sm-4 well">
                     {{ form_row(form.locker) }}
                 </div>

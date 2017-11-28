@@ -58,7 +58,7 @@ class GradeController extends BusybeeController
 
 		$grade = $manager->getEntity($id);
 
-		$form = $this->createForm(GradeType::class, $grade);
+		$form = $this->createForm(GradeType::class, $grade, ['manager' => $manager]);
 
 		$form->handleRequest($request);
 

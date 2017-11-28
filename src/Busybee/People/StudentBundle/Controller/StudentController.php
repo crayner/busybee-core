@@ -4,7 +4,9 @@ namespace Busybee\People\StudentBundle\Controller;
 
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
+use Busybee\People\StudentBundle\Form\GradeType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class StudentController extends BusybeeController
@@ -109,4 +111,135 @@ class StudentController extends BusybeeController
 		);
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return RedirectResponse
+	 */
+	public function removePassportScanAction(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+		$pm = $this->get('busybee_people_person.model.person_manager');
+
+		$person = $pm->getPerson($id);
+
+		$em = $this->get('doctrine')->getManager();
+
+		$photo = $person->getCitizenship1PassportScan();
+
+		$person->setPhoto(null);
+
+		if (file_exists($photo))
+			unlink($photo);
+
+		$em->persist($person);
+		$em->flush();
+
+		return $this->redirectToRoute('person_edit', ['id' => $id]);
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return RedirectResponse
+	 */
+	public function removeIDScanAction(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+		$pm = $this->get('busybee_people_person.model.person_manager');
+
+		$person = $pm->getPerson($id);
+
+		$em = $this->get('doctrine')->getManager();
+
+		$photo = $person->getNationalIDScan();
+
+		$person->setPhoto(null);
+
+		if (file_exists($photo))
+			unlink($photo);
+
+		$em->persist($person);
+		$em->flush();
+
+		return $this->redirectToRoute('person_edit', ['id' => $id]);
+	}
+
+
+	/**
+	 * @param Request $request
+	 *
+	 * @param         $id  Grade ID
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function addToGradeAction(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+		$studentManager = $this->get('busybee_people_student.model.student_manager');
+
+		$studentManager->initiateGrade($id);
+
+		$form = $this->createForm(GradeType::class, $studentManager->getGrade(), ['manager' => $studentManager]);
+
+		$studentManager->handleRequest($request, $form);
+
+		return $this->render('@BusybeeStudent/Student/grade.html.twig', [
+			'manager' => $studentManager,
+			'form'    => $form->createView(),
+		]);
+	}
+
+	public function addStudentToGradeAction($grade, $student, $status)
+	{
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+		$studentManager = $this->get('busybee_people_student.model.student_manager');
+
+		$studentManager->initiateGrade($grade);
+
+		$studentManager->addStudentToGrade($student, $status);
+
+		$studentManager->getPossibleStudents(false);
+		$studentManager->getCurrentStudents(false);
+
+		$message = $this->get('busybee_core_system.model.flash_bag_manager')->renderMessages($studentManager->getMessages());
+
+		return new JsonResponse(
+			[
+				'message'  => $message,
+				'current'  => $this->renderView('@BusybeeStudent/Student/addStudent.html.twig', ['manager' => $studentManager]),
+				'possible' => $this->renderView('@BusybeeStudent/Student/removeStudent.html.twig', ['manager' => $studentManager]),
+			],
+			200);
+
+	}
+
+	public function removeStudentFromGradeAction($grade, $student)
+	{
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+		$studentManager = $this->get('busybee_people_student.model.student_manager');
+
+		$studentManager->initiateGrade($grade);
+
+		$studentManager->removeStudentFromGrade($student);
+
+		$studentManager->getPossibleStudents(false);
+		$studentManager->getCurrentStudents(false);
+
+		$message = $this->get('busybee_core_system.model.flash_bag_manager')->renderMessages($studentManager->getMessages());
+
+		return new JsonResponse(
+			[
+				'message'  => $message,
+				'current'  => $this->renderView('@BusybeeStudent/Student/addStudent.html.twig', ['manager' => $studentManager]),
+				'possible' => $this->renderView('@BusybeeStudent/Student/removeStudent.html.twig', ['manager' => $studentManager]),
+			],
+			200);
+
+	}
 }

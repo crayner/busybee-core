@@ -119,6 +119,7 @@ class YearType extends AbstractType
 					'allow_add'     => true,
 					'entry_options' => array(
 						'year_data' => $options['data'],
+						'manager'   => $options['gradeManager'],
 					),
 					'constraints'   => [
 						new Grade($options['data']),
@@ -146,6 +147,11 @@ class YearType extends AbstractType
 				'data_class'         => Year::class,
 				'translation_domain' => 'BusybeeCalendarBundle',
 			)
+		);
+		$resolver->setRequired(
+			[
+				'gradeManager',
+			]
 		);
 	}
 

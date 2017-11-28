@@ -141,22 +141,6 @@ class GradeManager
 	}
 
 	/**
-	 * @return bool
-	 */
-	public function isStaffInstalled(): bool
-	{
-		if (class_exists('Busybee\People\StaffBundle\Model\StaffModel'))
-		{
-			$metaData = $this->getOm()->getClassMetadata('Busybee\People\StaffBundle\Entity\Staff');
-			$schema   = $this->getOm()->getConnection()->getSchemaManager();
-
-			return $schema->tablesExist([$metaData->table['name']]);
-		}
-
-		return false;
-	}
-
-	/**
 	 * @return ObjectManager
 	 */
 	public function getOm(): ObjectManager
@@ -167,11 +151,11 @@ class GradeManager
 	/**
 	 * @return bool
 	 */
-	public function isSpaceInstalled(): bool
+	public function isStudentInstalled(): bool
 	{
-		if (class_exists('Busybee\Facility\InstituteBundle\Model\SpaceModel'))
+		if (class_exists('Busybee\People\StudentBundle\Model\StudentModel'))
 		{
-			$metaData = $this->getOm()->getClassMetadata('Busybee\Facility\InstituteBundle\Entity\Space');
+			$metaData = $this->getOm()->getClassMetadata('\Busybee\People\StudentBundle\Entity\StudentGrade');
 			$schema   = $this->getOm()->getConnection()->getSchemaManager();
 
 			return $schema->tablesExist([$metaData->table['name']]);

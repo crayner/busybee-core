@@ -38,6 +38,7 @@ parameters:
         numbers: 1
         mixedCase: 1
         specials: 0
+    schemes: 'http'
     upload_path: '../web/uploads/%current_year%/%current_month%'
     timezone: UTC
     google:

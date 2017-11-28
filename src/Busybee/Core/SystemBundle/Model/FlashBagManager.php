@@ -42,4 +42,24 @@ class FlashBagManager
 		}
 		$messages->clearMessages();
 	}
+
+	/**
+	 * @param MessageManager $manager
+	 *
+	 * @return string
+	 */
+	public function renderMessages(MessageManager $manager)
+	{
+		$messages = '';
+		foreach ($manager->getMessages() as $message)
+		{
+			if (!$message instanceof Message)
+				continue;
+			$messages .= "<div class='fadeAlert alert alert-" . $message->getLevel() . "'>" . $this->translator->trans($message->getMessage(), $message->getOptions(), $message->getDomain()) . "</div>\n";
+		}
+
+		$manager->clearMessages();
+
+		return $messages;
+	}
 }

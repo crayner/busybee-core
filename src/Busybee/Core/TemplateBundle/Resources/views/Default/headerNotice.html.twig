@@ -1,18 +1,14 @@
 {% set containerThemeOverwrite = '' %}
 {% set headerNotices = '' %}
-{#
+{% spaceless %}
 {% if app.user is not null %}
     {% if app.user.year is not null %}
-        {% set headerNotices = headerNotices ~ miscButton({'transDomain': 'BusybeeHomeBundle', 'style': 'float: left;', 'title': 'year.system.warning', 'class': 'btn btn-warning btn-header', 'prompt': {'message': 'year.system.year', 'params': {'%year%': get_SystemYear(app.user).name }}, 'windowOpen': {'route': path('person_edit', {'id': app.user.person.id, '_fragment': 'user'})}}) %}
+        {% set headerNotices = headerNotices ~ miscButton({'transDomain': 'BusybeeHomeBundle', 'style': 'float: left;', 'title': 'year.system.warning', 'class': 'btn btn-warning btn-header', 'prompt': {'message': 'year.system.year', 'params': {'%year%': get_SystemYear(app.user).name }}, 'windowOpen': {'route': path('security_user_edit', {'id': app.user.id})}}) %}
         {% set containerThemeOverwrite = ' containerWarning' %}
     {% else %}
-        {% if app.user.person is not empty %}
-            {% set headerNotices = headerNotices ~ miscButton({'transDomain': 'BusybeeHomeBundle', 'style': 'float: left;', 'title': 'year.system.current', 'class': 'btn btn-success btn-header', 'prompt': {'message': 'year.system.year', 'params': {'%year%': get_SystemYear(app.user).name }}, 'windowOpen': {'route': path('person_edit', {'id': app.user.person.id, '_fragment': 'user'})}}) %}
-        {% else %}
-            {% set headerNotices = headerNotices ~ miscButton({'transDomain': 'BusybeeHomeBundle', 'style': 'float: left;', 'title': 'year.system.current', 'class': 'btn btn-default btn-header', 'prompt': {'message': 'year.system.year', 'params': {'%year%': get_SystemYear(app.user).name }}, additional: 'disabled' }) %}
-        {% endif %}
+        {% set headerNotices = headerNotices ~ miscButton({transDomain: 'BusybeeHomeBundle', style: 'float: left;', title: 'year.system.current', class: 'btn btn-success btn-header', 'prompt': {'message': 'year.system.year', params: {'%year%': get_SystemYear(app.user).name }}, windowOpen: {route: path('security_user_edit', {'id': app.user.id})}}) %}
     {% endif %}
 {% endif %}
-#}
+{% endspaceless %}
 {% block htmlContent %}
 {% endblock htmlContent %}

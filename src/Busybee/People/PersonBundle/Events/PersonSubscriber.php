@@ -5,22 +5,22 @@ use Busybee\Core\TemplateBundle\Model\TabManager;
 use Busybee\Core\TemplateBundle\Type\ImageType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\TemplateBundle\Type\TextType;
-use Busybee\Program\GradeBundle\Entity\StudentGrade;
-use Busybee\Program\GradeBundle\Form\StudentGradeType;
-use Busybee\Program\GradeBundle\Validator\Grades;
 use Busybee\People\PersonBundle\Form\UserType;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\Core\SecurityBundle\Entity\User;
+use Busybee\People\StudentBundle\Form\StudentGradeType;
+use Busybee\People\StudentBundle\Validator\Grades;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class PersonSubscriber implements EventSubscriberInterface
 {
@@ -45,18 +45,24 @@ class PersonSubscriber implements EventSubscriberInterface
 	private $isSystemAdmin;
 
 	/**
+	 * @var Session
+	 */
+	private $session;
+
+	/**
 	 * PersonSubscriber constructor.
 	 *
 	 * @param PersonManager $pm
 	 * @param ObjectManager $om
 	 * @param               $parameters
 	 */
-	public function __construct(PersonManager $pm, ObjectManager $om, TabManager $tm, bool $isSystemAdmin)
+	public function __construct(PersonManager $pm, ObjectManager $om, TabManager $tm, bool $isSystemAdmin, Session $session)
 	{
 		$this->personManager = $pm;
 		$this->om            = $om;
 		$this->tm            = $tm;
 		$this->isSystemAdmin = $isSystemAdmin;
+		$this->session       = $session;
 	}
 
 	/**
@@ -90,7 +96,7 @@ class PersonSubscriber implements EventSubscriberInterface
 		{
 			$user = is_null($person->getUser()) ? new User() : $person->getUser();
 			$person->setUser($user);
-			$form->add('user', UserType::class, ['isSystemAdmin' => $this->isSystemAdmin, 'data' => $user]);
+			$form->add('user', UserType::class, ['isSystemAdmin' => $this->isSystemAdmin, 'data' => $user, 'session' => $this->session]);
 			if (empty($person->getUser()->getEmail()) || $person->getUser()->getEmail() != $person->getEmail())
 				$person->getUser()->setEmail($person->getEmail());
 		}
@@ -223,7 +229,7 @@ class PersonSubscriber implements EventSubscriberInterface
 	 *
 	 * @param $form
 	 */
-	private function addStudentFields($form)
+	private function addStudentFields(Form $form)
 	{
 		$form
 			->add('startAtSchool', DateType::class,
@@ -328,12 +334,14 @@ class PersonSubscriber implements EventSubscriberInterface
 				)
 			)
 			->add('citizenship1PassportScan', ImageType::class, array(
-					'attr'     => array(
+					'attr'        => array(
 						'help'       => 'student.passportScan.help',
 						'imageClass' => 'headShot75',
 					),
-					'label'    => 'student.passportScan.label',
-					'required' => false,
+					'label'       => 'student.passportScan.label',
+					'required'    => false,
+					'deletePhoto' => $form->getConfig()->getOption('deletePassportScan'),
+					'fileName'    => 'student_passport',
 				)
 			)
 			->add('nationalIDCardNumber', TextType::class,
@@ -343,12 +351,14 @@ class PersonSubscriber implements EventSubscriberInterface
 				]
 			)
 			->add('nationalIDCardScan', ImageType::class, array(
-					'attr'     => array(
+					'attr'        => array(
 						'help'       => 'student.nationalIDCardScan.help',
 						'imageClass' => 'headShot75',
 					),
-					'label'    => 'student.nationalIDCardScan.label',
-					'required' => false,
+					'label'       => 'student.nationalIDCardScan.label',
+					'required'    => false,
+					'deletePhoto' => $form->getConfig()->getOption('deleteIDScan'),
+					'fileName'    => 'student_nationalid',
 				)
 			)
 			->add('residencyStatus', SettingChoiceType::class,
@@ -385,10 +395,8 @@ class PersonSubscriber implements EventSubscriberInterface
 					'setting_data_value'        => 'name',
 					'choice_translation_domain' => 'SystemBundle',
 				]
-			);
-		if ($this->personManager->gradesInstalled())
-		{
-			$form->add('grades', CollectionType::class,
+			)
+			->add('grades', CollectionType::class,
 				[
 					'label'         => 'student.grades.label',
 					'allow_add'     => true,
@@ -406,6 +414,5 @@ class PersonSubscriber implements EventSubscriberInterface
 					],
 				]
 			);
-		}
 	}
 }

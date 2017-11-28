@@ -7,9 +7,15 @@ use Busybee\Core\SecurityBundle\Form\GroupType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserSubscriber implements EventSubscriberInterface
 {
+	/**
+	 * @var Session
+	 */
+	private $session;
+
 	/**
 	 * @var bool
 	 */
@@ -18,10 +24,12 @@ class UserSubscriber implements EventSubscriberInterface
 	/**
 	 * UserSubscriber constructor.
 	 *
-	 * @param bool $isSystemAdmin
+	 * @param Session $session
+	 * @param bool    $isSystemAdmin
 	 */
-	public function __construct($isSystemAdmin = false)
+	public function __construct(Session $session, $isSystemAdmin = false)
 	{
+		$this->session       = $session;
 		$this->isSystemAdmin = $isSystemAdmin;
 	}
 
@@ -57,6 +65,9 @@ class UserSubscriber implements EventSubscriberInterface
 		{
 			dump($data['credentialsExpireAt']);
 		}
+
+		if (is_null($event->getForm()->get('year')->getData()) || intval($data['year']) !== $event->getForm()->get('year')->getData()->getId())
+			$this->session->clear('currentYear');
 
 		$event->setData($data);
 	}

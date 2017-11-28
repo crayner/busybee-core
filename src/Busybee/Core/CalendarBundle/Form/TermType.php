@@ -5,6 +5,7 @@ namespace Busybee\Core\CalendarBundle\Form;
 use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\TemplateBundle\Type\HiddenEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -78,10 +79,11 @@ class TermType extends AbstractType
 					'years' => $years,
 				)
 			)
-			->add('year', HiddenType::class);
-
-		$builder->get('year')
-			->addModelTransformer(new EntityToStringTransformer($this->om, Year::class));
+			->add('year', HiddenEntityType::class,
+				[
+					'class' => Year::class,
+				]
+			);
 	}
 
 	/**

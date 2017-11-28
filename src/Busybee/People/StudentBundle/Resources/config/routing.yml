@@ -4,3 +4,18 @@ student_manage:
 person_toggle_student:
     path:     /person/{id}/toggle/
     defaults: { _controller: BusybeeStudentBundle:Student:toggle }
+student_passport_remove:
+    path:     /student/{id}/passport_remove/
+    defaults: { _controller: BusybeeStudentBundle:Student:removePassportScan }
+student_id_remove:
+    path:     /student/{id}/id_remove/
+    defaults: { _controller: BusybeeStudentBundle:Student:removeIDScan }
+student_add_to_grade:
+    path:     /grade/{id}/manage/
+    defaults: { _controller: BusybeeStudentBundle:Student:addToGrade }
+remove_student_from_grade:
+    path:     /grade/{grade}/{student}/remove/
+    defaults: { _controller: BusybeeStudentBundle:Student:removeStudentFromGrade }
+add_student_to_grade:
+    path:     /grade/{grade}/{student}/{status}/add/
+    defaults: { _controller: BusybeeStudentBundle:Student:addStudentToGrade }

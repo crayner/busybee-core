@@ -1,0 +1,6 @@
+{% spaceless %}
+    {% for student in manager.students %}
+        <div class="col-sm-9 well well-info" id="student_{{ student.id }}" draggable="true"
+             ondragstart="drag(event)">{{ student.formatName }}</div>
+    {% endfor %}
+{% endspaceless %}

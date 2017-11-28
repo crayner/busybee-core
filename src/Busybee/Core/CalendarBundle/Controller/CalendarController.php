@@ -46,14 +46,14 @@ class CalendarController extends BusybeeController
 
 		if ($id === 'current')
 		{
-			$year = $this->get('busybee_core_calendar.repository.year_repository')->findOneByStatus('Current');
+			$year = $this->get('busybee_core_calendar.model.get_current_year');
 
 			return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
 		}
 
 		$year = $id === 'Add' ? new Year() : $this->get('busybee_core_calendar.repository.year_repository')->find($id);
 
-		$form = $this->createForm(YearType::class, $year);
+		$form = $this->createForm(YearType::class, $year, ['gradeManager' => $this->get('busybee_core_calendar.model.grade_manager')]);
 
 		$form->handleRequest($request);
 
