@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\CalendarBundle\Controller;
 
 use Busybee\Core\CalendarBundle\Model\Day;
@@ -53,7 +52,7 @@ class CalendarController extends BusybeeController
 
 		$year = $id === 'Add' ? new Year() : $this->get('busybee_core_calendar.repository.year_repository')->find($id);
 
-		$form = $this->createForm(YearType::class, $year, ['gradeManager' => $this->get('busybee_core_calendar.model.grade_manager')]);
+		$form = $this->createForm(YearType::class, $year, ['calendarGroupManager' => $this->get('busybee_core_calendar.model.calendar_group_manager')]);
 
 		$form->handleRequest($request);
 

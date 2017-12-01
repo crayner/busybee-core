@@ -1,9 +1,9 @@
 <?php
-
 namespace Busybee\Facility\InstituteBundle\Entity;
 
-use Busybee\Core\CalendarBundle\Entity\Grade;
+use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Facility\InstituteBundle\Model\SpaceModel;
+use Busybee\People\StaffBundle\Entity\Staff;
 
 /**
  * Space
@@ -114,11 +114,6 @@ class Space extends SpaceModel
 	 * @var \Busybee\Facility\InstituteBundle\Entity\Campus
 	 */
 	private $campus;
-
-	/**
-	 * @var Grade
-	 */
-	private $grade;
 
 	/**
 	 * Get id
@@ -567,7 +562,7 @@ class Space extends SpaceModel
 	 *
 	 * @return Space
 	 */
-	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
+	public function setModifiedBy(User $modifiedBy = null)
 	{
 		$this->modifiedBy = $modifiedBy;
 
@@ -615,29 +610,9 @@ class Space extends SpaceModel
 	 *
 	 * @return Space
 	 */
-	public function setStaff(\Busybee\People\StaffBundle\Entity\Staff $staff = null)
+	public function setStaff(Staff $staff = null)
 	{
 		$this->staff = $staff;
-
-		return $this;
-	}
-
-	/**
-	 * @return Grade|null
-	 */
-	public function getGrade(): ?Grade
-	{
-		return $this->grade;
-	}
-
-	/**
-	 * @param Grade $grade
-	 *
-	 * @return Space
-	 */
-	public function setGrade(Grade $grade): Space
-	{
-		$this->grade = $grade;
 
 		return $this;
 	}

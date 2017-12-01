@@ -1,11 +1,13 @@
+{% trans_default_domain "BusybeeStudentBundle" %}
 {% spaceless %}
+    <p class="alert alert-default">{{ 'students.possible.list.count'|trans({'%{count}': manager.students.count}) }}</p>
     {% set anchor = '' %}
     {% for student in manager.students %}
         {% if student.surname|slice(0,1) != anchor %}
             {% set anchor = student.surname|slice(0,1)|upper %}
             <a name="{{ anchor }}"></a>
         {% endif %}
-        <div class="col-sm-9 well well-info" id="student_{{ student.id }}" draggable="true"
-             ondragstart="drag(event)">{{ student.formatName }}</div>
+        <div class="col-sm-9 well well-info possibleStudent"
+             id="student_{{ student.id }}">{{ student.formatName }}</div>
     {% endfor %}
 {% endspaceless %}

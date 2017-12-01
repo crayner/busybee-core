@@ -2,12 +2,11 @@
 
 namespace Busybee\TimeTableBundle\Model;
 
-use Busybee\Core\CalendarBundle\Entity\Grade;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
 use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\ActivityBundle\Entity\Activity;
-use Busybee\People\StudentBundle\Entity\StudentGrade;
 use Busybee\TimeTableBundle\Entity\Line;
 use Busybee\TimeTableBundle\Entity\Period;
 use Busybee\TimeTableBundle\Entity\PeriodActivity;
@@ -109,19 +108,19 @@ class PeriodManager
      */
     public function __construct(ObjectManager $om, TranslatorInterface $translator, FlashBagInterface $flashbag, Year $cy, Session $sess, $id = null)
     {
-        $this->om = $om;
-        $this->pr = $om->getRepository(Period::class);
-        $this->period = $this->injectPeriod($id);
-        $this->status = new \stdClass();
-        $this->translator = $translator;
-        $this->flashbag = $flashbag;
-        $this->currentYear = $cy;
+        $this->om           = $om;
+        $this->pr           = $om->getRepository(Period::class);
+        $this->period       = $this->injectPeriod($id);
+        $this->status       = new \stdClass();
+        $this->translator   = $translator;
+        $this->flashbag     = $flashbag;
+        $this->currentYear  = $cy;
         $this->gradeControl = is_array($sess->get('gradeControl')) ? $sess->get('gradeControl') : [];
-        $grades = $this->om->getRepository(Grade::class)->findByYear($cy);
+	    $grades             = $this->om->getRepository(CalendarGroup::class)->findByYear($cy);
 
         foreach ($grades as $grade)
-            if (!isset($this->gradeControl[$grade->getGrade()]))
-                $this->gradeControl[$grade->getGrade()] = true;
+	        if (!isset($this->gradeControl[$grade->getNmaeShort()]))
+		        $this->gradeControl[$grade->getNameShort()] = true;
 
         $this->clearResults();
     }
@@ -476,7 +475,7 @@ class PeriodManager
         foreach ($this->period->getActivities() as $q => $pa) {
             $act = $pa->getActivity();
             foreach ($act->getStudents() as $student) {
-                $grade = $student->getStudentGrade($this->currentYear);
+	            $grade = $student->getStudentCalendarGroup($this->currentYear);
 
                 if ($grade instanceof Grade && isset($grades[$grade->getId()][$student->getId()]))
                     unset($grades[$grade->getId()][$student->getId()]);
@@ -513,7 +512,7 @@ class PeriodManager
             if ($xxx)
                 $grades[] = $grade;
 
-        $this->grades = $this->om->getRepository(Grade::class)->createQueryBuilder('g')
+	    $this->grades = $this->om->getRepository(CalendarGroup::class)->createQueryBuilder('g')
             ->leftJoin('g.year', 'y')
             ->leftJoin('g.students', 'i')
             ->where('y.id = :year_id')

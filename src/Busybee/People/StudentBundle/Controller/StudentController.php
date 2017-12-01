@@ -1,10 +1,9 @@
 <?php
-
 namespace Busybee\People\StudentBundle\Controller;
 
 use Busybee\People\PersonBundle\Entity\Person;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
-use Busybee\People\StudentBundle\Form\GradeType;
+use Busybee\People\StudentBundle\Form\CalendarGroupType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -171,37 +170,37 @@ class StudentController extends BusybeeController
 	/**
 	 * @param Request $request
 	 *
-	 * @param         $id  Grade ID
+	 * @param         $id  CalendarGroup ID
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function addToGradeAction(Request $request, $id)
+	public function addToCalendarGroupAction(Request $request, $id)
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
 		$studentManager = $this->get('busybee_people_student.model.student_manager');
 
-		$studentManager->initiateGrade($id);
+		$studentManager->initiateCalendarGroup($id);
 
-		$form = $this->createForm(GradeType::class, $studentManager->getGrade(), ['manager' => $studentManager]);
+		$form = $this->createForm(CalendarGroupType::class, $studentManager->getCalendarGroup(), ['manager' => $studentManager]);
 
 		$studentManager->handleRequest($request, $form);
 
-		return $this->render('@BusybeeStudent/Student/grade.html.twig', [
+		return $this->render('@BusybeeStudent/Student/calendar_group.html.twig', [
 			'manager' => $studentManager,
 			'form'    => $form->createView(),
 		]);
 	}
 
-	public function addStudentToGradeAction($grade, $student, $status)
+	public function addStudentToCalendarGroupAction($group, $student, $status)
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
 		$studentManager = $this->get('busybee_people_student.model.student_manager');
 
-		$studentManager->initiateGrade($grade);
+		$studentManager->initiateCalendarGroup($group);
 
-		$studentManager->addStudentToGrade($student, $status);
+		$studentManager->addStudentToCalendarGroup($student, $status);
 
 		$studentManager->getPossibleStudents(false);
 		$studentManager->getCurrentStudents(false);
@@ -218,15 +217,15 @@ class StudentController extends BusybeeController
 
 	}
 
-	public function removeStudentFromGradeAction($grade, $student)
+	public function removeStudentFromCalendarGroupAction($group, $student)
 	{
 		$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
 		$studentManager = $this->get('busybee_people_student.model.student_manager');
 
-		$studentManager->initiateGrade($grade);
+		$studentManager->initiateCalendarGroup($group);
 
-		$studentManager->removeStudentFromGrade($student);
+		$studentManager->removeStudentFromCalendarGroup($student);
 
 		$studentManager->getPossibleStudents(false);
 		$studentManager->getCurrentStudents(false);

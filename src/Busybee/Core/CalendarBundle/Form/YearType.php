@@ -5,6 +5,7 @@ namespace Busybee\Core\CalendarBundle\Form;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\CalendarBundle\Events\YearSubscriber;
 use Busybee\Core\CalendarBundle\Model\YearManager;
+use Busybee\Core\CalendarBundle\Validator\CalendarGroup;
 use Busybee\Core\CalendarBundle\Validator\Grade;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -114,20 +115,20 @@ class YearType extends AbstractType
 					'by_reference'  => false,
 				)
 			)
-			->add('grades', CollectionType::class, array(
-					'entry_type'    => GradeType::class,
+			->add('calendarGroups', CollectionType::class, array(
+					'entry_type'    => CalendarGroupType::class,
 					'allow_add'     => true,
 					'entry_options' => array(
 						'year_data' => $options['data'],
-						'manager'   => $options['gradeManager'],
+						'manager'   => $options['calendarGroupManager'],
 					),
 					'constraints'   => [
-						new Grade($options['data']),
+						new CalendarGroup($options['data']),
 					],
 					'label'         => false,
 					'allow_delete'  => true,
 					'attr'          => array(
-						'class' => 'gradeList'
+						'class' => 'calendarGroupList'
 					),
 					'by_reference'  => false,
 				)
@@ -150,7 +151,7 @@ class YearType extends AbstractType
 		);
 		$resolver->setRequired(
 			[
-				'gradeManager',
+				'calendarGroupManager',
 			]
 		);
 	}

@@ -4,13 +4,13 @@ namespace Busybee\Core\CalendarBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-class Grade extends Constraint
+class CalendarGroup extends Constraint
 {
-	public $message = 'year.grade.error.duplicate';
+	public $message = 'calendar.group.error.duplicate';
 
 	public $year;
 
-	public $errorPath = 'grades';
+	public $errorPath = 'calendarGroups';
 
 	public function __construct($year)
 	{
@@ -19,6 +19,6 @@ class Grade extends Constraint
 
 	public function validatedBy()
 	{
-		return 'calendar_grade_validator';
+		return 'calendar_group_validator';
 	}
 }

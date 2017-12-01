@@ -1,11 +1,11 @@
-Busybee\Core\CalendarBundle\Entity\Grade:
+Busybee\Core\CalendarBundle\Entity\CalendarGroup:
     type: entity
-    table: grade_by_calendar
-    repositoryClass: Busybee\Core\CalendarBundle\Repository\GradeRepository
+    table: calendar_group
+    repositoryClass: Busybee\Core\CalendarBundle\Repository\CalendarGroupRepository
     uniqueConstraints:
-        calendar_grade:
+        calendar_short:
             columns:
-                - grade
+                - name_short
                 - year_id
     id:
         id:
@@ -13,13 +13,13 @@ Busybee\Core\CalendarBundle\Entity\Grade:
             generator:
                 strategy: AUTO
     fields:
-        grade:
+        nameShort:
             type: string
             length: '8'
+            column: name_short
         name:
             type: string
             length: 24
-            nullable: true
         sequence:
             type: integer
             length: 2
@@ -32,7 +32,7 @@ Busybee\Core\CalendarBundle\Entity\Grade:
     manyToOne:
         year:
             targetEntity: Busybee\Core\CalendarBundle\Entity\Year
-            inversedBy: grades
+            inversedBy: calendarGroups
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:

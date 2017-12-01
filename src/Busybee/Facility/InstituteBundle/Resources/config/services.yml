@@ -90,7 +90,3 @@ services:
             - '@busybee_core_system.setting.setting_manager'
         tags:
             - { name: form.type }
-    busybee_facility_institute.events.department_grade_subscriber:
-        class: Busybee\Facility\InstituteBundle\Events\DepartmentGradeSubscriber
-        tags:
-            - { name: doctrine.event_subscriber }

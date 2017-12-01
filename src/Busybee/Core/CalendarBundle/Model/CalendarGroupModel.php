@@ -3,7 +3,7 @@
 namespace Busybee\Core\CalendarBundle\Model;
 
 
-abstract class GradeModel
+abstract class CalendarGroupModel
 {
 	/**
 	 * Can Delete
@@ -22,16 +22,16 @@ abstract class GradeModel
 	 */
 	public function getFullName()
 	{
-		return $this->getGradeYear();
+		return $this->getCalendarGroupYear();
 	}
 
 	/**
-	 * Get Grade Year
+	 * Get Calendar Group Year
 	 *
 	 * @return string
 	 */
-	public function getGradeYear()
+	public function getCalendarGroupYear()
 	{
-		return $this->getGrade() . ' (' . $this->getYear()->getName() . ')';
+		return $this->getNameShort() . ' (' . $this->getYear()->getName() . ')';
 	}
 }

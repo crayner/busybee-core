@@ -4,7 +4,7 @@ namespace Busybee\People\PersonBundle\Model;
 use Busybee\Core\SecurityBundle\Entity\User;
 use Busybee\Core\SecurityBundle\Security\UserProvider;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
-use Busybee\People\StudentBundle\Entity\StudentGrade;
+use Busybee\People\StudentBundle\Entity\StudentCalendarGroup;
 use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\FamilyBundle\Entity\Family;
 use Busybee\People\PersonBundle\Entity\Person;
@@ -328,7 +328,7 @@ class PersonManager
 			return false;
 		if ($this->gradesInstalled())
 		{
-			$grades = $this->om->getRepository(StudentGrade::class)->findAll(['status' => 'Current', 'student' => $student->getId()]);
+			$grades = $this->om->getRepository(StudentCalendarGroup::class)->findAll(['status' => 'Current', 'student' => $student->getId()]);
 
 			if (is_array($grades) && count($grades) > 0)
 				return false;
@@ -492,24 +492,7 @@ class PersonManager
 	/**
 	 * @return bool
 	 */
-	public function gradesInstalled(): bool
-	{
-		if (class_exists('Busybee\Program\GradeBundle\Model\GradeManager'))
-		{
-			$metaData = $this->getOm()->getClassMetadata('Busybee\Program\GradeBundle\Entity\StudentGrade');
-			$schema   = $this->getOm()->getConnection()->getSchemaManager();
-
-			return $schema->tablesExist([$metaData->table['name']]);
-
-		}
-
-		return false;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function familyInstalled(): bool
+	public function isFamilyInstalled(): bool
 	{
 		if (class_exists('Busybee\People\FamilyBundle\Model\FamilyManager'))
 		{

@@ -1,16 +1,16 @@
-Busybee\Core\CalendarBundle\Entity\Grade:
+Busybee\Core\CalendarBundle\Entity\CalendarGroup:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
-                - grade
+                - nameShort
                 - year
-            message: grade.grade.unique
+            message: calendar.group.nameshort.unique
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields:
                 - sequence
                 - year
-            message: grade.sequence.unique
-            errorPath: grade
+            message: calendargroup.sequence.unique
+            errorPath: nameShort
     properties:
         website:
             - Url: ~

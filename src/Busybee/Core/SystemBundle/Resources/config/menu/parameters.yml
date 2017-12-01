@@ -50,18 +50,13 @@ parameters:
                     role: ROLE_REGISTRAR
                     route: houses_edit
                     params: {}
-                manage_student_groups:
-                    label: menu.program.grades.manage
-                    role: ROLE_REGISTRAR
-                    route: manage_grades
-                    params: {}
                 manage_year_groups:
                     label: menu.year.groups
                     role: ROLE_REGISTRAR
                     route: year_edit
                     params:
                         id: 'current'
-                        _fragment: 'grades'
+                        _fragment: 'calendarGroups'
             years_days_times:
                 calendar_years:
                     label: menu.year.manage
@@ -98,7 +93,7 @@ parameters:
             hidden:
                 - year_edit
                 - edit_grade
-                - student_add_to_grade
+                - student_add_to_calendar_group
         System Admin:
             extend_update:
                 manage_bundles:

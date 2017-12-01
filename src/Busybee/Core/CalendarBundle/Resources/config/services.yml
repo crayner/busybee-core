@@ -8,27 +8,6 @@ parameters:
         calendar.status.past: past
         calendar.status.current: current
         calendar.status.future: future
-    gradePagination:
-        alias: g
-        sortBy:
-            grade.sequence.sort:
-                g.sequence: ASC
-            grade.name.sort:
-                g.name: ASC
-                g.grade: ASC
-        limit: '25'
-        searchList:
-            - g.name
-            - g.grade
-        select:
-            - g.name
-            - g.grade
-        join:
-            g.year:
-                type: leftJoin
-                alias: y
-        transDomain: BusybeeCalendarBundle
-
 services:
     busybee_core_calendar.model.current_year:
         class: Busybee\Core\CalendarBundle\Model\CurrentYear
@@ -126,29 +105,29 @@ services:
             - '@busybee_core_system.model.my_container'
         tags:
             - { name: twig.extension }
-    busybee_core_calendar.repository.grade_repository:
-        class: Busybee\Core\CalendarBundle\Repository\GradeRepository
+    busybee_core_calendar.repository.calendar_group_repository:
+        class: Busybee\Core\CalendarBundle\Repository\CalendarGroupRepository
         factory:
             - "@doctrine"
             - 'getRepository'
         arguments:
-            - "BusybeeCalendarBundle:Grade"
-    busybee_core_calendar.form.grade_type:
-        class: Busybee\Core\CalendarBundle\Form\GradeType
+            - "BusybeeCalendarBundle:CalendarGroup"
+    busybee_core_calendar.form.calendar_group_type:
+        class: Busybee\Core\CalendarBundle\Form\CalendarGroupType
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@busybee_core_system.setting.setting_manager'
-            - '@busybee_core_calendar.model.grade_manager'
+            - '@busybee_core_calendar.model.calendar_group_manager'
         tags:
             - { name: form.type }
-    busybee_core_calendar.validator.constraints.grade_validator:
-        class: Busybee\Core\CalendarBundle\Validator\Constraints\GradeValidator
+    busybee_core_calendar.validator.constraints.calendar_group_validator:
+        class: Busybee\Core\CalendarBundle\Validator\Constraints\CalendarGroupValidator
         arguments:
             - '@doctrine.orm.entity_manager'
         tags:
-            - { name: validator.constraint_validator, alias: calendar_grade_validator }
-    busybee_core_calendar.model.grade_manager:
-        class: Busybee\Core\CalendarBundle\Model\GradeManager
+            - { name: validator.constraint_validator, alias: calendar_group_validator }
+    busybee_core_calendar.model.calendar_group_manager:
+        class: Busybee\Core\CalendarBundle\Model\CalendarGroupManager
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@busybee_core_calendar.model.get_current_year'
@@ -156,9 +135,3 @@ services:
         class: Busybee\Core\CalendarBundle\Service\WidgetService\Calendar
         arguments:
             - '@busybee_core_system.setting.setting_manager'
-    busybee_core_calendar.pagination.grade_pagination:
-        class: Busybee\Core\CalendarBundle\Pagination\GradePagination
-        arguments:
-            - '%gradePagination%'
-            - '@busybee_core_calendar.repository.grade_repository'
-            - '@busybee_core_system.model.my_container'

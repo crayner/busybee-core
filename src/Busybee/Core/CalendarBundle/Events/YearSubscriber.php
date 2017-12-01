@@ -44,14 +44,14 @@ class YearSubscriber implements EventSubscriberInterface
 		$entity = $form->getData();
 
 
-		if (!empty($data['grades']))
+		if (!empty($data['calendarGroups']))
 		{
 			$seq = 0;
-			foreach ($data['grades'] as $q => $w)
+			foreach ($data['calendarGroups'] as $q => $w)
 			{
 				$w['sequence'] = ++$seq;
 
-				$data['grades'][$q] = $w;
+				$data['calendarGroups'][$q] = $w;
 			}
 		}
 

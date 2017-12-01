@@ -11,21 +11,29 @@ student:
     activity:
         title: Manage Activity
         description: Activites include both curriculum and extra curriculum in scope.  Include any event or series of events that any student undertakes within the institute in this section.
-    grade:
-        title: '%name% Grade'
-        manage: Manage Grade Students
-        label:
-            year: School Year
-            grade: School Grade
-        placeholder:
-            year: Select School Year
-            grade: Select School Grade
-        add: Add Grade / Year
-        remove: Remove Grade / Year
-        students:
-            title: 'Manage Students in a Grade: %name%'
-            description: ''
-            help: The student list will display all current and future students that do not appear in any grade of the year.
+    calendar:
+        group:
+            title: '%name% Grade'
+            manage: Manage Grade Students
+            label:
+                year: School Year
+                grade: School Grade
+            placeholder:
+                year: Select School Year
+                grade: Select School Grade
+            add: Add Grade / Year
+            remove: Remove Grade / Year
+            students:
+                title: 'Manage Students in a Calendar Group: %name%'
+                description: ''
+                help: The student list will display all current and future students that do not appear in any grade of the year.
+students:
+    possible:
+        list:
+            count: 'Possible Students: %{count}'
+    member:
+        list:
+            count: 'Member Students: %{count}'
 person:
     tab:
         student: Student
@@ -91,17 +99,20 @@ grades:
     help:
         grade: The year must be unique for the student.
         status: "The status 'Current' must be unique for the student."
-grade:
-    students:
-        label: Student in Grade
-        status:
-            missing: Students cannot be attached to the grade without a valid status.
-    defaultStatus:
-        label: Status
-        help: "This status is applied to any newly selected student. Existing students' status is not changed."
-        placeholder: "Select a Default Status"
-    student:
-        added:
-            success: 'The student %name% was added to the grade.'
-        remove:
-            success: 'The student %name% was removed from the grade.'
+calendar:
+    group:
+        students:
+            label: Student in Grade
+            status:
+                missing: Students cannot be attached to the grade without a valid status.
+        defaultStatus:
+            label: Status
+            help: "This status is applied to any newly selected student. Existing students' status is not changed."
+            placeholder: "Select a Default Status"
+        student:
+            added:
+                success: 'The student %name% was added to the calendar group.'
+            remove:
+                success: 'The student %name% was removed from the calendar group.'
+        manage:
+            label: Edit Calendar Group

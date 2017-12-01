@@ -107,7 +107,7 @@ Busybee\People\StudentBundle\Entity\Student:
             nullable: true
             type: text
     oneToMany:
-        grades:
-            targetEntity: Busybee\People\StudentBundle\Entity\StudentGrade
+        calendarGroups:
+            targetEntity: Busybee\People\StudentBundle\Entity\StudentCalendarGroup
             mappedBy: student
             cascade: ['persist']

@@ -23,7 +23,7 @@ abstract class StudentModel extends Person
 	/**
 	 * @param Year $year
 	 */
-	public function getStudentGrade(Year $year)
+	public function getStudentCalendarGroup(Year $year)
 	{
 		$grades = $this->getGrades();
 

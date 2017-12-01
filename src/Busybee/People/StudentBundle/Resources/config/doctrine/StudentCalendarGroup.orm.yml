@@ -1,12 +1,12 @@
-Busybee\People\StudentBundle\Entity\StudentGrade:
+Busybee\People\StudentBundle\Entity\StudentCalendarGroup:
     type: entity
-    table: grade_by_student
-    repositoryClass: Busybee\People\StudentBundle\Repository\StudentGradeRepository
+    table: student_calendar_group
+    repositoryClass: Busybee\People\StudentBundle\Repository\StudentCalendarGroupRepository
     uniqueConstraints:
          student_grade:
              columns:
                  - student_id
-                 - grade_id
+                 - calendar_group_id
     id:
         id:
             type: integer
@@ -24,15 +24,15 @@ Busybee\People\StudentBundle\Entity\StudentGrade:
             type: datetime
             column: created_on
     manyToOne:
-        grade:
-            targetEntity: Busybee\Core\CalendarBundle\Entity\Grade
+        calendarGroup:
+            targetEntity: Busybee\Core\CalendarBundle\Entity\CalendarGroup
             inversedBy: students
             joinColumns:
-                grade_id:
+                calendar_group_id:
                     referencedColumnName: id
         student:
             targetEntity: Busybee\People\StudentBundle\Entity\Student
-            inversedBy: grades
+            inversedBy: calendarGroups
             joinColumns:
                 student_id:
                     referencedColumnName: id

@@ -161,12 +161,13 @@ menu:
         calendar:
             display: Display School Calendar
         manage: Manage School Years
-        groups: Manage Year Groups
+        groups: Manage Calendar Groups
         terms: Manage Terms
         specialdays: Manage Special Days
     program:
-        grades:
-            manage: Manage Grades Groups
+        calendar:
+            groups:
+                manage: Manage Calendar Groups
 ajax:
     wait_message: saving data.. please wait.. 
 Security: Security
@@ -234,3 +235,6 @@ section:
         user_management: User Management
         people_manage: People Management
         timetable: Timetable
+system:
+    route:
+        missing: 'Route %{route} does not exists.'

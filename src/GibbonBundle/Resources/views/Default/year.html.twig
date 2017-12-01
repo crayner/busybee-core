@@ -1,0 +1,10 @@
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% block contentContainer %}
+    <div class="alert alert-default">
+        {{ 'All Done Here. Year Transferred.' }}{{ miscButton({class: 'btn btn-success glyphicons glyphicons-playing-dices', windowOpen: {route: path('gibbon_import', {offset: 0, function: 'importGrades'})}})|raw }}
+    </div>
+    {% for message in manager.messages.messages %}
+        <p class="alert alert-{{ message.level }}">{{ message.message|trans(message.options, message.domain) }}</p>
+    {% endfor %}
+{% endblock contentContainer %}

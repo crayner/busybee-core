@@ -44,7 +44,7 @@ calendar:
         year: Year
         terms: Terms
         specialDays: Special Days
-        grades: Grades
+        calendarGroups: Groups
     year:
         title: Manage Year
         return: Return
@@ -77,9 +77,64 @@ calendar:
     specialDay:
         title: "Manage Special Days in %name%"
         add: Add Special Day
-    grade:
-        title: "Manage Grades in %name%"
-        description: ''
+    groups:
+        title: "Manage Calendar Groups in %name%"
+        help: "To sort, drag and drop the Calendar Group to the required position and save the form."
+    group:
+        nameshort:
+            label: Group Name
+            placeholder: Select a Group
+        add:
+            title: Group Details
+        placeholder:
+            grades: Add a Grade
+            grade: Select a Grade
+            year: Select a Year
+        label:
+            year: Select a School Year
+        edit:
+            title: Manage Grade
+            description: ''
+        remove:
+            title: Remove Grade from Year
+        control:
+            title: Grade Control
+            description: 'Limit the testing of grades in the timetable.'
+            label: 'Monitor %grade%'
+            toggle: 'Toggle monitor grade.'
+        manage:
+            title: 'Manage Calendar Groups'
+            description: 'Manage the calendar groups for the current year. To manage groups in another year switch your current year in your user settings.'
+        name:
+            sort: Sort by Grade Name
+            label: Name
+            select: Select a School Grade
+        sequence:
+            sort: Sort by Sequence
+        grade:
+            label: Short Name
+        tutor:
+            list:
+                label: Tutors
+            placeholder: Select a Tutor
+        space:
+            label: Space
+            placeholder: Select a Space
+        website:
+            label: Web Site
+        actions:
+            label: Actions
+        header:
+            label: Manage Grade Details
+            description: ''
+        tutor1:
+            label: Tutor
+        tutor2:
+            label: Tutor (2)
+        tutor3:
+            label: Tutor (3)
+        students:
+            count: 'Student Count: %{count}'
 term:
     add: Add Term
     help:
@@ -148,53 +203,3 @@ menu:
         manage: Grades
 window:
     calendar: Calendar
-grade:
-    placeholder:
-        grades: Add a Grade
-        grade: Select a Grade
-        year: Select a Year
-    label:
-        year: Select a School Year
-    edit:
-        title: Manage Grade
-        description: ''
-    remove:
-        title: Remove Grade from Year
-    add:
-        title: Add Grade to Year
-    control:
-        title: Grade Control
-        description: 'Limit the testing of grades in the timetable.'
-        label: 'Monitor %grade%'
-        toggle: 'Toggle monitor grade.'
-    manage:
-        title: 'Manage Grade Groups'
-        description: 'Manage the grade groups for the current year. To manage grades in another year switch your current year in your user settings.'
-    name:
-        sort: Sort by Grade Name
-        label: Name
-        select: Select a School Grade
-    sequence:
-        sort: Sort by Sequence
-    grade:
-        label: Short Name
-    tutor:
-        list:
-            label: Tutors
-        placeholder: Select a Tutor
-    space:
-        label: Space
-        placeholder: Select a Space
-    website:
-        label: Web Site
-    actions:
-        label: Actions
-    header:
-        label: Manage Grade Details
-        description: ''
-    tutor1:
-        label: Tutor
-    tutor2:
-        label: Tutor (2)
-    tutor3:
-        label: Tutor (3)

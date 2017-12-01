@@ -9,3 +9,5 @@ Busybee\Core\CalendarBundle\Entity\Year:
             - Valid: ~
         specialDays:
             - Valid: ~
+        calendarGroups:
+            - Valid: ~

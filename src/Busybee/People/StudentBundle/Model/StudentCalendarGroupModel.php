@@ -2,15 +2,15 @@
 
 namespace Busybee\People\StudentBundle\Model;
 
-abstract class StudentGradeModel
+abstract class StudentCalendarGroupModel
 {
 	/**
 	 * @return string
 	 */
-	public function getGradeYear()
+	public function getCalendarGroupYear()
 	{
-		if (!empty($this->getGrade()))
-			return $this->getGrade()->getGradeYear();
+		if (!empty($this->getCalendarGroup()))
+			return $this->getCalendarGroup()->getFullName();
 
 		return null;
 	}
@@ -28,8 +28,8 @@ abstract class StudentGradeModel
 	 */
 	public function getYear()
 	{
-		if (!empty($this->getGrade()))
-			return $this->getGrade()->getYear();
+		if (!empty($this->getCalendarGroup()))
+			return $this->getCalendarGroup()->getYear();
 
 		return null;
 	}

@@ -1,14 +1,13 @@
 <?php
-
 namespace Busybee\Core\CalendarBundle\Model;
 
-
-use Busybee\Core\CalendarBundle\Entity\Grade;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
 use Busybee\People\StaffBundle\Entity\Staff;
+use Busybee\People\StudentBundle\Entity\StudentCalendarGroup;
 use Doctrine\Common\Persistence\ObjectManager;
 use Busybee\Core\CalendarBundle\Entity\Year;
 
-class GradeManager
+class CalendarGroupManager
 {
 	/**
 	 * @var ObjectManager
@@ -21,7 +20,7 @@ class GradeManager
 	private $year;
 
 	/**
-	 * GradeManager constructor.
+	 * CalendarGroupManager constructor.
 	 *
 	 * @param ObjectManager $om
 	 * @param Year          $year
@@ -35,9 +34,9 @@ class GradeManager
 	/**
 	 * @return mixed
 	 */
-	public function getYearGrades()
+	public function getYearCalendarGroups()
 	{
-		return $this->om->getRepository(Grade::class)->createQueryBuilder('g')
+		return $this->om->getRepository(CalendarGroup::class)->createQueryBuilder('g')
 			->leftJoin('g.year', 'y')
 			->where('y.id = :year_id')
 			->setParameter('year_id', $this->year->getId())
@@ -47,21 +46,21 @@ class GradeManager
 	}
 
 	/**
-	 * Delete Student Grade
+	 * Delete Student CalendarGroup
 	 *
 	 * @param $id
 	 *
 	 * @return array
 	 */
-	public function deleteStudentGrade($id)
+	public function deleteStudentCalendarGroup($id)
 	{
 		$status            = [];
-		$status['message'] = 'student.grade.notfound';
+		$status['message'] = 'student.calendar.group.notfound';
 		$status['status']  = 'warning';
 		if (intval($id < 1))
 			return $status;
 
-		$entity = $this->om->getRepository(StudentGrade::class)->find($id);
+		$entity = $this->om->getRepository(StudentCalendarGroup::class)->find($id);
 
 		if (is_null($entity))
 			return $status;
@@ -69,7 +68,7 @@ class GradeManager
 		if (!$entity->canDelete())
 		{
 			$status            = [];
-			$status['message'] = 'student.grade.remove.blocked';
+			$status['message'] = 'student.calendar.group.remove.blocked';
 			$status['status']  = 'warning';
 
 			return $status;
@@ -97,7 +96,7 @@ class GradeManager
 	/**
 	 * @return string
 	 */
-	public function getTutorNames(Grade $entity): string
+	public function getTutorNames(CalendarGroup $entity): string
 	{
 		if (empty($entity))
 			return '';
@@ -119,7 +118,7 @@ class GradeManager
 	/**
 	 * @return string
 	 */
-	public function getSpaceName(Grade $entity): string
+	public function getSpaceName(CalendarGroup $entity): string
 	{
 		if (empty($entity))
 			return '';
@@ -133,11 +132,11 @@ class GradeManager
 	/**
 	 * @param int|null $id
 	 *
-	 * @return Grade|null
+	 * @return CalendarGroup|null
 	 */
 	public function getEntity(int $id = null)
 	{
-		return $this->om->getRepository(Grade::class)->find($id);
+		return $this->getOm()->getRepository(CalendarGroup::class)->find($id);
 	}
 
 	/**
@@ -153,9 +152,9 @@ class GradeManager
 	 */
 	public function isStudentInstalled(): bool
 	{
-		if (class_exists('Busybee\People\StudentBundle\Model\StudentModel'))
+		if (class_exists('Busybee\People\StudentBundle\Entity\StudentCalendarGroup'))
 		{
-			$metaData = $this->getOm()->getClassMetadata('\Busybee\People\StudentBundle\Entity\StudentGrade');
+			$metaData = $this->getOm()->getClassMetadata('\Busybee\People\StudentBundle\Entity\StudentCalendarGroup');
 			$schema   = $this->getOm()->getConnection()->getSchemaManager();
 
 			return $schema->tablesExist([$metaData->table['name']]);

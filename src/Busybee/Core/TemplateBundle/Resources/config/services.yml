@@ -285,3 +285,9 @@ services:
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
+    busybee_core_template.extension.bundle_extension:
+        class: Busybee\Core\TemplateBundle\Extension\BundleExtension
+        arguments:
+            - '@busybee_core_system.model.bundle_manager'
+        tags:
+            - { name: twig.extension }

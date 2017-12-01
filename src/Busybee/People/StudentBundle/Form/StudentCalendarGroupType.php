@@ -1,21 +1,18 @@
 <?php
-
 namespace Busybee\People\StudentBundle\Form;
 
-use Busybee\Core\CalendarBundle\Entity\Grade;
-use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
+use Busybee\Core\TemplateBundle\Type\EntityType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
-use Busybee\People\StudentBundle\Entity\StudentGrade;
-use Busybee\People\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Entity\StudentCalendarGroup;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class StudentGradeType extends AbstractType
+class StudentCalendarGroupType extends AbstractType
 {
 	/**
 	 * @var ObjectManager
@@ -41,34 +38,31 @@ class StudentGradeType extends AbstractType
 			->add('status', SettingChoiceType::class,
 				[
 					'setting_name' => 'student.enrolment.status',
-					'label'        => 'grades.label.status',
-					'placeholder'  => 'grades.placeholder.status',
+					'label'        => 'calendar.groups.label.status',
+					'placeholder'  => 'calendar.groups..placeholder.status',
 					'attr'         => [
-						'help' => 'grades.help.status',
+						'help' => 'calendar.groups..help.status',
 					],
 				]
 			)
 			->add('student', HiddenType::class)
-			->add('grade', EntityType::class,
+			->add('calendarGroup', EntityType::class,
 				[
-					'class'         => Grade::class,
-					'choice_label'  => 'gradeYear',
+					'class'         => CalendarGroup::class,
+					'choice_label'  => 'fullName',
 					'query_builder' => function (EntityRepository $er) {
 						return $er->createQueryBuilder('g')
 							->leftJoin('g.year', 'y')
 							->orderBy('y.firstDay', 'DESC')
 							->addOrderBy('g.sequence', 'ASC');
 					},
-					'placeholder'   => 'grades.placeholder.grade',
-					'label'         => 'grades.label.grade',
+					'placeholder'   => 'student.calendar.group.placeholder',
+					'label'         => 'student.calendar.group.labele',
 					'attr'          => [
-						'help' => 'grades.help.grade',
+						'help' => 'student.calendar.group.help',
 					],
 				]
 			);
-
-		$builder->get('student')->addModelTransformer(new EntityToStringTransformer($this->om, Student::class));
-
 	}
 
 	/**
@@ -79,7 +73,7 @@ class StudentGradeType extends AbstractType
 		$resolver
 			->setDefaults(
 				[
-					'data_class'         => StudentGrade::class,
+					'data_class'         => StudentCalendarGroup::class,
 					'translation_domain' => 'BusybeeStudentBundle',
 					'systemYear'         => null,
 					'error_bubbling'     => true,
@@ -92,7 +86,7 @@ class StudentGradeType extends AbstractType
 	 */
 	public function getBlockPrefix()
 	{
-		return 'grade_by_student';
+		return 'calendar_group_by_student';
 	}
 
 

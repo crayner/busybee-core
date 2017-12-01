@@ -139,7 +139,7 @@ parameters:
                 prefix:   huddle
                 type: yaml
             requirements:
-            	- Student
+                - Student
             	- Staff
             description: Groups of students, in a location with staff oversight.
         Institute:

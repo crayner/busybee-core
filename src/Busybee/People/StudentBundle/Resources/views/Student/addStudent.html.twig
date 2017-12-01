@@ -1,6 +1,8 @@
+{% trans_default_domain "BusybeeStudentBundle" %}
 {% spaceless %}
+    <p class="alert alert-default">{{ 'students.member.list.count'|trans({'%{count}': manager.current.count}) }}</p>
     {% for student in manager.current %}
-        <div class="col-sm-offset-3 col-sm-9 well well-success" id="student_{{ student.id }}" draggable="true"
-             ondragstart="drag(event)">{{ student.formatName }}</div>
+        <div class="col-sm-offset-3 col-sm-9 well well-success memberStudent"
+             id="student_{{ student.id }}">{{ student.formatName }}</div>
     {% endfor %}
 {% endspaceless %}

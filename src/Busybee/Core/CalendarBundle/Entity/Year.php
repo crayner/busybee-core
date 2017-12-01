@@ -77,12 +77,12 @@ class Year extends YearModel
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
 	 */
-	private $grades;
+	private $calendarGroups;
 
 	/**
 	 * @var boolean
 	 */
-	private $gradesSorted = false;
+	private $calendarGroupsSorted = false;
 
 	/**
 	 * @var string
@@ -90,13 +90,18 @@ class Year extends YearModel
 	private $downloadCache;
 
 	/**
+	 * @var int|null
+	 */
+	private $importIdentifier;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
 	{
-		$this->specialDays = new ArrayCollection();
-		$this->terms       = new ArrayCollection();
-		$this->grades      = new ArrayCollection();
+		$this->specialDays    = new ArrayCollection();
+		$this->terms          = new ArrayCollection();
+		$this->calendarGroups = new ArrayCollection();
 	}
 
 	/**
@@ -368,63 +373,63 @@ class Year extends YearModel
 	}
 
 	/**
-	 * Add grade
+	 * Add calendarGroups
 	 *
-	 * @param \Busybee\Core\CalendarBundle\Entity\Grade $grade
+	 * @param \Busybee\Core\CalendarBundle\Entity\CalendarGroup $calendarGroups
 	 *
 	 * @return Year
 	 */
-	public function addGrade(\Busybee\Core\CalendarBundle\Entity\Grade $grade)
+	public function addCalendarGroup(\Busybee\Core\CalendarBundle\Entity\CalendarGroup $calendarGroup)
 	{
-		if ($this->grades->contains($grade))
+		if ($this->calendarGroups->contains($calendarGroup))
 			return $this;
 
-		$grade->setYear($this);
+		$calendarGroup->setYear($this);
 
-		$this->grades->add($grade);
+		$this->calendarGroups->add($calendarGroup);
 
 		return $this;
 	}
 
 	/**
-	 * Remove grade
+	 * Remove calendarGroup
 	 *
-	 * @param \Busybee\Core\CalendarBundle\Entity\Grade $grade
+	 * @param \Busybee\Core\CalendarBundle\Entity\CalendarGroup $calendarGroup
 	 */
-	public function removeGrade(\Busybee\Core\CalendarBundle\Entity\Grade $grade)
+	public function removeCalendarGroup(\Busybee\Core\CalendarBundle\Entity\CalendarGroup $calendarGroup)
 	{
-		$this->grades->removeElement($grade);
+		$this->calendarGroups->removeElement($calendarGroup);
 	}
 
 	/**
-	 * Get grades
+	 * Get calendarGroups
 	 *
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getGrades()
+	public function getCalendarGroups()
 	{
-		if (count($this->grades) == 0)
+		if (count($this->calendarGroups) == 0)
 		{
-			if ($this->grades instanceof PersistentCollection)
-				$this->grades->initialize();
-			$this->gradesSorted = false;
+			if ($this->calendarGroups instanceof PersistentCollection)
+				$this->calendarGroups->initialize();
+			$this->calendarGroupsSorted = false;
 		}
 
-		if (count($this->grades) == 0)
+		if (count($this->calendarGroups) == 0)
 			return null;
 
-		if ($this->gradesSorted)
-			return $this->grades;
+		if ($this->calendarGroupsSorted)
+			return $this->calendarGroups;
 
-		$iterator = $this->grades->getIterator();
+		$iterator = $this->calendarGroups->getIterator();
 		$iterator->uasort(function ($a, $b) {
 			return ($a->getSequence() < $b->getSequence()) ? -1 : 1;
 		});
 
-		$this->grades       = new ArrayCollection(iterator_to_array($iterator, false));
-		$this->gradesSorted = true;
+		$this->calendarGroups       = new ArrayCollection(iterator_to_array($iterator, false));
+		$this->calendarGroupsSorted = true;
 
-		return $this->grades;
+		return $this->calendarGroups;
 
 	}
 
@@ -493,6 +498,26 @@ class Year extends YearModel
 	{
 
 		$this->downloadCache = empty($downloadCache) ? null : $downloadCache;
+
+		return $this;
+	}
+
+	/**
+	 * @return int|null
+	 */
+	public function getImportIdentifier(): ?int
+	{
+		return $this->importIdentifier;
+	}
+
+	/**
+	 * @param int|null $importIdentifier
+	 *
+	 * @return Year
+	 */
+	public function setImportIdentifier($importIdentifier): Year
+	{
+		$this->importIdentifier = $importIdentifier;
 
 		return $this;
 	}

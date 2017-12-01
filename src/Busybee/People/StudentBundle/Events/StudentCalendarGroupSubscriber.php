@@ -1,14 +1,13 @@
 <?php
-
 namespace Busybee\People\StudentBundle\Events;
 
-use Busybee\Core\CalendarBundle\Entity\Grade;
-use Busybee\People\StudentBundle\Entity\StudentGrade;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
+use Busybee\People\StudentBundle\Entity\StudentCalendarGroup;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 
-class StudentGradeSubscriber implements EventSubscriber
+class StudentCalendarGroupSubscriber implements EventSubscriber
 {
 	/**
 	 * {@inheritDoc}
@@ -28,14 +27,14 @@ class StudentGradeSubscriber implements EventSubscriber
 		// the $metadata is the whole mapping info for this class
 		$metadata = $eventArgs->getClassMetadata();
 
-		if ($metadata->getName() == Grade::class)
+		if ($metadata->getName() == CalendarGroup::class)
 		{
 			$metadata->mapOneToMany(
 				[
-					'targetEntity' => StudentGrade::class,
+					'targetEntity' => StudentCalendarGroup::class,
 					'fieldName'    => 'students',
 					'cascade'      => ['persist'],
-					'mappedBy'     => 'grade',
+					'mappedBy'     => 'calendarGroup',
 				]
 			);
 		}

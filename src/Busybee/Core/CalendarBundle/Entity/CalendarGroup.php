@@ -2,17 +2,17 @@
 
 namespace Busybee\Core\CalendarBundle\Entity;
 
-use Busybee\Core\CalendarBundle\Model\GradeModel;
+use Busybee\Core\CalendarBundle\Model\CalendarGroupModel;
 use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\People\StaffBundle\Entity\Staff;
-use Busybee\People\StudentBundle\Entity\StudentGrade;
+use Busybee\People\StudentBundle\Entity\StudentCalendarGroup;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
 
 /**
- * Grade
+ * Calendar Group
  */
-class Grade extends GradeModel
+class CalendarGroup extends CalendarGroupModel
 {
 	/**
 	 * @var integer
@@ -22,7 +22,7 @@ class Grade extends GradeModel
 	/**
 	 * @var string
 	 */
-	private $grade;
+	private $nameShort;
 
 	/**
 	 * @var \Busybee\Core\CalendarBundle\Entity\Year
@@ -108,25 +108,25 @@ class Grade extends GradeModel
 	}
 
 	/**
-	 * Get grade
+	 * Get nameShort
 	 *
 	 * @return string
 	 */
-	public function getGrade()
+	public function getNameShort(): ?string
 	{
-		return $this->grade;
+		return $this->nameShort;
 	}
 
 	/**
-	 * Set grade
+	 * Set nameShort
 	 *
-	 * @param string $grade
+	 * @param string $nameShort
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
-	public function setGrade($grade)
+	public function setNameShort($nameShort): CalendarGroup
 	{
-		$this->grade = $grade;
+		$this->nameShort = $nameShort;
 
 		return $this;
 	}
@@ -134,7 +134,7 @@ class Grade extends GradeModel
 	/**
 	 * Get year
 	 *
-	 * @return \Busybee\Core\CalendarBundle\Entity\Year
+	 * @return Year
 	 */
 	public function getYear()
 	{
@@ -144,11 +144,11 @@ class Grade extends GradeModel
 	/**
 	 * Set year
 	 *
-	 * @param \Busybee\Core\CalendarBundle\Entity\Year $year
+	 * @param Year $year
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
-	public function setYear(\Busybee\Core\CalendarBundle\Entity\Year $year = null)
+	public function setYear(Year $year = null)
 	{
 		$this->year = $year;
 
@@ -218,7 +218,7 @@ class Grade extends GradeModel
 	 *
 	 * @param \Busybee\Core\SecurityBundle\Entity\User $createdBy
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
 	public function setCreatedBy(\Busybee\Core\SecurityBundle\Entity\User $createdBy = null)
 	{
@@ -242,7 +242,7 @@ class Grade extends GradeModel
 	 *
 	 * @param \Busybee\Core\SecurityBundle\Entity\User $modifiedBy
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
 	public function setModifiedBy(\Busybee\Core\SecurityBundle\Entity\User $modifiedBy = null)
 	{
@@ -266,7 +266,7 @@ class Grade extends GradeModel
 	 *
 	 * @param integer $sequence
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
 	public function setSequence($sequence)
 	{
@@ -283,7 +283,7 @@ class Grade extends GradeModel
 	public function getName()
 	{
 		if (empty($this->name))
-			return $this->grade;
+			return $this->nameShort;
 
 		return $this->name;
 	}
@@ -293,7 +293,7 @@ class Grade extends GradeModel
 	 *
 	 * @param string $name
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
 	public function setName($name)
 	{
@@ -317,9 +317,9 @@ class Grade extends GradeModel
 	 *
 	 * @param ArrayCollection $students
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
-	public function setStudents(ArrayCollection $students): Grade
+	public function setStudents(ArrayCollection $students): CalendarGroup
 	{
 		$this->students = $students;
 
@@ -329,17 +329,17 @@ class Grade extends GradeModel
 	/**
 	 * Add Student
 	 *
-	 * @param StudentGrade|null $student
+	 * @param StudentCalendarGroup|null $student
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
-	public function addStudent(StudentGrade $student = null, $add = true): Grade
+	public function addStudent(StudentCalendarGroup $student = null, $add = true): CalendarGroup
 	{
-		if (!$student instanceof StudentGrade)
+		if (!$student instanceof StudentCalendarGroup)
 			return $this;
 
 		if ($add)
-			$student->setGrade($this, false);
+			$student->setNameShort($this, false);
 
 		if (!$this->students->contains($student))
 			$this->students->add($student);
@@ -350,11 +350,11 @@ class Grade extends GradeModel
 	/**
 	 * Remove Student
 	 *
-	 * @param StudentGrade $student
+	 * @param StudentCalendarGroup $student
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
-	public function removeStudent(StudentGrade $student): Grade
+	public function removeStudent(StudentCalendarGroup $student): CalendarGroup
 	{
 		$this->students->removeElement($student);
 
@@ -372,9 +372,9 @@ class Grade extends GradeModel
 	/**
 	 * @param Staff $tutor1
 	 *
-	 * @return StudentGrade
+	 * @return CalendarGroup
 	 */
-	public function setTutor1(Staff $tutor1 = null): Grade
+	public function setTutor1(Staff $tutor1 = null): CalendarGroup
 	{
 		$this->tutor1 = $tutor1;
 
@@ -392,9 +392,9 @@ class Grade extends GradeModel
 	/**
 	 * @param Staff $tutor2
 	 *
-	 * @return StudentGrade
+	 * @return StudentCalendarGroup
 	 */
-	public function setTutor2(Staff $tutor2 = null): Grade
+	public function setTutor2(Staff $tutor2 = null): CalendarGroup
 	{
 		$this->tutor2 = $tutor2;
 
@@ -412,9 +412,9 @@ class Grade extends GradeModel
 	/**
 	 * @param Staff|null $tutor3
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
-	public function setTutor3(Staff $tutor3 = null): Grade
+	public function setTutor3(Staff $tutor3 = null): CalendarGroup
 	{
 		$this->tutor3 = $tutor3;
 
@@ -432,9 +432,9 @@ class Grade extends GradeModel
 	/**
 	 * @param Space $space
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
-	public function setSpace(Space $space = null): Grade
+	public function setSpace(Space $space = null): CalendarGroup
 	{
 		$this->space = $space;
 
@@ -452,9 +452,9 @@ class Grade extends GradeModel
 	/**
 	 * @param string $website
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
-	public function setWebsite(string $website): Grade
+	public function setWebsite(string $website): CalendarGroup
 	{
 		$this->website = $website;
 

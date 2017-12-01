@@ -2,7 +2,7 @@
 
 namespace Busybee\ActivityBundle\Form;
 
-use Busybee\Core\CalendarBundle\Entity\Grade;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
 use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\Core\CalendarBundle\Entity\Year;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
@@ -78,17 +78,17 @@ class ActivityType extends AbstractType
             ->add('year', HiddenType::class)
             ->add('grades', EntityType::class,
                 [
-                    'label' => 'activity.label.grades',
-                    'class' => Grade::class,
-                    'placeholder' => 'activity.placeholder.grades',
-                    'multiple' => true,
-                    'required' => false,
-                    'attr' => [
+	                'label'         => 'activity.label.grades',
+	                'class'         => CalendarGroup::class,
+	                'placeholder'   => 'activity.placeholder.grades',
+	                'multiple'      => true,
+	                'required'      => false,
+	                'attr'          => [
                         'help' => 'activity.help.grades',
                         'class' => 'monitorChange',
                     ],
-                    'choice_label' => 'grade',
-                    'query_builder' => function (EntityRepository $er) use ($year) {
+	                'choice_label'  => 'grade',
+	                'query_builder' => function (EntityRepository $er) use ($year) {
                         return $er->createQueryBuilder('g')
                             ->leftJoin('g.year', 'y')
                             ->where('y.id = :year_id')

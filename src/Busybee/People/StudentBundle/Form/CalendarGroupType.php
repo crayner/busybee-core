@@ -2,17 +2,14 @@
 
 namespace Busybee\People\StudentBundle\Form;
 
-use Busybee\Core\CalendarBundle\Entity\Grade;
-use Busybee\Core\TemplateBundle\Type\EntityType;
-use Busybee\People\StudentBundle\Entity\StudentGrade;
-use Busybee\People\StudentBundle\Events\StudentGradeEvents;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GradeType extends AbstractType
+class CalendarGroupType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
@@ -21,31 +18,18 @@ class GradeType extends AbstractType
 	{
 		$builder
 			->add('name', HiddenType::class)
-			->add('grade', HiddenType::class)
+			->add('nameShort', HiddenType::class)
 			->add('sequence', HiddenType::class)
-			/*			->add('students', EntityType::class,
-							[
-								'class' => StudentGrade::class,
-								'multiple' => true,
-								'choices' => $options['manager']->getPossibleStudents(),
-								'choice_value' => 'studentId',
-								'choice_label' => 'studentName',
-								'expanded' => true,
-								'label' => 'grade.students.label',
-								'required' => false,
-							]
-						)
-			*/
 			->add('defaultStatus', ChoiceType::class,
 				[
 					'choices'     => $options['manager']->getSm()->get('student.enrolment.status'),
 					'mapped'      => false,
-					'label'       => 'grade.defaultStatus.label',
+					'label'       => 'calendar.group.defaultStatus.label',
 					'attr'        =>
 						[
-							'help' => 'grade.defaultStatus.help',
+							'help' => 'calendar.group.defaultStatus.help',
 						],
-					'placeholder' => 'grade.defaultStatus.placeholder',
+					'placeholder' => 'calendar.group.defaultStatus.placeholder',
 				]
 			);
 	}
@@ -58,7 +42,7 @@ class GradeType extends AbstractType
 		$resolver
 			->setDefaults(
 				[
-					'data_class'         => Grade::class,
+					'data_class'         => CalendarGroup::class,
 					'translation_domain' => 'BusybeeStudentBundle',
 				]
 			);
@@ -75,7 +59,7 @@ class GradeType extends AbstractType
 	 */
 	public function getBlockPrefix()
 	{
-		return 'add_students_to_grade';
+		return 'student_to_calendar_group';
 	}
 
 

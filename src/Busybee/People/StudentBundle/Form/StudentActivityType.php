@@ -2,7 +2,6 @@
 
 namespace Busybee\People\StudentBundle\Form;
 
-use Busybee\People\StudentBundle\Events\StudentGradesSubscriber;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;

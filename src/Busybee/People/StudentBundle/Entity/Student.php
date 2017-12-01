@@ -117,7 +117,7 @@ class Student extends StudentModel
 	/*
 	 * @var
 	 */
-	private $grades;
+	private $calendarGroups;
 
 	/**
 	 * @var string
@@ -159,7 +159,7 @@ class Student extends StudentModel
 	 */
 	public function __construct()
 	{
-		$this->grades = new ArrayCollection();
+		$this->calendarGroups = new ArrayCollection();
 	}
 
 	/**
@@ -676,17 +676,17 @@ class Student extends StudentModel
 	/**
 	 * @return mixed
 	 */
-	public function getGrades()
+	public function getCalendarGroups()
 	{
-		return $this->grades;
+		return $this->calendarGroups;
 	}
 
 	/**
-	 * @param mixed $grades
+	 * @param mixed $calendarGroups
 	 */
-	public function setGrades($grades): Student
+	public function setCalendarGroups($calendarGroups): Student
 	{
-		$this->grades = $grades;
+		$this->calendarGroups = $calendarGroups;
 
 		return $this;
 	}

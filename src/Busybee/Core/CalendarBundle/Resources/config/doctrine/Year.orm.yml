@@ -24,6 +24,11 @@ Busybee\Core\CalendarBundle\Entity\Year:
             nullable: true
             length: 150
             type: string
+        importIdentifier:
+            column: import_identifier
+            nullable: true
+            type: integer
+            length: 3
         lastModified:
             type: datetime
             column: last_modified
@@ -39,8 +44,8 @@ Busybee\Core\CalendarBundle\Entity\Year:
             targetEntity: Busybee\Core\CalendarBundle\Entity\SpecialDay
             mappedBy: year
             cascade: [persist, remove]
-        grades:
-            targetEntity: Busybee\Core\CalendarBundle\Entity\Grade
+        calendarGroups:
+            targetEntity: Busybee\Core\CalendarBundle\Entity\CalendarGroup
             mappedBy: year
             cascade: [persist, remove]
             orderBy: { sequence: ASC }

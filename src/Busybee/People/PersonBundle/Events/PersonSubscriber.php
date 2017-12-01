@@ -8,7 +8,7 @@ use Busybee\Core\TemplateBundle\Type\TextType;
 use Busybee\People\PersonBundle\Form\UserType;
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Busybee\Core\SecurityBundle\Entity\User;
-use Busybee\People\StudentBundle\Form\StudentGradeType;
+use Busybee\People\StudentBundle\Form\StudentCalendarGroupType;
 use Busybee\People\StudentBundle\Validator\Grades;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -396,15 +396,15 @@ class PersonSubscriber implements EventSubscriberInterface
 					'choice_translation_domain' => 'SystemBundle',
 				]
 			)
-			->add('grades', CollectionType::class,
+			->add('calendarGroups', CollectionType::class,
 				[
-					'label'         => 'student.grades.label',
+					'label'         => 'student.calendar.groups.label',
 					'allow_add'     => true,
 					'allow_delete'  => true,
-					'entry_type'    => StudentGradeType::class,
+					'entry_type'    => StudentCalendarGroupType::class,
 					'attr'          => [
-						'class' => 'gradeList',
-						'help'  => 'student.grades.help',
+						'class' => 'calendarGroupList',
+						'help'  => 'student.calendar.groups.help',
 					],
 					'entry_options' => [
 						'systemYear' => $form->getConfig()->getOption('systemYear'),

@@ -732,4 +732,35 @@ class BundleManager
 	{
 		return $this->bundleChanged;
 	}
+
+	/**
+	 * @param string $entityName
+	 *
+	 * @return bool
+	 */
+	public function isTableInstalled(string $entityName)
+	{
+		if (class_exists($entityName))
+		{
+			$metaData = $this->getOm()->getClassMetadata('\\' . $entityName);
+			$schema   = $this->getOm()->getConnection()->getSchemaManager();
+
+			return $schema->tablesExist([$metaData->table['name']]);
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param $test
+	 *
+	 * @return bool
+	 */
+	public function sectionMenuTest(array $options)
+	{
+		dump($options);
+
+
+		return true;
+	}
 }

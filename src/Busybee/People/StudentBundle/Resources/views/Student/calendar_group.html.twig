@@ -1,0 +1,138 @@
+{% trans_default_domain "BusybeeStudentBundle" %}
+
+{% extends "@BusybeeTemplate/Default/template.html.twig" %}
+
+{% form_theme form
+    "@BusybeeTemplate/Template/bootstrap.html.twig" %}
+
+{% block headerTitle %}{{ 'student.calendar.group.students.title'|trans({'%name%': manager.calendarGroup.fullName}) }}{% endblock headerTitle %}
+{% block headerLead %}{{ 'student.calendar.group.students.description'|trans }}{% endblock headerLead %}
+
+{% set links = '' %}
+
+
+{% block contentContainer %}
+    {% set title = 'student.calendar.group.students.title' %}
+    {% set panelParagraph = 'student.calendar.group.students.help' %}
+    {% set transDomain = 'BusybeeStudentBundle' %}
+    {{ form_start(form) }}
+    {% set name = manager.calendarGroup.fullName %}
+    {% include '@BusybeeTemplate/Page/panelStart.html.twig' %}
+    <div id="gradeMessage"><!-- Messages go here --></div>
+    <div class="row">
+        <div class="col-sm-6 well" id="links">
+            <!-- -->
+        </div>
+        <div class="col-sm-6 well">
+            {{ form_row(form.defaultStatus) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 well" id="dropRemove">
+            {% include '@BusybeeStudent/Student/removeStudent.html.twig' %}
+        </div>
+        <div class="col-sm-6 well" id="dropAttach">
+            {% include '@BusybeeStudent/Student/addStudent.html.twig' %}
+        </div>
+    </div>
+    {% include '@BusybeeTemplate/Page/panelEnd.html.twig' %}
+    {{ form_end(form) }}
+{% endblock contentContainer %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            $(".memberStudent").draggable({
+                stack: ".memberStudent"
+            });
+
+            $("#dropRemove").droppable({
+                accept: ".memberStudent",
+                hoverClass: "hoverYellow",
+                drop: function (ev, ui) {
+
+                    var data = $(ui.draggable).prop('id');
+
+                    var path = "{{ path('remove_student_from_calendar_group', {group: '__grade__', student: '__student__' }) }}";
+                    path = path.replace('__grade__', {{ app.request.get('id') }});
+                    path = path.replace('__student__', data);
+
+                    $.ajax({
+                        url: path,
+                        type: "POST",
+                        success: function (data) {
+                            $("#dropAttach").html(data.current);
+                            $("#dropRemove").html(data.possible);
+                            $('#gradeMessage').html(data.message);
+                            $(".memberStudent").draggable({
+                                stack: ".memberStudent"
+                            });
+                            $(".possibleStudent").draggable({
+                                stack: ".possibleStudent"
+                            });
+                            $('#gradeMessage').fadeIn(2);
+                            window.location.hash = '#gradeMessage';
+                            window.location.hash = '#contentContainer';
+                            $('#gradeMessage').fadeOut(3000);
+                        }
+                    });
+
+                },
+                over: function (ev, ui) {
+                },
+                out: function (ev, ui) {
+                }
+            });
+
+            $(".possibleStudent").draggable({
+                stack: ".possibleStudent"
+            });
+
+            $("#dropAttach").droppable({
+                accept: ".possibleStudent",
+                hoverClass: "hoverYellow",
+                drop: function (ev, ui) {
+
+                    if ($('#student_to_calendar_group_defaultStatus').val() == "") {
+                        alert('{{ 'calendar.group.students.status.missing'|trans }}');
+                        return false;
+                    }
+
+                    var data = $(ui.draggable).prop('id');
+
+                    var path = "{{ path('add_student_to_calendar_group', {group: '__grade__', student: '__student__' , status: '__status__' }) }}";
+                    path = path.replace('__grade__', {{ app.request.get('id') }});
+                    path = path.replace('__student__', data);
+                    path = path.replace('__status__', $('#student_to_calendar_group_defaultStatus').val());
+
+
+                    $.ajax({
+                        url: path,
+                        type: "POST",
+                        success: function (data) {
+                            $("#dropAttach").html(data.current);
+                            $("#dropRemove").html(data.possible);
+                            $(".memberStudent").draggable({
+                                stack: ".memberStudent"
+                            });
+                            $(".possibleStudent").draggable({
+                                stack: ".possibleStudent"
+                            });
+                            $('#gradeMessage').html(data.message);
+                            $('#gradeMessage').fadeIn(2);
+                            window.location.hash = '#gradeMessage';
+                            window.location.hash = '#contentContainer';
+                            $('#gradeMessage').fadeOut(3000);
+                        }
+                    })
+
+                },
+                over: function (ev, ui) {
+                },
+                out: function (ev, ui) {
+                }
+            });
+
+            $('#links').html('{{ manager.links|raw }}');
+        </script>
+    {% endblock %}

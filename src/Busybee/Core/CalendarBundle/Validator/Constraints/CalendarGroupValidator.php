@@ -2,12 +2,12 @@
 
 namespace Busybee\Core\CalendarBundle\Validator\Constraints;
 
-use Busybee\Core\CalendarBundle\Entity\Grade;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator as ConstraintValidatorBase;
 
-class GradeValidator extends ConstraintValidatorBase
+class CalendarGroupValidator extends ConstraintValidatorBase
 {
 	/**
 	 * @var ObjectManager
@@ -33,7 +33,7 @@ class GradeValidator extends ConstraintValidatorBase
 		if (empty($value))
 			return;
 
-		$years = $this->om->getRepository(Grade::class)->findBy(['year' => $constraint->year->getId()], ['sequence' => 'ASC']);
+		$years = $this->om->getRepository(CalendarGroup::class)->findBy(['year' => $constraint->year->getId()], ['sequence' => 'ASC']);
 
 		if (!empty($years))
 			foreach ($years as $y)
@@ -41,7 +41,7 @@ class GradeValidator extends ConstraintValidatorBase
 				if (!$value->contains($y))
 					if (!$y->canDelete())
 					{
-						$this->context->buildViolation('year.grade.error.delete', ['%grade%' => $y->getGrade()])
+						$this->context->buildViolation('calendar.group.error.delete', ['%grade%' => $y->getFullName()])
 							->addViolation();
 
 						return;
@@ -49,8 +49,8 @@ class GradeValidator extends ConstraintValidatorBase
 			}
 
 		$test = [];
-		foreach ($value as $grade)
-			$test[$grade->getGrade()] = isset($test[$grade->getGrade()]) ? $test[$grade->getGrade()] + 1 : 1;
+		foreach ($value as $group)
+			$test[$group->getNameShort()] = isset($test[$group->getNameShort()]) ? $test[$group->getNameShort()] + 1 : 1;
 
 		foreach ($test as $y => $w)
 			if ($w > 1)

@@ -2,18 +2,13 @@
 
 namespace Busybee\Core\CalendarBundle\Events;
 
-use Busybee\Core\CalendarBundle\Entity\Grade;
-use Busybee\Core\CalendarBundle\Model\GradeManager;
+use Busybee\Core\CalendarBundle\Model\CalendarGroupManager;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
-use Busybee\Core\TemplateBundle\Type\EntityType;
-use Busybee\Facility\InstituteBundle\Entity\Space;
-use Busybee\People\StaffBundle\Entity\Staff;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class GradeSubscriber implements EventSubscriberInterface
+class CalendarGroupSubscriber implements EventSubscriberInterface
 {
 	/**
 	 * @var SettingManager
@@ -21,7 +16,7 @@ class GradeSubscriber implements EventSubscriberInterface
 	private $settingManager;
 
 	/**
-	 * @var GradeManager
+	 * @var CalendarGroupManager
 	 */
 	private $gradeManager;
 
@@ -30,7 +25,7 @@ class GradeSubscriber implements EventSubscriberInterface
 	 *
 	 * @param SettingManager $om
 	 */
-	public function __construct(SettingManager $settingManager, GradeManager $gradeManager)
+	public function __construct(SettingManager $settingManager, CalendarGroupManager $gradeManager)
 	{
 		$this->settingManager = $settingManager;
 		$this->gradeManager   = $gradeManager;
@@ -66,10 +61,10 @@ class GradeSubscriber implements EventSubscriberInterface
 	{
 		$data = $event->getData();
 
-		if (isset($data['grade']))
+		if (isset($data['nameShort']))
 		{
 			$groups       = $this->settingManager->get('student.groups._flip');
-			$data['name'] = $groups[$data['grade']];
+			$data['name'] = $groups[$data['nameShort']];
 		}
 
 		$event->setData($data);

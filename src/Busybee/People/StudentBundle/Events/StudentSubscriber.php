@@ -2,8 +2,8 @@
 
 namespace Busybee\People\StudentBundle\Events;
 
-use Busybee\Core\CalendarBundle\Entity\Grade;
-use Busybee\People\StudentBundle\Entity\StudentGrade;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
+use Busybee\People\StudentBundle\Entity\StudentCalendarGroup;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -59,10 +59,10 @@ class StudentSubscriber implements EventSubscriberInterface
 			{
 				$w['student']       = strval($entity->getId());
 				$data['grades'][$q] = $w;
-				if ($entity->getGrades()->containsKey($q) && is_null($entity->getGrades()->get($q)->getGrade()))
+				if ($entity->getGrades()->containsKey($q) && is_null($entity->getCalendarGroups()->get($q)->getNameShort()))
 				{
-					$grade = $entity->getGrades()->get($q);
-					$grade->setGrade($this->om->getRepository(Grade::class)->find($w['grade']));
+					$grade = $entity->getCalendarGroups()->get($q);
+					$grade->setCalendarGroup($this->om->getRepository(CalendarGroup::class)->find($w['nameShort']));
 				}
 			}
 		}
@@ -80,7 +80,7 @@ class StudentSubscriber implements EventSubscriberInterface
 		$entity = $form->getData();
 
 		$results = $this->om
-			->getRepository(StudentGrade::class)
+			->getRepository(StudentCalendarGroup::class)
 			->createQueryBuilder('g')
 			->leftJoin('g.student', 's')
 			->where('s.id = :stu_id')
@@ -90,7 +90,7 @@ class StudentSubscriber implements EventSubscriberInterface
 
 		if (!empty($results))
 		{
-			$existing = $entity->getGrades();
+			$existing = $entity->getCalendarGroups();
 			foreach ($results as $grade)
 				if (!$existing->contains($grade))
 					$this->om->remove($grade);

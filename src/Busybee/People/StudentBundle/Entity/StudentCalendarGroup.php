@@ -1,16 +1,14 @@
 <?php
-
 namespace Busybee\People\StudentBundle\Entity;
 
-use Busybee\Core\CalendarBundle\Entity\Grade;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
 use Busybee\Core\SecurityBundle\Entity\User;
-use Busybee\People\StudentBundle\Model\StudentGradeModel;
-use Busybee\People\StudentBundle\Entity\Student;
+use Busybee\People\StudentBundle\Model\StudentCalendarGroupModel;
 
 /**
- * StudentGrade
+ * Student Calendar Group
  */
-class StudentGrade extends StudentGradeModel
+class StudentCalendarGroup extends StudentCalendarGroupModel
 {
 	/**
 	 * @var integer
@@ -38,9 +36,9 @@ class StudentGrade extends StudentGradeModel
 	private $student;
 
 	/**
-	 * @var Grade
+	 * @var CalendarGroup
 	 */
-	private $grade;
+	private $calendarGroup;
 
 	/**
 	 * @var User
@@ -78,9 +76,9 @@ class StudentGrade extends StudentGradeModel
 	 *
 	 * @param string $status
 	 *
-	 * @return StudentGrade
+	 * @return StudentCalendarGroup
 	 */
-	public function setStatus($status): StudentGrade
+	public function setStatus($status): StudentCalendarGroup
 	{
 		$this->status = $status;
 
@@ -102,9 +100,9 @@ class StudentGrade extends StudentGradeModel
 	 *
 	 * @param \DateTime $lastModified
 	 *
-	 * @return StudentGrade
+	 * @return StudentCalendarGroup
 	 */
-	public function setLastModified($lastModified): StudentGrade
+	public function setLastModified($lastModified): StudentCalendarGroup
 	{
 		$this->lastModified = $lastModified;
 
@@ -126,9 +124,9 @@ class StudentGrade extends StudentGradeModel
 	 *
 	 * @param \DateTime $createdOn
 	 *
-	 * @return StudentGrade
+	 * @return StudentCalendarGroup
 	 */
-	public function setCreatedOn($createdOn): StudentGrade
+	public function setCreatedOn($createdOn): StudentCalendarGroup
 	{
 		$this->createdOn = $createdOn;
 
@@ -136,28 +134,28 @@ class StudentGrade extends StudentGradeModel
 	}
 
 	/**
-	 * Get grade
+	 * Get calendarGroup
 	 *
-	 * @return Grade
+	 * @return CalendarGroup
 	 */
-	public function getGrade()
+	public function getCalendarGroup()
 	{
-		return $this->grade;
+		return $this->calendarGroup;
 	}
 
 	/**
-	 * Set grade
+	 * Set calendarGroup
 	 *
-	 * @param Grade $grade
+	 * @param CalendarGroup $calendarGroup
 	 *
-	 * @return StudentGrade
+	 * @return StudentCalendarGroup
 	 */
-	public function setGrade(Grade $grade = null, $add = true): StudentGrade
+	public function setCalendarGroup(CalendarGroup $calendarGroup = null, $add = true): StudentCalendarGroup
 	{
 		if ($add)
-			$grade->addStudent($this, false);
+			$calendarGroup->addStudent($this, false);
 
-		$this->grade = $grade;
+		$this->calendarGroup = $calendarGroup;
 
 		return $this;
 	}
@@ -177,9 +175,9 @@ class StudentGrade extends StudentGradeModel
 	 *
 	 * @param User $createdBy
 	 *
-	 * @return StudentGrade
+	 * @return StudentCalendarGroup
 	 */
-	public function setCreatedBy(User $createdBy = null): StudentGrade
+	public function setCreatedBy(User $createdBy = null): StudentCalendarGroup
 	{
 		$this->createdBy = $createdBy;
 
@@ -201,9 +199,9 @@ class StudentGrade extends StudentGradeModel
 	 *
 	 * @param User $modifiedBy
 	 *
-	 * @return StudentGrade
+	 * @return StudentCalendarGroup
 	 */
-	public function setModifiedBy(User $modifiedBy = null): StudentGrade
+	public function setModifiedBy(User $modifiedBy = null): StudentCalendarGroup
 	{
 		$this->modifiedBy = $modifiedBy;
 
@@ -225,7 +223,7 @@ class StudentGrade extends StudentGradeModel
 	 *
 	 * @param Student $student
 	 */
-	public function setStudent(Student $student): StudentGrade
+	public function setStudent(Student $student): StudentCalendarGroup
 	{
 		$this->student = $student;
 

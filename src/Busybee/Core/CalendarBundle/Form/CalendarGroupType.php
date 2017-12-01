@@ -1,14 +1,12 @@
 <?php
-
 namespace Busybee\Core\CalendarBundle\Form;
 
-use Busybee\Core\CalendarBundle\Model\GradeManager;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
+use Busybee\Core\CalendarBundle\Model\CalendarGroupManager;
 use Busybee\Core\TemplateBundle\Type\HiddenEntityType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
-use Busybee\Core\CalendarBundle\Entity\Grade;
 use Busybee\Core\CalendarBundle\Entity\Year;
-use Busybee\Core\CalendarBundle\Events\GradeSubscriber;
-use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
+use Busybee\Core\CalendarBundle\Events\CalendarGroupSubscriber;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
@@ -19,7 +17,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GradeType extends AbstractType
+class CalendarGroupType extends AbstractType
 {
 	/**
 	 * @var ObjectManager
@@ -32,21 +30,24 @@ class GradeType extends AbstractType
 	private $settingManager;
 
 	/**
-	 * @var GradeManager
+	 * @var CalendarGroupManager
 	 */
-	private $gradeManager;
+	private $manager;
 
 	/**
 	 * DepartmentType constructor.
 	 *
-	 * @param                ObjectManager  objectManager
-	 * @param SettingManager $settingManager
+	 * @param ObjectManager        $objectManager
+	 * @param SettingManager       $settingManager
+	 * @param CalendarGroupManager $manager
+	 *
+	 * @internal param ObjectManager $ObjectManager
 	 */
-	public function __construct(ObjectManager $objectManager, SettingManager $settingManager, GradeManager $gradeManager)
+	public function __construct(ObjectManager $objectManager, SettingManager $settingManager, CalendarGroupManager $manager)
 	{
 		$this->objectManager  = $objectManager;
 		$this->settingManager = $settingManager;
-		$this->gradeManager   = $gradeManager;
+		$this->manager        = $manager;
 	}
 
 	/**
@@ -55,12 +56,12 @@ class GradeType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('grade', SettingChoiceType::class,
+			->add('nameShort', SettingChoiceType::class,
 				[
-					'label'        => 'grade.name.select',
+					'label'        => 'calendar.group.nameshort.label',
 					'setting_name' => 'student.groups',
 					'required'     => true,
-					'placeholder'  => 'grade.placeholder.grade',
+					'placeholder'  => 'calendar.group.nameshort.placeholder',
 				]
 			)
 			->add('name', HiddenType::class)
@@ -72,12 +73,12 @@ class GradeType extends AbstractType
 			->add('sequence', HiddenType::class)
 			->add('website', UrlType::class,
 				[
-					'label'    => 'grade.website.label',
+					'label'    => 'calendar.group.website.label',
 					'required' => false,
 				]
 			);
 
-		$builder->addEventSubscriber(new GradeSubscriber($this->settingManager, $this->gradeManager));
+		$builder->addEventSubscriber(new CalendarGroupSubscriber($this->settingManager, $this->manager));
 	}
 
 	/**
@@ -87,7 +88,7 @@ class GradeType extends AbstractType
 	{
 		$resolver->setDefaults(
 			[
-				'data_class'         => Grade::class,
+				'data_class'         => CalendarGroup::class,
 				'translation_domain' => 'BusybeeCalendarBundle',
 				'year_data'          => null,
 				'error_bubbling'     => true,
@@ -105,7 +106,7 @@ class GradeType extends AbstractType
 	 */
 	public function getBlockPrefix()
 	{
-		return 'grade';
+		return 'calendar_group';
 	}
 
 	/**

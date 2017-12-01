@@ -1,11 +1,27 @@
 <?php
+
 namespace GibbonBundle\Model;
 
 use Busybee\People\PersonBundle\Model\PersonManager;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class ImportHouses extends ImportManager
+class ImportGrades extends ImportManager
 {
+	/**
+	 * @var int
+	 */
+	private $count = 0;
+
+	/**
+	 * @var int
+	 */
+	private $offset;
+
+	/**
+	 * @var int
+	 */
+	private $gibbonSchoolYearID;
+
 	/**
 	 * ImportPeople constructor.
 	 *
@@ -17,21 +33,31 @@ class ImportHouses extends ImportManager
 	{
 		parent::__construct($gibbonManager, $manager, $personManager);
 
-		$sql = "SELECT * FROM `gibbonHouse` ORDER BY `name`";
+		$sql = "SELECT `gibbonSchoolYearID` FROM `gibbonSchoolYear` WHERE `status` = 'Current'";
 
 		$stmt = $this->getGibbonManager()->getConnection()->prepare($sql);
 		$stmt->execute();
-		$houses = $stmt->fetchAll();
+		$this->gibbonSchoolYearID = $stmt->fetch();
 
-		$list = [];
+		return $this;
+	}
 
-		foreach ($houses as $house)
-		{
-			$list[$house['name']]['name']      = $house['name'];
-			$list[$house['name']]['shortName'] = $house['nameShort'];
-			$list[$house['name']]['logo']      = $house['logo'];
-		}
+	/**
+	 * @return int
+	 */
+	public function getCount(): ?int
+	{
+		return $this->count;
+	}
 
-		$this->getPersonManager()->getSm()->set('house.list', $list);
+	/**
+	 * @return int
+	 */
+	public function getOffset(): int
+	{
+		if (empty($this->offset))
+			$this->offset = 0;
+
+		return $this->offset;
 	}
 }

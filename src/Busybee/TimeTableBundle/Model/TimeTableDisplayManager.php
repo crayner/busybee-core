@@ -4,7 +4,7 @@ namespace Busybee\TimeTableBundle\Model;
 
 
 use Busybee\Core\HomeBundle\Exception\Exception;
-use Busybee\Core\CalendarBundle\Entity\Grade;
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
 use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\Core\CalendarBundle\Entity\Term;
 use Busybee\Core\CalendarBundle\Entity\Year;
@@ -289,7 +289,7 @@ class TimeTableDisplayManager extends TimeTableManager
         switch ($this->getType()) {
             case 'Grade':
                 if (empty($this->getIdDesc())) {
-                    $this->setIdDesc($this->getOm()->getRepository(Grade::class)->findOneByGrade($this->getIdentifier())->getName());
+	                $this->setIdDesc($this->getOm()->getRepository(CalendarGroup::class)->findOneByGrade($this->getIdentifier())->getName());
                 }
                 $this->header = 'timetable.header.grade';
                 break;

@@ -595,3 +595,8 @@ body.loading .showLoader {
     position: fixed;
     top: 48px;
 }
+
+.hoverYellow {
+    border-color: yellow;
+    border-width: 4px;
+}

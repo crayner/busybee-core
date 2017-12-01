@@ -1,5 +1,4 @@
 <?php
-
 namespace GibbonBundle\Controller;
 
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
@@ -18,7 +17,6 @@ class DefaultController extends BusybeeController
 		if ($offset == 0)
 			$this->get('gibbon.model.import_houses');
 
-		$people = [];
 		if ($function === 'importPeople')
 		{
 			$people = $this->get('gibbon.model.import_people')->$function($offset);
@@ -36,6 +34,28 @@ class DefaultController extends BusybeeController
 			$manager = $this->get('gibbon.model.import_departments')->$function($offset);
 
 			return $this->render('@Gibbon/Default/departments.html.twig', ['manager' => $manager]);
+		}
+		elseif ($function === 'importYear')
+		{
+			$manager = $this->get('gibbon.model.import_year');
+
+			return $this->render('@Gibbon/Default/year.html.twig', ['manager' => $manager]);
+		}
+		elseif ($function === 'importGrades')
+		{
+			dump($this);
+			die();
+			$manager = $this->get('gibbon.model.import_grades');
+
+			return $this->render('@Gibbon/Default/year.html.twig', ['manager' => $manager]);
+		}
+		elseif ($function === 'importSomething')
+		{
+			dump($this);
+			die();
+			$manager = $this->get('gibbon.model.import_year');
+
+			return $this->render('@Gibbon/Default/year.html.twig', ['manager' => $manager]);
 		}
 	}
 }

@@ -11,7 +11,7 @@
 'BusybeeTemplateBundle:Template:jquery.collection.html.twig'
 '@BusybeeCalendar/Term/term.html.twig'
 '@BusybeeCalendar/SpecialDays/specialDay.html.twig'
-'@BusybeeCalendar/Grade/grade.html.twig'
+    '@BusybeeCalendar/CalendarGroup/calendar_group.html.twig'
 'BusybeeTemplateBundle:Template:bootstrap.html.twig' %}
 
 {% block title %}{{ parent() }}{{ 'calendar.title'|trans }}{% endblock title %}
@@ -67,7 +67,7 @@
             $(".fadeAlert").fadeOut(3000);
         }
     </script>
-    {% include '@BusybeeCalendar/Grade/gradesScript.html.twig' %}
+    {% include '@BusybeeCalendar/CalendarGroup/calendar_group_script.html.twig' %}
     {% include '@BusybeeCalendar/Term/termScript.html.twig' %}
     {% include "@BusybeeCalendar/SpecialDays/specialDaysScript.html.twig" %}
     {% include 'BusybeeCalendarBundle:Calendar:script.html.twig' %}
