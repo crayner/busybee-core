@@ -4,7 +4,6 @@ namespace Busybee\Core\CalendarBundle\Events;
 use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
 use Busybee\Core\CalendarBundle\Model\YearManager;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -52,7 +51,9 @@ class YearSubscriber implements EventSubscriberInterface
 			$new = new ArrayCollection();
 			$seq = 0;
 
-			dump($data);
+			if ($cg->first()->getSequence() < 100)
+				$seq = 100;
+
 			foreach ($data['calendarGroups'] as $q => $w)
 			{
 				$w['sequence'] = ++$seq;
@@ -71,6 +72,12 @@ class YearSubscriber implements EventSubscriberInterface
 
 				$exists->setSequence($seq);
 
+				if (empty($exists->getId()))
+				{
+					$exists->setName($w['name']);
+					$exists->setNameShort($w['nameShort']);
+					$exists->setYear($entity);
+				}
 				$new->add($exists);
 			}
 			$entity->setCalendarGroups($new);
@@ -117,10 +124,6 @@ class YearSubscriber implements EventSubscriberInterface
 
 		if (!empty($entity->getDownloadCache()) && file_exists($entity->getDownloadCache()))
 			unlink($entity->getDownloadCache());
-
-
-		dump($data);
-		dump($entity);
 
 		$event->setData($data);
 		$form->setData($entity);

@@ -7,6 +7,7 @@ use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\People\StudentBundle\Entity\StudentCalendarGroup;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;
 
 /**
@@ -305,9 +306,9 @@ class CalendarGroup extends CalendarGroupModel
 	/**
 	 * Get Students
 	 *
-	 * @return PersistentCollection
+	 * @return Collection
 	 */
-	public function getStudents(): PersistentCollection
+	public function getStudents()
 	{
 		return $this->students;
 	}

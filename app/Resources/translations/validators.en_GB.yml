@@ -21,6 +21,11 @@ calendar:
         dateOrder: The first day must be before the last day in the year.
         invalid: The first or last day of the year is not valid.
         overlapped: "The year dates must not overlap. Check the years: %name1% and %name2%"
+    group:
+        nameshort:
+            unique: The name of the year must be unique for this year.
+        sequence:
+            unique: The internal sequence number is duplicated.
 caregiver:
     blank:
         family: The family for a caregiver must not be blank.
@@ -125,3 +130,4 @@ school:
 setting:
     choice:
         invalid: The choice is not valid.
+
