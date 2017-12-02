@@ -521,4 +521,16 @@ class Year extends YearModel
 
 		return $this;
 	}
+
+	/**
+	 * @param \Doctrine\Common\Collections\Collection $calendarGroups
+	 *
+	 * @return Year
+	 */
+	public function setCalendarGroups(\Doctrine\Common\Collections\Collection $calendarGroups = null): Year
+	{
+		$this->calendarGroups = $calendarGroups;
+
+		return $this;
+	}
 }

@@ -368,7 +368,7 @@ class ButtonExtension extends \Twig_Extension
 	public function onOffButton($details = [])
 	{
 		if (!isset($details['value']))
-			throw new Exception('You must set a boolean value for the On/Off Button.');
+			throw new Exception('You must set a boolean value for the On/Off Button.  value = ?');
 		if ($details['value'])
 			return $this->generateButton($this->buttons['on'], isset($details['on']) ? $details['on'] : []);
 		else

@@ -139,26 +139,49 @@ class StudentManager extends PersonManager
 	 */
 	public function handleRequest(Request $request, Form $form)
 	{
-		$data = $request->get('add_students_to_calendarGroup');
+		$data = $request->get('student_to_calendar_group');
 
 		if (is_null($data)) return;
-
-		foreach ($data['students'] as $stuId)
+		dump($data);
+		if (isset($data['possibleStudent']))
 		{
-			if (!isset($this->current[$stuId]))
+			foreach ($data['possibleStudent'] as $stuId => $gg)
 			{
-				$sg = new StudentCalendarGroup();
-				$sg->setCalendarGroup($this->calendarGroup);
-				$sg->setStatus($data['defaultStatus']);
-				$sg->setStudent($this->getOm()->getRepository(Student::class)->find($stuId));
-				$this->calendarGroup->addStudent($sg);
+				if (!isset($this->current[$stuId]))
+				{
+					$sg = new StudentCalendarGroup();
+					$sg->setCalendarGroup($this->calendarGroup);
+					$sg->setStatus($data['defaultStatus']);
+					$sg->setStudent($this->getOm()->getRepository(Student::class)->find($stuId));
+					$this->calendarGroup->addStudent($sg);
+				}
 			}
+			$this->getOm()->persist($this->calendarGroup);
+			$this->getOm()->flush();
+		}
+		if (isset($data['removeStudent']))
+		{
+			dump($this);
+			foreach ($data['removeStudent'] as $stuId => $gg)
+			{
+				if (isset($this->current[$stuId]))
+				{
+					$sg = $this->getOm()->getRepository(StudentCalendarGroup::class)->findOneBy(
+						[
+							'student'       => $this->getOm()->getRepository(Student::class)->find($stuId),
+							'calendarGroup' => $this->calendarGroup,
+						]
+					);
+					$this->calendarGroup->removeStudent($sg);
+					$this->getOm()->remove($sg);
+				}
+			}
+			$this->getOm()->persist($this->calendarGroup);
+			$this->getOm()->flush();
 		}
 
-		$this->getOm()->persist($this->calendarGroup);
-		$this->getOm()->flush();
-
 		$form->handleRequest($request);
+		$this->getPossibleStudents(false);
 	}
 
 	/**
@@ -213,7 +236,9 @@ class StudentManager extends PersonManager
 			->getQuery()
 			->getResult();
 
-		$this->current = new ArrayCollection($current);
+		$this->current = new ArrayCollection();
+		foreach ($current as $student)
+			$this->current->set($student->getId(), $student);
 
 		return $this->current;
 	}

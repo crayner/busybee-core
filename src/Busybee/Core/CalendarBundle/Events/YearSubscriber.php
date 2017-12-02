@@ -1,8 +1,10 @@
 <?php
-
 namespace Busybee\Core\CalendarBundle\Events;
 
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
 use Busybee\Core\CalendarBundle\Model\YearManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -46,15 +48,41 @@ class YearSubscriber implements EventSubscriberInterface
 
 		if (!empty($data['calendarGroups']))
 		{
+			$cg  = $entity->getCalendarGroups();
+			$new = new ArrayCollection();
 			$seq = 0;
+
+			dump($data);
 			foreach ($data['calendarGroups'] as $q => $w)
 			{
 				$w['sequence'] = ++$seq;
 
 				$data['calendarGroups'][$q] = $w;
+
+				$exists = new CalendarGroup();
+
+				foreach ($cg as $cal)
+					if ($cal->getNameShort() === $w['nameShort'])
+					{
+						$exists = $cal;
+						$cg->removeElement($exists);
+						break;
+					}
+
+				$exists->setSequence($seq);
+
+				$new->add($exists);
 			}
+			$entity->setCalendarGroups($new);
 		}
 
+		if ($cg->count() > 0)
+		{
+			foreach ($cg->toArray() as $item)
+				$this->yearManager->getObjectManager()->remove($item);
+
+			$this->yearManager->getObjectManager()->flush();
+		}
 
 		$specDays = [];
 		if (isset($data['specialDays']) && !empty($entity->getSpecialDays()) && $entity->getSpecialDays()->count() > 0)
@@ -89,6 +117,10 @@ class YearSubscriber implements EventSubscriberInterface
 
 		if (!empty($entity->getDownloadCache()) && file_exists($entity->getDownloadCache()))
 			unlink($entity->getDownloadCache());
+
+
+		dump($data);
+		dump($entity);
 
 		$event->setData($data);
 		$form->setData($entity);

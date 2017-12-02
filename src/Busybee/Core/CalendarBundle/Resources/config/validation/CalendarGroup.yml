@@ -9,7 +9,7 @@ Busybee\Core\CalendarBundle\Entity\CalendarGroup:
             fields:
                 - sequence
                 - year
-            message: calendargroup.sequence.unique
+            message: calendar.group.sequence.unique
             errorPath: nameShort
     properties:
         website:

@@ -1,8 +1,21 @@
 {% trans_default_domain "BusybeeStudentBundle" %}
 {% spaceless %}
-    <p class="alert alert-default">{{ 'students.member.list.count'|trans({'%{count}': manager.current.count}) }}</p>
+    <p class="alert alert-default">{{ 'students.member.list.count'|trans({'%{count}': manager.current.count})|raw }}
+        {{ saveButton()|raw }}
+    </p>
     {% for student in manager.current %}
-        <div class="col-sm-offset-3 col-sm-9 well well-success memberStudent"
-             id="student_{{ student.id }}">{{ student.formatName }}</div>
+        <div class="row">
+            <div class="col-sm-4 well">
+                <input type="checkbox" data-toggle="toggle"
+                       data-on="<span class='glyphicons glyphicons-hand-left'></span>"
+                       data-off="<span class='glyphicons glyphicons-lock'></span>" data-onstyle="success"
+                       data-offstyle="default" value="1" id="student_to_calendar_group_removeStudent_{{ student.id }}"
+                       name="student_to_calendar_group[removeStudent][{{ student.id }}]">
+            </div>
+            <div class="col-sm-8 well well-success memberStudent"
+                 id="student_{{ student.id }}">
+                {{ student.formatName }}
+            </div>
+        </div>
     {% endfor %}
 {% endspaceless %}

@@ -27,7 +27,7 @@
     {% if form.nameShort.vars.value is not empty and manager.isStudentInstalled %}
         <div class="row">
             <div class="col-sm-12 well well-info">
-                <div>{{ editButton({title: 'calendar.group.manage.label', transDomain: 'BusybeeStudentBundle', windowOpen: {route: path('student_add_to_calendar_group', {id: value.id})}})|raw }}
+                <div>{{ editButton({title: 'calendar.group.manage.label', transDomain: 'BusybeeStudentBundle', windowOpen: {route: path('student_add_to_calendar_group', {id: form.vars.value.id})}})|raw }}
 
                     {{ 'calendar.group.students.count'|trans({'%{count}': form.vars.value.students.count}) }}</div>
             </div>

@@ -69,6 +69,8 @@ class CalendarController extends BusybeeController
 				return new RedirectResponse($this->generateUrl('year_edit', array('id' => $year->getId())));
 
 			$id = $year->getId();
+
+			$form = $this->createForm(YearType::class, $year, ['calendarGroupManager' => $this->get('busybee_core_calendar.model.calendar_group_manager')]);
 		}
 
 		return $this->render('BusybeeCalendarBundle:Calendar:calendar.html.twig',

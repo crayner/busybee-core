@@ -10,6 +10,11 @@
 
 {% set links = '' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% include '@BusybeeTemplate/Toggle/style.html.twig' %}
+{% endblock %}
+
 
 {% block contentContainer %}
     {% set title = 'student.calendar.group.students.title' %}
@@ -41,98 +46,7 @@
 
     {% block javascripts %}
         {{ parent() }}
-        <script type="text/javascript">
-            $(".memberStudent").draggable({
-                stack: ".memberStudent"
-            });
+        {% include '@BusybeeTemplate/Toggle/script.html.twig' %}
+        {% include '@BusybeeStudent/Student/calendar_group_script.html.twig' %}
 
-            $("#dropRemove").droppable({
-                accept: ".memberStudent",
-                hoverClass: "hoverYellow",
-                drop: function (ev, ui) {
-
-                    var data = $(ui.draggable).prop('id');
-
-                    var path = "{{ path('remove_student_from_calendar_group', {group: '__grade__', student: '__student__' }) }}";
-                    path = path.replace('__grade__', {{ app.request.get('id') }});
-                    path = path.replace('__student__', data);
-
-                    $.ajax({
-                        url: path,
-                        type: "POST",
-                        success: function (data) {
-                            $("#dropAttach").html(data.current);
-                            $("#dropRemove").html(data.possible);
-                            $('#gradeMessage').html(data.message);
-                            $(".memberStudent").draggable({
-                                stack: ".memberStudent"
-                            });
-                            $(".possibleStudent").draggable({
-                                stack: ".possibleStudent"
-                            });
-                            $('#gradeMessage').fadeIn(2);
-                            window.location.hash = '#gradeMessage';
-                            window.location.hash = '#contentContainer';
-                            $('#gradeMessage').fadeOut(3000);
-                        }
-                    });
-
-                },
-                over: function (ev, ui) {
-                },
-                out: function (ev, ui) {
-                }
-            });
-
-            $(".possibleStudent").draggable({
-                stack: ".possibleStudent"
-            });
-
-            $("#dropAttach").droppable({
-                accept: ".possibleStudent",
-                hoverClass: "hoverYellow",
-                drop: function (ev, ui) {
-
-                    if ($('#student_to_calendar_group_defaultStatus').val() == "") {
-                        alert('{{ 'calendar.group.students.status.missing'|trans }}');
-                        return false;
-                    }
-
-                    var data = $(ui.draggable).prop('id');
-
-                    var path = "{{ path('add_student_to_calendar_group', {group: '__grade__', student: '__student__' , status: '__status__' }) }}";
-                    path = path.replace('__grade__', {{ app.request.get('id') }});
-                    path = path.replace('__student__', data);
-                    path = path.replace('__status__', $('#student_to_calendar_group_defaultStatus').val());
-
-
-                    $.ajax({
-                        url: path,
-                        type: "POST",
-                        success: function (data) {
-                            $("#dropAttach").html(data.current);
-                            $("#dropRemove").html(data.possible);
-                            $(".memberStudent").draggable({
-                                stack: ".memberStudent"
-                            });
-                            $(".possibleStudent").draggable({
-                                stack: ".possibleStudent"
-                            });
-                            $('#gradeMessage').html(data.message);
-                            $('#gradeMessage').fadeIn(2);
-                            window.location.hash = '#gradeMessage';
-                            window.location.hash = '#contentContainer';
-                            $('#gradeMessage').fadeOut(3000);
-                        }
-                    })
-
-                },
-                over: function (ev, ui) {
-                },
-                out: function (ev, ui) {
-                }
-            });
-
-            $('#links').html('{{ manager.links|raw }}');
-        </script>
     {% endblock %}

@@ -1,13 +1,25 @@
 {% trans_default_domain "BusybeeStudentBundle" %}
 {% spaceless %}
-    <p class="alert alert-default">{{ 'students.possible.list.count'|trans({'%{count}': manager.students.count}) }}</p>
+    <p class="alert alert-default">{{ 'students.possible.list.count'|trans({'%{count}': manager.students.count}) }}
+        {{ saveButton()|raw }}
+    </p>
     {% set anchor = '' %}
     {% for student in manager.students %}
         {% if student.surname|slice(0,1) != anchor %}
             {% set anchor = student.surname|slice(0,1)|upper %}
             <a name="{{ anchor }}"></a>
         {% endif %}
-        <div class="col-sm-9 well well-info possibleStudent"
-             id="student_{{ student.id }}">{{ student.formatName }}</div>
+        <div class="row">
+            <div class="col-sm-8 well well-info possibleStudent"
+                 id="student_{{ student.id }}">{{ student.formatName }}
+            </div>
+            <div class="col-sm-4 well">
+                <input type="checkbox" data-toggle="toggle"
+                       data-on="<span class='glyphicons glyphicons-hand-right'></span>"
+                       data-off="<span class='glyphicons glyphicons-lock'></span>" data-onstyle="success"
+                       data-offstyle="default" value="1" id="student_to_calendar_group_possibleStudent_{{ student.id }}"
+                       name="student_to_calendar_group[possibleStudent][{{ student.id }}]">
+            </div>
+        </div>
     {% endfor %}
 {% endspaceless %}

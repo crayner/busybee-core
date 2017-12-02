@@ -112,6 +112,7 @@
                                 {% set additional = additional|merge({disabled: 'disabled'}) %}
                             {% endif %}
                             <div>
+                                <input
                                 {{ onOffButton({value: staffOn, on: {class: 'staffToggle btn btn-success halflings halflings-thumbs-up', style: '', additional: additional}, off: {class: 'staffToggle btn btn-primary halflings halflings-thumbs-down', style: '', additional: additional}})|raw }}
                             </div>
                         </div>

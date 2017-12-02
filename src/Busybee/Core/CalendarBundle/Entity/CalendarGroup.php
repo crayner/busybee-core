@@ -94,7 +94,7 @@ class CalendarGroup extends CalendarGroupModel
 	 */
 	public function __construct()
 	{
-		$this->students   = new ArrayCollection();
+		$this->students = new ArrayCollection();
 	}
 
 	/**
@@ -339,7 +339,7 @@ class CalendarGroup extends CalendarGroupModel
 			return $this;
 
 		if ($add)
-			$student->setNameShort($this, false);
+			$student->setCalendarGroup($this, false);
 
 		if (!$this->students->contains($student))
 			$this->students->add($student);

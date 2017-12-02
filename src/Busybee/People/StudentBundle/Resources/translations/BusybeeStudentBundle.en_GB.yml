@@ -116,3 +116,8 @@ calendar:
                 success: 'The student %name% was removed from the calendar group.'
         manage:
             label: Edit Calendar Group
+        loading:
+            label: 'Working on your student drop'
+        transfer:
+            label: Transfer
+            keep: Ignore
