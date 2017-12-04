@@ -66,6 +66,7 @@ security:
             anonymous:    true
             switch_user:  true
     access_control:
+        - { path: ^/img/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: '%schemes%' }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: '%schemes%' }
         - { path: busybee_security_login, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: '%schemes%' }
         - { path: ^/system/install/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: '%schemes%' }

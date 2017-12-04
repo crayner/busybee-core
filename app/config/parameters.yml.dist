@@ -140,7 +140,7 @@ parameters:
                 type: yaml
             requirements:
                 - Student
-            	- Staff
+                - Staff
             description: Groups of students, in a location with staff oversight.
         Institute:
             type: plugin

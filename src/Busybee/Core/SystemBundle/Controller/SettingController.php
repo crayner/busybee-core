@@ -1,5 +1,4 @@
 <?php
-
 namespace Busybee\Core\SystemBundle\Controller;
 
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
@@ -10,13 +9,10 @@ use Busybee\Core\TemplateBundle\Validator\Integer;
 use Busybee\Core\SystemBundle\Entity\Setting;
 use Busybee\Core\SystemBundle\Form\CreateType;
 use Busybee\Core\SystemBundle\Form\SettingType;
-use Busybee\Core\SystemBundle\Form\UploadType;
 use Busybee\Core\TemplateBundle\Controller\BusybeeController;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Form\FormError;

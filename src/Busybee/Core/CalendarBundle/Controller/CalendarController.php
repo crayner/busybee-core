@@ -247,6 +247,7 @@ class CalendarController extends BusybeeController
 		catch (Html2PdfException $e)
 		{
 			$formatter = new ExceptionFormatter($e);
+			throw $e;
 			throw new Exception($formatter->getHtmlMessage());
 		}
 	}

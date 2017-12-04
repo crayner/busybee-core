@@ -67,9 +67,10 @@ class VersionManager
 		$versions['Database']['Driver']                   = $this->connection->getParams()['driver'];
 		$versions['Database']['Character Set']            = $this->connection->getParams()['charset'];
 		$versions['Doctrine']['DBal']                     = \Doctrine\DBAL\Version::VERSION;
-
 		foreach (get_loaded_extensions() as $name)
 			$versions['PHP'][$name] = phpversion($name);
+
+		dump($versions['PHP']);
 
 		foreach ($versions as $q => $w)
 		{
@@ -129,6 +130,9 @@ class VersionManager
 		$phpVersions['apcu']           = '5.1.8';
 		$phpVersions['intl']           = '1.1.0';
 		$phpVersions['json']           = '1.5.0';
+		$phpVersions['openssl']['low']    = '7.1.0';
+		$phpVersions['openssl']['high']   = '7.1.99';
+		$phpVersions['openssl']['string'] = '7.1.x';
 
 		foreach ($phpVersions as $name => $version)
 			if (!is_array($version))
@@ -212,6 +216,15 @@ class VersionManager
 			if (is_array($w))
 				ksort($versions[$q], SORT_STRING + SORT_FLAG_CASE);
 		ksort($versions, SORT_STRING + SORT_FLAG_CASE);
+
+
+		$versions['Settings'] = [];
+
+		$versions['Settings']['Allow URL File Open']['value'] = ini_get('allow_url_fopen') == 1 ? 'On' : 'Off';
+		if (ini_get('allow_url_fopen'))
+			$versions['Settings']['Allow URL File Open']['flag'] = 'alert alert-success';
+		else
+			$versions['Settings']['Allow URL File Open']['flag'] = 'alert alert-danger';
 
 		return $versions;
 	}

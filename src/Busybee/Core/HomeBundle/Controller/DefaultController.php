@@ -60,7 +60,6 @@ class DefaultController extends BusybeeController
 
 		$SymfonyRequirements = new \SymfonyRequirements();
 
-
 		return $this->render('@BusybeeTemplate/Acknowledgement/acknowledgement.html.twig',
 			[
 				'versions'      => $versions,
