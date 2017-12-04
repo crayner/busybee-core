@@ -18,9 +18,9 @@
 
 {% block url_label -%}
     {{- form_label(form) -}}
-    <button title='{{ label|trans({}, translation_domain ) }}' type="button"
-            class="halflings halflings-link alert-default"
-            onClick="window.open('{{ value }}','_blank')"></button>
+    {% if value is not empty %}
+        &nbsp;{{ miscButton({transDomain: translation_domain, windowOpen: {route: value, target: '_blank'}, class: 'halflings halflings-link btn btn-sm btn-default', title: label, style: ''})|raw }}
+    {% endif %}
 {%- endblock url_label %}
 
 {% block form_label -%}

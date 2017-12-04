@@ -114,10 +114,10 @@ calendar:
             sort: Sort by Sequence
         grade:
             label: Short Name
-        tutor:
-            list:
-                label: Tutors
+        yeartutor:
+            label: Year Teacher
             placeholder: Select a Tutor
+            help: 'The Year Tutor must be unique within the year.'
         space:
             label: Space
             placeholder: Select a Space
@@ -130,10 +130,6 @@ calendar:
             description: ''
         tutor1:
             label: Tutor
-        tutor2:
-            label: Tutor (2)
-        tutor3:
-            label: Tutor (3)
         students:
             count: 'Student Count: %{count}'
 term:

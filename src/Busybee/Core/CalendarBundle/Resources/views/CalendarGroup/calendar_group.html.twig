@@ -17,18 +17,27 @@
         {% include '@BusybeeTemplate/Page/panelStart.html.twig' with {header: gradeTitle, panelStyle: 'info'} %}
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12 well">
+        <div class="col-sm-4 well">
             {{ form_row(form.nameShort) }}
             {{ form_row(form.sequence) }}
             {{ form_row(form.year, {'value': app.request.get('id') }) }}
             {{ form_row(form.name) }}
+        </div>
+        <div class="col-sm-4 well">
+            {{ form_row(form.website) }}
+        </div>
+        <div class="col-sm-4 well">
+            {% set value = form.yearTutor.vars.value %}
+            {% if value is empty %}
+                {% set value = form.yearTutor.vars.data %}
+            {% endif %}
+            {{ form_row(form.yearTutor, {value: value}) }}
         </div>
     </div>
     {% if form.nameShort.vars.value is not empty and manager.isStudentInstalled %}
         <div class="row">
             <div class="col-sm-12 well well-info">
                 <div>{% if form.vars.value.id is not empty %}{{ editButton({title: 'calendar.group.manage.label', transDomain: 'BusybeeStudentBundle', windowOpen: {route: path('student_add_to_calendar_group', {id: form.vars.value.id})}})|raw }}{% endif %}
-
                     {{ 'calendar.group.students.count'|trans({'%{count}': form.vars.value.students.count}) }}</div>
             </div>
         </div>

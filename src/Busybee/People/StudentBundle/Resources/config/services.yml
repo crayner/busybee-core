@@ -99,10 +99,6 @@ services:
             - '@doctrine.orm.default_entity_manager'
             - '@busybee_core_system.setting.setting_manager'
             - '@busybee_core_security.security.user_provider'
-    busybee_management_grade.events.student_calendar_group_subscriber:
-        class: Busybee\People\StudentBundle\Events\StudentCalendarGroupSubscriber
-        tags:
-            - { name: doctrine.event_subscriber }
     busybee_people_student.validator.constraints.grades_validator:
         class: Busybee\People\StudentBundle\Validator\Constraints\GradesValidator
         tags:
@@ -113,3 +109,7 @@ services:
             - '@doctrine.orm.default_entity_manager'
         tags:
             - { name: form.type }
+    busybee_people_student.events.student_calendar_group_subscriber:
+        class: Busybee\People\StudentBundle\Events\StudentCalendarGroupSubscriber
+        tags:
+            - { name: doctrine.event_subscriber }

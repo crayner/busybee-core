@@ -68,22 +68,7 @@ class CalendarGroup extends CalendarGroupModel
 	/**
 	 * @var Staff
 	 */
-	private $tutor1;
-
-	/**
-	 * @var Staff
-	 */
-	private $tutor2;
-
-	/**
-	 * @var Staff
-	 */
-	private $tutor3;
-
-	/**
-	 * @var Space
-	 */
-	private $space;
+	private $yearTutor;
 
 	/**
 	 * @var string
@@ -365,83 +350,22 @@ class CalendarGroup extends CalendarGroupModel
 	/**
 	 * @return Staff|null
 	 */
-	public function getTutor1(): ?Staff
+	public function getYearTutor(): ?Staff
 	{
-		return $this->tutor1;
+		return $this->yearTutor;
 	}
 
 	/**
-	 * @param Staff $tutor1
+	 * @param Staff $yearTutor
 	 *
 	 * @return CalendarGroup
 	 */
-	public function setTutor1(Staff $tutor1 = null): CalendarGroup
+	public function setYearTutor(Staff $yearTutor = null): CalendarGroup
 	{
-		$this->tutor1 = $tutor1;
+		$this->yearTutor = $yearTutor;
 
 		return $this;
 	}
-
-	/**
-	 * @return Staff|null
-	 */
-	public function getTutor2(): ?Staff
-	{
-		return $this->tutor2;
-	}
-
-	/**
-	 * @param Staff $tutor2
-	 *
-	 * @return StudentCalendarGroup
-	 */
-	public function setTutor2(Staff $tutor2 = null): CalendarGroup
-	{
-		$this->tutor2 = $tutor2;
-
-		return $this;
-	}
-
-	/**
-	 * @return Staff|null
-	 */
-	public function getTutor3(): ?Staff
-	{
-		return $this->tutor3;
-	}
-
-	/**
-	 * @param Staff|null $tutor3
-	 *
-	 * @return CalendarGroup
-	 */
-	public function setTutor3(Staff $tutor3 = null): CalendarGroup
-	{
-		$this->tutor3 = $tutor3;
-
-		return $this;
-	}
-
-	/**
-	 * @return Space|null
-	 */
-	public function getSpace(): ?Space
-	{
-		return $this->space;
-	}
-
-	/**
-	 * @param Space $space
-	 *
-	 * @return CalendarGroup
-	 */
-	public function setSpace(Space $space = null): CalendarGroup
-	{
-		$this->space = $space;
-
-		return $this;
-	}
-
 	/**
 	 * @return string|null
 	 */
@@ -451,11 +375,11 @@ class CalendarGroup extends CalendarGroupModel
 	}
 
 	/**
-	 * @param string $website
+	 * @param string|null $website
 	 *
 	 * @return CalendarGroup
 	 */
-	public function setWebsite(string $website): CalendarGroup
+	public function setWebsite(string $website = null): CalendarGroup
 	{
 		$this->website = $website;
 

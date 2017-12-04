@@ -162,4 +162,20 @@ class CalendarGroupManager
 
 		return false;
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function isStaffInstalled(): bool
+	{
+		if (class_exists('Busybee\People\StaffBundle\Entity\Staff'))
+		{
+			$metaData = $this->getOm()->getClassMetadata('\Busybee\People\StaffBundle\Entity\Staff');
+			$schema   = $this->getOm()->getConnection()->getSchemaManager();
+
+			return $schema->tablesExist([$metaData->table['name']]);
+		}
+
+		return false;
+	}
 }

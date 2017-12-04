@@ -1,17 +1,16 @@
 <?php
 namespace Busybee\Facility\InstituteBundle\Form;
 
+use Busybee\Core\TemplateBundle\Type\EntityType;
+use Busybee\Core\TemplateBundle\Type\HiddenEntityType;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Facility\InstituteBundle\Entity\Department;
 use Busybee\Facility\InstituteBundle\Entity\DepartmentMember;
-use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
-use Busybee\Facility\InstituteBundle\Events\DepartmentMemberSubscriber;
 use Busybee\Facility\InstituteBundle\Events\MemberSubscriber;
 use Busybee\People\StaffBundle\Entity\Staff;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -67,9 +66,12 @@ class DepartmentMemberType extends AbstractType
 					'placeholder'  => 'department.members.type.placeholder',
 				]
 			)
-			->add('department', HiddenType::class);
+			->add('department', HiddenEntityType::class,
+				[
+					'class' => Department::class,
+				]
+			);
 
-		$builder->get('department')->addModelTransformer(new EntityToStringTransformer($this->om, Department::class));
 	}
 
 	/**

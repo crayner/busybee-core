@@ -25,3 +25,8 @@ Busybee\People\StaffBundle\Entity\Staff:
             type: string
             length: '32'
             nullable: true
+    oneToMany:
+        calendarGroups:
+            targetEntity: Busybee\Core\CalendarBundle\Entity\CalendarGroup
+            mappedBy: yearTutor
+            cascade: ['persist']

@@ -1,14 +1,12 @@
 <?php
-
 namespace Busybee\People\FamilyBundle\Form;
 
+use Busybee\Core\TemplateBundle\Type\HiddenEntityType;
 use Busybee\People\FamilyBundle\Entity\CareGiver;
 use Busybee\People\FamilyBundle\Entity\Family;
 use Busybee\Core\TemplateBundle\Type\SettingChoiceType;
 use Busybee\Core\TemplateBundle\Type\ToggleType;
 use Busybee\People\PersonBundle\Entity\Person;
-use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -18,21 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CareGiverType extends AbstractType
 {
-	/**
-	 * @var ObjectManager
-	 */
-	private $manager;
-
-	/**
-	 * CareGiverType constructor.
-	 *
-	 * @param ObjectManager $manager
-	 */
-	public function __construct(ObjectManager $manager)
-	{
-		$this->manager = $manager;
-	}
-
 	/**
 	 * {@inheritdoc}
 	 */
@@ -85,7 +68,11 @@ class CareGiverType extends AbstractType
 					'div_class' => 'toggleLeft',
 				)
 			)
-			->add('family', HiddenType::class)
+			->add('family', HiddenEntityType::class,
+				[
+					'class' => Family::class,
+				]
+			)
 			->add('contactPriority', HiddenType::class)
 			->add('comment', null, array(
 					'label' => 'caregiver.label.comment',
@@ -136,7 +123,6 @@ class CareGiverType extends AbstractType
 					'div_class' => 'toggleLeft',
 				)
 			);
-		$builder->get('family')->addModelTransformer(new EntityToStringTransformer($this->manager, Family::class));
 	}
 
 	/**

@@ -42,12 +42,6 @@ services:
             - '@busybee_core_system.setting.setting_manager'
             - '@doctrine.orm.entity_manager'
             - '@busybee_people_person.model.person_manager'
-    busybee_people_family.form.caregiver_type:
-        class: Busybee\People\FamilyBundle\Form\CareGiverType
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags:
-            - { name: form.type }
     busybee_people_family.extension.caregiver_extension:
         class: Busybee\People\FamilyBundle\Extension\CareGiverExtension
         tags:

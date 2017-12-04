@@ -26,7 +26,7 @@
         <div class="container-fluid departmentMember">
             <div class="row">
                 <div class="col-sm-6">
-                    {{ form_row(form.staff) }}
+                    {{ form_row(form.staff, {value: form.staff.vars.data}) }}
                 </div>
                 <div class="col-sm-6">
                     {{ form_row(form.staffType) }}

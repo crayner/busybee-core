@@ -26,6 +26,8 @@ calendar:
             unique: The name of the year must be unique for this year.
         sequence:
             unique: The internal sequence number is duplicated.
+        yeartutor:
+            unique: 'The Year Tutor %{name} is not unique in the year.'
 caregiver:
     blank:
         family: The family for a caregiver must not be blank.

@@ -49,8 +49,6 @@ activity:
         grades: Grades
         students: Activity Students
         tutor1: Tutor
-        tutor2: Tutor 2
-        tutor3: Tutor 3
     placeholder:
         year: Select Year
         course: Select Course

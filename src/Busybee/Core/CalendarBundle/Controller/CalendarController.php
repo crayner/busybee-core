@@ -56,16 +56,14 @@ class CalendarController extends BusybeeController
 
 		$form->handleRequest($request);
 
-		dump($form);
-		dump($form->getErrors());
-		dump($form->isValid());
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			$em = $this->get('doctrine')->getManager();
-			$em->getConnection()->exec('SET FOREIGN_KEY_CHECKS = 0;');
+			$em->getConnection()->exec('SET FOREIGN_KEY_CHECKS = 0');
 			$em->persist($year);
+
 			$em->flush();
-			$em->getConnection()->exec('SET FOREIGN_KEY_CHECKS = 1;');
+			$em->getConnection()->exec('SET FOREIGN_KEY_CHECKS = 1');
 
 			$request->getSession()
 				->getFlashBag()

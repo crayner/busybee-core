@@ -95,3 +95,7 @@ services:
         tags:
             - { name: security.voter, priority: 250 }
         public: false
+    busybee_people_staff.events.staff_calendar_group_subscriber:
+        class: Busybee\People\StaffBundle\Events\StaffCalendarGroupSubscriber
+        tags:
+            - { name: doctrine.event_subscriber }

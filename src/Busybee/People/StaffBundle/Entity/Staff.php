@@ -2,6 +2,7 @@
 
 namespace Busybee\People\StaffBundle\Entity;
 
+use Busybee\Core\CalendarBundle\Entity\CalendarGroup;
 use Busybee\Facility\InstituteBundle\Entity\DepartmentMember;
 use Busybee\Facility\InstituteBundle\Entity\Space;
 use Busybee\People\StaffBundle\Model\StaffModel;
@@ -54,11 +55,16 @@ class Staff extends StaffModel
 	private $employer;
 
 	/**
+	 * @var ArrayCollection
+	 */
+	private $calendarGroups;
+
+	/**
 	 * Staff constructor.
 	 */
 	public function __construct()
 	{
-		$this->departments = new ArrayCollection();
+		$this->calendarGroups = new ArrayCollection();
 	}
 
 	/**
@@ -216,9 +222,9 @@ class Staff extends StaffModel
 	/**
 	 * @return Collection
 	 */
-	public function getDepartments(): Collection
+	public function getCalendarGroups()
 	{
-		return $this->departments;
+		return $this->calendarGroups;
 	}
 
 	/**
@@ -226,10 +232,10 @@ class Staff extends StaffModel
 	 *
 	 * @return Staff
 	 */
-	public function removeDepartment(DepartmentMember $dept): Staff
+	public function removeCalendarGroups(CalendarGroup $dept): Staff
 	{
-		if ($this->departments->contains($dept))
-			$this->departments->removeElement($dept);
+		if ($this->calendarGroups->contains($dept))
+			$this->calendarGroups->removeElement($dept);
 
 		return $this;
 	}
@@ -239,12 +245,12 @@ class Staff extends StaffModel
 	 *
 	 * @return Staff
 	 */
-	public function addDepartment(DepartmentMember $dept): Staff
+	public function addCalendarGroups(CalendarGroup $dept): Staff
 	{
 		$dept->setStaff($this);
 
-		if (!$this->departments->contains($dept))
-			$this->departments->add($dept);
+		if (!$this->calendarGroups->contains($dept))
+			$this->calendarGroups->add($dept);
 
 		return $this;
 	}
@@ -254,9 +260,9 @@ class Staff extends StaffModel
 	 *
 	 * @return Staff
 	 */
-	public function setDepartments(Collection $depts): Staff
+	public function setCalendarGroups(Collection $depts): Staff
 	{
-		$this->departments = $depts;
+		$this->calendarGroups = $depts;
 
 		return $this;
 	}

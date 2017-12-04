@@ -83,14 +83,6 @@ class YearSubscriber implements EventSubscriberInterface
 			$entity->setCalendarGroups($new);
 		}
 
-		if ($cg->count() > 0)
-		{
-			foreach ($cg->toArray() as $item)
-				$this->yearManager->getObjectManager()->remove($item);
-
-			$this->yearManager->getObjectManager()->flush();
-		}
-
 		$specDays = [];
 		if (isset($data['specialDays']) && !empty($entity->getSpecialDays()) && $entity->getSpecialDays()->count() > 0)
 		{

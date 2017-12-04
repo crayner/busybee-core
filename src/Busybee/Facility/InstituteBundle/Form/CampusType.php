@@ -1,12 +1,10 @@
 <?php
-
 namespace Busybee\Facility\InstituteBundle\Form;
 
+use Busybee\Core\TemplateBundle\Type\EntityType;
 use Busybee\Facility\InstituteBundle\Entity\Campus;
 use Busybee\Facility\InstituteBundle\Events\CampusSubscriber;
 use Busybee\Core\SecurityBundle\Form\DataTransformer\EntityToStringTransformer;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,17 +19,11 @@ class CampusType extends AbstractType
 	private $sm;
 
 	/**
-	 * @var ObjectManager
-	 */
-	private $manager;
-
-	/**
 	 * Construct
 	 */
 	public function __construct(SettingManager $sm)
 	{
-		$this->sm      = $sm;
-		$this->manager = $this->sm->getContainer()->get('doctrine')->getManager();
+		$this->sm = $sm;
 	}
 
 	/**
@@ -107,8 +99,6 @@ class CampusType extends AbstractType
 					'data'          => $options['data']->getId(),
 				)
 			);
-		$builder->get('locationList')
-			->addModelTransformer(new EntityToStringTransformer($this->manager, Campus::class));
 		$builder->addEventSubscriber(new CampusSubscriber());
 	}
 

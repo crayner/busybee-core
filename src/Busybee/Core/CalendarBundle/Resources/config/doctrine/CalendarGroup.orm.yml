@@ -23,6 +23,10 @@ Busybee\Core\CalendarBundle\Entity\CalendarGroup:
         sequence:
             type: integer
             length: 2
+        website:
+            type: string
+            length: 200
+            nullable: true
         lastModified:
             type: datetime
             column: last_modified
@@ -33,6 +37,7 @@ Busybee\Core\CalendarBundle\Entity\CalendarGroup:
         year:
             targetEntity: Busybee\Core\CalendarBundle\Entity\Year
             inversedBy: calendarGroups
+            cascade: ['persist']
         createdBy:
             targetEntity: Busybee\Core\SecurityBundle\Entity\User
             joinColumns:

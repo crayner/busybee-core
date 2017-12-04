@@ -1,9 +1,11 @@
 <?php
-
 namespace Busybee\Core\CalendarBundle\Events;
 
 use Busybee\Core\CalendarBundle\Model\CalendarGroupManager;
 use Busybee\Core\SystemBundle\Setting\SettingManager;
+use Busybee\Core\TemplateBundle\Type\EntityType;
+use Busybee\People\StaffBundle\Entity\Staff;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,17 +20,17 @@ class CalendarGroupSubscriber implements EventSubscriberInterface
 	/**
 	 * @var CalendarGroupManager
 	 */
-	private $gradeManager;
+	private $manager;
 
 	/**
 	 * DepartmentType constructor.
 	 *
 	 * @param SettingManager $om
 	 */
-	public function __construct(SettingManager $settingManager, CalendarGroupManager $gradeManager)
+	public function __construct(SettingManager $settingManager, CalendarGroupManager $manager)
 	{
 		$this->settingManager = $settingManager;
-		$this->gradeManager   = $gradeManager;
+		$this->manager        = $manager;
 	}
 
 	/**
@@ -51,7 +53,26 @@ class CalendarGroupSubscriber implements EventSubscriberInterface
 	{
 		$form = $event->getForm();
 
-		$data = $event->getData();
+		if ($this->manager->isStaffInstalled())
+		{
+			$form->add('yearTutor', EntityType::class,
+				[
+					'class'         => Staff::class,
+					'choice_label'  => 'formatName',
+					'query_builder' => function (EntityRepository $er) {
+						return $er->createQueryBuilder('s')
+							->orderBy('s.surname', 'ASC')
+							->addOrderBy('s.firstName', 'ASC');
+					},
+					'placeholder'   => 'calendar.group.yeartutor.placeholder',
+					'label'         => 'calendar.group.yeartutor.label',
+					'required'      => false,
+					'attr'          => [
+						'help' => 'calendar.group.yeartutor.help',
+					],
+				]
+			);
+		}
 	}
 
 	/**

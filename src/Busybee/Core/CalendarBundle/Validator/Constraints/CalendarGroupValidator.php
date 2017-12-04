@@ -48,18 +48,25 @@ class CalendarGroupValidator extends ConstraintValidatorBase
 					}
 			}
 
-		$test = [];
-		foreach ($value as $group)
+		$test   = [];
+		$tutors = [];
+		foreach ($value as $q => $group)
+		{
 			$test[$group->getNameShort()] = isset($test[$group->getNameShort()]) ? $test[$group->getNameShort()] + 1 : 1;
 
-		foreach ($test as $y => $w)
-			if ($w > 1)
-			{
-				$this->context->buildViolation($constraint->message, ['%grade%' => $y])
+			if ($test[$group->getNameShort()] > 1)
+				$this->context->buildViolation('calendar.group.nameshort.unique', ['%grade%' => $group->getNameShort()])
+					->atPath('[' . $q . '].nameShort')
 					->addViolation();
 
-				return;
-
+			if (!is_null($group->getYearTutor()))
+			{
+				$tutors[$group->getYearTutor()->getId()] = empty($tutors[$group->getYearTutor()->getId()]) ? 1 : $tutors[$group->getYearTutor()->getId()] + 1;
+				if ($tutors[$group->getYearTutor()->getId()] > 1)
+					$this->context->buildViolation('calendar.group.yeartutor.unique', ['%{name}' => $group->getYearTutor()->formatName()])
+						->atPath('[' . $q . '].yearTutor')
+						->addViolation();
 			}
+		}
 	}
 }
